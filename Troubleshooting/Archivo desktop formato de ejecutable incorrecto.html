@@ -1,0 +1,54 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Archivo desktop formato de ejecutable incorrecto</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Al intentar ejecutar un archivo .desktop (Archivo de escritorio de KDE) obtenemos el siguiente error</p>
+
+            <img src="Archivo desktop formato de ejecutable incorrecto/1.png"/>
+        </div>
+        
+    <div class="t2">Explicacion</div>
+        <div class="cont">
+        <p>En este caso estamos intentando ejecutar el archivo <b>autofirma.desktop</b>:</p>
+        
+        <img src="Archivo desktop formato de ejecutable incorrecto/2.png"/>
+        
+        <p>Si nos fijamos en el contenido del <b>.desktop</b> vemos que intenta ejecutar el archivo <b>/usr/bin/autofirma</b> cuyo contenido es el siguiente</p>
+        
+        <img src="Archivo desktop formato de ejecutable incorrecto/3.png"/>
+        
+        <p>Como podemos ver el archivo <b>NO es un ejecutable binario</b>, si no que es un <b>script</b> (solo contiene una linea que ejecuta java, pero es un script al fin y al cabo), el error se produce porque no hay un interprete asignado a dicho script, para solucionarlo solo debemos aniadir <b>#!/bin/bash</b> al inicio del archivo, de manera que quedaria tal que asi:</p>
+        
+        <code>#!/bin/bash
+        <br/>java -jar /usr/lib64/autofirma/autofirma.jar $*</code>
+        
+        <p>Esto solucionaria el problema ya que la primera linea indica que el archivo debe de ser interpretado con <b>/bin/bash</b>
+        
+        </div>
+    
+    <div class="t2">Error</div>
+        <div class="cont">
+        <p><code>Codigo de error 100 desconocido
+        <br/>execvp: Formato de ejecutable incorrecto
+        <br/>Por favor, envie un informe de fallo completo en https://bugs.kde.org</code>
+        </p>
+        
+        
+        </div>
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Script | .desktop | execvp </p>
+        </div>
+    
+    </body>
+</html>

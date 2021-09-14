@@ -1,0 +1,70 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Las actualizaciones no seran instaladas (zypper)</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Al lanzar un <b>zypper up</b> vemos un mensaje como el siguiente:</p>
+
+            <img src="Las actualizaciones no seran instaladas (zypper)/1.png"/>
+            
+            <p>Se puede ver que hay actulizaciones pero no se instalan.</p>
+        </div>
+        
+    <div class="t2">Resolucion</div>
+        <div class="cont">
+        <p>Esto se produce porque las actualizaciones que hay disponibles son de un proveedor (Repositorio) distinto del que utilizamos para instar el paquete inicialmente</p>
+        
+        <p>si por ejemplo intentamos actualizar el paquete <b>libSDL-1_2-0</b> de manera manual vemos lo siguiente:</p>
+        
+        <img src="Las actualizaciones no seran instaladas (zypper)/2.png"/>
+        
+        <p>Como se puede ver al intentar la actualizacion de manuera manual el propio zypper nos indica que hay una actualizacion pero que es de un proveedor distinto al que tiene configurado el paquete actualmente</p>
+        
+        <p>Podemos hacer una busqueda del propio paquete de la siguiente manera para ver todas las versiones disponibles:</p>
+        
+        <code>zypper se -s libSDL-1_2-0</code>
+        
+        <img src="Las actualizaciones no seran instaladas (zypper)/3.png"/>
+        
+        <p>En la busqueda se nos muestra que la version mas reciente es la <b>1.2.15-93.43</b> pero como se puede ver es del repositorio "Games" y el paquete que tenemos instalado es del repositorio "Repositorio principal (OSS)"</p>
+        
+        <p><b>NOTA</b>: A la izquierda de la busqueda la <b>"i"</b> nos indica el paquete que esta instalado, la <b>"v"</b> nos indica una version distinta del mismo paquete que tenemos instalado (version distinta puede ser no solo version si no tambien arquitectura distinta)</p>
+        
+        <p>Si queremos instalar esa actualizacion mas reciente tenemos que forzar el cambio de proveedor, para ello podemos usar el siguiente fomando</p>
+        
+        <code>zypper in libSDL-1_2-0-1.2.15-93.43.x86_64</code>
+        
+        <p>Se trata de forzar la instalacion de la version concreta a la que queremos actualizar, a continuacion <b>zypper</b> nos preguntara si queremos instalar ese paquete realizando el cambio de proveedor.</p>
+        
+        <img src="Las actualizaciones no seran instaladas (zypper)/4.png"/>
+        
+        <p>Una vez finalizada la instalacion si volvemos a lanzar el <b>zypper up</b> podemos ver que el paquete que acabamos de actualizar ya no aparece (ya esta en su version mas actual).</p>
+        
+        <img src="Las actualizaciones no seran instaladas (zypper)/5.png"/>
+        
+        
+        <p>En el caso de que quisieramos volver atras e instalar otra vez la version del otro proveedor tendriamos que hacerlo de la siguiente manera:</p>
+        
+        <code>zypper in --oldpackage libSDL-1_2-0-1.2.15-22.11.x86_64</code>
+        
+        <p>En este caso tenemos que utilizar la opcion <b>--oldpackage</b> para forzar la desactualizacion</p>
+        
+        </div>
+    
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>zypper | actualizaciones</p>
+        </div>
+    
+    </body>
+</html>

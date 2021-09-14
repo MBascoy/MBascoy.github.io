@@ -1,0 +1,30 @@
+#!/bin/bash
+
+opcion=`kdialog --combobox "Selecciona una opcion" "Firmar archivo" "Ver firma" --default "Firmar archivo"`
+
+if [[ -z $opcion ]]
+then
+    exit
+fi
+
+archivoOrg=`kdialog --getopenfilename .`
+
+if [[ -z $archivoOrg ]]
+then
+    exit
+fi
+
+if [[ $opcion == 'Firmar archivo' ]]
+then
+    archivoDst=`kdialog --inputbox "Nombre del archivo de destino" ".csig"`
+    
+    if [[ -z $archivoDst ]]
+    then
+        exit
+    fi
+    
+    autofirma sign -i $archivoOrg -o $archivoDst -certgui
+    kdialog --msgbox "Firma guardada en $archivoDst"
+else
+    autofirma verify -i $archivoOrg
+fi

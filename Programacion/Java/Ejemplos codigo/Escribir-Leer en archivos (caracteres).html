@@ -1,0 +1,134 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Escribir-Leer en archivos (caracteres)</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Codigo en Java para escribir o leer de archivos (solo caracteres, no datos binarios)</p>
+
+        </div>
+        
+    <div class="t2">Escribir en archivos</div>
+        <div class="cont">
+        
+        <p><b>NOTA</b>: la excepcion <b>IOException</b> tiene que se manejada siempre, ya sea con <b>throws</b> o con un bloque <b>try-catch</b>
+        
+        <h2>Usando FileWriter</h2>
+        
+        <pre><code>
+    import java.io.FileWriter;
+    import java.io.IOException;
+
+    public class JavaFiles {
+
+
+        public static void main(String[] args) throws IOException{
+                
+            FileWriter archivo = new FileWriter("archivo.txt");
+                
+            archivo.write("hola que tal");
+                
+            archivo.close();
+        }
+    }
+        </code></pre>
+        
+        <br/>
+        
+        <h2>Encapsulando FileWriter en BufferedWriter</h2>
+        
+        <pre><code>
+    import java.io.BufferedWriter;
+    import java.io.FileWriter;
+    import java.io.IOException;
+
+    public class JavaFiles {
+
+
+        public static void main(String[] args) throws IOException{
+                
+            BufferedWriter archivo = new BufferedWriter(new FileWriter("archivo.txt"));
+                
+            archivo.write("hola que tal");
+                
+            archivo.close();
+        }
+    }
+        </code></pre>
+   
+        
+        </div>
+        
+        <div class="t2">Leer de archivos</div>
+        <div class="cont">
+        
+        <h2>FileReader</h2>
+        
+        <p>FileReader lee caracter a caracter del archivo, cada vez que lee un caracter mueve el puntero del archivo al siguiente caracter</p>
+        
+        <pre><code>
+    import java.io.FileReader;
+    import java.io.IOException;
+
+    public class JavaFiles {
+
+
+        public static void main(String[] args) throws IOException{
+                
+            FileReader archivo = new FileReader("archivo.txt");
+        
+            int caracter;
+        
+            while((caracter = archivo.read()) != -1) // EOF en java es -1
+                System.out.print((char)caracter);
+        
+            archivo.close();
+        }
+    }
+        </code></pre>
+        
+        <br/>
+        
+        <h2>Encapsulando FileReader en BufferedReader</h2>
+        
+        <p>BufferedReader nos permite utilizar la funcion <b>readLine()</b> que nos permite leer lineas completas en vez de caracter a caracter</p>
+        
+        <pre><code>
+    import java.io.BufferedReader;
+    import java.io.FileReader;
+    import java.io.IOException;
+
+    public class JavaFiles {
+
+
+        public static void main(String[] args) throws IOException{
+                
+            BufferedReader archivo = new BufferedReader(new FileReader("archivo.txt"));
+        
+            String linea;
+        
+            while((linea = archivo.readLine()) != null) // readline devuelve "null" al llegar al EOF
+                System.out.print(linea);
+        
+            archivo.close();
+        }
+    }
+        </code></pre>
+        
+        </div>
+    
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>java | Archivos</p>
+        </div>
+    
+    </body>
+</html>

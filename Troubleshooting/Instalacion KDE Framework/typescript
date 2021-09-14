@@ -1,0 +1,420 @@
+Script iniciado en 2021-08-07 17:19:03+02:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="125" LINES="32"]
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> cmake ./
+-- The C compiler identification is GNU 11.1.1
+-- The CXX compiler identification is unknown
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+[31mCMake Error at CMakeLists.txt:3 (project):
+  No CMAKE_CXX_COMPILER could be found.
+
+  Tell CMake where to find the compiler by setting either the environment
+  variable "CXX" or the CMake cache entry CMAKE_CXX_COMPILER to the full path
+  to the compiler, or to the compiler name if it is in the PATH.
+
+[0m
+-- Configuring incomplete, errors occurred!
+See also "/home/jericho/kd app/CMakeFiles/CMakeOutput.log".
+See also "/home/jericho/kd app/CMakeFiles/CMakeError.log".
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> su
+Contraseña: 
+su: Fallo de autenticación
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> su
+Contraseña: 
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in gcc+-[K[K-c++
+[22;27;39;49mCargando datos del repositorio...[0m
+[22;27;39;49mLeyendo los paquetes instalados...[0m
+[22;27;39;49mResolviendo dependencias de paquete...[0m
+
+[22;27;32;49mEl siguiente paquete NUEVO va a ser instalado:[0m
+  [22;27;32;49mg[0mcc-c++
+
+[22;27;32;49m1[0m nuevo paquete a instalar.
+Tamaño total de descarga: 14,0 KiB. Ya en caché: 0 B. Después de la operación, se utilizarán 34,0 B adicionales.
+[2K[1;39;49m¿Desea continuar? [1;39;49m[s[1;39;49m/n[1;39;49m/v[1;39;49m/...?[1;39;49m mostrar todas las opciones] (s[1;39;49m)[0m[1;39;49m: [0m[0m[0m[0m[0m[0m[0ms
+[22;27;39;49mDescargando paquete gcc-c++-11-2.1.x86_64                                         (1/1),  14,0 KiB (   34   B desempaquetado)[0m
+[2KRecuperando: gcc-c++-11-2.1.x86_64.rpm ---------------------------------------------------------------------------[iniciando][2KRecuperando: gcc-c++-11-2.1.x86_64.rpm ............................<49%>====================================[\ (133,8 KiB/s)][22;27;39;49m[2KRecuperando: gcc-c++-11-2.1.x86_64.rpm .............................................................[terminado (133,8 KiB/s)]
+[22;27;39;49m
+[2KBuscando conflictos de archivos: -----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: -----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: ...................................................................................<100%>[|][22;27;39;49m[2KBuscando conflictos de archivos: .................................................................................[terminado]
+[22;27;39;49m[2K(1/1) Instalando: gcc-c++-11-2.1.x86_64 ----------------------------------------------------------------------------------[/][2K(1/1) Instalando: gcc-c++-11-2.1.x86_64 ----------------------------------------------------------------------------------[|][2K(1/1) Instalando: gcc-c++-11-2.1.x86_64 .........<18%>====================================================================[-][2K(1/1) Instalando: gcc-c++-11-2.1.x86_64 .........................<37%>====================================================[\][2K(1/1) Instalando: gcc-c++-11-2.1.x86_64 ...........................................<59%>==================================[|][2K(1/1) Instalando: gcc-c++-11-2.1.x86_64 .............................................................<81%>================[/][2K(1/1) Instalando: gcc-c++-11-2.1.x86_64 ............................................................................<100%>[-][22;27;39;49m[2K(1/1) Instalando: gcc-c++-11-2.1.x86_64 ..........................................................................[terminado]
+[22;27;39;49m7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m cmake ./
+-- The CXX compiler identification is GNU 11.1.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+[31mCMake Error at CMakeLists.txt:8 (find_package):
+  Could not find a package configuration file provided by "ECM" (requested
+  version 1.0.0) with any of the following names:
+
+    ECMConfig.cmake
+    ecm-config.cmake
+
+  Add the installation prefix of "ECM" to CMAKE_PREFIX_PATH or set "ECM_DIR"
+  to a directory containing one of the above files.  If "ECM" provides a
+  separate development package or SDK, be sure it has been installed.
+
+[0m
+-- Configuring incomplete, errors occurred!
+See also "/home/jericho/kd app/CMakeFiles/CMakeOutput.log".
+See also "/home/jericho/kd app/CMakeFiles/CMakeError.log".
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in cm[K[Kextra-cmake-modules
+[22;27;39;49mCargando datos del repositorio...[0m
+[22;27;39;49mLeyendo los paquetes instalados...[0m
+[22;27;39;49mResolviendo dependencias de paquete...[0m
+
+[22;27;32;49mLos siguientes 2 paquetes NUEVOS van a ser instalados:[0m
+  [22;27;32;49me[0mxtra-cmake-modules [22;27;32;49me[0mxtra-cmake-modules-doc
+
+[22;27;32;49mSe seleccionó automáticamente el siguiente paquete recomendado:[0m
+  [22;27;32;49me[0mxtra-cmake-modules-doc
+
+[22;27;32;49m2[0m nuevos paquetes a instalar.
+Tamaño total de descarga: 495,6 KiB. Ya en caché: 0 B. Después de la operación, se utilizarán 1,9 MiB adicionales.
+[2K[1;39;49m¿Desea continuar? [1;39;49m[s[1;39;49m/n[1;39;49m/v[1;39;49m/...?[1;39;49m mostrar todas las opciones] (s[1;39;49m)[0m[1;39;49m: [0m[0m[0m[0m[0m[0m[0ms
+[22;27;39;49mDescargando paquete extra-cmake-modules-5.84.0-1.1.x86_64                         (1/2), 164,8 KiB (604,1 KiB desempaquetado)[0m
+[2KRecuperando: extra-cmake-modules-5.84.0-1.1.x86_64.rpm -----------------------------------------------------------[iniciando][2KRecuperando: extra-cmake-modules-5.84.0-1.1.x86_64.rpm ........<25%>========================================[\ (436,3 KiB/s)][22;27;39;49m[2KRecuperando: extra-cmake-modules-5.84.0-1.1.x86_64.rpm .............................................[terminado (436,3 KiB/s)]
+[22;27;39;49m[22;27;39;49mDescargando paquete extra-cmake-modules-doc-5.84.0-1.1.noarch                     (2/2), 330,8 KiB (  1,3 MiB desempaquetado)[0m
+[2KRecuperando: extra-cmake-modules-doc-5.84.0-1.1.noarch.rpm -------------------------------------------------------[iniciando][22;27;39;49m[2KRecuperando: extra-cmake-modules-doc-5.84.0-1.1.noarch.rpm .......................................................[terminado]
+[22;27;39;49m
+[2KBuscando conflictos de archivos: -----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: -----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: <1%>=====================================================================================[|][2KBuscando conflictos de archivos: ...................................................................................<100%>[/][22;27;39;49m[2KBuscando conflictos de archivos: .................................................................................[terminado]
+[22;27;39;49m[2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 ------------------------------------------------------------------[-][2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 ------------------------------------------------------------------[|][2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 <1%>==============================================================[\][2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 ..<12%>===========================================================[|][2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 ...........<25%>==================================================[/][2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 ....................<38%>=========================================[-][2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 ...........................<49%>==================================[\][2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 ..................................<60%>===========================[|][2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 .........................................<71%>====================[/][2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 .................................................<82%>============[-][2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 .........................................................<94%>====[\][2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 ............................................................<100%>[|][22;27;39;49m[2K(1/2) Instalando: extra-cmake-modules-5.84.0-1.1.x86_64 ..........................................................[terminado]
+[22;27;39;49m[2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch --------------------------------------------------------------[/][2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch --------------------------------------------------------------[/][2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch <1%>==========================================================[-][2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch ...<14%>======================================================[\][2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch ..........<25%>===============================================[|][2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch .................<37%>========================================[/][2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch ........................<48%>=================================[-][2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch ...............................<59%>==========================[\][2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch ......................................<70%>===================[|][2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch .............................................<81%>============[/][2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch ....................................................<93%>=====[-][2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch ........................................................<100%>[\][22;27;39;49m[2K(2/2) Instalando: extra-cmake-modules-doc-5.84.0-1.1.noarch ......................................................[terminado]
+[22;27;39;49m7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m exit
+exit
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> sucmake ./
+-- No qmake Qt5 binary found. Can't check QT_INSTALL_PREFIX
+[0mInstalling in /usr/local. Run /home/jericho/kd app/prefix.sh to set the environment for helloworld.[0m
+fatal: no es un repositorio git ( o ningún padre en el punto de montado /)
+Parando en el límite del sistema de archivos (GIT_DISCOVERY_ACROSS_FILESYSTEM no establecido).
+-- Looking for __GLIBC__
+-- Looking for __GLIBC__ - found
+-- Performing Test _OFFT_IS_64BIT
+-- Performing Test _OFFT_IS_64BIT - Success
+-- Performing Test HAVE_DATE_TIME
+-- Performing Test HAVE_DATE_TIME - Success
+[31mCMake Error at CMakeLists.txt:17 (find_package):
+  Could not find a package configuration file provided by "Qt5" (requested
+  version 5.3.0) with any of the following names:
+
+    Qt5Config.cmake
+    qt5-config.cmake
+
+  Add the installation prefix of "Qt5" to CMAKE_PREFIX_PATH or set "Qt5_DIR"
+  to a directory containing one of the above files.  If "Qt5" provides a
+  separate development package or SDK, be sure it has been installed.
+
+[0m
+-- Configuring incomplete, errors occurred!
+See also "/home/jericho/kd app/CMakeFiles/CMakeOutput.log".
+See also "/home/jericho/kd app/CMakeFiles/CMakeError.log".
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> su
+Contraseña: 
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in qt[K[Klibqt5
+Display all 165 possibilities? (y or n)
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in libqt5c[KC[K
+Display all 165 possibilities? (y or n)
+libqt5-creator                                  libqt5-qtremoteobjects-private-headers-devel
+libqt5-creator-plugin-devel                     libqt5-qtremoteobjects-tools
+libqt5-dwaylandplugin                           libqt5-qtscript-devel
+libqt5-dxcbplugin                               libqt5-qtscript-devel-32bit
+libqt5keychain1                                 libqt5-qtscript-examples
+libqt5keychain1-32bit                           libqt5-qtscript-private-headers-devel
+libqt5keychain1-lang                            libqt5-qtscxml-devel
+libqt5-kwayland-shellplugin                     libqt5-qtscxml-devel-32bit
+libqt5-linguist                                 libqt5-qtscxml-examples
+libqt5-linguist-devel                           libqt5-qtscxml-private-headers-devel
+libqt5-qdbus                                    libqt5-qtscxml-tools
+libqt5-qt3d-devel                               libqt5-qtsensors-devel
+libqt5-qt3d-examples                            libqt5-qtsensors-devel-32bit
+libqt5-qt3d-imports                             libqt5-qtsensors-examples
+libqt5-qt3d-private-headers-devel               libqt5-qtsensors-private-headers-devel
+libqt5-qt3d-tools                               libqt5-qtserialbus
+libqt5-qtbase-common-devel                      libqt5-qtserialbus-32bit
+libqt5-qtbase-devel                             libqt5-qtserialbus-devel
+libqt5-qtbase-examples                          libqt5-qtserialbus-devel-32bit
+libqt5-qtbase-examples-32bit                    libqt5-qtserialbus-examples
+libqt5-qtbase-platformtheme-gtk3                libqt5-qtserialbus-private-headers-devel
+libqt5-qtbase-platformtheme-xdgdesktopportal    libqt5-qtserialport-devel
+libqt5-qtbase-private-headers-devel             libqt5-qtserialport-devel-32bit
+libqt5-qtcanvas3d                               libqt5-qtserialport-examples
+libqt5-qtcanvas3d-examples                      libqt5-qtserialport-private-headers-devel
+libqt5-qtcharts-examples                        libqt5-qtspeech-devel
+libqt5-qtcharts-imports                         libqt5-qtspeech-devel-32bit
+libqt5-qtconnectivity-devel                     libqt5-qtspeech-examples
+libqt5-qtconnectivity-devel-32bit               libqt5-qtspeech-plugin-speechd
+libqt5-qtconnectivity-examples                  libqt5-qtspeech-plugin-speechd-32bit
+libqt5-qtconnectivity-private-headers-devel     libqt5-qtstyleplugins
+--More--[Klibqt5-qtconnectivity-tools                     libqt5-qtstyleplugins-devel
+libqt5-qtdatavis3d-examples                     libqt5-qtstyleplugins-platformtheme-gtk2
+libqt5-qtdatavis3d-imports                      libqt5-qtsvg-devel
+libqt5-qtdeclarative-devel                      libqt5-qtsvg-devel-32bit
+libqt5-qtdeclarative-devel-32bit                libqt5-qtsvg-examples
+libqt5-qtdeclarative-examples                   libqt5-qtsvg-private-headers-devel
+libqt5-qtdeclarative-private-headers-devel      libqt5-qttools
+libqt5-qtdeclarative-tools                      libqt5-qttools-32bit
+libqt5-qtdoc                                    libqt5-qttools-devel
+libqt5-qtdoc-devel                              libqt5-qttools-devel-32bit
+libqt5-qtdoc-html                               libqt5-qttools-doc
+libqt5-qtdoc-qch                                libqt5-qttools-example-plugins
+libqt5-qtgamepad-devel                          libqt5-qttools-examples
+libqt5-qtgamepad-devel-32bit                    libqt5-qttools-private-headers-devel
+libqt5-qtgamepad-examples                       libqt5-qttools-qhelpgenerator
+libqt5-qtgamepad-private-headers-devel          libqt5-qttranslations
+libqt5-qtgraphicaleffects                       libqt5-qtvirtualkeyboard
+libqt5-qtimageformats                           libqt5-qtvirtualkeyboard-devel
+libqt5-qtimageformats-32bit                     libqt5-qtvirtualkeyboard-examples
+libqt5-qtimageformats-devel                     libqt5-qtvirtualkeyboard-hunspell
+libqt5-qtlocation-devel                         libqt5-qtvirtualkeyboard-private-headers-devel
+libqt5-qtlocation-devel-32bit                   libqt5-qtwayland
+libqt5-qtlocation-examples                      libqt5-qtwayland-32bit
+libqt5-qtlocation-private-headers-devel         libqt5-qtwayland-devel
+libqt5-qtlottie                                 libqt5-qtwayland-devel-32bit
+libqt5-qtmultimedia-devel                       libqt5-qtwayland-examples
+libqt5-qtmultimedia-devel-32bit                 libqt5-qtwayland-private-headers-devel
+libqt5-qtmultimedia-examples                    libqt5-qtwebchannel-devel
+libqt5-qtmultimedia-private-headers-devel       libqt5-qtwebchannel-devel-32bit
+libqt5-qtnetworkauth-devel                      libqt5-qtwebchannel-examples
+libqt5-qtnetworkauth-devel-32bit                libqt5-qtwebchannel-private-headers-devel
+--More--[Klibqt5-qtnetworkauth-examples                   libqt5-qtwebengine
+libqt5-qtnetworkauth-private-headers-devel      libqt5-qtwebengine-devel
+libqt5-qtpaths                                  libqt5-qtwebengine-examples
+libqt5-qtpdf-devel                              libqt5-qtwebengine-private-headers-devel
+libqt5-qtpdf-examples                           libqt5-qtwebsockets-devel
+libqt5-qtpdf-imports                            libqt5-qtwebsockets-devel-32bit
+libqt5-qtpdf-private-headers-devel              libqt5-qtwebsockets-examples
+libqt5-qtquick3d-devel                          libqt5-qtwebsockets-private-headers-devel
+libqt5-qtquick3d-examples                       libqt5-qtwebview-devel
+libqt5-qtquick3d-imports                        libqt5-qtwebview-examples
+libqt5-qtquick3d-private-headers-devel          libqt5-qtwebview-private-headers-devel
+libqt5-qtquick3d-tools                          libqt5-qtx11extras-devel
+libqt5-qtquickcontrols                          libqt5-qtx11extras-devel-32bit
+libqt5-qtquickcontrols2                         libqt5-qtxmlpatterns-devel
+libqt5-qtquickcontrols2-examples                libqt5-qtxmlpatterns-devel-32bit
+libqt5-qtquickcontrols2-private-headers-devel   libqt5-qtxmlpatterns-examples
+libqt5-qtquickcontrols-examples                 libqt5-qtxmlpatterns-imports
+libqt5-qtquicktimeline                          libqt5-qtxmlpatterns-imports-32bit
+libqt5-qtremoteobjects-devel                    libqt5-qtxmlpatterns-private-headers-devel
+libqt5-qtremoteobjects-devel-32bit              libqt5xdg-devel
+libqt5-qtremoteobjects-examples                 
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in libqt5exit[Kzypper in libqt5[1Pt5Qt5[C[C
+Display all 188 possibilities? (y or n)
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in libQt5C
+libQt5Charts5                     libQt5Concurrent5-32bit           libQt5Core5-32bit
+libQt5Charts5-designer            libQt5Concurrent-devel            libQt5Core-devel
+libQt5Charts5-devel               libQt5Concurrent-devel-32bit      libQt5Core-devel-32bit
+libQt5Concurrent5                 libQt5Core5                       libQt5Core-private-headers-devel
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in libQt5Core5
+libQt5Core5        libQt5Core5-32bit  
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in libQt5Core5
+libQt5Core5        libQt5Core5-32bit  
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in libQt5Core5-de[1P-de[C[C[Cvel
+[22;27;39;49mCargando datos del repositorio...[0m
+[22;27;39;49mLeyendo los paquetes instalados...[0m
+[22;27;39;49mResolviendo dependencias de paquete...[0m
+
+[22;27;32;49mLos siguientes 2 paquetes NUEVOS van a ser instalados:[0m
+  [22;27;32;49ml[0mibQt5Core-devel [22;27;32;49ml[0mibqt5-qtbase-common-devel
+
+[22;27;32;49m2[0m nuevos paquetes a instalar.
+Tamaño total de descarga: 2,6 MiB. Ya en caché: 0 B. Después de la operación, se utilizarán 10,6 MiB adicionales.
+[2K[1;39;49m¿Desea continuar? [1;39;49m[s[1;39;49m/n[1;39;49m/v[1;39;49m/...?[1;39;49m mostrar todas las opciones] (s[1;39;49m)[0m[1;39;49m: [0m[0m[0m[0m[0m[0m[0ms
+[22;27;39;49mDescargando paquete libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64           (1/2),   1,9 MiB (  7,7 MiB desempaquetado)[0m
+[2KRecuperando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64.rpm ---------------------------------------------[iniciando][2KRecuperando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64.rpm ...............................<88%>=====[\ (4,4 MiB/s)][22;27;39;49m[2KRecuperando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64.rpm .................................[terminado (4,4 MiB/s)]
+[22;27;39;49m[22;27;39;49mDescargando paquete libQt5Core-devel-5.15.2+kde200-1.3.x86_64                     (2/2), 678,7 KiB (  3,0 MiB desempaquetado)[0m
+[2KRecuperando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64.rpm -------------------------------------------------------[iniciando][22;27;39;49m[2KRecuperando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64.rpm .......................................................[terminado]
+[22;27;39;49m
+[2KBuscando conflictos de archivos: -----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: -----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: <1%>=====================================================================================[|][2KBuscando conflictos de archivos: ...................................................................................<100%>[/][22;27;39;49m[2KBuscando conflictos de archivos: .................................................................................[terminado]
+[22;27;39;49m[2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 ----------------------------------------------------[-][2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 ----------------------------------------------------[|][2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 <1%>================================================[\][2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 .<12%>==============================================[|][2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 ......<23%>=========================================[/][2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 ............<34%>===================================[-][2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 ..................<45%>=============================[\][2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 ........................<56%>=======================[|][2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 .............................<67%>==================[/][2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 ...................................<78%>============[-][2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 .........................................<89%>======[\][2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 ..............................................<100%>[|][22;27;39;49m[2K(1/2) Instalando: libqt5-qtbase-common-devel-5.15.2+kde200-1.3.x86_64 ............................................[terminado]
+[22;27;39;49m[2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 --------------------------------------------------------------[/][2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 --------------------------------------------------------------[/][2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 <1%>==========================================================[-][2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 ..<12%>=======================================================[\][2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 .........<23%>================================================[|][2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 ................<34%>=========================================[/][2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 ......................<45%>===================================[-][2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 .............................<56%>============================[\][2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 ....................................<67%>=====================[|][2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 ...........................................<78%>==============[/][2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 ..................................................<89%>=======[-][2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 ........................................................<100%>[\][22;27;39;49m[2K(2/2) Instalando: libQt5Core-devel-5.15.2+kde200-1.3.x86_64 ......................................................[terminado]
+[22;27;39;49m7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m exit
+exit
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> sucmake ./
+[0mInstalling in /usr/local. Run /home/jericho/kd app/prefix.sh to set the environment for helloworld.[0m
+fatal: no es un repositorio git ( o ningún padre en el punto de montado /)
+Parando en el límite del sistema de archivos (GIT_DISCOVERY_ACROSS_FILESYSTEM no establecido).
+[31mCMake Error at /usr/lib64/cmake/Qt5/Qt5Config.cmake:28 (find_package):
+  Could not find a package configuration file provided by "Qt5Widgets" with
+  any of the following names:
+
+    Qt5WidgetsConfig.cmake
+    qt5widgets-config.cmake
+
+  Add the installation prefix of "Qt5Widgets" to CMAKE_PREFIX_PATH or set
+  "Qt5Widgets_DIR" to a directory containing one of the above files.  If
+  "Qt5Widgets" provides a separate development package or SDK, be sure it has
+  been installed.
+Call Stack (most recent call first):
+  CMakeLists.txt:17 (find_package)
+
+[0m
+-- Configuring incomplete, errors occurred!
+See also "/home/jericho/kd app/CMakeFiles/CMakeOutput.log".
+See also "/home/jericho/kd app/CMakeFiles/CMakeError.log".
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> su
+Contraseña: 
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m exitzypper in libQt5Core-devel[K[K[K[K[K[K[K[K[K[KW
+libQt5WaylandClient5                       libQt5WebKitWidgets5-32bit
+libQt5WaylandClient5-32bit                 libQt5WebKitWidgets-devel
+libQt5WaylandCompositor5                   libQt5WebKitWidgets-devel-32bit
+libQt5WaylandCompositor5-32bit             libQt5WebKitWidgets-private-headers-devel
+libQt5WebChannel5                          libQt5WebSockets5
+libQt5WebChannel5-32bit                    libQt5WebSockets5-32bit
+libQt5WebChannel5-imports                  libQt5WebSockets5-imports
+libQt5WebKit5                              libQt5WebView5
+libQt5WebKit5-32bit                        libQt5WebView5-imports
+libQt5WebKit5-devel                        libQt5Widgets5
+libQt5WebKit5-devel-32bit                  libQt5Widgets5-32bit
+libQt5WebKit5-imports                      libQt5Widgets-devel
+libQt5WebKit-private-headers-devel         libQt5Widgets-devel-32bit
+libQt5WebKitWidgets5                       libQt5Widgets-private-headers-devel
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in libQt5W
+libQt5WaylandClient5                       libQt5WebKitWidgets5-32bit
+libQt5WaylandClient5-32bit                 libQt5WebKitWidgets-devel
+libQt5WaylandCompositor5                   libQt5WebKitWidgets-devel-32bit
+libQt5WaylandCompositor5-32bit             libQt5WebKitWidgets-private-headers-devel
+libQt5WebChannel5                          libQt5WebSockets5
+libQt5WebChannel5-32bit                    libQt5WebSockets5-32bit
+libQt5WebChannel5-imports                  libQt5WebSockets5-imports
+libQt5WebKit5                              libQt5WebView5
+libQt5WebKit5-32bit                        libQt5WebView5-imports
+libQt5WebKit5-devel                        libQt5Widgets5
+libQt5WebKit5-devel-32bit                  libQt5Widgets5-32bit
+libQt5WebKit5-imports                      libQt5Widgets-devel
+libQt5WebKit-private-headers-devel         libQt5Widgets-devel-32bit
+libQt5WebKitWidgets5                       libQt5Widgets-private-headers-devel
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in libQt5Widgets/[K-devel
+[22;27;39;49mCargando datos del repositorio...[0m
+[22;27;39;49mLeyendo los paquetes instalados...[0m
+[22;27;39;49mResolviendo dependencias de paquete...[0m
+
+[22;27;32;49mLos siguientes 2 paquetes NUEVOS van a ser instalados:[0m
+  [22;27;32;49ml[0mibQt5Gui-devel [22;27;32;49ml[0mibQt5Widgets-devel
+
+[22;27;32;49m2[0m nuevos paquetes a instalar.
+Tamaño total de descarga: 788,6 KiB. Ya en caché: 0 B. Después de la operación, se utilizarán 8,1 MiB adicionales.
+[2K[1;39;49m¿Desea continuar? [1;39;49m[s[1;39;49m/n[1;39;49m/v[1;39;49m/...?[1;39;49m mostrar todas las opciones] (s[1;39;49m)[0m[1;39;49m: [0m[0m[0m[0m[0m[0m[0ms
+[22;27;39;49mDescargando paquete libQt5Gui-devel-5.15.2+kde200-1.3.x86_64                      (1/2), 483,7 KiB (  6,2 MiB desempaquetado)[0m
+[2KRecuperando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64.rpm --------------------------------------------------------[iniciando][2KRecuperando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64.rpm <11%>=============================================[\ (462,9 KiB/s)][22;27;39;49m[2KRecuperando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64.rpm ..........................................[terminado (462,9 KiB/s)]
+[22;27;39;49m[22;27;39;49mDescargando paquete libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64                  (2/2), 304,9 KiB (  2,0 MiB desempaquetado)[0m
+[2KRecuperando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64.rpm ----------------------------------------------------[iniciando][22;27;39;49m[2KRecuperando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64.rpm ....................................................[terminado]
+[22;27;39;49m
+[2KBuscando conflictos de archivos: -----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: -----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: <1%>=====================================================================================[|][2KBuscando conflictos de archivos: ...................................................................................<100%>[/][22;27;39;49m[2KBuscando conflictos de archivos: .................................................................................[terminado]
+[22;27;39;49m[2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 ---------------------------------------------------------------[-][2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 ---------------------------------------------------------------[|][2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 <1%>===========================================================[\][2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 ..<12%>========================================================[|][2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 .........<23%>=================================================[/][2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 ................<34%>==========================================[-][2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 .......................<45%>===================================[\][2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 ..............................<56%>============================[|][2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 .....................................<67%>=====================[/][2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 ............................................<78%>==============[-][2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 ...................................................<89%>=======[\][2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 .........................................................<100%>[|][22;27;39;49m[2K(1/2) Instalando: libQt5Gui-devel-5.15.2+kde200-1.3.x86_64 .......................................................[terminado]
+[22;27;39;49m[2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 -----------------------------------------------------------[/][2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 -----------------------------------------------------------[/][2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 <1%>=======================================================[-][2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 ..<12%>====================================================[\][2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 ........<23%>==============================================[|][2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 ...............<34%>=======================================[/][2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 .....................<45%>=================================[-][2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 ............................<56%>==========================[\][2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 ...................................<68%>===================[|][2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 .........................................<79%>=============[/][2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 ................................................<90%>======[-][2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 .....................................................<100%>[\][22;27;39;49m[2K(2/2) Instalando: libQt5Widgets-devel-5.15.2+kde200-1.3.x86_64 ...................................................[terminado]
+[22;27;39;49m7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m exit
+exit
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> sucmake ./
+[0mInstalling in /usr/local. Run /home/jericho/kd app/prefix.sh to set the environment for helloworld.[0m
+fatal: no es un repositorio git ( o ningún padre en el punto de montado /)
+Parando en el límite del sistema de archivos (GIT_DISCOVERY_ACROSS_FILESYSTEM no establecido).
+[33mCMake Warning (dev) at /usr/share/ECM/modules/ECMFindModuleHelpers.cmake:112 (message):
+  Your project should require at least CMake 3.16.0 to use FindKF5.cmake
+Call Stack (most recent call first):
+  /usr/share/ECM/find-modules/FindKF5.cmake:30 (ecm_find_package_version_check)
+  CMakeLists.txt:23 (find_package)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+[0m
+-- Could NOT find KF5CoreAddons (missing: KF5CoreAddons_DIR)
+-- Could NOT find KF5CoreAddons: found neither KF5CoreAddonsConfig.cmake nor kf5coreaddons-config.cmake 
+-- Could NOT find KF5I18n (missing: KF5I18n_DIR)
+-- Could NOT find KF5I18n: found neither KF5I18nConfig.cmake nor kf5i18n-config.cmake 
+-- Could NOT find KF5WidgetsAddons (missing: KF5WidgetsAddons_DIR)
+-- Could NOT find KF5WidgetsAddons: found neither KF5WidgetsAddonsConfig.cmake nor kf5widgetsaddons-config.cmake 
+[31mCMake Error at /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+  Could NOT find KF5 (missing: CoreAddons I18n WidgetsAddons) (Required is at
+  least version "5.2.0")
+Call Stack (most recent call first):
+  /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake:594 (_FPHSA_FAILURE_MESSAGE)
+  /usr/share/ECM/find-modules/FindKF5.cmake:93 (find_package_handle_standard_args)
+  CMakeLists.txt:23 (find_package)
+
+[0m
+-- Configuring incomplete, errors occurred!
+See also "/home/jericho/kd app/CMakeFiles/CMakeOutput.log".
+See also "/home/jericho/kd app/CMakeFiles/CMakeError.log".
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> su
+Contraseña: 
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in ki18n-devel kColorPicker-devel [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kco
+kcodecs-devel               kcompletion-devel-32bit     kconf_update5               kcoreaddons-devel
+kcodecs-devel-32bit         kconfig-devel               kcontacts-devel             kcoreaddons-devel-32bit
+kcolorchooser               kconfig-devel-32bit         kcontacts-devel-32bit       kcoreaddons-lang
+kcolorchooser-lang          kconfigwidgets-devel        kcontacts-lang              kcov
+kcompletion-devel           kconfigwidgets-devel-32bit  kcoreaddons                 
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in ki18n-devel kco
+kcodecs-devel               kcompletion-devel-32bit     kconf_update5               kcoreaddons-devel
+kcodecs-devel-32bit         kconfig-devel               kcontacts-devel             kcoreaddons-devel-32bit
+kcolorchooser               kconfig-devel-32bit         kcontacts-devel-32bit       kcoreaddons-lang
+kcolorchooser-lang          kconfigwidgets-devel        kcontacts-lang              kcov
+kcompletion-devel           kconfigwidgets-devel-32bit  kcoreaddons                 
+7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m zypper in ki18n-devel kcoreaddons/[K-devel kwidgetsaddons-devel
+[22;27;39;49mCargando datos del repositorio...[0m
+[22;27;39;49mLeyendo los paquetes instalados...[0m
+[22;27;39;49mResolviendo dependencias de paquete...[0m
+
+[22;27;32;49mLos siguientes 3 paquetes NUEVOS van a ser instalados:[0m
+  [22;27;32;49mk[0mcoreaddons-devel [22;27;32;49mk[0mi18n-devel [22;27;32;49mk[0mwidgetsaddons-devel
+
+[22;27;32;49m3[0m nuevos paquetes a instalar.
+Tamaño total de descarga: 384,1 KiB. Ya en caché: 0 B. Después de la operación, se utilizarán 1,2 MiB adicionales.
+[2K[1;39;49m¿Desea continuar? [1;39;49m[s[1;39;49m/n[1;39;49m/v[1;39;49m/...?[1;39;49m mostrar todas las opciones] (s[1;39;49m)[0m[1;39;49m: [0m[0m[0m[0m[0m[0m[0ms
+[22;27;39;49mDescargando paquete kcoreaddons-devel-5.84.0-1.1.x86_64                           (1/3), 155,5 KiB (423,2 KiB desempaquetado)[0m
+[2KRecuperando: kcoreaddons-devel-5.84.0-1.1.x86_64.rpm -------------------------------------------------------------[iniciando][2KRecuperando: kcoreaddons-devel-5.84.0-1.1.x86_64.rpm .............................<61%>=======================[\ (1,2 MiB/s)][22;27;39;49m[2KRecuperando: kcoreaddons-devel-5.84.0-1.1.x86_64.rpm .................................................[terminado (1,2 MiB/s)]
+[22;27;39;49m[22;27;39;49mDescargando paquete ki18n-devel-5.84.0-1.1.x86_64                                 (2/3),  57,0 KiB (159,0 KiB desempaquetado)[0m
+[2KRecuperando: ki18n-devel-5.84.0-1.1.x86_64.rpm -------------------------------------------------------------------[iniciando][22;27;39;49m[2KRecuperando: ki18n-devel-5.84.0-1.1.x86_64.rpm ...................................................................[terminado]
+[22;27;39;49m[22;27;39;49mDescargando paquete kwidgetsaddons-devel-5.84.0-1.2.x86_64                        (3/3), 171,6 KiB (618,1 KiB desempaquetado)[0m
+[2KRecuperando: kwidgetsaddons-devel-5.84.0-1.2.x86_64.rpm ----------------------------------------------------------[iniciando][22;27;39;49m[2KRecuperando: kwidgetsaddons-devel-5.84.0-1.2.x86_64.rpm ..........................................................[terminado]
+[22;27;39;49m
+[2KBuscando conflictos de archivos: -----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: -----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: ...................................................................................<100%>[|][22;27;39;49m[2KBuscando conflictos de archivos: .................................................................................[terminado]
+[22;27;39;49m[2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 --------------------------------------------------------------------[/][2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 --------------------------------------------------------------------[|][2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 <7%>================================================================[-][2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 ........<20%>=======================================================[\][2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 ................<32%>===============================================[|][2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 ........................<43%>=======================================[/][2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 ................................<55%>===============================[-][2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 ..........................................<70%>=====================[\][2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 ..................................................<81%>=============[|][2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 ..........................................................<94%>=====[/][2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 ..............................................................<100%>[-][22;27;39;49m[2K(1/3) Instalando: kcoreaddons-devel-5.84.0-1.1.x86_64 ............................................................[terminado]
+[22;27;39;49m[2K(2/3) Instalando: ki18n-devel-5.84.0-1.1.x86_64 --------------------------------------------------------------------------[\][2K(2/3) Instalando: ki18n-devel-5.84.0-1.1.x86_64 --------------------------------------------------------------------------[/][2K(2/3) Instalando: ki18n-devel-5.84.0-1.1.x86_64 <5%>======================================================================[|][2K(2/3) Instalando: ki18n-devel-5.84.0-1.1.x86_64 ....................<34%>=================================================[/][2K(2/3) Instalando: ki18n-devel-5.84.0-1.1.x86_64 ..................................<54%>===================================[-][2K(2/3) Instalando: ki18n-devel-5.84.0-1.1.x86_64 .................................................<73%>====================[\][2K(2/3) Instalando: ki18n-devel-5.84.0-1.1.x86_64 ............................................................<88%>=========[|][2K(2/3) Instalando: ki18n-devel-5.84.0-1.1.x86_64 ....................................................................<99%>=[/][2K(2/3) Instalando: ki18n-devel-5.84.0-1.1.x86_64 ....................................................................<100%>[-][22;27;39;49m[2K(2/3) Instalando: ki18n-devel-5.84.0-1.1.x86_64 ..................................................................[terminado]
+[22;27;39;49m[2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 -----------------------------------------------------------------[\][2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 -----------------------------------------------------------------[-][2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 <1%>=============================================================[|][2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 ..<12%>==========================================================[/][2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 .........<23%>===================================================[-][2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 .................<35%>===========================================[\][2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 ........................<46%>====================================[|][2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 ................................<57%>============================[/][2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 .......................................<68%>=====================[-][2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 ..............................................<79%>==============[\][2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 ........................................................<94%>====[|][2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 ...........................................................<100%>[/][22;27;39;49m[2K(3/3) Instalando: kwidgetsaddons-devel-5.84.0-1.2.x86_64 .........................................................[terminado]
+[22;27;39;49m7]2;jericho@localhost.localdomain:...ome/jericho/kd app]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho/kd app #(B[m exit
+exit
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> cmake ./
+[0mInstalling in /usr/local. Run /home/jericho/kd app/prefix.sh to set the environment for helloworld.[0m
+fatal: no es un repositorio git ( o ningún padre en el punto de montado /)
+Parando en el límite del sistema de archivos (GIT_DISCOVERY_ACROSS_FILESYSTEM no establecido).
+[33mCMake Warning (dev) at /usr/share/ECM/modules/ECMFindModuleHelpers.cmake:112 (message):
+  Your project should require at least CMake 3.16.0 to use FindKF5.cmake
+Call Stack (most recent call first):
+  /usr/share/ECM/find-modules/FindKF5.cmake:30 (ecm_find_package_version_check)
+  CMakeLists.txt:23 (find_package)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+[0m
+-- Found KF5CoreAddons: /usr/lib64/cmake/KF5CoreAddons/KF5CoreAddonsConfig.cmake (found version "5.84.0") 
+-- Found Gettext: /usr/bin/msgmerge (found version "0.21") 
+-- Found KF5I18n: /usr/lib64/cmake/KF5I18n/KF5I18nConfig.cmake (found version "5.84.0") 
+-- Found KF5WidgetsAddons: /usr/lib64/cmake/KF5WidgetsAddons/KF5WidgetsAddonsConfig.cmake (found version "5.84.0") 
+-- Found KF5: success (found suitable version "5.84.0", minimum required is "5.2.0") found components: CoreAddons I18n WidgetsAddons 
+-- The following REQUIRED packages have been found:
+
+ * ECM (required version >= 1.0.0)
+ * Qt5Gui (required version >= 5.15.2)
+ * Qt5 (required version >= 5.3.0)
+ * Qt5Core (required version >= 5.15.0)
+ * KF5CoreAddons (required version >= 5.2.0)
+ * Gettext
+ * KF5I18n (required version >= 5.2.0)
+ * Qt5Widgets (required version >= 5.15.0)
+ * KF5WidgetsAddons (required version >= 5.2.0)
+ * KF5 (required version >= 5.2.0)
+
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/jericho/kd app
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> make
+[ 25%] [34m[1mAutomatic MOC for target helloworld[0m
+[ 25%] Built target helloworld_autogen
+[ 50%] [32mBuilding CXX object CMakeFiles/helloworld.dir/helloworld_autogen/mocs_compilation.cpp.o[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/helloworld.dir/main.cpp.o[0m
+[100%] [32m[1mLinking CXX executable helloworld[0m
+[100%] Built target helloworld
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> ./helloworld
+7]2;jericho@localhost.localdomain:~/kd app]1;localhost.localdomain8jericho@localhost:~/kd app> exit
+exit
+
+Script terminado en 2021-08-07 17:26:32+02:00 [CÓDIGO_SALIDA_ORDEN="0"]
