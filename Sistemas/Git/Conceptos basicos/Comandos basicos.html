@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Comandos basicos</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Comandos de git para realizar las tareas basicas.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <ul>
+                <li><b>git status</b></li>
+                <p>Nos muestra el estado del arbol actual en el que estamos trabajando, nos indica que archivos han sido modificados y que archivos no estan siendo trackeados.</p>
+                <li><b>git add</b></li>
+                <p>Nos permite trackear archivos que seran añadidos al repositorio local cuando se haga el commit</p>
+                <li><b>git commit</b></li>
+                <p>Escribe las modificaciones al repositorio local</p>
+                <li><b>git log</b></li>
+                <p>Nos muestra el historial de commits que se han hecho</p>
+                <li><b>git diff</b></li>
+                <p>Nos permite comparar las modificaciones del arbol de trabajo con el ultimo commit realizado</p>
+
+            </ul>
+        </div>
+
+
+    <div class="t2">Ejemplos</div>
+        <div class="cont">
+        <p>Añadir todos los archivos dentro del directorio</p>
+        <code>> git add .</code>
+
+        <p>Hacer un commit que haga el add automaticamente con los archivos modificados:</p>
+        <code>> git commit -a -m "Descripcion commmit"</code>
+        </div>
+
+        <p>Comparar con el commit previo al ultimo (Util en caso de que justo acabemos de realizar un commit y el arbol de trabajo sea igual que el ultimo commit)</p>
+        <code>> git diff HEAD^</code>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | status |  | Configuracion </p>
+        </div>
+
+    </body>
+</html>
