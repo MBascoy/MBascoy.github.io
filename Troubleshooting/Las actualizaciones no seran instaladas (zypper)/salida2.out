@@ -1,48 +1,0 @@
-Script iniciado en 2021-09-04 17:28:07+02:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="124" LINES="28"]
-7]2;jericho@localhost.localdomain:~]1;localhost.localdomain8jericho@localhost:~> su
-Contraseña: 
-7]2;jericho@localhost.localdomain:/home/jericho]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho #(B[m zypper in ibSDL-1_2-0-1.2.15-93.43.x86_64[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[ClibSDL-1_2-0-1.2.15-93.43.x86_64
-[22;27;39;49mCargando datos del repositorio...[0m
-[22;27;39;49mLeyendo los paquetes instalados...[0m
-[22;27;39;49mResolviendo dependencias de paquete...[0m
-
-[22;27;32;49mEl siguiente paquete va a ser actualizado:[0m
-  [22;27;32;49ml[0mibSDL-1_2-0
-
-[22;27;33;49mEl siguiente paquete va a cambiar de proveedor:[0m
-  [22;27;39;49mlibSDL-1_2-0[0m  [22;27;39;49mopenSUSE -> obs://build.opensuse.org/games[0m
-
-[22;27;32;49m1[0m paquete a actualizar, [22;27;33;49m1[0m a cambiar de proveedor.
-Tamaño total de descarga: 198,6 KiB. Ya en caché: 0 B. No se usará ni liberará espacio adicional después de la operación.
-[2K[1;39;49m¿Desea continuar? [1;39;49m[s[1;39;49m/n[1;39;49m/v[1;39;49m/...?[1;39;49m mostrar todas las opciones] (s[1;39;49m)[0m[1;39;49m: [0m[0m[0m[0m[0m[0m[0mv
-
-[22;27;32;49mEl siguiente paquete va a ser actualizado:[0m
-  [22;27;39;49mlibSDL-1_2-0[0m  [22;27;39;49m1.2.15-22.11 -> 1.2.15-93.43[0m
-
-[22;27;33;49mEl siguiente paquete va a cambiar de proveedor:[0m
-  [22;27;39;49mlibSDL-1_2-0[0m  [22;27;39;49m1.2.15-22.11 -> 1.2.15-93.43[0m  [22;27;39;49mopenSUSE -> obs://build.opensuse.org/games[0m
-
-[22;27;32;49m1[0m paquete a actualizar, [22;27;33;49m1[0m a cambiar de proveedor.
-Tamaño total de descarga: 198,6 KiB. Ya en caché: 0 B. No se usará ni liberará espacio adicional después de la operación.
-[2K[1;39;49m¿Desea continuar? [1;39;49m[s[1;39;49m/n[1;39;49m/v[1;39;49m/...?[1;39;49m mostrar todas las opciones] (s[1;39;49m)[0m[1;39;49m: [0m[0m[0m[0m[0m[0m[0ms
-[22;27;39;49mDescargando paquete libSDL-1_2-0-1.2.15-93.43.x86_64                             (1/1), 198,6 KiB (427,9 KiB desempaquetado)[0m
-[2KRecuperando: libSDL-1_2-0-1.2.15-93.43.x86_64.rpm ---------------------------------------------------------------[iniciando][2KRecuperando: libSDL-1_2-0-1.2.15-93.43.x86_64.rpm -----------------------------------------------------------[\ (2,1 KiB/s)][22;27;39;49m[2KRecuperando: libSDL-1_2-0-1.2.15-93.43.x86_64.rpm ...................................................[terminado (2,1 KiB/s)]
-[22;27;39;49m
-[2KBuscando conflictos de archivos: ----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: ----------------------------------------------------------------------------------------[\][2KBuscando conflictos de archivos: <1%>====================================================================================[|][2KBuscando conflictos de archivos: .....<12%>==============================================================================[/][2KBuscando conflictos de archivos: ...............<23%>====================================================================[-][2KBuscando conflictos de archivos: ..................................................................................<100%>[\][22;27;39;49m[2KBuscando conflictos de archivos: ................................................................................[terminado]
-[22;27;39;49m[2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ----------------------------------------------------------------------[|][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ----------------------------------------------------------------------[|][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ..............................<50%>===================================[/][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 .........................................<67%>========================[-][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ....................................................<82%>=============[\][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ............................................................<93%>=====[|][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ................................................................<100%>[/][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ----------------------------------------------------------------------[/][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ...<12%>==============================================================[-][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ............<25%>=====================================================[\][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ....................<37%>=============================================[|][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ..............................<50%>===================================[/][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ......................................<62%>===========================[-][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ...............................................<75%>==================[\][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 .......................................................<87%>==========[|][2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ................................................................<100%>[/][22;27;39;49m[2K(1/1) Instalando: libSDL-1_2-0-1.2.15-93.43.x86_64 ..............................................................[terminado]
-[22;27;39;49m[22;27;39;49m [0m
-7]2;jericho@localhost.localdomain:/home/jericho]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho #(B[m zypper up
-[22;27;39;49mCargando datos del repositorio...[0m
-[22;27;39;49mLeyendo los paquetes instalados...[0m
-
-[22;27;36;49mLas siguientes 22 actualizaciones NO serán instaladas:[0m
-  [22;27;36;49ml[0mibbox2d2 [22;27;36;49ml[0mibIrrlicht1_8 [22;27;36;49ml[0mibjsoncpp24 [22;27;36;49ml[0mibopenal1 [22;27;36;49ml[0mibopenal1-32bit [22;27;36;49ml[0mibpipewire-0_3-0 [22;27;36;49ml[0mibSDL-1_2-0-32bit [22;27;36;49ml[0mibSDL2-2_0-0
-  [22;27;36;49ml[0mibSDL_gfx15 [22;27;36;49ml[0mibspatialindex6 [22;27;36;49mm[0minetest [22;27;36;49mm[0minetest-data [22;27;36;49mm[0minetest-game [22;27;36;49mm[0minetest-lang [22;27;36;49mo[0mpenal-soft-data [22;27;36;49mo[0mpengl-games-utils
-  [22;27;36;49mp[0matterns-games-games [22;27;36;49mp[0mipewire [22;27;36;49mp[0mipewire-modules [22;27;36;49mp[0mipewire-spa-plugins-0_2 [22;27;36;49mp[0mipewire-spa-tools [22;27;36;49mp[0mipewire-tools
-[22;27;39;49mNo hay nada que hacer.[0m
-7]2;jericho@localhost.localdomain:/home/jericho]1;localhost.localdomain8[1m[31mlocalhost:/home/jericho #(B[m zypper [K[K[K[K[K[K[Kzypper upin libSDL-1_2-0-1.2.15-93.43.x86_64[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cup[K[Kexit
-exit
-7]2;jericho@localhost.localdomain:~]1;localhost.localdomain8jericho@localhost:~> exit
-exit
-
-Script terminado en 2021-09-04 18:00:04+02:00 [CÓDIGO_SALIDA_ORDEN="0"]
