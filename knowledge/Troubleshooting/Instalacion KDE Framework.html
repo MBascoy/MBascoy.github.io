@@ -1,0 +1,200 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Instalacion KDE Framework</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Errores que puede dar la instalacion inicial para poder compilar programas con el <b>KDE Framework</b></p>
+            
+            <p><b>NOTA</b>: Todos los errores que aparecen a continuacion son errores de <b>cmake</b> ya que no puede encontrar las librerias de las que depende el programa que vamos a compilar, no son errores del KDE Framework en si.</p>
+            
+        </div>
+        
+    <div class="t2">Resumen</div>
+    <div class="cont">
+        <p>Para poder compilar con el <b>KDE Framework</b> necesitamos instalar estos paquetes:</p>
+        
+        <code># zypper in cmake make gcc-c++ extra-cmake-modules libQt5Core-devel libQt5Widgets-devel ki18n-devel kcoreaddons-devel kwidgetsaddons-devel kxmlgui-devel ktextwidgets-devel</code>
+        
+    </div>
+        
+    <div class="t2">Errores / Soluciones</div>
+        <div class="cont">
+        <p>La lista completa de la instalacion, con sus comandos y su salida esta en el archivo <a href="Instalacion KDE Framework/typescript">typescript</a></p>
+        
+        <p>Para compilar un programa con el <b>KDE Framework</b> se sigue la siguiente ejecucion de comandos</p>
+        
+        <ul>
+            <li>cmake ./</li>
+            <li>make</li>        
+        </ul>
+        
+        <p>El primer paso seria tener instalados <b>cmake</b>, <b>make</b> y <b>compiladores de C/C++</b></p>
+        
+        <h2>Error compilador C++</h2>
+        
+        <p>Primero ejecutamos <b>cmake ./</b> y vemos el siguiente error:</p>
+        
+        <img src='Instalacion KDE Framework/1.png'/>
+        
+        <pre><code>
+CMake Error at CMakeLists.txt:3 (project):
+  No CMAKE_CXX_COMPILER could be found.                                                
+
+  Tell CMake where to find the compiler by setting either the environment              
+  variable "CXX" or the CMake cache entry CMAKE_CXX_COMPILER to the full path          
+  to the compiler, or to the compiler name if it is in the PATH.
+        </code></pre>
+        
+        <p>Este error se da porque no tenemos instalado el compilador de C++, lo instalamos:</p>
+        
+        <code># zypper in gcc-c++</code>
+        
+        <h2>Error modulos ECM</h2>
+        
+        <p>volvemos a ejecutars <b>cmake ./</b> y vemos el siguiente error:</p>
+        
+        <img src='Instalacion KDE Framework/2.png'/>
+        
+        <pre><code>
+CMake Error at CMakeLists.txt:8 (find_package):
+  Could not find a package configuration file provided by "ECM" (requested             
+  version 1.0.0) with any of the following names:                                      
+
+    ECMConfig.cmake                                                                    
+    ecm-config.cmake                                                                   
+
+  Add the installation prefix of "ECM" to CMAKE_PREFIX_PATH or set "ECM_DIR"           
+  to a directory containing one of the above files.  If "ECM" provides a               
+  separate development package or SDK, be sure it has been installed.
+
+        </code></pre>
+        
+        <p>Este error se produce porque falta el modulo <b>ECM</b> del cmake, lo podemos instalar con el siguiente comando:</p>
+        
+        <code># zypper in extra-cmake-modules</code>
+        
+        <h2>Error Qt5Core</h2>
+        
+        <p>volvemos a ejecutars <b>cmake ./</b> y vemos el siguiente error:</p>
+        
+        <img src='Instalacion KDE Framework/3.png'/>
+        
+        <pre><code>
+CMake Error at CMakeLists.txt:17 (find_package):
+  Could not find a package configuration file provided by "Qt5" (requested             
+  version 5.3.0) with any of the following names:                                      
+
+    Qt5Config.cmake                                                                    
+    qt5-config.cmake                                                                   
+
+  Add the installation prefix of "Qt5" to CMAKE_PREFIX_PATH or set "Qt5_DIR"           
+  to a directory containing one of the above files.  If "Qt5" provides a               
+  separate development package or SDK, be sure it has been installed. 
+
+        </code></pre>
+        
+        <p>Este error se produce porque faltan algunas librerias de desarrollo de <b>Qt5</b> las instalamos con el siguiente comando:</p>
+        
+        <code>zypper in libQt5Core-devel</code>
+        
+        <h2>Error Qt5Widgets</h2>
+        
+        <p>volvemos a ejecutars <b>cmake ./</b> y vemos el siguiente error:</p>
+        
+        <img src='Instalacion KDE Framework/4.png'/>
+        
+        <pre><code>
+CMake Error at /usr/lib64/cmake/Qt5/Qt5Config.cmake:28 (find_package):
+  Could not find a package configuration file provided by "Qt5Widgets" with            
+  any of the following names:                                                          
+
+    Qt5WidgetsConfig.cmake                                                             
+    qt5widgets-config.cmake                                                            
+
+  Add the installation prefix of "Qt5Widgets" to CMAKE_PREFIX_PATH or set              
+  "Qt5Widgets_DIR" to a directory containing one of the above files.  If               
+  "Qt5Widgets" provides a separate development package or SDK, be sure it has          
+  been installed.                                                                      
+Call Stack (most recent call first):                                                   
+  CMakeLists.txt:17 (find_package)  
+
+        </code></pre>
+        
+        <p>Ahora nos faltan librerias de desarrollo de <b>Qt5Widgets</b> las instalamos con el siguiente comando:</p>
+        
+        <code># zypper in libQt5Widgets-devel</code>
+        
+        <h2>Error CoreAddons I18n WidgetsAddons</h2> 
+        
+        <p>volvemos a ejecutars <b>cmake ./</b> y vemos el siguiente error:</p>
+        
+        <img src='Instalacion KDE Framework/5.png'/>
+        
+        <pre><code>
+CMake Error at /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+  Could NOT find KF5 (missing: CoreAddons I18n WidgetsAddons) (Required is at          
+  least version "5.2.0")                                                               
+Call Stack (most recent call first):                                                   
+  /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake:594 (_FPHSA_FAILURE_MESSAGE)
+  /usr/share/ECM/find-modules/FindKF5.cmake:93 (find_package_handle_standard_args)     
+  CMakeLists.txt:23 (find_package) 
+
+        </code></pre>
+        
+        <p>Nos faltan mas librerias de desarrollo, concretamente de <b>I18n</b>, <b>CoreAddons</b> y <b>WidgetsAddons</b>, las instalamos con el siguiente comando:</p>
+        
+        <code># zypper in ki18n-devel kcoreaddons-devel kwidgetsaddons-devel</code>
+        
+        <p>Despues de tantos errores, ejecutamos nuevamente <b>cmake ./</b> y esta vez por fin se ejecuta sin fallos:</p>
+        
+        <img src='Instalacion KDE Framework/6.png'/>
+        
+        
+        <p>Ahora ejecutamos <b>make</b> para compilar el programa</p>:
+        
+        <img src='Instalacion KDE Framework/7.png'/>
+        
+        <p>Y tambien se compila sin ningun tipo de error, nuestro programa ya esta compilado y listo para ser ejecutado</p>
+        
+        
+        <h2>Nuevos errores al compilar con nuevos Widgets</h2> 
+        
+        <p>La lista completa de los nuevos comandos y su salida esta en el archivo <a href="Instalacion KDE Framework/typescript2">typescript2</a></p>
+        
+        <p>Al crear aplicaciones con unos widgets distintos al anterior programa obtengo nuevos errores:</p>
+        
+        <img src='Instalacion KDE Framework/8.png'/>
+        
+  
+  
+        <pre><code>
+CMake Error at /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+  Could NOT find KF5 (missing: XmlGui TextWidgets) (found suitable version
+  "5.84.0", minimum required is "5.68.0")
+Call Stack (most recent call first):
+  /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake:594 (_FPHSA_FAILURE_MESSAGE)
+  /usr/share/ECM/find-modules/FindKF5.cmake:93 (find_package_handle_standard_args)
+  CMakeLists.txt:21 (find_package)
+        </code></pre>
+        
+        <p>Para solucionar este error instalamos las siguientes librerias:</p>
+        
+        <code># zypper in kxmlgui-devel ktextwidgets-devel</code>
+        </div>
+    
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>KDE Framework | Instalacion | Manual </p>
+        </div>
+    
+    </body>
+</html>

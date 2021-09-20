@@ -1,0 +1,84 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Gimp dibujar flechas</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Como dibujar flechas en GIMP usando una extension</p>
+
+        </div>
+        
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <p>Para dibujar flechas en gimp de manera facil lo haremos incluyendo una extension para tal proposito</p>
+        
+        <p>Primero tenemos que saber la ruta donde guardar la extension para dibujar flechas:</p>
+        
+        <ul>
+        <li>Abrimos GIMP</li>
+        <li>Vamos a Editar > Preferencias</li>
+        <li>En la lista de la izquierda bajamos abajo de todo</li>
+        <li>Hacemos click en el simbolo "+" a la izquierda de <b>Carpetas</b></li>
+        <img src="Gimp dibujar flechas/1.png"/>
+        <li>Se desplegaran mas categorias hacia abajo, hacemos click <b>"Guiones"</b> (Scripts en ingles)</li>
+        <img src="Gimp dibujar flechas/2.png"/>
+        <li>Ahora a la derecha comprobamos la direccion donde GIMP buscara los nuevos scripts que introduzcamos.</li>
+        <li>En este caso la direccion que usare sera: <b>/home/jericho/.config/GIMP/2.10/scripts/</b>
+        </ul>
+        
+        
+        <p>Ahora que ya sabemos donde guardar el script solo tenemos que coger el archivo:</p>
+        
+        <a href="Gimp dibujar flechas/arrow-set-size.scm"><b>arrow-set-size.scm</b></a>
+        
+        <p>Y lo copiamos dentro de esa ruta, una vez lo tengamos copiado reiniciamos GIMP y ya deberia de estar cargado dentro del menu de <b>Herramientas</b></p>
+        
+        <img src="Gimp dibujar flechas/3.png"/>
+        
+        <p>Tambien podemos forzar GIMP para que relea los scripts cargados yendo a: <b>Filtros > Script-Fu > Refrescar scripts</b></p>
+        
+        <img src="Gimp dibujar flechas/4.png"/>
+        
+        
+        <p>Una vez ya tengamos cargada la extension ya podemos dibujar flechas, para ello:</p>
+        
+        <ul>
+        <li>Primero seleccionamos la herramienta de rutas</li>
+        <img src="Gimp dibujar flechas/5.png"/>
+        <li>Si solo queremos hacer una flecha recta hacemos click en dos puntos para hacer una ruta recta</li>
+        <img src="Gimp dibujar flechas/6.png"/>
+        <li>Luego vamos a: <b>Herramientas > Arrow-set-size</b></li>
+        <img src="Gimp dibujar flechas/7.png"/>
+        <li>Nos aparecera una ventana donde podemos elegir que propiedades tendra la flecha</li>
+        <li>Una vez ajustemos los parametros pulsamos <b>Aceptar</b> y la flecha se diburaja siguiendo la ruta</li>
+        <img src="Gimp dibujar flechas/8.png"/>
+        
+        </ul>
+        
+        <p>La flecha seguira el recorrido de la ruta, si queremos hacer una flecha curvada solo tenemos que hacer click al crear la ruta y arrastrar, asi crearemos una ruta como una curva:</p>
+        
+        <img src="Gimp dibujar flechas/9.png"/>
+        
+        </div>
+    
+    <div class="t2">Notas</div>
+        <div class="cont">
+        <p>Cuando creemos la ruta y vayamos a generar uan flecha hay que tener cuidado de que no haya ninguna seleccion mas a parte de la ruta que hemos creado, ya que si no las flechas se crean de una manera no deseada.
+        
+        
+        </div>
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>GIMP | flechas | dibujar </p>
+        </div>
+    
+    </body>
+</html>

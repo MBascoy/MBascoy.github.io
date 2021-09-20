@@ -1,0 +1,40 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Error al clonar repositorios</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Al intentar clonar un repositorio se produce el siguiente error:</p>
+
+            <pre><code>error: invalid path 'Miscelanea/Expresion TRUE || TRUE && FALSE.html'
+fatal: unable to checkout working tree</code></pre>
+
+        </div>
+        
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <p>En mi caso este error se produjo por los caracteres "|" en el nombre del archivo, ya que ese archivo inicialmente estaba en linux y al intentar hacer el clonado en windows surgia ese error ya que los nombres de archivos en windows no permiten esos caracteres.</p>
+        
+        </div>
+  
+    <div class="t2">Solucion</div>
+        <div class="cont">
+            Editar el nombre del fichero para que contenga caracteres validos tanto en linux como en windows
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Error | Clonar </p>
+        </div>
+    
+    </body>
+</html>

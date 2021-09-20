@@ -1,0 +1,66 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Xorg.conf Intel NUC</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Configuracion del archivo xorg.conf del X window para el Intel NUC</p>
+
+        </div>
+        
+    <div class="t2">Explicacion</div>
+        <div class="cont">
+        
+        <ul>
+        <li>50-device.conf</li>
+        
+        <code><pre>Section "Device"
+   Identifier  "Intel Graphics"
+   Driver      "intel"
+   Option      "AccelMethod"  "sna"
+   #Option	"AccelMethod"  "uxa"
+   #Option      "SwapBuffersWait" "0"
+   Option      "DRI" "3"
+EndSection</pre></code>
+        
+        <p>Usamos la aceleracion <b>sna</b>, pero como alternativa podemos usar la <b>uxa</b> (por eso esta comentada), la aceleracion <b>uxa</b> da algunos problemas de flickering (la pantalla parpadea un poco en negro).</p>
+        
+        <p>La opcion <b>SwapBuffersWait</b> la podemos usar para evitar algunos problemas de <b>sincronizacion vertical</b>, pero en principio la dejo desactivada ya que a mi me va bien asi.</p>
+        
+        <li>50-screen.conf</li>
+        
+        <code><pre>Section "Screen"
+    Identifier    "Default Screen"
+    Device        "Intel Graphics"
+    DefaultDepth    24
+    SubSection "Display"
+        Depth    24
+        Modes     "1920x1080"
+    EndSubSection
+EndSection</pre></code>
+        
+        
+        
+        
+        <p>Forzamos el sistema para que use la resolucion <b>1920x1080</b> ya que la pantalla es 4K y por defecto el driver selecciona la resolucion mas alta, haciendo que el ordenador vaya muy lento con esa resolucion</p>
+        
+        </ul>
+        
+        </div>
+    
+    
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Intel NUC | Xorg.conf | X window </p>
+        </div>
+    
+    </body>
+</html>

@@ -1,0 +1,54 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Netbeans no compila (Broken platform)</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Cuando intentamos ejecutar un programa desde <b>Netbeans</b> no obtenemos ninguna salida por consola</p>
+            
+            <p>En la lista de archivos de librerias podemos ver esto:</p>
+            
+            <img src="Netbeans no compila (Broken platform)/1.png"/>
+        </div>
+        
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <p>Este error se debe a que tenemos mal configurado el directorio del <b>JDK</b></p>
+        
+        <p><b>Netbeans</b> desde la interfaz nos deja añadir nuevas plataformas del <b>JDK</b>, para utilizarlas <b>(Tools > Options > Java > JS on JVM> Manage Platforms)</b></p>
+        
+        <img src="Netbeans no compila (Broken platform)/3.png"/>
+        
+        <p>El problema es que no nos deja modificar la plataforma por defecto, de manera que cada vez que creamos un proyecto tendremos que modificar la plataforma del <b>JDK</b> que utiliza el proyecto, ya que la plataforma por defecto esta mal definida</p>
+        
+        <p>Para modificar la plataforma por defecto tenemos que hacerlo desde el archivo de configuracion</p>
+        
+        <code>~/netbeans-12.4/netbeans/etc/netbeans.conf</code>
+        
+        <p><b>NOTA</b>: La localizacion de archivo depende de donde tengamos instalado el netbeans, en mi caso lo tengo en mi carpeta personal</p>
+        
+        <p>Modificamos la opcion <b>netbeans_jdkhome</b></p>
+        
+        <p>En mi caso estaba establecida en <b>/usr</b></p>
+        
+        <p>Cuando la direccion correcta seria: <b>/usr/java/jdk-16.0.2</b></p>
+        
+        <img src="Netbeans no compila (Broken platform)/2.png"/>
+        
+        </div>
+    
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Netbeans | JDK | Manual </p>
+        </div>
+    
+    </body>
+</html>

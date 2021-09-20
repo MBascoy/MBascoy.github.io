@@ -1,0 +1,121 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Escribir-Leer en archivos (datos binarios)</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Codigo en Java para escribir o leer de archivos (datos binarios)</p>
+
+        </div>
+        
+    <div class="t2">Escribir en archivos</div>
+        <div class="cont">
+        
+        <p><b>NOTA</b>: la excepcion <b>IOException</b> tiene que se manejada siempre, ya sea con <b>throws</b> o con un bloque <b>try-catch</b>
+        
+        <h2>Usando FileOutputStream y ObjectOutputStream</h2>
+        
+        <p>En el caso de usar solo <b>FileOutputStream</b> solo tenemos la opcion de escribir bytes de manera individual</p>
+        
+        <p><b>ObjectOutputStream</b> nos permite utilizar varias funciones para hacer mas facil la escritura de datos binarios:</p>
+        
+        <ul>
+            <li>writeInt()</li>
+            <li>writeObject()</li>
+        </ul>
+            
+        
+        <pre><code>
+    import java.io.FileOutputStream;
+    import java.io.IOException;
+    import java.io.ObjectOutputStream;
+
+    public class JavaFilesBin {
+
+        public static void main(String[] args) throws IOException {
+            
+            int numero = 45645456;
+            
+            FileOutputStream dataFile = new FileOutputStream("archivo.dat");
+
+            ObjectOutputStream data = new ObjectOutputStream(dataFile);
+
+            data.writeObject(numero);
+
+            data.close();
+        }
+    }
+        </code></pre>
+        
+   
+        
+        </div>
+        
+        <div class="t2">Leer de archivos</div>
+        <div class="cont">
+        
+        <h2>Usando FileInputStream y ObjectInputStream</h2>
+        
+        <p>Cuando utilizamos <b>ObjectInputStream</b> tenemos que manejar la excepcion <b>ClassNotFoundException</b> a mayores</p>
+        
+        <p><b>ObjectInputStream</b> nos permite utilizar varias funciones para hacer mas facil la lectura de datos binarios:</p>
+        
+        <ul>
+            <li>readInt()</li>
+            <li>readObject()</li>
+        </ul>
+        
+        <pre><code>
+    import java.io.FileInputStream;
+    import java.io.IOException;
+    import java.io.ObjectInputStream;
+
+
+    public class JavaFilesBin {
+
+        public static void main(String[] args) throws IOException, ClassNotFoundException {
+                
+            FileInputStream readFile = new FileInputStream("archivo.dat");
+
+            ObjectInputStream readData = new ObjectInputStream(readFile);
+
+            System.out.println(readData.readObject());
+            
+            readData.close(); //Tenemos que cerrar los dos objetos
+            readFile.close();
+
+        }
+        
+    }
+        </code></pre>
+        
+        <p>En este caso a pesar de utilizar readObject lo estamos haciendo con un int, por lo tanto java puede manejarlo sin mas</p>
+        <p>en el caso de hacerlo con un objeto de verdad tendriamos que realizar una conversion explicita del objeto</p>
+        <p>La conversion explicita de objetos es un poco rara, en este caso seria (con un objeto <b>persona</b>):</p>
+        <code>((persona)readData.readObject())</code>
+        
+        <p>a partir de aqui podemos usar los atributos de persona</p>
+        
+        <code>((persona)readData.readObject()).nombre</code>
+        
+        <p>La siguiente forma por ejemplo seria incorrecta:</p>
+        <code>(persona)(readData.readObject()).nombre
+        
+        
+        </div>
+    
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>java | Archivos</p>
+        </div>
+    
+    </body>
+</html>
