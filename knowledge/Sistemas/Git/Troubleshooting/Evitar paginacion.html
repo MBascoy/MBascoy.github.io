@@ -1,0 +1,36 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Evitar paginacion</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Cuando ejecutamos un comando como git diff o git branch a veces se puede producir paginacion incluso aunque el resultado sea inferior al de una pagina entera de la consola.</p>
+            
+            <img src="Evitar paginacion/1.png"/>
+
+        </div>
+        
+    <div class="t2">Solucion</div>
+        <div class="cont">
+        <p>Para evitar la paginacion cuando la salida sea inferior a una pagina entera de la consola podemos configurar git con el siguiente comando:</p>
+        
+        <code>git config --global --replace-all core.pager "less -F -X"</code>
+        
+        <img src="Evitar paginacion/2.png"/>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Paginacion </p>
+        </div>
+    
+    </body>
+</html>

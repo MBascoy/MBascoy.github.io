@@ -10,18 +10,57 @@
     <div class="t2">Descripcion</div>
         <div class="cont">
 
-            <p>Como realizar la configuracion inicial de Git despues de la instalacion y configurar un repositorio desde 0.</p>
+            <p>Comandos para realizar branching en git.</p>
 
         </div>
 
     <div class="t2">Metodo</div>
         <div class="cont">
-        ha
+        <p>
+            <ul>
+                <li>Crear nueva branch en el repositorio local</li>
+                <code>> git branch &lt;nombre&gt;</code>
+                <li>Cambiar de branch</li>
+                <code>> git checkout &lt;nombre branch&gt;</code>
+                <li>Listar ramas locales / ramas remotas/ todas las ramas</li>
+                <code>> git branch -vv
+                <br/>
+                > git branch -r -vv
+                <br/>
+                > git branch -a -vv
+                </code>
+            </ul>
+        </p>
+        </div>
+        
+    <div class="t2">Descargar rama de repositorio remoto</div>
+        <div class="cont">
+        <p>
+        Cuando hacemos un <b>clone</b> de un repositorio se descarga la rama principal (<b>main</b>) si queremos descargar otra rama podemos hacerlo con el siguiente comando:
+        </p>
+        
+        <code>> git branch --track &lt;nombrelocal&gt; &lt;origin/nombreremoto&gt;</code>
+        
+        <p>Este comando crea una rama en nuestro repositorio local y la enlaza con la rama del repositorio remoto</p>
+        
+        <p><b>NOTA</b>: Un fallo que cometia era el de hacer <b>checkout origin/rama</b> para descargar una rama, eso no funciona, ya que lo unico que haces con eso es mover el HEAD a la rama del repositorio remoto y el HEAD queda desacoplado, si despues haces un <b>git branch</b> en ese caso si que se queda enlazada la rama en remoto con la nueva rama que se crea en local, pero no es la manera correcta de hacerlo.</p>
+        
+        </p>
+        </div>
+        
+    <div class="t2">Subir rama a repositorio remoto</div>
+        <div class="cont">
+        <p>
+        Si queremos subir una rama al repositorio remoto lo hacemos con el siguiente comando:
+        </p>
+        <code>> git push -u &lt;origin/ramaremota&gt; &lt;ramalocal&gt;</code>
+        
+        <p>Si lo hacemos sin el parametro <b>-u</b> y la rama no existe en el repositorio remoto, nos dara error, tenemos que usar la opcion <b>-u</b> la cual creara una conexion directa entre la rama local y la remota.
         </div>
 
     <div class="t2">Tags</div>
         <div class="cont">
-        <p>Git | Push | Init | Configuracion </p>
+        <p>Git | Branch </p>
         </div>
 
     </body>
