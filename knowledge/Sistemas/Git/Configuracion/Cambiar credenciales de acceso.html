@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Cambiar credenciales de acceso</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como hacer para cambiar el usuario que usa git para conectarse al repositorio remoto.</p>
+
+        </div>
+        
+    <div class="t2">Metodo Linux</div>
+        <div class="cont">
+            <p>Si tenemos configurado el <b>credential.helper store</b> las credenciales de acceso estaran guardadas en:</p>
+            <code>~/.git-credentials</code>
+            <p>Para que git nos permita acceder con otro usuario solo tenemos que borrar la linea que hace referencia al repositorio remoto dentro del archivo, una vez hecho esto al acceder al repositorio remoto git nos preguntara de nuevo por un usuario y contrasena.</p>
+        </div>
+        
+    <div class="t2">Metodo Windows</div>
+        <div class="cont">
+            <p>Accedemos al <b>Credential Manager</b> desde el panel de control o desde el buscador de aplicaciones></p>
+            
+            <img src=""/>
+            
+            <p>Entramos en la opcion de <b>Windows Credentials</b> y una vez dentro buscamos la entrada de git y la eliminamos, de esta manera la proxima vez que accedamos al repositorio remoto se nos pedira nuestro usuario y contrasena.</p>
+            <img src=""/>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Credenciales | User | Password </p>
+        </div>
+
+    </body>
+</html>
