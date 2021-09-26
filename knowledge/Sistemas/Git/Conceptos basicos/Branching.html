@@ -41,7 +41,7 @@
         
         <code>> git branch --track &lt;nombrelocal&gt; &lt;origin/nombreremoto&gt;</code>
         
-        <p>Este comando crea una rama en nuestro repositorio local y la enlaza con la rama del repositorio remoto</p>
+        <p>Este comando crea una rama en nuestro repositorio local y la enlaza (<b>--track</b>) con la rama del repositorio remoto</p>
         
         <p><b>NOTA</b>: Un fallo que cometia era el de hacer <b>checkout origin/rama</b> para descargar una rama, eso no funciona, ya que lo unico que haces con eso es mover el HEAD a la rama del repositorio remoto y el HEAD queda desacoplado, si despues haces un <b>git branch</b> en ese caso si que se queda enlazada la rama en remoto con la nueva rama que se crea en local, pero no es la manera correcta de hacerlo.</p>
         
@@ -57,6 +57,99 @@
         
         <p>Si lo hacemos sin el parametro <b>-u</b> y la rama no existe en el repositorio remoto, nos dara error, tenemos que usar la opcion <b>-u</b> la cual creara una conexion directa entre la rama local y la remota.
         </div>
+        
+    <div class="t2">Comparar ramas</div>
+        <div class="cont">
+        <p>
+        Para comparar dos ramas lo hacemos con la opcion <b>diff</b>, ejecutamos el comando de la siguiente manera:</p>
+    
+        <code>> git diff origin/main main</code>
+        
+        <p>Con el comando anterior comparamos la rama main del repositorio remoto con la rama main del repositorio local, normalmente es mas comodo indicar primero la rama que en teoria es mas antigua y despues la rama en la que estamos realizando cambios, para que <b>diff</b> nos muestre de manera visualmente  mas correcta los cambios realizados (si lo hacemos al reves funciona igual, pero los cambios nuevos apareceran como cambios eliminados en comparacion con la otra rama).</p>
+        
+        <p>Otra manera de ejecutar el <b>diff</b> es la siguiente:</p>
+        
+        <code>> git diff &lt;rama&gt;</code>
+        
+        <p>De esta manera compara la rama que le pasamos con la rama activa actual (el HEAD)</p>
+        
+        <p>Otra manera es esta:</p>
+        
+        <code>> git diff HEAD^</code>
+        
+        <p>En este comando compara un commit por encima del HEAD con la rama actual</p>        
+    
+    </div>
+    
+    <div class="t2">Unir ramas (Merge)</div>
+        <div class="cont">
+        <p>Para unir dos ramas usamos la opcion <b>merge</b>, primero tenemos que ponernos en la rama en la que queremos insertar todos los cambios y despues indicar la rama de la que queremos realizar la insercion.</p>
+        <p>(podemos decir que el merge se hace hacia el HEAD y no desde el HEAD)</p>
+        
+        <p>Si queremos hacer un <b>merge</b> en la rama main, lo hariamos de la siguiente manera:</p>
+        
+        <code>> git checkout main</code>
+        <code>> git merge otraRama</code>
+        
+        <p>De esta manera introduciriamos todas las modificaciones de la rama <b>otraRama</b> en la rama <b>main</b></p>
+        
+    </div>
+    
+    <div class="t2">Resolver conflictos</div>
+        <div class="cont">
+        <p>Cuando dos ramas modifican un mismo archivo pueden llegar a una situacion de conflicto, en ese caso al intentar hacer un <b>merge</b> se nos mostrara el siguiente mensaje:</p>
+        
+        <pre><code>jericho@localhost:~/gittest> git merge ramaTest 
+Auto-fusionando test.txt
+CONFLICTO (contenido): Conflicto de fusión en test.txt
+Fusión automática falló; arregle los conflictos y luego realice un commit con el resultado.</code></pre>
+        
+        <p>En este caso el archivo inicial tenia el siguiente contenido</p>
+        
+        <code>Contenido inicial</code>
+        
+        <p>Despues desde la rama <b>main</b> se hizo el siguiente cambio:</p>
+        
+        <pre><code>Contenido inicial
+
+Modificacion main</code></pre>
+
+        <p>Y simultaneamente desde la rama <b>ramaTest</b> se hizo el siguiente cambio:</p>
+        
+        <pre><code>Contenido inicial
+
+Modificacion ramaTest</code></pre>
+
+        <p>Al surgir el conflicto se nos indica que revisemos el archivo que ahora contiene los dos cambios de esta manera:</p>
+        
+        <pre><code> 
+Contenido inicial
+
+<<<<<<< HEAD
+Modificacion main
+=======
+modificacion ramaTest
+>>>>>>> ramaTest
+</code></pre>
+
+        <p>En el archivo que genera el <b>merge</b> se pueden ver cuales son las dos modificaciones que ha hecho cada rama.</p>
+        <p>Para solucionar el conflicto simplemente editamos dicho archivo de manera manual para dejarlo como queramos (ya sea borrando unas cosas y dejando otras o fusionando el contenido a nuestro gusto), el archivo que guardemos sera el que se guarde de manera definitiva en la rama como resultado final del merge</p>
+        
+        <p>En este caso yo quiero dejar las dos modificaciones de cada una de las ramas, una despues de otra, asi que simplemente borro los indicadores de las modificaciones de cada rama y dejo el archivo tal que asi:</p>
+        
+        <pre><code> 
+Contenido inicial
+
+
+Modificacion main
+
+modificacion ramaTest</code></pre>
+
+        <p>Y ahora para dar por finalizado el conflicto hago un <b>commit</b>, de esta manera indico que el archivo es tal cual asi como debe de quedar como resultado final.</p>
+        
+        <code>> git commit -a -m "Resolucion de conlicto"</code>
+        
+    </div>
 
     <div class="t2">Tags</div>
         <div class="cont">

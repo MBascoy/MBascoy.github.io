@@ -24,9 +24,18 @@
                 <li><b>git commit</b></li>
                 <p>Escribe las modificaciones al repositorio local</p>
                 <li><b>git log</b></li>
+                <ul>
+                    <li>git log --graph</li>
+                </ul>
                 <p>Nos muestra el historial de commits que se han hecho</p>
                 <li><b>git diff</b></li>
                 <p>Nos permite comparar las modificaciones del arbol de trabajo con el ultimo commit realizado</p>
+                
+                <li><b>git ls-tree</b></li>
+                <ul>
+                    <li>git ls-tree -r --name-only</li>
+                </ul>
+                <p>Permite listar los archivos que hay en una rama</p>
                 
             </ul>
         </div>
@@ -70,6 +79,10 @@
 
         <p>Configurar nuestra rama de trabajo actual (local) para que se sincronice con la rama main del repositorio remoto:</p>
         <code>> git branch --set-upstream-to origin/main</code>
+        
+        <p>Listar los archivos de la rama main de manera recursiva y mostrando solo el nombre:</p>
+        <code>> git ls-tree -r --name-only main
+</code>
 
         </div>
 
