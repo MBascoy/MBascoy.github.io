@@ -1,0 +1,57 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Permission denied (publickey)</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Cuando ejecutamos un <b>push</b> desde <b>git</b> obtenemos el siguiente mensaje de error: </p>
+            <pre><code>git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.</code></pre>
+            <img src="Permission denied (publickey)/1.jpg"/>
+
+        </div>
+        
+    <div class="t2">Solucion</div>
+        <div class="cont">
+        <p>Este error se produce porque no se tiene almacenada la clave publica en la cuenta de github o porque ni siquiera tienes generada un par de claves (publica/privada) y por lo tanto tampoco esta almacenada en el github.</p>
+
+        <p>Para generar el par de claves lanzamos el siguiente comando:</p>
+
+        <code>> ssh-keygen</code>
+
+        <p>Si introducimos el comando sin parametros nos realizara un par de preguntas, donde guardar la clave privada, y el passphrase. si dejamos los valores por defecto el passphrase quedara vacio y la clave se guardara en <b>~/.ssh/id_rsa</b></p>
+        
+        <img src="Permission denied (publickey)/2.jpg"/>
+
+        <p>Si usamos los valores por defecto la clave publica se guardara en <b>~/.ssh/id_rsa.pub</b> este es el valor que tendremos que introducir en el github para almacenar la clave publica</p>
+
+        <p>Dentro de github nos vamos a <b>settings</b>:</p>
+
+        <img src="Permission denied (publickey)/3.png"/>
+
+        <p>Despues entramos en <b>SSH and GPG keys</b>:</p>
+        <img src="Permission denied (publickey)/4.png"/>
+
+        <p>Hacemos click en <b>New SSH key</b>:</p>
+        <img src="Permission denied (publickey)/5.png"/>
+
+        <p>A continuacion dentro de <b>Title</b> ponemos un titulo descriptivo y dentro de <b>key</b> introducimos el contenido del archivo <b>id_rsa.pub</b></p>
+
+        <p>Al hacer click en <b>Add SSH key</b> github nos pedira que introduzcamos la contraseña de nuestra cuenta, al hacerlo la clave ya estara creada y ya podremos haver uso de los comandos como <b>push</b></p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | push | public key </p>
+        </div>
+    
+    </body>
+</html>
