@@ -23,6 +23,8 @@ fatal: Could not read from remote repository.</code></pre>
         <div class="cont">
         <p>Este error se produce porque no se tiene almacenada la clave publica en la cuenta de github o porque ni siquiera tienes generada un par de claves (publica/privada) y por lo tanto tampoco esta almacenada en el github.</p>
 
+        <p><b>NOTA</b>: el error solo se produce si se utiliza el protocolo <b>SSH</b> si se utiliza el protocolo <b>HTTP</b> no deberia de salir este error</p>
+
         <p>Para generar el par de claves lanzamos el siguiente comando:</p>
 
         <code>> ssh-keygen</code>
