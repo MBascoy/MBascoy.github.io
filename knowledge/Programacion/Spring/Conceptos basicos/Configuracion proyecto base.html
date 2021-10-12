@@ -18,11 +18,73 @@
         
     <div class="t2">Descripcion</div>
         <div class="cont">
+            <p>Para iniciar un proyecto en Spring nos vamos a la pagina:</p>
+
+            <p><b><a href="https://start.spring.io/">start.spring.io</a></b></p>
+
+            <img src="Configuracion proyecto base/1.jpg"/>
+
+            <p>Dejamos todas las opciones por defecto menos la version de Java que pondremos las 17</p>
+
+            <p>Despues arriba a la derecha en <b>Add Dependencies</b> añadimos la opcion de <b>Spring Web</b></p>
+
+            <img src="Configuracion proyecto base/2.jpg"/>
+
+            <p>Una vez tenemos todo configurado como queremos pulsamos el boton <b>Generate</b> y se nos descargara un archivo comprimido que contiene generada toda la estructura base del proyecto</p>
         
+            <p>Descomprimimos el archivo y esa sera la carpeta donde trabajaremos con nuestro proyecto</p>
        
-        
+            <p>Una cosa a tener en cuenta del proyecto generado es que ya viene integrado con <b>maven</b> por lo tanto aun en caso de que no hayamos descargado la herramienta de maven podemos usarla desde la carpeta del proyecto</p>
+
+            <p>A pesar de que aun no hemos añadido nada de codigo podemos lanzar el proyecto para ver como se compila y se lanza el servidor web, el proyecto ya viene con un codigo pregenerado que es la propia estructura de spring y las dependencias que hayamos añadido.</p>
+
+            <p>Si no tenemos <b>maven</b> instalado podemos usar la version que incluye el propio proyecto, desde la consola nos situamos en la carpeta del proyecto y ejecutamos el siguiente comando:</p>
+
+            <code>mvnw spring-boot:run</code>
+
+            <p>Si tenemos <b>maven</b> instalado en el sistema podemos usar el siguiente comando (colocandonos tambien en la carpeta del proyecto):</p>
+
+            <code>mvn spring-boot:run</code>
+
+            <p>Una vez se haya compilado el codigo y  ejecutado podemos ver un mensaje como el siguiente, (entre la informacion podemos ver por ejemplo en que puerto se esta ejecutando el servidor web):</p>
+            <img src="Configuracion proyecto base/3.jpg"/>
+
+            <p>Una vez ejecutado el servidor podemos acceder desde el navegador poniendo la direccion:</p>
+
+            <code>http://127.0.0.1:8080</code>
+
+            <p>Deberiamos de ver una página de error como la siguiente:</p>
+
+            <img src="Configuracion proyecto base/4.jpg"/>
+
+            <p>Este error nos indica que el codigo se ha completado correctamente y el servidor se ha ejecutado, el error se produce porque no hemos asignado ningun <b>endpoint</b> con la ruta <b>"/"</b></p>
+
         </div>
     
+
+    <div class="t2">Mapear una solicitud GET con un endpoint</div>
+        <div class="cont">
+            <p>A continuacion vamos a hacer que nuestra aplicacion devuelva un <b>"Hola Mundo"</b> cuando se solicite la direccion raiz <b>"/"</b> de la aplicacion</p>
+
+
+            <pre><code>package com.example.demo.controller;
+ 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+    
+@RestController
+public class HolaControlador {
+    
+    @GetMapping("/")
+    public String helloWorld() {
+    return "Hola Mundo!";
+    }
+}</code></pre>
+
+            <p>Ahora al volver a ejecutar la aplicacion si entramos en <b>http://127.0.0.1:8080</b> veremos el mensaje que hemos puesto</p>
+
+        </div>
+
     <div class="t2">Tags</div>
         <div class="cont">
         <p>Spring | Configuracion inicial</p>
