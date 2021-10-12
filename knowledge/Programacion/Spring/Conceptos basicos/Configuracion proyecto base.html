@@ -64,24 +64,29 @@
 
     <div class="t2">Mapear una solicitud GET con un endpoint</div>
         <div class="cont">
-            <p>A continuacion vamos a hacer que nuestra aplicacion devuelva un <b>"Hola Mundo"</b> cuando se solicite la direccion raiz <b>"/"</b> de la aplicacion</p>
+            <p>A continuacion vamos a hacer que nuestra aplicacion devuelva un <b>"Hola Mundo"</b> cuando se solicite la direccion raiz <b>"/"</b> de la aplicacion.</p>
 
+            <p>Primero creamos un archivo dentro del directorio (en la carpeta de nuestro proyecto) <b>src/main/java/com/example/demo</b>.</p>
 
-            <pre><code>package com.example.demo.controller;
- 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-    
-@RestController
-public class HolaControlador {
-    
-    @GetMapping("/")
-    public String helloWorld() {
-    return "Hola Mundo!";
+            <p>El archivo lo nombramos como <b>HolaControlador.java</b> y dentro introducimos el siguiente codigo:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> com.example.demo.controller;
+                
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.GetMapping;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.RestController;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@RestController</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">HolaControlador</span> </span>{
+
+    <span style="color:rgb(249, 145, 87); font-weight:400;">@GetMapping(<span style="color:rgb(249, 145, 87); font-weight:400;">&quot;/&quot;</span>)</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> String helloWorld() {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&lt;h1&gt;Hola Mundo!&lt;/h1&gt;&quot;</span>;
     }
 }</code></pre>
 
-            <p>Ahora al volver a ejecutar la aplicacion si entramos en <b>http://127.0.0.1:8080</b> veremos el mensaje que hemos puesto</p>
+                
+
+            <p>Ahora al volver a ejecutar la aplicacion si entramos en <b>http://127.0.0.1:8080</b> veremos el mensaje que hemos puesto.</p>
 
         </div>
 
