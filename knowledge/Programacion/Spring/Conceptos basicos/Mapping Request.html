@@ -1,0 +1,75 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Mapping Request</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Como gestionar desde Spring las distintas solicitudes que se pueden recibir en la aplicacion:</p>
+            
+            <ul>
+                <li>GET</li>
+                <li>POST</li>
+                <li>PUT</li>
+                <li>DELETE</li>
+            </ul>
+
+        </div>
+        
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <h2>@RestController</h2>
+            <p>Para realizar un <b>RequestMapping</b> lo primero que tenemos que hacer es indicar en nuetra clase la anotacion <b>@RestController</b> y a mayores tambien tenemos que importar la propia anotacion.</p>
+
+            <p>Importamos la anotacion de Sping:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.RestController;
+                </code></pre>
+
+            <p>Añadimos la anotacion <b>@RestController</b> a la clase:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@RestController</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">ControladorPrueba</span> </span>{
+
+
+}</code></pre>
+
+            <br/>
+            <h2>@RequestMapping</h2>
+            <p>A continuacion podemos asignar cualquiera solicitud (GET, POST...etc) usando la anotacion <b>@RequestMapping</b>, esta anotacion en principio se pone antes de una funcion para asignar esa funcion a una request concreta, aunque en realidad es mas comodo usar las anotaciones directas para cada solicitud, pero para que quede documentada esta manera tambien.</p>
+            
+            <p>Primero importamos las anotaciones del framework de Spring:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.RequestMapping;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.RequestMethod;</code></pre>
+
+            <p><b>NOTA</b>: Realizamos dos importaciones una es la del <b>RequestMapping</b> y la otra es la de los parametros que le pasaremos a la propia anotacion <b>RequestMethod</b></p>
+
+            <h2>@GetMapping</h2>
+            <p>Podemos usar esta anotacion para asociar una funcion con una solicitud <b>GET</b>, en vez de usar el <b>RequestMapping</b> con el parametro <b>RequestMethod.GET</b></p>
+
+            <h2>@PostMapping</h2>
+            <p>Podemos usar esta anotacion para asociar una funcion con una solicitud <b>POST</b>, en vez de usar el <b>RequestMapping</b> con el parametro <b>RequestMethod.POST</b></p>
+
+            <h2>@PutMapping</h2>
+            <p>Podemos usar esta anotacion para asociar una funcion con una solicitud <b>PUT</b>, en vez de usar el <b>RequestMapping</b> con el parametro <b>RequestMethod.PUT</b></p>
+        </div>
+
+    <div class="t2">Base Paths</div>
+        <div class="cont">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Spring | Configuracion inicial</p>
+        </div>
+    
+    </body>
+</html>

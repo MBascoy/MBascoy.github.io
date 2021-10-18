@@ -63,8 +63,10 @@
         
         <p>Este comando crea una rama en nuestro repositorio local y la enlaza (<b>--track</b>) con la rama del repositorio remoto</p>
         
-        <p><b>NOTA</b>: Un fallo que cometia era el de hacer <b>checkout origin/rama</b> para descargar una rama, eso no funciona, ya que lo unico que haces con eso es mover el HEAD a la rama del repositorio remoto y el HEAD queda desacoplado, si despues haces un <b>git branch</b> en ese caso si que se queda enlazada la rama en remoto con la nueva rama que se crea en local, pero no es la manera correcta de hacerlo.</p>
+        <p><b>NOTA</b>: Un fallo que cometia era el de hacer <b>checkout origin/rama</b> para descargar una rama, eso no funciona, ya que lo unico que haces con eso es mover el HEAD a la rama del repositorio remoto y el HEAD queda desacoplado, si despues haces un <b>git branch</b> en ese caso si que se queda enlazada la rama en remoto con la nueva rama que se crea en local, pero no es la manera correcta de hacerlo, para hacerlo con checkout se puede hacer asi:.</p>
         
+        <code>> git checkout -t &lt;origin/nombreremoto&gt;</code>
+
         </p>
         </div>
         
