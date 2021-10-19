@@ -1,0 +1,77 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Aborting PULL o CHECKOUT</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Al intentar hacer un <b>PULL</b> o un <b>CHECKOUT</b> la operacion se aborta:</p>
+
+            <img src="Aborting PULL o CHECKOUT/1.jpg"/>
+
+        </div>
+        
+    <div class="t2">Quick FIX</div>
+        <div class="cont">
+            <p>Normalmente con estos comandos podemos solucionar este problema (no siempre, a veces hay que analizar porque esta pasando):</p>
+            <pre><code>> git add .
+> git stash</code></pre>
+            <code>> git restore .</code>
+            <code>> git rm &lt;file&gt;</code>
+        </div>
+  
+    <div class="t2">Solucion</div>
+        <div class="cont">
+            <p>Vamos a analizar 3 casos en los que se puede dar un <b>Aborting</b> de un <b>MERGE</b>, <b>PULL</b> o <b>CHECKOUT</b></p>
+
+            <img src="Aborting PULL o CHECKOUT/1.jpg"/>
+
+            <p>En este caso el <b>Aborting</b> se da porque tenemos archivos trackeados que han sido modificados y no se ha hecho <b>commmit</b> sobre ellos, y al hacer el <b>checkout</b> esos archivos van a ser sobreescritos</p>
+
+            <p>En este caso podemos hacer un git stash o tambien un git restore:</p>
+
+            <code>> git stash</code>
+            <code>> git restore .</code>
+
+            <p>y a continuacion ya podremos hacer el <b>checkout</b>, en el caso de que quisiesemos recuperar esas modificaciones de las que no hemos hecho commit podremos hacerlo usando el comando <b>git stash pop</b> sobre la rama en la que queramos aplicar esos cambios.</p>
+
+            <img src="Aborting PULL o CHECKOUT/2.jpg"/>
+
+            <p>En este caso tenemos un archivo que NO esta trackeado y al intentar hacer el <b>Pull</b> ese archivo sera sobreescrito con uno de igual nombre que descargará el pull, por lo tanto el <b>pull</b> se aborta.</p>
+
+            <p>En este caso podemos hacer un git stash trackeando previamente el/los archivos o tambien borrar el archivo:</p>
+            
+            <pre><code>> git add .
+> git stash</code></pre>
+
+            <code>> git rm &lt;file&gt;</code>
+
+            <p>En este caso el <b>git restore .</b> no funcionaría ya que el archivo en cuestion no está trackeado. Y una cosa a tener en cuenta es que aunque usemos el <b>git add .</b> los archivos no quedan trackeados definitivamente en la rama, ya que el propio <b>git stash</b> deshace esa operacion.</p>
+
+
+            <img src="Aborting PULL o CHECKOUT/3.jpg"/>
+
+            <p>Este caso es casi igual que el anterior, tenemos una serie de archivos modificados que no estan trackeados y al hacer el <b>checkout</b> van a ser sobreescritos por los archivos de la rama a la que queremos hacer el <b>checkout</b></p>
+
+            <p>En este caso las soluciones serian las mismas que en el ejemplo anterior:</p>
+
+            <pre><code>> git add .
+> git stash</code></pre>
+                
+            <code>> git rm &lt;file&gt;</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Error | Clonar </p>
+        </div>
+    
+    </body>
+</html>

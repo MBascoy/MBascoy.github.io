@@ -29,6 +29,12 @@
                 <br/>
                 > git branch -a -vv
                 </code>
+                <li>Eliminar rama</li>
+                <code>> git branch -d &lt;nombre branch&gt;
+                    <br/>
+                    > git branch -D &lt;nombre branch&gt;
+                    </code>
+                <p>La opcion <b>-D</b> permite forzar el borrado en caso de que la rama tenga un merge pendiente</p>
             </ul>
         </p>
         </div>
@@ -80,6 +86,16 @@
         <p>Si lo hacemos sin el parametro <b>-u</b> y la rama no existe en el repositorio remoto, nos dara error, tenemos que usar la opcion <b>-u</b> la cual creara una conexion directa entre la rama local y la remota.
         </div>
         
+    <div class="t2">Mover rama a un commit anterior</div>
+        <div class="cont">
+            <p>Para mover una rama a un commit anterior lo hacemos con el siguiente comando:</p>
+
+            <code>> git branch -f &lt;rama&gt; &lt;Hash del commit&gt;</code>
+
+            <p>Para consultar el hash del commit podemos hacer un <b>git log</b></p>
+
+
+        </div>
     <div class="t2">Comparar ramas</div>
         <div class="cont">
         <p>
