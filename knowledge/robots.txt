@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /knowledge/
+
+Sitemap: https://mbascoy.github.io/sitemap.xml
