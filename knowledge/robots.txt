@@ -1,4 +1,4 @@
 User-agent: *
-Allow: /knowledge/
+Allow: /
 
-Sitemap: https://mbascoy.github.io/sitemap.xml
+Sitemap: https://mbascoy.github.io/knowledge/sitemap.xml
