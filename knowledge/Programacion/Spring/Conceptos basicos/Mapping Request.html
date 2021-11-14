@@ -1,19 +1,19 @@
- 
- 
+
+
 <html>
     <head>
         <link rel="stylesheet" href="../../../style.css">
     </head>
 
     <body>
-    
+
     <h1 class="t1">Mapping Request</h1>
-    
+
     <div class="t2">Descripcion</div>
         <div class="cont">
-        
+
             <p>Como gestionar desde Spring las distintas solicitudes que se pueden recibir en la aplicacion:</p>
-            
+
             <ul>
                 <li>GET</li>
                 <li>POST</li>
@@ -22,7 +22,12 @@
             </ul>
 
         </div>
-        
+
+    <div class="t2">Proyecto de ejemplo</div>
+        <div class="cont">
+          <a href="Mapping Request/Api-Rest-Example.zip">Api-Rest-Example.zip</a>
+        </div>
+
     <div class="t2">Descripcion</div>
         <div class="cont">
             <h2>@RestController</h2>
@@ -43,7 +48,7 @@
             <br/>
             <h2>@RequestMapping</h2>
             <p>A continuacion podemos asignar cualquiera solicitud (GET, POST...etc) usando la anotacion <b>@RequestMapping</b>, esta anotacion en principio se pone antes de una funcion para asignar esa funcion a una request concreta, aunque en realidad es mas comodo usar las anotaciones directas para cada solicitud, pero para que quede documentada esta manera tambien.</p>
-            
+
             <p>Primero importamos las anotaciones del framework de Spring:</p>
 
             <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.RequestMapping;
@@ -51,25 +56,169 @@
 
             <p><b>NOTA</b>: Realizamos dos importaciones una es la del <b>RequestMapping</b> y la otra es la de los parametros que le pasaremos a la propia anotacion <b>RequestMethod</b></p>
 
+            <p>Ejemplo:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@RequestMapping</span>(value = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/getRequest&quot;</span>, method = RequestMethod.GET)
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getRequest</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;GET Request Succesfull&quot;</span>;
+}</code></pre>
+
+            <P>Podemos usar otros metodos como:</p>
+              <pre><code>RequestMethod.POST
+RequestMethod.PUT
+</code></pre>
+
             <h2>@GetMapping</h2>
             <p>Podemos usar esta anotacion para asociar una funcion con una solicitud <b>GET</b>, en vez de usar el <b>RequestMapping</b> con el parametro <b>RequestMethod.GET</b></p>
+
+            <p>Primero necesitamos importar la siguiente libreria:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.GetMapping;</code></pre>
+
+            <p>Ejemplo de codigo:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@GetMapping</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/getRequest&quot;</span>)
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getRequest</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;GET Request Succesfull&quot;</span>;
+}</code></pre>
 
             <h2>@PostMapping</h2>
             <p>Podemos usar esta anotacion para asociar una funcion con una solicitud <b>POST</b>, en vez de usar el <b>RequestMapping</b> con el parametro <b>RequestMethod.POST</b></p>
 
+            <p>Primero necesitamos importar la siguiente libreria:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.PostMapping;</code></pre>
+
+            <p>Ejemplo de codigo:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@PostMapping</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/postRequest&quot;</span>)
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">postRequest</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;POST Request Succesfull&quot;</span>;
+}</code></pre>
+
             <h2>@PutMapping</h2>
             <p>Podemos usar esta anotacion para asociar una funcion con una solicitud <b>PUT</b>, en vez de usar el <b>RequestMapping</b> con el parametro <b>RequestMethod.PUT</b></p>
+
+            <p>Primero necesitamos importar la siguiente libreria:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.PutMapping;</code></pre>
+
+            <p>Ejemplo de codigo:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@PutMapping</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/putRequest&quot;</span>)
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">putRequest</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;PUT Request Succesfull&quot;</span>;
+}</code></pre>
         </div>
 
     <div class="t2">Base Paths</div>
         <div class="cont">
 
+          <p>El <b>@RequestMapping</b> podemos utilizarlo antes de la clase (En vez de antes de la funcion) para indicar un nombre base para todas las rutas posteriores de los endpoint que queramos asignar</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@RestController</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@RequestMapping(<span style="color:rgb(249, 145, 87); font-weight:400;">&quot;/base&quot;</span>)</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">RequestController</span> </span>{
+
+    <span style="color:rgb(249, 145, 87); font-weight:400;">@GetMapping(<span style="color:rgb(249, 145, 87); font-weight:400;">&quot;/getRequest&quot;</span>)</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> String getRequest(){
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;GET Request Succesfull&quot;</span>;
+    }</code></pre>
+
+          <p>En este caso el endpoint seria <b>/base/getRequest</b> y todos los endpoint que definamos dentro de la clase tendran como ruta base <b>/base</b> mas lo que se indique a mayores en el endpoint que asignemos a un metodo.</p>
         </div>
+
+        <div class="t2">Request Parameters</div>
+            <div class="cont">
+              <p>Cuando hacemos una peticion GET podemos pasar parametros a traves de la url y capturarlos en el metodo GET que definamos en el endpoint.</p>
+              <p>Un ejemplo de url con parametros seria el siguiente</p>
+
+              <code>http://127.0.0.1:8080/base/getRequest?message=hola</code>
+
+              <p>Despues de la ruta del endpoint ponemos <b>?</b> y a continuacion los parametros con el formato <b>clave=valor</b> si queremos enviar varios parametros deberan de ir separados entre ellos por el caracter <b>&</b>
+
+              <p>Y desde el codigo lo manejariamos usando la anotacion <b>@RequestParam</b> dentro de los parametros de la funcion</p>
+
+              <p>Antes de nada tenemos que importar:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.RequestParam;</code></pre>
+
+              <p>Codigo ejemplo: </p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@GetMapping</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/getRequest&quot;</span>)
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getRequest</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(249, 145, 87); font-weight:400;">@RequestParam</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> message</span>)</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;GET Request Succesfull, message: &quot;</span> + message;
+}</code></pre>
+
+            </div>
+
+            <div class="t2">Path Variables</div>
+                <div class="cont">
+                  <p>En vez de usar parametros http en la URL podemos usar PATH variables, que son variables introducidas dentro de la URL (parecido a los parametros pero algo diferente), ejemplos:
+                    <code>/getRequest/{nombre}/persona</code>
+                    <code>/getRequest/persona/{nombre}</code>
+
+                    <p>En este caso <b>nombre</b> seria la <b>Path Variable</b>, se puede colocar en cualquier sitio de la url, ya sea en el medio o al final del todo.</p>
+
+                    <p>Primero importamos:</p>
+
+                    <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.PathVariable;</code></pre>
+
+                    <p>Ejemplo de codigo:</p>
+
+                    <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@GetMapping</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/getRequest/{nombre}/persona&quot;</span>)
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getRequestPath</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(249, 145, 87); font-weight:400;">@PathVariable</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> nombre</span>)</span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;GET Request Succesfull, Persona: &quot;</span> + nombre;
+    }</code></pre>
+
+
+
+                </div>
+
+            <div class="t2">Request Body POST</div>
+                <div class="cont">
+                  <p>En el caso de que queramos obtener los datos a traves de una solicitud POST con la informacion en el body y no en la URL lo hariamos usando la anotacion @ResponseBody de la siguiente manera:</p>
+
+                  <p>Primero importamos:</p>
+
+                  <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.RequestBody;</code></pre>
+
+                  <p>Despues necesitamos crear un objeto en el que se mapeara toda la informacion que recibamos en el cuerpo de la peticion, en este caso incluiremos dos mensajes</p>
+
+                  <p>Objeto:</p>
+                  <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Messages</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> message1;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> message2;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getMessage1</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> message1;
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">setMessage1</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span> message1</span>)</span> {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.message1 = message1;
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getMessage2</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> message2;
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">setMessage2</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span> message2</span>)</span> {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.message2 = message2;
+    }
+}
+</code></pre>
+
+                  <p>El metodo para gestionar la solicitud POST:</p>
+
+                  <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@PostMapping</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/postRequest&quot;</span>)
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">postRequest</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(249, 145, 87); font-weight:400;">@RequestBody</span> Messages messages</span>)</span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;POST Request Succesfull &quot;</span> + messages.getMessage1() + messages.getMessage2();
+    }</code></pre>
+
+                  <p>Para hacer la solicitud POST podemos usar el Postman:</p>
+
+                  <img src="Mapping Request/1.jpg"/>
+                </div>
 
     <div class="t2">Tags</div>
         <div class="cont">
         <p>Spring | Configuracion inicial</p>
         </div>
-    
+
     </body>
 </html>

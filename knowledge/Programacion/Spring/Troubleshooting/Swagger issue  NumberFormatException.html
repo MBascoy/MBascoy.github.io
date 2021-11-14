@@ -1,0 +1,39 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Swagger issue  NumberFormatException</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Al ejecutar la pagina de swagger-ui.html se proudce una NumberFormatException:</p>
+
+            <img src="Swagger issue  NumberFormatException/1.jpg"/>
+
+            <p>El problema se debe a un fallo de swagger cuando se intenta documentar una variable que se tiene que pasar como un entero y swagger espera que se pase como un string</p>
+        </div>
+        
+    <div class="t2">Solucion</div>
+        <div class="cont">
+
+            <p>Para solucionar este error lo unico que tenemos que hacer es indicar el parametro <b>example</b> dentro de los <b>@ApiParam</b>, por ejemplo:</p>
+
+            <code>@ApiParam(value = "[Optional] idLanguage param for language query.", <b>example = "12"</b>) @RequestParam(required = false) Long idLanguage,</code>
+
+            <p>El valor que se le da al example en este caso tendria que ser un valor numerico ya que el parametro que se esta documentando es un long.</p>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Swagger | fallo swagger-ui</p>
+        </div>
+    
+    </body>
+</html>
