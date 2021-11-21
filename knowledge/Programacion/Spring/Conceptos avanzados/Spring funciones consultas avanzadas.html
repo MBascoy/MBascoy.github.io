@@ -1,0 +1,115 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Spring funciones consultas avanzadas</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Documentar los metodos de consultas que se pueden utilizar para hacer consultas desde el repositorio <b>JPA</b> para dar mas funcionalidad a la hora de usar el repositorio.</p>
+
+            <p>Ejemplo de funcion en el repostiorio:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">interface</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Repositorio</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">CrudRepository</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>, <span style="color:rgb(181, 189, 104); font-weight:400;">Integer</span>&gt; </span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;">List&lt;Persona&gt; <span style="color:rgb(181, 189, 104); font-weight:400;">findAll</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>;
+ }</code></pre>
+        </div>
+
+    <div class="t2">Documentacion de referencia</div>
+        <div class="cont">
+          <a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#reference">Spring JPA reference</a>
+          <br/><br/><br/><br/>
+        </div>
+    <div class="t2">Ordenar resultado de consultas</div>
+        <div class="cont">
+
+          <h2>OrderBy</h2>
+
+          <p>Podemos usar la combinacion de palabras <b>OrderBy</b> para organizar el resultado de una consulta de la siguiente manera:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">List&lt;Persona&gt; <span style="color:rgb(181, 189, 104); font-weight:400;">findAllByOrderByNameAsc</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>;</code></pre>
+
+          <p>De esta manera obtendriamos todos los resultados del repositorio ordenados por <b>name</b> de manera ascendente.</p>
+
+          <p>Hay que tener en cuenta un problema que tiene el <b>OrderBy</b> y es que es <b>CaseSensitive</b> lo que quiere decir que si hay palabras con mayusculas las ordenará antes de cualquiera palabra con minusculas, por lo tanto el orden no seria un orden alfabetico como tal, primero irian todas las palabras con mayusculas en orden alfabetico y despues todas las palabras con minusculas en orden alfabetico.</p>
+
+          <p>Si queremos ordenar por orden inverso usariamos <b>Desc</b> en vez de <b>Asc</b></p>
+
+          <h2>Sort</h2>
+
+          <p>Ya que con <b>OrderBy</b> tenemos la limitacion del <b>CaseSensitive</b> podemos usar <b>Sort</b> de la siguiente manera:</p>
+
+          <p>En el repositorio iria un codigo como este:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">List&lt;Persona&gt; <span style="color:rgb(181, 189, 104); font-weight:400;">findAll</span><span style="color:rgb(209, 217, 225); font-weight:400;">(Sort sort)</span></span>;</code></pre>
+
+          <p>Y despues llamamos a la funcion tal que asi:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">repositorio.findAll(Sort.<span style="color:rgb(204, 153, 204); font-weight:400;">by</span>(Sort.<span style="color:rgb(204, 153, 204); font-weight:400;">Order</span>.asc(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name&quot;</span>).ignoreCase()));</code></pre>
+
+          <p>En este campo estariamos ordenando de manera <b>ascendente</b> por el campo <b>name</b></p>
+
+          <p>De esta manera los resultados quedan ordenados independientemente de si las letras esten en mayusculas o minusculas</p>
+
+        </div>
+
+        <div class="t2">Busqueda por atributos dentro de un objeto (Traversed path)</div>
+            <div class="cont">
+
+              <p>Cuando tenemos un repositorio de una entidad que tiene objetos dentro podemos utilizar la siguiente funcion para filtrar por objetos dentro del objeto:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">findByMember_id</span>(id)</code></pre>
+
+              <p>Utilizamos la barra baja <b>_</b> para indicar un atributo dentro de un objeto</p>
+
+              <p>De esta manera buscariamos por el campo <b>id</b> dentro del objeto <b>member</b> que estaría dentro del objeto asociado al repositorio en el que estamos haciendo la consulta</p>
+
+            </div>
+
+        <div class="t2">Busqueda por atributos dentro de un objeto y ordenar por atributo dentro de objeto</div>
+            <div class="cont">
+              <p>Si queremos tambien podemos hacer una busqueda como la anterior y a su vez ordenar por un criterio que sea el de un campo dentro de un objeto:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">findByMember_idOrderBySkill_skillDesc</span>(id)</code></pre>
+
+              <p>En este caso estaríamos buscando por el campo <b>id</b> dentro del objeto <b>member</b> y a su vez estariamos ordenando los resultados por el campo <b>skill</b> dentro del objeto <b>skill</b></p>
+
+            </div>
+
+        <div class="t2">Busqueda en multiples campos</div>
+            <div class="cont">
+              <p>Si quisiesemos realizar una busqueda por multiples campos podemos hacerlo de la siguiente manera:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">findByNameAndLocation(<span style="color:rgb(181, 189, 104); font-weight:400;">String</span> name, <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> location)</code></pre>
+
+              <p>Utilizamos la palabra <b>And</b> para enlazar dos atributos</p>
+
+              <p>En este caso estariamos filtrando tanto por <b>name</b> como por <b>location</b> al mismo tiempo</p>
+
+            </div>
+
+        <div class="t2">Busqueda por conjunto de datos</div>
+            <div class="cont">
+
+              <p>Si queremos buscar por un conjunto de datos en una lista podemos hacerlo de la siguiente manera:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">findByInventoryIdIn(List&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">Long</span>&gt; inventoryIdList)</code></pre>
+
+              <p>Se utiliza la palabra <b>In</b> para realizar la busqueda en un conjunto</p>
+
+              <p>De esta manera buscariamos por por los <b>InventoryId</b> que coincidiesen con todos los ids en la lista <b>invetoryIdList</b>.</p>
+
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Spring | Repository | JPA | Consultas</p>
+        </div>
+
+    </body>
+</html>

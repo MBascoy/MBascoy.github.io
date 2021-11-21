@@ -1,0 +1,80 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Spring validations</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como realizar validaciones utilizando las <b>anotaciones</b> de <b>Spring</b></p>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+
+          <h2>Dependencias</h2>
+          <p>Pimero antes de nada tenemos que indicar las dependencias en el archivo <b>pom.xml</b>, añadimos el siguiente codigo en el archivo:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>org.springframework.boot<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>spring-boot-starter-validation<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span></code></pre>
+
+          <br/>
+          <h2>Implementación validaciones</h2>
+          <p>Para hacer las comprobaciones tenemos que añadir las etiquetas con las comprobaciones que queremos hacer dentro del modelo, por ejemplo:</p>
+
+          <p><b>IMPORTANTE:</b> Las etiquetas de validacion se tienen que poner en el <b>modelo</b> si se ponen en un <b>DTO</b> tendremos que utilizar la anotacion <b>@Valid</b> para indicar que se haga la comprobacion en esa clase en concreto</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(255, 204, 102); font-weight:400;">@Column</span>(name=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;NAME&quot;</span>)
+<span style="color:rgb(255, 204, 102); font-weight:400;">@Size</span>(max = <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>)
+private String name;</code></pre>
+
+          <p>En este caso utilizamos la etiqueta <b>@Size</b> para indicar el tamaño maximo que puede tener el string <b>name</b>, 5 caracteres en este caso.</p>
+
+          <br/>
+          <h2>Gestionar las excepciones</h2>
+          <p>Cuando una validacion no se cumple lo que ocurre es que se lanza una excepcion, concretamente se lanza la excepcion <b>ConstraintViolationException</b>, podemos utilizar la etiqueta <b>@ExceptionHandler</b> para manejar la excepcion y dar el comportamiento que queramos.</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@ExceptionHandler</span>( ConstraintViolationException.class)
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">invalidFields</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">Exception e</span>)</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;La cadena de caracteres no puede ser mayor de 5&quot;</span>;
+}</code></pre>
+
+        <p>A mayores podemos usar la anotacion <b>@Valid</b> que permite indicar que un objeto se debe de validar en su totalidad, la etiqueta la colocariamos tal que asi en un controlador por ejemplo:</p>
+
+        <p><b>NOTA:</b> Las etiquetas de validacion se tienen que poner en el <b>modelo</b> si se ponen en un <b>DTO</b> tendremos que utilizar la anotacion <b>@Valid</b> para indicar que se haga la comprobacion en esa clase en concreto</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(255, 204, 102); font-weight:400;">@PostMapping</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/postDBInfo&quot;</span>)
+public Persona postDBInfo(<span style="color:rgb(255, 204, 102); font-weight:400;">@Valid</span> <span style="color:rgb(255, 204, 102); font-weight:400;">@RequestBody</span> Persona persona){
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">repositorio</span><span style="color:rgb(209, 217, 225); font-weight:400;">.save</span>(persona);
+}</code></pre>
+
+        <p>Cuando usamos la etiqueta <b>@Valid</b> la excepcion que se devuelve es <b>MethodArgumentNotValidException</b>, en este caso deberiamos de indicarla en la manejador para poder controlar la excepcion</p>
+
+        </div>
+
+    <div class="t2">Etiquetas de validacion</div>
+        <div class="cont">
+        <p>Algunas de las etiquetas de validacion son:</p>
+        <ul>
+          <li><b>@Size</b>: podemos usarlo para indicar un minimo y un maximo de tamaño. e.g: @Size(min=1, max=5)</li>
+          <li><b>@Email</b>: valida que un string tenga formato de email</li>
+          <li><b>@NotEmpty</b>: valida que un valor no este vacio</li>
+        </ul>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Spring | Validations</p>
+        </div>
+
+    </body>
+</html>

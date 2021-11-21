@@ -1,0 +1,171 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Acceso a Base de datos repositorio JPA</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como realizar operaciones <b>CRUD</b> (Create, Read, Update, Delete) sobre una base de datos con <b>Spring</b></p>
+
+        </div>
+
+    <div class="t2">Preparacion</div>
+        <div class="cont">
+            <p>Para hacer uso del <b>Spring JPA</b> primero necesitamos indicar las dependencias en el <b>pom.xml</b></p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>org.springframework.boot<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span></code></pre>
+
+            <p>En este caso usaremos una base de datos <b>H2</b> asi que indicamos la siguiente dependencia:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>com.h2database<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>h2<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">scope</span>&gt;</span>runtime<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">scope</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span></code></pre>
+
+            <p>En el archivo <b>application.properties</b> indicamos la siguiente configuracion para conectarnos a nuestra base de datos:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">spring.datasource.url</span>=jdbc:h2:~/personas.db
+<span style="color:rgb(129, 162, 190); font-weight:400;">spring.datasource.driverClassName</span>=org.h2.Driver</code></pre>
+
+        </div>
+
+
+    <div class="t2">Implementacion</div>
+        <div class="cont">
+        <p>Para realizar la implementacion del acceso a una base de datos primero necesitamos crear un modelo de datos, que sera el equivalente a una tabla dentro de la base de datos con todos sus campos, para ello creamos una clase personas y añadimos los atributos que seran los campos que tendra en la base de datos, ademas debemos de incluir los <b>getters y setters</b>, un ejemplo seria el siguiente (archivo <b>Persona.java</b>):</p>
+
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">package com.example.ApiRestExample;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.persistence.Entity;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.persistence.GeneratedValue;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.persistence.Id;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.persistence.Column;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.persistence.Table;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Entity</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Table</span>(name=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;PEOPLE&quot;</span>)
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span> </span>{
+
+    <span style="color:rgb(249, 145, 87); font-weight:400;">@Id</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> Integer id;
+
+    <span style="color:rgb(249, 145, 87); font-weight:400;">@Column</span>(name=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;NAME&quot;</span>)
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> name;
+
+    <span style="color:rgb(249, 145, 87); font-weight:400;">@Column</span>(name=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;AGE&quot;</span>)
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> Integer age;
+
+    <span style="color:rgb(249, 145, 87); font-weight:400;">@Column</span>(name=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;EYE_COLOR&quot;</span>)
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> eyeColor;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> Integer <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getId</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> id;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">setId</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">Integer id</span>)</span> {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.id = id;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getName</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> name;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">setName</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span> name</span>)</span> {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.name = name;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> Integer <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getAge</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> age;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">setAge</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">Integer age</span>)</span> {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.age = age;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getEyeColor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> eyeColor;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">setEyeColor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span> eyeColor</span>)</span> {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.eyeColor = eyeColor;
+    }
+
+
+
+}</code></pre>
+
+        <p>A continuacion necesitamos definir la interfaz del repositorio (archivo <b>repositorio.java</b>):</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> com.example.ApiRestExample;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.data.repository.CrudRepository;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">interface</span> <span style="color:rgb(255, 204, 102); font-weight:400;">Repositorio</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(255, 204, 102); font-weight:400;">CrudRepository</span>&lt;<span style="color:rgb(255, 204, 102); font-weight:400;">Persona</span>, <span style="color:rgb(255, 204, 102); font-weight:400;">Integer</span>&gt; </span>{
+}</code></pre>
+
+        <br/>
+        <h2>Leer informacion de la Base de datos</h2>
+
+        <p>A continuacion en el controlador incluimos el siguiente codigo:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@Autowired</span>
+Repositorio repositorio;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@GetMapping</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/getDBInfo&quot;</span>)
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getDB</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+    Iterable&lt;Persona&gt; datos;
+    <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> contenido = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>;
+
+    datos = repositorio.findAll();
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(Persona i : datos){
+        contenido += i.getName() + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;, &quot;</span>;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> contenido;
+}</code></pre>
+
+        <p>Si revisamos el codigo lo primero que vemos es el <b>Autowired</b> esta anotacion permite realizar la carga de la clase del repositorio sin la necesidad de utilizar un constructor</p>
+
+        <p>Otro punto a tener en cuenta en el codigo es la llamada a <b>findAll()</b>, por defecto hay una serie de llamas que ya estan definidas en el repositorio, <b>findAll</b> es una de ellas, en este caso nos devuelve un objeto <b>Iterable&lt;Persona&gt;</b>, en este codigo simplemente cogemos el nombre de cada objeto y lo metemos en un string para devolverlo en la respuesta.</p>
+        <p>Spring nos permite utilizar una serie de funciones cuya funcionalidad depende del propio nombre de la funcion, mas info aqui METER LINK A PAGINA
+
+        <br/><br/>
+        <h2>Guardar informacion en la Base de datos</h2>
+
+        <p>Para guardar informacion en la base de datos utilizamos la funcion <b>save()</b>, una vez ya tenemos establecido el modelo y el repositorio guardar informacion en la base de datos es muy simple:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(255, 204, 102); font-weight:400;">@PostMapping</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/postDBInfo&quot;</span>)
+public Persona postDBInfo(<span style="color:rgb(255, 204, 102); font-weight:400;">@RequestBody</span> Persona persona){
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">repositorio</span><span style="color:rgb(209, 217, 225); font-weight:400;">.save</span>(persona);
+}</code></pre>
+
+          <p>En este caso recibimos la informacion del objeto persona desde la solicitud y el propio spring la mapea dentro del objeto, despues solo tenemos que llamar a la funcion <b>save()</b> y spring realiza el guardado en la base de datos.</p>
+
+          <p>En el postman la solicitud seria:</p>
+
+          <img src="Acceso a Base de datos repositorio JPA/1.jpg"
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Spring | Acceso a repositorio | Base de datos</p>
+        </div>
+
+    </body>
+</html>

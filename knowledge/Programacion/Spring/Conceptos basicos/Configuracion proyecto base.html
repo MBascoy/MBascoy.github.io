@@ -1,22 +1,22 @@
- 
- 
+
+
 <html>
     <head>
         <link rel="stylesheet" href="../../../style.css">
     </head>
 
     <body>
-    
+
     <h1 class="t1">Configuracion proyecto base</h1>
-    
+
     <div class="t2">Descripcion</div>
         <div class="cont">
-        
+
             <p>Como realizar la creacion de la base de un proyecto con spring</p>
 
         </div>
-        
-    <div class="t2">Descripcion</div>
+
+    <div class="t2">Crear un proyecto</div>
         <div class="cont">
             <p>Para iniciar un proyecto en Spring nos vamos a la pagina:</p>
 
@@ -31,9 +31,9 @@
             <img src="Configuracion proyecto base/2.jpg"/>
 
             <p>Una vez tenemos todo configurado como queremos pulsamos el boton <b>Generate</b> y se nos descargara un archivo comprimido que contiene generada toda la estructura base del proyecto</p>
-        
+
             <p>Descomprimimos el archivo y esa sera la carpeta donde trabajaremos con nuestro proyecto</p>
-       
+
             <p>Una cosa a tener en cuenta del proyecto generado es que ya viene integrado con <b>maven</b> por lo tanto aun en caso de que no hayamos descargado la herramienta de maven podemos usarla desde la carpeta del proyecto</p>
 
             <p>A pesar de que aun no hemos añadido nada de codigo podemos lanzar el proyecto para ver como se compila y se lanza el servidor web, el proyecto ya viene con un codigo pregenerado que es la propia estructura de spring y las dependencias que hayamos añadido.</p>
@@ -60,7 +60,7 @@
             <p>Este error nos indica que el codigo se ha completado correctamente y el servidor se ha ejecutado, el error se produce porque no hemos asignado ningun <b>endpoint</b> con la ruta <b>"/"</b></p>
 
         </div>
-    
+
 
     <div class="t2">Mapear una solicitud GET con un endpoint</div>
         <div class="cont">
@@ -71,7 +71,7 @@
             <p>El archivo lo nombramos como <b>HolaControlador.java</b> y dentro introducimos el siguiente codigo:</p>
 
             <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> com.example.demo.controller;
-                
+
 <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.GetMapping;
 <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.web.bind.<span style="color:rgb(204, 153, 204); font-weight:400;">annotation</span>.RestController;
 
@@ -84,7 +84,7 @@
     }
 }</code></pre>
 
-                
+
 
             <p>Ahora al volver a ejecutar la aplicacion si entramos en <b>http://127.0.0.1:8080</b> veremos el mensaje que hemos puesto.</p>
 
@@ -94,6 +94,6 @@
         <div class="cont">
         <p>Spring | Configuracion inicial</p>
         </div>
-    
+
     </body>
 </html>
