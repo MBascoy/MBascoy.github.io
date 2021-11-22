@@ -1,0 +1,99 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Maven generar proyecto</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como crear un proyecto desde 0 usando <b>Maven</b></p>
+
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Para generar un proyecto con <b>maven</b> lo hacemos con el siguiente comando:</p>
+
+          <code>> mvn archetype:generate</code>
+
+          <p>A continuacion entraremos en una interfaz interactiva donde se nos preguntaran una serie de requisitos para el proyecto:</p>
+
+          <ul>
+            <li>Metodo de despliegue de maven (hay miles), dejamos el por defecto: 1839</li>
+            <li><b>Version de maven</b>, por defecto: 1.4</li>
+            <li><b>grouId</b>, nombre de la empresa del proyecto</li>
+            <li><b>artifactId</b>, nombre de la aplicacion</li>
+            <li><b>Version de la aplicacion</b>, podemos dejarlo por defecto 1.0-SNAPSHOT</li>
+            <li><b>package</b>, nombre del paquete que se generará por defecto</li>
+          </ul>
+
+          <p>Si no queremos entrar en el modo interactivo podemos crear un proyecto por defecto con el siguiente comando:</p>
+
+          <code>mvn archetype:generate -DgroupId="com.mycompany.app" -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion="1.4" -DinteractiveMode=false</code>
+
+          <p><b>NOTA</b>: En el valor de los parametros es necesario meterlos entre comillas ("") si se ejecuta el comando desde el <b>powershell</b> ya que si no no se interpretan los puntos (.) como un literal</p>
+
+          <h2>Generar proyecto desde Visual Code</h2>
+          <p>El mismo proceso que se hace desde el terminal lo podemos realizar desde el <b>visual code</b></p>
+
+          <p>Primero tenemos que tener instalada la extension de <b>Maven for Java</b></p>
+
+          <p>Una vez tenemos la extension instalada solo tenemos que pulsar <b>F1</b> y seleccionar la opcion <b>Create Maven Project</b>:</p>
+
+          <img src="Maven generar proyecto/1.jpg"/>
+
+          <p><b>NOTA</b>: no confundir la opcion de <b>Maven: Create Maven Project</b> con la opcion de crear un proyecto de spring <b>Spring Initializr: Create a Maven Project</b></p>
+
+          <p>Una vez seleccionada la opcion se nos realizará las mismas preguntas que en la linea de comandos para indicar los parametros de creacion</p>
+
+        </div>
+
+
+    <div class="t2">Ejecucion del proyecto</div>
+        <div class="cont">
+
+          <p>Una vez tenemos creado el proyecto si queremos ejecutarlo directamente (usando <b>Cntrl+F5</b> por ejemplo), veremos un error como el siguiente:</p>
+
+          <img src="Maven generar proyecto/2.jpg"/>
+
+          <pre><code>Error: Could not find or load main class com.mycompany.app.App
+Caused by: java.lang.ClassNotFoundException: com.mycompany.app.App
+</pre></code></pre>
+
+        <p>Todavia no tenemos compilado el proyecto, asi que si lo intentamos ejecutar directamente obtendremos ese error</p>
+
+        <p>Para compilar el proyecto podemos ejecutar desde la consola <b>mvn compile</b> o desde el visual code desde <b>Maven > Lifecycle > compile</b>:</p>
+
+        <img src="Maven generar proyecto/3.jpg"/>
+
+        <p>Una vez compilado el proyecto podemos ejecutarlo llamando directamente a java (java.exe) o desde el visual code (Cntrl + F5)</p>
+
+        </div>
+
+    <div class="t2">Ejecucion de Tests</div>
+        <div class="cont">
+
+          <p>Con los <b>tests</b> pasa algo parecido, si los intentamos ejecutar directamente desde el <b>visual code</b> no se ejecutaran, primero tenemos que lanzar el comando <b>mvn test</b> o desde el visual code llamar a <b>Maven > Lyfecycle > test</b></p>
+
+          <img src="Maven generar proyecto/4.jpg"/>
+
+          <p>Una vez hecho esto ya podemos ejecutar los tests desde el visual code:</p>
+
+          <img src="Maven generar proyecto/5.jpg"/>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Maven | proyecto | java</p>
+        </div>
+
+    </body>
+</html>
