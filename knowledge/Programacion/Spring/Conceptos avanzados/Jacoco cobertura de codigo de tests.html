@@ -1,0 +1,61 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Jacoco cobertura de codigo de tests</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como implementar <b>jacoco</b> en nuestra aplicacion para obtener metricas de cobertura de codigo de nuestros <b>Unit Tests</b></p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+          <p>Introducimos el siguiente plugin en el <b>pom.xml</b>:</p>
+
+          <p><b>NOTA:</b> Tenemos que incluir el plugin dentro de <b>&lt;build&gt;</b> y dentro de <b>&lt;plugins&gt;</b></p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">plugin</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>org.jacoco<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>jacoco-maven-plugin<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">executions</span>&gt;</span>
+		<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">execution</span>&gt;</span>
+			<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">goals</span>&gt;</span>
+				<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">goal</span>&gt;</span>prepare-agent<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">goal</span>&gt;</span>
+			<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">goals</span>&gt;</span>
+		<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">execution</span>&gt;</span>
+		<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">execution</span>&gt;</span>
+			<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">id</span>&gt;</span>report<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">id</span>&gt;</span>
+			<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">phase</span>&gt;</span>prepare-package<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">phase</span>&gt;</span>
+			<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">goals</span>&gt;</span>
+				<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">goal</span>&gt;</span>report<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">goal</span>&gt;</span>
+			<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">goals</span>&gt;</span>
+		<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">execution</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">executions</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">plugin</span>&gt;</span></code></pre>
+
+          <p>Una vez hemos puesto el plugin podemos generar un reporte de la cobertura del codigo en <b>Maven > Plugins > jacoco > report</b> ejecutamos esa opcion del plugin y se generara el reporte:</p>
+
+          <img src="Jacoco cobertura de codigo de tests/1.jpg"/>
+
+          <p>Una vez ejecutada la generacion del reporte de cobertura podemos acceder a el en la carpeta <b>target/site/jacoco</b>, tendremos un archivo <b>index.html</b> en el que se muestra el reporte de una manera visual</p>
+
+          <img src="Jacoco cobertura de codigo de tests/2.jpg"/>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Jacoco | Unit test | Cobertura de codigo</p>
+        </div>
+
+    </body>
+</html>
