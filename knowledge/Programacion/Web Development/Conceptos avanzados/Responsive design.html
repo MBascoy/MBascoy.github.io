@@ -1,0 +1,96 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Responsive design</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Utilizamos el responsive design para desarrollar paginas que respondan al tamaño del navegador, de manera que no se veran igual si se ven en la pantalla de un telefono movil o en un monitor de un ordenador</p>
+
+        </div>
+
+    <div class="t2">Conceptos</div>
+        <div class="cont">
+
+        <p>Para hacer que una web sea responsive podemos utilizar los siguientes elementos de CSS:</p>
+
+        <ul>
+          <li>em y rem</li>
+          <li>Porcentajes</li>
+          <li>@media</li>
+        </ul>
+
+        </div>
+
+    <div class="t2">em y rem</div>
+        <div class="cont">
+          <p><b>em</b> y <b>rem</b> se usan como medidas de tamaño relativas.</p>
+
+          <p>En el caso de <b>em</b> es la medida relativa al tamaño de fuente base que usa el navegador, por lo general son 16 pixeles, en este caso 1em equivaldria a 16px y 2em equivaldria a 32px</p>
+          <p>En el caso de <b>rem</b> es exactamente lo mismo pero es en referencia al tamaño de fuente por defecto del elemento raiz &lt;html&gt;</p>
+
+        </div>
+
+
+    <div class="t2">Porcentajes</div>
+        <div class="cont">
+          <p>Las medidas en porcentaje son otras de las herramientas para hacer una pagina web responsive, si indicamos por ejemplo que un elemento ocupe el 50% de un elemento cuando el navegador se haga mas grande o mas pequeño ese tamaño variara en funcion de su tamaño (en este caso a la mitad, el 50%)
+
+        </div>
+
+    <div class="t2">@media</div>
+        <div class="cont">
+          <p>Podemos utilizar las media tags para indicar si queremos añadir un estilo css a una pagina o no:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">@media</span> <span style="color:rgb(204, 153, 204); font-weight:400;">only</span> screen <span style="color:rgb(204, 153, 204); font-weight:400;">and</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">max-width</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">960px</span>){
+  <span style="color:rgb(209, 217, 225); font-weight:400;">.main</span>{
+    <span style="color:rgb(129, 162, 190); font-weight:400;">margin-top</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+  }
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">@media</span> <span style="color:rgb(204, 153, 204); font-weight:400;">only</span> screen <span style="color:rgb(204, 153, 204); font-weight:400;">and</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">max-width</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">700px</span>){
+  <span style="color:rgb(209, 217, 225); font-weight:400;">.supporting</span> <span style="color:rgb(204, 153, 204); font-weight:400;">img</span>{
+    <span style="color:rgb(129, 162, 190); font-weight:400;">display</span>:none;
+  }
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">@media</span> <span style="color:rgb(204, 153, 204); font-weight:400;">only</span> screen <span style="color:rgb(204, 153, 204); font-weight:400;">and</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">max-width</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">470px</span>){
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">.rating</span> <span style="color:rgb(204, 153, 204); font-weight:400;">h1</span>{
+    <span style="color:rgb(129, 162, 190); font-weight:400;">font-size</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">2rem</span>;
+  }
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">.gallery</span> <span style="color:rgb(204, 153, 204); font-weight:400;">img</span> {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">width</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">100%</span>;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">margin</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">footer</span> <span style="color:rgb(204, 153, 204); font-weight:400;">nav</span>{
+    <span style="color:rgb(129, 162, 190); font-weight:400;">display</span>:none;
+  }
+
+}</code></pre>
+
+          <p>En el ejemplo anterior tendriamos 3 situaciones, cuando la pagina tiene un ancho hasta <b>470px</b> se aplicaria el ultimo css, cuando la pagina tiene un ancho hasta <b>700px</b> se aplicaria el segundo y cuando tiene un ancho hasta <b>960px</b> se aplicaria el tercero</p>
+
+          <p>Existen varias propiedades para las media tags, otra de las propiedades es la de <b>orientation</b> que se puede aplicar asi:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">@media</span> <span style="color:rgb(204, 153, 204); font-weight:400;">only</span> screen <span style="color:rgb(204, 153, 204); font-weight:400;">and</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">orientation</span>:portrait)</code></pre>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Web development | Responsive</p>
+        </div>
+
+    </body>
+</html>

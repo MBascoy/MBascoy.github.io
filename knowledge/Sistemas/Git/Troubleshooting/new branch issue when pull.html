@@ -1,0 +1,57 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">new branch issue when pull</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Cuando hacemos un pull en un repositorio nos aparece siempre un mensaje indicando que hay una nueva rama:</p>
+
+            <img src="new branch issue when pull/1.jpg"/>
+
+            <pre><code>$ git pull
+From https://github.com/SWO-GSDC-Spain/Academy-Team-02
+ * [new branch]      st_6_getLanguages -> origin/st_6_getLanguages
+Already up to date.</code></pre>
+
+
+
+
+
+        </div>
+
+    <div class="t2">Explicacion</div>
+        <div class="cont">
+          <p>Esto se produce porque hay dos ramas con el mismo nombre pero cambiando solo algunas letras en <b>Uppercase</b> por <b>Lowercase</b> o viceversa</p>
+
+          <p>En nuestro caso tenemos una rama <b>st_6_getLanguages</b> y otra rama <b>st_6_GetLanguages</b> lo unico que cambia entre las dos ramas es la letra "G" que en una esta en mayuscula y la otra en minuscula</p>
+
+          <p>Esto podemos verlo si usamos el comando <b>git remote show origin</b>:</p>
+
+          <code>> git remote show origin</code>
+
+          <img src="new branch issue when pull/2.jpg"/>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+          <p>Una manera de solucionar este fallo es eliminar una de las dos ramas con el <b>nombre duplicado</b> en el <b>repositorio remoto</b> y a continuacion ejecutar el siguiente comando:</p>
+
+          <code>> git fetch --prune origin</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | new branch | pull | duplicated branch </p>
+        </div>
+
+    </body>
+</html>

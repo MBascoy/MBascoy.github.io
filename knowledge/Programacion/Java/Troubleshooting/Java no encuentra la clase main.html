@@ -1,77 +1,105 @@
- 
- 
+
+
 <html>
     <head>
         <link rel="stylesheet" href="../../../style.css">
     </head>
 
     <body>
-    
+
     <h1 class="t1">Java no encuentra la clase main</h1>
-    
+
     <div class="t2">Descripcion</div>
         <div class="cont">
-        
+
             <p>Al compilar un archivo <b>.java</b> no tenemos ningun problema, pero a la hora de ejecutarlo nos encontramos con el siguiente error:</p>
-            
+
             <code>Error: Could not find or load main class JavaApplication1
             <br/>Caused by: java.lang.NoClassDefFoundError: javaapplication1/JavaApplication1 (wrong name: JavaApplication1)</code>
-            
+
             <img src="Java no encuentra la clase main/1.png" />
 
+            <p>Dependiendo de como ejecutemos el comando tambien podemos obtener el siguiente error, pero el motivo es el mismo:
+            <pre><code>Error: Could not find or load main class com.example.HiWorld
+Caused by: java.lang.ClassNotFoundException: com.example.HiWorld</code></pre>
+
+            <img src="Java no encuentra la clase main/9.jpg" />
+
         </div>
-        
+
     <div class="t2">Metodo</div>
         <div class="cont">
-        
+
         <p>Este error se produce porque el programa que intentamos ejecutar pertenece a un paquete concreto, si miramos dentro del archivo <b>.java</b> podemos confirmarlo:</p>
-        
+
         <img src="Java no encuentra la clase main/2.png" />
-        
+
         <p>Como podemos ver el programa pertenece al paquete <b>javaaplication1</b>. La manera en la que java gestiona esto es a traves de un arbol de subdirectorios, de manera que, el archivo <b>javaaplication1.java</b> tiene que estar dentro de un directorio llamado <b>javaaplication1</b> y ejecutarlo desde fuera de dicho directorio utilizando toda la ruta, de la siguiente manera:</p>
-        
+
         <code>java javaaplication1.javaaplication1</code>
-        
+
         <img src="Java no encuentra la clase main/3.png" />
-        
+
         <p><b>NOTA</b>: Tambien podemos usar el caracter <b>/</b> como separador en vez del <b>.</b> de manera que asemeje mas a una ruta en si, el siguiente comando funcionaria de igual manera:</p>
-        
+
         <code>java javaaplication1/javaaplication1</code>
-        
+
         <p>Como se puede ver, estamos en el directorio <b>src</b>, dentro de este directorio hay otro directorio que es <b>javaaplication1</b> y dentro de este directorio tenemos la clase compilada <b>javaaplication1.class</b>
-        
+
         <p>Si el programa no perteneciese a ningun paquete, podria ser ejecutado indicando su nombre sin mas, desde el mismo directorio:</p>
-        
+
         <img src="Java no encuentra la clase main/4.png" />
-        
+
         <p>En ese caso el programa <b>test.java</b> no pertenece a nigun paquete, al compilarlo y ejecutarlo podemos ver como funciona correctamente:</p>
-        
+
         <img src="Java no encuentra la clase main/5.png" />
-        
+
         <p>Otro ejemplo es cuando la aplicacion pertenece a una ruta de subpaquetes concreta, como en el siguiente caso:</p>
-        
+
         <img src="Java no encuentra la clase main/6.png" />
-        
+
         <p>Como se puede ver la aplicacion pertenece al paquete <b>com.mycompany.mavenproject1</b></p>
-        
+
         <p>En todos estos casos (como se puede ver en la imagen anterior) ya esta creado todo el arbol de subdirectorios, ya que todo esto son proyectos de Netbeans, pero cualquiera persona que vaya a ejecutar directamente desde la consola el programa probablemente acabe cometiendo el error de ir directamente al directorio final cuando la aplicacion pertenece a un paquete</p>
-        
+
         <p>En este ultimo caso deberiamos de ponernos en el directorio <b>java</b> y ejecutar desde ahi el programa</p>
-        
+
         <img src="Java no encuentra la clase main/7.png" />
-        
+
         <p>Como podemos ver en la imagen al compilar <b>NewClass</b> desde el directorio final no tenemos ningun problema, pero al ejecutarlo volvemos otra vez con el error de que no se encuentra la clase principal</p>
-        
+
         <p>Al bajar 3 niveles en el arbol de directorios y ponernos en el directorio <b>java</b> y ejecutar el comando con toda la ruta del paquete al que pertenece la aplicacion vemos que se ejecuta correctamente:</p>
-        
+
         <code>java com.mycompany.mavenproject1.NewClass</code>
-        
+
         </div>
-    
+
+    <div class="t2">ClassPath</div>
+        <div class="cont">
+        <p>Para no tener que ponernos en la ruta base de nuestro proyecto y tener que ejecutar desde ahi el comando <b>java</b> podemos usar el <b>classpath</b> (la opcion <b>-cp</b>) y de esta manera le indicamos al interprete de java cual es la ruta base del proyecto</p>
+
+        <p>En el siguiente ejemplo tenemos una clase en el paquete <b>com.example</b> y estamos colocados en el directorio donde esta el mismo archivo de la clase:</p>
+
+        <img src="Java no encuentra la clase main/8.jpg" />
+
+        <p>En este caso podemos ejecutar un comando como el siguiente:</p>
+
+        <code>java -cp ..\..\ com.example.HiWorld</code>
+
+        <p>En lugar de movernos de directorio, simplemente usamos la opcion <b>-cp</b> para indicar la ruta base del proyecto</p>
+
+        <p>Si estuviese en mi directorio personal <b>C:\Users\manuel.bascoy</b> la ejecucion en este caso seria:</p>
+
+        <code>java -cp prueba2 com.example.HiWorld</code>
+
+        <p>ya que el proyecto esta dentro de la carpeta <b>prueba2</b>
+
+        </div>
+
     <div class="t2">Tags</div>
         <div class="cont">
         <p>java | javac | NoClassDefFoundError | main class not found</p>
         </div>
-    
+
     </body>
 </html>
