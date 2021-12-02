@@ -1,0 +1,67 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">VSCode indicar parametros de ejecucion</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como configurar <b>VSCode</b> para pasar parametros a nuestro programa al ejecutarlo desde el IDE</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para indicar los parametros que queremos pasar a nuestro programa lo hacemos desde el archivo de configuracion <b>launch.json</b>, este archivo estará situado en la carpeta <b>.vscode</b> de nuestro proyecto:</p>
+
+          <img src="VSCode indicar parametros de ejecucion/1.jpg"/>
+
+          <p> si no tenemos ese archivo (o ni siquiera la carpeta) podemos crearlo de la siguiente manera:</p>
+
+          <img src="VSCode indicar parametros de ejecucion/2.jpg"/>
+
+          <p>Solo tenemos que irnos a la pestaña lateral de <b>Run and Debug</b> y darle a la opcion de "<b>create a launch.json file</b>" y el archivo se generará automáticamente</p>
+
+          <p>En nuestro caso el archivo se genera con el siguiente contenido:</p>
+
+          <img src="VSCode indicar parametros de ejecucion/3.jpg"/>
+
+          <p>Aqui podemos ver dos configuraciones:</p>
+
+          <img src="VSCode indicar parametros de ejecucion/4.jpg"/>
+
+          <p>La primera configuracion hace referencia a la ejecucion de una clase concreta, esto se da cuando ejecutamos el programa con <b>F5</b> en el <b>VSCode</b> o cuando usamos la opcion <b>Launch Current File</b> desde la pestaña de <b>run and debug</b></p>
+
+          <img src="VSCode indicar parametros de ejecucion/7.jpg"/>
+
+          <p>La segunda configuracion hace referencia a la ejecucion de la aplicacion en general, esto se da cuando hacemos <b>Run</b> desde la clase <b>main</b> en el propio <b>VSCode</b> o cuando usamos la opcion <b>Launch App</b> desde la pestaña de </b>run and debug</b></p>
+
+            <img src="VSCode indicar parametros de ejecucion/6.jpg"/>
+
+
+          <h2>Añadir parametros de ejecucion</h2>
+
+          <p>Para añadir los parametros que queramos ejecutar solo tenemos que añadir la linea <b>"args": "n1 n2 n3"</b> siendo n1, n2, n3, los parametros que queremos pasar (separados por espacios al igual que se haria en la consola)</p>
+
+          <img src="VSCode indicar parametros de ejecucion/5.jpg"/>
+
+          <p>En nuestro caso en la configuracion de <b>Launch Current File</b> estamos poniendo los parametros <b>22 y 33</b> y en la configuracion de <b>Launch App</b> estamos poniendo los parametros </b>55 y 77</b></p>
+
+          <p>Tenemos que tener en cuenta en cual de las 2 configuraciones añadimos la opcion <b>args</b> ya que dependiendo de como ejecutemos el programa en el <b>vscode</b> se ejecutara una configuracion o la otra y puede que no ejecute los parametros que queremos, tambien podemos poner la misma configuracion de <b>args</b> en las dos configuraciones para asegurarnos de que siempre se ejecuta el programa con los parametros que queremos.</p>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>VSCode | Visual Studio Code | Parametros de ejecucion | start arguments | args | argv</p>
+        </div>
+
+    </body>
+</html>
