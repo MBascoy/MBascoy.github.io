@@ -1,0 +1,52 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">npm start, Observable(T) is not assignable to Observable(R)</h1>
+
+    <div class="t2">Version</div>
+        <div class="cont">
+
+        <ul>
+            <li>Nodejs: 17.2.0</li>
+            <li>npm: 8.2.0</li>
+        </ul>
+
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        <p>Al ejecutar el comando <b>npm start</b> obtenemos el siguiente mensaje de error:</p>
+
+        <pre><code>node_modules/rxjs/Subject.d.ts:24:5 - error TS2416: Property 'lift' in type 'Subject<T>' is not assignable to the same proper
+ty in base type 'Observable<T>'.
+  Type '<R>(operator: Operator<T, R>) => Observable<T>' is not assignable to type '<R>(operator: Operator<T, R>) => Observabl
+e<R>'.
+    Type 'Observable<T>' is not assignable to type 'Observable<R>'.
+      Type 'T' is not assignable to type 'R'.
+        'R' could be instantiated with an arbitrary type which could be unrelated to 'T'.
+
+24     lift<R>(operator: Operator<T, R>): Observable<T>;
+</code></pre>
+
+        <img src="npm start, Observable(T) is not assignable to Observable(R)/1.jpg"/>
+
+        <p>Para solucionar el problema tenemos que instalar una version actualizada de <b>rxjs</b></p>
+
+        <code>npm install --save rxjs@^5.4.2</code>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>java | Angular | rxjs</p>
+        </div>
+
+    </body>
+</html>
