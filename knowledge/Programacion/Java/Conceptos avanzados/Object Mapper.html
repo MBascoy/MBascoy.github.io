@@ -1,0 +1,165 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Object Mapper</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar la clase <b>ObjectMapper</b> para convertir objetos con distintos atributos (mapear un objeto dentro de otro)</p>
+
+        </div>
+
+    <div class="t2">Dependencia pom.xml</div>
+        <div class="cont">
+
+            <p>Para utilizar el <b>ObjectMapper</b> tenemos que incluir la siguiente dependencia en el <b>pom.xml</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>com.fasterxml.jackson.core<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>jackson-databind<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">version</span>&gt;</span>2.13.0<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">version</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span></code></pre>
+
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>El <b>ObjectMapper</b> de la libreria <b>jackson</b> nos permite mapear objetos de distintas maneras, entre otras nos permite mapear objectos <b>json</b> a un objeto de java por ejemplo, o tambien mapear dos objetos que son similares pero no iguales (mapear solo los atributos que compartan).</p>
+
+          <p>En este ejemplo tenemos dos objetos:</p>
+
+          <p><b>cocheTipoA</b> con los siguientes atributos:</p>
+
+          <pre><code>    private int puertas;
+    private int ruedas;
+    private int tipoA;
+  </code></pre>
+
+          <p>y <b>cocheTipoB</b> con los siguientes atributos:</p>
+
+          <pre><code>    private int puertas;
+    private int ruedas;
+  </code></pre>
+
+          <p>Como podemos ver los dos objetos comparten dos atributos <b>puertas</b> y <b>ruedas</b>, asi que podemos usar un codigo como el siguiente para meter un objeto <b>cocheTipoB</b> dentro de un objeto <b>cocheTipoA</b>:</p>
+
+          <ul>
+            <li>Primero creamos el objeto de maper:</li>
+            <code>ObjectMapper mapper = new ObjectMapper();</code>
+            <li>Utilizamos la funcion <b>convertValue</b> del mapper:
+              <code>nuevoObjeto = mapper.convertValue(&lt;Objeto a convertir&gt;, &lt;Tipo final del objeto&gt;)</code>
+            </li>
+          </ul>
+
+          <pre>
+           <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> com.mycompany.app;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> com.fasterxml.jackson.databind.ObjectMapper;
+
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">App</span>
+</span>{
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">( String[] args )</span>
+    </span>{
+
+        cocheTipoA cocheA;
+
+        cocheTipoB cocheB = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> cocheTipoB();
+
+        ObjectMapper mapper = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ObjectMapper();
+
+        cocheB.setPuertas(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+
+        cocheA = mapper.convertValue(cocheB, cocheTipoA.class);
+
+        System.out.println( cocheA.getPuertas() );
+    }
+}</code></pre>
+
+          <p><b>NOTA</b>: para utilizar el <b>ObjectMapper</b> tenemos que hacer el siguiente imrpot: <b>import com.fasterxml.jackson.databind.ObjectMapper;</b></p>
+
+          <p>En este caso creamos un objeto <b>cocheTipoB</b> le asignamos un valor de <b>5</b> al numero de puertas y despues mapeamos el objeto <b>cocheTipoB</b> a un objeto <b>cocheTipoA</b> y a continuacion imprimimos el resultado del objeto <b>cocheTipoA</b> dando el resultado que habiamos asignado al objeto <b>cocheTipoB</b> por lo tanto el mapeo ha funcionado correctamente</p>
+
+          <p>Sin embargo si hacemos el mapeo al reves y mapeamos el objeto <b>cocheTipoA</b> dentro de un objeto <b>cocheTipoB</b> ocurre lo siguiente:</p>
+
+          <pre>
+           <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> com.mycompany.app;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> com.fasterxml.jackson.databind.ObjectMapper;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">App</span>
+</span>{
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">( String[] args )</span>
+    </span>{
+
+        cocheTipoA cocheA = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> cocheTipoA();
+
+        cocheTipoB cocheB;
+
+        ObjectMapper mapper = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ObjectMapper();
+
+        cocheA.setPuertas(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+
+        cocheB = mapper.convertValue(cocheA, cocheTipoB.class);
+
+        System.out.println( cocheB.getPuertas() );
+    }
+}</code></pre>
+
+          <img src="Object Mapper/1.jpg"/>
+
+          <code>Exception in thread "main" java.lang.IllegalArgumentException: Unrecognized field "tipoA" (class com.mycompany.app.cocheTipoB), not marked as ignorable (2 known properties: "puertas", "ruedas"])</code>
+
+          <p>En este caso estamos intentando mapear un objeto que tiene un atributo <b>tipoA</b> dentro de un objeto que no lo tiene, a pesar de que los otros atributos si que los tiene, y el error que se lanza precisamente es que el atributo <b>tipoA</b> no esta dentro del objeto <b>cocheTipoB</b>, para resolver este problema y hacer que el <b>ObjectMapper</b> ignore ese atributo y mapee solo los atributos que si que coinciden podemos configurar el ObjectMapper de la siguiente manera:</p>
+
+          <p>Usame el metodo <b>configure</b> del mapper</p>
+          <code>mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</code>
+
+          <p>El codigo final quedaría tal que así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> com.mycompany.app;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> com.fasterxml.jackson.databind.ObjectMapper;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> com.fasterxml.jackson.databind.DeserializationFeature;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">App</span>
+</span>{
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">( String[] args )</span>
+    </span>{
+
+        cocheTipoA cocheA = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> cocheTipoA();
+
+        cocheTipoB cocheB;
+
+        ObjectMapper mapper = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ObjectMapper();
+
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>);
+
+        cocheA.setPuertas(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+
+        cocheB = mapper.convertValue(cocheA, cocheTipoB.class);
+
+        System.out.println( cocheB.getPuertas() );
+    }
+}</code></pre>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>ObjectMapper | Jackson | java</p>
+        </div>
+
+    </body>
+</html>
