@@ -1,0 +1,48 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Crear un componente</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Para crear un <b>componente</b> en angular lo hacemos con los siguientes pasos:</p>
+          <p><b>NOTA:</b> Podemos crear todo el componente dentro de una nueva carpeta si queremos.</p>
+          <ul>
+            <li>Creamos un archivo <b>ejemplo.component.ts</b></li>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+    <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;empleado&#x27;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./empleados.component.html&#x27;</span>
+  })
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">empleadosComponent</span> </span>{
+    <span style="color:rgb(129, 162, 190); font-weight:400;">nombre</span>:<span style="color:rgb(181, 189, 104); font-weight:400;">string</span> = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pepe&quot;</span>;
+  }</code></pre>
+            <li>Creamos un archivo <b>ejemplo.component.html</b></li>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">&lt;<span style="color:rgb(204, 153, 204); font-weight:400;">h1</span>&gt;Empleados: {{nombre}}&lt;/<span style="color:rgb(204, 153, 204); font-weight:400;">h1</span>&gt;</code></pre>
+            <li>En el archivo <b>app.module.ts</b> ponemos la dependencia del componente</li>
+            <img src="Crear un componente/1.jpg">
+            <li>Utilizamos el componente creado en el componente principal de la aplicacion:</li>
+            <img src="Crear un componente/2.jpg">
+            <li>El componente ya se debería de ver en la aplicacion:</li>
+            <img src="Crear un componente/3.jpg">
+          </ul>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Componente</p>
+        </div>
+
+    </body>
+</html>

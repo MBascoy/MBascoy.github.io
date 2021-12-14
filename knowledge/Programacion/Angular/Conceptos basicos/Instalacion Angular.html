@@ -13,8 +13,8 @@
         <div class="cont">
 
         <ul>
-            <li>Nodejs: 17.2.0</li>
-            <li>npm: 8.2.0</li>
+            <li>Nodejs: 16.13.1</li>
+            <li>npm: 8.3.0</li>
         </ul>
 
         </div>
@@ -66,6 +66,28 @@
           <p>Una vez instalado el <b>Node.js</b> podemos actualizar el <b>npm</b> a su ultima version con el siguiente comando:</p>
 
           <code>> npm install -g npm@latest</code>
+
+
+          <h2>Angular CLI</h2>
+          <p>Para instalar el <b>Angular CLI</b> podemos hacerlo de la siguiente manera usando el <b>npm</b>:</p>
+
+          <code>npm install -g angular-cli</code>
+
+          <h3>Errores</h3>
+          <p>Si cuando instalamos <b>angular-cli</b> pueden saltarnos una serie de errores:</p>
+          <img src="Instalacion Angular/2.jpg"/>
+
+          <p>Si tenemos una instalacion previa de angular podemos obtener el siguiente error indicando que ya hay archivos existentes de instalaciones previas:</p>
+          <img src="Instalacion Angular/1.jpg"/>
+
+          <p>Para solucionar estos errores podemos ejecutar los siguientes comandos:</p>
+
+          <pre><code>> npm uninstall -g angular-cli
+> npm cache --force clean
+> npm install --force -g @angular/cli@latest</code></pre>
+
+          <p>De esta manera desinstalamos inslaciones previas que pueda haber de angular, limpiamos la cache y forzamos la instalacion de la ultima version de angular.</p>
+
 
         </div>
 
