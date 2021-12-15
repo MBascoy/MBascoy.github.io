@@ -1,0 +1,63 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">ngFor</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como utilizar la sentencia de control <b>ngFor</b> para mostrar etiquetas varias veces a traves de una serie de iteracciones</p>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Podemos usar el <b>ngFor</b> de la siguiente manera:</p>
+
+            <p>Si tenemos el siguiente componente:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+    <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;empleado&#x27;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./empleados.component.html&#x27;</span>
+  })
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">empleadosComponent</span> </span>{
+    <span style="color:rgb(129, 162, 190); font-weight:400;">numeros</span>:<span style="color:rgb(181, 189, 104); font-weight:400;">Array</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">number</span>&gt; = [<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">3</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">6</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>];
+  }</code></pre>
+
+          <p>Podemos utilizar el <b>ngFor</b> de la siguiente manera:</b>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngFor</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;let num of numeros&quot;</span>&gt;</span>{{num}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span></code></pre>
+
+          <p>Utilizamos la directiva <b>*ngFor</b> indicando sobre que datos queremos iterar</p>
+
+          <p>En este caso iteramos sobre el array de <b>numeros</b> y utilizamos la variable <b>num</b> dentro de la etiqueta.</p>
+
+          <img src="ngFor/1.jpg"/>
+
+          <p>Tambien podemos utilizar un indice dentro del bucle de esta manera:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngFor</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;let num of numeros; let i = index&quot;</span>&gt;</span>{{num}} Indice: {{i}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span></code></pre>
+
+          <img src="ngFor/2.jpg"/>
+
+
+
+
+
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | ngFor</p>
+        </div>
+
+    </body>
+</html>

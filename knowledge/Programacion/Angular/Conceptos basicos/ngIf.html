@@ -1,0 +1,58 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">ngIf</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como utilizar la sentencia de control <b>ngIf</b> para controlar que etiquetas mostrar</p>
+
+        </div>
+
+      <div class="t2">Descripcion</div>
+          <div class="cont">
+            <p>Para utilizar el ngIf lo podemos hacer de la siguiente manera:</p>
+
+            <p>Teniendo el siguiente componente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+    <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;empleado&#x27;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./empleados.component.html&#x27;</span>
+  })
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">empleadosComponent</span> </span>{
+    <span style="color:rgb(129, 162, 190); font-weight:400;">nombre</span>:<span style="color:rgb(181, 189, 104); font-weight:400;">string</span> = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pepe&quot;</span>;
+  }</code></pre>
+
+            <p>Podemos usar la directiva <b>*ngIf</b> dentro de una etiqueta para decidir si se muestra o no:</p>
+
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngIf</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;nombre==&#x27;Pepe&#x27;&quot;</span>&gt;</span>el nombre es Pepe<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngIf</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;nombre!=&#x27;Pepo&#x27;&quot;</span>&gt;</span>El nombre es distinto de Pepe<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span></code></pre>
+
+            <img src="ngIf/1.jpg"/>
+
+            <p>La sintaxis del <b>*ngIf</b> es la siguiente:</p>
+
+            <code>*ngIf="&lt;condicion&gt;"</code>
+
+            <p>La condicion va entre comillas dobles (""), si queremos especificar un string dentro de la condicion la podemos poner dentro de comillas simples ('')</p>
+
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | ngIf</p>
+        </div>
+
+    </body>
+</html>
