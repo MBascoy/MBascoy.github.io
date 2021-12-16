@@ -1,0 +1,177 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Routing</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>El <b>Routing</b> en angular nos permite cargar componentes segun la ruta que pongamos en el navegador</p>
+
+          <p>La diferencia entre usar rutas y hiperenlaces es que las rutas se cargan mucho mas rapido y ademas no hace perder el estado de la aplicacion web</p>
+
+        </div>
+
+    <div class="t2">Crear routing</div>
+        <div class="cont">
+
+          <p>Podemos generar una aplicacion con el <b>routing</b> ya integrado tan pronto como creamos la aplicacion con <b>Angular CLI</b> con el siguiente comando:</p>
+
+          <code>ng new &lt;Nombre aplicacion&gt; --routing --defaults</code>
+
+          <p>En el caso de que ya tengamos creada una aplicacion y queremos añadirle <b>routing</b> tenemos que realizar una serie de pasos:</p>
+
+          <ul>
+            <li>Primero ejecutamos el siguiente comando:
+              <code>ng generate module app-routing --flat --module=app</code>
+            </li>
+            <li>El comando nos generará el archivo <b>app-routing.module.ts</b> con el siguiente contenido:</li>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { NgModule } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { CommonModule } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/common&#x27;</span>;
+
+
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule
+  ]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">AppRoutingModule</span> { }</span></code></pre>
+
+            <p>Tenemos que reemplazarlo con lo siguiente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { NgModule } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { RouterModule, Routes } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/router&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { TestComponent } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./test/test.component&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> routes: Routes = [
+  { <span style="color:rgb(129, 162, 190); font-weight:400;">path</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;test&#x27;</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">component</span>: TestComponent }
+];
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@NgModule</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">imports</span>: [RouterModule.forRoot(routes)],
+  <span style="color:rgb(129, 162, 190); font-weight:400;">exports</span>: [RouterModule]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">AppRoutingModule</span> </span>{ }</code></pre>
+
+            <p>En este caso puse ya el componente <b>test</b> que estoy usando como prueba, en los <b>import</b> y los <b>paths</b> se deberian de colocar los modulos que tengamos en nuestra aplicacion, lo explico en la siguiente seccion</p>
+
+            <li>A mayores asegurarse de que en el archivo <b>app.module.ts</b> tenemos importado el <b>AppRoutingModule</b>, esto debería de hacerlo el angular cli, pero nunca esta demas comprobarlo:</li>
+
+            <img src="Routing/1.jpg"/>
+          </ul>
+        </div>
+
+    <div class="t2">Utilizar routing</div>
+        <div class="cont">
+          <p>Para utilizar el routing primero tenemos que declarar las rutas en el archivo <b>app-routing.module.ts</b>, en la constante <b>routes</b> debemos de declarar todas las rutas</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">const routes:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Routes</span> <span style="color:rgb(138, 190, 183); font-weight:400;">=</span> [
+  { <span style="color:rgb(129, 162, 190); font-weight:400;">path:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;test&#x27;</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">component:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">TestComponent</span> }
+]<span style="color:rgb(138, 190, 183); font-weight:400;">;</span></code></pre>
+
+          <p>En este caso creamos una ruta para <b>test</b> esta ruta estará asociada a la direccion <b>http://localhost:4200/test</b> en caso del servidor local y asociada al componente TestComponent</P>
+
+          <p>Para que se muestre el componente tenemos que asociar el routing en el componente base, utilizando la etiqueta <b>&lt;router-outlet&gt;&lt;/router-outlet&gt;</b></p>
+
+            <img src="Routing/2.jpg"/>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:700;">&lt;h1&gt;</span><span style="color:rgb(129, 162, 190); font-weight:400;">App</span> Curso Angular&lt;/h<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&gt;
+
+<span style="color:rgb(181, 189, 104); font-weight:700;">&lt;app-test&gt;</span><span style="color:rgb(181, 189, 104); font-weight:700;">&lt;/app-test&gt;</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:700;">&lt;router-outlet&gt;</span><span style="color:rgb(181, 189, 104); font-weight:700;">&lt;/router-outlet&gt;</span></code></pre>
+
+          <p>En este ejemplo si ejecutamos la aplicacion sin mas (http://127.0.0.1:4200/), vemos esto:</p>
+
+          <img src="Routing/3.jpg"/>
+
+          <p>Si ejecutamos con la ruta de <b>test</b> (http://127.0.0.1:4200/test), vemos esto:</p>
+
+          <img src="Routing/4.jpg"/>
+
+          <p>El componente test aparece dos veces, la propia que tenemos definida en el componente base y la del routing</p>
+
+          <h2>Rutas genericas</h2>
+
+          <p>Hay dos rutas genericas que podemos usar, que son la ruta por defecto ('') y la ruta del error (**)</p>
+
+          <p>En este caso añadimos dos componentes, uno <b>MainPage</b> y otro <b>ErrorPage</b>, y los asociamos con la ruta por defecto y la ruta de error:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">const routes:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Routes</span> <span style="color:rgb(138, 190, 183); font-weight:400;">=</span> [
+  { <span style="color:rgb(129, 162, 190); font-weight:400;">path:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;&#x27;</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">component:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">MainPageComponent</span> },
+  { <span style="color:rgb(129, 162, 190); font-weight:400;">path:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;test&#x27;</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">component:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">TestComponent</span> },
+  { <span style="color:rgb(129, 162, 190); font-weight:400;">path:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;**&#x27;</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">component:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ErrorPageComponent</span> }
+]<span style="color:rgb(138, 190, 183); font-weight:400;">;</span></code></pre>
+
+          <p>La ruta por defecto se ejecutara cuando no pongamos ningun añadido en la direccion (http://127.0.0.1:4200)</p>
+
+          <p>La ruta de error se ejecutara cuando se ponga una ruta que no este contemplada en ninguna de las otras rutas definidas, http://127.0.0.1:4200/fefes por ejemplo</p>
+
+        </div>
+
+
+    <div class="t2">Redireccion de rutas</div>
+        <div class="cont">
+          <p>Al definir las rutas en el archivo <b>app-routing.module.ts</b> una de las cosas que podemos hacer es definir redirecciones tal que asi:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">const routes: Routes = [
+  { path: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;main&#x27;</span>, component: MainPageComponent },
+  { path: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;test&#x27;</span>, component: TestComponent },
+  { path: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;&#x27;</span>,   redirectTo: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/main&#x27;</span>, pathMatch: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;full&#x27;</span> },
+  { path: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;**&#x27;</span>, component: ErrorPageComponent }
+];</code></pre>
+
+          <p>En este caso utilizamos la opcion <b>redirectTo</b> para redirigir la pagina principal <b>"/"</b> a la pagina <b>"/main"</b></p>
+
+        </div>
+
+    <div class="t2">routerLink y routerLinkActive</div>
+        <div class="cont">
+
+          <p>Para acceder a las rutas desde enlaces de la propia web podemos usar la directiva <b>routerLink</b></p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">nav</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">a</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">routerLink</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[&#x27;/main&#x27;]&quot;</span>&gt;</span>Principal<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">a</span>&gt;</span> |
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">a</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">routerLink</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[&#x27;/test&#x27;]&quot;</span>&gt;</span>test<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">a</span>&gt;</span> |
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">a</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">routerLink</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[&#x27;/error&#x27;]&quot;</span>&gt;</span>error<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">a</span>&gt;</span> |
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">nav</span>&gt;</span></code></pre>
+
+          <p>De esta manera se cargaran los componentes asociados con la ruta sin tener que refrescar la pagina y sin perder el estado de la aplicacion web</p>
+
+          <p>Otra directiva que podemos usar es <b>routerLinkActive</b> que la podemos utilizar para aplicar un estilo cuando una de las rutas esta activa:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">nav</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">a</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">routerLink</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[&#x27;/main&#x27;]&quot;</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">routerLinkActive</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[&#x27;enlaceActivo&#x27;]&quot;</span>&gt;</span>Principal<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">a</span>&gt;</span> |
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">a</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">routerLink</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[&#x27;/test&#x27;]&quot;</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">routerLinkActive</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[&#x27;enlaceActivo&#x27;]&quot;</span>&gt;</span>test<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">a</span>&gt;</span> |
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">a</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">routerLink</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[&#x27;/error&#x27;]&quot;</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">routerLinkActive</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[&#x27;enlaceActivo&#x27;]&quot;</span>&gt;</span>error<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">a</span>&gt;</span> |
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">nav</span>&gt;</span></code></pre>
+
+          <p>En este caso se estaría aplicando el estilo <b>enalceAvtivo</b> que tenemos definido en <b>app.component.css</b></p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">.enlaceActivo</span>{
+    <span style="color:rgb(129, 162, 190); font-weight:400;">background-color</span>: lightblue;
+}</code></pre>
+
+          <p>Y el resultado seria este:</p>
+
+          <img src="Routing/5.jpg"/>
+
+          <p>El enlace activo se ve con un fondo azul</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Routing</p>
+        </div>
+
+    </body>
+</html>
