@@ -12,51 +12,48 @@
     <div class="t2">Descripcion</div>
         <div class="cont">
 
-          <p>Como utilizar la sentencia de control <b>ngFor</b> para mostrar etiquetas varias veces a traves de una serie de iteracciones</p>
+          <p>Como utilizar formularios reactivos con <b>angular</b>, usaremos un input que modificará el contenido de una etiqueta en tiempo real</p>
 
         </div>
 
       <div class="t2">Metodo</div>
           <div class="cont">
-            <p>Podemos usar el <b>ngFor</b> de la siguiente manera:</p>
+            <p>Para utilizar los <b>Reactive forms</b> primero tenemos que importar un modulo en el archivo <b>app.module.ts</b>, el modulo que tenemos que importar es el <b>ReactiveFormsModule</b>, utilizando el siguiente import:</p>
 
-            <p>Si tenemos el siguiente componente:</p>
-            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+            <code>import { ReactiveFormsModule } from '@angular/forms';</code>
 
-<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
-    <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;empleado&#x27;</span>,
-    <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./empleados.component.html&#x27;</span>
-  })
+            <p>El codigo del archivo quedaría tal que así:</p>
 
-<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">empleadosComponent</span> </span>{
-    <span style="color:rgb(129, 162, 190); font-weight:400;">numeros</span>:<span style="color:rgb(181, 189, 104); font-weight:400;">Array</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">number</span>&gt; = [<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">3</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">6</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>];
-  }</code></pre>
+            <img src="Reactive forms/1.jpg"/>
 
-          <p>Podemos utilizar el <b>ngFor</b> de la siguiente manera:</b>
+            <p>A continuacion tenemos que incluir la variable que queremos usar para almacenar la informacion que pasaremos desde nuestro formulario y asignarle un objeto <b>FormControl</b>, tendremos que añadir el siguiente import:</p>
 
-          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngFor</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;let num of numeros&quot;</span>&gt;</span>{{num}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span></code></pre>
+            <code>import { FormControl } from '@angular/forms';</code>
 
-          <p>Utilizamos la directiva <b>*ngFor</b> indicando sobre que datos queremos iterar</p>
+            <p>y la variable la definimos de la siguiente manera:</p>
 
-          <p>En este caso iteramos sobre el array de <b>numeros</b> y utilizamos la variable <b>num</b> dentro de la etiqueta.</p>
+            <code>name = new FormControl('');</code>
 
-          <img src="ngFor/1.jpg"/>
+            <p>El código final nos quedaría tal que así:</p>
 
-          <p>Tambien podemos utilizar un indice dentro del bucle de esta manera:</p>
+            <img src="Reactive forms/2.jpg"/>
 
-          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngFor</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;let num of numeros; let i = index&quot;</span>&gt;</span>{{num}} Indice: {{i}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span></code></pre>
+            <p>Y para terminar, dentro del <b>template</b> de nuestro componente, <b>mesa</b> en nuestro caso, creamos un input de texto y utilizamos la directiva <b>[formControl]</b> para asociar ese elemento con la variable que declaramos dentro de nuestro componente, despues simplemente mostramos el valor de la variable dentro del segundo parrafo que creamos, el codigo del archivo <b>mesa.component.html</b> quedaría tal que así:</p>
 
-          <img src="ngFor/2.jpg"/>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>Mesa Componente<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
 
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text&quot;</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">formControl</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name&quot;</span>/&gt;</span>
 
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>{{name.value}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span></code></pre>
 
+            <p>Y al escribir dentro de nuestro <b>input box</b> podemos ver que el texto del parrafo que hay colocado debajo se actualiza en tiempo real:</p>
 
-
+            <img src="Reactive forms/3.jpg"/>
           </div>
 
     <div class="t2">Tags</div>
         <div class="cont">
-        <p>Angular | ngFor</p>
+        <p>Reactive | Forms | Angular</p>
         </div>
 
     </body>
