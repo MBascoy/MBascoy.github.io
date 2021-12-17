@@ -1,0 +1,73 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Path variables</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como utilizar las <b>Path variables</b> para pasar informacion a nuestra aplicacion</p>
+
+        </div>
+
+        <div class="t2">Path Variables</div>
+            <div class="cont">
+              <p>Para leer <b>Path Variables</b> con angular lo hacemos de la siguiente manera:</p>
+
+              <p>Primero definimos la <b>ruta</b> y el nombre de la <b>variable</b> que vamos a utilizar en el archivo <b>app-routing.module.ts</b></p>
+
+              <code>{ path: 'test/:name', component: TestComponent }</code>
+
+              <img src="Path variables/1.jpg"/>
+
+              <p>En este ejemplo estamos usando la ruta <b>/test</b> y como variable <b>name</b>, para indicar una variable en la ruta solo tenemos que poner los dos puntos <b>":"</b> seguidos del nombre que le queramos dar a la variable</p>
+
+              <p>A continuacion en el archivo del componente, <b>test.component.ts</b> en mi caso, añadimos el siguiente import:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Router, ActivatedRoute, ParamMap } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/router&#x27;</span>;</code></pre>
+
+              <p>Y dentro del constructor:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">private</span> route: ActivatedRoute</code></pre>
+
+              <p>Y ahora para obtener el parametro lo hacemos de la siguiente manera dentro del <b>ngOnInit</b>, utilizamos la variable <b>name</b> para almacenar el parametro</p>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  ngOnInit(): void {
+          <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.name = String(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.route.snapshot.paramMap.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>));
+        }</code></pre>
+
+                <p>El codigo dentro del componente quedaría tal que así:</p>
+
+                <img src="Path variables/2.jpg"/>
+
+
+                <p>Dentro del <b>ngOnInit</b> podemos usar un codigo alternativo como este:</p>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">ngOnInit(): <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.route.<span style="color:rgb(204, 153, 204); font-weight:400;">params</span>.subscribe(<span style="color:rgb(204, 153, 204); font-weight:400;">params</span> =&gt; {
+          <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.name = <span style="color:rgb(204, 153, 204); font-weight:400;">params</span>[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>];
+        });
+      }</code></pre>
+
+
+              <p>Al acceder a una direccion como <b>http://127.0.0.1:4200/test/textoDePrueba</b> vemos que funciona correctamente</p>
+
+              <img src="Path variables/3.jpg"/>
+
+              <p><b>NOTA</b>: el template del componente tiene que estar modificado para sacer la variable a la que le asignamos el parametro obviamente, en mi caso solo es:</p>
+              <code>&lt;p&gt;test works! variable: {{name}}&lt;/p&gt;</code>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Path variables | parameters</p>
+        </div>
+
+    </body>
+</html>

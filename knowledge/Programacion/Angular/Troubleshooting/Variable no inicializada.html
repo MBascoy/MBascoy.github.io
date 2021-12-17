@@ -1,0 +1,61 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Variable no inicializada</h1>
+
+    <div class="t2">Version</div>
+        <div class="cont">
+
+        <ul>
+            <li>Nodejs: 16.13.1</li>
+            <li>npm: 8.3.0</li>
+            <li>AngularCLI: 13.1.2</li>
+            <li>Angular: 13.1.1</li>
+        </ul>
+
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Al declarar una variable sin inicializarla obtenemos el siguiente error:</p>
+
+            <code>Property 'name' has no initializer and is not definitely assigned in the constructor.ts(2564)</code>
+
+            <img src="Variable no inicializada/1.jpg"/>
+
+            <p>Si la inicializamos el error desaparece, pero nos obliga a inicializar las variables siempre</p>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+          <p>Este error se da por la configuración del <b>TypeScript</b> que hay en el archivo <b>tsconfig.json</b> (el archivo esta situado en la raiz del proyecto)</p>
+
+          <p>Si miramos el archivo podemos ver que hay una opcion <b>strict</b> puesta  a <b>true</b>:</p>
+
+          <img src="Variable no inicializada/2.jpg"/>
+
+          <p>Para solucionar el problema tenemos dos opciones, poner esa opcion a <b>false</b> o simplemente añadir una opcion mas concreta para evitar solo el error de inicializacion de variables, que es la siguiente:</p>
+
+          <code>"strictPropertyInitialization": false</code>
+
+          <img src="Variable no inicializada/3.jpg"/>
+
+          <p>Una vez añadida esa opcion guardamos el archivo de configuración y ya no se nos mostrará ese error</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>java | Angular | jasmine | karma-jasmine-html-reporter | jasmine-core</p>
+        </div>
+
+    </body>
+</html>

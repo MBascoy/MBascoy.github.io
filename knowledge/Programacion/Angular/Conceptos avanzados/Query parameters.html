@@ -1,0 +1,49 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Query parameters</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como utilizar las <b>Query parameters</b> para pasar informacion a nuestra aplicacion</p>
+
+        </div>
+
+        <div class="t2">Query Parameters</div>
+            <div class="cont">
+              <p>En vez de utilizar <b>Path variables</b> podemos utilizar <b>Query Parameters</b> para obtener informacion de la url</p>
+
+              <p>En este caso al igual que con las <b>Path variables</b> tenemos que hacer el mismo <b>import</b> y la misma declaración en el <b>constructor</b></p>
+
+              <p>El único cambio que tenemos que hacer es en el <b>ngOnInit</b>, donde ponemos el siguiente codigo:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  ngOnInit(): <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.route.queryParams.subscribe(<span style="color:rgb(204, 153, 204); font-weight:400;">params</span> =&gt; {
+          <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.name = <span style="color:rgb(204, 153, 204); font-weight:400;">params</span>[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>];
+        });
+      }</code></pre>
+
+              <p>El codigo del componente quedaría tal que así:</p>
+
+              <img src="Query parameters/1.jpg"/>
+
+              <p>Al hacer una solicitud como la siguiente <b>http://127.0.0.1:4200/test?name=textoDePrueba</b> obtenemos el resultado esperado:</p>
+
+              <img src="Query parameters/2.jpg"/>
+
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Query parameters | parameters</p>
+        </div>
+
+    </body>
+</html>
