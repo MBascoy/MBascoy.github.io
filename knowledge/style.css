@@ -40,6 +40,10 @@ table th{
     padding: 15px 0;
 }
 
+table td{
+    padding: 10px;
+}
+
 table tr:nth-child(even) {
     background-color: #E7E9EB;
 }
