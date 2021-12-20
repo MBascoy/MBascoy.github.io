@@ -1,0 +1,141 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Documentacion con Swagger SpringFox</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como crear documentacion de una <b>API Rest</b> con <b>Swagger Springfox</b> version: 2.9.2</p>
+
+            <P>Pagina referencia: <a href="https://springfox.github.io/springfox/docs/2.9.2/">SpringFox 2.9.2</a></p>
+
+        </div>
+
+    <div class="t2">Dependencias</div>
+        <div class="cont">
+          <p>Para utilizar <b>Swagger</b> tenemos que añadir las siguientes dependencias en el archivo <b>pom.xml</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>io.springfox<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>springfox-swagger2<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">version</span>&gt;</span>2.9.2<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">version</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>io.springfox<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>springfox-swagger-ui<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">version</span>&gt;</span>2.9.2<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">version</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span></code></pre>
+
+        </div>
+
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+          <p>Una vez tenemos definidas las dependencias dentro de la carpeta <b>configuration</b> de nuestro proyecto creamos un archivo <b>SwaggerSpringFoxConfig.java</b>, con el siguiente contenido:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> main.configuration;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.context.annotation.Bean;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> org.springframework.context.annotation.Configuration;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> springfox.documentation.builders.ApiInfoBuilder;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> springfox.documentation.builders.PathSelectors;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> springfox.documentation.builders.RequestHandlerSelectors;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> springfox.documentation.service.ApiInfo;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> springfox.documentation.service.Contact;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> springfox.documentation.spi.DocumentationType;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> springfox.documentation.spring.web.plugins.Docket;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Configuration</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@EnableSwagger2</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">SwaggerSpringFoxConfig</span> </span>{
+
+	<span style="color:rgb(249, 145, 87); font-weight:400;">@Bean</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> Docket <span style="color:rgb(181, 189, 104); font-weight:400;">api</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+
+		<span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Docket(DocumentationType.SWAGGER_2)
+			.apiInfo(getApiInfo())
+			.select()
+			.apis(RequestHandlerSelectors.basePackage(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;main.controllers&quot;</span>))
+			.paths(PathSelectors.any())
+			.build();
+	}
+
+	<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">private</span> ApiInfo <span style="color:rgb(181, 189, 104); font-weight:400;">getApiInfo</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+
+		<span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ApiInfoBuilder()
+			.title(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Skill Matrix&quot;</span>)
+			.version(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1.0.0&quot;</span>)
+			.contact(
+				<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Contact(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Softwareone&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://www.softwareone.com/es-es/&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;manuel.bascoy@softwareone.com&quot;</span>))
+			.build();
+
+	}
+}</code></pre>
+
+          <p>Aqui tenemos que modificar <b>RequestHandlerSelectors.basePackage("main.controllers")</b> en vez de <b>main.controllers</b> tendriamos que poner el paquete donde estan los controladores de nuestra <b>API Rest</b></p>
+
+          <p>y en la funciona <b>getApiInfo</b> cambiaríamos <b>.title</b>, <b>.version</b> y <b>.contact</b> para poner nuestros datos</p>
+
+        </div>
+
+    <div class="t2">Anotaciones</div>
+        <div class="cont">
+          <p>Las anotaciones que podemos usar con <b>Swagger</b> para documentar nuestra <b>API</b> son las siguientes:</p>
+
+          <p>Codigos ejemplo:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@GetMapping(<span style="color:rgb(249, 145, 87); font-weight:400;">&quot;/members&quot;</span>)</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@ApiOperation(value = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;Returns a list with all members.&quot;</span>, notes = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;The list of members returned includes all the skills and languages related to the member.&quot;</span>)</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@ApiResponses(value = { @ApiResponse(code = 200, message = Constants.CODE200, response = MemberData.class)</span>,
+                <span style="color:rgb(249, 145, 87); font-weight:400;">@ApiResponse(code = 400, message = Constants.CODE400)</span>,
+                <span style="color:rgb(249, 145, 87); font-weight:400;">@ApiResponse(code = 500, message = Constants.CODE500)</span> })
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> List&lt;MemberData&gt; getMembers(
+                <span style="color:rgb(249, 145, 87); font-weight:400;">@ApiParam(value = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;[Optional] idSkill param for skill query.&quot;</span>, example = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;12&quot;</span>)</span> <span style="color:rgb(249, 145, 87); font-weight:400;">@RequestParam(required = false)</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Long</span> idSkill,
+                <span style="color:rgb(249, 145, 87); font-weight:400;">@ApiParam(value = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;[Optional | Requires idSkill] idSkillLevel param for skill level query, idSkill param required.&quot;</span>, example = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;12&quot;</span>)</span> <span style="color:rgb(249, 145, 87); font-weight:400;">@RequestParam(required = false)</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Long</span> idSkillLevel,
+                <span style="color:rgb(249, 145, 87); font-weight:400;">@ApiParam(value = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;[Optional] name param for name query.&quot;</span>)</span> <span style="color:rgb(249, 145, 87); font-weight:400;">@RequestParam(required = false)</span> String name,
+                <span style="color:rgb(249, 145, 87); font-weight:400;">@ApiParam(value = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;[Optional] role param for job query.&quot;</span>)</span> <span style="color:rgb(249, 145, 87); font-weight:400;">@RequestParam(required = false)</span> String role,
+                <span style="color:rgb(249, 145, 87); font-weight:400;">@ApiParam(value = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;[Optional] idLanguage param for language query.&quot;</span>, example = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;12&quot;</span>)</span> <span style="color:rgb(249, 145, 87); font-weight:400;">@RequestParam(required = false)</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Long</span> idLanguage,
+                <span style="color:rgb(249, 145, 87); font-weight:400;">@ApiParam(value = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;[Optional | Requires idLanguage] idLanguageLevel param for language level query, idLanguage param required.&quot;</span>, example = <span style="color:rgb(249, 145, 87); font-weight:400;">&quot;12&quot;</span>)</span> <span style="color:rgb(249, 145, 87); font-weight:400;">@RequestParam(required = false)</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Long</span> idLanguageLevel)
+                throws ValidationException {
+        List&lt;MemberData&gt; listMemberData = memberQueryService.getAll(idSkill, idSkillLevel, name, role,
+                        idLanguage, idLanguageLevel);
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> listMemberData;
+}</code></pre>
+
+<pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(255, 204, 102); font-weight:400;">@ApiModel</span>(description = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Stores all the attributes required for the /api/members endpoint.&quot;</span>)
+public class MemberData {
+
+	<span style="color:rgb(255, 204, 102); font-weight:400;">@ApiModelProperty</span>(position = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, hidden = true)
+	<span style="color:rgb(255, 204, 102); font-weight:400;">@JsonInclude</span>(Include.NON_NULL)
+	private Long id;</code></pre>
+
+          <ul>
+            <li><b>@ApiOperation</b>: Permite dar un titulo al <b>endpoint</b> con <b>value</b> y una descripcion con <b>notes</b>. Esta anotacion se coloca antes de la funcion del controlador.</li>
+            <li><b>@ApiResponses</b>: Lista de anotaciones <b>@ApiResponse</b> para documentar los posibles codigos de respuesta del endpoint. Se coloca antes de la funcion del controlador.</li>
+            <li><b>@ApiResponse</b>: Esta anotacion va dentro de <b>@ApiResponses</b>, se utiliza una etiqueta <b>@ApiResponse</b> por cada codigo que queramos documentar, usamos <b>code</b> para indicar el codigo, <b>message</b> para indicar un mensaje y <b>response</b> por si queremos indicar una clase concreta que devuelva esa solicitud.</li>
+            <li><b>@ApiParam</b>: Esta anotacion se utiliza para documentar los parametros de la funcion, se coloca justo antes del parametro en cuestion, usamos <b>value</b> para indicar una descripcion y podemos usar <b>example</b> para indicar un valor de ejemplo que tomará dicho parametro, <a href="../Troubleshooting/Swagger issue  NumberFormatException.html">la opcion <b>example</b> se puede utilizar para prevenir un bug que tiene el swagger.</a></li>
+            <li><b>@RequestParam</b>: Podemos utilizar esta anotacion para indicar si un parametro es obligatorio o no</li>
+            <li><b>@ApiModel</b>: esta anotación se puede utilizar en clases (en dto o en clases del modelo) para documentar cual es su uso. la anotacion se coloca antes de la definicion de la clase</li>
+            <li><b>@ApiModelProperty</b>: esta anotacion nos permite definir caracteristicas concretas para cada atributo de una clase, podemos utilizarla para indicar el orden que tendra en la documentacion o para indicar si ocultar el atributo concreto en la documentacion, esta anotacion se coloca antes del atributo dentro de la clase.</li>
+
+          </ul>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Spring | Swagger | Documentacion</p>
+        </div>
+
+    </body>
+</html>
