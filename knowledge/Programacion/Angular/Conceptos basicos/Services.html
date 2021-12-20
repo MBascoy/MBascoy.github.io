@@ -22,8 +22,126 @@
           <div class="cont">
             <p>Para generar un servicio lo podemos hacer con el siguiente comando:</p>
 
-            <code>ng generate service hero</code>
+            <code>ng generate service &lt;Nombre Servicio&gt;</code>
 
+
+          </div>
+
+      <div class="t2">Ejemplo</div>
+          <div class="cont">
+            <p>En este ejemplo tenemos dos componentes, <b>MaquinaBebidas</b> y <b>Test</b> y a mayores tenemos un servicio <b>Bebida</b></p>
+
+            <p>En este caso el servicio bebida manejará un array de bebidas, que podremos modificar desde <b>MaquinaBebidas</b> y que se visualizará tambien desde el componente <b>Test</b>, haciendolo todo a traves del servicio <b>Bebida</b></p>
+
+            <p>Codigo componente <b>MaquinaBebidas</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component, EventEmitter, Input, OnInit, Output } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { BebidaService } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;../bebida.service&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { FormControl } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/forms&#x27;</span>;
+
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-maquina-bebidas&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./maquina-bebidas.component.html&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">styleUrls</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./maquina-bebidas.component.css&#x27;</span>],
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">MaquinaBebidasComponent</span> <span style="color:rgb(181, 189, 104); font-weight:400;">implements</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnInit</span> </span>{
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> listadoBebidas:<span style="color:rgb(181, 189, 104); font-weight:400;">Array</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">string</span>&gt;;
+
+  bebida = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> FormControl(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;&#x27;</span>);
+
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> bebidaService: BebidaService
+  </span>)</span> { }
+
+
+  ngOnInit(): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.listadoBebidas = <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.bebidaService.getBebida();
+  }
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">addBebida</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">bebida:<span style="color:rgb(181, 189, 104); font-weight:400;">string</span></span>)</span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.bebidaService.addBebida(bebida);
+  }
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">addBebidaKeyboard</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">bebida:<span style="color:rgb(181, 189, 104); font-weight:400;">string</span>, event: <span style="color:rgb(181, 189, 104); font-weight:400;">any</span></span>)</span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.listadoBebidas.push(bebida);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.bebida.setValue(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>);
+  }
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">delBebida</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">indice:<span style="color:rgb(181, 189, 104); font-weight:400;">number</span></span>)</span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.listadoBebidas.splice(indice, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>);
+  }
+}
+</code></pre>
+
+
+            <p>Codigo componente <b>Test</b>:</p>
+
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component, OnInit } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Router, ActivatedRoute, ParamMap } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/router&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { BebidaService } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;../bebida.service&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-test&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./test.component.html&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">styleUrls</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./test.component.css&#x27;</span>]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">TestComponent</span> <span style="color:rgb(181, 189, 104); font-weight:400;">implements</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnInit</span> </span>{
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> listadoBebidas:<span style="color:rgb(181, 189, 104); font-weight:400;">Array</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">string</span>&gt;;
+
+  name:<span style="color:rgb(181, 189, 104); font-weight:400;">string</span> = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>;
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> route: ActivatedRoute,
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> bebidaService: BebidaService
+  </span>)</span> {
+  }
+
+  ngOnInit(): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.route.params.subscribe(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">params</span> =&gt;</span> {
+      <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.name = params[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>];
+    });
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.listadoBebidas = <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.bebidaService.getBebida();
+  }
+
+}
+</code></pre>
+
+            <p>Codigo servicio <b>Bebida</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Injectable } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Injectable</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">providedIn</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;root&#x27;</span>
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">BebidaService</span> </span>{
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> { }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> listadoBebidas:<span style="color:rgb(181, 189, 104); font-weight:400;">Array</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">string</span>&gt; = [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;refresco&#x27;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;agua&#x27;</span>];
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">addBebida</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">bebida:<span style="color:rgb(181, 189, 104); font-weight:400;">string</span></span>)</span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.listadoBebidas.push(bebida);
+  }
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getBebida</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.listadoBebidas;
+
+  }
+}</code></pre>
+
+            <p>Si entramos en la ruta que carga el componente de <b>MaquinaBebidas</b> vemos esto:</p>
+
+            <img src="Services/1.jpg"/>
+
+            <p>Y las modificaciones que hagamos dentro de dicho componente, se reflejan en el componente de <b>Test</b>:</p>
+
+            <img src="Services/2.jpg"/>
 
           </div>
 
