@@ -19,6 +19,7 @@
             <ul>
                 <li><b>git status</b></li>
                 <p>Nos muestra el estado del arbol actual en el que estamos trabajando, nos indica que archivos han sido modificados y que archivos no estan siendo trackeados.</p>
+                <p><b>NOTA:</b> La opcion <b>-u</b> muestra todos los archivos (sin trackear) en vez de el nombre de la carpeta de manera resumida</b></p>
                 <li><b>git add</b></li>
                 <p>Nos permite trackear archivos que seran añadidos al repositorio local cuando se haga el commit</p>
                 <li><b>git commit</b></li>
@@ -41,8 +42,15 @@
                 <li><b>git ls-tree</b></li>
                 <ul>
                     <li>git ls-tree -r &lt;rama&gt; --name-only</li>
+                    
+                    <p>Si queremos mostrar solo una <b>subruta</b> podemos indicarsela al final del comando</p>
+                    
+                    <li>git ls-tree -r &lt;rama&gt; --name-only &lt;ruta&gt;</li>
                 </ul>
                 <p>Permite listar los archivos que hay en una rama</p>
+                
+                <li><b>git rm --cache &lt;archivo&gt;</b></li>
+                <p>Borra un archivo <b>trackeado</b> de la rama actual</p>
                 
             </ul>
         </div>
