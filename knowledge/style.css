@@ -108,18 +108,18 @@ img{
     
 }
 
+@media only screen and (max-width:1600px){
+    .cat1{
+        margin:0.2%;
+            
+    }
+            
+}
+
 @media only screen and (orientation:portrait){
     .cat1{
-    width:98%;
-    float:left;
-    padding:5px;
-    margin:10px;
-    background-color: #ccc;
-    border: 3px;
-    border-style: solid;
-    border-color: #ddd;
-    
-}
+        width:98%;    
+    }
 
 }
 
