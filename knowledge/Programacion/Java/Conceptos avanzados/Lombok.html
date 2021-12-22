@@ -1,0 +1,108 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Lombok</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar la libreria <b>Lombok</b> para hacer injecciones de codigo y prescindir del <b>boilerplate</b> code</p>
+
+        </div>
+
+    <div class="t2">Dependencia pom.xml</div>
+        <div class="cont">
+
+            <p>Para utilizar el <b>Lombok</b> con <b>maven</b> tenemos que incluir la siguiente dependencia en el <b>pom.xml</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>org.projectlombok<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>lombok<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">version</span>&gt;</span>1.18.20<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">version</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">scope</span>&gt;</span>provided<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">scope</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span></code></pre>
+
+        </div>
+
+    <div class="t2">Utilizar lombok con javac</div>
+        <div class="cont">
+          <p>Si queremos utilizar <b>Lombok</b> directamente con el compilador de java <b>javac</b> tenemos que incluir el <b>.jar</b> de lombok en el <b>classplath</b> cuando ejecutemos el compilador</p>
+
+          <p>en el siguiente ejemplo tenemos los siguientes archivos</p>
+
+          <pre><code>C:.
+|   lombok.jar
+|
+\---com
+        app.java
+        Coche.java</code></pre>
+
+        <p>Tenemos en la carpeta del proyecto el archivo <b>lombok.jar</b> y una carpeta <b>com</b> que es donde tenemos el codigo de la applicacion principal y la clase coche (el paquete com).</p>
+
+        <p>En este caso para compilar este proyecto lo haríamos con el siguiente comando:</p>
+
+        <code>javac -cp lombok.jar  com\Coche.java com\app.java</code>
+
+        <p>En este caso las etiquetas de inyeccion de codigo estan en la clase <b>Coche</b>, normalmente no necesitaríamos indicar el nombre de la clase al compilar, ya que el propio compilador la incluiría, pero al estar realizando inyeccion de codigo tenemos que indicarla manualmente para que sea compilada</p>
+
+        <p>Podemos descargar el archivo <b>lombok.jar</b> desde <a href="https://projectlombok.org/">https://projectlombok.org/</a></p>
+
+        </div>
+
+    <div class="t2">Inyeccion de codigo con Lombok</div>
+        <div class="cont">
+          <p>Con <b>Lombok</b> podemos utilizar una serie de anotaciones para inyectar código, algunas de las etiquetas que podemos usar son:</p>
+
+          <ul>
+            <li><b>@Data</b>: Genera todos los setters y getters de todos los atributos de la clase, asi como las funciones hashcode y isEqual, esta anotacion se coloca antes de la definicion de la clase.</li>
+            <li><b>@AllArgsConstructor</b>: genera un constructor con todos los atributos de la clase, esta anotacion se coloca antes de la definicion de la clase.</li>
+            <li><b>@NoArgsConstructor</b>: genera un constructor sin argumentos</li>
+
+          </ul>
+
+          <p>En nuestro ejemplo anterior la clase <b>Coche</b> sería tal que asi:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> com;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> lombok.Data;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> lombok.AllArgsConstructor;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> lombok.NoArgsConstructor;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Data</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@AllArgsConstructor</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@NoArgsConstructor</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">Coche</span></span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> ruedas;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> puertas;
+}</code></pre>
+
+          <p>Podemos usar el comando <b>javap</b> para consultar los metodos que se han inyectado en la clase coche:</p>
+
+          <img src="Lombok/1.jpg"/>
+
+          <h2>Otras anotaciones</h2>
+
+          <p>Otras anotaciones que podemos utilizar son:</p>
+
+          <ul>
+            <li><b>@Getter/@Setter</b>: estas dos anotaciones nos permiten definir getters y setters por cada atributo en caso de que no queramos utilizar <b>@Data</b> para generarlos todos, estas anotaciones se colocan antes del atributo (y no antes de la clase como las demas).</li>
+            <li><b>@Slf4j</b>: esta anotacion inyecta la declaracion del metodo <b>log</b> para generar mensajes de log</li>
+
+          </ul>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>ObjectMapper | Jackson | java</p>
+        </div>
+
+    </body>
+</html>
