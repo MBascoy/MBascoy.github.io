@@ -95,6 +95,7 @@ img{
     
 }
 
+
 .cat1{
     width:31%;
     float:left;
@@ -105,6 +106,21 @@ img{
     border-style: solid;
     border-color: #ddd;
     
+}
+
+@media only screen and (orientation:portrait){
+    .cat1{
+    width:98%;
+    float:left;
+    padding:5px;
+    margin:10px;
+    background-color: #ccc;
+    border: 3px;
+    border-style: solid;
+    border-color: #ddd;
+    
+}
+
 }
 
 .row1{
