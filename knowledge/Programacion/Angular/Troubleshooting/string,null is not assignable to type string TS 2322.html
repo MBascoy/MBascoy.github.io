@@ -1,0 +1,58 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">string,null is not assignable to type string TS 2322</h1>
+
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Al utilizar la siguiente linea para consultar el valor de un <b>Path variable</b>:
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.name = <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.route.snapshot.paramMap.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>);</code></pre>
+
+              <p>Obtenemos el siguiente error:</p>
+
+              <pre><code>Type 'string | null' is not assignable to type 'string'.
+  Type 'null' is not assignable to type 'string'.ts(2322)</code></<pre>
+
+              <img src="string,null is not assignable to type string TS 2322/1.jpg"/>
+
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+
+          <p>Para solucionar este error tenemos varias maneras:</p>
+
+          <p>Haciendo un casting a tipo string:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.name = String(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.route.snapshot.paramMap.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>));</code></pre>
+
+          <p>Haciendo una comprobacion tipo <b>OR</b> con un objeto vacio, de esta manera en caso de que devuelva <b>null</b> se devolverá el objeto vacio:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.name = <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.route.snapshot.paramMap.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>) || <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{}&#x27;</span>;</code></pre>
+
+          <p>Usando el operador "<b>!</b>" al final de la expresion:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.name = <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.route.snapshot.paramMap.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>)!;</code></pre>
+
+          <p>Cambiando el archivo de configuracion <b>tsconfig.json</b>, tendriamos que añadir la siguiente opcion:</p>
+          <code>"strictNullChecks": false</code>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>java | Angular | Path variable | string | null</p>
+        </div>
+
+    </body>
+</html>

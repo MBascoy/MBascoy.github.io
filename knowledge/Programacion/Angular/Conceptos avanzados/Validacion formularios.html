@@ -1,0 +1,210 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Validacion formularios</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como validar campos de un formulario con <b>reactive forms</b></p>
+
+          <a href="https://github.com/MBascoy/Angular-Examples/tree/main/FormValidation">Código de ejemplo</a>
+
+        </div>
+
+      <div class="t2">Preparacion</div>
+          <div class="cont">
+            <p>Primero en el archivo <b>app.module.ts</b> tenemos que importar el modulo <b>ReactiveFormsModule</b>:</p>
+
+            <code>import { ReactiveFormsModule } from '@angular/forms';</code>
+
+            <p>el código del archivo <b>app.module.ts</b> quedaría asi:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { NgModule } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { ReactiveFormsModule } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/forms&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { BrowserModule } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/platform-browser&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { AppComponent } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./app.component&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { UserComponent } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./user/user.component&#x27;</span>;
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    UserComponent
+  ],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">AppModule</span> { }</span>
+</code></pre>
+
+          </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para mostrar la validación de formularios usaremos un unico componente <b>user</b> en el que tendremos un <b>input de texto</b>, sobre el que haremos la validacion de los datos introducidos.</p>
+
+          <p>El archivo del componente, <b>user.component.ts</b>, quedaría asi:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component, OnInit } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { FormControl, FormGroup, Validators } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/forms&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-user&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./user.component.html&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">styleUrls</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./user.component.css&#x27;</span>]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">UserComponent</span> <span style="color:rgb(181, 189, 104); font-weight:400;">implements</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnInit</span> </span>{
+
+  <span style="color:rgb(129, 162, 190); font-weight:400;">userForm</span>: FormGroup;
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> { }
+
+  ngOnInit(): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.userForm = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> FormGroup(
+      {
+        <span style="color:rgb(129, 162, 190); font-weight:400;">name</span>: <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> FormControl( <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pepe&quot;</span>, [Validators.required, Validators.minLength(<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>)])
+    });
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">get</span> <span style="color:rgb(181, 189, 104); font-weight:400;">name</span>() {<span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.userForm.get(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>)!}
+
+}
+</code></pre>
+
+        <ul>
+          <li>Primero definimos una variable <b>FormGroup</b> (<b>userForm</b> en este caso)</li>
+          <li>Despues dentro del <b>ngOnInit</b> la inicializamos, al inicializarla creamos un objeto en el que tendremos tantos atributos como campos tenga el formulario.</li>
+          <li>Cada atributo del objeto sera de tipo <b>FormControl</b> y dentro indicaremos el valor por defecto y las validaciones que se harán en ese campo.</li>
+          <li>Despues solo nos queda declaran un <b>getter</b>, get name() en este caso, con el nombre del valor a obtener, que usaremos mas tarde en el template para que pueda obtener la información</li>
+
+        </ul>
+
+        <p>El archivo del template, <b>user.component.html</b>, quedaria asi:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">form</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">formGroup</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;userForm&quot;</span> #<span style="color:rgb(129, 162, 190); font-weight:400;">formDir</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ngForm&quot;</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">formControlName</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name&quot;</span> /&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngIf</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name.invalid &amp;&amp; (name.dirty || name.touched)&quot;</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngIf</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name.errors?.[&#x27;required&#x27;]&quot;</span>&gt;</span>
+        Name is required.
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngIf</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name.errors?.[&#x27;minlength&#x27;]&quot;</span>&gt;</span>
+        Name must be at least 4 characters long.
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>Valor introducido: {{userForm.get(&#x27;name&#x27;)?.value}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">form</span>&gt;</span>
+
+</code></pre>
+
+        <ul>
+          <li>En el template primero creamos una etiqueta <b>&lt;form&gt;</b> y al atributo <b>[formGroup]</b> le asignamos el valor de la variable <b>FormGroup</b> que creamos en el componente, <b>userForm</b> en este caso</li>
+
+          <li>Despues creamos los componentes del formulario (<b>inputs</b>) indicando el atributo <b>formControlName</b> y asignandole el nombre de la variable que definimos dentro del objeto del <b>FormGroup</b> para asociar el campo con esas validaciones concretas</li>
+
+          <li>A continuacion ponemos todo el codigo de comprobación, para que se nos muestre un error si no se cumplen las validaciones</li>
+
+          <li>y al final simplemente mostramos los datos que se introducen en el formulario de manera dinamica, para obtener esta informacion lo hacemos con:</li>
+          <code>{{userForm.get('name')?.value}}</code>
+        </ul>
+
+        </div>
+
+
+    <div class="t2">Formulario con varios campos y boton deshabilitado</div>
+        <div class="cont">
+
+          <p>El siguiente es un ejemplo de un formulario con dos campos y un boton que esta deshabilitado hasta que todos los campos del formulario sean validos</p>
+
+          <p>El archivo del componente, <b>user.component.ts</b>, quedaría asi:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component, OnInit } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { FormControl, FormGroup, Validators } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/forms&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-user&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./user.component.html&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">styleUrls</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./user.component.css&#x27;</span>]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">UserComponent</span> <span style="color:rgb(181, 189, 104); font-weight:400;">implements</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnInit</span> </span>{
+
+  <span style="color:rgb(129, 162, 190); font-weight:400;">userForm</span>: FormGroup;
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> { }
+
+  ngOnInit(): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.userForm = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> FormGroup(
+      {
+        <span style="color:rgb(129, 162, 190); font-weight:400;">name</span>: <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> FormControl( <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pepe&quot;</span>, [Validators.required, Validators.minLength(<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>)]),
+        <span style="color:rgb(129, 162, 190); font-weight:400;">edad</span>: <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> FormControl(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0&quot;</span>, Validators.pattern(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^[0-9]*$&quot;</span>))
+    });
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">get</span> <span style="color:rgb(181, 189, 104); font-weight:400;">nameg</span>() {<span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.userForm.get(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>)!}
+  <span style="color:rgb(204, 153, 204); font-weight:400;">get</span> <span style="color:rgb(181, 189, 104); font-weight:400;">edad</span>() {<span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.userForm.get(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;edad&#x27;</span>)!}
+
+}
+</code></pre>
+
+
+        <p>El archivo del template, <b>user.component.html</b>, quedaria asi:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">form</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">formGroup</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;userForm&quot;</span> #<span style="color:rgb(129, 162, 190); font-weight:400;">formDir</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ngForm&quot;</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">formControlName</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name&quot;</span> /&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngIf</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;nameg.invalid &amp;&amp; (nameg.dirty || nameg.touched)&quot;</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngIf</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;nameg.errors?.[&#x27;required&#x27;]&quot;</span>&gt;</span>
+        Name is required.
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngIf</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;nameg.errors?.[&#x27;minlength&#x27;]&quot;</span>&gt;</span>
+        Name must be at least 4 characters long.
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">br</span>/&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">br</span>/&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">formControlName</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;edad&quot;</span> /&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngIf</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;edad.invalid &amp;&amp; (edad.dirty || edad.touched)&quot;</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngIf</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;edad.errors?.[&#x27;pattern&#x27;]&quot;</span>&gt;</span>
+        edad must be a number.
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">br</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">br</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;button&quot;</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">disabled</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;userForm.invalid&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">value</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Enviar&quot;</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>Nombre: {{userForm.get(&#x27;name&#x27;)?.value}}; Edad: {{userForm.get(&#x27;edad&#x27;)?.value}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">form</span>&gt;</span>
+
+</code></pre>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Reactive | Forms | Validaciones | Validations | Angular</p>
+        </div>
+
+    </body>
+</html>

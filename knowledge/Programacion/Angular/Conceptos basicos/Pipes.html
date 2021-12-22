@@ -1,0 +1,134 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Pipes</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como utilizar el operador de <b>pipe</b> "|" para convertir datos, darles formato...etc</p>
+
+          <a href="https://angular.io/guide/pipes">Pagina referencia sobre pipes de Angular</a>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Podemos usar las <b>pipes</b> para transformar los datos de muchas maneras, un ejemplo es con el tipo <b>Date</b>:</p>
+
+            <p>Si tenemos una variable <b>fecha</b> definida de la siguiente manera</p>
+
+            <code>fecha: Date = new Date(2021,1,20);</code>
+
+            <p>Al imprimirla dentro de nuestro componente tal que asi:</p>
+
+            <code>{{fecha}}</code>
+
+            <p>Obtenemos una salida como esta:</p>
+
+            <code>Sat Feb 20 2021 00:00:00 GMT+0100 (Central European Standard Time)</code>
+
+            <h2>Aplicando el pipe date</h2>
+
+            <p>Si queremos formatear dicha salida podemos usar un <b>pipe</b> de esta manera:</p>
+
+            <code>{{fecha | date:"MM/dd/yy"}}</code>
+
+            <p>y la salida quedará de la siguiente manera:</p>
+
+            <code>02/20/21</code>
+
+
+            <h2>Otros pipes</h2>
+
+            <p>Los mas comunes son:</p>
+
+            <ul>
+              <li><b>uppercase:</b> para formatear un string a todo letras mayusculas</li>
+              <li><b>lowercase:</b> para formatear un string a todo letras minisculas</li>
+              <li><b>currency:</b> para formatear un numero a tipo monetario</li>
+              <li><b>number:</b> para formatear numeros de tipo decimal</li>
+              <li><b>percent</b>: para formatear numeros como porcentajes</li>
+            </ul>
+
+          </div>
+
+    <div class="t2">Custom pipes</div>
+        <div class="cont">
+          <p>Podemos utilizar <b>Custom Pipes</b>, para poder hacer filtros o manejar los datos de la manera que nosotros queramos.</p>
+
+          <p>Para utilizar las <b>Custom Pipes</b> lo hacemos de la siguiente manera:</p>
+
+          <ul>
+            <li>Generamos el archivo de la <b>pipe</b> (exponential.pipe.ts):</li>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Pipe, PipeTransform } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Pipe</span>({<span style="color:rgb(129, 162, 190); font-weight:400;">name</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;exp&#x27;</span>})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">ExponentialPipe</span> <span style="color:rgb(255, 204, 102); font-weight:400;">implements</span> <span style="color:rgb(255, 204, 102); font-weight:400;">PipeTransform</span> </span>{
+  transform(value: <span style="color:rgb(181, 189, 104); font-weight:400;">number</span>, exponent = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>): <span style="color:rgb(181, 189, 104); font-weight:400;">number</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Math</span>.pow(value, exponent);
+  }
+}</code></pre>
+
+            <p>En este caso solo es una funcion que hace el exponencial del numero que le pasemos.</p>
+
+            <li>Importamos la clase de la <b>pipe</b> en el archivo <b>app.module.ts</b></li>
+
+              <img src="Pipes/1.jpg"/>
+
+            <li>Implementamos la <b>pipe</b> en uno de nuestros componentes:</li>
+
+            <code><p>{{ 2 | exp: 5 }}</p></code>
+
+          </ul>
+
+          <h2>Como generar una custom pipe</h2>
+
+          <p>Una custom pipe es tal que asi:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Pipe, PipeTransform } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Pipe</span>({<span style="color:rgb(129, 162, 190); font-weight:400;">name</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;exp&#x27;</span>})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">ExponentialPipe</span> <span style="color:rgb(255, 204, 102); font-weight:400;">implements</span> <span style="color:rgb(255, 204, 102); font-weight:400;">PipeTransform</span> </span>{
+transform(value: <span style="color:rgb(181, 189, 104); font-weight:400;">number</span>, exponent = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>): <span style="color:rgb(181, 189, 104); font-weight:400;">number</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Math</span>.pow(value, exponent);
+}
+}</code></pre>
+
+          <p>en la funcion <b>transform</b> indicamos los parametros que recibirá la <b>pipe</b>:</p>
+
+          <code>transform(value: number, exponent = 1): number</code>
+
+          <p>El primer parametro es el que recibe de la pipe en si, y los siguientes parametros son los que indicamos despues de la <b>pipe</b>:</p>
+
+          <code><p>{{ 3 | exp: 2 }}</p></code>
+
+          <p>En este caso el valor <b>3</b> sería el parámetro <b>value</b>, el valor <b>2</b> sería <b>exponent</b>.
+
+
+          <p>Si tuviesemos una funcion <b>transofrm</b> como esta:</p>
+
+          <code>transform(value: number, exponent = 1, suma = 0): number</code>
+
+          <p><b>NOTA:</b> El valor que le pasamos a los parametros en la delaración de la funcion es el valor que cogen por defecto en caso de que no se pasen en el <b>pipe</b></p>
+
+          <code><p>{{ 3 | exp: 2: 4 }}</p></code>
+
+          <p>En este caso el valor <b>3</b> sería el parametro <b>value</b>, el valor <b>2</b> sería <b>exponent</b> y el valor <b>4</b> seria <b>suma</b>.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Pipes</p>
+        </div>
+
+    </body>
+</html>
