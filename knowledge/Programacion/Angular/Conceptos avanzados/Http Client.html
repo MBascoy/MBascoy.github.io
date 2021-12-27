@@ -1,0 +1,185 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Http Client</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como utilizar <b>HttpClient</b> para hacer peticiones <b>HTTP</b> desde Angular</p>
+
+          <a href="https://github.com/MBascoy/Angular-Examples/tree/main/HttpClient">Código de ejemplo</a>
+
+        </div>
+
+      <div class="t2">Preparacion</div>
+          <div class="cont">
+            <p>Primero en el archivo <b>app.module.ts</b> tenemos que importar el modulo <b>HttpClientModule</b>:</p>
+
+            <code>import { HttpClientModule } from '@angular/common/http';</code>
+
+            <p>el código del archivo <b>app.module.ts</b> quedaría asi:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { NgModule } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { BrowserModule } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/platform-browser&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { HttpClientModule } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/common/http&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { AppComponent } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./app.component&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { HttpViewComponent } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./http-view/http-view.component&#x27;</span>;
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HttpViewComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">AppModule</span> { }</span>
+</code></pre>
+
+          </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+          <h2>http-view.service.ts</h2>
+
+          <p>Para utilizar el <b>HttpClient</b> vamos a usar un <b>componente</b> y un <b>servicio</b></p>
+
+          <p>En el <b>servicio</b> (http-view.service.ts) realizamos el siguiente import:</p>
+
+          <code>import { HttpClient } from '@angular/common/http';</code>
+
+          <p>En el constructor declaramos una variable <b>HttpClient</b>:</p>
+
+          <code>constructor(private http:HttpClient) { }</code>
+
+          <p>Y definimos una interfaz, que será la que nos indique la estructura de la informacion que vamos a recibir</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">interface</span> messageRequest {
+  <span style="color:rgb(129, 162, 190); font-weight:400;">userId</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">number</span>;
+  id:<span style="color:rgb(181, 189, 104); font-weight:400;">number</span>;
+  title:<span style="color:rgb(181, 189, 104); font-weight:400;">string</span>;
+  completed:<span style="color:rgb(181, 189, 104); font-weight:400;">boolean</span>;
+}</code></pre>
+
+          <p>ya que recibiremos una peticion <b>json</b> que será tal que así:</p>
+
+          <pre><code>{
+    "userId": 1,
+    "id": 1,
+    "title": "delectus aut autem",
+    "completed": false
+  }</code></pre>
+
+          <p>Y para terminar definimos una funcion <b>getInfo</b> que usará el objeto <b>HttpClient</b> para hacer la solicitud:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">getInfo(){
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.http.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>&lt;messageRequest[]&gt;(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://jsonplaceholder.typicode.com/todos&quot;</span>)
+}</code></pre>
+
+          <p>El metodo <b>http.get</b> tiene que tener un tipo de datos, en este caso le estamos pasando <b>messageRequest[]</b>, osea un array de la interfaz que creamos justo antes, esto quiere decir que podremos almacenar varios objetos del tipo <b>messageRequest</b></p>
+
+          <p>El unico parametro que pasamos despues a la funcion <b>get</b> es la direccion a donde realizará la peticion</p>
+
+          <p>El archivo del servicio, <b>http-view.service.ts</b>, quedaría asi:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Injectable } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { HttpClient } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/common/http&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">interface</span> messageRequest {
+  <span style="color:rgb(129, 162, 190); font-weight:400;">userId</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">number</span>;
+  id:<span style="color:rgb(181, 189, 104); font-weight:400;">number</span>;
+  title:<span style="color:rgb(181, 189, 104); font-weight:400;">string</span>;
+  completed:<span style="color:rgb(181, 189, 104); font-weight:400;">boolean</span>;
+}
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Injectable</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">providedIn</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;root&#x27;</span>
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">HttpViewService</span> </span>{
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">private</span> http:HttpClient</span>)</span> { }
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getInfo</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.http.get&lt;messageRequest[]&gt;(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://jsonplaceholder.typicode.com/todos&quot;</span>)
+  }
+}
+</code></pre>
+
+        <h2>http-view.component.ts</h2>
+
+        <p>En el archivo del componente <b>http-view.component.ts</b>, primero creamos una variable de tipo <b>messageRequest[];</b> que será donde se almacenen los datos que devuelva la peticion</p>
+
+        <code>messageObject: messageRequest[];</code>
+
+        <p>A continuacion en el constructor creamos una variable <b>httpView</b> de tipo <b>HttpViewService</b> para utilizar nuestro servicio en el componente</p>
+
+        <code>constructor( private httpView: HttpViewService )</code>
+
+        <p>Y por ultimo en la funcion <b>ngOnInit</b> usamos nuestro servicio para llamar a la funcion <b>getInfo()</b> que nos devolverá un <b>Observavle</b> con el que podremos obtener los datos de la peticion y almacenarlos en nuestra variable <b>messageObject</b></p>
+
+        <code>this.httpView.getInfo().subscribe(data => this.messageObject = data)</code>
+
+
+        <p>El codigo del componente <b>http-view.component.ts</b> quedaría tal que asi:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component, OnInit } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { messageRequest, HttpViewService } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./http-view.service&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-http-view&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./http-view.component.html&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">styleUrls</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./http-view.component.css&#x27;</span>]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">HttpViewComponent</span> <span style="color:rgb(181, 189, 104); font-weight:400;">implements</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnInit</span> </span>{
+
+  <span style="color:rgb(129, 162, 190); font-weight:400;">messageObject</span>: messageRequest[];
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"> <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> httpView: HttpViewService </span>)</span> {
+  }
+
+  ngOnInit(): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.httpView.getInfo().subscribe(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">data</span> =&gt;</span> <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.messageObject = data)
+  }
+
+}
+</code></pre>
+
+        <h2>http-view.component.html</h2>
+
+        <p>Y por ultimo solo tenemos que mostrar la información en nuestro template <b>http-view.component.html</b>, usaremos el array <b>messageObject</b> para mostrar todos los datos que ha devuelto la solicitud, en este caso los mostramos en una tabla usando el <b>ngFor</b>:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">table</span> <span style="color:rgb(129, 162, 190); font-weight:400;">border</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;solid&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">tr</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngFor</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;let message of messageObject&quot;</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">td</span>&gt;</span>{{message.id}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">td</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">td</span>&gt;</span>{{message.title}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">td</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">tr</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">table</span>&gt;</span></code></pre>
+
+        <p>La salida de la aplicacion sería asi:</p>
+
+        <img src="Http Client/1.jpg"/>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Http Client | request | solicitud | Angular</p>
+        </div>
+
+    </body>
+</html>

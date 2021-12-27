@@ -1,0 +1,56 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Array - Cannot read properties of undefined</h1>
+
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Al declarar un array y utilizar el metodo <b>push</b> vemos el siguiente error:</p>
+
+            <code>ERROR TypeError: Cannot read properties of undefined (reading 'push')</code>
+
+            <img src="Array - Cannot read properties of undefined/1.jpg"/>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+          <p>El error se produce porque al declarar el array no se inicializa.</p>
+
+          <p>En este caso el array esta declarado INCORRECTAMENTE asi:</p>
+
+          <code>personas : Array&lt;string&gt;;</code>
+
+          <p>La manera CORRECTA sería la siguiente;</p>
+
+          <code>personas : Array&lt;string&gt; = [];</code>
+
+        </div>
+
+
+    <div class="t2">Declarar un array en Angular/Javascript</div>
+        <div class="cont">
+          <p>Podemos declarar un array de dos maneras:</p>
+
+          <code>personas : Array&lt;string&gt; = [];</code>
+
+          <code>personas : string[] = [];</code>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Array | inicializacion</p>
+        </div>
+
+    </body>
+</html>

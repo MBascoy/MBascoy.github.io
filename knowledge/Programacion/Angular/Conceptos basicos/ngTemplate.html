@@ -1,0 +1,54 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">ngTemplate</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como utilizar <b>ngTemplate</b> para mostrar plantillas bajo ciertas condiciones</p>
+
+          <a href="https://github.com/MBascoy/Angular-Examples/tree/main/ngTemplate">Codigo de Ejemplo</a>
+
+        </div>
+
+      <div class="t2">Descripcion</div>
+          <div class="cont">
+            <p>Para utilizar el <b>ngTemplate</b> lo podemos hacer de la siguiente manera:</p>
+
+            <p>Tenemos un array <b>personas</b> que inicialmente esta vacio y a traves de la funcion <b>nuevaPersona</b> ser ira llenando, si el array esta vacio se muestra el template y si no se muestra el listado del array:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>personas works!<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">click</span>)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;nuevaPersona()&quot;</span>&gt;</span>Añadir Persona<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngIf</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;personas.length &gt; 0 else sinPersonas&quot;</span>&gt;</span>Listado personas:
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">ul</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">li</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngFor</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;let i of personas&quot;</span>&gt;</span>{{i}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">li</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">ul</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">ng-template</span> #<span style="color:rgb(129, 162, 190); font-weight:400;">sinPersonas</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>No hay personas<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">ng-template</span>&gt;</span></code></pre>
+
+
+          <p>En este caso usamos el <b>ngIf</b> para evaluar si el array <b>personas</b> tiene contenido, si lo tiene usamos el <b>ngFor</b> para mostrar el array</p>
+
+          <p>Si el array <b>personas</b> no tiene contenido el <b>else</b> activa la etiqueta <b>sinPersonas</b> esta etiqueta esta definida dentro del <b>ng-template</b> (#sinPersonas) y hará que se muestre el contenido de esa plantilla.</p>
+
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | ngTemplate</p>
+        </div>
+
+    </body>
+</html>
