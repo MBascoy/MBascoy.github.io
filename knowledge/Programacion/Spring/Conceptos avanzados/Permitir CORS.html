@@ -1,0 +1,70 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Permitir CORS</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como permitir que se puedan hacer solicitudes <b>CORS</b> a nuestra aplicacion <b>spring</b></p>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+
+          <h2>Dependencias</h2>
+          <p>Pimero tenemos que indicar la siguiente dependencia en el archivo <b>pom.xml</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>org.apache.httpcomponents<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>httpclient<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span></code></pre>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para permitir el acceso cruzado podemos hacerlo de dos maneras:</p>
+
+          <h2>A nivel de controlador</h2>
+
+          <p>En este caso tenemos que poner la etiqueta <b>@CrossOrigin</b> antes del metodo del controlador, por ejemplo:</p>
+
+          <code>@CrossOrigin(origins = "http://127.0.0.1:4200")</code>
+
+          <p>Si tenemos varios <b>endpoints</b> tendremos que indicar la etiqueta en cada uno de ellos</p>
+
+          <p><b>NOTA</b>: si vamos a usar la direccion local (localhost o 127.0.0.1), la que pongamos en la etiqueta es la que tendremos que usar para conectarnos, si no fallará si ponemos una y usamos la otra</p>
+
+          <h2>A nivel global</h2>
+
+          <p>Otra manera de hacerlo es añadiendo el siguiente bean en el archivo principal de la palicacion, despues de la clase <b>main</b></p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@Bean</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> WebMvcConfigurer <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">corsConfigurer</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+	<span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">WebMvcConfigurer</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+		<span style="color:rgb(249, 145, 87); font-weight:400;">@Override</span>
+		<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">addCorsMappings</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">CorsRegistry registry</span>)</span> {
+			registry.addMapping(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/api/members&quot;</span>).allowedOrigins(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;http://127.0.0.1:4200&quot;</span>);
+		}
+	};
+}</code></pre>
+
+        <p>En este caso tenemos que indicar la ruta completa del <b>endpoint</b> (/api/members en este caso)</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Spring | CORS</p>
+        </div>
+
+    </body>
+</html>
