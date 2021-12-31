@@ -1,0 +1,61 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">warning - redirigiendo a </h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Cuando hacemos un <b>pull</b> o un <b>push</b> obtenemos el siguiente <b>warning</b>:.</p>
+            
+            <img src="./warning - redirigiendo a (url)/2.png"/>
+            
+            <code>warning: redirigiendo a https://github.com/MBascoy/MBascoy.github.io/</code>
+
+        </div>
+        
+    <div class="t2">Solucion</div>
+        <div class="cont">
+            <p>En este caso el <b>warning</b> se da porque la direccion configurada es una direccion <b>http</b> y no <b>https</b> por lo tanto el servidor nos redirige, podemos comprobarlo con el comando <b>git remote-v</b></p>
+        
+        <pre><code>jericho@localhost:~/MBascoy.github.io> git remote -v
+origin  http://github.com/MBascoy/MBascoy.github.io (fetch)
+origin  http://github.com/MBascoy/MBascoy.github.io (push)
+</code></pre>
+
+            <img src="./warning - redirigiendo a (url)/1.png"/>
+            
+            <p>Para solucionar esto simplemente borramos la direccion asignada a la rama remota con el siguiente comando:</p>
+            
+            <code>remote rm origin</code>
+            
+            <p>Ahora añadimos la direccion correcta para que asi ya no nos redirija:</p>
+            
+            <code>git remote add origin https://github.com/MBascoy/MBascoy.github.io/</code>
+            
+            <p>y al hacer <b>push</b> (la primera vez) asociamos la rama <b>main</b> con la rama remota <b>origin</b>:</p>
+            
+            <code>git push --set-upstream origin main</code>
+            
+            <img src="./warning - redirigiendo a (url)/3.png"/>
+            
+            <p>Ahora al hacer <b>push</b> o <b>pull</b> ya no obtenemos ese warning:</p>
+            
+            <img src="./warning - redirigiendo a (url)/4.png"/>
+            
+            
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | warning </p>
+        </div>
+    
+    </body>
+</html>
