@@ -97,7 +97,7 @@ img{
 
 
 .cat1{
-    width:31%;
+    width:30%;
     float:left;
     padding:5px;
     margin:10px;
@@ -110,7 +110,7 @@ img{
 
 @media only screen and (max-width:1600px){
     .cat1{
-        margin:0.2%;
+        margin:0.8%;
             
     }
             
@@ -118,13 +118,20 @@ img{
 
 @media only screen and (orientation:portrait){
     .cat1{
-        width:98%;    
+        width:98%;
+    }
+    
+    .row1{
+    
+        flex-wrap: wrap;
     }
 
 }
 
 .row1{
-    float:left;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     width:100%;
 }
 
