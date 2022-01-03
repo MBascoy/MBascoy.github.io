@@ -1,0 +1,60 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">TESTING, Export of name 'ngForm' not found</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Al lanzar un <b>test</b> en Angular usando jasmine obtenemos el siguiente error:</p>
+
+            <code>Error: NG0301: Export of name 'ngForm' not found!</code>
+
+            <img src="TESTING, Export of name 'ngForm' not found/1.jpg"></img>
+
+            <p>El error solo ocurre al lanzar el test y no al lanzar la aplicación angular de forma normal</p>
+
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+          <p>El error se da porque estamos utilizando el <b>ngForm</b> en el template:</p>
+
+        <code>&lt;form [formGroup]="userForm" #form="ngForm"&gt;</code>
+
+        <p>Pero a pesar de que tenemos definido el <b>ReactiveFormsModule</b> en el <b>app.module.ts</b> el test no lo importa, tenemos que definirlo manualmente dentro del test:</p>
+
+        <p>Dentro del objeto de la configuración de los tests incluimos el <b>imports</b>:</p>
+
+        <code>imports: [ ReactiveFormsModule ]</code>
+
+        <p>El codigo final queda asi:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span style="color:rgb(204, 153, 204); font-weight:400;">beforeEach</span>(async () =&gt; {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span style="color:rgb(204, 153, 204); font-weight:400;">TestBed</span><span style="color:rgb(209, 217, 225); font-weight:400;">.configureTestingModule</span>({
+      declarations: [ UserComponent ],
+      imports: [ ReactiveFormsModule ]
+    })
+    <span style="color:rgb(209, 217, 225); font-weight:400;">.compileComponents</span>();
+  });</code></pre>
+
+          <p><b>NOTA:</b> Hay que hacer el import del propio modulo a parte de declararlo en la configuración del test:</p>
+
+          <code>import { ReactiveFormsModule } from '@angular/forms';</code>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p> Angular | variable | inicializacion</p>
+        </div>
+
+    </body>
+</html>
