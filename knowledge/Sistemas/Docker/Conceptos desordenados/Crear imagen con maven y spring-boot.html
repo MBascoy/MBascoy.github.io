@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Crear imagen con maven y spring-boot</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como usar <b>maven</b> para crear una imagen de un programa desarrollado con <b>spring</b> (spring-boot).</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <p>Primero tenemos que importar el siguiente plugin en el <b>pom.xml</b></p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">build</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">plugins</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">plugin</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>org.springframework.boot<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>spring-boot-maven-plugin<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">configuration</span>&gt;</span>
+                <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">image</span>&gt;</span>
+                    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">name</span>&gt;</span>team2postacademy/api_skill_matrix<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">name</span>&gt;</span>
+                <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">image</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">configuration</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">plugin</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">plugins</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">build</span>&gt;</span></code></pre>
+
+
+        <p>Tenemos que incluir el código despues de las dependencias tal que así:</p>
+
+        <img src="Crear imagen con maven y spring-boot/1.png"/>
+
+        <p>En la etiqueta <b>name</b> debemos de introducir el usuairo de docker seguido de barra "/" y seguido del nombre que le queramos dar a la imagen</p>
+
+        <p>Una vez hemos añadido el plugin podemos generar la imagen de dos maneras, desde el <b>visual code</b> o desde el <b>terminal</b></p>
+
+        <h2>Usando Visual code</h2>
+
+        <p>Para generar la imagen desde el <b>Visual Code</b> simplemente tenemos que irnos a:</p>
+
+        <p><b>Maven</b> > <b>Plugins</b> > <b>Spring-Boot</b> > <b>build-Image</b></p>
+
+        <img src="Crear imagen con maven y spring-boot/2.png"/>
+
+        <p>Una vez hecho esto ya tendremos la imagen generada dentro de docker</p>
+
+        <h2>Usando el terminal</h2>
+
+        <p>Para realizar la misma operación utilizando el terminal simplemente tenemos que irnos a la carpeta donde tengamos el proyecto y ejecutar el siguiente comando</p>
+
+        <code>mvn spring-boot:build-image</code>
+
+        <p>Una vez hecho esto ya tendremos la imagen generada dentro de docker</p>
+
+        <p>Si queremos consultar si la imagen se ha generado en docker podemos hacerlo con el siguiente comando:</p>
+
+        <code>docker images</code>
+        <p>
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker | Spring | Imagen | deploy </p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,146 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+
+        <style>
+          .prueba{
+            display: flex;
+            flex-direction: row;
+
+            background-color: lightblue;
+          }
+
+          .contenido{
+            width: 25%;
+            height: 100px;
+            background-color: tomato;
+            margin: 10px;
+            align-content: center;
+          }
+        </style>
+    </head>
+
+    <body>
+
+    <h1 class="t1">Flexbox</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como utilizar <b>Flexbox</b> para gestionar la distribución de los elementos de una página web</p>
+
+          <p><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">Tutorial flexbox</a></p>
+          <p><a href="Flexbox/1.png">Version Imagen</a></p>
+        </div>
+
+    <div class="t2">Como utilizar Flexbox</div>
+        <div class="cont">
+        <p>Para que un elemento organice su contenido usando flexbox primero definimos la propiedad <b>display</b> como flex:</p>
+
+        <code>display: flex;</code>
+
+        <p>Flexbox nos permite mostrar los elementos de dos maneras, por filas o por columnas, para eso usamos <b>flex-direction</b>:</p>
+
+        <code>flex-direction: row;</code>
+
+        <p>De esta manera todos los elementos se mostraran en una misma fila y flexbox distribuirá los elementos de manera equitativa entre ellos</p>
+
+        <section class="prueba">
+          <div class="contenido">Uno</div>
+          <div class="contenido">Dos</div>
+          <div class="contenido">Tres</div>
+          <div class="contenido">Cuatro</div>
+        </section>
+
+        <p>Si usamos el atributo <b>flex-wrap</b> con el valor <b>wrap</b> los elementos que no quepan en la fila se pasan a la siguiente fila:</p>
+
+        <code>flex-wrap: wrap;</code>
+
+        <section class="prueba" style="flex-wrap: wrap;">
+          <div class="contenido">Uno</div>
+          <div class="contenido">Dos</div>
+          <div class="contenido">Tres</div>
+          <div class="contenido">Cuatro</div>
+          <div class="contenido">Cinco</div>
+        </section>
+
+        <p>Podemos usar flex-grow si queremos que un elemento ocupe mas que otro, (flexbox solo le asignará mas espacio al elemento si hay espacio disponible), el valor por defecto de todos los elementos es 0, flex asignará mas espacio a los que tengan mas valor de manera equitativa </p>
+
+        <code>flex-grow: 3;</code>
+
+        <section class="prueba" style="flex-wrap: wrap;">
+          <div class="contenido">Uno</div>
+          <div class="contenido" style="flex-grow: 3;">Dos</div>
+          <div class="contenido">Tres</div>
+          <div class="contenido">Cuatro</div>
+          <div class="contenido">Cinco</div>
+        </section>)
+
+        <p>Si queremos que se distribulla el espacio de manera equitativa entre los elementos podemos usar:</p>
+
+        <code>justify-content: space-around;</code>
+
+        <section class="prueba" style="flex-wrap: wrap; justify-content: space-around;">
+          <div class="contenido">Uno</div>
+          <div class="contenido">Dos</div>
+          <div class="contenido">Tres</div>
+          <div class="contenido">Cuatro</div>
+          <div class="contenido">Cinco</div>
+        </section>
+
+        <p>Si queremos que se repartan todo el espacio de izquierda a derecha podemos usar:</p>
+
+        <code>justify-content: space-between;</code>
+
+        <section class="prueba" style="flex-wrap: wrap; justify-content: space-between;">
+          <div class="contenido">Uno</div>
+          <div class="contenido">Dos</div>
+          <div class="contenido">Tres</div>
+          <div class="contenido">Cuatro</div>
+          <div class="contenido">Cinco</div>
+        </section>
+
+        <p>Tambien podemos alinear los elementos verticalmente usando:</p>
+
+        <code>align-items:flex-start;</code>
+
+
+        <section class="prueba" style="justify-content: space-between; align-items:flex-start;">
+          <div class="contenido" style="height:140px">Uno</div>
+          <div class="contenido"style="height:70px">Dos</div>
+          <div class="contenido">Tres</div>
+          <div class="contenido" style="height:180px">Cuatro</div>
+          <div class="contenido">Cinco</div>
+        </section>
+
+        <code>align-items:flex-end;</code>
+
+
+        <section class="prueba" style="justify-content: space-between; align-items:flex-end;">
+          <div class="contenido" style="height:140px">Uno</div>
+          <div class="contenido"style="height:70px">Dos</div>
+          <div class="contenido">Tres</div>
+          <div class="contenido" style="height:180px">Cuatro</div>
+          <div class="contenido">Cinco</div>
+        </section>
+
+        <code>align-items:center;</code>
+
+        <section class="prueba" style="justify-content: space-between; align-items:center;">
+          <div class="contenido" style="height:140px">Uno</div>
+          <div class="contenido"style="height:70px">Dos</div>
+          <div class="contenido">Tres</div>
+          <div class="contenido" style="height:180px">Cuatro</div>
+          <div class="contenido">Cinco</div>
+        </section>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>HTML | Flexbox | Layout | CSS</p>
+        </div>
+
+    </body>
+</html>
