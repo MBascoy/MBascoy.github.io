@@ -1,0 +1,43 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Cannot load driver class com.mysql.jdbc.Driver</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Al intentar compilar un proyecto de spring obtenemos el siguiente error:</p>
+            <code>org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is java.lang.IllegalStateException: Cannot load driver class: com.mysql.jdbc.Driver</code>
+
+            <p>Es un fallo muy concreto que se nos dio en el proyecto de <b>skillmatrix</b> y no tiene ninguna relacion con el <b>driver jdbc</b>
+
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>El fallo se producía porque en el archivo <b>application.properties</b> del proyecto al final de las lineas habia un espacio colocado, y eso generaba el error:</p>
+
+            <img src="Cannot load driver class com.mysql.jdbc.Driver/1.png"/>
+
+            <p>En nuestro caso eso se produjo debido a copiar y pegar esas lineas de configuración desde un archivo de word que introducía esos espacios en blanco al final de todas las lineas.</p>
+
+            <p>La solución era tan simple como <b>borrar</b> esos espacios en <b>blanco</b> al final de cada línea.</p>
+
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Spring | jdbc | mysql | application.properties</p>
+        </div>
+
+    </body>
+</html>
