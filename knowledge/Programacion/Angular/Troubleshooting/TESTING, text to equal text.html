@@ -1,0 +1,59 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">TESTING, text to equal text</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Cuando lanzamos un <b>expect</b> dentro de un test obtenemos un error como el siguiente:</p>
+
+            <code>Expected Error: An error occur connecting to the server to equal 'An error occur connecting to the server'.</code>
+
+            <img src="TESTING, text to equal text/1.png"/>
+
+            <p>Aparentemente el texto que está comparando es exactamente igual, pero aún asi el test falla</p>
+
+            <p><b>NOTA</b>: Incluso anque incluyamos "Error:" en el texto (para que sea 100% exacto) el test falla:</p>
+
+            <img src="TESTING, text to equal text/4.png"/>
+
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+          <p>El problema en este caso es que lo que se está comparando no son dos <b>string</b> (Aunque lo parezca)</p>
+
+          <p>En el test estamos indicando esto:</p>
+
+          <img src="TESTING, text to equal text/2.png"/>
+
+          <p>Pero donde se lanza el error tenemos el siguiente codigo:</p>
+
+          <img src="TESTING, text to equal text/3.png"/>
+
+          <p>Por lo tanto se está comparando un objeto <b>string</b> con un objeto <b>Error</b></p>
+
+          <p>Para solucionar esto simplemente tenemos que hacer en el test una comparación con un objeto <b>Error</b> con el contenido del texto en este caso seria:
+          <code>new Error(data)</code>
+
+          <p>tal que asi:</p>
+
+          <img src="TESTING, text to equal text/5.png"/>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p> Angular | Test | expect | Error</p>
+        </div>
+
+    </body>
+</html>

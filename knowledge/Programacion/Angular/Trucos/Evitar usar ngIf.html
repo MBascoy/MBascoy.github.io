@@ -1,0 +1,42 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Evitar usar ngIf</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Si queremos prescindir de utilizar <b>ngIf</b> podemos utilizar la siguiente alternativa</p>
+
+          <p>Simplemente utilizamos la directiva <b>[hidden]</b> y una variable booleana para determinar si mostrar un elemeneto o no:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">a</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">hidden</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;hideSeeMore&quot;</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">click</span>)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;toggle()&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">data-bs-toggle</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;collapse&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;#multiCollapseExample{{memberId}}&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">role</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;button&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">aria-expanded</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;false&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">aria-controls</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;multiCollapseExample1&quot;</span>&gt;</span>{{see}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">a</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span></code></pre>
+
+          <p>En este caso usamos la variable <b>hideSeeMore</b> para controlar si se muestra la etiqueta o no</p>
+
+          <p>Y en el <b>ts</b> controlamos la variable de la siguiente manera:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  ngOnInit(): void {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.skillList?.length &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>)
+      <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.hideSeeMore = <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+      <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.hideSeeMore =  <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+  }</code></pre>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>ngIf | hidden | Angular</p>
+        </div>
+
+    </body>
+</html>

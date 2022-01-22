@@ -1,0 +1,57 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Testing con Jasmine</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como utilizar el decorador <b>Viewchild</b> para acceder al <b>DOM</b> de la página y leer o modificar etiqetas del HTML</p>
+
+          <a href="https://github.com/MBascoy/Angular-Examples/tree/main/Viewchild">Codigo de Ejemplo</a>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Para acceder a una etiqueta del html primero necesitamos identificarla de esta manera:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:700;">&lt;a #someInput&gt;</span><span style="color:rgb(181, 189, 104); font-weight:700;">&lt;/a&gt;</span></code></pre>
+
+            <p>En este caso utilizamos el identificador <b>#someInput</b></p>
+
+            <p>A continuación en el archivo <b>ts</b> del componente tenemos que implementar la funcion <b>AfterViewInit</b> en la clase del componente, vez de <b>ngOnInit</b></p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">export <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">Test1Component</span> <span style="color:rgb(204, 153, 204); font-weight:400;">implements</span> <span style="color:rgb(255, 204, 102); font-weight:400;">AfterViewInit</span> </span>{</code></pre>
+
+            <p>Ahora utilizamos el decorador <b>Viewchild</b> para acceder a la etiqueta que definimos previamente en el template:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(255, 204, 102); font-weight:400;">@ViewChild</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;someInput&#x27;</span>) <span style="color:rgb(129, 162, 190); font-weight:400;">someInput</span>: ElementRef;</code></pre>
+
+            <p>Ahora podemos utilizar la variable <b>someInput</b> para acceder a la etiqueta y leer su contenido o aplicar nuevo contenido o atributos:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">ngAfterViewInit() {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.someInput.nativeElement.style = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;background-color:lightgreen;&quot;</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.someInput.nativeElement.innerHTML = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Enlace a google&quot;</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.someInput.nativeElement.href = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;http://google.es&quot;</span>
+  }</code></pre>
+
+            <p>Para acceder a los distintos datos de la etiqueta solo tenemos que utilizar el atributo <b>nativeElement</b> y a continuacion uno de los elementos de la etiqueta, ya sea <b>innerHTML</b> para acceder al contenido de la etiqueta o por ejemplo <b>href</b> para acceder al atributo de una etiqueta de enlace</p>
+
+            <p><b>NOTA</b>: el objeto <b>nativeElement</b> es de tipo <b>any</b> por lo tanto el IDE no nos dara ninguna prediccion de los atributos que tiene el objeto, asi que tendremos que poner nosotros los atributos en consonancia con la etiqueta a la que estemos accediendo.</p>
+
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | DOM | Viewchild</p>
+        </div>
+
+    </body>
+</html>
