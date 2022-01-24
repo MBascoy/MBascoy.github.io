@@ -1,0 +1,79 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Menu desplegable</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar los iconos de Bootstrap mediante CDN o mediante npm</p>
+
+        </div>
+
+    <div class="t2">Usando NPM y Angular</div>
+        <div class="cont">
+
+          <p>Para utilizar los iconos de Bootstrap en un proyecto usando npm y angular lo unico que necesitamos es instalar el paquete de <b>bootstrap-icons</b> con el siguiente comando:</p>
+
+          <code>npm i bootstrap-icons</code>
+
+          <p>Una vez tenemos el paquete instalado tenemos que cargar el CSS para poder utilizar las clases de los iconos:</p>
+
+          <p><b>NOTA</b>: El archivo CSS se encuentra en: "node_modules/bootstrap-icons/font/bootstrap-icons.css"</p>
+
+          <p>Si tenemos un proyecto que <b>NO</b> es <b>Angular</b> podemos importarlo como un archivo CSS cualquiera desde el html:</p>
+          <code>&lt;link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css"&gt;</code>
+
+          <p>Si tenemos un proyecto de <b>Angular</b> podemos hacerlo de dos maneras:</p>
+
+          <p>Primera forma, cargando el CSS en el <b>angular.json</b>:</p>
+
+          <p>En el archivo angular.json de nuestro proyecto en el array de <b>styles</b> incluiremos la ruta del archivo CSS:</p>
+
+          <code>"node_modules/bootstrap-icons/font/bootstrap-icons.css"</code>
+
+          <img src="Iconos Bootstrap/1.png"/>
+
+          <p>Segunda forma, cargando el <b>CSS</b> desde el archivo <b>styles.css</b> de nuestro proyecto con la siguiente linea:</p>
+
+          <code>@import "~bootstrap-icons/font/bootstrap-icons.css";</code>
+
+
+        </div>
+
+
+        <div class="t2">Usando CDN</div>
+            <div class="cont">
+
+              <p>Para utilizar los iconos de bootstrap usando el CDN simplemente tenemos que añadir la siguiente linea en el <b>HEAD</b> de nuestra página:</p>
+              <code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"&gt;</code>
+
+            </div>
+
+          <div class="t2">Como usar los iconos</div>
+            <div class="cont">
+              <p>Para utilizar los iconos en nuestra página simplemente tenemos que indicar la <b>clase</b> del icono que queremos mostrar, tal que así:</p>
+
+              <code>&lt;i class="bi bi-suit-heart-fill"&gt;&lt;/i&gt;</code>
+
+              <p>Podemos ver la lista entera de iconos en la <a href="https://icons.getbootstrap.com/#icons">página de iconos de bootstrap</a> donde se nos muestra el nombre de la clase que tenemos que utilizar para cargar el icono</p>
+
+              <h2>Tamaño y color</h2>
+              <p>Para darle un tamaño y color al icono podemos hacerlo de la siguiente manera:</p>
+              <code>&lt;i class="bi-alarm" style="font-size: 2rem; color: cornflowerblue;"&gt;&lt;/i&gt;</code>
+
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Web development | Javascript | CSS | colapsable</p>
+        </div>
+
+    </body>
+</html>

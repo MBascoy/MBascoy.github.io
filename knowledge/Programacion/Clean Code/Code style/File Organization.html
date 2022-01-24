@@ -1,0 +1,133 @@
+
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">File Organization</h1>
+
+    <div class="t2">Java</div>
+        <div class="cont">
+          <p>En java los elementos de una clase deben de seguir el siguiente orden:</p>
+
+          <p>Reference: <a href="https://www.oracle.com/java/technologies/javase/codeconventions-fileorganization.html">Oracle documentation</a></p>
+
+          <ol>
+            <li>General comment describing the class</li>
+            <li>Packages</li>
+            <li>Imports</li>
+            <li>Class / Interface declaration</li>
+            <li>Static variables</li>
+            <li>Variable declarations</li>
+            <li>Constructors</li>
+            <li>Methods</li>
+          </ol>
+
+          <h2>Example</h2>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(150, 152, 150); font-weight:400;">/*
+ * @(#)Blah.java        1.82 99/03/18
+ *
+ * Copyright (c) 1994-1999 Sun Microsystems, Inc.
+ * 901 San Antonio Road, Palo Alto, California, 94303, U.S.A.
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary information of Sun
+ * Microsystems, Inc. (&quot;Confidential Information&quot;).  You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Sun.
+ */</span>
+
+
+package java.blah;
+
+import java.blah.blahdy.BlahBlah;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">/**
+ *
+        Class description goes here.
+ *
+ * <span style="color:rgb(138, 190, 183); font-weight:400;">@version</span>
+        1.82 18 Mar 1999  * <span style="color:rgb(138, 190, 183); font-weight:400;">@author</span>
+        Firstname Lastname  */</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">Blah</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(255, 204, 102); font-weight:400;">SomeClass</span> </span>{
+
+           <span style="color:rgb(150, 152, 150); font-weight:400;">/* A class implementation comment can go here. */</span>
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/**
+        classVar1 documentation comment */</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> classVar1;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/**
+
+            *
+        classVar2 documentation comment that happens to be      *
+        more than one line long      */</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">Object</span> classVar2;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/**
+        instanceVar1 documentation comment */</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">Object</span> instanceVar1;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/**
+        instanceVar2 documentation comment */</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> instanceVar2;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/**
+        instanceVar3 documentation comment */</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(204, 153, 204); font-weight:400;">Object</span>[] instanceVar3;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/**
+     * ...
+        constructor Blah documentation comment...      */</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> Blah() {
+
+              <span style="color:rgb(150, 152, 150); font-weight:400;">// ...implementation goes here...     }</span>
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/**
+     * ...
+        method doSomething documentation comment...      */</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> doSomething() {
+
+               <span style="color:rgb(150, 152, 150); font-weight:400;">// ...implementation goes here...      }</span>
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/**
+     * ...method doSomethingElse
+        documentation comment...      * <span style="color:rgb(138, 190, 183); font-weight:400;">@param</span> someParam
+        description      */</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> doSomethingElse(<span style="color:rgb(204, 153, 204); font-weight:400;">Object</span> someParam) {
+
+               <span style="color:rgb(150, 152, 150); font-weight:400;">// ...implementation goes here...      }</span>
+}</code></pre>
+
+        </div>
+
+    <div class="t2">Typescript / JavaScript</div>
+        <div class="cont">
+
+          <p>En Javascript / TypeScript / Angular los miembros de una clase deben de seguir el siguiente orden:</p>
+
+          <p>Reference: <a href="https://angular.io/guide/styleguide#member-sequence">Angular documentation</a></p>
+
+          <ol>
+            <li>Class declaration</li>
+            <li>Static variables</li>
+            <li>Variable declarations</li>
+            <li>Constructor</li>
+            <li>Public Methods</li>
+            <li>ngOnInit</li>
+            <li>Private Methods</li>
+          </ol>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Naming convention | File | Cclass | Organization </p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,169 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Event Input</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como gestionar los eventos de entrada (raton,teclado...etc) sobre las etiquetas del html.</p>
+
+          <a href="https://github.com/MBascoy/Angular-Examples/tree/main/EventInput">Codigo de Ejemplo</a>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Para utilizar los eventos simplemente tenemos que indicar el evento que queremos asociar a la etiqueta <b>entre parentesis</b> como un atributo de la etiqueta y asociarle una funcion (la funcion debe de ir entre comillas <b>""</b>):</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">click</span>)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;increaseInput()&quot;</span>&gt;</span>{{name}}: {{numberOfInputs}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span></code></pre>
+
+            <p>En este caso asociamos el evento <b>(click)</b> con la funcion <b>increaseInput</b> de manera que cada vez que hagamos click en la etiqueta <b>&lt;p&gt;</b> se lanzará dicha funcion</p>
+
+            <p><b>NOTA</b>: La función tiene que estar colocada dentro del <b>mismo componente</b> (en el archivo .ts), si queremos llamar a una funcion de un <b>componente padre</b> podemos hacerlo <a href="#">como se explica aqui.</a>
+
+            <p>Otro ejemplo sería este:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">input</span> <span style="color:rgb(181, 189, 104); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text&quot;</span> (keydown)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;increaseInput()&quot;</span>&gt;</code></pre>
+
+
+          <p>En este caso asociamos el evento <b>(keydown)</b> a la misma funcion de antes <b>increaseInput</b>, en este caso al pulsar una tecla dentro de ese input se lanzará la funcion</p>
+
+          <br/>
+          <h2>Lista de eventos</h2>
+
+          <p>Algunos de los eventos mas utilizados son:</p>
+
+          <ul>
+            <li><b>click</b></li>
+            <li><b>dblclick</b></li>
+            <li><b>keydown</b></li>
+            <li><b>keypress</b></li>
+            <li><b>keyup</b></li>
+            <li><b>mouseenter</b></li>
+            <li><b>mouseleave</b></li>
+          </ul>
+
+          <p>Podemos ver la lista de eventos completa en el siguiente archivo</p>
+
+          <code>{Carpeta del proyecto}/node_modules/typescript/lib/lib.dom.d.ts</code>
+
+          <p>Dentro del objeto <b>GlobalEventHandlersEventMap</b></p>
+
+          <p>En la version <b>13.1.2</b> de Angular los eventos son estos:</p>
+          <pre><code>interface GlobalEventHandlersEventMap {
+    "abort": UIEvent;
+    "animationcancel": AnimationEvent;
+    "animationend": AnimationEvent;
+    "animationiteration": AnimationEvent;
+    "animationstart": AnimationEvent;
+    "auxclick": MouseEvent;
+    "beforeinput": InputEvent;
+    "blur": FocusEvent;
+    "canplay": Event;
+    "canplaythrough": Event;
+    "change": Event;
+    "click": MouseEvent;
+    "close": Event;
+    "compositionend": CompositionEvent;
+    "compositionstart": CompositionEvent;
+    "compositionupdate": CompositionEvent;
+    "contextmenu": MouseEvent;
+    "cuechange": Event;
+    "dblclick": MouseEvent;
+    "drag": DragEvent;
+    "dragend": DragEvent;
+    "dragenter": DragEvent;
+    "dragleave": DragEvent;
+    "dragover": DragEvent;
+    "dragstart": DragEvent;
+    "drop": DragEvent;
+    "durationchange": Event;
+    "emptied": Event;
+    "ended": Event;
+    "error": ErrorEvent;
+    "focus": FocusEvent;
+    "focusin": FocusEvent;
+    "focusout": FocusEvent;
+    "formdata": FormDataEvent;
+    "gotpointercapture": PointerEvent;
+    "input": Event;
+    "invalid": Event;
+    "keydown": KeyboardEvent;
+    "keypress": KeyboardEvent;
+    "keyup": KeyboardEvent;
+    "load": Event;
+    "loadeddata": Event;
+    "loadedmetadata": Event;
+    "loadstart": Event;
+    "lostpointercapture": PointerEvent;
+    "mousedown": MouseEvent;
+    "mouseenter": MouseEvent;
+    "mouseleave": MouseEvent;
+    "mousemove": MouseEvent;
+    "mouseout": MouseEvent;
+    "mouseover": MouseEvent;
+    "mouseup": MouseEvent;
+    "pause": Event;
+    "play": Event;
+    "playing": Event;
+    "pointercancel": PointerEvent;
+    "pointerdown": PointerEvent;
+    "pointerenter": PointerEvent;
+    "pointerleave": PointerEvent;
+    "pointermove": PointerEvent;
+    "pointerout": PointerEvent;
+    "pointerover": PointerEvent;
+    "pointerup": PointerEvent;
+    "progress": ProgressEvent;
+    "ratechange": Event;
+    "reset": Event;
+    "resize": UIEvent;
+    "scroll": Event;
+    "securitypolicyviolation": SecurityPolicyViolationEvent;
+    "seeked": Event;
+    "seeking": Event;
+    "select": Event;
+    "selectionchange": Event;
+    "selectstart": Event;
+    "stalled": Event;
+    "submit": SubmitEvent;
+    "suspend": Event;
+    "timeupdate": Event;
+    "toggle": Event;
+    "touchcancel": TouchEvent;
+    "touchend": TouchEvent;
+    "touchmove": TouchEvent;
+    "touchstart": TouchEvent;
+    "transitioncancel": TransitionEvent;
+    "transitionend": TransitionEvent;
+    "transitionrun": TransitionEvent;
+    "transitionstart": TransitionEvent;
+    "volumechange": Event;
+    "waiting": Event;
+    "webkitanimationend": Event;
+    "webkitanimationiteration": Event;
+    "webkitanimationstart": Event;
+    "webkittransitionend": Event;
+    "wheel": WheelEvent;
+}</code></pre>
+
+
+
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | DOM | Viewchild</p>
+        </div>
+
+    </body>
+</html>
