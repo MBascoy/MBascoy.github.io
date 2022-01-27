@@ -1,0 +1,61 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Prevenir CORS</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como configurar angular para prevenir el bloqueo por <b>CORS</b> al hacer solicitudes cruzadas</p>
+
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para prevenir que se bloqueen solicitudes <b>CORS</b> lo haremos utilizando el proxy de angular.</p>
+
+          <p>Primero tenemos que añadir un archivo <b>proxy.config.json</b> en la raiz del proyecto, con el siguiente contenido:</p>
+
+          <pre><code>{
+  "/api/*":{
+      "target": "http://127.0.0.1:8080",
+      "secure":false,
+      "logLevel":"debug"
+  }
+}</code></pre>
+
+          <p>El <b>target</b> que se indica en la configuración es la dirección a la que nos queremos conectar</p>
+
+          <p>Despues en el archivo <b>angular.json</b> ponemos la siguiente configuración en el apartado <b>serve</b>:</p>
+
+          <pre><code>"serve": {
+"builder": "@angular-devkit/build-angular:dev-server",
+"options": {
+  "proxyConfig": "proxy.config.json"
+},</code></pre>
+
+          <p>Una vez tenemos esto ya podemos utilizar las conexiones sin problemas de <b>CORS</b> solo que a la hora de hacer las conexiones solo tenemos que indicar el <b>Endpoint</b> sin indicar la direccion del servidor, ya que esta dirección se indica en el archivo de <b>proxy.config.json</b>:</p>
+
+          <img src="Prevenir CORS/1.png"/>
+
+          <p>En este caso nos conectamos al endpoint <b>/api/members</b> y el servidor es el que ya indicamos en el proxy.config.json en este caso <b>127.0.0.1:8080</b></p>
+
+          <p>NOTA: si utilizamos la direccion <b>http://127.0.0.1:8080/api/members</b> no utilizariamos el proxy de angular y no estaríamos preveniendo el bloqueo del CORS</p>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>ngIf | Hidden | Angular</p>
+        </div>
+
+    </body>
+</html>
