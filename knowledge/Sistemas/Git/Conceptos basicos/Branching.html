@@ -95,7 +95,19 @@
 
             <code>> git branch -f &lt;rama&gt; &lt;Hash del commit&gt;</code>
 
+            <p>Tambien podemos mover la rama actual a un estado anterior descartando todos los commits que hemos hecho tal que asi (solo podemos hacerlo en local):</p>
+
+            <code>> git reset --hard &lt;Hash del commit&gt;</code>
+
             <p>Para consultar el hash del commit podemos hacer un <b>git log</b></p>
+
+            <p>Si simplemente queremos movernos temporalmente a un commit anterior podemos hacerlo con:</p>
+
+            <code>> git checkout &lt;Hash del commit&gt;</code>
+
+            <p>para volver al commit mas reciente lo haríamos con el nombre de la rama sin mas:</p>
+
+            <code>> git checkout &lt;rama&gt;</code>
 
 
         </div>
