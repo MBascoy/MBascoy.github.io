@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Sincronizar con remoto y descartar cache</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Cuando hacemos un <b>fetch</b> y consultamos la ramas, nos aparecen ramas que ya han sido borradas en el <b>repositorio remoto</b>.</p>
+
+        </div>
+
+    <div class="t2">Metodo Linux</div>
+        <div class="cont">
+            <p>Esta situación se produce porque hemos descargado la información de esas ramas previamente y permanecen en la cache de nuestro loca, para descartar esa información podemos hacerlo con el siguiente comando:</p>
+
+            <code>git fetch --prune origin</code>
+
+            <p>De esta manera la información local de nuestro <b>git</b> mostrará las mismas ramas que el repositorio remoto</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Ramas remotas | prune | fetch </p>
+        </div>
+
+    </body>
+</html>

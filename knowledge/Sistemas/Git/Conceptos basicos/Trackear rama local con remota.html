@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Trackear rama local con remota</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como enlazar ramas que tenemos en local con ramas de un repositorio remoto.</p>
+
+        </div>
+
+    <div class="t2">Comandos basicos</div>
+        <div class="cont">
+          <h2>Consultar estado de la rama</h2>
+          <p>Primero consultamos el estado de la rama en la que estamos con el siguiente comando:</p>
+
+          <code>> git status</code>
+
+          <p>Podemos tener 3 estados:</p>
+          <ul>
+            <li>Tenemos una rama en local que no está asignada a una rama remota:</li>
+            <img src="Trackear rama local con remota/1.png"/>
+
+            <li>Tenemos una rama local asignada a una rama remota</li>
+            <img src="Trackear rama local con remota/2.png"/>
+
+            <li>Tenemos una rama remota que no está asignada a ninguna local (en ese caso la rama no existiría en nuestro local, solo en remoto)</li>
+          </ul>
+
+
+          <h2>Rama local existente / Rama remota NO existente</h2>
+
+          <p>En este caso tenemos una rama local <b>rama_test</b> que existe en local, pero no en remoto, para crear la rama remota y trackearla con la local usamos el siguiente comando:</p>
+
+          <code>> git push -u origin rama_test</code>
+
+          <img src="Trackear rama local con remota/3.png"/>
+
+          <h2>Rama local NO existente / Rama remota existente</h2>
+
+          <p>En este caso lanzaríamos el siguiente comando para crear una rama local y trackearla directamente con la remota:</p>
+
+          <code>> git branch --track rama_testB origin/rama_testB</code>
+
+          <p>otra alternativa es:</p>
+
+          <code>> git checkout -t &lt;origin/nombreremoto&gt;</code>
+
+          <img src="Trackear rama local con remota/4.png"/>
+
+          <p>Tenemos que tener en cuenta que si no tenemos la información de ramas actualizadas con el repositorio remoto tendremos que ejecutar el comando:</p>
+
+          <code>> git fetch</code>
+
+          <h2>Rama local existente / Rama remota existente</h2>
+
+          <p>Si existen tanto la rama local como la remota podemos trackearlas con el siguiente comando:</p>
+
+          <code>> git branch --set-upstream-to=origin/rama_testC</code>
+
+          <img src="Trackear rama local con remota/5.png"/>
+
+          <p>Con este comando incluso podemos trackear ramas con nombres distintos, aunque NO ES RECOMENDABLE</p>
+
+          <img src="Trackear rama local con remota/6.png"/>
+
+          <h2>Untrackear ramas</h2>
+
+          <p>Si queremos dejar de tener una rama enlazada con otra rama remota podemos hacerlo con el siguiente comando:</p>
+
+          <code>> git branch --unset-upstream</code>
+
+
+
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | track | branch </p>
+        </div>
+
+    </body>
+</html>

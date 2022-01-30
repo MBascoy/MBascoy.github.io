@@ -1,0 +1,76 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">forEach is not a function</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Al lanzar los tests se produce la siguiente situacion:</p>
+
+          <img src="forEach is not a function/1.png"/>
+
+          <p>Lo curioso es que la situación no se produce siempre, si se lanzan los tests varias veces solo se da este caso algunas de ellas</p>
+
+          <p>El código del <b>forEach</b> esta situado aqui:</p>
+
+          <img src="forEach is not a function/2.png"/>
+
+          <p>El error se produce porque a veces el valor que se lee es un objeto en vez de un array</p>
+
+          <p>Cuando el valor de <b>memberLanguages</b> es un objeto no contiene la funcion <b>forEach</b> y se produce ese error</p>
+
+          <p>Una solucion en este caso es la de añadir <b>Array.from</b> a <b>memberLanguages</b> tal que así:</p>
+
+          <code>Array.from(memberLanguages).forEach(</code>
+
+          <img src="forEach is not a function/3.png"/>
+
+          <p>De esta manera nos aseguramos siempre de que <b>memberLanguages</b> siempre sea un array</p>
+
+        </div>
+
+        <div class="t2">Solución final</div>
+            <div class="cont">
+              <p>De todos modos esa solución no arregla el problema de raiz, ya que en teoría <b>memberlanguages</b> debería de ser siempre un array, en este caso el problema venía dado en el test, ya que estaba pasando un objeto que no era:</p>
+
+              <p>Codigo erroneo:</p>
+
+              <img src="forEach is not a function/4.png"/>
+
+              <p>Codigo correcto:</p>
+
+              <img src="forEach is not a function/5.png"/>
+
+              <p>el problema viene dado porque el valor por defecto que tiene el array es el correcto, (un array de skills), pero el flush hace que se le asigne el valor incorrecto (ya que estaba mal puesto en el test), de manera que dependiendo de cuan rapido se ejecutase la solicitud http (mockeada) pues se cargaba un valor u otro, y en caso de que se cargase el valor de <b>membersProfileMock</b> (que es un objeto y no un array) es cuando se produce el error de <b>forEach is not a function</b></p>
+
+              <p>Array de skills:</p>
+
+              <img src="forEach is not a function/6.png"/>
+
+              <p>Objeto de membersProfileMock:</p>
+
+              <img src="forEach is not a function/7.png"/>
+
+              <h2>Nota</h2>
+
+              <p>De hecho me he dado de cuenta de que incluso en la pantalla de karma aunque salgan todos los tests OK el error siempre aparece en consola, osea que el error no es que aparezca siempre sino mas bien que karma solo lo muestra en ciertas ocasiones (igual dependiendo del tiempo de ejecucion)</p>
+
+              <img src="forEach is not a function/8.png"/>
+
+              <img src="forEach is not a function/9.png"/>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>forEach | test | Error </p>
+        </div>
+
+    </body>
+</html>

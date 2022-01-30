@@ -1,0 +1,108 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">TESTING, NG0304 is not a known element</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Al ejecutar los tests vemos errores como el siguiente en la consola del navegador:</p>
+
+            <img src="TESTING, NG0304 is not a known element/1.png"/>
+
+            <code>NG0304: 'app-list-element' is not a known element</code>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+
+          <h2>Declarar el componente</h2>
+          <p>El error se produce porque en el tests no están definidos esos componentes</p>
+
+          <p>En realidad no tenemos que definirlos a no ser que los necesitemos para testear algo relacionado con el componente faltante, en ese caso lo declarariamos asi en el test:</p>
+
+          <img src="TESTING, NG0304 is not a known element/2.png"/>
+
+          <p>Al ejecutar el test ya veríamos la ejecución sin errores:</p>
+
+          <img src="TESTING, NG0304 is not a known element/3.png"/>
+
+          <h2>Mockear el componente</h2>
+
+           <p>Otra solución es mockear el componente, para simular un comportamiento concreto que necesitemos para el test:</p>
+
+           <img src="TESTING, NG0304 is not a known element/4.png"/>
+
+           <p>Al mockear el componente vacio en este caso obtenemos lo siguientes errores por consola:</p>
+
+           <img src="TESTING, NG0304 is not a known element/5.png"/>
+
+           <p>Como podemos ver el error <b>NG0304</b> ha desaparecido, pero los errores <b>NG0303</b> persisten, ya que el componente que hemos declarado no contiene las propiedades que si que contiene el componente original.</p>
+
+           <p>Si queremos podemos definirlas:</p>
+
+           <img src="TESTING, NG0304 is not a known element/6.png"/>
+
+           <p>El codigo del componente definitivo quedaría tal que así:</p>
+
+           <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component, Input } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { ComponentFixture, TestBed } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core/testing&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { ListBlockComponent } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;src/app/shared-components/list-block/list-block.component&#x27;</span>;
+
+describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ListBlockComponent&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+  let component: ListBlockComponent;
+  let fixture: ComponentFixture&lt;ListBlockComponent&gt;;
+
+  beforeEach(<span style="color:rgb(204, 153, 204); font-weight:400;">async</span> () =&gt; {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> TestBed.configureTestingModule({
+      declarations: [ ListBlockComponent, MockListComponent ]
+    })
+    .compileComponents();
+  });
+
+  beforeEach(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+    fixture = TestBed.createComponent(ListBlockComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;should create&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+    expect(component).toBeTruthy();
+  });
+});
+
+@Component({
+  selector: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-list-element&#x27;</span>,
+  template: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;&#x27;</span>
+})
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">MockListComponent</span> {</span>
+  @Input() map: any;
+  @Input() sliceLimit: any;
+  @Input() elementName: any;
+}
+</code></pre>
+
+          <h2>Configurar el test para que no se muestren los errores</h2>
+
+          <p>Otra solución que podemos adoptar es la de configurar los tests para que los errores sean obviados:</p>
+
+          <code>schemas: [NO_ERRORS_SCHEMA]</code>
+
+          <img src="TESTING, NG0304 is not a known element/7.png"/>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p> Angular | NG0304 | expect | Error</p>
+        </div>
+
+    </body>
+</html>
