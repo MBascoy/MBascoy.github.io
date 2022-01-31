@@ -1,0 +1,74 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">ngOnChanges</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como utilizar <b>ngOnChanges</b> cuando se producen cambios en las variables <b>@input</b></p>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Las variables que están definidas como <b>@Input</b> estan sincronizadas permanentemente, esto es, si el valor de una variable cambia en el padre automaticamente cambia el valor en el hijo, de todos modos a veces cuando cambian estos valores podemos estar interesados en lanzar algunas funciones, para que se hagan ciertas operaciones sobre los datos que se han actualizado en las variables</p>
+
+            <p>Un ejemplo es el siguiente:</p>
+
+            <img src="ngOnChanges/1.png"/>
+
+            <p>En este ejemplo se llaman a las funciones <b>splitMap()</b> y  <b>isHiddenMapEmpty()</b> en el <b>ngOnInit</b>, estas funciones trabajan con las variables que estan definidas como <b>@Input</b>, por lo tanto cuando estas variables cambian en el padre automaticamente cambian tambien en el hijo, pero las funciones que trabajan con esas variables no se vuelven a ejecutar cuando cambia el valor de las variables, si necesitamos volver a ejecutar esas funciones para que tengan en cuenta los nuevos valores de las variables tenemos que indicarselo mediante la funcion <b>ngOnChanges</b></p>
+
+            <p>Para utilizar la funcion <b>ngOnChanges</b> solo tenemos que definirla tal que así:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span style="color:rgb(204, 153, 204); font-weight:400;">ngOnChanges</span>(<span style="color:rgb(129, 162, 190); font-weight:400;">changes</span>: SimpleChanges) {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (let newChange in changes) {
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (newChange === <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;map&#x27;</span>) {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span><span style="color:rgb(209, 217, 225); font-weight:400;">.splitMap</span>();
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span><span style="color:rgb(209, 217, 225); font-weight:400;">.isHiddenMapEmpty</span>();
+      }
+    }
+  }</code></pre>
+
+          <p>La funcion se ejecuta cada vez que cambia una de las variables establecidas como <b>@Input</b>, esta funcion recibe como parametro un objeto que nos permite recoger los nuevos valores de las variables, en caso de que solo queramos ejecutar algo cuando se cambie la variable que nosotros queramos tenemos que recorrer el objeto para buscar si se ha modificado la variable que nosotros queremos.</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span style="color:rgb(204, 153, 204); font-weight:400;">ngOnChanges</span>(<span style="color:rgb(129, 162, 190); font-weight:400;">changes</span>: SimpleChanges) {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (let newChange in changes) { <span style="color:rgb(150, 152, 150); font-weight:400;">//Bucle para recorrer el objeto con todas las variable @Input</span>
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (newChange === <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;map&#x27;</span>) { <span style="color:rgb(150, 152, 150); font-weight:400;">//Solo ejecutamos en caso de que la variable que queramos esté en el objeto de cambios</span>
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span><span style="color:rgb(209, 217, 225); font-weight:400;">.splitMap</span>();
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span><span style="color:rgb(209, 217, 225); font-weight:400;">.isHiddenMapEmpty</span>();
+      }
+    }
+  }</code></pre>
+
+          <br/><br/>
+          <p><b>NOTA PARA TESTING:</b> Si queremos declarar un objeto <b>SimpleChanges</b> para mockearlo en un test tenemos que hacerlo de la siguiente manera:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  let changes: SimpleChanges = {
+    [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;map&quot;</span>]:{
+      previousValue: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>,
+      currentValue: skillMapMock,
+      firstChange:<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>,
+      isFirstChange:<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span>=&gt;</span><span style="color:rgb(204, 153, 204); font-weight:400;">false</span>}
+    }; </code></pre>
+
+          <p>De esta manera podemos llamar a la funcion <b>ngOnChanges</b> manualmente pasandole el objeto <b>changes</b>:</p>
+
+          <code>ngOnChanges(changes);</code>
+
+
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>ngOnChanges | Angular</p>
+        </div>
+
+    </body>
+</html>
