@@ -1,0 +1,57 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">ngClass</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como utilizar <b>ngClass</b> para controlar que clases se aplican a un tag de <b>HTML</b></p>
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Para utilizar el <b>ngClass</b> podemos hacerlo de varias maneras:</p>
+
+            <h2>Utilizando un objeto para controlar las clases</h2>
+
+            <p>En este metodo utilizamos un objeto de tipo <b>Record</b> para definir el nombre de las clases que aplicaremos, y le daremos un valor <b>booleano</b> segun queramos aplicar la clase o no:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span style="color:rgb(129, 162, 190); font-weight:400;">currentClasses:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Record&lt;string,</span> <span style="color:rgb(138, 190, 183); font-weight:400;">boolean&gt;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">=</span> {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">claseUno:</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">claseDos:</span> <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>
+  }<span style="color:rgb(138, 190, 183); font-weight:400;">;</span></code></pre>
+
+
+            <p>En el <b>HTML</b> utilizariamos el <b>[ngClass]</b> pasandole el objeto <b>currentClasses</b> tal que así:</p>
+
+            <img src="ngClass/1.png"/>
+
+            <p>De esta manera se aplicaran solo las clases que estan a <b>true</b>, no tenemos por que poner un <b>true</b> o <b>false</b> directamente, podemos poner una expresión</p>
+            <p>Como podemos ver en el navegador solo se aplica la clase <b>claseUno</b></p>
+
+            <img src="ngClass/2.png"/>
+
+            <h2>Utilizando una expresion directamente en el ngClass</h2>
+
+            <p>Podemos tambien poner la clase que queremos aplicar directamente en el <b>ngClass</b> y utilizar una expresión booleana para controlar si aplicar la clase o no:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">ngClass</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;{&#x27;text-danger&#x27; : isOutdated}&quot;</span>&gt;</span></code></pre>
+
+            <p>En este caso la clase <b>text-danger</b> se aplicaría solo si la variable <b>isOutdated</b> es <b>true</b></p>
+            
+          </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | ngClass</p>
+        </div>
+
+    </body>
+</html>

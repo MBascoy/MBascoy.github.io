@@ -19,12 +19,182 @@
             <li>Testear numero de etiquetas creadas (para testear listas o tablas)</li>
             <li>Testear contenido de etiquetas</li>
             <li>Testear HttpClient</li>
+            <li>Testear Routing</li>
           </ul>
 
         </div>
 
       <div class="t2">Metodo</div>
           <div class="cont">
+
+            <p>La estructura base de un test es la siguiente:</p>
+
+            <pre>
+ <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { ComponentFixture, TestBed } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core/testing&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Test1Component } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./test1.component&#x27;</span>;
+
+describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test1Component&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+  let component: Test1Component;
+  let fixture: ComponentFixture&lt;Test1Component&gt;;
+
+  beforeEach(<span style="color:rgb(204, 153, 204); font-weight:400;">async</span> () =&gt; {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> TestBed.configureTestingModule({
+      declarations: [ Test1Component ]
+    })
+    .compileComponents();
+  });
+
+  beforeEach(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+    fixture = TestBed.createComponent(Test1Component);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;should create&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+    expect(component).toBeTruthy();
+  });
+});
+</code></pre>
+
+            <h2>Testear numero de etiquetas creadas</h2>
+
+            <p>Para testear el numero de tags creados podemos hacerlo de la siguiente manera</p>
+
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;should have a row per member&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+  component.membersList = membersListMock;
+  fixture.detectChanges();
+  const compiled = fixture.debugElement.queryAll(
+    By.css(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-member-row&#x27;</span>)
+  ).length;
+  expect(compiled).toBe(<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>);
+});</code></pre>
+
+              <p>Utilizamos <b>fixture.debugElement.queryAll</b> para seleccionar las etiquetas que queremos contar</p>
+              <p>y dentro utilizamos el objeto <b>By.css</b> para indicar el selector <b>css</b> de la etiqeta.</p>
+              <p>El <b>fixture.debugElement.queryAll</b> devuelve un array con todas las etiquetas coincidentes con el selector, de  manera que podemos contarlas con <b>.length</b></p>
+
+
+
+              <br/>
+              <h2>Testear contenido de etiquetas</h2>
+              <p>Para testear el contenido de una etiqueta lo hacemos de la siguiente manera:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;should have a &quot;Members List&quot; header&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+    const compiled: HTMLElement = fixture.nativeElement.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;h2&#x27;</span>)?.textContent;
+    expect(compiled).toContain(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Members List&#x27;</span>);
+  });</code></pre>
+
+              <p>En este caso utilizamos <b>fixture.nativeElement.querySelector</b> para seleccionar una etiqueta en concreto, y utilizamos la propiedad <b>textContent</b> para leer el contenido de dicha etiqueta</p>
+
+              <br/>
+              <h2>Testear HttpClient</h2>
+
+              <p>Para testear el <b>HttpClient</b> primero tenemos que realizar el siguiente import en el test:</p>
+
+              <code>imports: [HttpClientTestingModule]</code>
+
+              <img src="Testing con Jasmine/1.png"/>
+
+              <p>Declaramos un objeto httpTestingController:</p>
+
+              <code>httpTestingController = TestBed.inject(HttpTestingController);</code>
+
+              <img src="Testing con Jasmine/2.png"/>
+
+              <p>Ahora declaramos el test:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;check HttpClient&#x27;</span>, () =&gt; {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> finalData = [{ userId: <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, id: <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, name: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;nombre&#x27;</span>, completed: <span style="color:rgb(204, 153, 204); font-weight:400;">true</span> }];
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> req = httpTestingController.expectOne(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;http://127.0.0.1:8080/api/members&quot;</span>);
+    <span style="color:rgb(204, 153, 204); font-weight:400;">expect</span>(req.request.method).toEqual(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;GET&#x27;</span>);
+    req.flush(finalData);
+    <span style="color:rgb(204, 153, 204); font-weight:400;">expect</span>(component.messageObject).toEqual(finalData);
+  });</code></pre>
+
+              <p>Usamos el <b>httpTestingController.expectOne</b> para indicar que conexion queremos testear, en este caso en el servicio tenemos esto:</p>
+
+              <img src="Testing con Jasmine/3.png"/>
+
+              <p>Por lo tanto en el <b>expectOne</b> tenemos que indicar la misma dirección</p>
+
+              <p>Despues usamos el <b>flush</b> para indicar los datos que recibira la "Solicictud mockeada", en este caso enviamos el objeto <b>finalData</b> y a continuación comprobamos que <b>finalData</b> sea igual a <b>component.messageObject</b> que es la variable del componente donde se almacena la solicitud que recibe</p>
+
+              <img src="Testing con Jasmine/4.png"/>
+
+              <h2>Testear HttpClient en el servicio</h2>
+
+              <p>Si estamos testeando el servicio directamente, tendremos que llamar a la función del servicio en el test, el test quedaría tal que así:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;check HttpClient&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+    const finalData = [{ userId: <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, id: <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, name: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;nombre&#x27;</span>, completed: <span style="color:rgb(204, 153, 204); font-weight:400;">true</span> }];
+
+    service
+      .getInfo()
+      .subscribe(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">(data)</span> =&gt;</span> expect(data).toEqual(finalData));
+
+    const req = httpTestingController.expectOne(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;http://127.0.0.1:8080/api/members&#x27;</span>);
+    expect(req.request.method).toEqual(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;GET&#x27;</span>);
+    req.flush(finalData);
+  });</code></pre>
+
+              <h2>Testear Errores HttpClient</h2>
+
+
+              <h2>Testear Routing</h2>
+              <p>Para hacer tests relaccionados con rutas lo hacemos de la siguiente manera:</p>
+
+              <p>Primero tenemos que importar el RouterTestingModule:</p>
+
+              <code>imports: [RouterTestingModule.withRoutes(routes)]</code>
+
+              <p>el parametro <b>routes</b> hace referencia a la tabla de rutas que creamos mas adelante para el test</p>
+
+              <p>Creamos un objeto <b>Router</b>:</p>
+
+              <code>router = TestBed.inject(Router);</code>
+
+              <p>Creamos un objeto <b>Location</b>:</p>
+
+              <code>location = TestBed.inject(Location);</code>
+
+              <p>Despues tenemos que crear una tabla de rutas para el test:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">const routes:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Routes</span> <span style="color:rgb(138, 190, 183); font-weight:400;">=</span> [
+    {<span style="color:rgb(129, 162, 190); font-weight:400;">path:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;home&#x27;</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">component:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">MemberProfilePageComponent</span>},
+    {<span style="color:rgb(129, 162, 190); font-weight:400;">path:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;main&#x27;</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">component:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">MemberProfilePageComponent</span>},
+  ]<span style="color:rgb(138, 190, 183); font-weight:400;">;</span></code></pre>
+
+                <p>el archivo del test quedaría tal que asi:</p>
+
+                <img src="Testing con Jasmine/5.png"/>
+
+                <p>Y declaramos el test en si:</p>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test navigation going back when calling redirectToMainPage&#x27;</span>, fakeAsync (<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+    component.isButtonEnabled = <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+    router.navigate([<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/home&#x27;</span>]);
+    tick();
+    router.navigate([<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/main&#x27;</span>]);
+    tick();
+    component.redirectToMainPage();
+    tick();
+    expect(location.path()).toBe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/home&#x27;</span>);
+}));</code></pre>
+
+                <p>En este caso estamos testeando la funcionalidad de <b>redirectToMainPage</b> que vuelve a la ruta anterior.</p>
+
+                <img src="Testing con Jasmine/6.png"/>
+
+                <p>Para simular la navegacion en los tests tenemos que usar <b>fakeAsync</b> y la funcion <b>tick()</b> despues de cada accion de navegación</p>
+
+                <p>En este caso estamos navegando a <b>home</b>, despues a <b>main</b> y despues llamamos a <b>redirectToMainPage</b> y al hacer la compobación con <b>location.path()</b> la direccion tendría que ser <b>home</b></p>
+
+                <p><b>NOTA</b>: El import de <b>Location</b> tiene que ser exactamente el siguiente, sino no funciona (por lo visto hay varios tipos de Location):</p>
+
+                <code>import { Location } from '@angular/common';</code>
 
           </div>
 
