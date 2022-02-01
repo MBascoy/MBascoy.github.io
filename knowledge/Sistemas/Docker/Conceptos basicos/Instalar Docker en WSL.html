@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Instalar Docker en WSL</h1>
+
+    <div class="t2">Comandos</div>
+        <div class="cont">
+
+            <p>Lista de comandos</p>
+            <code>wsl --install -d Ubuntu</code>
+
+            <code>sudo apt-get update</code>
+
+            <pre><code>sudo apt-get install \
+ apt-transport-https \
+ ca-certificates \
+ curl \
+ gnupg \
+ lsb-release</code></pre>
+
+            <code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg</code>
+
+            <pre><code>echo \
+ "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+ $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null</code></pre>
+
+            <code>sudo apt-get update</code>
+
+            <code>sudo apt-get install docker-ce docker-ce-cli containerd.io</code>
+
+            <code>sudo service docker start</code>
+
+            <code>sudo groupadd docker</code>
+
+            <code>sudo usermod -aG docker $USER</code>
+
+            <code>newgrp docker</code>
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker | Instalación | WSL</p>
+        </div>
+
+    </body>
+</html>

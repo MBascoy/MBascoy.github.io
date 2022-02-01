@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Docker compose no arranca</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>A veces se da la situación de que el docker-compose no consigue arrancar los contenedores.</p>
+
+            <p>Algunos de los mensajes que se mostraban eran:</p>
+
+            <code>copy shim log error="read /proc/self/fd/14: file already closed"</code>
+
+            <code>The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.</code>
+
+            <code>[Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).</code>
+
+
+        </div>
+
+        <div class="t2">Comandos</div>
+            <div class="cont">
+              <p>En mi situación la solución era muy simple, el error se producia al intentar lanzar el <b>docker-compose</b> desde el sistema de archivos de windows, concretamente desde:</p>
+
+              <code>/mnt/c/Users/manuel.bascoy/lab/skillmatrix</code>
+
+              <p>Moviendo los archivos a la carpeta <b>/home/usuario/skillmatrix</b> solucionaba el problema y el <b>docker-compose</b> ya arrancaba sin fallos
+            </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker | Error</p>
+        </div>
+
+    </body>
+</html>
