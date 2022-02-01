@@ -173,6 +173,36 @@
 
         <img src="Http Client/1.jpg"/>
 
+
+        <h2>Manejar errores</h2>
+
+        <p>Para manejar los errores que puede dar una solicitud lo hacemos de la siguiente manera:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getInfo</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.http.get&lt;messageRequest[]&gt;(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;http://127.0.0.1:8080/api/members&quot;</span>)
+    .pipe(catchError(<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.errorHandler))
+  }
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">errorHandler</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">error: HttpErrorResponse</span>)</span>{
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (error.status === <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>) {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">console</span>.error(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Cannot connect&quot;</span>);
+      } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">console</span>.error(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Server Error&quot;</span>);
+      }
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> throwError(
+        <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Error</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Error on request&quot;</span>)
+      );
+    }</code></pre>
+
+          <p>Al final de la funcion <b>get</b> encadenamos el siguiente pipe:</p>
+
+          <code>.pipe(catchError(this.errorHandler))</code>
+
+          <p>En este caso definimos una funcion <b>errorHandler</b> para gestionar los errores</p>
+
+          <p>Dentro de la funcion <b>errorHandler</b> comprobamos que tipo de error se produce, si es <b>0</b> quiere decir que es un error de que el cliente no se ha podido conectar, si es <b>distinto de 0</b> es un error del servidor y el numero en si indica el tipo de error, despues el metodo lanza un error indicando que algo ha salido mal (independientemente de que haya sido problema del cliente o del servidor)</p>
+
         </div>
 
 

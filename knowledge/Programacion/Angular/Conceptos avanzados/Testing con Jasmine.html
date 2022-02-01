@@ -120,7 +120,7 @@ describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test1Com
 
               <p>Por lo tanto en el <b>expectOne</b> tenemos que indicar la misma dirección</p>
 
-              <p>Despues usamos el <b>flush</b> para indicar los datos que recibira la "Solicictud mockeada", en este caso enviamos el objeto <b>finalData</b> y a continuación comprobamos que <b>finalData</b> sea igual a <b>component.messageObject</b> que es la variable del componente donde se almacena la solicitud que recibe</p>
+              <p>Despues usamos el <b>flush</b> para indicar los datos que recibira la "Solicictud mockeada", en este caso enviamos el objeto <b>finalData</b> y a continuación comprobamos que <b>finalData</b> sea igual a <b>component.messageObject</b> que es la variable del componente donde se almacena la solicitud que recibe.</p>
 
               <img src="Testing con Jasmine/4.png"/>
 
@@ -142,7 +142,42 @@ describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test1Com
 
               <h2>Testear Errores HttpClient</h2>
 
+              <p>Para testear cuando se produce un error con el <b>HttpClient</b> lo hacemos de la siguiente manera:</p>
 
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Check ERROR from HTTP server&#x27;</span>, <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> () =&gt; {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> http = TestBed.inject(HttpTestingController);
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> errResponse: <span style="color:rgb(181, 189, 104); font-weight:400;">any</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> mockErrorResponse = { <span style="color:rgb(129, 162, 190); font-weight:400;">status</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">500</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">statusText</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Server not available&#x27;</span> };
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> data = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;An error occur on the server side&#x27;</span>;
+    service.getInfo().subscribe({
+      <span style="color:rgb(129, 162, 190); font-weight:400;">error</span>: <span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(209, 217, 225); font-weight:400;">e</span>) =&gt;</span> (errResponse = e)
+  });
+    http.expectOne(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;http://127.0.0.1:8080/api/members&quot;</span>).flush(data, mockErrorResponse);
+    expect(errResponse.message).toEqual(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Error on request&quot;</span>);
+  });</code></pre>
+
+              <p>Usamos <b>mockErrorResponse</b> para indicar el mensaje de error y el codigo de respuesta</p>
+
+              <code>const mockErrorResponse = { status: 500, statusText: 'Server not available' };</code>
+
+              <p>En realidad lo único importante es el <b>codigo de error</b> ya que el mensaje (En este caso concreto) no se utilizará para nada, ya que el error que se lanza es uno concreto puesto en el servicio</p>
+
+              <p>De igual manera <b>data</b> tampoco tiene ningun uso, ya que será el cuerpo de la respuesta, pero al ser un error, no lo usaremos para nada</p>
+
+              <p>Cuando llamamos al servicio y le asignamos un observable lo tenemos que hacer con el campo de error tal que asi:</p>
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">service.getInfo().subscribe({
+      error: <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">(e)</span> =&gt;</span> (errResponse = e)
+  });</code></pre>
+
+              <p>El mensaje de error viene del servicio donde se define como se lanza el error:</p>
+
+              <img src="Testing con Jasmine/7.png"/>
+
+              <p>Cuando se lanza el <b>expect</b> dentro indicamos <b>errResponse.message</b> ya que message es una de las propiedades del objeto <b>Error</b> que está lanzando el servicio, otra manera de compararlo seria la siguiente:</p>
+
+              <code>expect(errResponse).toEqual(new Error("Error on request"));</code>
+
+              <br/><br/>
               <h2>Testear Routing</h2>
               <p>Para hacer tests relaccionados con rutas lo hacemos de la siguiente manera:</p>
 
