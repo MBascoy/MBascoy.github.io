@@ -1,0 +1,98 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Autogenerar objetos TypeScript desde Spring</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Para autogenerar objetos para utilizar en <b>TypeScript</b> a partir de codigo de un proyecto de <b>Spring</b> utilizaremos la extension <b>habarta.typescript-generator</b>.</p>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Para utilizar la extension primeros tenemos que añadirla en el archivo <b>pom.xml</b> de nuestro proyecto:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">plugin</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">groupId</span>&gt;</span>cz.habarta.typescript-generator<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">artifactId</span>&gt;</span>typescript-generator-maven-plugin<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">version</span>&gt;</span>2.34.976<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">version</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">executions</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">execution</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+                <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">id</span>&gt;</span>generate<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">id</span>&gt;</span>
+                <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">goals</span>&gt;</span>
+                    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">goal</span>&gt;</span>generate<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">goal</span>&gt;</span>
+                <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">goals</span>&gt;</span>
+                <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">phase</span>&gt;</span>process-classes<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">phase</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">execution</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">executions</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">configuration</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">jsonLibrary</span>&gt;</span>jackson2<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">jsonLibrary</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">classPatterns</span>&gt;</span>
+                <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">pattern</span>&gt;</span>main.model.*<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">pattern</span>&gt;</span>
+                <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">pattern</span>&gt;</span>main.dto.*<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">pattern</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">classPatterns</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">outputKind</span>&gt;</span>module<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">outputKind</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">configuration</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">plugin</span>&gt;</span></span></code></pre>
+
+            <p>Introducimos el plugin en el apartado <b>plugins</b> del <b>pom.xml</b></p>
+
+            <p>A continuación tenemos que configurar el plugin para que genere los objetos segun las clases que nosotros queramos.</p>
+            <p>El plugin tiene varias opciones para seleccionar las clases, en este caso usaremos <b>classPatterns</b> para seleccionar un patron concreto</p>
+
+            <p>La parte que tenemos que modificar el plugin es esta:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">classPatterns</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">pattern</span>&gt;</span>main.model.*<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">pattern</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">pattern</span>&gt;</span>main.dto.*<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">pattern</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">classPatterns</span>&gt;</span></code></pre>
+
+            <p>En cada una de las etiquetas <b>pattern</b> introduciremos el paquete donde tenemos nuestras clases seguido de un <b>*</b> para seleccionar todas las clases dentro de ese paquete</p>
+
+            <img src="Autogenerar objetos TypeScript desde Spring/1.png">
+
+            <p>Otra de las configuraciones que podemos hacer es de la etiqueta <b>outputKind</b> que podemos ponerla como <b>module</b> o como <b>global</b> esto solo afectará a si las interfaces llevan el modificador <b>export</b> en su declaración.</p>
+
+            <p>A continuación tenemos que compilar el proyecto (Antes de lanzar el plugin siempre tenemos que compilar):</p>
+            <p>Podemos hacerlo con el siguiente comando:</p>
+            <code>> mvn compile</code>
+
+            <p>O seleccionando el goal <b>compile</b> de maven desde el IDE:</p>
+
+            <img src="Autogenerar objetos TypeScript desde Spring/2.png">
+
+            <p>A continuación ejecutamos el plugin de <b>habarta.typescript-generator</b>, podemos hacerlo con comando o desde el IDE:</p>
+
+            <code>> mvn typescript-generator:generate</code>
+
+            <img src="Autogenerar objetos TypeScript desde Spring/3.png">
+
+            <p>El archivo que contiene todo el código resultante para ser utilizado en <b>TypeScript</b> se guarda en:</p>
+
+            <code>java\target\typescript-generator\Academy2.d.ts</code>
+
+            <img src="Autogenerar objetos TypeScript desde Spring/4.png">
+
+            <p>El nombre del archivo viene dado por el nombre del proyecto (artifactId) que le tengamos puesto en el <b>pom.xml</b></p>
+
+            <p>Resultado final del archivo:</p>
+            <img src="Autogenerar objetos TypeScript desde Spring/5.png">
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>JavaScript | TypeScript | habarta | generator</p>
+        </div>
+
+    </body>
+</html>

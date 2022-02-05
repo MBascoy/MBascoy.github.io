@@ -62,7 +62,18 @@
         <p>Si queremos consultar si la imagen se ha generado en docker podemos hacerlo con el siguiente comando:</p>
 
         <code>docker images</code>
-        <p>
+
+        <br/>
+        <h2>Error al conectar con Docker</h2>
+
+        <p>Si al generar la imagen obtenemos el siguiente error:</p>
+
+        <pre><code>[INFO] I/O exception (java.nio.file.NoSuchFileException) caught when processing request to {}->docker://localhost:2376: \\.\pipe\docker_engine
+[INFO] Retrying request to {}->docker://localhost:2376</pre></code>
+
+        <p>Podemos seguir este manual para configurar la conexion con docker: <a href="Configurar Docker en WSL para desplegar imagenes.html">Configurar Docker en WSL para desplegar imagenes</a></p>
+
+
         </div>
 
 

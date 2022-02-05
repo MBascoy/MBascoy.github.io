@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Configurar Docker en WSL para desplegar imagenes</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como configurar <b>Docker</b> cuando está instalado en <b>WSL</b> para poder <a href="./Crear imagen con maven y spring-boot.html">desplegar imagenes directamente con <b>maven</b> y <b>spring-boot</b></a>.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <p>Si tenemos instalado el <b>Docker Desktop</b> en principio no tendríamos ningun problema al intentar generar una imagen en docker directamente usando <b>maven</b> y <b>spring-boot</b>, pero si en vez de tener docker desktop tenemos instalado docker en una distribución de <b>WSL</b> al intentar generar una imagen obtendremos el siguiente error:</p>
+
+
+        <pre><code>[INFO] I/O exception (java.nio.file.NoSuchFileException) caught when processing request to {}->docker://localhost:2376: \\.\pipe\docker_engine
+[INFO] Retrying request to {}->docker://localhost:2376</pre></code>
+
+        <img src="Configurar Docker en WSL para desplegar imagenes/1.png">
+
+        <p>El error se produce porque <b>Docker</b> al instalarlo sobre <b>WSL</b> por defecto solo escucha en un socket local, <b>unix:///var/run/docker.sock</b></p>
+
+        <p>Para solucionar el error tenemos que configurar el servicio de docker para que al levantarse se ponga a escuchar en un puerto <b>tcp</b></p>
+
+        <p>Primero paramos el servicio de <b>docker</b> en nuestra distribucion de <b>WSL</b> con el siguiente comando:</p>
+
+        <code>sudo service docker stop</code>
+
+        <p>A continuación tenemos que editar el archivo <b>/etc/init.d/docker</b></p>
+
+        <p>concretamente tenemos que editar la variable <b>DOCKER_OPTS</b> para incluir el siguiente contenido:</p>
+
+        <code>"-H unix:///var/run/docker.sock -H tcp://localhost:2376"</code>
+
+        <p>El contenido quedaría tal que así:</p>
+
+        <img src="Configurar Docker en WSL para desplegar imagenes/2.png">
+
+        <p><b>NOTA:</b> en este caso estamos indicando el puerto <b>2376</b> si la aplicación que se conecta a docker lo hace por otro puerto pues tendríamos que poner ese puerto concretamente.</p>
+
+        <p>Una vez hecho esto solo tenemos que levantar el servicio</p>
+
+        <code>sudo service docker start</code>
+
+        <p>Ahora en nuestro sistema anfitrion (NO DENTRO DEL WSL) tenemos que declarar la variable de sistema <b>DOCKER_HOST</b> y darle el valor <b>tcp://localhost:2376</b></p>
+
+        <p>Esto podemos hacerlo de varias maneras y depende del terminal que usemos tambien.</p>
+
+        <p>Si lo hacemos desde las <b>variables de entorno</b> (con la interfaz grafica de windows) tendremos que cerrar todas las terminales del <b>VScode</b> y reiniciar el IDE para que las terminales cojan el valor de la variable</p>
+
+        <p>Si lo queremos hacer directamente desde el terminal depende de si es un terminal tipo <b>unix</b>, <b>cmd</b> o <b>PowerShell</b></p>
+
+        <p>Unix:</p>
+
+        <code>export DOCKER_HOST=tcp://localhost:2376</code>
+
+        <p>cmd:</p>
+
+        <code>set DOCKER_HOST=tcp://localhost:2376</code>
+
+        <p>PowerShell:</p>
+
+        <code>$env:DOCKER_HOST = 'tcp://localhost:2376'</code>
+
+        <p>Despues solo tenemos que ejecutar el comando para generar la imagen desde la consola:</p>
+
+        <code>mvn spring-boot:build-image</code>
+
+        <p><b>NOTA</b>: cuidado porque si se ejecuta el goal para generar la imagen desde el IDE el propio IDE te puede abrir una nueva consola que no tenga definida la variable y no funcionará el comando.</p>
+
+        <p>El comando ya debería de encontrar la instancía de docker y conectarse para generar la imagen:</p>
+
+        <img src="Configurar Docker en WSL para desplegar imagenes/3.png">
+
+      </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker Engine | Spring | WSL | deploy </p>
+        </div>
+
+    </body>
+</html>
