@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Docker compose</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Docker compose nos permite levantar varios containers y hacer que esten conectados entre si</p>
+
+        </div>
+
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para levantar varios containers usando <b>docker compose</b> primero necesitamos crear un archivo <b>docker-compose.yml</b>.</p>
+
+          <p>Un ejemplo de <b>docker-compose.yml</b> es el siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">version:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;3&#x27;</span>
+
+<span style="color:rgb(129, 162, 190); font-weight:400;">services:</span>
+
+  <span style="color:rgb(129, 162, 190); font-weight:400;">skill-matrix-mysql:</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">image:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">mysql:5</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">restart:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">on-failure</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">volumes:</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">./skill-matrix-db:/var/lib/mysql</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">./skill-matrix-init-db:/docker-entrypoint-initdb.d</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">environment:</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">MYSQL_ROOT_PASSWORD=admin</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">MYSQL_DATABASE=skill_matrix</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">MYSQL_USER=UserSkillmatrix</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">MYSQL_PASSWORD=team2passwordforskillmatrix.</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">ports:</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(249, 145, 87); font-weight:400;">3306</span><span style="color:rgb(138, 190, 183); font-weight:400;">:3306</span>
+
+  <span style="color:rgb(129, 162, 190); font-weight:400;">skill-matrix-api:</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">image:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">team2postacademy/api_skill_matrix</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">restart:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">on-failure</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">depends_on:</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">skill-matrix-mysql</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">ports:</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(249, 145, 87); font-weight:400;">8080</span><span style="color:rgb(138, 190, 183); font-weight:400;">:8080</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">environment:</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">DATABASE_HOST=skill-matrix-mysql</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">DATABASE_USER=UserSkillmatrix</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">DATABASE_PASSWORD=team2passwordforskillmatrix.</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">DATABASE_NAME=skill_matrix</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">DATABASE_PORT=3306</span></code></pre>
+
+          <p>En este compose, estamos definiendo dos contenedores uno con un servidor <b>mysql</b> y otro que contiene una aplicacion <b>spring</b> que se conecta a la base de datos mysql</p>
+
+          <p>Para levantar los contenedores tenemos que ejecutar el siguiente comando en la carpeta donde tengamos el <b>docker-compose.yml</b>:</p>
+
+          <code>docker-compose up</code>
+
+          <p>Si queremos detener los contenedores ejecutamos el siguiente comando:</p>
+
+          <code>docker-compose down</code>
+
+          <p>Si solo queremos detenerlos momentaneamente usamos</p>
+          <code>docker-compose stop</code>
+
+          <p>Y para volver a arrancarlos:</p>
+          <code>docker-compose start</code>
+        </div>
+
+    <div class="t2">Parametros</div>
+        <div class="cont">
+          <p>Algunos de los parametros que podemos usar en el <b>docker-compose.yml</b> son los siguientes:</p>
+          <ul>
+            <li><b>volumes</b>: Nos permite mapear una carpeta del equipo <b>host</b> con una carpeta del <b>container</b> el formato es:</li>
+            <code>CARPETA_HOST:CARPETA_CONTAINER</code>
+
+            <li><b>ports</b>: Nos permite indicar que puerto del equipo <b>host</b> estará mapeado con el del <b>container</b>, el formato es:</li>
+            <code>PUERTO_HOST:PUERTO_CONTAINER</code>
+
+            <li><b>environment</b>: Nos permite definir una lista de variables que estarán definidas dentro del <b>container</b>.</li>
+
+            <li><b>restart</b>: Nos permite indicar bajo que condiciones se reiniciará el contenedor, las posibles opciones son:</li>
+            <ul>
+              <li><b>"no"</b> el contenedor no se reiniciará nunca</li>
+              <li><b>always</b> el contenedor se reiniciará siempre que se detenga por si solo</li>
+              <li><b>on-failure</b> el contenedor se reiniciará cuando se haya parado a causa de un error</li>
+              <li><b>unless-stopped</b> el contenedor se reiniciará siempre que se paré por si solo a menos que lo paremos nosotros manualmente</li>
+            </ul>
+          </ul>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker compose | comandos</p>
+        </div>
+
+    </body>
+</html>

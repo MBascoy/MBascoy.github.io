@@ -1,0 +1,130 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Comandos Docker</h1>
+
+    <div class="t2">Comandos Ejecución</div>
+        <div class="cont">
+          <ul>
+
+            <li>Ejecutar container</li>
+            <code>docker run &lt;nombre_container&gt;</code>
+
+            <li>Ejecutar container como demonio</li>
+            <code>docker run -d &lt;nombre_container&gt;</code>
+
+            <li>Ejecutar container mapeando puertos</li>
+            <code>docker run -p &lt;PUERTO_ANFITRION&gt;:&lt;PUERTO_CONTAINER&gt; &lt;nombre_container&gt;</code>
+            <p>Ejemplo:</p>
+            <code>docker run -p 3306:3306  mysql</code>
+
+            <li>Indicar variables de entorno al contenedor</li>
+            <code>docker run -e "VARIABLES" &lt;nombre_container&gt;</code>
+            <p>Ejemplo:</p>
+            <code>docker run <b>-e "MYSQL_ROOT_PASSWORD=hola"</b> -p 33060:3306  mysql</code>
+
+            <li>Dar nombre a un container</li>
+            <code>docker run --name &lt;NOMBRE&gt; &lt;nombre_container&gt;</code>
+            <p>Si no le asignamos un nombre al container <b>Docker</b> le pondrá un nombre aleatorio</p>
+            <p>Para referirnos al container posteriormente tendremos que hacerlo con el <b>nombre</b> o con el <b>container_ID</b></p>
+          </ul>
+        </div>
+
+    <div class="t2">Comandos Detencion</div>
+        <div class="cont">
+          <ul>
+            <li>Parar un container</li>
+            <code>docker stop &lt;CONTENEDOR&gt;</code>
+
+            <li>Matar un container</li>
+            <code>docker kill &lt;CONTENEDOR&gt;</code>
+
+          </ul>
+
+        </div>
+
+    <div class="t2">Comandos Estado</div>
+        <div class="cont">
+
+          <ul>
+            <li>Consultar containers en ejecucion</li>
+            <code>docker ps</code>
+
+            <li>Consultar todos los containers (en ejecucion o no)</li>
+            <code>docker ps -a</code>
+            <p>Cuando lanzamos un <b>docker ps</b> podemos consultar el <b>ID</b> y el <b>nombre</b> de un container para realizar operaciones sobre él.</p>
+
+            <li>Consultar todas las imagenes:</li>
+            <code>docker images</code>
+
+            <li>Consultar log de un container</li>
+            <code>docker logs &lt;CONTAINER&gt;</code>
+          </ul>
+        </div>
+
+    <div class="t2">Comandos borrado</div>
+        <div class="cont">
+          <ul>
+            <li>Borrar un container:</li>
+            <code>docker rm &lt;CONTENEDOR&gt;</code>
+
+            <li>Borrar TODOS los containers:</li>
+            <code>docker rm -f $(docker ps -a -q)</code>
+
+            <li>Borrar una imagen:</li>
+            <code>docker rmi &lt;IMAGEN&gt;</code>
+
+          </ul>
+
+        </div>
+
+    <div class="t2">Comandos para ejecutar comandos en el container</div>
+        <div class="cont">
+          <ul>
+            <li>Ejecutar comando en el contenedor:</li>
+            <code>docker exec &lt;CONTENEDOR&gt; &lt;COMANDO&gt;</code>
+
+            <li>Ejecutar comando de manera interactiva:</li>
+            <code>docker exec -it &lt;CONTENEDOR&gt; &lt;COMANDO&gt;</code>
+            <p>Ejemplo:</p>
+            <code>docker exec -it c98c93acc2da bash</code>
+
+            <p><b>NOTA:</b> al ejecutar el comando <b>bash</b> de esta manera conseguimos acceso al interior del contenedor</p>
+
+          </ul>
+
+        </div>
+
+
+    <div class="t2">Copiar archivos a un container</div>
+        <div class="cont">
+          <ul>
+            <li>Copiar archivos desde <b>host</b> al <b>contenedor</b>:</li>
+            <code>docker cp &lt;ARCHIVO&gt; &lt;CONTENEDOR&gt;:&lt;ARCHIVO&gt;</code>
+
+            <p>Ejemplo:</p>
+            <code>docker cp prueba/ bd2a42191879:/</code>
+
+            <p>Copiaría toda la carpeta <b>prueba</b> a la carpeta raiz del contenedor, se crearía la carpeta prueba en la raíz con todo el contenido.</p>
+
+            <li>Copiar archivos del <b>contenedor</b> al <b>host</b>:</li>
+            <code>docker cp &lt;CONTENEDOR&gt;:&lt;ARCHIVO&gt; &lt;ARCHIVO&gt;</code>
+
+            <p>Ejemplo:</p>
+            <code>docker cp bd2a42191879:/usr/local/apache2/htdocs/index.html ./</code>
+            <p>Copiaría el archivo <b>index.html</b> situado en la carpeta <b>/usr/local/apache2/htdocs/</b> del container a la carpeta actual del host.</p>
+          </ul>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker | comandos</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Arrancar Docker al inicio en WSL</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>WSL no hace uso de los scripts de inicio de <b>init</b> ni usa <b>systemd</b> por lo tanto necesitamos un metodo alternativo si queremos arrancar <b>Docker</b> cuando se inicia la distribución en WSL.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <p>La solucion es añadir el siguiente comando en el archivo de configuración inicial <b>.profile</b> del usuario:</p>
+        <code>wsl.exe -u root -e sh -c "service docker status || service docker start"</code>
+
+        <p>El archivo <b>.profile</b> esta ubicado en la carpeta personal del usuario: <b>~/.profile</b>
+
+      </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker | Startup | WSL | Arranque </p>
+        </div>
+
+    </body>
+</html>
