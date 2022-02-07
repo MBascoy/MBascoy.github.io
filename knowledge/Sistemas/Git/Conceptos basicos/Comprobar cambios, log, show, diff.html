@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Comprobar cambios, log, show, diff</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como ver que cambios se han hecho en un archivo o como seguir la pista de un cambio concreto utilizando los comandos de git <b>log</b>, <b>show</b>, <b>diff</b>.</p>
+
+        </div>
+
+    <div class="t2">Git log</div>
+        <div class="cont">
+          <p>Con el comando <b>git log</b> podemos ver todo el registro de commits que se han hecho en el repositorio, por defecto el comando nos muestra solo quien ha hecho el commit, cuando lo ha hecho, el comentario del commit y poco mas, para obtener mas información podemos usar los siguientes comandos:</p>
+
+          <ul>
+            <li>Obtener los cambios realizados en todos los commits</li>
+            <code>git log -p</code>
+
+            <li>Obtener los cambios realizados en un <b>archivo concreto</b> a lo largo de la historia de commits</li>
+            <code>git log -p &lt;ARCHIVO&gt;</code>
+
+            <li>Obtener solo los archivos modificados en cada commit</li>
+            <code>git log --name-only</code>
+
+            <li>Obtener solo los archivos modificados en cada commit indicando el estado del archivo, (D)Borrado, (M)Modificado, (A)Añadido</li>
+            <code>git log --name-status</code>
+
+            <li>Obtener de que rama procede cada commit</li>
+            <code>git log --source --all</code>
+            <code>git log --graph --source --all</code>
+            <p><b>NOTA:</b> La rama aparece a la derecha del hash del commit</p>
+
+            <img src="Comprobar cambios, log, show, diff/1.png">
+
+
+          </ul>
+        </div>
+
+    <div class="t2">Git show</div>
+        <div class="cont">
+          <p>Podemos usar el comando <b>git show</b> para comprobar un commit concreto y ver todos los cambios que se han hecho en dicho commit</p>
+          <code>git show &lt;COMMIT_HASH&gt;</code>
+
+        </div>
+
+    <div class="t2">Git diff</div>
+        <div class="cont">
+          <p>Podemos usar el comando <b>git diff</b> para comparar dos commits concretos</p>
+
+          <ul>
+            <li>Comprar dos commits</li>
+            <code>git diff &lt;COMMIT_1&gt;..&lt;COMMIT_2&gt;</code>
+
+            <li>Comprar dos commits (solo archivos, no código)</li>
+            <code>git diff --name-only &lt;COMMIT_1&gt;..&lt;COMMIT_2&gt;</code>
+
+            <li>Comprar un archivo concreto entre dos commits</li>
+            <code>git diff &lt;COMMIT_1&gt;..&lt;COMMIT_2&gt; -- &lt;ARCHIVO&gt;</code>
+
+          </ul>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | log | show | diff </p>
+        </div>
+
+    </body>
+</html>

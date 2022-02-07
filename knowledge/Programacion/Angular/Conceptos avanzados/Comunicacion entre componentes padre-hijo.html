@@ -1,0 +1,84 @@
+Fernandez, Pedriddddddddddddd ds df ds fds fds fd fdsfds fds fdfs es fes fstor
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Comunicacion entre componentes padre-hijo</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como realizar la comunicación entre componentes, del componente padre al componente hijo y viceversa</p>
+
+          <a href="https://github.com/MBascoy/Angular-Examples/tree/main/ChildParentComunication">Codigo de ejemplo</a>
+        </div>
+
+        <div class="t2">Comunicación del padre al hijo</div>
+            <div class="cont">
+              <p>Para envíar información del <b>padre</b> al <b>hijo</b> simplemente tenemos que utilizar el decorador <b>@Input()</b></p>
+
+              <p>En el código del componente <b>hijo</b> definimos como <b>@Input()</b> las variables que recibirán datos:</p>
+
+              <img src="Comunicacion entre componentes padre-hijo/1.png"/>
+
+              <p>A continuación en el <b>template</b> del componente <b>Padre</b> indicamos que variables se asociarán con las variables <b>@Input()</b> al crear el componente hijo, tal que asi:</p>
+
+              <img src="Comunicacion entre componentes padre-hijo/2.png"/>
+
+              <p>En ese caso le estamos pasando un <b>string</b> directamente para asociarlo con la variable <b>@Input()</b> del hijo, pero tambien podemos pasarle una variable del componente padre entre comillas tal que asi;</p>
+
+              <img src="Comunicacion entre componentes padre-hijo/3.png"/>
+
+              <p>En este caso en el código del componente <b>padre</b> tendríamos que tener declaradas las variables <b>nombre</b> y <b>apellido</b></p>
+
+              <img src="Comunicacion entre componentes padre-hijo/4.png"/>
+            </div>
+
+    <div class="t2">Comunicación del hijo al padre</div>
+            <div class="cont">
+              <p>Para comunicarnos en el otro sentido, del <b>hijo</b> al <b>padre</b>, tenemos que utilizar el decorador <b>@Output()</b> en el componente <b>hijo</b> y declarar una variable de tipo <b>EventEmitter</b>:</p>
+
+              <img src="Comunicacion entre componentes padre-hijo/5.png"/>
+
+              <p>Cuando declaramos la variable de tipo <b>EventEmitter</b> tenemos que utilizar un <b>Generic</b> para indicar el tipo de datos que emitirá, en este caso será un <b>string</b></p>
+
+              <p>A continuación utilizaremos esta variable para <b>emitir</b> datos del hijo al padre:</p>
+
+              <img src="Comunicacion entre componentes padre-hijo/6.png"/>
+
+              <p>En este caso estamos enviando las propias variables que hemos recibido del padre para devolverselas como un string poniendo primero el apellido y despues el nombre</p>
+
+              <p>En el padre tenemos que definir una funcion que recibirá los datos emitidos por el hijo</p>
+
+              <img src="Comunicacion entre componentes padre-hijo/7.png"/>
+
+              <p>En este caso tenemos una funcion <b>printName</b> que recibe como parametro el <b>string</b> enviado por el <b>hijo</b> y lo asigna a la variable <b>fullName</b> que tiene el componente <b>padre</b></p>
+
+              <p>Y en el template lo definimos de la siguiente manera:</p>
+
+              <img src="Comunicacion entre componentes padre-hijo/8.png"/>
+
+              <p>Indicamos la variable <b>EventEmitter</b> del hijo entre parentesis, <b>childEmitter</b> en este caso, y despues indicamos la funcion del <b>padre</b> que estará asociada al <b>EventEmitter</b> para recibir la información del hijo indicando el parametro <b>$event</b> que será la propia información que recibirá</p>
+
+              <p>En este caso la funcion <b>printName</b> simplemente se encarga de asociar la información a la variable <b>fullName</b> y en el template del componente <b>padre</b> simplemente mostramos dicha variable:</p>
+
+              <img src="Comunicacion entre componentes padre-hijo/9.png"/>
+
+              <p>El resultado final es el siguiente:</p>
+
+              <img src="Comunicacion entre componentes padre-hijo/10.png"/>
+
+
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Comunicacion componentes | Input | Output</p>
+        </div>
+
+    </body>
+</html>
