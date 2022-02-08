@@ -1,5 +1,5 @@
- 
- 
+
+
 <html>
     <head>
         <link rel="stylesheet" href="../style.css">
@@ -7,67 +7,69 @@
     </head>
 
     <body>
-    
+
     <h1 class="t1">Añadir fuentes en Linux</h1>
-    
+
     <div class="t2">Descripcion</div>
         <div class="cont">
-        
+
             <p>Pasos para añadir nuevas fuentes en Linux</p>
 
         </div>
-        
+
     <div class="t2">Resumen</div>
     <div class="cont">
         <p>Copiamos el archivo <b>.ttf</b> de la fuente dentro de <b>/usr/share/fonts</b></p>
-        
+
         <p>Si tenemos algun programa abierto lo reiniciamos para que recarge las fuentes del sistema</p>
-    
+
     </div>
-        
+
     <div class="t2">Enlaces</div>
     <div class="cont">
     <ul>
-        <li><a href="https://freefontsdownload.net/">https://freefontsdownload.net/</a></li>        
-        
-    
+        <li><a href="https://freefontsdownload.net/">https://freefontsdownload.net/</a></li>
+
+        <li><a href="https://fonts.google.com/">https://fonts.google.com/</a></li>     
+
+
     </ul>
-    
+
     </div>
-        
+
     <div class="t2">Metodo</div>
         <div class="cont">
         <ul>
-        
+
         <li>Primero descargamos el archivo de la fuente</li>
-        
+
         <li>Creamos una carpeta (Solo para tenerlo todo mas ordenado) dentro de <b>/usr/share/fonts</b>:</li>
         <code>mkdir "/usr/share/fonts/dream unicorn"</code>
-        
+
         <li>Copiamos el archivo comprimido de la fuente a esa carpeta (la carpeta que creamos dentro de <b>/usr/share/fonts</b>y lo descomprimimos:</li>
         <code> cp dream-unicorn.zip /usr/share/fonts/dream\ unicorn/</code>
-        
+
         <code>cd /usr/share/fonts/dream\ unicorn/
         <br/>unzip dream-unicorn.zip</code>
         </ul>
-        
+
         <p>Listo, la fuente ya esta lista para usar, si teniamos algun programa abierto probablemente tendremos que reiniciar el programa para que recarge la lista de fuentes disponibles en el sistema</p>
-        
+
         <p>En realidad lo unico que hay que hacer es copiar el archivo <b>.ttf</b> a la carpeta <b>/usr/share/fonts</b>, no hace falta crear ninguna carpeta, pero asi se mantiene todo mas ordenado, en el caso de que la fuente tenga varios subtipos de fuentes</p>
-        
+
         </div>
-    
+
     <div class="t2">Ejemplos</div>
         <div class="cont">
         <p>Instalacion fuentes "Dream Unicorn":</p>
         <img src="Añadir fuentes en linux/1.png"/>
-        
-        
+
+
         </div>
     <div class="t2">Tags</div>
         <div class="cont">
         <p>Fuentes | Fonts | ttf </p>
         </div>
-    
+
     </body>
 </html>
