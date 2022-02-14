@@ -1,0 +1,65 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Fuentes custom en CSS</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como añadir fuentes a mayores de las que hay disponibles de manera predeterminada en una página web usando <b>CSS</b></p>
+        </div>
+
+    <div class="t2">Enlaces</div>
+    <div class="cont">
+      <ul>
+          <li><a href="https://freefontsdownload.net/">https://freefontsdownload.net/</a></li>
+          <li><a href="https://fonts.google.com/">https://fonts.google.com/</a></li>
+      </ul>
+    </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para cargar fuentes usando <b>CSS</b> podemos hacerlo utilizando el siguiente código dentro del archivo <b>CSS</b> o en la etiqueta de estilos:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">@font-face</span> {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">font-family</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;CustomFont&quot;</span>;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">src</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">url</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;RockSalt-Regular.ttf&quot;</span>);
+}</code></pre>
+
+          <p>En la linea de <b>src</b> pondremos la ruta al archivo <b>ttf</b> de la fuente, si tenemos el archivo en la misma carpeta que el <b>CSS</b> solo tendremos que poner el nombre del archivo.</p>
+
+          <p>El siguiente código muestra un ejemplo completo:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">style</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+        <span style="color:rgb(204, 153, 204); font-weight:400;">@font-face</span> {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">font-family</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;CustomFont&quot;</span>;
+            <span style="color:rgb(129, 162, 190); font-weight:400;">src</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">url</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;RockSalt-Regular.ttf&quot;</span>);
+        }
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">h1</span> {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">font-family</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;CustomFont&quot;</span>;
+        }
+    </span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">style</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span>Test working<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span></code></pre>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>CSS | Fuentes | Custom</p>
+        </div>
+
+    </body>
+</html>

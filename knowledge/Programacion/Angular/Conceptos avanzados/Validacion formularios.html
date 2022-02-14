@@ -66,7 +66,7 @@
 })
 <span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">UserComponent</span> <span style="color:rgb(181, 189, 104); font-weight:400;">implements</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnInit</span> </span>{
 
-  <span style="color:rgb(129, 162, 190); font-weight:400;">userForm</span>: FormGroup;
+  <span style="color:rgb(129, 162, 190); font-weight:400;">userForm</span>: FormGroup = new FormGroup({});
 
   <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> { }
 
@@ -197,6 +197,48 @@
 <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">form</span>&gt;</span>
 
 </code></pre>
+
+        </div>
+
+    <div class="t2">Formulario e inputs en componentes distintos </div>
+        <div class="cont">
+          <p>Si estamos utilizando el <b>formulario</b> en un <b>componente</b> y los <b>inputs</b> en un componente a parte (un componente hijo).</p>
+          <p>Tendremos que incluir lo siguiente en la etiqueta <b>@Component</b>:</p>
+
+          <pre>
+ <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span style="color:rgb(129, 162, 190); font-weight:400;">viewProviders</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">[</span><span style="color:rgb(129, 162, 190); font-weight:400;">
+</span>    <span style="color:rgb(129, 162, 190); font-weight:400;">{
+</span>      <span style="color:rgb(129, 162, 190); font-weight:400;">provide</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">ControlContainer,</span><span style="color:rgb(129, 162, 190); font-weight:400;">
+</span>      <span style="color:rgb(129, 162, 190); font-weight:400;">useExisting</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">FormGroupDirective</span><span style="color:rgb(129, 162, 190); font-weight:400;">
+</span>    <span style="color:rgb(129, 162, 190); font-weight:400;">}
+</span>  <span style="color:rgb(129, 162, 190); font-weight:400;">]</span></code></pre>
+
+        <p>El código quedaría tal que así:</p>
+
+        <img src="Validacion formularios/1.png"/>
+
+        <p>En caso de que queramos poner el código de las validaciones en el <b>componente hijo</b> tenemos que pasar al hijo el miembro del <b>FormControl</b> referente al input que va a validar.</p>
+
+        <img src="Validacion formularios/2.png"/>
+
+        <p>En este caso sería <b>nameInput</b> el problema es que al intentar pasarlo directamente nos dará el siguiente error:</p>
+
+        <code>Type 'AbstractControl' is missing the following properties from type 'FormControl': registerOnChange, registerOnDisabledChange, _applyFormState</code>
+
+        <img src="Validacion formularios/3.png"/>
+
+        <p>Para poder pasarlo tenemos que <b>castearlo</b> con tipo <b>any</b>:</p>
+
+        <code>[nameInput]="$any(this.memberForm.get('nameInput')!)</code>
+
+        <img src="Validacion formularios/4.png"/>
+
+        <p>En el componente <b>hijo</b> tendríamos el input en el componente:</p>
+
+        <img src="Validacion formularios/5.png"/>
+
+        <p>y el código de comprobación en el <b>HTML</b>:</p>
+        <img src="Validacion formularios/6.png"/>
 
         </div>
 

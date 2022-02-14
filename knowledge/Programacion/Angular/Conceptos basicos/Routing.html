@@ -168,6 +168,24 @@
 
         </div>
 
+    <div class="t2">Usar routing desde el código</div>
+        <div class="cont">
+          <p>Si queremos podemos utilizar la funciona <b>navigate</b> para navegar a rutas desde el código, en vez de utilizar <b>routerlink</b> en un enlace</p>
+
+          <p>Primero importamos la clase <b>Router</b></p>
+
+          <code>import { Router } from '@angular/router';</code>
+
+          <p>Despues creamos un objeto de tipo <b>Router</b> en el constructor del componente</p>
+
+          <code>constructor(private router:Router) { }</code>
+
+          <p>Una vez hecho esto ya podemos llamar al metodo <b>navigate</b> desde cualquier parte de nuestro componente, tal que asi:</p>
+          <code>this.router.navigate(['/main']);</code>
+
+          <p>La ruta deberá existir en nuestra tabla de rutas</p>
+        </div>
+
     <div class="t2">Tags</div>
         <div class="cont">
         <p>Angular | Routing</p>

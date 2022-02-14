@@ -157,6 +157,18 @@
 }
 </code></pre>
 
+        <p>Una manera alternativa (en verdad es la recomendada), de definir el <b>subscribe</b> es la siguiente:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.httpView
+      .getInfo()
+      .subscribe({
+        next: <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">(data)</span> =&gt;</span> (<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.messageObject = data),
+        error: <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">(error)</span> =&gt;</span> <span style="color:rgb(181, 189, 104); font-weight:400;">console</span>.log(error),
+        complete: <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> <span style="color:rgb(181, 189, 104); font-weight:400;">console</span>.log(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;complete&quot;</span>)
+      });</code></pre>
+
+        <p>Esta implementación nos permite coger el valor de la respuesta <b>next</b>, del error <b>error</b> y de finalización de la solicitud <b>complete</b></p>
+
         <h2>http-view.component.html</h2>
 
         <p>Y por ultimo solo tenemos que mostrar la información en nuestro template <b>http-view.component.html</b>, usaremos el array <b>messageObject</b> para mostrar todos los datos que ha devuelto la solicitud, en este caso los mostramos en una tabla usando el <b>ngFor</b>:</p>
