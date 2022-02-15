@@ -233,6 +233,40 @@ describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test1Com
 
                 <code>import { Location } from '@angular/common';</code>
 
+                <br/><br/>
+                <h2>Testear setTimeout</h2>
+                <p>Para testear una funcion <b>setTimeout</b> tenemos que utilizar <b>fakeAsync</b> y <b>tick</b> para simular el paso del tiempo y que la funcion se dispare</p>
+                <p>En el test tenemos que pasarle un <b>numero entero</b> a <b>tick</b> para simular el tiempo que queremos que pase</p>
+
+                <p>Ejemplo:</p>
+                <p>Funcion:</p>
+                <img src="Testing con Jasmine/8.png"/>
+                <p>Test:</p>
+                <img src="Testing con Jasmine/9.png"/>
+
+                <p>si hay una funcion <b>setTimeout</b> que se ha llamado, tendremos que ejecutar <b>tick</b> con el tiempo necesario para que esa funcion <b>timeout</b> concluya su temporizador y se dispare.</p>
+
+                <br/><br/>
+                <h2>Testear con spyOn</h2>
+
+                <p>Para testear con el <b>spyOn</b> tenemos que indicar cual es el objeto y su metodo sobre el que poner el <b>spy</b>, una vez tenemos configurado el spy, solo tenemoq que llamar a <b>expect</b> para comprobar si se ha llamado a esa funcion o si se ha llamado con un parametro concreto.</p>
+
+                <p>Ejemplo de <b>spyOn</b> de un <b>servicio</b>:</p>
+                <p>Componente:</p>
+                <img src="Testing con Jasmine/10.png"/>
+
+                <p>Test:</p>
+                <img src="Testing con Jasmine/11.png"/>
+
+                <p>Ejemplo de <b>spyOn</b> de un <b>EventEmitter</b>:</p>
+                <p>Componente:</p>
+                <img src="Testing con Jasmine/12.png"/>
+
+                <p>Test:</p>
+                <img src="Testing con Jasmine/13.png"/>
+
+                <p>Tenemos que tener en cuenta de llamar a la <b>funcion</b> (en este caso <b>ngOnInit</b>) despues de hacer el <b>spyOn</b>, ya que el componente se crea antes de ejecutar el test y por lo tanto <b>ngOnInit</b> por defecto se llama antes del test (osea antes de aplicar el <b>spyOn</b>), asi que para que se vuelva a ejecutar la funcion (<b>mostrarTexto</b> o el <b>emitter</b> en este caso) sobre la que llamamos al <b>spyOn</b> tenemos que volver a ejecutar el <b>ngOnInit</b>.</p>
+
           </div>
 
     <div class="t2">Tags</div>

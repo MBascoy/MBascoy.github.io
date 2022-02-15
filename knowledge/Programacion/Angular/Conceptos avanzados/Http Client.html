@@ -215,6 +215,14 @@
 
           <p>Dentro de la funcion <b>errorHandler</b> comprobamos que tipo de error se produce, si es <b>0</b> quiere decir que es un error de que el cliente no se ha podido conectar, si es <b>distinto de 0</b> es un error del servidor y el numero en si indica el tipo de error, despues el metodo lanza un error indicando que algo ha salido mal (independientemente de que haya sido problema del cliente o del servidor)</p>
 
+          <h2>Manejar códigos de respuesta</h2>
+          <p>El método anterior nos permite manejar los errores en el servicio, pero si queremos tener acceso a los codigos de error que devuelve la petición tenemos que hacerlo de la siguiente manera:</p>
+
+          <img src="Http Client/2.png"/>
+          <p>En el servicio añadimos la opción <b>{observe: 'response'}</b> en la solicitud, y no realizamos el <b>pipe</b> como hacíamos antes.</p>
+
+          <p>Y ahora al hacer el <b>subscribe</b> podemos acceder a la propiedad <b>status</b> de los objetos, que contiene el código de la solicitud</p>
+          <img src="Http Client/3.png"/>
         </div>
 
 

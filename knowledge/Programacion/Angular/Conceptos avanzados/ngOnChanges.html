@@ -65,6 +65,24 @@
 
           </div>
 
+    <div class="t2">ngOnChanges con objetos</div>
+        <div class="cont">
+        <p>Cuando pasamos un objeto como <b>@Input</b> el <b>ngOnChanges</b> no detecta los cambios si cambiamos el valor de uno de los atributos del objeto, ya que la referencía al objeto es la misma.</p>
+
+        <p>Ejemplo:</p>
+        <p>Componente padre:</p>
+        <img src="ngOnChanges/2.png"/>
+
+        <p>Componente hijo:</p>
+        <img src="ngOnChanges/3.png"/>
+
+        <p>En ese caso el <b>ngOnChanges</b> no funcionaría, porque en el componente padre (en la funcion timeout), solo estamos modificando un atributo del objeto y el <b>ngOnChanges</b> no lo detecta</p>
+
+        <p>Una solución sería asignar un objeto nuevo a la variable para que el <b>ngOnChanges</b> lo detecte</p>
+        <img src="ngOnChanges/4.png"/>
+        </div>
+
+
     <div class="t2">Tags</div>
         <div class="cont">
         <p>ngOnChanges | Angular</p>
