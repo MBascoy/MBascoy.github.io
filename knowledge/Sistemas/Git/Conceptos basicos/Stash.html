@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Stash</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como utilizar el comando <b>stash</b> para almacenar modificaciones temporalmente.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>El comando <b>stash</b> de git nos permite almacenar cambios <b>pendientes de commitear</b> para aplicarlos posteriormente o simplemente descartarlos.</p>
+          <p>La manera en la que funciona el comando es guardando los cambios pendientes y despues de guardarlos restaura los archivos en la rama al estado del ultimo commit.</p>
+
+          <h2>Guardar cambios en el stash:</h2>
+
+          <code>> git stash</code>
+
+          <p>En el stash solo se guardarán los archivos que están <b>trackeados</b> y con cambios pendientes de hacer <b>commit</b>.</p>
+
+          <p>Una de las utilidades del <b>stash</b> es cuando queremos hacer un <b>checkout</b> a otra rama pero tenemos cambios en la rama actual y no se nos permite hacer el <b>checkout</b> hasta que comiteemos los cambios, pero quiza no queremos hacer un commit todavia, en esa situación podemos hacer un <b>stash</b>, los cambios se quedan guardados en la pila del <b>stash</b> y la rama es restaurada, de modo que no tendrá cambios pendientes de hacer commit, mas tarde si queremos podemos recuperar los cambios de <b>stash</b>
+
+            <p>Si queremos darle un mensaje concreto al <b>stash</b> para que sea mas facil identificarlo en la pila del stash, podemos hacerlo de la siguiente manera:</p>
+            <code>> git stash save "Comentario del stash"</code>
+
+          <h2>Recuperar cambios del stash:</h2>
+          <code>> git stash pop</code>
+
+          <p>Esto cogerá los ultimos cambios almacenados en la <b>pila del stash</b> (el indice 0) y los aplicará sobre la rama actual, el comando <b>pop</b> ademas retira estos cambios almacenados de la pila del stash, si queremos aplicar los cambios y mantenerlos en la pila del stash lo hariamos con el siguiente comando:</p>
+
+          <code>> git stash apply</code>
+
+          <h2>Consultar la pila del stash:</h2>
+          <p>En el stash podemos almacenar varios cambios de varias ramas, o incluso varios cambios de una sola rama, a medida que vamos guardando en el stash, los nuevos cambios se van añadiendo a la pila, para consultar la pila del stash lo hacemos con el siguiente comando:</p>
+
+          <code>> git stash list</code>
+
+          <p>Si queremos aplicar unos cambios concretos del stash lo hacemos asi:</p>
+
+          <code>> git stash pop stash@{1}</code>
+
+          <p>Desde la version 2.11 podemos simplemente indicar el indice del stash</p>
+
+          <code>> git stash pop 1</code>
+
+          <h2>Consultar archivos de cada stash almacenado</h2>
+
+          <code>> git stash show 1</code>
+
+          <p>Este comando nos muestra los archivos contenidos en el <b>stash</b> con el indice 1, si no indicamos ningun numero despues de show se mostrará el indice 0.</p>
+
+          <p>Si ademas de ver los archivos contenidos en el stash queremos ver su contenido de las modificaciones en el archivo lo hacemos con el siguiente comando</p>
+
+          <code>> git stash show -p 1</code>
+
+          <h2>Borrar el contenido de la pila del stash</h2>
+
+          <code>> git stash clear</code>
+
+          <p>Este comando borrará toda la pila del stash, si queremos borrar un indice concreto lo haríamos así:</p>
+          <code>> git stash drop 4</code>
+
+          <h2>Almacenar cambios de archivos no trackeados</h2>
+
+          <code>> git stash -u</code>
+
+          <p>Por defecto cuando hacemos un stash solo se almacenan las modificaciones de archivos que estén trackeados, con la opcion <b>-u</b> almacenamos los cambios de los archivos trackeados y no trackeados</p>
+
+          <h2>Extraer un solo archivo del stash</h2>
+          <code>> git checkout stash@{0} -- file1</code>
+
+          <p>Este comando extraería el archivo <b>file1</b> del stash con el indice <b>0</b> a la rama actual</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | stash </p>
+        </div>
+
+    </body>
+</html>

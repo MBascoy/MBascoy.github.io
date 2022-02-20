@@ -1,0 +1,94 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Resolver dependencias</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Cuando intentamos instalar un paquete con <b>npm</b> obtenemos un error de dependencias</p>
+
+          <pre><code>npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR!
+npm ERR! While resolving: dependency@0.0.0
+npm ERR! Found: @angular/compiler@13.1.3
+npm ERR! node_modules/@angular/compiler
+npm ERR!   @angular/compiler@"~13.1.0" from the root project
+npm ERR!
+npm ERR! Could not resolve dependency:
+npm ERR! peer @angular/compiler@"13.2.3" from @angular/localize@13.2.3
+npm ERR! node_modules/@angular/localize
+npm ERR!   peer @angular/localize@"^13.0.0" from @ng-bootstrap/ng-bootstrap@12.0.0
+npm ERR!   node_modules/@ng-bootstrap/ng-bootstrap
+npm ERR!     @ng-bootstrap/ng-bootstrap@"*" from the root project
+npm ERR!
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force, or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+npm ERR!
+npm ERR! See C:\Users\manuel.bascoy\AppData\Local\npm-cache\eresolve-report.txt for a full report.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     C:\Users\manuel.bascoy\AppData\Local\npm-cache\_logs\2022-02-20T18_42_14_337Z-debug-0.log</code></pre>
+
+          <img src="Resolver dependencias/1.png"/>
+        </div>
+
+    <div class="t2">Solución</div>
+        <div class="cont">
+          <p>La solución mas rápida en estos casos suele ser la de utilizar la opcion <b>--legacy-peer-deps</b>, en este caso la usaríamos tal que así:</p>
+
+          <code>> npm install @ng-bootstrap/ng-bootstrap --legacy-peer-deps</code>
+
+          <p>Si queremos tambien podemos ir resolviendo las dependencias poco a poco (en caso de que haya varias).</p>
+
+          <p>Para esto tenemos que ir mirando cual es exactamente la dependencia que falta.</p>
+
+          <code>> npm install @ng-bootstrap/ng-bootstrap</code>
+
+          <img src="Resolver dependencias/2.png"/>
+
+          <p>En el mensaje de error se nos dice que el paquete <b>@ng-bootstrap/ng-bootstrap@12.0.0</b> necesita una version mayor a la <b>13</b> del paquete <b>@angular/localize</b>, por lo visto intenta instalar la versión <b>13.2.3</b> pero esa versión a su vez tiene una dependencía del paquete <b>@angular/compiler@"13.2.3"</b>, nosotros tenemos ese paquete pero en una versión anterior, si miramos el <b>package.json</b> vemos que tenemos la versión <b>~13.1.0</b>.</p>
+
+          <img src="Resolver dependencias/3.png"/>
+
+          <p>Entonces vamos a actualizarl el paquete <b>@angular/compiler</b> con el siguiente comando:</p>
+          <code>> npm install @angular/compiler@"13.2.3"</code>
+
+          <img src="Resolver dependencias/4.png"/>
+
+          <p>El paquete se ha actualizado correctamente, ahora intentemos instalar de nuevo el paquete de <b>@ng-bootstrap/ng-bootstrap</b>, ahora obtenemos el siguiente error:</p>
+
+          <pre><code>ERR! Could not resolve dependency:
+npm ERR! peer @angular/compiler@"13.1.3" from @angular/compiler-cli@13.1.3
+npm ERR! node_modules/@angular/compiler-cli
+npm ERR!   dev @angular/compiler-cli@"~13.1.0" from the root project</code></pre>
+
+          <img src="Resolver dependencias/5.png"/>
+
+          <p>Obtenemos un error de una dependencía distinta, al instalar el paquete <b>@angular/compiler@"13.1.3"</b> ahora el paquete <b>@angular/compiler-cli@13.1.3</b> nos dice que necesita la version antigua del paquete <b>@angular/compiler</b>, pero esa versión no nos vale para el paquete <b>@ng-bootstrap/ng-bootstrap</b>, así que vamos a actualizar el paquete a la misma versión que la del compiler:</p>
+
+          <code>> npm install @angular/compiler-cli@13.2.3</code>
+
+          <p>El paquete se instala correctamente, ahora ya podemos volver a intentar instalar el paquete <b>@ng-bootstrap/ng-bootstrap</b>:
+
+            <code>> npm install @ng-bootstrap/ng-bootstrap</code>
+
+          <img src="Resolver dependencias/6.png"/>
+
+          <p>El paquete se ha instalado correctamente, podríamos haber instalado el paquete <b>localizez</b> de manera manual como paso intermedio, pero al tener ya todas las dependencias resueltas el propio <b>npm</b> lo instala automáticamente.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>NPM | Dependencias</p>
+        </div>
+
+    </body>
+</html>

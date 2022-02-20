@@ -1,0 +1,72 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Tests se conectan con la base de datos</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Al lanzar los tests unitarios se intenta hacer una conexion con la <b>base de datos</b>, lo cual no debería de ocurrir en <b>test unitarios</b></p>
+
+            <pre><code>2022-02-20 17:01:31.819  WARN 13520 --- [           main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during
+              context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean
+              with name 'org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration': Unsatisfied dependency expressed through constructor
+              parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined
+              in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory
+              method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate
+              [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is
+              org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+2022-02-20 17:01:31.834  INFO 13520 --- [           main] ConditionEvaluationReportLoggingListener :
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-02-20 17:01:31.869 ERROR 13520 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   :
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+        If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+        If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).</code></pre>
+
+        <img src="Tests se conectan con la base de datos/1.png"/>
+
+        <p>El <b>Application context</b> que ejecuta los test intenta configurar un <b>dataSource</b> (en este caso una conexion a la base de datos) y falla al no encontrar ninguna configuración valida, en este caso como estamos probando test unitarios ni siquiera se debería de producir ese intento de conexión.</p>
+        </div>
+
+    <div class="t2">Solución</div>
+        <div class="cont">
+
+            <p>Esta situación se produce porque estamos utilizando la etiqueta <b>@SpringBootTest</b> para la configuración de los test, está etiqueta debería de utilizarse para test de integración en los que si se tiene que utilizar una base de datos, pero no para <b>test unitarios</b></p>
+
+            <img src="Tests se conectan con la base de datos/2.png"/>
+
+            <p>La anotación que tenemos que utilizar es <b>@ExtendWith(SpringExtension.class)</b>, y a mayores tenemos que configurar el test para que cargue las clases de las que tiene dependencias, esto lo hacemos dentro del test con la etiqueta <b>@Configuration</b>, y despues con la etiqueta <b>@Bean</b> para cargar las clases, el código solucionado quedaría así:</p>
+
+            <img src="Tests se conectan con la base de datos/3.png"/>
+
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Spring | test | Base de datos | datasource | app context</p>
+        </div>
+
+    </body>
+</html>
