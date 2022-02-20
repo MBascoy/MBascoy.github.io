@@ -1,0 +1,278 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Template driven forms</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como utilizar <b>template-driven forms</b> para gestionar inputs en tiempo real</p>
+
+          <p><a href="https://github.com/MBascoy/Angular-Examples/tree/main/template-driven-form">Código de ejemplo</a></p>
+        </div>
+
+        <div class="t2">Importación</div>
+            <div class="cont">
+              <p>Para poder trabajar con los <b>Template driven forms</b> primero tenemos que importar <b>FormsModule</b> en el archivo <b>app.module.ts</b></p>
+
+              <img src="Template driven forms/4.png"/>
+            </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Para utilizar los <b>template-driven forms</b> principalmente se hace con el uso de la directiva <b>[(ngModel)]</b></p>
+            <p>Para aplicarlo de manera sencilla sobre un input lo hacemos de la siguiente manera:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>Template driven form en un mismo componente<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> [(<span style="color:rgb(129, 162, 190); font-weight:400;">ngModel</span>)]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;textoInput&quot;</span>/&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>Texto: {{textoInput}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span></code></pre>
+
+          <p><b>textoInput</b> es una variable definida en el componente:</p>
+
+          <img src="Template driven forms/1.png"/>
+
+          <p>En este ejemplo, tan pronto escribamos algun en el input se actualizará instantaneamente en la variable <b>textoInput</b> y por lo tanto se mostrará actualizada dentro de la etiqeta <b>&lt;p&gt;</b></p>
+
+        </div>
+
+        <div class="t2">Metodo usando componente padre y componente hijo</div>
+        <div class="cont">
+          <p>Otra manera de implementar los <b>template-driven forms</b> es usando el <b>two-way binding</b> para comunicar un componente padre y un componente hijo de manera que se actualicen instantaneamente en base a un input que haya en uno de los dos componentes.</p>
+
+          <p>En este caso tenemos en el template del componente padre el siguiente código:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>Template driven form padre hijo<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">app-hijo</span> [(<span style="color:rgb(129, 162, 190); font-weight:400;">dataInput</span>)]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dataInput&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">app-hijo</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>Padre: <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> [(<span style="color:rgb(129, 162, 190); font-weight:400;">ngModel</span>)]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dataInput&quot;</span> /&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>Texto: {{dataInput}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span></code></pre>
+
+          <p>En la etiqueta del componente hijo tenemos el <b>two-way binding</b>, el <b>dataInput</b> que está a la izquierda hace referencia al <b>@Input()</b> que hay en el componente hijo, y el que está a la derecha hace referencia a la variable <b>dataInput</b> del componente padre, que se actualizará tan pronto el <b>hijo</b> lanze un <b>emitter</b> para esa variable.</p>
+
+          <p>En el template del hijo tenemos lo siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>Hijo: <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">input</span>)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;send()&quot;</span> [(<span style="color:rgb(129, 162, 190); font-weight:400;">ngModel</span>)]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dataInput&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">select</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">change</span>)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;send()&quot;</span> [(<span style="color:rgb(129, 162, 190); font-weight:400;">ngModel</span>)]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dataInput&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">option</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">value</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&#x27;opción 1&#x27;&quot;</span>&gt;</span>opción 1<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">option</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">option</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">value</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&#x27;opción 2&#x27;&quot;</span>&gt;</span>opción 2<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">option</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">option</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">value</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&#x27;opción 3&#x27;&quot;</span>&gt;</span>opción 3<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">option</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">select</span>&gt;</span></code></pre>
+
+          <p>Aqui tenemos definidos dos inputs, uno de <b>texto</b> y otro un <b>select</b>, ambos cuando detectan cambios llaman a la funcion <b>send()</b> que lo único que hace es emitir la información de la variable <b>dataInput</b> y a parte tambien tienen definida la directiva <b>[(ngModel)]</b> para actualizar la información de la variable al instante.</p>
+
+          <p>Y en el componente del hijo tenemos definido lo siguiente:</p>
+
+          <img src="Template driven forms/2.png"/>
+
+          <p>Con esta implementación tanto si se modifica el input del hijo (ya sea el de texto o el select) como el del padre, se actualizan todos al mismo tiempo</p>
+        </div>
+
+        <div class="t2">Metodo usando componente padre y componente hijo con validaciones</div>
+        <div class="cont">
+          <p>En el caso de que queramos usar validaciónes sobre los inputs podemos hacerlo con las etiquetas estandar de <b>HTML</b>, algunas de las que podemos usar son:</p>
+
+          <ul>
+            <li>required</li>
+            <li>email</li>
+            <li>minlength="5"</li>
+            <li>pattern="[0-9]*"</li>
+          </ul>
+
+          <p>La manera de validar es la siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>Padre: <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">minlength</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;3&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">email</span> [(<span style="color:rgb(129, 162, 190); font-weight:400;">ngModel</span>)]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dataInputValidation&quot;</span> #<span style="color:rgb(129, 162, 190); font-weight:400;">dataValidation</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ngModel&quot;</span> /&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">hidden</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dataValidation.valid&quot;</span>&gt;</span>
+    Input not valid
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span></code></pre>
+
+          <p>En este caso usamos las validaciones de <b>email</b> y <b>minLength</b></p>
+          <p>Lo primero que tenemos que hacer es asociar el una template variable con el <b>ngModel</b> se hace con esto:</p>
+          <code>#dataValidation="ngModel"</code>
+
+          <p>Y a continuación podemos usar el valor que asignamos para comprobar las validaciones y mostrar el mensaje que hay en el <b>div</b> o no, en este caso es:</p>
+
+          <code>[hidden]="dataValidation.valid"</code>
+
+          <p>Otro ejemplo sería el siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">required</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">input</span>)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dataEmitter()&quot;</span> [(<span style="color:rgb(129, 162, 190); font-weight:400;">ngModel</span>)]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dataInputValidation&quot;</span> #<span style="color:rgb(129, 162, 190); font-weight:400;">dataValidation</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ngModel&quot;</span> /&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">hidden</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dataValidation.valid || dataValidation.pristine&quot;</span>&gt;</span>
+    Invalid data
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span></code></pre>
+
+          <p>En este ejemplo usamos a mayores del atributo <b>.valid</b> el atributo <b>.pristine</b>, este atributo lo que hace es devolver <b>true</b> cuando el input aún no ha sido modificado por el usuario, de manera que cuando se carga la página por defecto no se muestra el error en caso de que la validación no sea correcta, ya que el usuario todavía no ha realizado ningún input.</p>
+        </div>
+
+    <div class="t2">Template-driven forms con ngControl</div>
+      <div class="cont">
+
+        <p><a href="https://github.com/MBascoy/Angular-Examples/tree/main/template-driven-form-ngControl">Código de Ejemplo</a></p>
+
+        <p>Usando el <b>ngControl</b> nos evitamos tener que utilizar el <b>two-way binding</b> para envíar la información del hijo al padre, y ademas nos permite realizar el uso de validaciones de manera mas eficiente.</p>
+
+        <p>Primero en el componente <b>padre</b> definimos un <b>formulario</b> y dentro el componente <b>hijo</b> donde iran los inputs del formulario:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">form</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;margin-top: 2rem&quot;</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">ngSubmit</span>)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;onSubmit(form)&quot;</span> #<span style="color:rgb(129, 162, 190); font-weight:400;">form</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ngForm&quot;</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">app-child</span>
+		<span style="color:rgb(129, 162, 190); font-weight:400;">name</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;userName&quot;</span>
+		[<span style="color:rgb(129, 162, 190); font-weight:400;">required</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;true&quot;</span>
+		[<span style="color:rgb(129, 162, 190); font-weight:400;">minlength</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;3&quot;</span>
+	  	<span style="color:rgb(129, 162, 190); font-weight:400;">ngModel</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">app-child</span>&gt;</span>
+
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+	    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;submit&quot;</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">disabled</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;form.invalid&quot;</span>&gt;</span>Submit<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+	<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">form</span>&gt;</span></code></pre>
+
+        <p>Es importante tener en cuenta:</p>
+        <ul>
+          <li>Asociamos el evento <b>(onSubmit)</b> con una funcion en el componente, a la funcion le pasamos como parametro la <b>template variable</b> que definimos a continuación</li>
+          <li>Tenemos que definir una <b>template variable</b> para pasarla en la <b>funcion submit</b> y pasarla a la validación del <b>boton de submit</b>, la declaramos con <b>#form="ngForm"</b></li>
+          <li>En la etiqueta del componente <b>hijo</b> tenemos que incluir las validaciones que iran dentro del propio hijo (las validaciones van en los dos lados, aqui en la etiqueta y despues dentro del hijo, en la <b>etiqueta input</b>)</li>
+          <li>Tenemos que definir el atributo <b>ngModel</b> para hacer que la etiqueta pase a ser parte del formulario y ademas tenemos que darle un nombre a la etiqueta, es obligatorio, ya que este nombre se utilizará despues para acceder a la información que se pasé del [(ngModel)].
+        </ul>
+
+        <p>En el <b>template</b> del componente hijo tendremos un código como el siguiente:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">&lt;div <span style="color:rgb(204, 153, 204); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;input-wrapper&quot;</span>&gt;
+    &lt;input type=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text&quot;</span>
+        [<span style="color:rgb(249, 145, 87); font-weight:400;">required</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;required&quot;</span>
+        minlength=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;minlength&quot;</span>
+        [<span style="color:rgb(249, 145, 87); font-weight:400;">disabled</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;disabled&quot;</span>
+        [<span style="color:rgb(249, 145, 87); font-weight:400;">(ngModel)</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;data&quot;</span>
+        (ngModelChange)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;onChangeFunction(data)&quot;</span>
+        (blur)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;onTouchedFunction()&quot;</span>
+    /&gt;
+
+    &lt;div <span style="color:rgb(204, 153, 204); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;error-message&quot;</span> *ngIf=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;showError&quot;</span>&gt;
+        {{error}}
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <p>Cosas a tener en cuenta de este código:</p>
+
+        <ul>
+          <li>Tenemos que volver a indicar las etiquetas de validaciones, en este caso tanto <b>required</b> como <b>minLength</b></li>
+          <li>Usamos <b>[(ngModel)]</b> para actuazliar los cambios del <b>input</b> en la variable <b>data</b> que es la que se enviará despues al componente padre y que figurará como el parametro <b>"userName"</b> (el nobmre que le dimos a la etiqueta del componente hijo) del formulario</li>
+          <li>Asignamos el evento <b>ngModelChange</b> a la funcion <b>onChangeFunction</b> que es una de las obligatorias al implementar el <b>ControlValueAccessor</b></li>
+          <li>Asignamos el evento <b>blur</b> a una de las otras funciones obligatorias <b>onTouchedFunction</b></li>
+          <li>Al final del código usamos <b>showError</b> que es un <b>getter</b> que nos indica si se producieron errores o no, y <b>error</b> que es un <b>getter</b> que nos devuelve el texto de error concreto segun el error (Ambos están definidos en el componente)</p>
+        </ul>
+
+        <p>Ahora veremos el código del componente hijo (donde está la miga del asunto):</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component, Input, Optional, Self } from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { ControlValueAccessor, NgControl } from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/forms&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component({
+  selector: <span style="color:rgb(249, 145, 87); font-weight:400;">&#x27;app-child&#x27;</span>,
+  templateUrl: <span style="color:rgb(249, 145, 87); font-weight:400;">&#x27;./child.component.html&#x27;</span>,
+  styleUrls: [<span style="color:rgb(249, 145, 87); font-weight:400;">&#x27;./child.component.css&#x27;</span>]
+})</span>
+export <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">ChildComponent</span> <span style="color:rgb(255, 204, 102); font-weight:400;">implements</span> <span style="color:rgb(255, 204, 102); font-weight:400;">ControlValueAccessor</span> </span>{
+
+  <span style="color:rgb(249, 145, 87); font-weight:400;">@Input()</span> <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> label!: string;
+  <span style="color:rgb(249, 145, 87); font-weight:400;">@Input()</span> <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> required = <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+  <span style="color:rgb(249, 145, 87); font-weight:400;">@Input()</span> <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> minlength = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+  <span style="color:rgb(249, 145, 87); font-weight:400;">@Input()</span> <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> disabled = <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+  <span style="color:rgb(249, 145, 87); font-weight:400;">@Input()</span> <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">data</span>!: string;
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">constructor</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">@Self()</span> <span style="color:rgb(249, 145, 87); font-weight:400;">@Optional()</span> <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> control: NgControl) {
+      <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.control &amp;&amp; (<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.control.valueAccessor = <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>);
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> onChangeFunction!: Function;
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> onTouchedFunction!: Function;
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">get</span> invalid(): boolean | <span style="color:rgb(204, 153, 204); font-weight:400;">null</span> {
+      <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.control ? <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.control.invalid : <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">get</span> showError(): boolean | <span style="color:rgb(204, 153, 204); font-weight:400;">null</span> {
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (!<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.control) {
+          <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+      }
+      <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> { dirty, touched } = <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.control;
+      <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.invalid ? (dirty || touched) : <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+
+      <span style="color:rgb(150, 152, 150); font-weight:400;">//Este código equivale al código superior sin la constante</span>
+      <span style="color:rgb(150, 152, 150); font-weight:400;">//return this.invalid ? (this.control.dirty || this.control.touched) : false;</span>
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">get</span> error() :string | void{
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(!<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.control){
+          <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>;
+      }
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.control.errors![<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;required&#x27;</span>]){
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Debes rellenar este campo&quot;</span>;
+      }
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.control.errors![<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;minlength&#x27;</span>]){
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Minimo 3 caracteres&quot;</span>;
+      }
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> registerOnChange(onChangeFunction: any){
+      <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.onChangeFunction = onChangeFunction;
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> registerOnTouched(onTouchedFunction: any){
+      <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.onTouchedFunction = onTouchedFunction;
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> writeValue(newData: string){
+      <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.<span style="color:rgb(204, 153, 204); font-weight:400;">data</span> = newData;
+  }
+}</code></pre>
+
+      <p>Lo primero que tenemos que tener en cuenta es la implementación en la clase de la interfaz <b>ControlValueAccessor</b> esto nos obliga a declarar las siguientes funciones de manera obligatoria:</p>
+      <ul>
+        <li>writeValue()</li>
+        <li>registerOnTouched</li>
+        <li>registerOnChange</li>
+      </ul>
+
+      <p>En el <b>constructor</b> declaramos el <b>ngControl</b>, tal que asi:</p>
+      <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">constructor</span>(<span style="color:rgb(255, 204, 102); font-weight:400;">@Self</span>() <span style="color:rgb(255, 204, 102); font-weight:400;">@Optional</span>() public <span style="color:rgb(129, 162, 190); font-weight:400;">control</span>: NgControl) {
+      <span style="color:rgb(204, 153, 204); font-weight:400;">this</span><span style="color:rgb(209, 217, 225); font-weight:400;">.control</span> <span style="color:rgb(204, 153, 204); font-weight:400;">&amp;</span><span style="color:rgb(204, 153, 204); font-weight:400;">&amp;</span> (this.control.valueAccessor = this);
+}</code></pre>
+
+      <p>Despues tenemos que tener en cuenta el <b>getter</b> de <b>showError</b> que nos indicará si el input contiene un valor correcto o no</p>
+
+      <p>Y a mayores el <b>getter</b> de <b>error</b>, que nos devuelve una cadena de error u otra según la validación no correcta que se haya producido en el input.</p>
+
+      <p>Por ultimo podemos ver el código del <b>ts</b> componente <b>padre</b> en el que accedemos a la infomación del fomulario al hacer <b>submit</b>:</p>
+
+      <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">AppComponent</span> </span>{
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">onSubmit</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">form :NgForm</span>)</span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">console</span>.log(form)
+    <span style="color:rgb(181, 189, 104); font-weight:400;">console</span>.log(form.form.value.userName)
+  }
+}
+</code></pre>
+
+      <p>Como podemos ver la funcion <b>onSubmit</p> recibe el <b>ngForm</b> como parametro, y de ahi podemos extraer la información del formulario</p>
+
+      </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Template-driven forms | Forms | Angular</p>
+        </div>
+
+    </body>
+</html>

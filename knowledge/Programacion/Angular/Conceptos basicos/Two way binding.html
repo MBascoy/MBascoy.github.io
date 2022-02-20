@@ -1,0 +1,81 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Two way binding</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como utilizar <b>Two way binding</b> para pasar información entre un componente <b>padre</b> y un componente <b>hijo</b></p>
+
+          <p><a href="https://github.com/MBascoy/Angular-Examples/tree/main/two-way-binding">Código Ejemplo</a></p>
+        </div>
+
+      <div class="t2">Descripcion</div>
+          <div class="cont">
+            <p>Para utilizar el <b>Two way binding</b> primero en el padre definimos una variable que estará asociada con el binding (<b>name</b> en este caso):</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+
+@Component({
+  selector: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-root&#x27;</span>,
+  templateUrl: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./app.component.html&#x27;</span>,
+  styleUrls: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./app.component.css&#x27;</span>]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">AppComponent</span> {</span>
+  name = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;pepe&quot;</span>
+}
+</code></pre>
+
+            <p>A continuación en el <b>template</b> del componente <b>padre</b> hacemos el binding entre la variable del <b>componente padre</b> y la del <b>hijo</b> usando el operador <b>[()]</b></p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">app-child</span> [(<span style="color:rgb(129, 162, 190); font-weight:400;">nameHijo</span>)]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">app-child</span>&gt;</span>
+
+{{name}} </code></pre>
+
+            <p><b>nameHijo</b> es la variable del componente hijo, y <b>name</b> es la variable del componente padre, a mayores sacamos el contenido de la variable name (que vendrá con las modificaciones realizadas en el componente hijo)</p>
+
+            <p>Ahora solo nos queda asignar las variables de entrada y de salida en el componente hijo:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Component, EventEmitter, Input, OnInit, Output } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-child&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./child.component.html&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">styleUrls</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./child.component.css&#x27;</span>],
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ChildComponent</span> <span style="color:rgb(181, 189, 104); font-weight:400;">implements</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnInit</span> </span>{
+
+  <span style="color:rgb(249, 145, 87); font-weight:400;">@Input</span>() nameHijo!: <span style="color:rgb(181, 189, 104); font-weight:400;">string</span>;
+  <span style="color:rgb(249, 145, 87); font-weight:400;">@Output</span>() nameHijoChange = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> EventEmitter&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">string</span>&gt;();
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+    <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.nameHijoChange.emit(<span style="color:rgb(138, 190, 183); font-weight:400;">`Hola <span style="color:rgb(249, 145, 87); font-weight:400;">${<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.nameHijo}</span>`</span>);
+  }
+
+  ngOnInit(): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {}
+}
+</code></pre>
+
+            <p>Utilizamos <b>@Input()</b> para recoger la variable que nos viene del padre y despues <b>(ESTO ES LO IMPORTANTE!!)</b> tenemos que asignar una variable <b>@Output()</b> con el mismo nombre que la de input, pero añadiendo la palabra <b>Change</b> al final, en este caso sería <b>nameHijoChange</b>.</p>
+
+            <p>Despues para enviar la variable de vuelta al <b>padre</b> simplemente usamos la funcion <b>emit</b>, en este caso lo hacemos en el <b>constructor</b>, y le concatenamos un string al comienzo para poder ver que la variable ha pasado por el componente hijo</p>
+
+            <p>El resultado final es este:</p>
+
+            <img src="Two way binding/1.png"/>
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | two way binding</p>
+        </div>
+
+    </body>
+</html>
