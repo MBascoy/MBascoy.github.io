@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Restaurar o recuperar archivos</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como restaurar archivos modificados o recuperar archivos individuales de commits antiguos.</p>
+
+        </div>
+
+    <div class="t2">Restaurar archivos modificados</div>
+        <div class="cont">
+          <p>Si estamos trabajando en una rama y queremos descartar los cambios que hayamos hecho para volver a la situación inicial del commit podemos usar el comando <b>restore</b> de git.</p>
+
+          <img src="Restaurar o recuperar archivos/1.png"/>
+
+          <p>En este caso tenemos modificaciones en el archivo <b>adios.txt</b> si queremos descartar las modificaciones y dejarlo como estaba en el último commit, lo haríamos con el siguiente comando:</p>
+
+          <code>> git restore adios.txt</code>
+
+          <p>Si tenemos varios archivos y queremos restaurarlos todos podemos usar el siguiente comando:</p>
+
+          <code>> git restore .</code>
+
+          <p>Si tenemos un archivo cuyos cambios están añadidos para el commit y queremos descartar dichos cambios tendremos que hacer un <b>restore --staged</b></p>
+
+          <img src="Restaurar o recuperar archivos/2.png"/>
+
+          <p>En este caso el comando sería:</p>
+
+          <code>git restore --staged adios.txt</code>
+
+          <p>Despues de ejecutar este comando el archivo volvería al estado de <b>modificado pero no añadido para commit</b>, en este estado ya podríamos realizar un <b>restore</b> normal.</p>
+
+          <p>Una manera alternativa de hacer esto es con el comando <b>stash</b>, al ejecutar este comando los archivos se restaurarían al estado del último commit, pero los cambios no se perderían, quedarían guardados en la pila del stash por si queremos recuperarlos mas tarde.</p>
+
+          <code>> git stash</code>
+
+          <a href="Stash.html">Página Stash</a>
+
+        </div>
+
+    <div class="t2">Recuperar archivos de commits previos</div>
+        <div class="cont">
+          <p>Si queremos recuperar <b>un solo archivo</b> de un commit previo podemos hacerlo con el siguiente comando</p>
+
+          <code>> git checkout &lt;commit_id&gt; -- &lt;archivo&gt;</code>
+
+          <p>Ejemplo:</p>
+
+          <img src="Restaurar o recuperar archivos/3.png"/>
+
+          <p>En este caso si queremos recuperar el archivo <b>adios.txt</b> del commit indicado lo haríamos tal que así:</p>
+
+          <code>git checkout 1342e49ce3290a43b4459f59e16cc0eb07b488eb -- adios.txt</code>
+
+          <p>Una vez ejecutado el comando el archivo volverá al estado exacto del commit indicado y se añadirá automáticamente para el próximo commit que hagamos</p>
+
+        </div>
+
+    <div class="t2">Dejar de trackear archivos</div>
+        <div class="cont">
+          <p>Si queremos que un archivo deje de ser parte del commit, pero no lo queremos eliminar de manera definitiva usariamos el siguiente comando:</p>
+          <code>> git rm --cache &lt;archivo&gt;</code>
+
+          <p>De esta manera el archivo seguirá existiendo pero dejará de estar asignado al repositorio, por lo tanto se mostrará como <b>untracked</b> file, como cualquier archivo que creemos y todavía no esté trackeado en el commit</p>
+
+          <h2>Diferencia entre git rm y rm</h2>
+          <p>Podemos usar dos comandos para borrar archivos <b>git rm</b> y <b>rm</b>, la diferencía es:</p>
+
+          <ul>
+            <li><b>git rm</b>: borra el archivo y añade el archivo borrado al proximo commit</li>
+            <li><b>rm</b>: Simplemente borra el archivo, debe de añadir nosotros el cambio para el proximo commit</li>
+          </ul>
+
+        </div>
+
+    <div class="t2">Restaurar rama al último commit</div>
+        <div class="cont">
+          <p>Si hemos trabajado en una rama o añadido algún archivo y queremos restaurarla por completo para dejarla <b>exactamente</b> en el estado inicial del commit lo hacemos con el siguiente comando:</p>
+
+          <code>> git stash -u</code>
+
+          <p>Es importante tener en cuenta que cuando hacemos un <b>git pull</b> o un <b>git restore</b> puede ser que la rama no esté exactamente en el estado del último commit, esto se puede deber a que hay archivos no trackeados que pueden influir en nuestra rama o archivos pendientes de commit  que nos impide hacer un merge... si hacemos un <b>git stash -u</b> nos aseguramos que la rama queda exactamente como el último commit, ya que se encarga de restaurar tanto archivos <b>trackeados</b> como archivos <b>no trackeados</b>, (los archivos que había modificados se quedan guardados en la pila del stash por si queremos acceder a ellos mas tarde)</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | restore | stash | rm </p>
+        </div>
+
+    </body>
+</html>
