@@ -49,8 +49,23 @@
           <p>Una vez ejecutada la generacion del reporte de cobertura podemos acceder a el en la carpeta <b>target/site/jacoco</b>, tendremos un archivo <b>index.html</b> en el que se muestra el reporte de una manera visual</p>
 
           <img src="Jacoco cobertura de codigo de tests/2.jpg"/>
-
         </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+          <p>Al ejecutar <b>Maven > Plugins > jacoco > report</b> obtenemos el siguiente error:</p>
+          <img src="Jacoco cobertura de codigo de tests/3.png"/>
+
+          <code>'build.plugins.plugin.version' for org.jacoco:jacoco-maven-plugin is missing. @ line 59, column 12</code>
+
+          <code>Skipping JaCoCo execution due to missing execution data file.</code>
+
+          <p>Si obtenemos el error anterior, tenemos que ejecutar primero los tests para que se generen los archivos de clases de los tests.</p>
+
+          <img src="Jacoco cobertura de codigo de tests/4.png"/>
+        </div>
+
+
 
     <div class="t2">Tags</div>
         <div class="cont">

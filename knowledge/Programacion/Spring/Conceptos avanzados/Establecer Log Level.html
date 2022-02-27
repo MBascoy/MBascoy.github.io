@@ -1,0 +1,56 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Establecer Log Level</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como establecer el <b>Log Level</b> del logger para que saque información mas detallada de otros niveles<p>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+
+          <p>Cuando utilizamos un <b>logger</b> podemos indicar en que nivel de log queremos imprimir la información, los niveles disponibles son los siguientes:</p>
+
+          <ul>
+            <li>INFO</li>
+            <li>WARN</li>
+            <li>TRACE</li>
+            <li>DEBUG</li>
+            <li>ERROR</li>
+          </ul>
+
+          <p>La gerarquía de los niveles es la siguiente:</p>
+
+          <img src="Establecer Log Level/1.png"/>
+
+          <p>En <b>Spring</b> por defecto el nivel del logging es <b>INFO</b>, si queremos cambiar el <b>log level</b> tenemo que añadir la siguiente configuración en el <b>application.properties</b>:</p>
+
+          <code>logging.level.root=WARN</code>
+
+          <p>El código anterior establecería el <b>log level</b> en <b>warn</b> para toda la aplicación</p>
+
+          <p>En algunas ocasiones no queremos cambiar el <b>log level</b> para toda la aplicación, ya que si por ejemplo ponemos el nivel <b>debug</b> podemos recibir una salida de datos muy grande de toda la aplicación y perdernos los mensajes que queremos, por eso podemos establecer el <b>log level</b> por paquetes de la siguiente manera:</p>
+
+          <code>logging.level.org.springframework.web=DEBUG</code>
+
+          <p>El código anterior establecería el <b>log level</b> en <b>debug</b> pero solo para las clases que estén en el paquete <b>org.springframework.web</b></p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Spring | Log Level | Logging</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,86 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Optional Chaining vs Assertion Operator</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Diferencia entre el operador <b>?.</b> (Optional Chaining) y el operador <b>!.</b> (non-null Assertion).</p>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Estos dos operadores se utilizan cuando un objeto puede estar apuntando hacia <b>null</b> o ser <b>undefined</b> de manera que al intentar acceder a los atributos se producirá un error indicando que no se puede leer la propiedad en cuestion, ya que no podemos leer una propiedad de un objeto <b>null</b> o <b>undefined</b></p>
+
+            <p>En el siguiente ejemplo tenemos un caso de objeto <b>null</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">interface</span> Apellidos{
+    <span style="color:rgb(129, 162, 190); font-weight:400;">primero</span> : <span style="color:rgb(181, 189, 104); font-weight:400;">string</span>;
+    segundo: <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> ;
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">interface</span> NombreCompleto{
+    <span style="color:rgb(129, 162, 190); font-weight:400;">nombre</span> : <span style="color:rgb(181, 189, 104); font-weight:400;">string</span>;
+    apellidos: Apellidos | <span style="color:rgb(204, 153, 204); font-weight:400;">null</span>;
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Gente</span></span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> persona :NombreCompleto = {<span style="color:rgb(129, 162, 190); font-weight:400;">nombre</span>:<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;hola&quot;</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">apellidos</span>:<span style="color:rgb(204, 153, 204); font-weight:400;">null</span>};
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">escribirNombre</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+        <span style="color:rgb(181, 189, 104); font-weight:400;">console</span>.log(<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.persona.apellidos.primero);
+    }
+
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">let</span> nuevaPersona = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Gente();
+
+nuevaPersona.escribirNombre();</code></pre>
+
+          <img src="Optional Chaining vs Assertion Operator/1.png"/>
+
+          <p>Este es uno de esos casos en los que podemos usar tanto el operador <b>!.</b> como el operador <b>?.</b> </p>
+
+          <h2>¿Cuando usar uno u otro?</h2>
+          <p>La diferencia entre los dos operadores es la siguiente:</p>
+          <ul>
+            <li><b>!. (non-null Assertion)</b>: este operador simplemente le indica a <b>typescript</b> que estamos seguros de que ese objeto <b>NUNCA</b> va a ser <b>undefined</b> o <b>null</b> y por lo tanto nos permite compilar, el problema es que si el objeto finalmente es <b>null</b> o <b>undefined</b> el código lanzará un error.</li>
+
+            <li><b>?. (Optional Chaining)</b>: este operador comprueba el objeto sobre el que está colocado, si el objeto es <b>null</b> o <b>undefined</b> simplemente se devolverá <b>undefined</b> y no se hará comprobación de si existen los atributos colocados a partir del punto, por lo tanto nunca se producirá un error. Si el objeto no es null se seguirá con la comprobación de los atributos colocados despues del punto</li>
+          </ul>
+
+          <p>En el ejemplo anterior si compilamos el código tal cual lo tenemos obviamente obtendremos un error de compilación:</p>
+          <img src="Optional Chaining vs Assertion Operator/2.png"/>
+
+          <h2>Operador !. (non-null Assertion)</h2>
+          <p>Si incluimos el operador <b>!.</b> el código compilará sin problemas, pero al ejecutarlo como hemos forzado que el objeto <b>apellidos</b> sea null pues se producirá un error durante la ejecución del código</p>
+          <img src="Optional Chaining vs Assertion Operator/5.png"/>
+          <p><img src="Optional Chaining vs Assertion Operator/3.png"/></p>
+
+          <p>Si nos fijamos en el error no aparece el operador <b>!.</b> esto es porque al ejecutar el código estamos ejecutando codigo <b>javascript</b> y no código <b>typescript</b>, este operador simplemente nos permite decirle a typescript que no se tiene por que preocupar de que el objeto vaya a ser null, el problema es que si finalmente es null se produce un error en tiempo de ejecución</p>
+
+          <h2>Operador ?. (Optional Chaining)</h2>
+          <p>Si incluimos el operador <b>?.</b> el código compila también sin problemas, y al ejecutar obtenemos el siguiente resultado:</p>
+          <img src="Optional Chaining vs Assertion Operator/6.png"/>
+          <p><img src="Optional Chaining vs Assertion Operator/4.png"/></p>
+
+          <p>Como podemos ver el código devuelve <b>undefined</b> ya que el objeto lo hemos forzado para que sea <b>null</b>, pero no obtenemos ningún tipo de error durante la ejecución del código</p>
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Null | undefined | Optional Chaining | non-null Assertion</p>
+        </div>
+
+    </body>
+</html>
