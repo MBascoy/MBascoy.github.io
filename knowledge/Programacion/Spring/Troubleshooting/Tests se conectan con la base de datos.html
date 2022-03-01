@@ -9,6 +9,29 @@
 
     <h1 class="t1">Tests se conectan con la base de datos</h1>
 
+    <div class="t2">Actualización</div>
+        <div class="cont">
+          <p>Despues de hacer algunas comprobaciones resulta que el error no proviene directamente de la anotación <b>SpringBootTest</b>, el problema se produce al usar esa anotación con la siguiente dependencia:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>org.springframework.boot<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">groupId</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">artifactId</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">dependency</span>&gt;</span></code></pre>
+
+          <p>Está dependencía permite autoconfigurar el <b>EntityManager</b> y tambien es la que hace la autoconfiguración de <b>datasource</b> asi que al usarla en conjunto con la anotación de <b>SpringBootTest</b> hace que se produzca el intento de conexión con la base de datos</p>
+
+          <p>Para resolverlo se puede usar la solución que se explica abajo en está página usando el <b>ExtendWith</b>, pero tambien podemos utilizar una configuración alternativa con la etiqueta <b>SpringBootTest</b> de la siguiente manera:</p>
+
+          <p>Primero en el <b>application.properties</b> de los tests indicamos la siguiente linea de configuración</p>
+
+          <code>spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration</code>
+
+          <p>A continuación en la etiqueta <b>SpringBootTest</b> indicamos con la opcion <b>classes</b> las clases que necesita el test para poder ser compilado, de igual manera que se hace la configuración con el <b>ExtendWith</b> (las clases dependientes son las mismas en los dos casos):</p>
+
+          <img src="Tests se conectan con la base de datos/4.png"/>
+
+        </div>
+
     <div class="t2">Descripcion</div>
         <div class="cont">
             <p>Al lanzar los tests unitarios se intenta hacer una conexion con la <b>base de datos</b>, lo cual no debería de ocurrir en <b>test unitarios</b></p>
@@ -59,6 +82,16 @@ Consider the following:
 
             <img src="Tests se conectan con la base de datos/3.png"/>
 
+            <p>Para saber cuales son las clases que tenemos que añadir en la configuración podemos verlo al ejecutar los tests y observar el fallo que se nos muestra:</p>
+
+            <img src="Tests se conectan con la base de datos/5.png"/>
+
+            <pre><code>org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name
+'main.services.memberProfileServiceTests.DeleteMemberTests': Unsatisfied dependency expressed through field 'memberProfileService'; nested
+exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'main.services.MemberProfileService'
+available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations:
+{@org.springframework.beans.factory.annotation.Autowired(required=true)}</code></pre>
+            <code>No qualifying bean of type 'main.services.MemberProfileService' available</code>
 
         </div>
 

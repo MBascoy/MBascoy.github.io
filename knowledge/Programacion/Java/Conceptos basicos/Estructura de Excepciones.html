@@ -1,0 +1,127 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Estructura de Excepciones</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Ejemplo sobre como definir una estructura de excepciones, a partir de una excepcion genérica</p>
+
+            <a href="https://github.com/MBascoy/Java-Examples/tree/main/ExceptionExample">Codigo de Ejemplo</a>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>En este ejemplo vamos a definir una estructura de <b>excepciones</b> para manejar varios errores</p>
+
+          <p>La estructura del proyecto es esta:</p>
+
+          <img src="Estructura de Excepciones/1.png"/>
+
+          <p>Primero definimos una excepción <b>genérica</b> que extenderá de <b>Exception</b></p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> main.exception;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ValidateException</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Exception</span> </span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ValidateException</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String message)</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">super</span>(message);
+    }
+}</code></pre>
+
+          <p>A continuación definimos excepciones que descenderan de esa excepción génerica, primer definimos una excepción para indicar un texto con longitud invalida:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> main.exception;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">InvalidLengthException</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ValidateException</span></span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">InvalidLengthException</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String message)</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">super</span>(message);
+    }
+}</code></pre>
+
+          <p>Y definimos otra para los textos que empiecen por un numero invalido:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> main.exception;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">InvalidNumberException</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ValidateException</span></span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">InvalidNumberException</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String message)</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">super</span>(message);
+    }
+}
+</code></pre>
+
+
+            <p>A continuación definimos una clase <b>validate</b> que tendrá dos funciones para hacer validaciones sobre un texto, estas funciones serán las que lancen una excepción u otra si no se cumple la validación, ademas tenemos que indicar con <b>throws</b> que las funciones pueden lanzar una excepción concreta:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">package</span> main;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> main.exception.InvalidLengthException;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> main.exception.InvalidNumberException;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Validate</span> </span>{
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">validateText</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String text)</span> <span style="color:rgb(204, 153, 204); font-weight:400;">throws</span> InvalidLengthException</span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(text.length() &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>){
+            <span style="color:rgb(204, 153, 204); font-weight:400;">throw</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> InvalidLengthException(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Longitud invalida&quot;</span>);
+        }
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">validateNumbers</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String text)</span> <span style="color:rgb(204, 153, 204); font-weight:400;">throws</span> InvalidNumberException</span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(text.charAt(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>) == <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;1&#x27;</span>){
+            <span style="color:rgb(204, 153, 204); font-weight:400;">throw</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> InvalidNumberException(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Empieza con 1&quot;</span>);
+        }
+    }
+}
+</code></pre>
+
+
+          <p>Y por último en la función <b>main</b> creamos un objeto <b>validate</b> y llamamos a sus funciones pasandole un texto, las llamadas a estas funciones se meten dentro de un bloque <b>try catch</b> para capturar las excepciones que puedan lanzar las funciones.</p>
+
+          <p>Como ambas excepciones descienden de <b>ValidateException</b> podemos capturar la excepción genérica directamente para manejar las excepciones, o incluso si se llamasen desde otra funcion y queremos indicar un <b>throws</b> en la funcion que puede lanzar esas excepciones podemos indicar la excepción genérica para hacer referencia a las dos excepciones.</p>
+
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">package main;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> main.exception.InvalidNumberException;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> main.exception.ValidateException;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">App</span>
+</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] args </span>)</span>
+    {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> text = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1tex&quot;</span>;
+        Validate validate = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Validate();
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">try</span>{
+            validate.validateText(text);
+        }<span style="color:rgb(204, 153, 204); font-weight:400;">catch</span>(ValidateException error){
+            System.out.println(error.getMessage());
+        }
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">try</span>{
+            validate.validateNumbers(text);
+        }<span style="color:rgb(204, 153, 204); font-weight:400;">catch</span>(InvalidNumberException error){
+            System.out.println(error.getMessage());
+        }
+    }
+
+}
+</code></pre>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | Exception | throw</p>
+        </div>
+
+    </body>
+</html>
