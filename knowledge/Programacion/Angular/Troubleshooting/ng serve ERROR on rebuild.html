@@ -1,0 +1,33 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">ng serve ERROR on rebuild</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Al tener ejecutado <b>ng serve</b> cuando cambiamos muchos archivos de una vez (al cambiar de rama en el git por ejemplo) se produce un error al <b>recompilar</b> y se nos marcan errores que realmente no hay, simplemente con tirar el <b>ng serve</b> y volver a levantarlo se soluciona el problema</p>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+        <p>Para evitar este problema ejecutamos <b>ng serve</b> de la siguiente manera:</p>
+
+        <code>ng serve --poll 2000</code>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>serve | Angular | rebuild</p>
+        </div>
+
+    </body>
+</html>

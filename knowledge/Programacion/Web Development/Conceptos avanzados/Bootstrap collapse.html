@@ -1,0 +1,74 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Bootstrap collapse</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Hacer elementos colapsables usando <b>Bootstrap</b>.</p>
+
+            <a href="https://github.com/MBascoy/HTML-CSS-Examples/tree/main/Bootstrap%20collapse">Código de ejemplo</a>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para utilizar elementos colapsables con <b>Bootstrap</b> tenemos que usar dos elementos, uno será el activador (el elemento que pulsamos para colapsar o descolapsar) y el otro será el propio contenido que queremos colapsar</p>
+
+          <p>Usaremos un <b>boton</b> como activador y colapsaremos un miniformulario con dos elementos (un texto y un boton)</p>
+
+          <p>En el boton tenemos que definir dos propiedades <b>data-bs-toggle</b> para indicar que es el activador y <b>data-bs-target</b> para indicar el id del contenido que queremos colapsar</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;btn btn-primary&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;button&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">data-bs-toggle</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;collapse&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">data-bs-target</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;#content&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">aria-expanded</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;false&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">aria-controls</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;collapseExample&quot;</span>&gt;</span>
+  Boton para colapsar
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span></code></pre>
+
+          <p>Las propiedades <b>aria-expanded</b> y <b>aria-controls</b> no son necesarias para que funcione, pero son obligatorias para la accesibilidad de la página (por ejemplo para lectores para invidentes)</p>
+
+          <p>Despues en el contenido simplemente tenemos que indicar el <b>id</b> que habíamos indicado en el <b>data-bs-target</b>, y a mayores indicar la clase <b>collapse</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">id</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;content&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;collapse&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;width:30%;&quot;</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>texto<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;button&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">value</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;button&quot;</span>/&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span></code></pre>
+        </div>
+
+    <div class="t2">Activar el colapsable con una funcion JavaScript</div>
+        <div class="cont">
+          <p>En vez de usar un boton para activar o desactivar el colapsable podemos usar JavaScript directamente</p>
+
+          <p>Primero creamos una funcion JavaScript tal que asi:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text/javascript&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> <span class="hljs-title">collapseFunction</span>(<span class="hljs-params"></span>)</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">var</span> elementToCollapse = <span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.getElementById(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;content&quot;</span>);
+    <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> bootstrap.Collapse(elementToCollapse)
+  }
+</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span></code></pre>
+
+          <p>En el <b>getElementById</b> indicamos el id del elemento que queremos colapsar</p>
+
+          <p>Despues simplemente creamos un elemento que llame a la funcion <b>collapseFunction()</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">a</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;#&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">onclick</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;collapseFunction()&quot;</span>&gt;</span>Link para colapsar<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">a</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span></code></pre>
+
+          <p>En este caso llamamos a la funcion con el evento <b>onclick</b>, pero podemos llamarlo con cualquier otro evento.</p>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Web development | Bootstrap | collapse</p>
+        </div>
+
+    </body>
+</html>
