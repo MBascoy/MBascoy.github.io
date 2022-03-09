@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Show merge CONFLICTOS</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como ver conflictos en un commit de merge.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Cuando hacemos un <b>git show</b> de un commit podemos ver las modificaciones de dicho commit, si es un commit de merge normalmente no vemos nada a menos que usemos la opción <b>-m</b></p>
+
+          <p>En realidad cuando hacemos un <b>git show</b> sobre un commit de un merge y vemos algo (sin usar la opcion -m) eso indica que hubo un conflicto en el merge y los cambios que vemos son la resolución de dicho conflicto</p>
+
+          <p><b>NOTA:</b> hay casos en los que puede haber un conflicto y aún así no mostrarse nada, como por ejemplo si una rama borra un archivo y la otra lo actualiza, en ese cambio se producirá un conflicto, pero el git show no mostrará nada ya que el resultado final es el contenido completo del archivo (el modificado) o la desaparición completa del archivo</p>
+
+          <p>Para comprobar si un <b>merge</b> tuvo conflictos, podemos hacerlo de manera simple con este comando:</p>
+
+          <code>git show --name-status &lt;id commit&gt;</code>
+
+          <p>Si hubo conflictos veremos el indicador <b>MM</b> al lado del archivo que tuvo conflictos:</p>
+
+          <img src="Show merge CONFLICTOS/1.png"/>
+
+          <p>El indicador <b>MM</b> nos dice que hubo cambios en ese archivo en los dos <b>commits</b> que mergeamos y por lo tanto hubo un conflicto (no siempre tiene que ser asi, ya que se puede modificar el mismo archivo sin que haya conflicto)</p>
+
+          <p>En este caso podemos usar el siguiente comando para ver los cambios definitivos del archivo:</p>
+
+          <code>git show dc95b188c8cb92e88f10f97e916ecd436e456af1 -- README.md</code>
+
+          <p>Si queremos ver los cambios individuales de cada commit antes del merge lo hariamos asi:</p>
+
+          <code>git show -m dc95b188c8cb92e88f10f97e916ecd436e456af1 -- README.md</code>
+
+          <img src="Show merge CONFLICTOS/2.png"/>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | show | conflicts | merge </p>
+        </div>
+
+    </body>
+</html>

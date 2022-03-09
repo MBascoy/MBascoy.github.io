@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Github merge de archivos borrados</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Explicar situación en la que <b>GitHub</b> se comporta de una manera extraña al hacer un merge que contiene archivos borrados, no borrando dichos archivos cuando si que debería de borrarlos.</p>
+
+        </div>
+
+    <div class="t2">Escenario</div>
+        <div class="cont">
+          <p>Partimos de un escenario en el que tenemos un repositorio de <b>GitHub</b> con 3 ramas:</p>
+
+          <img src="Github merge de archivos borrados/1.png"/>
+
+          <p>Para reproducir la situación tenemos que realizar los siguientes pasos:</p>
+          <ul>
+            <li>Creamos un archivo nuevo en <b>main</b> y hacemos commit</li>
+            <li>Nos movemos a <b>staging</b> y hacemos merge de <b>main</b>, despues hacemos push hacia el repositorio</li>
+            <li>Nos movemos a <b>develop</b> y hacemos merge de <b>main</b></li>
+            <li>Borramos el archivo en la rama <b>develop</b> hacemos <b>commit</b> y <b>push</b></li>
+            <li>Desde el <b>Github</b> hacemos una <b>PR</b> desde <b>develop</b> a <b>main</b> y la mergeamos</li>
+            <li>En la consola nos movemos a <b>staging</b> y hacemos <b>pull</b> del repositorio para traernos los cambios de la <b>PR</b></li>
+            <li>Ahora hacemos un <b>git reset --hard</b> en <b>staging</b> al penultimo commit que se muestra en el <b>git log</b>. <---<b>EN ESTE PASO ES DONDE SE GENERA LA ANOMALIA</b></li>
+            <li>Ahora repetimos la secuencia de comandos desde main:</li>
+              <ul>
+                <li>Creamos un archivo nuevo en <b>main</b> y hacemos commit</li>
+                <li>Nos movemos a <b>staging</b> y hacemos merge de <b>main</b>, despues hacemos push hacia el repositorio</li>
+                <li>Nos movemos a <b>develop</b> y hacemos merge de <b>main</b></li>
+                <li>Borramos el archivo en la rama <b>develop</b> hacemos <b>commit</b> y <b>push</b></li>
+              </ul>
+            <li>Llegados a este punto si hacemos una <b>PR</b> de <b>develop</b> a <b>staging</b> es cuando se produce la anomalía y el merge que se hace desde <b>Github</b> no borra el archivo, pero si lo hacemos desde la propia consola si que lo borra.</li>
+
+          </ul>
+
+          <p>Si revisamos el log vemos lo siguiente:</p>
+
+          <img src="Github merge de archivos borrados/11.png"/>
+
+          <p>En el último commit (<b>flecha azul</b>) se ve que el archivo figura como añadido</p>
+
+          <p>Si miramos los dos commits que participan en el merge (<b>flechas rojas</b>), vemos que en uno el archivo está añadido y en el otro el archivo está borrado, y si miramos las fechas (<b>lineas verdes</b>) vemos que el borrado es mas reciente, por lo tanto debería de prevalecer el commit del borrado sobre el otro</p>
+
+          <p>Si volvemos a la situación antes de hacer la <b>PR</b> de develop a staging y hacemos un <b>merge</b> directamente desde la consola (sin hacer PR en <b>GitHub</b>) vemos lo siguiente:
+
+          <img src="Github merge de archivos borrados/12.png"/>
+
+          <p>El archivo se borra al hacer el merge, si miramos los <b>logs</b> vemos lo siguiente:</p>
+
+          <img src="Github merge de archivos borrados/13.png"/>
+
+          <p>Como podemos ver la situación es exactamente la misma, pero el resultado es diferente, en este caso el <b>archivo</b> acaba <b>borrandose</b>.</p>
+
+          <h2>Conclusión</h2>
+          <p>Al final es cierto que <b>GitHub</b> se comporta de una manera anómala, pero tambien es porque se ha forzado el <b>reset</b> de una rama a un commit que no debería.</p>
+          <p>Todo este problema aparecio en el proyecto de <b>Angular</b> de la <b>PostAcademy</b>, no sé si en ese proyecto se produjo exactamente de la misma manera, pero algun comportamiento anómalo tuvo que haber para que las ramas llegasen a esa situación</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Escenario | GitHub </p>
+        </div>
+
+    </body>
+</html>

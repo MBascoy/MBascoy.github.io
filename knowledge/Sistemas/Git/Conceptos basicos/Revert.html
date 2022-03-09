@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Revert</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como utilizar el comando <b>Revert</b> para deshacer la modificaciones de un commit.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>El comando <b>revert</b> de git nos permite deshacer un commit concreto pero yendo hacia adelante en la historia, un <b>revert</b> no es lo mismo que un <b>reset --hard</b>, con el reset estamos haciendo que una <b>rama</b> vaya literalmente a un <b>commit del pasado</b>, con el revert lo que hacemos es revertir un commit concreto haciendo un nuevo commit que sea opuesto al que estamos revirtiendo, de manera que el resultado final de la rama es una rama sin el commit que hemos revertido.</p>
+
+          <p>Para hacer un <b>revert</b> lo hacemos de la siguiente manera:</p>
+
+          <code>git revert &lt;id commit&gt;</code>
+
+        </div>
+
+    <div class="t2">Revert de un merge</div>
+        <div class="cont">
+          <p>El caso de que queramos revertir un commit que es un <b>merge</b> tendremos que utilizar la opcion <b>-m</b> para indicar cual es el <b>mainline</b> que queremos seguir, ya que un merge son dos ramas que finalizan en una tenemos que indicar cual es la que queremos que siga el revert</p>
+
+          <p>Cuando tenemos un commit que es un <b>merge</b> se indica de la siguiente manera, indicando los dos commits que está mergeando:</p>
+
+          <img src="Revert/1.png"/>
+
+          <p>Para revertir un merge lo haríamos de la siguiente manera:</p>
+
+          <code>git revert -m 1 &lt;id commit&gt;</code>
+
+          <p>A la opcion <b>-m</b> tenemos que pasarle un numero, si le pasamos <b>1</b> el revert seguirá la linea de la rama actual, si le pasamos un <b>2</b> el revert seguirá la linea del otro commit (el que no es de la rama actual) con el que está mergeado la rama.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Revert </p>
+        </div>
+
+    </body>
+</html>

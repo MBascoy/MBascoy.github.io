@@ -1,0 +1,42 @@
+
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Expresiones Regulares</h1>
+
+    <div class="t2">Web</div>
+        <div class="cont">
+            <p>Página para probar <b>expresiones regulares</b> con explicaciones de cada operando de la expresion</p>
+
+            <a href="https://regexr.com/">https://regexr.com/</a>
+        </div>
+
+    <div class="t2">Expresiones reguarles para Email</div>
+        <div class="cont">
+          <ul>
+            <li>Email alfanumérico con puntos(.), guion(-) y barra baja(_), los simbolos de puntuación no pueden ir consecutivos</li>
+            <code>/^([a-zA-Z0-9]+\.?-?_?)+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,}$/</code>
+
+            <li>Validacion sin signos consecutivos:</li>
+
+            <code>/^(?!.*[^a-z0-9]{2})(?=.*[a-z0-9]$)[a-z0-9._-]*@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,}$/</code>
+
+            <li>Estandar W3c:</li>
+            <code>/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/</code>
+          </ul>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>RegExp</p>
+        </div>
+
+    </body>
+</html>

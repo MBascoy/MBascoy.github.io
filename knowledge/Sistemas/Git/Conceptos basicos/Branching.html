@@ -89,7 +89,7 @@
         <p>Si lo hacemos sin el parametro <b>-u</b> y la rama no existe en el repositorio remoto, nos dara error, tenemos que usar la opcion <b>-u</b> la cual creara una conexion directa entre la rama local y la remota.
         </div>
 
-    <div class="t2">Mover rama a un commit anterior</div>
+    <div class="t2">Mover rama local a un commit anterior</div>
         <div class="cont">
             <p>Para mover una rama a un commit anterior lo hacemos con el siguiente comando:</p>
 
@@ -109,6 +109,22 @@
 
             <code>> git checkout &lt;rama&gt;</code>
 
+
+        </div>
+
+    <div class="t2">Mover rama remota a un commit anterior</div>
+        <div class="cont">
+          <p>Normalmente esto no se debe de hacer ya que la <b>historia</b> de un repositorio siempre tiene que ir hacia <b>delante</b> ya que si no se pueden crear incroguencias en la rama con los demas miembros de un equipo</p>
+
+          <p>De todas maneras si se quiere hacer se puede con el siguiente comando:</p>
+
+          <code>> git push &lt;nombre remoto&gt; -f &lt;id commit&gt;:&lt;nombre rama&gt;</code>
+
+          <p>Ejemplo:</p>
+
+          <code>git push origin -f 45be5dc73751774cc303b0c4ae71214699090630:main</code>
+
+          <p>La opción <b>-f</b> es necesaria a veces ya que cuando te mueves hacia atras en un commit puede haber incongruencias (de archivos que desaparecen por ejempo) y necesitas forzar el cambio.</p>
 
         </div>
     <div class="t2">Comparar ramas</div>

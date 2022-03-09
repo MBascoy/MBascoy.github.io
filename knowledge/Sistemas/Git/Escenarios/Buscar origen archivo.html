@@ -1,0 +1,161 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Buscar origen archivo</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como tracear un archivo a traves de commits para saber de donde vino.</p>
+
+        </div>
+
+    <div class="t2">Comandos usados</div>
+        <div class="cont">
+            <ul>
+              <li><b>git show</b></li>
+              <li><b>git name-rev</b></li>
+              <li><b>git log</b></li>
+              <li><b>git log --first-parent</b></li>
+              <li><b>git log --full-history</b></li>
+              <li><b>git log -m</b></li>
+              <li><b>git log --follow</b></li>
+            </ul>
+
+        </div>
+
+    <div class="t2">Solución</div>
+        <div class="cont">
+            <p>En nuestro proyecto tenemos un archivo <b>project/sonar-project.properties</b> que está en la rama <b>main</b>, en la rama <b>staging</b>, pero no en la rama <b>develop</b>, así que queremos ver como ha llegado a cada uno de estos sitios</p>
+
+            <p>Primero nos ponemos en la rama <b>main</b> y ejecutamos el siguiente comando:</p>
+
+            <code>git log --name-status -- project/sonar-project.properties</code>
+
+            <img src="Buscar origen archivo/1.png"/>
+
+            <p>Aqui se nos muestra el commit en el que se ha creado el archivo, se deberían de mostrar todos los commits donde se ha modificado el archivo, pero por lo visto el archivo solo se ha modificado en su creación y por lo tanto solo sale un commit</p>
+
+            <p>Podemos profundizar un poco mas con el siguiente comando:</p>
+
+            <code>git log --name-status --follow -- project/sonar-project.properties</code>
+
+            <img src="Buscar origen archivo/2.png"/>
+
+            <p>Como podemos ver al usar la opcion <b>--follow</b> el archivo no se creo en el commit que se nos mostraba antes, se había creado antes en otro commit, pero en ese commit se creó una copia del archivo que es la que se marca como creación del archivo en el primer commit.</p>
+
+            <p><b>NOTA:</b> <b>C100</b> indica archivo <b>copiado</b>, el <b>100</b> indica el porcentaje de lineas que se copiaron, en este caso el archivo completo</p>
+
+            <p>Ahora ejecutamos el siguiente comando para ver exactamente de que rama es el commit donde se creó/copió el archivo</p>
+
+            <code>git name-rev 2d733bc70528216814ffcd5b88beb0c76ff9547f</code>
+
+            <img src="Buscar origen archivo/3.png"/>
+
+            <p>El comando nos indica que ese commit está referenciado a la rama <b>lfv/sonarqube_integration</b> 8 commits por detras de su HEAD:</p>
+
+            <code>lfv/sonarqube_integration~8</code>
+
+            <p>Lo que nos interesa saber es en que momento llegó ese archivo a la rama <b>main</b> lo miramos tal que así:</p>
+
+            <code>git log --first-parent --name-status -- project/sonar-project.properties</code>
+
+            <img src="Buscar origen archivo/4.png"/>
+
+            <p>Con ese comando podemos ver que el <b>commit</b> que introdujo el archivo en la rama es <b>b9ef083</b> que justo proviene de la rama en la que se creó el archivo, <b>lfv/sonarqube_integration</b></p>, ademas podemos ver que el archivo se borró en un commit posterior y que se volvio a crear en un nuevo commit.</p>
+
+            <p>Si nos vamos a la rama <b>staging</b> podemos repetir el proceso:</p>
+
+            <code>git log --first-parent --name-status -- project/sonar-project.properties</code>
+
+            <img src="Buscar origen archivo/5.png"/>
+
+            <p>Aqui vemos que el archivo se mete en la rama <b>staging</b> a traves de un merge que se hace desde <b>main</b></p>
+
+            <p>El archivo solo aparece como creado y con la opción <b>--first-parent</b> no vemos ninguna otra interacción, por lo tanto el archivo nunca se modifica ni borra, mas adelante vemos que si hay situaciones potenciales de borrar el archivo aunque no se llegue a hacer</p>
+
+            <p>si queremos indagar un poco mas acerca del commit en el que se introduce el archivo en <b>staging</b> podemos ejecutar el siguiente comando:</p>
+
+            <code>git log --name-status -m --full-history --graph -- project/sonar-project.properties</code>
+
+            <img src="Buscar origen archivo/6.png"/>
+
+            <p>En está salida podemos ver el gráfico de todas las ramas y como se van mergeando, podemos ver el merge que introduce el archivo en la rama <b>main</b> (La felcha roja mas abajo del todo), el merge que introduce el archivo en <b>staging</b> (La flecha roja de el medio), y la flecha roja que está arriba marca un merge de main a develop, que probablemente introduzca el archivo en la rama develop, eso lo veremos a continuación</p>
+
+            <p>Si nos vamos a <b>develop</b> y ejecutamos este comando, vemos lo siguiente:</p>
+
+            <code>git log --first-parent --name-status -- project/sonar-project.properties</code>
+
+            <img src="Buscar origen archivo/7.png"/>
+
+            <p>El archivo se crea en la rama que habíamos visto antes <b>c1224bb</b> y se borra en una rama mas adelante <b>4f6ff23</b> este es el motivo por el que el fichero <b>project/sonar-project.properties</b> está en las ramas <b>main</b> y <b>staging</b> pero no en <b>develop</b>, el archivo se metio en la rama, pero se borró a posteriori,</p>
+
+            <p>La pregunta ahora es, porque el archivo sigue estando en las ramas staging y main? si el flujo de merges es develop>staging>main</p>
+
+            <p>Si seguimos el commit en el que se borra el archivo podemos descubrir que es lo que pasa:</p>
+
+            <p>Ejecutamos el siguiente comando:</p>
+
+            <code>git log --name-status -m --full-history --all -- project/sonar-project.properties</code>
+
+            <p><b>NOTA:</b> usamos la opcion <b>--all</b> para que se muestren todas las ramas por si el commit lleva a un merge con otra rama</p>
+
+            <p>y usamos el comando ""<b>/</b>" para buscar el commit <b>4f6ff2307c43e0cd617f31b495b51e413ca3c09f</b></p>
+
+            <img src="Buscar origen archivo/8.png"/>
+
+            <p>La busqueda nos lleva a un nuevo merge</p>
+
+            <code>git name-rev f1f8d991d577198dcdb85becc71dbf1587004364</code>
+
+            <img src="Buscar origen archivo/9.png"/>
+
+            <p>Es el merge con la rama de staging</p>
+
+            <p><b>NOTA:</b> a veces en vez de usar <b>name-rev</b> podemos usar <b>git branch --contains &lt;id commit&gt;</b> y nos dará información mas amplia de que ramas contienen ese commit</p>
+
+            <p>Ahora tenemos que indagar por que el archivo <b>project/sonar-project.properties</b> no se borra cuando <b>develop</b> se mergea con <b>staging</b>.</p>
+
+            <p>si hacemos un show de la rama <b>f1f8d99</b> vemos lo siguiente:</p>
+
+            <img src="Buscar origen archivo/10.png"/>
+
+            <p>Como se puede ver el archivo <b>project/sonar-project.properties</b> no se borra, se marca como añadido porque una de las ramas lo borra y la otra lo mantiene, entonces el resultado con respecto a una de las ramas es que se añade, aún así tenemos que investigar que rama añade el archivo y cual lo borra, y por qué se decide mantener el archivo y no borrarlo</p>
+
+            <p>Vamos a investigar las dos ramas que forman parte del merge:</p>
+
+            <img src="Buscar origen archivo/11.png"/>
+
+            <p>Si miramos la rama <b>7e6b672</b> vemos que el archivo está añadido:</p>
+
+            <img src="Buscar origen archivo/12.png"/>
+
+            <p>y si miramos la rama <b>4f6ff23</b> vemos que el archivo está borrado:</p>
+
+            <img src="Buscar origen archivo/13.png"/>
+
+            <p>Si miramos a las fechas de los dos commits vemos lo siguiente:</p>
+
+            <img src="Buscar origen archivo/14.png"/>
+
+            <p>El commit que borra el archivo <b>4f6ff23</b> (16 Febrero) es mas reciente que el commit que lo mantiene <b>7e6b672</b> (11 Febrero), por lo tanto <b>debería de prevalecer el borrado del archivo</b> al hacer el merge.</p>
+
+            <h2>Fallo de github</h2>
+
+            <p>Lo que ocurre aqui es un fallo de github, si en ese merge lo hacemos directamente con <b>git</b> el archivo queda borrado en el merge, pero desde github al hacer la PR y mergear prevalece el cambio del otro commit, <a href="Github merge de archivos borrados.html">ESTE FALLO ESTA DOCUMENTADO AQUI</a></p>
+
+            <p>Si no se diese ese problema, el cambio de develop (el borrado del archivo) se propagaría a las demas ramas, dejando el archivo borrado en todas las ramas</p>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Escenario </p>
+        </div>
+
+    </body>
+</html>

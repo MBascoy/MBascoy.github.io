@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Comprobar cambios, log, show, diff</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como ver que cambios se han hecho en un archivo o como seguir la pista de un cambio concreto utilizando los comandos de git <b>log</b>, <b>show</b>, <b>diff</b>.</p>
+
+        </div>
+
+    <div class="t2">Git log</div>
+        <div class="cont">
+          <p>Con el comando <b>git log</b> podemos ver todo el registro de commits que se han hecho en el repositorio, por defecto el comando nos muestra solo quien ha hecho el commit, cuando lo ha hecho, el comentario del commit y poco mas, para obtener mas información podemos usar los siguientes comandos:</p>
+
+          <ul>
+            <li>Obtener los cambios realizados en todos los commits</li>
+            <code>git log -p</code>
+
+            <li>Obtener los cambios realizados en un <b>archivo concreto</b> a lo largo de la historia de commits</li>
+            <code>git log -p &lt;ARCHIVO&gt;</code>
+
+            <li>Obtener solo los archivos modificados en cada commit</li>
+            <code>git log --name-only</code>
+
+            <li>Obtener solo los archivos modificados en cada commit indicando el estado del archivo, (D)<b>Borrado</b>, (M)<b>Modificado</b>, (A)<b>Añadido</b></li>
+            <code>git log --name-status</code>
+
+            <li>Obtener de que rama procede cada commit</li>
+            <code>git log --source --all</code>
+            <code>git log --graph --source --all</code>
+            <p><b>NOTA:</b> La rama aparece a la derecha del hash del commit</p>
+
+            <img src="Comprobar cambios, log, show, diff/1.png">
+
+            <h2>Git log --all</h2>
+            <p>Normalmente cuando hacemos un <b>git log</b> se nos muestra el log a partir de la rama en la que estamos (o el commit que le indiquemos) hacia atras en la historia, pero cuando utilizamos la opcion <b>--all</b> se nos muestra la historia completa de proyecto, por lo tanto si hay ramas mas recientes que la rama en la que estamos haciendo el <b>git log</b>, se nos mostrarán primero, esto tiene sentido cuando hacemos un <b>git log --source --all --graph</b>, pero la rama que queremos consultar probablemente quede perdida entre todas las ramas mas recientes, si queremos buscarla podemos usar el comando <b>"/"</b> (al final git log hace un less asi que podemos usar los mismos comandos), y buscar el commit o el nombre de la rama que queramos visualizar en el arbol</p>
+
+          </ul>
+        </div>
+
+    <div class="t2">Comprobar rama de commit</div>
+        <div class="cont">
+
+          <p>Un comando alternativo para saber a que <b>rama</b> pertenece un <b>commit</b> es el siguiente:</p>
+          <code>git name-rev &lt;COMMIT_HASH&gt;</code>
+
+        </div>
+
+    <div class="t2">Git show</div>
+        <div class="cont">
+          <p>Podemos usar el comando <b>git show</b> para comprobar un commit concreto y ver todos los cambios que se han hecho en dicho commit</p>
+          <code>git show &lt;COMMIT_HASH&gt;</code>
+
+          <p>Si intentamos hacer el <b>show</b> del commit de un merge en algunas ocasiones no veremos ningun archivo, en estos casos (o siempre que hagamos show de un merge), tendremos que usar la opcion <b>-m</b>:</p>
+
+          <code>git show -m &lt;COMMIT_HASH&gt;</code>
+
+          <p>Si solo queremos ver los archivos cambiados y no el contenido podemos usar:</p>
+
+          <code>git show -m --name-status &lt;COMMIT_HASH&gt;</code>
+
+        </div>
+
+    <div class="t2">Git diff</div>
+        <div class="cont">
+          <p>Podemos usar el comando <b>git diff</b> para comparar dos commits concretos</p>
+
+          <ul>
+            <li>Comprar dos commits</li>
+            <code>git diff &lt;COMMIT_1&gt;..&lt;COMMIT_2&gt;</code>
+
+            <li>Comprar dos commits (solo archivos, no código)</li>
+            <code>git diff --name-only &lt;COMMIT_1&gt;..&lt;COMMIT_2&gt;</code>
+
+            <li>Comprar un archivo concreto entre dos commits</li>
+            <code>git diff &lt;COMMIT_1&gt;..&lt;COMMIT_2&gt; -- &lt;ARCHIVO&gt;</code>
+
+          </ul>
+
+        </div>
+
+    <div class="t2">Tracear archivo a traves de merges</div>
+        <div class="cont">
+          <p>Normalmente para ver en que commits se ha modificado un archivo podemos hacer <b>git log -p -- &lt;archivo&gt;</b> pero si queremos ver los <b>merges</b> en los que ha estado involucrado y no solo los cambios podemos usar las opciones <b>-m</b> y <b>--follow</b> tal que asi:</p>
+
+          <code>git log -m --follow --name-status -- &lt;archivo&gt;</code>
+
+          <p><b>NOTA:</b> La opción <b>--follow</b> nos permite seguir el histórico del archivo aunque haya cambiado de nombre, al combinarlo con la opción <b>-m</b> (que permite mostrar los cambios en los commits de merges) nos permite ver el pasó del archivo a traves de los merges en los que haya estádo el archivo</p>
+
+          <p>Una version mas completa que nos muestra las ramas de cada commit y el gráfico de las ramas es la siguiente:</p>
+          <code>git log --graph --source --all --name-status -m --follow -- &lt;archivo&gt;</code>
+
+          <h2>full-history</h2>
+          <p>Al usar las opciones <b>-m --follow</b> se puede omitir ciertos <b>merges</b>, si queremos mostrar toda la historia por la que pasa el archivo podemos hacerlo podemos hacerlo con <b>--full-history</b> tal que asi:</p>
+          <code>git log --name-status -m --full-history -- &lt;archivo&gt;</code>
+
+          <p><b>NOTA:</b> La opcion <b>--full-history</b> tenemos que utilizarla SIN la opción <b>--graph</b> ni <b>--follow</b> si no se volverán a omitir ciertos merges</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | log | show | diff </p>
+        </div>
+
+    </body>
+</html>
