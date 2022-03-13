@@ -81,12 +81,35 @@ describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test1Com
               <h2>Testear contenido de etiquetas</h2>
               <p>Para testear el contenido de una etiqueta lo hacemos de la siguiente manera:</p>
 
-              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;should have a &quot;Members List&quot; header&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
-    const compiled: HTMLElement = fixture.nativeElement.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;h2&#x27;</span>)?.textContent;
-    expect(compiled).toContain(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Members List&#x27;</span>);
-  });</code></pre>
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;should have a &quot;Members List&quot; header&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+  const compiled: HTMLElement = fixture.nativeElement.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;h2&#x27;</span>);
+  expect(compiled.textContent).toContain(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Members List&#x27;</span>);
+});</code></pre>
 
               <p>En este caso utilizamos <b>fixture.nativeElement.querySelector</b> para seleccionar una etiqueta en concreto, y utilizamos la propiedad <b>textContent</b> para leer el contenido de dicha etiqueta</p>
+
+              <br/>
+              <h2>Testear atributos de etiquetas</h2>
+
+              <p>Si queremos testear el contenido de un <b>atributo</b> de una etiqueta lo podemos hacer de la siguiente manera:</p>
+
+              <p>Si tenemos una etiqueta como la siguiente:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">h2</span> <span style="color:rgb(129, 162, 190); font-weight:400;">ejemplo</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;valor&quot;</span>&gt;</span>Ejemplo de cabecera<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">h2</span>&gt;</span></code></pre>
+
+              <p>Podemos testear el <b>contenido</b> del atributo <b>ejemplo</b> de la siguiente manera:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;should have atribute ejemplo with value valor&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+  const compiled: HTMLElement = fixture.nativeElement.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;h2&#x27;</span>);
+  expect(compiled.getAttribute(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ejemplo&quot;</span>)).toEqual(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;valor&#x27;</span>);
+});</code></pre>
+
+              <p>Si queremos testear si un <b>atributo existe</b> en una etiqueta o no, podemos testearlo contra <b>null</b> tal que así:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">it(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;should have atribute ejemplo with value valor&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> =&gt;</span> {
+  const compiled: HTMLElement = fixture.nativeElement.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;h2&#x27;</span>);
+  expect(compiled.getAttribute(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ejemplo2&quot;</span>)).toEqual(<span style="color:rgb(204, 153, 204); font-weight:400;">null</span>);
+});</code></pre>
 
               <br/>
               <h2>Testear HttpClient</h2>

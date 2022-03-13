@@ -1,0 +1,104 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Bloquear Navegacion (canDeactivate)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como bloquear el <b>routing</b> haciendo que salga un <b>pop-up</b> para verificar que queremos navegar a un nuevo componente y a mayores explicar como bloquear el refresco de la página (F5) o el cierre del navegador, preguntando antes de salir, en una posible situación de cambios sin guardar.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Tenemos una aplicación con un componente principal y despues dos componentes entre los que navegaremos, <b>Inicio</b> y <b>Contenido</b> </p>
+
+          <p>En el componente <b>Contenido</b> será donde bloquearemos la navegación y por lo tanto nos saldrá un pop-up para confirmar si queremos navegar a otro componente</p>
+
+          <p>Primero creamos un archivo <b>bloqueo-routing.ts</b> en la raiz del proyecto (a la altura del archivo del routing) con el siguiente contenido:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { CanDeactivate } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/router&#x27;</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { ContenidoComponent } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./contenido/contenido.component&#x27;</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">BloqueoRouting</span> <span style="color:rgb(255, 204, 102); font-weight:400;">implements</span> <span style="color:rgb(255, 204, 102); font-weight:400;">CanDeactivate</span>&lt;<span style="color:rgb(255, 204, 102); font-weight:400;">ContenidoComponent</span>&gt; </span>{
+canDeactivate(component: ContenidoComponent): <span style="color:rgb(181, 189, 104); font-weight:400;">boolean</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> confirm(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Quieres dejar la página?&#x27;</span>);
+}
+}</code></pre>
+
+        <p>Tanto en el <b>generic</b> de la implementación de la clase como en el <b>parametro</b> de la funcion tenemos que indicar el componente del que queremos tener acceso para leer ciertos parámetros, en este caso <b>ContenidoComponent</b>, no lo usaremos ahora, pero si en un ejemplo posterior en el que haremos el bloqueo condicional.</p>
+        </div>
+
+        <p>A continuación en el archivo <b>app-routing.module.ts</b> declaramos el provider <b>BloqueoRouting</b> y en las rutas indicamos cual será la ruta que tenga el bloqueo usando:</p>
+
+        <code>canDeactivate: [BloqueoRouting]</code>
+
+        <img src="Bloquear Navegacion (canDeactivate)/1.png"/>
+
+        <p>Una vez hecho esto el bloqueo ya está listo, si navegamos a la página de <b>contenido</b> e intentamos volver a <b>inicio</b> veremos el siguiente mensaje:</p>
+
+        <img src="Bloquear Navegacion (canDeactivate)/2.png"/>
+
+        <p>Si pulsamos <b>Ok</b> se realizará la navegación, si pulsamos <b>Cancel</b> se nos mantendrá en la página actual</p>
+
+      </div>
+
+      <br/>
+      <div class="t2">Bloqueo Condicional</div>
+          <div class="cont">
+            <p>El bloqueo podemos establecerlo de manera que se cumpla una condicion y no esté siempre activo (que no se nos muestre siempre el pop-up preguntando si queremos continuar o no)</p>
+
+            <p>En el componente <b>Contenido</b> declaramos un variable <b>bloqueo</b> para determinar si tenemos que bloquear la navegación o no, está variable la controlaremos con un boton que la pondrá a <b>true</b>.</p>
+
+            <img src="Bloquear Navegacion (canDeactivate)/3.png"/>
+
+            <p>En el archivo <b>bloqueo-routing.ts</b> utilizamos la variable <b>bloqueo</b> para decidir si se bloquea la navegación o no, la funcion <b>canDeactivate</b> previene la navegación si se devuelve <b>false</b> y la permite si se devuelve <b>true</b>, en el caso del <b>confirm</b> si se pulsa <b>OK</b> en el pop-up devuelve <b>true</b> si se pulsa <b>CANCEL</b> devuelve <b>false</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { CanDeactivate } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/router&#x27;</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { ContenidoComponent } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./contenido/contenido.component&#x27;</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">BloqueoRouting</span> <span style="color:rgb(255, 204, 102); font-weight:400;">implements</span> <span style="color:rgb(255, 204, 102); font-weight:400;">CanDeactivate</span>&lt;<span style="color:rgb(255, 204, 102); font-weight:400;">ContenidoComponent</span>&gt; </span>{
+  canDeactivate(component: ContenidoComponent): <span style="color:rgb(181, 189, 104); font-weight:400;">boolean</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(component.bloqueo){
+      <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> confirm(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Quieres dejar la página?&#x27;</span>);
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+  }
+}</code></pre>
+
+            <p>Con esta implementación podemos navegar entre el componente <b>Inicio</b> y el componente <b>Contenido</b> y solo se bloqueará la navegación y se mostrará el <b>pop-up</b> cuando pulsemos el boton en el componente <b>Contenido</b>, de esta manera podemos controlar que se bloquee la navegación cuando tengamos una posible situación de cambios no guardados.</p>
+
+            <img src="Bloquear Navegacion (canDeactivate)/4.png"/>
+
+          </div>
+
+    <div class="t2">Bloqueo al actualizar o cerrar el navegador</div>
+        <div class="cont">
+          <p>Con la implementación actual todavía nos queda un problema, cuando pulsamos <b>F5</b> en el navegador o cuando <b>cerramos el navegador</b>, no se nos muestra ningún <b>pop-up</b> de confirmación y se cierra la página sin mas, pudiendo llevar a la perdida de información que no se haya guardado.</p>
+
+          <p>Para solucionar esto añadimos un <b>@HostListener</b> para el evento <b>window:beforeunload</b> en el componente <b>Contenido</b> tal que así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@HostListener(<span style="color:rgb(249, 145, 87); font-weight:400;">&quot;window:beforeunload&quot;</span>)</span>
+BloqueoActualizar(){
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> !<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.bloqueo;
+}</code></pre>
+
+          <p>En la funcion asociada al <b>@HostListener</b> si devolvemos <b>true</b> se continuará con la navegación, si devolvemos <b>false</b> se mostrará el <b>pop-up</b> preguntando si queremos continuar o no, por lo tanto devolvemos la negación de la variable <b>bloqueo</b>.</p>
+
+          <p>Ahora tanto al intentar navegar dentro de la página como si intentamos actualizar o cerrar el navegador se nos preguntará si queremos continuar, evitando así un despiste del usuario en una situación en la que haya cambios pendientes de ser guardados.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>canDeactivate | Routing | Angular</p>
+        </div>
+
+    </body>
+</html>
