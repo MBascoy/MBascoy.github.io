@@ -14,6 +14,8 @@
 
           <p>Como bloquear el <b>routing</b> haciendo que salga un <b>pop-up</b> para verificar que queremos navegar a un nuevo componente y a mayores explicar como bloquear el refresco de la página (F5) o el cierre del navegador, preguntando antes de salir, en una posible situación de cambios sin guardar.</p>
 
+          <a href="https://github.com/MBascoy/Angular-Examples/tree/main/BloquearNavegacion">Codigo de Ejemplo</a>
+
         </div>
 
     <div class="t2">Metodo</div>
@@ -93,6 +95,12 @@ BloqueoActualizar(){
           <p>En la funcion asociada al <b>@HostListener</b> si devolvemos <b>true</b> se continuará con la navegación, si devolvemos <b>false</b> se mostrará el <b>pop-up</b> preguntando si queremos continuar o no, por lo tanto devolvemos la negación de la variable <b>bloqueo</b>.</p>
 
           <p>Ahora tanto al intentar navegar dentro de la página como si intentamos actualizar o cerrar el navegador se nos preguntará si queremos continuar, evitando así un despiste del usuario en una situación en la que haya cambios pendientes de ser guardados.</p>
+
+          <p><b>NOTA:</b> Cuando se intenta actualizar la página (<b>F5</b>) o <b>cerrar</b> el navegador, el mensaje que se muestra, es un <b>mensaje estandar</b> del propio navegador y no se puede personalizar.</p>
+
+          <img src="Bloquear Navegacion (canDeactivate)/5.png"/>
+
+          <img src="Bloquear Navegacion (canDeactivate)/6.png"/>
         </div>
 
     <div class="t2">Tags</div>
