@@ -1,0 +1,50 @@
+
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Configuracion snippets en Visual Code</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>En que archivo y que formato hay que seguir para configurar <b>code snippets</b> en el editor <b>Visual Code</b>.</p>
+
+          <p>Para usar los snippets en <b>Visual Code</b> solo tenemos que introducir el comando del snippet y pulsar la tecla <b>TAB</b></p>
+
+        </div>
+
+    <div class="t2">Configuracion</div>
+        <div class="cont">
+          <p>En <b>Visual Code</b> los <b>snippets</b> están configurados en varios archivos en la carpeta <b>%USERPROFILE%\AppData\Roaming\Code\User\snippets</b>, un archivo por cada lenguaje.</p>
+
+          <p>Por ejemplo, los snippets de java van en el archivo <b>java.json</b>, los de typescript en <b>typescript.json</b></p>
+
+          <p>Si queremos tambien podemos acceder directamente a los <b>snippets</b> desde el propio IDE desde <b>File</b> > <b>Preferences</b> > <b>User Snippets</b> y a continuación seleccionar el lenguaje.</p>
+
+          <p>La estructura de los <b>snippets</b> es la siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(138, 190, 183); font-weight:400;">&quot;For Loop&quot;</span>: {
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;prefix&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;sop&quot;</span>],
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;body&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;System.out.println(<span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>${1:Text}<span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>);&quot;</span>],
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;description&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;A for loop.&quot;</span>
+}</code></pre>
+
+          <p>Los snippets van colocados entre dos llaves {} y separados por coma (,) de manera que si tenemos varios snippets quedarían tal que así:</p>
+
+          <img src="Configuracion snippets en Visual Code/1.png">
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Snippets | Code | Visual Code</p>
+        </div>
+
+    </body>
+</html>

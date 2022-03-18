@@ -1,0 +1,63 @@
+
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Configuracion snippets en Atom</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>En que archivo y que formato hay que seguir para configurar <b>code snippets</b> en el editor <b>Atom</b>.</p>
+
+          <p>Para usar los snippets en Atom solo tenemos que introducir el comando del snippet y pulsar la tecla <b>TAB</b></p>
+
+        </div>
+
+    <div class="t2">Configuracion</div>
+        <div class="cont">
+          <p>En <b>Atom</b> los <b>snippets</b> están configurados en el archivo <b>snippets.cson</b> que está en la carpeta <b>%USERPROFILE%\.atom</b>, los snippets de todos los lenguages van dentro del mismo archivo.</p>
+
+          <p>La estructura de los <b>snippets</b> es la siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.source.java&#x27;</span>:
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;system.out&#x27;</span>:
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;prefix&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;sop&#x27;</span>
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;body&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;System.out.println(&quot;$1&quot;);$2&#x27;</span></code></pre>
+
+          <p>La primera linea <b>'.source.java':</b> indica el lenguaje sobre el que se aplicará el snippet</p>
+          <p>La segunda linea <b>'system.out':</b> es la descripción del snippet</p>
+          <p>La tercera linea <b>'prefix': 'sop'</b> es el comando que usaremos para introducir el snippet</p>
+          <p>La cuarta linea <b>'body': 'System.out.println("$1");$2'</b> es el snippet en si</p>
+
+          <p>El scope del lenguaje (La primera linea) solo se indica una vez, despues debajo se ponen todos los <b>snippets</b> asociados a ese lenguaje</p>
+          <p>En el siguiente codigo tenemos un snippet de <b>java</b> y dos snippets de <b>typescript</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.source.java&#x27;</span>:
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;system.out&#x27;</span>:
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;prefix&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;sop&#x27;</span>
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;body&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;System.out.println(&quot;$1&quot;);$2&#x27;</span>
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.source.ts&#x27;</span>:
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;console.log&#x27;</span>:
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;prefix&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;cl&#x27;</span>
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;body&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;console.log(&quot;$1&quot;);$2&#x27;</span>
+
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ejemplo&#x27;</span>:
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;prefix&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ej&#x27;</span>
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;body&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Texto de ejemplo&#x27;</span>
+</code></pre>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Snippets | Code | Atom</p>
+        </div>
+
+    </body>
+</html>

@@ -101,6 +101,15 @@
           <code>git log --name-status -m --full-history -- &lt;archivo&gt;</code>
 
           <p><b>NOTA:</b> La opcion <b>--full-history</b> tenemos que utilizarla SIN la opción <b>--graph</b> ni <b>--follow</b> si no se volverán a omitir ciertos merges</p>
+
+          <h2>first-parent</h2>
+
+          <p>Con la opcion <b>--first-parent</b> nos permite ver en que <b>commit</b> concreto se introdujo el <b>archivo</b> en la rama en la que estamos.</p>
+
+          <p>Al usar esta opción solo se muestran los commits relacionados directamente con la rama actual (solo un nivel de profundidad):</p>
+
+          <code>git log --first-parent --name-status -- &lt;archivo&gt;</code>
+
         </div>
 
     <div class="t2">Tags</div>

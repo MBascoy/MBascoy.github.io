@@ -1,0 +1,119 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Git Bash bashrc</h1>
+
+    <div class="t2">Configuracion</div>
+        <div class="cont">
+          <p>El archivo <b>.bashrc</b> tiene que ir colocado en la carpeta del usuario <b>%USERPROFILE%</b></p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(150, 152, 150); font-weight:400;">#vars</span>
+cb=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;feature/12_UpdatePersonalInfo_MERGE_CONFLICTS&quot;</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#alias</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> ll=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cat -n&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> lb=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;git branch -a --sort=-committerdate&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> gs=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;git status&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> gl=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;git log&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> cod=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cd /c/Users/manuel.bascoy/code/&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> ccod=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cd /c/Users/manuel.bascoy/code/Projects/PostAcademy-Frontend-Team2/&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> lab=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cd /c/Users/manuel.bascoy/lab/&quot;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">gc</span></span>(){
+        git checkout <span style="color:rgb(255, 204, 102); font-weight:400;">$1</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">gcb</span></span>(){
+        git checkout <span style="color:rgb(255, 204, 102); font-weight:400;">$cb</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">gd</span></span>(){
+        git diff <span style="color:rgb(255, 204, 102); font-weight:400;">$1</span>..<span style="color:rgb(255, 204, 102); font-weight:400;">$2</span> -- <span style="color:rgb(255, 204, 102); font-weight:400;">$3</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">cl</span></span>(){
+        cat -n | awk -v re=<span style="color:rgb(255, 204, 102); font-weight:400;">$1</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;NR==re {print $(NF-0)}&#x27;</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">f</span></span>(){
+        find <span style="color:rgb(255, 204, 102); font-weight:400;">$2</span> -iname <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;*<span style="color:rgb(255, 204, 102); font-weight:400;">$1</span>*&quot;</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">lv</span></span>(){
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;$q: &#x27;</span><span style="color:rgb(255, 204, 102); font-weight:400;">$q</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;$w: &#x27;</span><span style="color:rgb(255, 204, 102); font-weight:400;">$w</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;$e: &#x27;</span><span style="color:rgb(255, 204, 102); font-weight:400;">$e</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;$r: &#x27;</span><span style="color:rgb(255, 204, 102); font-weight:400;">$r</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">create</span></span>(){
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> [ -z <span style="color:rgb(255, 204, 102); font-weight:400;">$2</span> ];
+        <span style="color:rgb(204, 153, 204); font-weight:400;">then</span>
+                <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Use:&quot;</span>;
+                <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;create java &lt;app-name&gt; &lt;group-name&gt;&quot;</span>
+                <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;create angular &lt;name&gt;&quot;</span>
+                <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;create spring &lt;name&gt; &lt;package name&gt;&quot;</span>
+                <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;create node &lt;name&gt;&quot;</span>
+        <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+                <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> [ <span style="color:rgb(255, 204, 102); font-weight:400;">$1</span> = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;java&#x27;</span> ];
+                <span style="color:rgb(204, 153, 204); font-weight:400;">then</span>
+                        mvn archetype:generate -DgroupId=<span style="color:rgb(255, 204, 102); font-weight:400;">$3</span> -DartifactId=<span style="color:rgb(255, 204, 102); font-weight:400;">$2</span> -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1.4&quot;</span> -DinteractiveMode=<span style="color:rgb(204, 153, 204); font-weight:400;">false</span>
+                <span style="color:rgb(204, 153, 204); font-weight:400;">elif</span> [ <span style="color:rgb(255, 204, 102); font-weight:400;">$1</span> = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;angular&#x27;</span> ];
+                <span style="color:rgb(204, 153, 204); font-weight:400;">then</span>
+                        ng new <span style="color:rgb(255, 204, 102); font-weight:400;">$2</span> --routing --style css;
+
+                <span style="color:rgb(204, 153, 204); font-weight:400;">elif</span> [ <span style="color:rgb(255, 204, 102); font-weight:400;">$1</span> = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;spring&#x27;</span> ];
+                <span style="color:rgb(204, 153, 204); font-weight:400;">then</span>
+                        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Go to: https://start.spring.io/#!type=maven-project&amp;language=java&amp;platformVersion=2.6.4&amp;packaging=jar&amp;jvmVersion=17&amp;groupId=<span style="color:rgb(255, 204, 102); font-weight:400;">$3</span>&amp;artifactId=<span style="color:rgb(255, 204, 102); font-weight:400;">$2</span>&amp;name=<span style="color:rgb(255, 204, 102); font-weight:400;">$2</span>&amp;description=<span style="color:rgb(255, 204, 102); font-weight:400;">$2</span>%20project%20for%20Spring%20Boot&amp;packageName=<span style="color:rgb(255, 204, 102); font-weight:400;">$3</span>&amp;dependencies=web&quot;</span>;
+                <span style="color:rgb(204, 153, 204); font-weight:400;">elif</span> [ <span style="color:rgb(255, 204, 102); font-weight:400;">$1</span> = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;node&#x27;</span> ];
+                <span style="color:rgb(204, 153, 204); font-weight:400;">then</span>
+                        mkdir <span style="color:rgb(255, 204, 102); font-weight:400;">$2</span>;
+                        <span style="color:rgb(181, 189, 104); font-weight:400;">cd</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$2</span>;
+                        npm init -y;
+                        npm install typescript --save-dev;
+                        npm install @types/node --save-dev;
+                        npx tsc --init --rootDir src --outDir build --esModuleInterop --resolveJsonModule --lib es6 --module commonjs --allowJs <span style="color:rgb(204, 153, 204); font-weight:400;">true</span> --noImplicitAny <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+                        mkdir src;
+                        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span>
+                        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Put code inside &#x27;src/&#x27; folder and run &#x27;npx tsc&#x27; the code will be build in &#x27;build/&#x27; folder&quot;</span>
+                <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+                        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Invalid project&quot;</span>
+                <span style="color:rgb(204, 153, 204); font-weight:400;">fi</span>
+        <span style="color:rgb(204, 153, 204); font-weight:400;">fi</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">cmds</span></span>(){
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;--- Vars ---&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;$cb&#x27;</span><span style="color:rgb(138, 190, 183); font-weight:400;">&quot;: Current Branch&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;--- commands ---&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;f: Find command&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ll: List lines (pipe)&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cl: Copy Line&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;lb: List branches ordered by date&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;lv: List vars&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gs: Git Status&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gl: Git Log&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gc: Git Checkout&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gcb: Git Checkout to current branch&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gd: Git Diff&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cod: Code Folder&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;lab: Lab Folder&quot;</span>
+        <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ccod: Current Code Project&quot;</span>
+}</code></pre>
+            </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>bashrc | git bash | bash functions</p>
+        </div>
+
+    </body>
+</html>
