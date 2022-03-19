@@ -14,10 +14,24 @@
         <div class="cont">
           <p>Los snippets de <b>TypeScript</b> se almacenan en <b>%USERPROFILE%\AppData\Roaming\Code\User\snippets\typescript.json</b>.</p>
 
-          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(138, 190, 183); font-weight:400;">&quot;log&quot;</span>: {
-	<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;prefix&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cl&quot;</span>],
-	<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;body&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;console.log(<span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>${1:Text}<span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>);&quot;</span>],
-	<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;description&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Print text.&quot;</span>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">{
+  <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;log&quot;</span>: {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;prefix&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cl&quot;</span>],
+    <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;body&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;console.log(\&quot;${1:Text}\&quot;);&quot;</span>],
+    <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;description&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Print text.&quot;</span>
+  },
+
+  <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;test&quot;</span>: {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;prefix&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;it&quot;</span>],
+    <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;body&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;it(&#x27;${1:Test_name}&#x27;, () =&gt; {\n  ${2:Test_Code}\n  expect($3).toBe($4)\n});&quot;</span>],
+    <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;description&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Basic test structure.&quot;</span>
+  },
+
+  <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;test fakeAsync&quot;</span>: {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;prefix&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;itf&quot;</span>],
+    <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;body&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;it(&#x27;${1:Test_name}&#x27;, fakeAsync(() =&gt; {\n  ${2:Test_Code}\n  expect($3).toBe($4)\n}));&quot;</span>],
+    <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;description&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Basic test structure with fakeAsync.&quot;</span>
+  }
 }</code></pre>
         </div>
 

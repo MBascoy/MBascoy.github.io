@@ -1,0 +1,47 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Visual Code muestra version incorrecta de java</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Cuando trabajamos sobre un proyecto en <b>Visual Code</b> en la parte inferior se muestra una versión de java que no corresponde con la versión que estamos utilizando.</p>
+
+            <img src="Visual Code muestra version incorrecta de java/1.png"/>
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+        <p>Este fallo en verdad no afecta a la compilación del proyecto ni a nada en particular, el motivo por el que se produce es que tenemos definida una versión del <b>JDK</b> en el IDE y una versión distinta en el archivo de configuración de <b>maven</b> el <b>pom.xml</b>.</p>
+
+        <p>En el archivo <b>settings.json</b> de <b>visual code</b> tenemos definido lo siguiente:</p>
+        <img src="Visual Code muestra version incorrecta de java/2.png"/>
+
+        <p>Y en el pom.xml lo siguiente:</p>
+        <img src="Visual Code muestra version incorrecta de java/3.png"/>
+
+        <p>Aqui 8 se refiere a java 1.8</p>
+
+        <p>Para dejarlo de manera coherente solo tenemos que indicar en el <b>pom.xml</b> la versión correcta con la que estamos trabajando:</p>
+
+        <img src="Visual Code muestra version incorrecta de java/4.png"/>
+
+        <p>Ahora en el ide vemos la versión correcta:</p>
+
+        <img src="Visual Code muestra version incorrecta de java/5.png"/>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Visual Code | Java </p>
+        </div>
+
+    </body>
+</html>

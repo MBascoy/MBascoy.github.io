@@ -1,0 +1,40 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Maven ver versiones de librerias</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como ver las versiones y las dependencias de las librerías que estamos usando en nuestro proyecto.</p>
+
+        </div>
+
+    <div class="t2">Consultar versiones</div>
+        <div class="cont">
+
+            <p>Para consultar todas las librerías que se están usando en un proyecto, su versión, y sus dependencías, usamos el siguiente comando:</p>
+            <code>mvn dependency:tree</code>
+
+            <img src="Maven ver versiones de librerias/1.png">
+
+            <p>Tambien podemos usar el siguiente comando que nos muestra el pom definitivo que se usará incluyendo las versiones de las librerías:</p>
+            <code>mvn help:effective-pom</code>
+
+            <p>La salida de ese comando a veces puede ser muy extensa, podemos hacer un pipe con <b>less</b>:</p>
+            <code>mvn help:effective-pom | less</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Maven | Librerias | versiones</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,46 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Consultar version Spring y Spring Boot</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como saber que version de <b>Spring</b> y <b>Sprinb Boot</b> estamos usando en nuestro proyecto </p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>La versión de <b>Spring Boot</b> aparece cuando ejecutamos el proyecto (<b>mvn spring-boot:run</b>), justo debajo del logo de Spring:</p>
+
+            <img src="Consultar version Spring y Spring Boot/1.png">
+
+            <p>Para saber la versión de <b>Spring Framework</b> tenemos que incluir la siguiente linea en nuestro código:</p>
+
+            <code>System.out.println("Spring Version:" + SpringVersion.getVersion());</code>
+
+            <p>y su import:</p>
+            <code>import org.springframework.core.SpringVersion;</code>
+
+            <img src="Consultar version Spring y Spring Boot/2.png">
+
+            <p>Ahora al ejecutar nuestra aplicación de <b>Spring</b> veremos la versión:</p>
+
+            <img src="Consultar version Spring y Spring Boot/3.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Spring | Spring Boot | Version </p>
+        </div>
+
+    </body>
+</html>
