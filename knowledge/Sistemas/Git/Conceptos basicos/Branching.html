@@ -39,6 +39,23 @@
         </p>
         </div>
 
+    <div class="t2">3 Ramas existentes</div>
+        <div class="cont">
+          <p>En <b>Git</b> por cada rama que creamos realmente existen 3 ramas:</p>
+          <ul>
+            <li>La rama local</li>
+            <li>La rama remota (rama colcada en el repositorio remoto ya sea Github o cualquiera otro repositorio)</li>
+            <li>La rama local que refleja la rama remota (origin/rama)</li>
+
+            <p>Por ejemplo cuando hacemos un <b>fetch</b> lo que estámos haciendo es sincronizar la rama remota (en el Github por ejemplo) con nuestra rama "espejo" que tenemos en nuestro local (origin/rama), de manera que podemos usar "origin/&lt;nombre_rama&gt;" para ver los cambios que hay en remoto y despues decidir si queremos hacer un <b>merge</b> con nuestra rama local.</p>
+
+            <p>En el caso de hacer un <b>pull</b> los cambios se descargan a la rama "espejo" y se mergean directamente con la rama local.</p>
+
+            <p>La rama espejo (origin/rama) solo es una rama intermedia para almacenar en local la información que hay en el repositorio remoto.</p>
+
+          </ul>
+        </div>
+
     <div class="t2">Comprobar el estado de una rama</div>
         <div class="cont">
         <p>Para verificar el estado de una rama podemos usar el siguiente comando:</p>

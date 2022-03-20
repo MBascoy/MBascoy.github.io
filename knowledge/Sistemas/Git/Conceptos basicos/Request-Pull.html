@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Request-Pull</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como utilizar el comando <b>request-pull</b> de git.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>El comando <b>request-pull</b> solo sirve para generar un informe para solicitar un <b>pull</b> de cambios que hemos hecho.</p>
+          <p>El comando solo genera un informe que sale por la salida estandar de la consola, nada mas, no se crea ninguna solicitud tipo <b>PR</b> de GitHub ni nada parecido. El objetivo de este informe es enviárselo a la persona correspondiente para que esté al tanto de los cambios y pueda proceder a hacer un <b>pull</b> de nuestros cambios si ve que todo es correcto.</p>
+
+          <p><b>NOTA:</b> el informe tendríamos que enviarlo mediante e-mail o cualquiera otro medio, <b>git</b> no hace ningún tipo de comunicación en este sentido.</p>
+
+          <p>El comando se utiliza de la siguiente forma:</p>
+
+          <code>git request-pull &lt;commit&gt; &lt;url_repositorio&gt;</code>
+
+          <p>La opción <b>&lt;commit&gt;</b> es el id del commit desde el cual hicimos cambios, el informe por defecto se generará desde ese <b>commit</b> hasta el último commit realizado en nuestra <b>rama local</b> (HEAD), si queremos podemos indicar un segundo commit en el comando para que no tome HEAD como la referencia final y tome un commit anterior.</p>
+
+          <p>Como <b>url</b> tendríamos que indicar la url del repositorio donde tenemos almacenados los cambios, para que la persona que reciba el informe sepa cual es la dirección donde puede descargar esos cambios. La persona que vaya a recibir el informe tendrá que hacer un <b>add remote</b> de nuestro repositorio para tener la información de nuestros cambios y poder hacer el <b>pull</b>.</p>
+
+          <p>Un ejemplo de informe es el siguiente:</p>
+
+          <img src="Request-Pull/1.png">
+
+          <p>Como se puede ver se indica el commit desde el que se hicieron los cambios, el commit de los últimos cambios (el que queremos que sea mergeado) y la URL del repositorio donde tenemos los cambios.</p>
+
+          <p>Despues abajo aparece un resumen de los archivos cambiados, si queremos incluir el código cambiado podemos usar la opción <b>-p</b> y se mostrará el código de igual forma que con el <b>git diff</b>, de todas maneras no es necesario, ya que teniendo el id de los dos commits, la propia persona que reciba el informe puede ejecutar un <b>git diff</b> para ver cuales son todos los cambios.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Request-Pull </p>
+        </div>
+
+    </body>
+</html>
