@@ -1,0 +1,92 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Spring consultas JPQL y consultas nativas</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>En spring podemos usar las <a href="Spring funciones consultas avanzadas.html">funciones nativas de spring para hacer consultas</a>, pero a mayores podemos usar consultas <b>JPQL</b> y consultas <b>nativas de SQL</b>.</p>
+
+            <p>Consulta <b>JPQL</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@Query(&quot;SELECT s FROM Skill s ORDER BY s.id DESC&quot;)</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">List&lt;Skill&gt; <span style="color:rgb(181, 189, 104); font-weight:400;">findAllByOrderBySkillAsc</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>;</code></pre>
+
+            <p>Consulta <b>nativa</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">@Query(
+    value=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;SELECT skill FROM skills&quot;</span>,
+    nativeQuery=<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>
+)
+List&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">String</span>&gt; allSkills();</code></pre>
+
+            <p>La principal diferencia entre las dos consultas es que una gestiona <b>objetos</b> (la JPQL) y la otra gestiona <b>tablas</b> de la base de datos (la nativa)</p>
+          </div>
+
+      <div class="t2">JPQL</div>
+          <div class="cont">
+
+            <p>En el caso de la consulta <b>JPQL</b> la parte despues del <b>FROM</b> hace referencia a los objetos que tenemos definidos en el modelo, de manera que en este caso <b>Skill</b> hace referencía a la clase <b>Skill</b> y tenemos que escribirlo tal y como está la clase.</p>
+
+            <img src="Spring consultas JPQL y consultas nativas/1.png">
+
+            <img src="Spring consultas JPQL y consultas nativas/2.png">
+
+            <p>Otra cosa a tener en cuenta de las consultas <b>JPQL</b> es que la parte del select (lo que devuelve la consulta) tiene que ser exactamente el objeto que indicamos en la funcion que está asociada a dicha consulta:</p>
+
+            <img src="Spring consultas JPQL y consultas nativas/3.png">
+
+            <p>En nuestro caso es un objeto de tipo <b>Skill</b> como la consulta puede devolver mas de un resultado pues es una lista de Skill <b>List&lt;Skill&gt;</b></p>
+
+            <h3>Acceso a objetos</h3>
+
+            <p>Otra cosa a tener en cuenta con <b>JPQL</b> es que como manipulamos objetos, podemos tambien acceder a sus atributos, de igual manera que dentro de un lenguaje, pero dentro de las consultas.</p>
+            <p>Si por ejemplo tenemos un objeto <b>vehiculo</b> que a su vez contiene un objeto <b>coche</b> con un atributo <b>puerta</b>, podemos acceder en la consulta usando vehiculo.coche.puerta, esto da mucho juego en las tablas que se originan como resultado de cruzar dos tablas, ya que nos da acceso a objetos con mucha información relacionada, en el proyecto de la academy es el ejemplo de <b>MemberSkill</b>, usando ese objeto podemos acceder tanto a <b>members</b> como <b>skills</b> y la información relacionada entre ellos.</p>
+
+            <h3>Devolver objetos personalizados</h3>
+            <p>En principio en las consultas <b>JPQL</b> solo podemos devolver objetos que están en el modelo de datos ya que son los que podemos consultar (si intentamos devolver columnas separadas que coincidan con los atributos de un objeto no funcionará siempre tenemos que devolver un objeto completo), pero existe una manera en la que podemos generar un nuevo objeto en la propia consulta y devolverlo en la funcion</p>
+
+            <p>Para poder devolver un objeto personalizado un ejemplo sería el siguiente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@Query(&quot;SELECT new main.dto.StatisticData(ms.skill.skill, COUNT(s.skill)) FROM Skill s LEFT JOIN MemberSkill ms ON ms.skill.id = s.id  GROUP BY s.skill&quot;)</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">List&lt;StatisticData&gt; <span style="color:rgb(181, 189, 104); font-weight:400;">findMembersForEachSkill</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>;</code></pre>
+
+            <p>En la parte del <b>SELECT</b> tenemos que poner una sentencia <b>new()</b> indicando el objeto que queremos crear y los argumentos del constructor, para realizar esto obviamente tenemos que tener un constructor adecuado en dicho objeto</p>
+
+            <p>De esta manera podemos asociar un objeto que no está en el modelo de datos a la salida de una consulta con <b>JPQL</b>.</p>
+
+          </div>
+
+      <div class="t2">Consultas Nativas</div>
+          <div class="cont">
+
+            <p>Las consultas nativas son consultas <b>SQL</b> ejecutadas tal cual dentro del repositorio, la particularidad que tienen es que en el <b>SELECT</b> la cantidad de columnas tiene que coincidir con el numero de atributos del objeto, para que cada columna se asocie a un atributo concreto (tambien tienen que coincidir el tipo de datos)</p>
+
+            <p>Para utilizar una consulta nativa tenemos que indicar la opcion <b>value</b> en la etiqueta <b>@Query</b> y la opcion <b>nativeQuery</b>, tal que así:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">@Query(
+    value=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;SELECT skill FROM skills&quot;</span>,
+    nativeQuery=<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>
+)
+List&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">String</span>&gt; allSkills();</code></pre>
+
+            <p>En este ejemplo simplemente estamos sacando una columna que es un string (skill), por lo tanto el objeto que tiene que devuelve la funcion es un <b>String</b>, como la consulta puede devolver varias filas pues el objeto es List&lt;String&gt;, si por ejemplo en el select tuviesemos dos campos uno <b>string</b> y otro <b>int</b> el objeto que devolviese la funcion asociada a la consulta tendría que tener dos atributos, uno <b>string</b> y otro <b>int</b>.</p>
+
+            <p>Otra cosa a tener en cuenta en las <b>consultas nativas</b> es que a diferencia de las consultas <b>JPQL</b> no estamos tratando con objetos, estamos tratando directamente con las <b>tablas de la base de datos</b>, por lo tanto tenemos que hacer referencia a las tablas tal cual estan definidas en la propia base de datos.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Spring | Repository | JPA | Consultas</p>
+        </div>
+
+    </body>
+</html>
