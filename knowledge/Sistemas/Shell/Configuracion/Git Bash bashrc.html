@@ -14,7 +14,7 @@
           <p>El archivo <b>.bashrc</b> tiene que ir colocado en la carpeta del usuario <b>%USERPROFILE%</b></p>
 
           <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(150, 152, 150); font-weight:400;">#vars</span>
-cb=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;feature/12_UpdatePersonalInfo_MERGE_CONFLICTS&quot;</span>
+cb=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;feature/173_GetGlobalStatistics&quot;</span>
 
 <span style="color:rgb(150, 152, 150); font-weight:400;">#alias</span>
 <span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> ll=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cat -n&quot;</span>
@@ -22,11 +22,11 @@ cb=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;feature/12_Upd
 <span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> gs=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;git status&quot;</span>
 <span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> gl=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;git log&quot;</span>
 <span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> cod=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cd /c/Users/manuel.bascoy/code/&quot;</span>
-<span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> ccod=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cd /c/Users/manuel.bascoy/code/Projects/PostAcademy-Frontend-Team2/&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> ccod=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cd /c/Users/manuel.bascoy/code/Projects/PostAcademy-Backend-Team2/&quot;</span>
 <span style="color:rgb(181, 189, 104); font-weight:400;">alias</span> lab=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cd /c/Users/manuel.bascoy/lab/&quot;</span>
 
 <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">gc</span></span>(){
-        git checkout <span style="color:rgb(255, 204, 102); font-weight:400;">$1</span>
+        git checkout <span style="color:rgb(255, 204, 102); font-weight:400;">$@</span>
 }
 
 <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">gcb</span></span>(){

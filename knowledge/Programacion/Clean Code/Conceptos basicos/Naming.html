@@ -16,11 +16,88 @@
 
         </div>
 
-    <div class="t2">Metodo</div>
+    <div class="t2">Naming</div>
         <div class="cont">
+          <p>El nombre de una variable, funcion o clase debe de responder a estas preguntas:</p>
+
+          <ul>
+            <li>Por qué existe?</li>
+            <li>Que hace?</li>
+            <li>Como es usado?</li>
+          </ul>
+
+          <p>Un nombre debe de revelar cual es su intención</p>
+
+          <p>Si un nombre necesita de un comentario para ser explicado es que su nombre está mal puesto</p>
+
+          <h3>Evitar desinformación</h3>
+          <p>Tenemos que evitar posibles casos en los que se puedan confundir ciertos conceptos sin querer.</p>
+          <p>Tener cuidado cuando se ponen nombres parecidos, es importante hacer distinciones evidentes.</p>
+
+          <p>Ejemplo MAL</p>
+
+          <code>XYZControllerForEfficientHandlingOfStrings<br/><br/>
+          XYZControllerForEfficientStorageOfStrings</code>
+
+          <p>Esas dos variables son muy largas, muy parecidas y tienen funcionalidades muy distintas, es un mal ejemplo</p>
+
+          <p>Ejemplo BIEN</p>
+
+          <pre><code>countMembers
+countSkills</code></pre>
+
+          <p>Este ejemplo es mucho mejor, los dos nombres empiezan igual, pero es facil diferenciar el uno del otro y la funcionalidad que hacen debería de ser parecida solo que orientada a objetos distintos</p>
+
+
+          <h3>Poner nombres con significado</h3>
+
+          <ul>
+            <li>Evitar poner nombres numerados como <b>member1</b> <b>member2</b>...etc</li>
+            <li>Evitar poner nombres que puedan parecerse a palabras reservadas como <b>klass</b></li>
+            <li>Evitar terminos ruidosos, por ejemplo <b>NameString</b> en vez de <b>Name</b> o <b>CustomerObject</b> en vez de <b>Customer</b>,</li>
+          </ul>
+
+          <h3>Usar nombres pronunciables y nombres que puedan ser facilmente buscados</h3>
+
+          <p>En vez de tener una funcion <b>geAlSk</b> sería mejor tener una funcion <b>getAllSkills</b>, ya que tiene un significado y es algo que se puede pronunciar</p>
+
+          <p>Si usamos una variable con nombre <b>e</b> será dificil buscar en el código si usamos un buscador, en cambio si usamos una variable como <b>numberOfLetters</b> será mucho mas facil buscarla</p>
+
+          <h3>Usar solo una palabra por concepto</h3>
+          <p>Si queremos añadir algo no usemos en un lugar <b>add</b> en otro <b>insert</b> y asi... debemos de coger una sola palabra y ser consistentes a lo largo de todo el código</p>
+
+          <h3>Añadir contexto que tenga significado</h3>
+          <p>Si por ejemplo tenemos variables <b>name</b> y <b>surname</b> pueden significar una cosa, pero si tenemos <b>addrName</b> y <b>addrSurname</b> siguen siendo lo mismo pero en un contexto diferente, es importante contextualizar los nombres que usemos para dar mas información</p>
+
+          <p>Otra manera de contextualizar variables es haciendo que sean parta de una nueva clase, en este caso podríamos tener la clase <b>Address</b> y dentro los miembros <b>name</b> y <b>surname</b></p>
+
+          <p>Al igual que es importante incluir un contexto que le dé significado, también es importante no intentar incluir contexto de más si no es necesario o no aporta ninguna información valiosa.</p>
 
         </div>
 
+    <div class="t2">Clases</div>
+        <div class="cont">
+          <p>Las clases deben de ser nombradas como <b>Nombres</b> o <b>Frases de nombres</b> por ejemplo <b>Customer</b> o <b>AdressParser</b></p>
+          <p>Una clase NO debe de ser nombrada con un <b>verbo</b></p>
+
+        </div>
+
+    <div class="t2">Metodos</div>
+        <div class="cont">
+          <p>Los metodos deben de ser nombrados como <b>verbos</b> o <b>Frases de verbos</b> como por ejemplo <b>save</b> o <b>deletePage</b></p>
+
+          <p>Cuando un <b>constructor</b> es sobrecargado es mejor usar funciones <b>static</b> con un nombre que describa el argumento:</p>
+          <p>En vez de:</p>
+          <code>Complex fulcrumPoint = new Complex(23.0);</code>
+
+          <p>Usar una funcion estatica como:</p>
+          <code>Complex fulcrumPoint = Complex.FromRealNumber(23.0);</code>
+
+          <p>Para asegurarnos de que se use la funcion <b>static</b> podemos declarar el constructor como <b>privado</b></p>
+
+
+
+        </div>
 
     <div class="t2">Tags</div>
         <div class="cont">

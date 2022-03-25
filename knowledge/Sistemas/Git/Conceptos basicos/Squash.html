@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Squash</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como hacer un <b>Squash</b> para unir varios commits del log en un solo commit.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Partimos de un escenario en el que tenemos estos tres commits:</p>
+
+          <img src="Squash/1.png">
+
+          <p>Vamos a hacer que los dos ultimos commits (el segundo y el tercero) queden representados en el log como <b>un solo commit</b></p>
+
+          <p><b>NOTA</b>: El rebase solo se puede hacer a partir del primer commit, si quisiesemos juntar los 3 commits en uno no podríamos porque uno de los commits es el commit inicial del repositorio y ese no podemos juntarlo</p>
+
+          <p>Para hacer un <b>Squash</b> primero tenemos que utilizar el comando <b>rebase</b> tal que así:</p>
+
+          <code>git rebase -i HEAD~2</code>
+
+          <p>Usamos <b>HEAD~2</b> para indicar los dos ultimos commits, tambien podemos indicar el id del commit a partir del cual se hará el rebase (el rebase se hace a partir de ese commit, no se incluye el propio commit que indicamos), en este caso tendríamos que indicar el id del primer commit para que nos coja los dos siguientes (De hecho <b>HEAD~2</b> hace referencia al primer commit, dos commits por encima de HEAD)</p>
+
+          <p>El siguiente comando sería equivalente al anterior:</p>
+          <code>git rebase -i 6926af2bfe026368105345f7c228598f57a5eafb</code>
+
+          <p>A continuación se nos abrirá un editor con los commits sobre los que se hará el rebase</p>
+
+          <img src="Squash/2.png">
+
+          <p>Ahora dejamos el primer commit de la lista como <b>pick</b> y el resto cambiamos <b>pick</b> por <b>squash</b> (o simplemente la letra <b>s</b>):</p>
+
+          <img src="Squash/3.png">
+
+          <p>Y guardamos con <b>ESC :wq</b></p>
+
+          <p>A continuación se nos abre un nuevo editor donde podemos editar el mensaje del commit resultante, por defecto se pondrán los mensajes de todos los commits sobre los que vayamos a hacer el squash:</p>
+
+          <img src="Squash/4.png">
+
+          <p>Guardamos nuevamente con <b>ESC :wq</b></p>
+
+          <p>Y vemos que el squash se ha realizado correctamente:</p>
+
+          <img src="Squash/5.png">
+
+          <p>Si hacemos un <b>git log</b> vemos como se han unido los dos commits</p>
+
+          <img src="Squash/6.png">
+
+          <p>Si nos fijamos en la hora del commit es la hora que tenía el commit mas antiguo del squash, esto no lo podemos cambiar ya que el <b>pick</b> tiene que ser el commit mas antiguo, aún así podemos ver como el nuevo commit tiene un <b>ID</b> completamente diferente, los dos commits sobre los que se ha hecho el <b>squash</b> han desaparecido y se genera un nuevo commit.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Squash | Rebase </p>
+        </div>
+
+    </body>
+</html>
