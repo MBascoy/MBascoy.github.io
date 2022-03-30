@@ -1,0 +1,46 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Arrays asociativos</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Los <b>arrays asociativos</b> nos permiten usar como identificador de cada elemento del array <b>un string</b> en vez de un numero, la manera de usarlos es la siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">var</span> elements = {first:<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;value1&#x27;</span>, car:<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ferrari&#x27;</span>};</code></pre>
+
+          <p>Manera alternativa:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">var</span> elements = {<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;first&quot;</span>:<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;value1&#x27;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;car&quot;</span>:<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ferrari&#x27;</span>};</code></pre>
+
+          <p>Para acceder a cada elemento se haría tal que así:</p>
+          <code>elements["car"]</code>
+
+          <p>El siguiente código:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">var</span> elements = {<span style="color:rgb(129, 162, 190); font-weight:400;">first</span>:<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;value1&#x27;</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">car</span>:<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ferrari&#x27;</span>};
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">console</span>.log(elements[<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;first&quot;</span>]);
+<span style="color:rgb(181, 189, 104); font-weight:400;">console</span>.log(elements[<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;car&quot;</span>]);</code></pre>
+
+          <p>Generaría la siguiente salida:</p>
+
+          <img src="Arrays asociativos/1.png">
+
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>JavaScript | array | associative </p>
+        </div>
+
+    </body>
+</html>
