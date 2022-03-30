@@ -54,10 +54,6 @@ else
 			. "$COMPLETION_PATH/git-prompt.sh"
 			PS1="$PS1"'\[\033[36m\]'  # change color to cyan
 			PS1="$PS1"'`__git_ps1`'   # bash function
-			PS1="$PS1"'\[\033[1;31m\]'
-			PS1="$PS1"'  [`git diff --name-only 2>/dev/null | wc -l`]'
-			PS1="$PS1"'\[\033[35m\]'
-			PS1="$PS1"'  <`git ls-files --others --exclude-standard 2>/dev/null | wc -l`>'
 			PS1="$PS1"'\n'
 			PS1="$PS1"'`/c/Users/manuel.bascoy/AppData/Local/Programs/Git/etc/profile.d/custom-prompt.sh`'   # bash function
 		fi
@@ -96,7 +92,7 @@ fi
             <h2>Linux Bash</h2>
 
             <p>Si queremos conseguir el mismo efecto en el <b>bash</b> de linux solo tenemos que colocar el siguiente código en el archivo <b>~/.bashrc</b>:</p>
-            
+
             <pre><code>parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
