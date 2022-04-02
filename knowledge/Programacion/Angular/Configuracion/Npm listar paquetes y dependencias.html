@@ -1,0 +1,66 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Npm listar paquetes y dependencias</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como listar los paquetes de <b>npm</b> que hay instalados en un proyecto</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para listar <b>todos</b> los paquetes usamos el siguiente comando:</p>
+
+          <code>npm list --all</code>
+
+          <p>Si no usamos la opcion <b>-all</b> por defecto se mostrarán los paquetes sin sus dependencías</p>
+
+          <p>Si tenemos alguna dependencia rota se verá al ejecutar el comando, asi:</p>
+
+          <img src="Npm listar paquetes y dependencias/1.png">
+
+          <p>Si hacemos scroll hacia arriba podemos ver la dependencia faltante en el propio arbol:</p>
+
+          <img src="Npm listar paquetes y dependencias/2.png">
+
+          <p>Podemos verificar si tenemos un paquete instalado en el arbol con el siguiente comando:</p>
+
+          <code>npm list @angular/cdk</code>
+
+          <img src="Npm listar paquetes y dependencias/4.png">
+
+          <p>En este caso como no lo tenemos (falta la dependencia) se muestra <b>empty</b></p>
+
+          <p>Para un paquete que existe en el arbol se muestra asi:</p>
+
+          <img src="Npm listar paquetes y dependencias/5.png">
+
+          <p>Si queremos podemos listar mas información sobre el paquete con el siguiente comando:</p>
+
+          <p><b>NOTA:</b> Da igual que el paquete esté instalado o no, se mostrará información del mismo igualmente</p>
+
+          <code>npm view @angular/cdk</code>
+
+          <img src="Npm listar paquetes y dependencias/3.png">
+
+          <p>Y para instalar la depenencia lo haríamos con el siguienten comando</p>
+
+          <code>npm install @angular/cdk</code>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>npm | packets | paquetes | listar </p>
+        </div>
+
+    </body>
+</html>

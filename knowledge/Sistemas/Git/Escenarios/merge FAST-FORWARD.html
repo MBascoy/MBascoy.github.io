@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">merge FAST-FORWARD</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Explicar cuando se produce un <b>fast-forward</b> y cual es el comportamiento de las ramas en esta situación</p>
+
+        </div>
+
+    <div class="t2">Escenario</div>
+        <div class="cont">
+          <p>Partimos de un escenario en el que tenemos un 2 ramas, una rama <b>main</b> y una rama <b>ram3</b>, las dos apuntan al mismo commit:</p>
+          <img src="merge FAST-FORWARD/1.png">
+
+          <p>Despues avanzamos la rama <b>ram3</b> con un nuevo commit:</p>
+          <img src="merge FAST-FORWARD/2.png">
+
+          <p>En esta situación la rama <b>ram3</b> es igual que la rama <b>main</b> pero con cambios añadidos a mayores, y la rama main no añade ningún cambio, en está situación si nos ponemos en <b>main</b> y mergeamos la rama <b>ram3</b> se producirá un <b>fast-forward</b>, esto quiere decir que las dos ramas apuntarán al mismo commit, <b>1a3940d</b> en este caso, y no se producira un nuevo commit como proudcto del merge:</p>
+
+          <img src="merge FAST-FORWARD/3.png">
+
+          <p>Si queremos forzar la generación de un nuevo commit podemos usar la opcion <b>--no-ff</b>:</p>
+
+          <code>git merge --no-ff ram3</code>
+
+          <img src="merge FAST-FORWARD/4.png">
+
+          <p>Como vemos en este caso se ha utilizado la estrategia de merge <b>recursive</b> en vez de <b>fast-forward</b> y se ha generado un nuevo commit a partir de <b>main</b> y <b>ram3</b>.</p>
+
+          <p>Como curiosidad este nuevo <b>commit</b> generado por el  <b>merge</b> es identico al commit de la rama <b>ram3</b>, por eso cuando hacemos el merge de manera normal se produce el fast-forward y las dos ramas apuntan al mismo sitio, porque son <b>exactamente</b> iguales.</p>
+
+          <p>Una situación curiosa que se produce en esta situación es que si se intenta hacer un <b>revert</b> del commit del merge, y se elige el <b>mainline</b> de la rama <b>ram3</b> el revert nos dice que no tendrá efecto ya que las dos ramas son iguales:</p>
+
+          <img src="merge FAST-FORWARD/5.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Merge | fast-forward </p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,61 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Module not found cdk</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Al ejecutar <b>ng serve</b> obtenemos el siguiente error:</p>
+
+          <code>./node_modules/@swimlane/ngx-charts/fesm2015/swimlane-ngx-charts.mjs:6:0-71 - Error: Module not found: Error: Can't resolve '@angular/cdk/portal' in 'C:\Users\manuel.bascoy\code\Projects\PostAcademy-FrontEnd-Team2\node_modules\@swimlane\ngx-charts\fesm2015'</code>
+
+          <img src="Module not found cdk/1.png">
+
+        </div>
+
+        <div class="t2">Solución</div>
+            <div class="cont">
+              <p>Si ejecutamos el siguiente comando:</p>
+              <code>npm list --all</code>
+
+              <p>vemos la siguiente salida:</p>
+
+              <img src="Module not found cdk/2.png">
+
+              <p>y si miramos un poco mas arriba en el arbol vemos lo siguiente:</p>
+
+              <img src="Module not found cdk/3.png">
+
+              <p>Como vemos falta el módulo <b>@angular/cdk@>=12.0.0</b>, este modulo lo necesita el modulo <b>@swimlane/ngx-charts@20.1.0</b></p>
+
+              <p>Este modulo en este contexto no debería de faltar, ya que se debería de haber instalado al instalar el modulo <b>@swimlane/ngx-charts@20.1.0</b>, pero por algún motivo se ha borrado, para solucionar el problema podemos hacerlo de dos maneras:</p>
+
+              <p>Instalando el modulo <b>@swimlane/ngx-charts@20.1.0</b> de nuevo, para que se reinstale la dependencia:</p>
+
+              <code>npm install @swimlane/ngx-charts@20.1.0</code>
+
+              <p>O instalando el propio modulo <b>@angular/cdk</b>:</p>
+              <code>npm install @angular/cdk</code>
+
+              <p>En este caso he reinstalado el paquete <b>@swimlane/ngx-charts@20.1.0</b> y ahora al ejecutar el <b>npm list --all</b> vemos que el paquete está instalado como dependencía del paquete</p>
+
+              <img src="Module not found cdk/4.png">
+
+
+
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>cdk | modulo | Error </p>
+        </div>
+
+    </body>
+</html>
