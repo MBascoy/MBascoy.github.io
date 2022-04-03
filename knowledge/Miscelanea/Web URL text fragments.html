@@ -1,0 +1,47 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Web URL text fragments</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como seleccionar una seccion de texto de una web usando solo la URL.</p>
+
+            <img src="Web URL text fragments/1.png">
+
+            <p><a href="https://wicg.github.io/scroll-to-text-fragment/"><b>Referencia Text Fragments</b></a></p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <p>Para realizar una seleccion de texto usando la URL de una página simplemente tenemos que añadir el siguiente código al final de la URL:</p>
+
+        <code>#:~:text=textStart[,textEnd]</code>
+
+        <p>El único parámetro obligatorio es <b>textStart</b>, si solo indicamos un texto, se seleccionará la primera coincidencia dentro de la página, si indicamos los dos parámetros, separados por una coma, se seleccionará el texto desde la primera coincidencia en la página de <b>textStart</b> hasta la siguiente coincidencia de <b>textEnd</b></p>
+
+        <p>Por ejemplo en la propia página de la documentación de <b>text fragments</b> podemos indicar el siguiente enlace</p>
+
+        <code>https://wicg.github.io/scroll-to-text-fragment/<b>#:~:text=specification%20was,apply</b></code>
+
+        <p>Como <b>textStart</b> estamos indicando <b>specification%20was</b> y como <b>textEnd</b> estamos indicando <b>apply</b>, y el resultado es este:</p>
+
+        <img src="Web URL text fragments/2.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Web | text fragments | highlight </p>
+        </div>
+
+    </body>
+</html>
