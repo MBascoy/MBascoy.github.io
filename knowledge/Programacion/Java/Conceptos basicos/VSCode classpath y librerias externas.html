@@ -1,0 +1,65 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">VSCode classpath y librerias externas</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como configurar <b>VSCode</b> para indicar el <b>classpath</b> y <b>librerías externas</b></p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para poder configurar el <b>classpath</b> y <b>librerías</b> primero tenemos que instalar la extensión <b>Extension Pack for Java</b>.</p>
+
+          <img src="VSCode classpath y librerias externas/1.png"/>
+
+          <p>En este caso partimos del siguiente código de ejemplo:</p>
+
+          <img src="VSCode classpath y librerias externas/2.png"/>
+
+          <p>En el código <b>VSCode</b> nos marca varios errores en los <b>imports</b> y en el <b>package</b>, estos errores se deben a que tenemos mal configurado el <b>classpath</b> y no tenemos configuradas las librerías externas que estamos utilizando (<b>junit</b> en este caso).</p>
+
+          <p>Para abrir la configuración del <b>classpath</b> y <b>liberías</b> hacemos lo siguiente:</p>
+
+          <ul>
+            <li>F1</li>
+            <li>"Java configure classpath"</li>
+          </ul>
+
+          <img src="VSCode classpath y librerias externas/3.png"/>
+
+          <p>En la configuración vemos que el <b>classpath</b> está indicado como la carpeta raíz del proyecto (.) en este caso el classpath debería de ser <b>src</b> y en el listado de librerías vemos que no hay ninguna, deberíamos de añadir la libería <b>junit</b> y <b>hamcrest</b>.</p>
+
+          <img src="VSCode classpath y librerias externas/4.png"/>
+
+          <p>Una vez hacemos los cambios tenemos lo siguiente:</p>
+
+          <img src="VSCode classpath y librerias externas/5.png"/>
+
+          <p>Esta configuración se traduce en el <b>settings.json</b> asi:</p>
+
+          <img src="VSCode classpath y librerias externas/6.png"/>
+
+          <p>Si volvemos a nuestro código de ejemplo vemos que ahora se muestra todo correctamente:</p>
+
+          <img src="VSCode classpath y librerias externas/7.png"/>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>VSCode | classpath | librerias externas </p>
+        </div>
+
+    </body>
+</html>
