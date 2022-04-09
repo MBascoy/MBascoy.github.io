@@ -1,0 +1,74 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Funciones</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Consejos sobre como deben de ser la funciones para que sean faciles de leer y seguir.</p>
+
+        </div>
+
+    <div class="t2">Funciones</div>
+        <div class="cont">
+          <p>Conceptos generales sobre funciones:</p>
+
+          <ul>
+            <li>Deben de ser cortas</li>
+            <li>Deben de hacer solo una cosa</li>
+            <li>Un nivel de abstraccion por funcion</li>
+            <li>No deben de tener mas de 3 argumentos</li>
+            <li>No deben de tener efectos colaterales</li>
+            <li>Las funciones deben de hacer algo o devolver algo, pero no las dos cosas</li>
+          </ul>
+
+          <h2>Deben de ser cortas</h2>
+          <p>Las funciones deben de tener <b>pocas lineas de código</b> y se deben de ver a golpe de vista, si una función ocupa mas que el <b>alto de pantalla</b> probablemenete sea funcion debe de ser refactorizada y abstraer ciertas partes de su código en nuevas <b>subfunciones</b>.</p>
+
+          <h2>Deben de hacer solo una cosa</h2>
+          <p>El objetivo de una función debe de ser realizar solo una acción, está acción puedas estar compuesta de varios pasos, pero el objetivo final debe de ser uno solo, si la función hace varias tareas estás deberían de ser <b>abstraidas</b> en varias funciones.</p>
+
+          <h2>Un nivel de abstraccion por funcion</h2>
+          <p>Cada funcion debe de trabajar unícamente con un nivel de abstracción inferior, para ilustrar esto podemos ver el siguiente diagrama:</p>
+          <img src="Funciones/1.png">
+
+          <p>Cada fila en el diagrama es un nivel de abstracción, para llevar a cabo la funcionalidad de "sumar dos numeros" tenemos que realizar 3 pasos, primero leer los numeros, sumarlos e imprimirlos por pantalla.</p>
+
+          <p>Si en vez de poner <b>LeerNumeros</b> ponemos directamente <b>LeerNumero1</b> y <b>LeerNumero2</b> en el nivel superior la funcion estária trabajando con 2 niveles de abstracción, una manera facil de ver esto es que estás dos funciones pueden ser abstraidas en una nueva funcion, <b>LeerNumeros</b> en este caso.</p>
+
+          <p><b>NOTA:</b> En ocasiones es dificil llegar a ver los niveles de abstracción, siempre es bueno pensar en varios niveles: alto, medio y bajo. En el nivel alto podríamos tener cosas muy abstractas (por ejemplo, <b>crearUsuario()</b>), y en el nivel mas bajo tendríamos cosas muy concretas (por ejemplo <b>nombre="pepe"</b>).</p><br/>
+
+          <h2>No deben de tener mas de 3 argumentos</h2>
+          <p>Las funciones no deben de tener mas de <b>3 argumentos</b>, y por norma general cuantos menos tengan mejor</p>
+          <p>Si una función tiene <b>mas de 3 argumentos</b> probablemente muchos de esos argumentos sean susceptibles de ser pasados como un <b>objeto</b> en si.</p>
+          <p>Si hay varias funciones dentro de una clase que comparten un argumento dicho argumento puede ser declarado como <b>atributo de la clase</b> para evitar que se tenga que pasar como argumento de la funcion.</p><br/>
+
+          <h2>No deben de tener efectos colaterales</h2>
+          <p>Esto va en relación con que las funciones solo deben de hacer una cosa.</p>
+          <p>Si volvemos al ejemplo del diagrama anterior, en la funcion de <b>SumarNumeros()</b> no debería de contener a la funcion <b>ImprimirResultado()</b> ya que la funcion <b>SumarNumeros()</b> solo debe de realizar la suma y nada mas, si imprimiese ademas el resultado, este sería considerado un efecto colateral de la función, ya que no es su labor.</p><br/>
+
+          <h2>Las funciones deben de hacer algo o devolver algo, pero no las dos cosas</h2>
+          <p>Si por ejemplo tenemos una funcion <b>setName()</b> la función solo debería de establecer el nombre, nada mas, y si por el contrario tenemos una funcion <b>getName()</b> solo debería de devolver un string, no debería de realizar ninguna modificación.</p>
+
+          <p>Si tenemos un código como:</p>
+
+          <code>if(setFlag(ready, true))</code>
+
+          <p>Es confuso ya que no es claro si estamos estableciendo un flag o si está preguntando si un flag está establecido</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Clean Code | Funciones</p>
+        </div>
+
+    </body>
+</html>
