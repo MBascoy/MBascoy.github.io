@@ -18,7 +18,40 @@
 
     <div class="t2">Comentarios</div>
         <div class="cont">
-          <p></p>
+
+          <p>Conceptos generales:</p>
+          <ul>
+            <li>Evitar usar comentarios</li>
+            <li>Comentarios TODO</li>
+            <li>No comentar código</li>
+            <li>No usar comentarios si se puede usar una variable o funcion</li>
+          </ul>
+
+          <h2>Evitar usar comentarios</h2>
+          <p>Como norma general el código debería de ser <b>autoexplicativo</b>, por lo tanto el uso de comentarios debería de ser <b>casi inexistente</b>, si necesitamos un comentario para explicar una parte del código probablemente no estemos usando los nombres correcto para las variables y funciones de dicho código.</p>
+
+          <h2>Comentarios TODO</h2>
+          <p>Podemos usar los comentarios para marcar zonas del código donde queramos realizar cambios, por ejemplo para renombrar ciertas funciones o variables cuyo nombre no nos conveza del todo, podemos dejar un comentario con <b>//TODO</b>, de esta manera para encontrar todos estos sitios en el código solo tenemos que buscar TODO y veremos todos los sitios donde tenemos pendientes cosas por hacer.</p><br/>
+
+          <h2>No comentar código</h2>
+          <p>Nunca debemos de dejar código comentado, ya que puede ser confuso para otras personas.</p><br/>
+
+          <h2>No usar comentarios si se puede usar una variable o funcion</h2>
+          <p>Es mejor usar variables intermedías para dar contexto al código y hacer que sea mas explicativo sin necesidad de usar comentarios</p>
+
+          <p>Por ejemplo el siguiente código:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;">int</span> <span style="color:rgb(204, 153, 204); font-weight:400;">base</span> = <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>;
+<span style="color:rgb(181, 189, 104); font-weight:400;">int</span> altura = <span style="color:rgb(249, 145, 87); font-weight:400;">6</span>;
+
+System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(<span style="color:rgb(204, 153, 204); font-weight:400;">base</span>*altura/<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>); <span style="color:rgb(150, 152, 150); font-weight:400;">//Imprimir area triangulo</span></code></pre>
+
+          <p>Se podría escribir así:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;">int</span> <span style="color:rgb(204, 153, 204); font-weight:400;">base</span> = <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>;
+<span style="color:rgb(181, 189, 104); font-weight:400;">int</span> altura = <span style="color:rgb(249, 145, 87); font-weight:400;">6</span>;
+<span style="color:rgb(181, 189, 104); font-weight:400;">int</span> areaTriangulo = (<span style="color:rgb(204, 153, 204); font-weight:400;">base</span>*altura)/<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>;
+
+System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(areaTriangulo);</code></pre>
+
 
         </div>
 

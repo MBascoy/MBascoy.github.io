@@ -26,7 +26,8 @@
             <li>Un nivel de abstraccion por funcion</li>
             <li>No deben de tener mas de 3 argumentos</li>
             <li>No deben de tener efectos colaterales</li>
-            <li>Las funciones deben de hacer algo o devolver algo, pero no las dos cosas</li>
+            <li>Las funciones deben de hacer algo o devolver algo, pero no las dos cosas (Command query separation)</li>
+            <li>Las funcione deben lanzar excepciones en vez de devolver códigos de error</li>
           </ul>
 
           <h2>Deben de ser cortas</h2>
@@ -54,7 +55,7 @@
           <p>Esto va en relación con que las funciones solo deben de hacer una cosa.</p>
           <p>Si volvemos al ejemplo del diagrama anterior, en la funcion de <b>SumarNumeros()</b> no debería de contener a la funcion <b>ImprimirResultado()</b> ya que la funcion <b>SumarNumeros()</b> solo debe de realizar la suma y nada mas, si imprimiese ademas el resultado, este sería considerado un efecto colateral de la función, ya que no es su labor.</p><br/>
 
-          <h2>Las funciones deben de hacer algo o devolver algo, pero no las dos cosas</h2>
+          <h2>Las funciones deben de hacer algo o devolver algo, pero no las dos cosas (Command query separation)</h2>
           <p>Si por ejemplo tenemos una funcion <b>setName()</b> la función solo debería de establecer el nombre, nada mas, y si por el contrario tenemos una funcion <b>getName()</b> solo debería de devolver un string, no debería de realizar ninguna modificación.</p>
 
           <p>Si tenemos un código como:</p>
@@ -62,6 +63,11 @@
           <code>if(setFlag(ready, true))</code>
 
           <p>Es confuso ya que no es claro si estamos estableciendo un flag o si está preguntando si un flag está establecido</p>
+
+          <h2>Las funciones deben lanzar excepciones en vez de devolver códigos de error</h2>
+          <p>Siempre que una función tenga un comportamiento no esperado es preferible lanzar una excepción en vez de devolver un código de error.</p>
+
+          <p>Cuando se produce un error debemos de controlarlo, por lo tanto esto implica la implementación de estructuras <b>if</b> para manejar el posible error que se pueda devolver, si utilizamos excepciones podemos separar el manejo de la excepción del código "happy path", lo cual nos permite escribir un código más simple</p>
 
         </div>
 
