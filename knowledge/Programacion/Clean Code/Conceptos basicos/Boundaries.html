@@ -1,0 +1,36 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Boundaries</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como usar el clean code para manejar los limites con aplicaciónes de terceros o funcionalidades no implementadas.</p>
+
+        </div>
+
+    <div class="t2">Boundaries</div>
+        <div class="cont">
+
+          <h2>Learning tests</h2>
+          <p>Cuando estamos aprendiendo a utilizar alguna <b>API</b> podemos realizar test para confirmar el funcionamiento, despues mas adelante en el caso de que la API se actualizce a una nueva versión podemos utilizar dichos tests para verificar que la funcionalidad de la API se sigue implementando de la misma manera y que no hay conflictos con la nueva versión</p>
+
+          <h2>Código aún no implementado</h2>
+          <p>Cuando utilizamos un código de terceros o una funcionalidad que aún no está implementada en nuestro propio código (porque está siendo diseñado por otra persona por ejemplo), podemos hacer uso de un patron <b>adapter</b> de esta manera implementamos nuestro código de la manera que pensamos que puede estár creado el código de terceros o nuestro código futuro y finalmente hacemos un adaptador para que el código se pueda adaptar a la versión final de como esté diseñado, al final este acercamiento nos permite estár mas desacoplados de una librería externa ya que en nuestro código solo dependemos de la implementación que nos proporciones nuestro adatper, en caso de que la librería externa cambie en un futuro simplemente tenemos que cambiar la implemetación del adapter.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Clean Code | Boundaries | third-party code</p>
+        </div>
+
+    </body>
+</html>

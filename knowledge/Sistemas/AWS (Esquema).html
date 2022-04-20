@@ -1,0 +1,186 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">AWS (Esquema)</h1>
+
+    <div class="t2">Tipos de roles clasicos en IT</div>
+        <div class="cont">
+
+          <ul>
+            <li>Architect</li>
+            <p>Es el reponsable de diseñar la arquitectura de IT en base a los requisitos de negocio</p>
+
+            <li>System Administrator</li>
+            <p>Es el responsable de instalar, dar soporte y mantenimiento a los ordenadores, tanto personales como servidores.</p>
+
+            <li>Application Administrator</li>
+            <p>Es el responsable de gestionar las aplicaciones.</p>
+
+            <li>Database Administrator</li>
+            <p>Responsable de instalar y mantener las bases de datos del sistema, asi mismo también es el reponsable de entrenar a los empleados para que hagan un uso correcto del sistema de bases de datos.</p>
+
+            <li>Network Administrator</li>
+            <p>Es el responsable de diseñar, instalar, configurar y mantener las redes tanto LAN como WAN.</p>
+
+            <li>Storage Administrator</li>
+            <p>Responsable de administrar los sistemas de almacenamiento.</p>
+
+            <li>Security Administrator</li>
+	           <p>Es el responsable de instalar, configurar, administrar y monitorizar las medidas de seguridad de un sistema</p>
+          </ul>
+
+
+        </div>
+
+    <div class="t2">Tipos de roles en cloud</div>
+        <div class="cont">
+	        <p>Los roles se agrupan en 4 esferas</p>
+            <ul>
+              <li>Cloud Business Management</li>
+              <ul>
+                <li>Program Manager</li>
+                <li>Financial Manager</li>
+              </ul>
+              <li>Cloud Infrastructure</li>
+              <ul>
+                <li>Infrastructure Architect</li>
+                <li>Infrastructure Operations Engineer</li>
+              </ul>
+              <li>Cloud Security</li>
+              <ul>
+                <li>Security Architect</li>
+              </ul>
+              <li>Cloud Application Infrastructure</li>
+              <ul>
+                <li>Application Architect</li>
+              </ul>
+            </ul>
+          </div>
+
+    <div class="t2">Tipos de administración en AWS</div>
+        <div class="cont">
+
+          <ul>
+            <li>Manual</li>
+            <ul>
+              <li>AWS Management Console</li>
+              <li>AWS Cli</li>
+              <li>AWS APIs</li>
+            </ul>
+            <li>Infrastructure as Code (IaC)</li>
+            <p>Permite realizar el despliegue y mantenimiento de la infraestructura de manera automática a traves de código</p>
+            <p>Podemos establecer <b>la linea</b> que marca donde establecer IaC en 3 sitios:</p>
+            <ul>
+              <li>Aplicaciones</li>
+              <li>Sistema Operativo</li>
+              <li>Infraestructura</li>
+            </ul>
+            <p>Dependiendo de donde la coloquemos, tendremos más o menos acciones automatizadas, si la colocamos en aplicaciones tendremos menos cosas automatizadas y si la colocamos en infraestructura tendremos más cosas automatizadas.</p>
+          </ul>
+
+        </div>
+
+
+    <div class="t2">Cloud Computing</div>
+        <div class="cont">
+          <h2>Deployment models</h2>
+          <ul>
+            <li>Cloud-based Deployment</li>
+            <li>On-premises Deployment</li>
+            <li>Hybrid Deployment</li>
+          </ul>
+
+          <h2>Benefits of cloud Computing</h2>
+          <ul>
+
+            <li>Intercambiar gastos fijos por gastos variables</li>
+            <li>Dejar de gastar dinero en mantenimiento</li>
+            <li>No tener que predecir futuras posibles cargas</li>
+            <li>Aumentar velocidad y agilidad</li>
+
+          </ul>
+
+        </div>
+
+    <div class="t2">Amazon Elastic Compute Cloud (EC2)</div>
+        <div class="cont">
+          <p>Es el servidor virtual que se usa en AWS.</p>
+
+          <p>Existen varios tipos de instancias para un servidro EC2:</p>
+          <ul>
+            <li>General purpose instances</li>
+            <li>Compute optimized instances</li>
+            <li>Memory optimized instances</li>
+            <li>Accelerated comuting instances</li>
+            <li>Storage optimized instaces</li>
+          </ul>
+
+        </div>
+
+
+    <div class="t2">EC2 Pricing</div>
+        <div class="cont">
+          <ul>
+            <li>On-Demand</li>
+            <li>Saving Plan</li>
+            <li>Reserved Instances</li>
+            <li>Spot Instances</li>
+            <li>Dedicated Hosts</li>
+          </ul>
+
+        </div>
+
+    <div class="t2">EC2 Auto Scaling</div>
+        <div class="cont">
+          <p>Permite asignar recursos a nuestro servidro EC2 de manera automatica según lo necesite.</p>
+
+          <p>Existen dos tipos de autoescalado:</p>
+          <ul>
+            <li>Dynamic scaling</li>
+            <li>Predictive scaling</li>
+          </ul>
+
+          <h2>Auto scaling group</h2>
+          <p>Cuando creamos un grupo de autoescalado tenemos que definir los siguientes parametros:</p>
+          <ul>
+            <li>Capacidad minima</li>
+            <li>Capacidad deseada</li>
+            <li>Capacidad máxima</li>
+          </ul>
+
+        </div>
+
+    <div class="t2">Elastic Load Balancing (ELB)</div>
+        <div class="cont">
+          <p>Es el balanceador de carga de AWS, permite repartir el tráfico entre las distintas instancias de EC2</p>
+        </div>
+
+    <div class="t2">Messaging and queuing</div>
+        <div class="cont">
+          <p>Sistema de comunicación para distintos servicios dentro de AWS, este sistema nos permite separar un sistema monolítico en varios microservicios y usar este sistema para comunicar los distintos microservicios</p>
+
+            <p>Tenemos 2 tipos:</p>
+
+          <ul>
+            <li>Amazon Simple Queue Service (SQS)</li>
+            <li>Amazon Simple Notification Service (SNS)</li>
+          </ul>
+
+
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AWS | Resumen</p>
+        </div>
+
+    </body>
+</html>

@@ -1,17 +1,17 @@
- 
- 
+
+
 <html>
     <head>
         <link rel="stylesheet" href="../style.css">
     </head>
 
     <body>
-    
+
     <h1 class="t1">Azure (Esquema)</h1>
-    
+
     <div class="t2">Part 1: Describe core Azure concepts</div>
         <div class="cont">
-        
+
             <h3>Cloud computing beneficios:</h3>
             <ul>
 
@@ -19,7 +19,7 @@
                 <li>Infraestructura mas eficiente</li>
                 <li>Se escala a medida que necesitas</li>
             </ul>
-            
+
             <hr><br/>
             <h3>Categorias de servicios:</h3>
             <ul>
@@ -30,7 +30,7 @@
                     <li>Kubernetes</li>
                     <li>Containers</li>
                 </ul>
-                
+
                 <li>Networking</li>
                 <ul>
                     <li>Azure virtual network</li>
@@ -63,17 +63,17 @@
                 <li>AI</li>
                 <li>Devops</li>
             </ul>
-            
+
             <hr><br/>
             <h3>Azure accounts:</h3>
-            
+
             <img src="Azure (Esquema)/1.png"/>
 
             <ul>
                 <li>Free Account</li>
                 <li>Learn sandbox</li>
             </ul>
-            
+
             <hr><br/>
             <h3>Cloud benefits and considerations</h3>
             <ul>
@@ -91,31 +91,31 @@
                         <li>Capital expenses</li>
                         <li>Operating expenses</li>
                     </ul>
-                
+
                 <li><h4>Cloud computing is a consumption-based model</h4>
-                
+
             </ul>
-            
+
             <hr><br/>
-            
+
             <h3>Cloud service models</h3>
-            
+
             <ul>
                 <li>IaaS</li>
                 <p>Infrastructure as a service. Se te proporciona una maquina virtual y haces con ella lo que quieras (Instalar cualquier SO y manejarlo a tu antojo)</p>
-                
+
                 <li>PaaS</li>
                 <p>Platform as a service. Se te proporciona una maquina virtual con un SO instalado y dentro de ese SO instalas lo que quieras</p>
-                
+
                 <li>SaaS</li>
                 <p>Software as a service. Se te proporciona una maqruina virtual con un SO instalado y un software concreto instalado, dentro de ese Software cargas la informacion que queiras.</p>
-                
+
                 <img src="Azure (Esquema)/2.png">
-                
+
                 <hr><br/>
-                
+
                 <h3>Azure subscriptions, management groups, and resources</h3>
-                
+
                 <ul>
                     <li>Resources</li>
                     <p>Son los servicios que creas</p>
@@ -125,11 +125,11 @@
                     <p>Agrupacion de usuarios y servicios que crean dichos usuarios</p>
                     <li>Management groups</li>
                     <p>Permiten agrupar las subcripciones para administrarlas de una manera comun</p>
-                
+
                 </ul>
-                
+
                 <hr><br/>
-                
+
                 <h3>Azure regions, availability zones, and region pairs</h3>
                 <ul>
                     <li>Azure regions</li>
@@ -138,24 +138,24 @@
                     <p>Distintos datacenters dentro de una misma region separados fisicamente</p>
                     <li>Azure region pairs</li>
                     <p>Es el emparejamiento de distintas regiones separadas por al menos 300 millas</p>
-                
+
                 </ul>
-                
+
                 <img src="Azure (Esquema)/4.png"/>
-            
+
             </ul>
-            
+
             <hr><br/>
         </div>
-            
-            
+
+
         <div class="t2">Part 2: Describe core Azure services</div>
         <div class="cont">
-            
+
             <h3>Compute Services</h3>
             <ul>
                 <li>Azure virtual machines</li>
-                
+
                 <li>Virtual machine scale sets</li>
                 <p>Permite crear varias VM iguales para realizar balanceo de carga entre ellas, azure se encarga de hacer el enrutamiento entre las VM</p>
                 <li>Containers y kubernetes</li>
@@ -165,11 +165,11 @@
                 <li>Functions</li>
                 <p>Permite ejecutar funciones en base a un evento, suelen ser funciones que se ejecutan en un segundo o menos</p>
             </ul>
-            
+
             <p> Diferencia entre VM y containers: las VM virtualizan el hardware, los containers virtualizan el SO</p>
 
             <hr><br/>
-            
+
             <h3>Serverless</h3>
             <ul>
                 <li>Azure Functions</li>
@@ -177,16 +177,16 @@
                 <li>Azure Logic Apps</li>
                 <p>uso de interfaz grafica con nodos y conectores (declarative)</p>
             </ul>
-            
+
             <hr><br/>
-            
+
             <h3>Azure virtual desktop</h3>
             <p>Es un escritorio virtual remoto, es un windows 10 al que accedes remotamente y tienes acceso a un escritorio grafico como si tuvieses el ordenador delante tuya, se puede acceder mediante un navegador web</p>
-            
+
             <hr><br/>
-            
+
             <h3>Azure virtual networking</h3>
-            
+
             <p>Caracteristicas</p>
             <ul>
                 <li>Isolation and segmentation</li>
@@ -196,13 +196,13 @@
                 <li>Filter network traffic</li>
                 <li>Connect virtual networks</li>
             </ul>
-            
+
             <p>Comunicacion entre servicios de Azure</p>
             <ul>
                 <li>Virtual networks</li>
                 <li>Service endpoints</li>
             </ul>
-            
+
             <p>Comunicacion con redes locales (on-premises)</p>
             <ul>
                 <li>Point-to-site</li>
@@ -219,16 +219,16 @@
                     <li>Any to any</li>
                     <p>Permite integrar tu red wan (Multiples oficinas conectadas a traves de una red privada extensa) conectandola directamente con los servicios de microsoft</p>
                 </ul>
-            
+
             </ul>
-            
-            
+
+
             <h3>Azure Storage services</h3>
-            
+
             <p>Para utilizar los servicios de almacenamiento de azure primero necesitamos una <b>Azure Storage account</b></p>
-            
+
             <p>Los datos almacenados en Azure storage se copian automaticamente en al menos 3 sitios distintos dentro del mismo datacenter Local-redundant storage(LRS), si quieres que los datos se copien en datacenters distintos tienes que actualizar a la opcion de geo-redundant storage(GRS)</p>
-            
+
             <ul>
                 <li>Disk storage</li>
                 <p>Discos para usar como almacenamiento de maquinas virtuales</p>
@@ -242,20 +242,20 @@
                 <li>Azure files</li>
                 <p>Se suele usar en sistemas de comparticion de archivos (SMB, NFS) entre dos datacenters</p>
             </ul>
-            
-            
+
+
             <h3>Azure Database</h3>
-            
+
             <ul>
                 <li>Cosmos DB</li>
                 <p>Es un sistema de base de datos multi-modelo, permite abstraer la utilizacion de la base de datos usando otros lenguajes de bases de datos como: SQL, MongoDB, Cassandra, Tables y Gremlin.
-            
+
                 <li>SQL Database</li>
                 <li>SQL Managed Instance</li>
                 <li>Database for MySQL</li>
                 <li>Database for PostgreSQL</li>
             </ul>
-            
+
             <h3>Analytics services</h3>
             <ul>
                 <li>Synapse Analytics</li>
@@ -268,10 +268,10 @@
                 <p>Es un servicio bajo demanda que simplifica el big data</p>
             </ul>
         </div>
-        
+
         <div class="t2">Part 3: Describe core solutions and management tools on Azure</div>
         <div class="cont">
-        
+
         <h3>IoT (Internet of Things)</h3>
         <ul>
             <li>Azure IoT Hub</li>
@@ -279,9 +279,9 @@
             <li>Azure IoT Central</li>
             <p>Es un dashboard que funcioa por encima del IoT Hub, te permite manejar todo de manera grafica</p>
             <li>Azure Sphere</li>
-            <p>Es un dispoitivo fisico que permite realizar la conexion de dispositivos (IoT) de manera segura</p> 
+            <p>Es un dispoitivo fisico que permite realizar la conexion de dispositivos (IoT) de manera segura</p>
         </ul>
-        
+
         <h3>Azure AI</h3>
         <ul>
             <li>Azure Machine Learning</li>
@@ -291,16 +291,16 @@
             <li>Azure Bot Service</li>
             <p>Es un framework para crear bots como agentes virtuales</p>
         </ul>
-    
+
         <h3>Azure Serverless products</h3>
         <ul>
             <li>Azure Functions</li>
             <p>uso de codigo (Imperative)</p>
             <li>Azure Logic Apps</li>
             <p>uso de interfaz grafica con nodos y conectores (declarative)</p>
-        
+
         </ul>
-        
+
         <h3>Productos de desarrollo</h3>
         <ul>
             <li>Azure DevOps Services</li>
@@ -320,7 +320,7 @@
             <li>Azure DevTest Labs</li>
             <p>Plataforma para realizar testing en diversos entornos de manera mas agil</p>
         </ul>
-        
+
         <h3>Administrar y configurar entorno de Azure</h3>
         <ul>
             <li>Azure Portal</li>
@@ -329,25 +329,25 @@
             <li>Azure CLI</li>
             <li>ARM (Azure Resource Manager)templates</li>
             <p>Permite utilizar una plantilla en JSON para administrar una serie de recursos para conseguir un objetivo, el JSON le permite saber a azure si todos los recursos estan creados y conectados de la manera correcta</p>
-        
+
         </ul>
-        
+
         <h3>Monitoring Services</h3>
         <ul>
             <li>Azure Advisor</li>
-            <p>Realiza un analisis de los recursos de Azure que tienes actualmente y realiza recomendaciones sobre: eficiencia, seguridad, rendiemiento, coste. 
+            <p>Realiza un analisis de los recursos de Azure que tienes actualmente y realiza recomendaciones sobre: eficiencia, seguridad, rendiemiento, coste.
             <li>Azure Monitor</li>
             <p>Plataforma que nos permite analizar la telemetria de los recursos de azure, Azure insights nos permite acceder al servicio desde el codigo de nuestras aplicaciones.</p>
             <li>Azure Service Health</li>
             <p>Nos permite ver el estado de los servicios de Azure para saber si hay algun servicio caido</p>
         </ul>
-        
-        
+
+
         </div>
-        
+
     <div class="t2">Part 4: Seguridad general y seguridad de red</div>
         <div class="cont">
-        
+
         <h3>Azure Security Center</h3>
         <p>Es un servicio de monitorizacion de seguridad de los servicios de azure y locales.</p>
         <p>Caracteristicas</p>
@@ -355,11 +355,11 @@
             <li>Puede monitoreas tanto servicios en la nube como servicios locales</li>
             <li>Aplica automaticamente las medidas de seguridad a los nuevos recursos creados</li>
             <li>Monitorizacion y evaluacion continua de la seguridad</li>
-                    
+
         </ul>
-        
+
         <h3>Proteccion contra amenazas</h3>
-        
+
         <ul>
             <li>Just-in-time VM accecss</li>
             <p>Bloquea el trafico por defecto en los puertos especificados, pero se permite el trafico por un tiempo limitado cuando el administrador lo solicita</p>
@@ -367,13 +367,13 @@
             <li>Adaptative network hardining</li>
             <li>File integrity monitoring</li>
         </ul>
-        
+
         <h3>Azure sentinel</h3>
         <p>Es un security information and event management (SIEM), es un sistema inteligente (utiliza inteligencia artificial) de seguridad que permite analizar la seguridad y las amenazas de un sistema.</p>
-        
+
         <h3>Azure Key Vault</h3>
         <p>Es un sistema de almacenamiento centralizado de claves y certificados</p>
-        
+
         <ul>
             <li>Administrar secretos</li>
             <li>Administrar claves de encriptacion</li>
@@ -383,11 +383,11 @@
 
         <h3>Azure dedicate host</h3>
         <p>Los servicios de Azure se ejecutan en servidores compartidos, si lo necesitas puedes adquirir un servidor dedicado</p>
-        
-        
+
+
         <h3>Defense in depth</h3>
         <p>Defense in depth es una estrategia de defensa qeu se basa en varias capas para detener un ataque.</p>
-        
+
         <ul>
             <li>Phisical security</li>
             <li>Identity & Access</li>
@@ -397,8 +397,8 @@
             <li>Application</li>
             <li>Data</li>
         </ul>
-        
-        
+
+
         <h3>Security posture</h3>
         <p>Es la habilidad de una empresa para protegerse y responder a las amenazas los principios mas comunes que se definen son:</p>
         <ul>
@@ -406,41 +406,41 @@
             <li>Integridad</li>
             <li>Disponibilidad</li>
         </ul>
-        
+
         <h3>Azure Firewall</h3>
         <p>Servicio que nos permite filtrar el trafico de la red, tanto trafico entrante como saliente de la red</p>
-        
+
         <h3>Azure DDos protection</h3>
         <p>Proteccion contra ataques de denegacion de servicio</p>
-        
+
         <ul>
             <li>Basic</li>
             <p>Activado por defecto y es gratuito</p>
             <li>Standard</li>
             <p>Posee tecnicas de mitigacion adicionales que se pueden activar para las Azure virtual networks</p>
         </ul>
-        
+
         <h3>Network Security Groups (NSG)</h3>
         <p>Es un firewall interno de azure que nos permite filtrar el trafico de manera interna entre los recursos de zure</p>
         </div>
-        
-        
+
+
     <div class="t2">Part 5: Azure Identities services</div>
         <div class="cont">
-        
+
         <h3>Authorization and authentication</h3>
         <ul>
             <li>Authentication</li>
             <p>establece identidad del usuario</p>
             <li>Authorization</li>
             <p>establece el nivel de acceso que tiene el usuario (a que tiene acceso concretamente)</p>
-        
+
         </ul>
-        
-        
+
+
         <h3>Azure Active directory</h3>
         <p>Es un servicio de identificacion de usuarios que permite a los usuarios autenticarse para acceder a los usuarios a las aplicaciones de microsoft en la nube asi como las aplicaciones propias que esten almacenadas en la nuve</p>
-        
+
         <p>Azure AD provee los siguientes servicios</p>
         <ul>
             <li>Authentication</li>
@@ -448,55 +448,55 @@
             <p>Ter permite tener solo un usuario y una contrase;a para varios servicios
             <li>Application management</li>
             <li>Device management</li>
-        
+
         </ul>
-        
+
         <h3>Azure AD connect</h3>
         <p>Permite coneectar el directorio activo en la nube con uno en local para sincronizarlos</p>
-        
-        
+
+
         <h3>Multifactor authentication</h3>
         <p>Autenticacion en dos pasos, se deben de usar dos metodos de authenticacion que pueden ser uno de estos 3:</p>
-        
+
         <ul>
             <li>Algo que el usuario sabe (password)</li>
             <li>algo que el usuario tiene (Un smartphone)</li>
             <li>Algo que el usuario es (Autenticacion biometrica)</li>
-        
+
         </ul>
-        
-        
+
+
         <h3>Conditional Access</h3>
         <p>Es una herramienta que permite dar acceso o denegar acceso a recursos segun distintos criterios, que suelen ser:</p>
-        
+
         <ul>
         <li>quien es el usuario</li>
         <li>donde esta el usuario</li>
         <li>que dispoisitivo esta usando el usuario.</li>
-        
+
         <p>Provee una autenticacion mas granular de cara a la experiencia del usuario</p>
         <p>Para poder usar este servicio necesitas Azure AD Premium P1 o P2</p>
-        
+
         </ul>
-        
+
         <h3>Role/Based Access Control</h3>
         <p>Permite definir requisitos de acceso para un conjunto de usuarios a una serie de recursos<p>
-        
-        
+
+
         <h3>Resource Locs</h3>
         <p>Permite evitar el borrado accidental de los recursos sobre los que se aplique</p>
-        
+
         <h3>Tags</h3>
         <p>Permite etiquetarlos recursos para organizarlos utilizando atributos de metadata para hacer el etiquetado</p>
-        
+
         <h3>Azure Policy</h3>
         <p>Permite asignar politicas para controlar o auditar los recursos de azure</p>
-        
+
         <h3>Azure blueprints</h3>
         <p>Permite definir plantillas para la creacion de nuevos recursos para por ejemplo aplicar politicas de seguridad a los nuevos recursos creados</p>
-        
+
         <h3>Cloud Adoption Framework</h3>
-        
+
         <h3>Compliance organizations</h3>
         <ul>
             <li>ISO</li>
@@ -507,13 +507,13 @@
 
         <h3>Microsoft Privacy Statement</h3>
         <p>Explica la informacion que microsoft reune de los usuarios, como la maneja y con que fines</p>
-        
+
         <h3>Trust center</h3>
         <p>En el trust center podemos encontrar informacion sobre los prinpios de microsoft para mantener la integridad de los datos, como implementa la seguridad, politicas de cumplimiento...etc</p>
 
         <h3>Azure Compliance documentation</h3>
         <p>Permite acceder a documentacion detallada sobre informacion legal y estandares de regulacion y cumplimiento en azure.</p>
-    
+
         <h3>Azure Government</h3>
         <p>Servicios de azure destinados a ser usados por el govierno de los estados unidos</p>
 
@@ -522,7 +522,7 @@
 
     </div>
 
-    
+
     <div class="t2">Part 6: Describe azure cost management and SLA</div>
         <div class="cont">
 
@@ -591,27 +591,27 @@
 
     <div class="t2">Desambiguaciones</div>
         <div class="cont">
-        
+
         <h3>Azure Firewall / NSG</h3>
         <ul>
             <li>Azure Firewall</li>
-            
+
             <li>NGS</li>
         </ul>
-        
+
         <h3>Azure Information Protection (AIP) / Azure Identity Protection</h3>
-        
+
         <h3>Resource Manager / Management group</h3>
-        
+
         <h3>Azure HDInsight / Azure Application Insights</h3>
-        
+
         <h3>Sentinel, synapse, sphere</h3>
     </div>
-        
+
     <div class="t2">Tags</div>
         <div class="cont">
-        <p>Template | Tag | Manual </p>
+        <p>Azure | Resumen</p>
         </div>
-    
+
     </body>
 </html>

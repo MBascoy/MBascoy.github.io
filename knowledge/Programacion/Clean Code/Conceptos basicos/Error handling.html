@@ -1,0 +1,58 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Error handling</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Usos de manejo de excepciones en clean code.</p>
+
+        </div>
+
+    <div class="t2">Manejo de excepciones</div>
+        <div class="cont">
+
+          <p>Conceptos clave:</p>
+          <ul>
+            <li>Usar excepciones en vez de devolver códigos de error</li>
+            <li>Usar unchecked exceptions</li>
+            <li>Wrapping exceptions</li>
+            <li>No devolver Null</li>
+            <li>No pasar Null</li>
+          </ul>
+
+          <h2>Usar excepciones en vez de devolver códigos de error</h2>
+          <p>Cuando devolvemos códigos de error nos estamos forzando a realizar una comprobación (bloque if) en el mismo punto de retorno de la función, si utilizamos excepciones podemos separar la lógica del código y el manejo de excepciones en dos sitios distintos</p>
+
+
+          <h2>Usar unchecked exceptions</h2>
+          <p>Si utilizamos <b>unchecked exceptions</b> (Runtime exceptions), nos permite hacer un código menos acoplado, ya que si usamos <b>checked exceptions</b> y definimos una excepción en una función que está muy anidada tendremos que definir un <b>throws</b> en todas las funciones que están por encima de esta hasta llegar al catch, por lo que se genera una violación del <b>Open/Closed Principle</b>.</p>
+
+          <h2>Wrapping exceptions</h2>
+          <p>Una buena práctica es la de encapsular varias excepciones en una sola expceción propia, por ejemplo cuando usamos una API de terceros, de está manera tenemos menos acoplamiento con la libería, ya que si en un futuro cambiasemos de librería solo tendríamos que cambiar el wrapper, ya que todo nuestros código funciona con nuestra propia excepción</p>
+
+          <h2>No devolver Null</h2>
+          <p>Siempre hay que evitar el hecho de devolver <b>Null</b> en nuestras funciones, ya que esto nos genera mas trabajo y mas posibles fallos, ya que el hecho de devolver null nos genera la situación de tener que comprobar si la función ha retornado <b>Null</b> para controlar esa situación y en caso de que no controlemos esa situación podemos llegar a una situación en la que se lanzaría una expceción de <b>NullPointerException</b></p>
+
+          <h2>No pasar Null</h2>
+          <p>Al igual que no devolver null en una funcion, debemos evitar el echo de pasar <b>null</b> a una funcion, ya que nuevamente podemos generar <b>NullPointerException</b>.</p>
+
+          <p><b>NOTA:</b> La excepción a esta regla es si estamos usando una <b>API</b> que requiere que le pasemos <b>Null</b>.</p>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Clean Code | Expcetions | Error</p>
+        </div>
+
+    </body>
+</html>
