@@ -1,0 +1,110 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Desplegar aplicacion Spring maven</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Pasos a seguir para desplegar una aplicación <b>Spring-boot web</b> en Azure usando <b>maven</b></p>
+
+        </div>
+
+    <div class="t2">Método</div>
+        <div class="cont">
+          <p>Primero lanzamos la consola desde la página de <a href="https://portal.azure.com/learn.docs.microsoft.com">Azure</a></p>
+
+          <img src="Desplegar aplicacion Spring maven/1.png">
+
+          <p>Si es la primera vez que lo hacemos veremos un popup para crear un nuevo almacenamiento:</p>
+
+          <img src="Desplegar aplicacion Spring maven/2.png">
+
+          <p>Una vez tenemos abierta la consola primero <b>clonamos</b> el repositorio donde tenemos nuestra aplicación</p>
+
+          <code>git clone https://github.com/MBascoy/JavaRest.git</code>
+
+          <img src="Desplegar aplicacion Spring maven/3.png">
+
+          <p>Entramos en la carpeta del proyecto y ejecutamos el siguiente comando:</p>
+          <code>mvn com.microsoft.azure:azure-webapp-maven-plugin:2.5.0:config</code>
+
+          <img src="Desplegar aplicacion Spring maven/4.png">
+
+          <p>Ahora se nos preguntará una serie de parametros a configurar:</p>
+
+          <p>El sistema operativo, dejamos <b>linux</b></p>
+
+          <img src="Desplegar aplicacion Spring maven/5.png">
+
+          <p>La version de java cogemos la 11:</p>
+
+          <img src="Desplegar aplicacion Spring maven/6.png">
+
+          <p>El tipo de servidor cogemos <b>P1v2</b></p>
+
+          <img src="Desplegar aplicacion Spring maven/7.png">
+
+          <p>Se nos muestra un resumen, revisamos y confirmamos:</p>
+
+          <img src="Desplegar aplicacion Spring maven/8.png">
+
+          <p>Esto nos actualizará el <b>pom.xml</b> para que la aplicación se despliegue correctamente en Azure</p>
+
+          <p>A continuación ejecutamos el siguiente comando:</p>
+
+          <code>mvn package azure-webapp:deploy</code>
+
+          <p>Una vez se acabe de ejecutar el comando ya tenemos nuestra aplicacion disponible en la URL que se indica</p>
+
+          <img src="Desplegar aplicacion Spring maven/12.png">
+
+          <img src="Desplegar aplicacion Spring maven/13.png">
+
+          <p><b>NOTA</b>: a veces la aplicación tarda 1 o 2 minutos en estar disponible.</p>
+
+
+        </div>
+
+
+        <div class="t2">Troubleshooting</div>
+            <div class="cont">
+
+              <h2>Invalid target release</h2>
+
+              <p>Al ejecutar el comando <b>mvn package azure-webapp:deploy</b> nos podemos encontrar con el siguiente problema:</p>
+
+              <img src="Desplegar aplicacion Spring maven/9.png">
+
+              <code>Fatal error compiling: error: invalid target release: 17</code>
+
+              <p>Este fallo se da porque difieren las versiones de java, para solucionarlo simplemente editamos el <b>pom.xml</b> y cambiamos la versión de java:</p>
+
+              <img src="Desplegar aplicacion Spring maven/10.png">
+
+              <p>En este caso pasamos de la 17 a la 11:</p>
+
+              <img src="Desplegar aplicacion Spring maven/11.png">
+
+              <h2>Serialized PollingState</h2>
+
+              <p>Al ejecutar el comando <b>mvn package azure-webapp:deploy</b> nos podemos encontrar con el siguiente problema:</p>
+
+              <img src="Desplegar aplicacion Spring maven/14.png">
+
+              <p>En mi caso fue solo un error temporal, simplemente volviendo a ejecutar el comando todo fue correctamente.</p>
+
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Azure | Deploy</p>
+        </div>
+
+    </body>
+</html>

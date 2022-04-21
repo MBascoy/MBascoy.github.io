@@ -172,6 +172,158 @@
             <li>Amazon Simple Notification Service (SNS)</li>
           </ul>
 
+        </div>
+
+    <div class="t2">Serverless</div>
+        <div class="cont">
+          <p>La computación serverless es la que no requiere interacción con la infraestructura, tu simplemente despliegas tu código y este se ejecuta</p>
+
+          <h2>Lambda Function</h2>
+          <p>AWS Lambda es un servicio serverless para ejecutar código sin necesidad de administrar nada mas.</p>
+
+          <h2>Containers</h2>
+          <ul>
+            <li>Amazon Elastic Container Service (Amazon ECS)</li>
+            <li>Amazon Elastic Kubernetes Service (Amazon EKS)</li>
+            <li>AWS Fargate</li>
+          </ul>
+        </div>
+
+    <div class="t2">AWS Global Infrastructure</div>
+        <div class="cont">
+          <ul>
+            <li>Regions</li>
+              <p>Diferentes Data centers situados en distintos paises</p>
+            <li>Availability Zones</li>
+              <p>Distintos Data centers dentro de un mismo país pero separados geográficamente</p>
+
+              <p>Cuando se lanza una sola instancia de EC2 se ejecuta en una sola <b>Availability Zone</b> por eso se recomienda como minimo ejecutar dos instancias separadas dentro de una misma <b>Availability Zone</b></p>
+
+              <p><b>AWS Outposts</b> is a service that enables you to run infrastructure in a hybrid cloud approach.</p>
+          </ul>
+
+          <h2>Edge Locations</h2>
+          <p>AWS tiene su propio servicio de CDN (Content Delivery Network), llamado <b>CloudFront</b>. Este servicio se puede utilizar para cachear cierto contenido en localizaciones remotas para agilizar así la comunicación y tener menor latencia</p>
+
+        </div>
+
+
+    <div class="t2">Maneras de interactuar con AWS services</div>
+        <div class="cont">
+          <ul>
+            <li>AWS Management Console</li>
+            <li>AWS Command Line Interface (AWS CLI)</li>
+            <li>software development kits (SDKs)</li>
+          </ul>
+
+          <p>Otras maneras de administrar los servicios de AWS son:</p>
+          <ul>
+            <li>AWS Elastic Beanstalk</li>
+            <li>AWS cloudFormation</li>
+          </ul>
+
+        </div>
+
+
+    <div class="t2">Networking</div>
+        <div class="cont">
+          <ul>
+            <li>Virtual Private Cloud (VPC)</li>
+            <li>Virtual Private Gateway</li>
+            <li>AWS Direct Connect</li>
+              <p>Enlace físico entre tu datacenter privado y la infraestructura de amazon</p>
+          </ul>
+
+          <h2>Subnets</h2>
+          <ul>
+            <li>Network Access Control List (NACL) (StateLess)</li>
+              <p>Por defecto <b>ACEPTA</b> todo el trafico tanto entrante como saliente</p>
+            <li>Security Groups (StateFull)</li>
+              <p>Por defecto <b>RECHAZA</b> todo el tráfico entrante. Cuando se crea una instancia de <b>EC2</b> viene con su propio <b>Security Group</b></p>
+          </ul>
+
+          <h2>DNS</h2>
+          <ul>
+            <li>Amazon Route 53</li>
+            <p>Es el servicio DNS de AWS</p>
+          </ul>
+        </div>
+
+
+    <div class="t2">Amazon Databases</div>
+        <div class="cont">
+          <ul>
+            <li>Amazon Elastic Block Store (Amazon EBS)</li>
+              <p>Este almacenamiento permite utilizar </b>EBS Snapshot</b>, que son Backup incrementales, lo que es útil cuando tenemos archivos que sufren pequeñas modificaciones.</p>
+            <li>Amazon Simple Storage Service (Amazon S3)</li>
+              <p>Alamacenamiento para archivos estáticos, hay varias clases de s3:</p>
+              <ul>
+                <li>S3 Standard</li>
+                <li>S3 Standard-Infrequent Access (S3 Standard-IA)</li>
+                <li>S3 One Zone-Infrequent Access (S3 One Zone-IA)</li>
+                <li>S3 Intelligent-Tiering</li>
+                <li>S3 Glacier</li>
+                <li>S3 Glacier Deep Archive</li>
+              </ul>
+
+            <li>Amazon Elastic File System (Amazon EFS)</li>
+              <p>Es un sistema de archivos que puede ser accedido desde cualquiera instancia dentro de una region</p>
+          </ul>
+
+          <h2>Diferencia entre EBS y EFS</h2>
+            <p>EBS</p>
+            <ul>
+              <li>Esta disponible en una sola zona de disponibilidad</li>
+              <li>Para unir una instancia de EC2 a un volumen EBS, tanto el EC2 como el EBS deben de estár dentro de la misma zona de disponibilidad</li>
+            </ul>
+            <p>EFS</p>
+            <ul>
+              <li>Almacena la información en varias zonas de disponibilidad dentro de una misma region</li>
+              <li>Las instancías EC2 pueden acceder a cualquiera EFS dentro de su region</li>
+            </ul>
+
+
+            <h2>Bases de datos relacionales</h2>
+
+            <ul>
+              <li>Amazon Relational Database Service (Amazon RDS)</li>
+              <p>Bases de datos soportadas</p>
+                <ul>
+                  <li>Amazon Aurora</li>
+                  <li>MySQL</li>
+                  <li>PostgreSQL</li>
+                  <li>Oracle</li>
+                  <li>Microsoft SQL Server</li>
+                </ul>
+            </ul>
+
+            <h2>Bases de datos NO relacionales</h2>
+
+            <ul>
+              <li>DynamoDB</li>
+                <p>Es serverless, no necesita de administración.</p>
+            </ul>
+
+            <h2>Amazon RedShift</h2>
+
+            <p>Es una aplicación de <b>data warehousing</b> para ser utilizada con big data analytics</p>
+
+            <h2>AWS Database Migration Service (AWS DMS)</h2>
+            <p>Sistema de migración de bases de datos, las migraciónes pueden ser de 2 tipos:</p>
+            <ul>
+              <li>Homogenous</li>
+              <li>Heterogeneous</li>
+            </ul>
+
+            <h2>Servicios de bases de datos adicionales</h2>
+            <ul>
+              <li>Amazon DocumentDB</li>
+              <li>Amazon Neptune</li>
+              <li>Amazon Quantum Ledger Database (Amazon QLDB)</li>
+              <li>Amazon Managed Blockchain</li>
+              <li>Amazon ElastiCache</li>
+              <li>Amazon DynamoDB Accelerator</li>
+            </ul>
 
         </div>
 
