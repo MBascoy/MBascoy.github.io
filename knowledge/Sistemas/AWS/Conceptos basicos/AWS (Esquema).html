@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="../../../style.css">
     </head>
 
     <body>
@@ -326,6 +326,73 @@
             </ul>
 
         </div>
+
+        <div class="t2">Security</div>
+            <div class="cont">
+              <h2>Responsibility Model</h2>
+              <img src="AWS (Esquema)/1.png">
+
+              <h2>User permissions and access</h2>
+              <ul>
+                <li>AWS Identity and Access Management (IAM)</li>
+                <ul>
+                  <li>Root User</li>
+                    <p>Usuario con todos los permisos</p>
+                  <li>User</li>
+                    <p>Por defecto los usuarios no tienen absolutamente ningun permiso</p>
+                  <li>Groups</li>
+                    <p>Agrupan usuarios</p>
+                  <li>Policies</li>
+                    <p>Las politicas se asignan a grupos o usuarios.</p>
+                  <li>Roles</li>
+                </ul>
+              </ul>
+
+              <h2>AWS Organizations</h2>
+              <p>Centralización de administración de cuentas en AWS, para mas control permite separar las cuentas en <b>Organizational units (OU)</b>.</p>
+
+              <p>A mayores tambien permite utilizar <b>service control policies (SCPs)</b> para controlar los permisos de las cuentas. </p>
+
+              <h2>Compliance</h2>
+              <p>AWS Artifacts</p>
+              <ul>
+                <li>AWS Artifact Agreements</li>
+                <li>AWS Artifact Reports</li>
+              </ul>
+
+              <h2>Distributed denial-of-service (DDoS)</h2>
+              <ul>
+                <li>Security Groups</li>
+                <li>Elastic Load Balancer</li>
+                <li>AWS Shield</li>
+                <ul>
+                  <li>AWS Shield Standard</li>
+                  <li>AWS Shield Advanced</li>
+                </ul>
+              </ul>
+
+              <h2>Servicios adicionales</h2>
+              <ul>
+                <li>AWS Key Management Service (AWS KMS)</li>
+                <li>AWS Web Application Firewall (WAF)</li>
+                <li>Amazon Inspector</li>
+                <li>Amazon GuardDuty</li>
+              </ul>
+            </div>
+
+
+        <div class="t2">Monitoring and Analitycs</div>
+            <div class="cont">
+
+              <ul>
+                <li>Amazon CloudWatch</li>
+                  <p>Sistema de monitorización</p>
+                <li>CloudTrail</li>
+                  <p>Sistema de logs, que registra todas las llamadas a la API de AWS en una cuenta concreta</p>
+                <li>AWS Trusted Advisor</li>
+                  <p>Herramienta para recomendaciones de seguridad, rendimiento y costes.</p>
+              </ul>
+            </div>
 
 
 
