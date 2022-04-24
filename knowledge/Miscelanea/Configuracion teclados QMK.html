@@ -1,0 +1,63 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Configuracion teclados QMK</h1>
+
+    <div class="t2">Instalar QMK</div>
+        <div class="cont">
+          <p>Primero tenemos que instalar el CLI de <b>QMK</b>, que es la herramienta con la que haremos todas las operaciones, los instalamos usando <b>pip</b> (el gestor de paquetes de python):</p>
+          
+          <code>python3 -m pip install --user qmk</code>
+            
+          <p>El comando <b>qmk</b> se instala en <b>~/.local/bin/</b>, así que a continuación editamos el archivo <b>~/.bashrc</b> para añadir la siguiente linea:</p>
+          <code>PATH=$PATH:$HOME/.local/bin/</code>
+          
+          <p>Ahora antes de configurar el <b>qmk</b> tenemos que instalar los siguientes paquetes:</p>
+          <ul>
+            <li>arm-none-eabi-gcc</li>
+            <li>avr-gcc</li>
+            <li>avrdude</li>
+            <li>dfu-util</li>
+            <li>dfu-programmer</li>
+          </ul>
+          
+          <p>Ejecutamos el siguiente comando (como root):</p>
+          <code># zypper in dfu-util dfu-programmer avrdude cross-avr-gcc7 cross-arm-none-gcc7</code>
+          
+          <p>A continuacion configuramos el <b>qmk</b> con el siguiente comando:</p>
+          <code>qmk setup</code>
+          
+          <p>El comando se ejecuta de manera interactiva preguntando algunas cosas, podemos dejarlo todo por defecto</p>
+          
+          <p>Ahora compilamos una imagen para nuestro teclado con el layout por defecto:</p>
+          <code>qmk compile -kb xiudi/xd75 -km default</code>
+          
+          <p>Si obtenemos un error de compilacion de la librería <b>avr</b> podemos solucionarlo instalando el siguiente paquete:</p>
+          <code># zypper in avr-libc</code>
+          
+          <p>Antes de flashear la imagen al teclado tenemos que configurar las reglas <b>udev</b> para que el sistema pueda detectar nuestro teclado, para ello copiamos el archivo de reglas de la siguiente manera:</p>
+          <code># cp /home/jericho/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/</code>
+          
+          <p>Y recargamos las reglas con los siguientes comando:</p>
+          <code># udevadm control --reload-rules</code>
+          <code># udevadm trigger</code>
+          
+          <p>Ahora conectamos nuestro teclado, lo ponemos en modo <b>bootloader</b> (boton reset) para poder flashearlo, y ejecutamos el siguiente comando para flashear la imagen:</p>
+          
+          <code>qmk flash -kb xiudi/xd75 -km default</code>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+          <p>QMK | Keyboard</p>
+        </div>
+
+    </body>
+</html>
