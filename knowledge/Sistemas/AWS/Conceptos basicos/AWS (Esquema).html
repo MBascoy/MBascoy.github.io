@@ -161,6 +161,7 @@
           <p>Es el balanceador de carga de AWS, permite repartir el tráfico entre las distintas instancias de EC2</p>
         </div>
 
+
     <div class="t2">Messaging and queuing</div>
         <div class="cont">
           <p>Sistema de comunicación para distintos servicios dentro de AWS, este sistema nos permite separar un sistema monolítico en varios microservicios y usar este sistema para comunicar los distintos microservicios</p>
@@ -186,6 +187,7 @@
             <li>Amazon Elastic Container Service (Amazon ECS)</li>
             <li>Amazon Elastic Kubernetes Service (Amazon EKS)</li>
             <li>AWS Fargate</li>
+            <p>Es un servicio de computación serverless para contenedores, funciona tanto con ECS como con EKS</p>
           </ul>
         </div>
 
@@ -325,6 +327,57 @@
               <li>Amazon DynamoDB Accelerator</li>
             </ul>
 
+
+            <style type="text/css">
+              .tg  {border-collapse:collapse;border-spacing:0;}
+              .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                overflow:hidden;padding:10px 5px;word-break:normal;}
+              .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+              .tg .tg-i25s{background-color:#00d2cb;border-color:inherit;text-align:center;vertical-align:top}
+              .tg .tg-lku7{background-color:#00d2cb;border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
+              .tg .tg-qz2x{background-color:#ffcb2f;border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
+              .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+            </style>
+            <table class="tg">
+            <thead>
+              <tr>
+                <th class="tg-i25s">   <br>    </th>
+                <th class="tg-lku7">   <br>S3   </th>
+                <th class="tg-lku7">   <br>EBS   </th>
+                <th class="tg-lku7">   <br>EFS   </th>
+                <th class="tg-lku7">   <br>RDS   </th>
+                <th class="tg-lku7">   <br>DynamoDB   </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tg-qz2x">   <br>Backup   </td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Si, hay que activarlo&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Si, se crean manualmente snapshots&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Si, hay que actuvarlo&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Automatico&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Si, se activin manualmente&nbsp;&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td class="tg-qz2x">   <br>Encryption   </td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Se puede activar&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Se puede configurar la cuenta para que los nuevos volúmenes&nbsp;&nbsp;&nbsp;estén encriptados por defecto.&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Si hay que activarlo&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Encryption at rest&nbsp;&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td class="tg-qz2x">   <br>Auto-Scaling por defecto   </td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Si&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>No&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Si&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>No&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">&nbsp;&nbsp;&nbsp;<br>Si&nbsp;&nbsp;&nbsp;</td>
+              </tr>
+            </tbody>
+            </table>
+
         </div>
 
         <div class="t2">Security</div>
@@ -354,7 +407,7 @@
               <p>A mayores tambien permite utilizar <b>service control policies (SCPs)</b> para controlar los permisos de las cuentas. </p>
 
               <h2>Compliance</h2>
-              <p>AWS Artifacts</p>
+              <p>AWS Artifacts servicio que permite acceder a la documentacion de cumplimiento de AWS.</p>
               <ul>
                 <li>AWS Artifact Agreements</li>
                 <li>AWS Artifact Reports</li>
@@ -394,6 +447,164 @@
               </ul>
             </div>
 
+        <div class="t2">Pricing and Support</div>
+            <div class="cont">
+              <ul>
+                <li>AWS Free Tier</li>
+                <li>Pricing types:</li>
+                <ul>
+                  <li>Pay for what you use.</li>
+                  <li>Pay less when you reserve.</li>
+                  <li>Pay less with volume-based discounts when you use more.</li>
+                </ul>
+                <li>AWS Pricing Calculator</li>
+                <li>Billing dashboard</li>
+                <li>Consolidated billing</li>
+                <li>AWS Budgets</li>
+                <li>AWS Cost Explorer</li>
+                <li>AWS Support plans</li>
+                <ul>
+                  <li>Basic Support</li>
+                  <li>Developer</li>
+                  <li>Business</li>
+                  <li>Enterprise </li>
+                </ul>
+                <li>AWS Marketplace</li>
+              </ul>
+
+            </div>
+
+        <div class="t2">Migration and Innovation</div>
+            <div class="cont">
+
+              <ul>
+                <li>AWS Cloud Adoption Framework (AWS CAF)</li>
+                <li>Migration strategies</li>
+                <ul>
+                  <li>Rehosting</li>
+                  <li>Replatforming</li>
+                  <li>Refactoring/re-architecting</li>
+                  <li>Repurchasing</li>
+                  <li>Retaining</li>
+                  <li>Retiring</li>
+                </ul>
+
+                <li>AWS Snow Family</li>
+              </ul>
+
+            </div>
+
+        <div class="t2">Cloud concepts</div>
+            <div class="cont">
+            <p>AWS Well-Architected Framework:</p>
+            <ul>
+              <li>Operational excellence</li>
+              <li>Security</li>
+              <li>Reliability</li>
+              <li>Performance efficiency</li>
+              <li>Cost optimization</li>
+            </ul>
+
+            </div>
+
+
+            <div class="t2">Conceptos de tests</div>
+                <div class="cont">
+                  <h2>SageMaker</h2>
+                  <p>Plataforma que permite crear, entrenar y desplegar modelos de machine learning.</p>
+
+                  <h2>Virtual Tape Library</h2>
+                  <p>Es un servicio de AWS Storage Gateway, nos permite utilizar sistemas de almacenamiento hibridos entre la nube y nuestro sistema on premise.</p>
+
+                  <h2>AWS Config</h2>
+                  <p>Es un servicio que nos permite evaluar las configuraciones de los servicios que tenemos en AWS.</p>
+
+                  <h2>Amazon Cognito</h2>
+                  <p>Nos permite dar de alta cuentas, y gestionar su acceso a la web y aplicaciones moviles para la gestion de AWS.</p>
+
+                  <h2>Amazon Neptune</h2>
+                  <p>Es un servicio para la creacion de aplicaciones de graficos.</p>
+
+                  <h2>Desambiguación CloudWatch, Trusted Advisor y Personal Health</h2>
+                  <ul>
+                    <li>CloudWatch: Servicio de monitorización de servicios AWS que permite ver metricas y establecer alarmas.</li>
+                    <li>Trusted Advisor: Servicio que inspecciona tus servicios de AWS y te da recomendaciones sobre posibles mejoras que puedes realizar,</li>
+                    <li>AWS Personal Health dashboard: es una herramienta que provee alertas y posibles remedios cuando AWS está experimentando algún problema que puede afectar a tus servicios. </li>
+                  </ul>
+
+                  <h2>Cross Region Replication (CRR)</h2>
+                  <p>Se utiliza para duplicar objetos de almacenamiento S3 en varias regiones</p>
+
+                  <h2>Amazon Elastic MapReduce (EMR)</h2>
+                  <p> es una plataforma de clúster administrada que simplifica la ejecución de los marcos de trabajo de Big Data, tales como Apache Hadoopy y Apache Spark, para procesar y analizar grandes cantidades de datos.</p>
+
+                  <h2>AWS Batch</h2>
+                  <p>AWS Batch permite a los desarrolladores, científicos e ingenieros ejecutar de manera fácil y eficiente cientos de miles de trabajos informáticos por lotes en AWS.</p>
+
+                  <h2>AWS CodeDeploy</h2>
+                  <p>AWS CodeDeploy es un servicio de implementación completamente administrado que automatiza las implementaciones de software en diferentes servicios informáticos, como Amazon EC2, AWS Fargate, AWS Lambda y sus servidores locales.</p>
+
+                  <h2>AWS CodeCommit</h2>
+                  <p>Es una herramienta de control de código fuente.</p>
+
+                  <h2>Simple monthly calculator</h2>
+                  <p>Es una herramienta que nos permite hacer una estimación de los costes mensuales basados en tu caso de uso.</p>
+
+                  <h2>AWS Certificate Manager (ACM)</h2>
+                  <p>Servicio que permite gestionar certificados SSL y TLS</p>
+
+                  <h2>Servicios server-based vs serverless</h2>
+                  <ul>
+                    <li>Server-Based:</li>
+                    <ul>
+                      <li>Amazon EC2</li>
+                      <li>Amazon RDS</li>
+                      <li>Amazon RedShift</li>
+                      <li>Amazon EMR</li>
+                    </ul>
+                    <li>Serverless:</li>
+                    <ul>
+                      <li>AWS Lambda</li>
+                      <li>AWS Fargate</li>
+                      <li>AWS SNS</li>
+                      <li>AWS SQS</li>
+                      <li>AWS DynamoDB</li>
+                    </ul>
+                  </ul>
+
+                  <h2>7 principios de desarrollo para la seguridad en la nube</h2>
+                  <ul>
+                    <li>implement strong identity foundation</li>
+                    <li>Enable traceability</li>
+                    <li>apply security at all layers</li>
+                    <li>automate security best practices</li>
+                    <li>protect data in transit and at rest</li>
+                    <li>keep people away from data</li>
+                    <li>prepare for security events</li>
+                  </ul>
+
+                  <h2>AWS Storage Gateway</h2>
+                  <p>Permite expandir nuestro sistema de almacenamiento on premises con sistemas de almacenamiento en la nube</p>
+
+                  <h2>security groups y NACL</h2>
+                  <p>Security groups: firewall a nivel de instancia EC2</p>
+                  <p>NACL: firewall a nivel de VPC</p>
+
+                  <h2>Macie</h2>
+                  <p>Servicio que permite hacer evaluaciones de seguridad de los servicios de AWS, para mejorar la seguridad, una de las caracteristicas que tiene es la de analizar los buckets de S3, para detectar posibles datos sensibles no encriptados.</p>
+
+                  <h2>AWS Athena</h2>
+                  <p>Es un servicio que permite hacer consultas SQL a un almacenamiento S3</p>
+
+                  <h2>Step Functions</h2>
+                  <p>Es un servicio low-code que nos permite gestionar la comunicacion entre distintos componentes de AWS mediante workflows.</p>
+
+                  <h2>AWS Glue</h2>
+                  <p>Es un servicio ETL (Extract, Transform, Load), nos permite realizar ciertos procesamiento sobre los datos antes de ser tratados.</p>
+
+                  <h2>Amazon Machine Image</h2>
+                  <p>Provee la informacion necesaria para desplegar una instancia</p>
+                </div>
 
 
     <div class="t2">Tags</div>
