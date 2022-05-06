@@ -1,0 +1,666 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Template xd75re</h1>
+
+    <div class="t2">Template</div>
+        <div class="cont">
+          <pre>
+ <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(150, 152, 150); font-weight:400;">/* Copyright 2017 Wunder
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#include QMK_KEYBOARD_H</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">enum</span> <span style="color:rgb(255, 204, 102); font-weight:400;">custom_keycodes</span> </span>{
+    MVKBD = SAFE_RANGE,
+    MVNAV,
+    MVMOUSE,
+    NAVBACK,
+    ALTWIN,
+    ALTTABR,
+    ALTTABL,
+    CRTTAB,
+    SELECT,
+    COPY,
+    PASTE,
+    CUT,
+    UNDO,
+    DELETE,
+    CLOSETAB,
+    NEWTAB,
+    INCOG,
+    S_LANGBRT,
+    S_RANGBRT,
+    S_LCURLYBRT,
+    S_RCURLYBRT,
+    S_LSQBRT,
+    S_RSQBRT,
+    S_LPAREN,
+    S_RPAREN,
+    S_LQMARK,
+    S_RQMARK,
+    S_SLSH,
+    S_EQL,
+    S_QUOT,
+    S_AT,
+    S_ASTRK,
+    S_DOLLAR,
+    S_PERC,
+    S_HASTG,
+    S_ACFL,
+    S_AMP,
+    S_EXCL,
+    S_NFEM,
+    S_BSLSH,
+    S_VGL,
+    S_PIPE,
+    UF,
+    DF,
+    LF,
+    RF,
+    UFF,
+    DFF,
+    LFF,
+    RFF
+};
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">enum</span> <span style="color:rgb(255, 204, 102); font-weight:400;">layer_names</span> </span>{
+    _KB,
+    _NAV,
+    _MOUSE,
+    _NAVF,
+    _NAVFF,
+    _NUMBERS,
+    _SYMBOLS,
+    _MED
+};
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">bool</span> process_record_user(uint16_t keycode, keyrecord_t *record) {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">switch</span> (keycode) {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> MVKBD:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            <span style="color:rgb(150, 152, 150); font-weight:400;">// when keycode is pressed</span>
+            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            <span style="color:rgb(150, 152, 150); font-weight:400;">// when keycode is released</span>
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> MVNAV:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>);
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> MVMOUSE:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            layer_move(_MOUSE);
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> NAVBACK:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LEFT));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> ALTWIN:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_TAB));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> ALTTABR:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_TAB));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> ALTTABL:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LSFT) SS_TAP(X_TAB));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> CRTTAB:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_T));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> SELECT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LSFT));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> COPY:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_C));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> PASTE:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_V));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> CUT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_X));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> UNDO:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_Z));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DELETE:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_BSPC));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> CLOSETAB:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_W));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> NEWTAB:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_T));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> INCOG:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LSFT) SS_DOWN(X_N));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+
+        <span style="color:rgb(150, 152, 150); font-weight:400;">/*---------------SYMBOLS----------------*/</span>
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_RANGBRT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_NUBS));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_LCURLYBRT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_QUOT));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_RCURLYBRT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_BSLS));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+   <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_LSQBRT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_LBRC));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_RSQBRT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_RBRC));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_LPAREN:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_8));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_RPAREN:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_9));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_LQMARK:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_EQL));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_RQMARK:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_MINS));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_SLSH:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_7));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_EQL:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_UP(X_RALT));
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_0));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_QUOT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_2));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_AT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_2));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_ASTRK:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_RBRC));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_DOLLAR:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_4));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_PERC:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_5));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_HASTG:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_3));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_ACFL:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LBRC));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_AMP:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_6));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_EXCL:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_1));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_NFEM:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_GRV));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_BSLSH:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_GRV));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_VGL:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_4));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_PIPE:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_1));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+
+        <span style="color:rgb(150, 152, 150); font-weight:400;">/*---------------FAST FUNCTIONS----------------*/</span>
+
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> UF:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_UP) SS_DOWN(X_UP) SS_DOWN(X_UP) SS_DOWN(X_UP) SS_DOWN(X_UP));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            SEND_STRING(SS_UP(X_UP));
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DF:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_DOWN) SS_DOWN(X_DOWN) SS_DOWN(X_DOWN) SS_DOWN(X_DOWN) SS_DOWN(X_DOWN));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            SEND_STRING(SS_UP(X_DOWN));
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> LF:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            SEND_STRING(SS_UP(X_LEFT));
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> RF:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            SEND_STRING(SS_UP(X_RIGHT));
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> UFF:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_UP) SS_DOWN(X_UP) SS_DOWN(X_UP) SS_DOWN(X_UP) SS_DOWN(X_UP) SS_DOWN(X_UP) SS_DOWN(X_UP) SS_DOWN(X_UP) SS_DOWN(X_UP) SS_DOWN(X_UP));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            SEND_STRING(SS_UP(X_UP));
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DFF:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_DOWN) SS_DOWN(X_DOWN) SS_DOWN(X_DOWN) SS_DOWN(X_DOWN) SS_DOWN(X_DOWN) SS_DOWN(X_DOWN) SS_DOWN(X_DOWN) SS_DOWN(X_DOWN) SS_DOWN(X_DOWN) SS_DOWN(X_DOWN));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            SEND_STRING(SS_UP(X_DOWN));
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> LFF:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) SS_DOWN(X_LEFT) );
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            SEND_STRING(SS_UP(X_LEFT));
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> RFF:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT) SS_DOWN(X_RIGHT));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            <span style="color:rgb(150, 152, 150); font-weight:400;">// when keycode is released</span>
+            SEND_STRING(SS_UP(X_RIGHT));
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    }
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+};
+
+
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/* KB
+     * .--------------------------------------------------------------------------------------------------------------------------------------.
+     * | CAPS   | 1      | 2      | ESC    | LCTRL  |KC_VOLD |KC_VOLU | `      | =      | 6      | 7      | 8      | 9      | 0      |PRTSCCR |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
+     * | ESC    | Q      | W      | E      | R      | T      | 7      | 8      | 9      | Y      | U      | I      | O      | P      | &#x27;      |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
+     * | TAB    | A      | S      | D      | F      | G      | 4      | 5      | 6      | H      | J      | K      | L      | ;      | RSHIFT |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
+     * | LSHIFT | Z      | X      | C      | V      | B      | 1      | 2      | 3      | N      | M      | ,      | .      | /      | MVKBD  |
+     * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+-----------------+--------+--------|
+     * | LCTRL  | LGUI   | MEDIA  | LALT   | MVNAV  | BACKSP |MVMOUSE | 0      |NUMBERS | ENTER  | SPACE  | SYMB   | RALT   | RGUI   | RCTRL  |
+     * &#x27;--------------------------------------------------------------------------------------------------------------------------------------&#x27;
+     */</span>
+    [_KB] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* QWERTY */</span>
+       KC_CAPS, KC_1,    KC_2,   KC_ESC, KC_LCTL,  KC_VOLD,  KC_VOLU, KC_GRV,       KC_EQL,    KC_6,  KC_7,   KC_BSPC, KC_DEL,    KC_0 ,  KC_PSCR,
+       KC_QUOT, KC_Q,    KC_W,     KC_E,     KC_R,    KC_T,     KC_7,   KC_8,         KC_9,    KC_Y,  KC_U,      KC_I,   KC_O,     KC_P,  KC_QUOT,
+        KC_TAB, KC_A,    KC_S,     KC_D,     KC_F,    KC_G,     KC_4,   KC_5,         KC_6,    KC_H,  KC_J,      KC_K,   KC_L,  KC_SCLN,  KC_RSFT,
+       KC_LSFT, KC_Z,    KC_X,     KC_C,     KC_V,    KC_B,     KC_1,   KC_2,         KC_3,    KC_N,  KC_M,   KC_COMM, KC_DOT,  KC_SLSH,    MVKBD,
+       KC_LCTL, KC_LGUI, TG(_MED), KC_LALT, MVNAV, KC_BSPC,  MVMOUSE,   KC_0, MO(_NUMBERS), KC_PENT,  KC_SPC, MO(_SYMBOLS), KC_RALT, KC_RGUI,  KC_RCTL
+    ),
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/* NAV
+     * .--------------------------------------------------------------------------------------------------------------------------------------.
+     * |        |        |        |  ESC   |        | VOL_D  | VOL_U  |        |        |        |        |        |        |        |KC_TRNS |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |        |CLOSETAB|ALTTABL |ALTTABR | NEWTAB |        |        |        |        |        | UP     | PG_UP  |        |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * | ALTWIN |        | F      | FF     |        |        |        |        |        |        | LEFT   | DOWN   | RIGHT  |        |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * | SELECT | UNDO   | CUT    | COPY   | PASTE  |        |        |        |        | INCOG  |PG_DOWN |        |        |        | MVKBD  |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * | LSHIFT |        |        |        | MVKBD  | DELETE |MVMOUSE |        |        | ENTER  |KC_TRNS | SYMB   |        |        |        |
+     * &#x27;--------------------------------------------------------------------------------------------------------------------------------------&#x27;
+     */</span>
+
+    [_NAV] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* FUNCTION */</span>
+         KC_NO, KC_NO,    KC_NO,      KC_ESC,   KC_NO,KC_VOLD, KC_VOLU,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO, KC_NO, KC_TRNS,
+         KC_NO, KC_NO,  CLOSETAB,    ALTTABL, ALTTABR, NEWTAB,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_UP,  KC_PGUP, KC_NO,   KC_NO,
+        ALTWIN, KC_NO, MO(_NAVF), MO(_NAVFF),   KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_LEFT, KC_DOWN, KC_RIGHT, KC_NO,   KC_NO,
+        SELECT,  UNDO,       CUT,       COPY,   PASTE,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   INCOG, KC_PGDN,   KC_NO,    KC_NO, KC_NO,   MVKBD,
+       KC_LSFT, KC_NO,     KC_NO,      KC_NO,   MVKBD, DELETE, MVMOUSE, KC_TRNS,   KC_NO, KC_PENT, KC_TRNS, MO(_SYMBOLS), KC_NO, KC_NO,   KC_NO
+    ),
+
+    [_NAVF] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* FUNCTION */</span>
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, UF,      KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LF,      DF,      RF,      KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
+    [_NAVFF] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* FUNCTION */</span>
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, UFF,     KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LFF,     DFF,     RFF,     KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/* NUMBERS
+     * .--------------------------------------------------------------------------------------------------------------------------------------.
+     * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        | F1     | F2     | F3     | F4     | F5     |        |        |        | F6     | F7     | F8     | F9     | F10    | F11    |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        | 1      | 2      | 3      | 4      | 5      |        |        |        | 6      | 7      | 8      | 9      | 0      |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |        |        |        | F11    | F12    |        |        |        | 0      |        |        |        |        |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * | CTRL   |        |        | ALT    |        |        |        |        |KC_TRNS |        |        |        |        |        |        |
+     * &#x27;--------------------------------------------------------------------------------------------------------------------------------------&#x27;
+     */</span>
+
+    [_NUMBERS] = LAYOUT_ortho_5x15(
+          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+          KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_NO,   KC_NO,   KC_NO,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
+          KC_NO,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_NO,   KC_NO,   KC_NO,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   KC_NO,
+          KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_F11,  KC_F12,   KC_NO,   KC_NO,   KC_NO,    KC_0,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_LCTL,   KC_NO,   KC_NO, KC_LALT,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_TRNS,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
+    ),
+
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/* MOUSE
+     * .--------------------------------------------------------------------------------------------------------------------------------------.
+     * | RESET  |        |        |        |        |        |        |        |        |        |        |        |        |        |KC_TRNS |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |        |        |        |        |        |        |        |        |        |        | M_UP   | M_WH_U |        |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        | ACL_0  | ACL_1  | ACL_2  | M_BTN1 | M_BTN2 |        |        |        |        | M_LEFT | M_DOWN |M_RIGHT |        |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |        |        |        |        |        |        |        |        |        | M_WH_D |        |        |        | MVKBD  |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |RGB_TOG |        |        |        | MVNAV  |KC_TRNS | MVKBD  |        |        | ENTER  |KC_TRNS |        |        |        |        |
+     * &#x27;--------------------------------------------------------------------------------------------------------------------------------------&#x27;
+     */</span>
+    [_MOUSE] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* FUNCTION */</span>
+          RESET,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_VOLD, KC_VOLU,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_MS_U, KC_WH_U,   KC_NO,   KC_NO,
+          KC_NO, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN1, KC_BTN2,   KC_NO,   KC_NO,   KC_NO, NAVBACK, KC_MS_L, KC_MS_D, KC_MS_R,   KC_NO,   KC_NO,
+          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_WH_D,   KC_NO,   KC_NO,   KC_NO,   MVKBD,
+          KC_NO,   KC_NO,   KC_NO,   KC_NO,   MVNAV, KC_TRNS,   MVKBD,   KC_NO,   KC_NO, KC_PENT, KC_TRNS,   KC_NO,   KC_NO,   KC_NO,   KC_NO
+    ),
+
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/* Symbols
+     * .--------------------------------------------------------------------------------------------------------------------------------------.
+     * |        |   ª    |   º    |   @    |        |        |        |        |        |        |        |        |        |        |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |   ¿    |   ?    |   &lt;    |   &gt;    |   $    |        |        |        |        |   ^    |   (    |   )    |   ~    |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |   +    |   /    |   {    |   }    |   =    |        |        |        |        |   &amp;    |   &quot;    |   &#x27;    |   \    |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |   `    |   *    |   [    |   ]    |   %    |        |        |        |        |   #    |   |    |   !    |        |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |        |        |        |        |        |        |        |        |        |        |KC_TRNS |        |        |        |
+     * &#x27;--------------------------------------------------------------------------------------------------------------------------------------&#x27;
+     */</span>
+    [_SYMBOLS] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* FUNCTION */</span>
+          KC_NO,   S_NFEM,   KC_GRV,        S_AT,       KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO,    KC_NO,    KC_NO,   KC_NO,   KC_NO,
+          KC_NO, S_LQMARK, S_RQMARK,     KC_NUBS,   S_RANGBRT, S_DOLLAR, KC_NO, KC_NO, KC_NO, KC_NO, S_ACFL, S_LPAREN, S_RPAREN,   S_VGL,   KC_NO,
+          KC_NO,  KC_RBRC,   S_SLSH, S_LCURLYBRT, S_RCURLYBRT,    S_EQL, KC_NO, KC_NO, KC_NO, KC_NO,  S_AMP,   S_QUOT,  KC_MINS, S_BSLSH,   KC_NO,
+          KC_NO,  KC_LBRC,  S_ASTRK,    S_LSQBRT,    S_RSQBRT,   S_PERC, KC_NO, KC_NO, KC_NO, KC_NO,S_HASTG,   S_PIPE,   S_EXCL,   KC_NO,   KC_NO,
+          KC_NO,    KC_NO,    KC_NO,       KC_NO,       KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO,  KC_TRNS,    KC_NO,   KC_NO,   KC_NO
+    ),
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/* MEDIA
+     * .--------------------------------------------------------------------------------------------------------------------------------------.
+     * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |RGB_HUI |RGB_SAI |RGB_VAI |RGB_SPI |        |        |        |        |        |        |  STOP  | VOLU   |        |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |RGB_HUD |RGB_SAD |RGB_VAD |RGB_SPD |        |        |        |        |        | PREV   |  PLAY  | NEXT   |        |        |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |RGB_TOG |RGB_MOD |RGB_RMOD|        |        |        |        |        |        | VOLD   |        |        |        | MVKBD  |
+     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+     * |        |        |KC_TRNS |        | MVNAV  |        |MVMOUSE |        |        |        | MUTE   |        |        |        |        |
+     * &#x27;--------------------------------------------------------------------------------------------------------------------------------------&#x27;
+     */</span>
+    [_MED] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* FUNCTION */</span>
+          KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+          KC_NO, RGB_HUI, RGB_SAI,  RGB_VAI, RGB_SPI,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,  KC_MSTP, KC_VOLU,   KC_NO,   KC_NO,
+          KC_NO, RGB_HUD, RGB_SAD,  RGB_VAD, RGB_SPD,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_MPRV,  KC_MPLY, KC_MNXT,   KC_NO,   KC_NO,
+          KC_NO, RGB_TOG, RGB_MOD, RGB_RMOD,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_VOLD,    KC_NO,   KC_NO,   KC_NO,   MVKBD,
+          KC_NO,   KC_NO, KC_TRNS,    KC_NO,   MVNAV,   KC_NO,   MVMOUSE,   KC_NO,   KC_NO,   KC_NO,  KC_MUTE,    KC_NO,   KC_NO,   KC_NO,   KC_NO
+    )
+};
+</code></pre>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+          <p>QMK | xd75re | keymap</p>
+        </div>
+
+    </body>
+</html>

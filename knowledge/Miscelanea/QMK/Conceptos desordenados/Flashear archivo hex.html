@@ -21,17 +21,39 @@
           <p>Para compilar el archivo <b>hex</b> lo hacemos con el siguiente comando:</p>
 
           <code>> qmk flash -kb teclado -km layout</code>
+          
+          <img src="Flashear archivo hex/1.png">
 
           <p>El archivo <b>hex</b> se guarda en la carpeta <b>.build</b> dentro de la carpeta de <b>qmk_firmware</b>.</p>
 
           <h2>Flashear archivo hex</h2>
+
+          <p><b>NOTA:</b> Antes de flashear el teclado tenemos que ponerlo en modo <b>RESET</b> lo cual dejará el teclado sin funcionalidad hasta que completemos el flasheo, por lo tanto es probable que necesitemos en teclado auxiliar para realizar la ejecución de los comandos.</p>
+          
+          <p>Si no ponemos el teclado en modo <b>RESET</b> veremos el siguiente mensaje de error:</p>
+
+          <code>dfu-programmer: no device present.</code>
+          
+          <p>Antes de flashear el archivo <b>hex</b> a nuetro teclado, necesitamos saber cual es el nombre de la placa, esto lo podemos consultar en el archivo <b>rules.mk</b> en la carpeta de nuestro teclado, dentro de la carpeta de <b>qmk_firmware</b>:</p>
+          <img src="Flashear archivo hex/5.png">
+          
           <p>Para flashear el archivo hex que acabamos de compilar lo hacemos con los siguientes comandos:</p>
-
-          <p><b>NOTA:</b> Antes de flashear el teclado tenemos que ponerlo en modo <b>RESET</b> lo cual dejará el teclado sin funcionalidad hasta que completemos el flasheo, por lo tanto es probable que necesitemos en teclado auxiliar para realizar la ejecución de los comandos. </p>
-
-          <code>dfu-programmer atmega32u4 erase --force</code>
-          <code>dfu-programmer atmega32u4 flash your.hex</code>
-          <code>dfu-programmer atmega32u4 reset</code>
+          
+          <code>dfu-programmer nombre_placa erase --force</code>
+          
+          <img src="Flashear archivo hex/2.png">
+          
+          <p>Este comando borra la memoria del teclado, dejándolo listo para meter un nuevo programa</p>
+          
+          <p>A continuación flasheamos nuestro archivo <b>hex</b>:</p>
+          <code>dfu-programmer nombre_placa flash your.hex</code>
+          
+          <img src="Flashear archivo hex/3.png">
+          
+          <p>Y para finalizar reiniciamos nuestro teclado para que carge el nuevo software:</p>
+          <code>dfu-programmer nombre_placa reset</code>
+          
+          <img src="Flashear archivo hex/4.png">
         </div>
 
 
