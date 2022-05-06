@@ -537,7 +537,7 @@
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
      * | SELECT | UNDO   | CUT    | COPY   | PASTE  |        |        |        |        | INCOG  |PG_DOWN |        |        |        | MVKBD  |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-     * | LSHIFT |        |        |        | MVKBD  | DELETE |MVMOUSE |        |        | ENTER  |KC_TRNS | SYMB   |        |        |        |
+     * | LSHIFT |        |        |        | MVKBD  | DELETE |MVMOUSE |        |NUMBERS | ENTER  |KC_TRNS | SYMB   |        |        |        |
      * &#x27;--------------------------------------------------------------------------------------------------------------------------------------&#x27;
      */</span>
 
@@ -546,7 +546,7 @@
          KC_NO, KC_NO,  CLOSETAB,    ALTTABL, ALTTABR, NEWTAB,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_UP,  KC_PGUP, KC_NO,   KC_NO,
         ALTWIN, KC_NO, MO(_NAVF), MO(_NAVFF),   KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_LEFT, KC_DOWN, KC_RIGHT, KC_NO,   KC_NO,
         SELECT,  UNDO,       CUT,       COPY,   PASTE,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   INCOG, KC_PGDN,   KC_NO,    KC_NO, KC_NO,   MVKBD,
-       KC_LSFT, KC_NO,     KC_NO,      KC_NO,   MVKBD, DELETE, MVMOUSE, KC_TRNS,   KC_NO, KC_PENT, KC_TRNS, MO(_SYMBOLS), KC_NO, KC_NO,   KC_NO
+       KC_LSFT, KC_NO,     KC_NO,      KC_NO,   MVKBD, DELETE, MVMOUSE, KC_TRNS,MO(_NUMBERS), KC_PENT, KC_TRNS, MO(_SYMBOLS), KC_NO, KC_NO, KC_NO
     ),
 
     [_NAVF] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* FUNCTION */</span>
@@ -591,7 +591,7 @@
 
     <span style="color:rgb(150, 152, 150); font-weight:400;">/* MOUSE
      * .--------------------------------------------------------------------------------------------------------------------------------------.
-     * | RESET  |        |        |        |        |        |        |        |        |        |        |        |        |        |KC_TRNS |
+     * | RESET  |        |        |  ESC   |        |        |        |        |        |        |        |        |        |        |KC_TRNS |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
      * |        |        |        |        |        |        |        |        |        |        |        | M_UP   | M_WH_U |        |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -603,7 +603,7 @@
      * &#x27;--------------------------------------------------------------------------------------------------------------------------------------&#x27;
      */</span>
     [_MOUSE] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* FUNCTION */</span>
-          RESET,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_VOLD, KC_VOLU,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+          RESET,   KC_NO,   KC_NO,  KC_ESC,   KC_NO, KC_VOLD, KC_VOLU,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
           KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_MS_U, KC_WH_U,   KC_NO,   KC_NO,
           KC_NO, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN1, KC_BTN2,   KC_NO,   KC_NO,   KC_NO, NAVBACK, KC_MS_L, KC_MS_D, KC_MS_R,   KC_NO,   KC_NO,
           KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_WH_D,   KC_NO,   KC_NO,   KC_NO,   MVKBD,
