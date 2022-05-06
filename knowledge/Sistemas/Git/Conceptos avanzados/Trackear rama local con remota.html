@@ -32,6 +32,12 @@
             <li>Tenemos una rama remota que no está asignada a ninguna local (en ese caso la rama no existiría en nuestro local, solo en remoto)</li>
           </ul>
 
+          <p>Un comando alternativo para ver el estado de las ramas <b>trackeadas</b> es:</p>
+          <code>> git branch -vv</code>
+
+          <img src="Trackear rama local con remota/7.png"/>
+
+          <p>Con este comando vemos <b>todas las ramas</b>, las que estan <b>trackeadas</b> con una rama remota muestran <b>entre corchetes y en azul</b> la rama con la que estan trackeadas, las ramas que no tienen niguna rama trackeada no muestran esta información.</p>
 
           <h2>Rama local existente / Rama remota NO existente</h2>
 
@@ -65,18 +71,17 @@
 
           <img src="Trackear rama local con remota/5.png"/>
 
-          <p>Con este comando incluso podemos trackear ramas con nombres distintos, aunque NO ES RECOMENDABLE</p>
+          <p>Con este comando incluso podemos trackear ramas con nombres distintos, aunque <b>NO ES RECOMENDABLE</b></p>
 
           <img src="Trackear rama local con remota/6.png"/>
+
+          <p><b>NOTA:</b> Cuando queremos trackear dos ramas con nombres distintos las dos ramas deben de existir (tanto en remoto como en local)</p>
 
           <h2>Untrackear ramas</h2>
 
           <p>Si queremos dejar de tener una rama enlazada con otra rama remota podemos hacerlo con el siguiente comando:</p>
 
           <code>> git branch --unset-upstream</code>
-
-
-
 
 
         </div>

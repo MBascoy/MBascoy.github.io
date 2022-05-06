@@ -11,7 +11,27 @@
 
     <div class="t2">Descripcion</div>
         <div class="cont">
-          <p>
+          <p>Normalmente  para compilar y flashear una imagen para nuestro teclado usamos el siguiente comando:</p>
+
+          <code>> qmk flash -kb teclado -km layout</code>
+
+          <p>Pero si queremos podemos hacer el proceso de manera separada, primero <b>compilar</b> solo el archivo <b>hex</b> y despues <b>flashear</b> ese archivo al teclado.</p>
+
+          <h2>Compilar archivo</h2>
+          <p>Para compilar el archivo <b>hex</b> lo hacemos con el siguiente comando:</p>
+
+          <code>> qmk flash -kb teclado -km layout</code>
+
+          <p>El archivo <b>hex</b> se guarda en la carpeta <b>.build</b> dentro de la carpeta de <b>qmk_firmware</b>.</p>
+
+          <h2>Flashear archivo hex</h2>
+          <p>Para flashear el archivo hex que acabamos de compilar lo hacemos con los siguientes comandos:</p>
+
+          <p><b>NOTA:</b> Antes de flashear el teclado tenemos que ponerlo en modo <b>RESET</b> lo cual dejará el teclado sin funcionalidad hasta que completemos el flasheo, por lo tanto es probable que necesitemos en teclado auxiliar para realizar la ejecución de los comandos. </p>
+
+          <code>dfu-programmer atmega32u4 erase --force</code>
+          <code>dfu-programmer atmega32u4 flash your.hex</code>
+          <code>dfu-programmer atmega32u4 reset</code>
         </div>
 
 
