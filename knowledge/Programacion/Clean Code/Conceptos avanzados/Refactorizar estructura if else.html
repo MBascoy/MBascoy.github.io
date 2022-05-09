@@ -1,0 +1,141 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Refactorizar estructura if else</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como refactorizar una estructura if-else para que sea mas facil de leer y mejor entendible.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+          <h2>Ejemplo 1</h2>
+
+          <p>El siguiente código:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">isLeapYear</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">final</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> yyyy)</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> ((yyyy % <span style="color:rgb(249, 145, 87); font-weight:400;">4</span>) != <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>) {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> ((yyyy % <span style="color:rgb(249, 145, 87); font-weight:400;">400</span>) == <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>) {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> ((yyyy % <span style="color:rgb(249, 145, 87); font-weight:400;">100</span>) == <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>) {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+    }
+}</code></pre>
+
+          <p>Podemos refactorizarlo como:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">isLeapYear</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> year)</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> fourth = year  <span style="color:rgb(249, 145, 87); font-weight:400;">4</span> == <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> hundredth = year % <span style="color:rgb(249, 145, 87); font-weight:400;">100</span> == <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> fourHundredth = year % <span style="color:rgb(249, 145, 87); font-weight:400;">400</span> == <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> fourth &amp;&amp; (!hundredth || fourHundredth);
+}</code></pre>
+
+        <h2>Ejemplo 2</h2>
+
+        <p><a href="https://github.com/MBascoy/CleanCode-Examples/tree/main/if-else%20refactor">Código completo</a> </p>
+
+        <p>Código sin refactorizar:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">ThingBad</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> String name;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> String getType(){
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.name.equals(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gato&quot;</span>)){
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;animal&quot;</span>;
+        }<span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.name.equals(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cactus&quot;</span>)){
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span><span style="color:rgb(138, 190, 183); font-weight:400;">&quot;plant&quot;</span>;
+        }<span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.name.equals(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;car&quot;</span>)){
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;object&quot;</span>;
+        }<span style="color:rgb(204, 153, 204); font-weight:400;">else</span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;unknown&quot;</span>;
+        }
+    }
+}</code></pre>
+
+        <p>Código refactorizado 1:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ThingGood</span> </span>{
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> name;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> final <span style="color:rgb(181, 189, 104); font-weight:400;">Map</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">String</span>, <span style="color:rgb(181, 189, 104); font-weight:400;">String</span>&gt; things = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> HashMap&lt;&gt;();
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ThingGood</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+      things.put(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gato&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;animal&quot;</span>);
+      things.put(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cactus&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;plant&quot;</span>);
+      things.put(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;car&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;object&quot;</span>);
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getName</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+      <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> name;
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">setName</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span> name</span>)</span> {
+      <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.name = name;
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">printType</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+      System.out.println(<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.getType());
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getType</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+      <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> result;
+      result = things.get(<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.name);
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (result == <span style="color:rgb(204, 153, 204); font-weight:400;">null</span>) ? <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;unknown&quot;</span> : result;
+  }
+}</code></pre>
+
+          <p>Código refactorizado 2:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Thing</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> name;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getName</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> name;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">setName</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span> name</span>)</span> {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.name = name;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">printType</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+        System.out.println(<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.getType());
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getType</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.name.equals(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gato&quot;</span>)) <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;animal&quot;</span>;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.name.equals(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cactus&quot;</span>)) <span style="color:rgb(204, 153, 204); font-weight:400;">return</span><span style="color:rgb(138, 190, 183); font-weight:400;">&quot;plant&quot;</span>;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.name.equals(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;car&quot;</span>)) <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;object&quot;</span>;
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;unknown&quot;</span>;
+    }
+}</code></pre>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Clean Code | if else</p>
+        </div>
+
+    </body>
+</html>
