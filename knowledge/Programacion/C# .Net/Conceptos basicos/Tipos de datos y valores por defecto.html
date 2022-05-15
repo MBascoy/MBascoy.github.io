@@ -1,0 +1,90 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Tipos de datos y valores por defecto</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <table>
+              <tbody>
+                <tr>
+                  <th style="width:20%">Tipo</th>
+                  <th style="width:30%">Valor por defecto</th>
+                </tr>
+                <tr>
+                  <td>int</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>char</td>
+                  <td>\0</td>
+                </tr>
+                <tr>
+                  <td>bool</td>
+                  <td>false</td>
+                </tr>
+                <tr>
+                  <td>DateTime</td>
+                  <td>01/01/0001 00:00:00</td>
+                </tr>
+                <tr>
+                  <td>String</td>
+                  <td>null</td>
+                </tr>
+                <tr>
+                  <td>double</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>decimal</td>
+                  <td>0</td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+
+        <div class="t2">Imprimir valores por defecto</div>
+            <div class="cont">
+              <p>Para imprimir el valor por defecto de un tipo podemos hacerlo con un código como el siguiente:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> System.Console;
+
+WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;int = <span style="color:rgb(249, 145, 87); font-weight:400;">{<span class="hljs-literal">default</span>(<span class="hljs-built_in">int</span>)}</span>&quot;</span>);
+WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;char = <span style="color:rgb(249, 145, 87); font-weight:400;">{<span class="hljs-literal">default</span>(<span class="hljs-built_in">char</span>)}</span>&quot;</span>);
+WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;double = <span style="color:rgb(249, 145, 87); font-weight:400;">{<span class="hljs-literal">default</span>(<span class="hljs-built_in">double</span>)}</span>&quot;</span>);
+WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;DateTime = <span style="color:rgb(249, 145, 87); font-weight:400;">{<span class="hljs-literal">default</span>(DateTime)}</span>&quot;</span>);
+WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;String = <span style="color:rgb(249, 145, 87); font-weight:400;">{<span class="hljs-literal">default</span>(String)}</span>&quot;</span>);
+WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;decimal = <span style="color:rgb(249, 145, 87); font-weight:400;">{<span class="hljs-literal">default</span>(<span class="hljs-built_in">decimal</span>)}</span>&quot;</span>);
+WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;bool = <span style="color:rgb(249, 145, 87); font-weight:400;">{<span class="hljs-literal">default</span>(<span class="hljs-built_in">bool</span>)}</span>&quot;</span>);</code></pre>
+
+            </div>
+
+
+        <div class="t2">Infered types</div>
+            <div class="cont">
+              <p>Cuando ponemos un numero entero sin ningun modificador es interpretado como un <b>int</b>, si queremos que se interprete como un tipo de dato distintos podemos usar uno de los siguientes modificadores:</p>
+
+              <ul>
+                <li><b>L</b>: para long</li>
+                <li><b>UL</b>: para ulong</li>
+                <li><b>M</b>: para decimal</li>
+                <li><b>D</b>: para double</li>
+                <li><b>F</b>: para float</li>
+              </ul>
+
+              <p>De manera que si ponemos un numero como <b>36</b>, sería un <b>int</b>, pero si ponemos <b>36L</b> sería un <b>long</b>.</p>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Arrays</p>
+        </div>
+
+    </body>
+</html>
