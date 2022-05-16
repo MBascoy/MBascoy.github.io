@@ -1,0 +1,54 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">For y foreach</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar la sentencia <b>for</b> y <b>foreach</b> en C#.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Usamos el for de la siguiente manera:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (int i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>; i++)
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">WriteLine</span>(i);
+}</code></pre>
+
+          <h2>foreach</h2>
+          <p>El foreach podemos usarlo sobre colecciones de tipos de datos, como por ejemplo un array:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;">string</span>[] nombres = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>[] {<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pepe&quot;</span>,<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Maria&quot;</span>,<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Paco&quot;</span>};
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (<span style="color:rgb(181, 189, 104); font-weight:400;">string</span> nombre <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> nombres)
+{
+    WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">{nombre}</span> tiene una longitud de <span style="color:rgb(249, 145, 87); font-weight:400;">{nombre.Length}</span>&quot;</span>);
+}</code></pre>
+
+          <p>Para poder usar <b>foreach</b> sobre un tipo de datos tiene que cumplir lo siguiente:</p>
+
+          <ul>
+            <li>El tipo debe de tener un metodo <b>GetEnumerator</b> que devuelva un objeto</li>
+            <li>El objeto devuelto debe de tener una propiedad <b>Current</b> y un metodo <b>MoveNext</b></li>
+            <li>El metodo <b>MoveNext</b> debe cambiar el valor de <b>Current</b> y devolver <b>true</b> si hay mas elemento sobre los que iterar y <b>false</b> si no hay mas elementos.</li>
+          </ul>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | </p>
+        </div>
+
+    </body>
+</html>
