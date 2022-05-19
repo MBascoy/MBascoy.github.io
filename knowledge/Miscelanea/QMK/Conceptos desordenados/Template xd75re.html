@@ -35,6 +35,7 @@
     MVNAV,
     MVMOUSE,
     NAVBACK,
+    NAVFRNT,
     ALTWIN,
     ALTTABR,
     ALTTABL,
@@ -122,6 +123,14 @@
     <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> NAVBACK:
         <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
             SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LEFT));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> NAVFRNT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_RIGHT));
         } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
             clear_keyboard();
         }
@@ -508,45 +517,45 @@
 <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     <span style="color:rgb(150, 152, 150); font-weight:400;">/* KB
      * .--------------------------------------------------------------------------------------------------------------------------------------.
-     * | CAPS   | 1      | 2      | ESC    | LCTRL  |KC_VOLD |KC_VOLU | `      | =      | 6      | 7      | 8      | 9      | 0      |PRTSCCR |
+     * | CAPS   | 1      | 2      | ,      | ESC    |KC_VOLD |KC_VOLU | `      | =      | HOME   | END    | .      | DEL    | 0      |PRTSCCR |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
      * | ESC    | Q      | W      | E      | R      | T      | 7      | 8      | 9      | Y      | U      | I      | O      | P      | &#x27;      |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
-     * | TAB    | A      | S      | D      | F      | G      | 4      | 5      | 6      | H      | J      | K      | L      | ;      | RSHIFT |
+     * | TAB    | A      | S      | D      | F      | G      | 4      | 5      | 6      | H      | J      | K      | L      | -      | RSHIFT |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
-     * | LSHIFT | Z      | X      | C      | V      | B      | 1      | 2      | 3      | N      | M      | ,      | .      | /      | MVKBD  |
+     * | LSHIFT | Z      | X      | C      | V      | B      | 1      | 2      | 3      | N      | M      | ,      | .      | Ñ      | MVKBD  |
      * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+-----------------+--------+--------|
      * | LCTRL  | LGUI   | MEDIA  | LALT   | MVNAV  | BACKSP |MVMOUSE | 0      |NUMBERS | ENTER  | SPACE  | SYMB   | RALT   | RGUI   | RCTRL  |
      * &#x27;--------------------------------------------------------------------------------------------------------------------------------------&#x27;
      */</span>
     [_KB] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* QWERTY */</span>
-       KC_CAPS, KC_1,    KC_2,   KC_ESC, KC_LCTL,  KC_VOLD,  KC_VOLU, KC_GRV,       KC_EQL,    KC_6,  KC_7,   KC_BSPC, KC_DEL,    KC_0 ,  KC_PSCR,
+       KC_CAPS, KC_1,    KC_2,   KC_COMM,   KC_ESC,  KC_VOLD,  KC_VOLU, KC_GRV,     KC_EQL, KC_HOME,KC_END,    KC_DOT, KC_DEL,    KC_0 ,  KC_PSCR,
        KC_QUOT, KC_Q,    KC_W,     KC_E,     KC_R,    KC_T,     KC_7,   KC_8,         KC_9,    KC_Y,  KC_U,      KC_I,   KC_O,     KC_P,  KC_QUOT,
-        KC_TAB, KC_A,    KC_S,     KC_D,     KC_F,    KC_G,     KC_4,   KC_5,         KC_6,    KC_H,  KC_J,      KC_K,   KC_L,  KC_SCLN,  KC_RSFT,
-       KC_LSFT, KC_Z,    KC_X,     KC_C,     KC_V,    KC_B,     KC_1,   KC_2,         KC_3,    KC_N,  KC_M,   KC_COMM, KC_DOT,  KC_SLSH,    MVKBD,
+        KC_TAB, KC_A,    KC_S,     KC_D,     KC_F,    KC_G,     KC_4,   KC_5,         KC_6,    KC_H,  KC_J,      KC_K,   KC_L,  KC_SLSH,  KC_RSFT,
+       KC_LSFT, KC_Z,    KC_X,     KC_C,     KC_V,    KC_B,     KC_1,   KC_2,         KC_3,    KC_N,  KC_M,   KC_COMM, KC_DOT,  KC_SCLN,    MVKBD,
        KC_LCTL, KC_LGUI, TG(_MED), KC_LALT, MVNAV, KC_BSPC,  MVMOUSE,   KC_0, MO(_NUMBERS), KC_PENT,  KC_SPC, MO(_SYMBOLS), KC_RALT, KC_RGUI,  KC_RCTL
     ),
 
     <span style="color:rgb(150, 152, 150); font-weight:400;">/* NAV
      * .--------------------------------------------------------------------------------------------------------------------------------------.
-     * |        |        |        |  ESC   |        | VOL_D  | VOL_U  |        |        |        |        |        |        |        |KC_TRNS |
+     * |        |        |        |        |  ESC   | VOL_D  | VOL_U  |        |        |        |        |        |KC_TRNS |        |KC_TRNS |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
      * |        |        |CLOSETAB|ALTTABL |ALTTABR | NEWTAB |        |        |        |        |        | UP     | PG_UP  |        |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-     * | ALTWIN |        | F      | FF     |        |        |        |        |        |        | LEFT   | DOWN   | RIGHT  |        |        |
+     * | ALTWIN |        | F      | FF     |        |        |        |        |        | HOME   | LEFT   | DOWN   | RIGHT  | END    |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
      * | SELECT | UNDO   | CUT    | COPY   | PASTE  |        |        |        |        | INCOG  |PG_DOWN |        |        |        | MVKBD  |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-     * | LSHIFT |        |        |        | MVKBD  | DELETE |MVMOUSE |        |NUMBERS | ENTER  |KC_TRNS | SYMB   |        |        |        |
+     * | LSHIFT |        |        | LCTL   | MVKBD  | DELETE |MVMOUSE |        |NUMBERS | ENTER  |KC_TRNS | SYMB   |        |        |        |
      * &#x27;--------------------------------------------------------------------------------------------------------------------------------------&#x27;
      */</span>
 
     [_NAV] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* FUNCTION */</span>
-         KC_NO, KC_NO,    KC_NO,      KC_ESC,   KC_NO,KC_VOLD, KC_VOLU,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO, KC_NO, KC_TRNS,
+         KC_NO, KC_NO,    KC_NO,       KC_NO,  KC_ESC,KC_VOLD, KC_VOLU,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_NO, KC_TRNS,
          KC_NO, KC_NO,  CLOSETAB,    ALTTABL, ALTTABR, NEWTAB,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_UP,  KC_PGUP, KC_NO,   KC_NO,
-        ALTWIN, KC_NO, MO(_NAVF), MO(_NAVFF),   KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_LEFT, KC_DOWN, KC_RIGHT, KC_NO,   KC_NO,
+        ALTWIN, KC_NO, MO(_NAVF), MO(_NAVFF),   KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END,   KC_NO,
         SELECT,  UNDO,       CUT,       COPY,   PASTE,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   INCOG, KC_PGDN,   KC_NO,    KC_NO, KC_NO,   MVKBD,
-       KC_LSFT, KC_NO,     KC_NO,      KC_NO,   MVKBD, DELETE, MVMOUSE, KC_TRNS,MO(_NUMBERS), KC_PENT, KC_TRNS, MO(_SYMBOLS), KC_NO, KC_NO, KC_NO
+       KC_LSFT, KC_NO,     KC_NO,    KC_LCTL,   MVKBD, DELETE, MVMOUSE, KC_TRNS,MO(_NUMBERS), KC_PENT, KC_TRNS, MO(_SYMBOLS), KC_NO, KC_NO, KC_NO
     ),
 
     [_NAVF] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* FUNCTION */</span>
@@ -591,22 +600,22 @@
 
     <span style="color:rgb(150, 152, 150); font-weight:400;">/* MOUSE
      * .--------------------------------------------------------------------------------------------------------------------------------------.
-     * | RESET  |        |        |  ESC   |        |        |        |        |        |        |        |        |        |        |KC_TRNS |
+     * | RESET  |        |        |        |  ESC   |        |        |        |        |        |        |        |KC_TRNS |        |KC_TRNS |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-     * |        |        |        |        |        |        |        |        |        |        |        | M_UP   | M_WH_U |        |        |
+     * |        |        |CLOSETAB|ALTTABL |ALTTABR | NEWTAB |        |        |        |        |        | M_UP   | M_WH_U |        |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-     * |        | ACL_0  | ACL_1  | ACL_2  | M_BTN1 | M_BTN2 |        |        |        |        | M_LEFT | M_DOWN |M_RIGHT |        |        |
+     * |        | ACL_0  | ACL_1  | ACL_2  | M_BTN1 | M_BTN2 |        |        |        |NAVBACK | M_LEFT | M_DOWN |M_RIGHT |NAVFRNT |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-     * |        |        |        |        |        |        |        |        |        |        | M_WH_D |        |        |        | MVKBD  |
+     * |        |        |        |        |        |        |        |        |        | INCOG  | M_WH_D |        |        |        | MVKBD  |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
      * |RGB_TOG |        |        |        | MVNAV  |KC_TRNS | MVKBD  |        |        | ENTER  |KC_TRNS |        |        |        |        |
      * &#x27;--------------------------------------------------------------------------------------------------------------------------------------&#x27;
      */</span>
     [_MOUSE] = LAYOUT_ortho_5x15( <span style="color:rgb(150, 152, 150); font-weight:400;">/* FUNCTION */</span>
-          RESET,   KC_NO,   KC_NO,  KC_ESC,   KC_NO, KC_VOLD, KC_VOLU,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_MS_U, KC_WH_U,   KC_NO,   KC_NO,
-          KC_NO, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN1, KC_BTN2,   KC_NO,   KC_NO,   KC_NO, NAVBACK, KC_MS_L, KC_MS_D, KC_MS_R,   KC_NO,   KC_NO,
-          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_WH_D,   KC_NO,   KC_NO,   KC_NO,   MVKBD,
+          RESET,   KC_NO,   KC_NO,   KC_NO,  KC_ESC, KC_VOLD, KC_VOLU,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_TRNS,   KC_NO,   KC_NO,
+          KC_NO,   KC_NO,CLOSETAB, ALTTABL, ALTTABR,  NEWTAB,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_MS_U, KC_WH_U,   KC_NO,   KC_NO,
+          KC_NO, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN1, KC_BTN2,   KC_NO,   KC_NO,   KC_NO, NAVBACK, KC_MS_L, KC_MS_D, KC_MS_R, NAVFRNT,   KC_NO,
+          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   INCOG, KC_WH_D,   KC_NO,   KC_NO,   KC_NO,   MVKBD,
           KC_NO,   KC_NO,   KC_NO,   KC_NO,   MVNAV, KC_TRNS,   MVKBD,   KC_NO,   KC_NO, KC_PENT, KC_TRNS,   KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
 
