@@ -1,0 +1,72 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Importar libreria externa</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Como importar clase externa en un proyecto de .Net</p>
+        </div>
+
+        <div class="t2">Metodo</div>
+            <div class="cont">
+              <p>Partimos de una clase como la siguiente:</p>
+
+              <img src="Importar libreria externa/1.png">
+
+              <p>Ahora crearemos una librería externa a este proyecto que importaremos despues para ser utilizada en el proyecto <b>Calculator</b>.</p>
+
+              <p>Nos vamos a New > Project</p>
+
+              <img src="Importar libreria externa/2.png">
+
+              <p>Buscamos <b>Class Library</b> y seleccionamos el template de <b>Class Library</b>:</p>
+
+              <img src="Importar libreria externa/3.png">
+
+              <p>Damos nombre a la librería que vamos a crear y añadimos el proyecto a nuestra <b>solucion</b>: </p>
+
+              <img src="Importar libreria externa/4.png">
+
+              <img src="Importar libreria externa/5.png">
+
+              <p>Definimos el código de nuestra librería externa:</p>
+
+              <img src="Importar libreria externa/6.png">
+
+              <p>Usamos nuestra librería externa en nuestro proyecto principal:</p>
+
+              <p>Como podemos ver se producen unos errores en el código, esto se debe a que no tenemos la libería externa referenciada:</p>
+
+              <img src="Importar libreria externa/7.png">
+
+              <p>Nos vamos a <b>Project > Add Project Reference</b> y añadimos nuestra librería externa.</p>
+
+              <img src="Importar libreria externa/8.png">
+
+              <img src="Importar libreria externa/9.png">
+
+              <p>Ya podemos usar el código de la librería externa en nuestro proyecto</p>
+              <img src="Importar libreria externa/10.png">
+
+              <p>Si hacemos <b>doble click</b> encima de proyecto <b>Calculator</b> se abre el archivo del proyecto:</p>
+              <img src="Importar libreria externa/11.png">
+
+              <p>En dicho archivo podemos ver la importación de la libería externa.</p>
+
+              <p><b>NOTA</b>: Si intentamos abrir el archivo del proyecto en un proyecto con <b>.Net Framework 4.x</b> el visual studio no nos abrirá el archivo, si quremos ver el archivo tenemos que abrirlo de manera externa con el notepad o algun otro editor.</p>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | .Net | Libreria externa</p>
+        </div>
+
+    </body>
+</html>

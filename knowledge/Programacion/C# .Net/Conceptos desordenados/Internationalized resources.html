@@ -1,0 +1,119 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Internationalized resources</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Crear recursos para ser utilizados en varios idiomas en un proyecto <b>ASP.NET MVC</b>.</p>
+
+          <p>Framework: <b>.NET Framwork 4.7.2</b></p>
+          <p><a href="https://github.com/MBascoy/CSharp-Examples/tree/main/Internationalized%20resources">Código Ejemplo</a></p>
+        </div>
+
+        <div class="t2">Metodo</div>
+            <div class="cont">
+              <ul>
+                <li>Creamos una nueva <b>solución</b> en la que tendremos dos proyectos uno de <b>recursos</b> y otro será un proyecto <b>Web MVC</b></li>
+                <img src="Internationalized resources/1.png">
+
+                <li>Al proyecto web le ponemos <b>WebApp</b> de nombre y a la solución <b>Internationalized resources</b>, el proyecto lo creamos con <b>.NET Framwork 4.7.2</b>.</li>
+
+                <img src="Internationalized resources/2.png">
+
+                <li>Cuando se nos pregunte tipo de aplicación seleccionamos <b>MVC</b>:</li>
+
+                <img src="Internationalized resources/3.png">
+
+                <li>Una vez finalizado el proceso Visual Studio nos crea toda la estructura del proyecto:</li>
+                <img src="Internationalized resources/4.png">
+
+                <li>Ahora creamos el proyecto de recursos (Usamos el template de <b>Class Library</b> de .Net Framework):</li>
+                <img src="Internationalized resources/5.png">
+
+                <li>Al indicar el nombre del proyecto en vez de indicar que se cree una nueva solución, le indicamos que añada el proyecto a la solución existente:</li>
+                <img src="Internationalized resources/6.png">
+
+                <li>Los dos proyectos quedarían así en el explorador de soluciones:</li>
+                <img src="Internationalized resources/7.png">
+
+                <li>A continuación tenemos que añadir un <b>Resource File</b> al proyecto de Resources.</li>
+                <li>Click derecho en el proyecto > Add > New Item</li>
+                <img src="Internationalized resources/8.png">
+
+                <li>Seleccionamos <b>Resource file</b>, y le ponemos el nombre de <b>Listado</b>: </li>
+                <img src="Internationalized resources/9.png">
+
+                <li>Dentro del archivo de listado incluimos las palabras que queremos traducir, y a mayores tenemos que cambiar el <b>Access Modifier</b> a <b>Public</b>:</li>
+                <img src="Internationalized resources/10.png">
+
+                <li>Una vez hechos los cambios <b>guardamos el archivo</b> y a continuación hacemos una copia del mismo (copiar y pegar en la misma carpeta), el nuevo archivo lo nombramos como <b>Listado.en.resx</b>, y en el contenido del archivo cambiamos el valor de las palabras en la segunda columna (Value) a su correspondiente traducion en ingles.</li>
+                <p>Si queremos tener varios idiomas tenemos que crear tantos archivos <b>resx</b>, como idiomas queramos, lo importante es incluir el código del idioma en el nombre del archivo.</p>
+                <img src="Internationalized resources/11.png">
+                <img src="Internationalized resources/12.png">
+
+                <li>Ahora en el archivo <b>Global.asax</b> incluimos el siguiente código para seleccionar un idioma distinto al estandar, ingles en este caso (código <b>"en"</b>).</li>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">Application_BeginRequest</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">object</span> sender, EventArgs e</span>)</span>
+{
+    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;en&quot;</span>);
+    Thread.CurrentThread.CurrentUICulture = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> CultureInfo(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;en&quot;</span>);
+}</code></pre>
+                <img src="Internationalized resources/13.png">
+
+                <li>Ahora tenemos que hacer referencia a uno de los recursos que hemos creado, lo haremos en el archivo <b>_Layout.cshtml</b>, incluyendo el siguiente código:</li>
+                <code>&lt;h2&gt;@Resources.Listado.Coche&lt;/h2&gt;</code>
+                <p>Como podemos ver se produce un error en <b>Resources</b>:</p>
+                <img src="Internationalized resources/14.png">
+
+                <li>Esto se debe a que no tenemos referenciado el proyecto de WebApp con el de Resources y por lo tanto no tenemos acceso a los recursos de <b>Resources</b>.</li>
+                <p>Para añadir la referencia seleccionamos el proyecto y nos vamos a <b>Projects</b> > <b>Add Reference</b>.</p>
+                <img src="Internationalized resources/15.png">
+
+                <li>y añadimos la referencia al proyecto de resources:</li>
+                <img src="Internationalized resources/16.png">
+
+                <li>Ahora ya podemos compilar el proyecto, al hacerlo se ejecutará el navegador mostrando la página por defecto de asp.net con nuestra modificación.</li>
+                <img src="Internationalized resources/17.png">
+
+                <li>Se muestra el texto en ingles, ya que hemos configurado el CultureInfo con "en", si cambiamos el código a "es":</li>
+                <img src="Internationalized resources/18.png">
+
+                <li>El texto se muestra en español, sin necesidad de cambiar la variable, solo cambiando la configuración del idioma.</li>
+                <img src="Internationalized resources/19.png">
+
+                <p>En este caso no tenemos configurada ninguna opción para el español, pero al detectar un idioma que no tiene configuración simplemente coge el idioma por defecto que en este caso es español.</p>
+
+                <h2>Acceder desde controlador</h2>
+                <p>Si en vez de acceder a nuestros recursos desde las vistas queremos hacerlo desde el controlado (o cualquiera otra parte del código C#), lo haremos de la siguiente manera:</p>
+                <ul>
+                  <li>Definimos un resource manager.</li>
+                  <li>Usamos el metodo <b>GetString</b> para acceder a nuestros recursos indicando el identificador del recurso.</li>
+                </ul>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">ResourceManager rm = <span style="color:rgb(181, 189, 104); font-weight:400;">new</span> ResourceManager(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Resources.Listado&quot;</span>, <span style="color:rgb(181, 189, 104); font-weight:400;">typeof</span>(Listado).<span style="color:rgb(204, 153, 204); font-weight:400;">Assembly</span>);
+
+ViewBag.Objeto = rm.GetString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Casa&quot;</span>);</code></pre>
+                <img src="Internationalized resources/20.png">
+
+                <p>Para mostrar el valor en una vista para este ejemplo asignamos el valor a un elemento de <b>ViewBag</b> (en este caso <b>Objeto</b> podría ser cualquier otro nombre).</p>
+                <img src="Internationalized resources/21.png">
+
+                <p>En este caso estamos usando <b>GetString</b> para obtener el valor de <b>Casa</b> y como tenemos configurado el idioma para que se muestre en ingles pues se muestra <b>"House"</b>.</p>
+                <img src="Internationalized resources/22.png">
+
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | .Net | idiomas | recursos</p>
+        </div>
+
+    </body>
+</html>

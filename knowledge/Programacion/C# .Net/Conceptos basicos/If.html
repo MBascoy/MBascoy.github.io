@@ -1,0 +1,56 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">If</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar la sentencia <b>if</b> en C#.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>En C# usamos el <b>if</b> de la siguiente manera:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (numero &gt; <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>)
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">WriteLine</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Es mayor de 5&quot;</span>);
+}
+<span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">WriteLine</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Es menor o igual a 5&quot;</span>);
+}</code></pre>
+
+        <h2>Pattern matching</h2>
+        <p>Una funcionalidad del if en C# es el <b>pattern matching</b>, que nos permite usar la palabra reservada <b>"is"</b> para hacer comparaciones de tipos.</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;">object</span> numero = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;8&quot;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (numero <span style="color:rgb(204, 153, 204); font-weight:400;">is</span> <span style="color:rgb(181, 189, 104); font-weight:400;">int</span> i)
+{
+    WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;Es un entero: <span style="color:rgb(249, 145, 87); font-weight:400;">{i}</span>&quot;</span>);
+}
+<span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+{
+    WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;No es un entero&quot;</span>);
+}</code></pre>
+
+        <p>En el ejemplo anterior la salida sería <b>"No es un entero"</b>.</p>
+        <p>Pero si en la declaración de <b>numero</b> le quitamos las comillas la salida sería, <b>"Es un entero: 8"</b>.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | If</p>
+        </div>
+
+    </body>
+</html>

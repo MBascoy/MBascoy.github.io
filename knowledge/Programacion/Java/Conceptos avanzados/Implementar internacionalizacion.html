@@ -1,0 +1,118 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Implementar internacionalizacion</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como implementar internacionalizacion en java para usar varios lenguajes en las cadenas de texto de una aplicación.</p>
+
+            <p><a href="https://github.com/MBascoy/Java-Examples/tree/main/InternationalizationExample">Codigo ejemplo</a> </p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+            <p>Partimos de un proyecto base generado con <b>Maven</b>, para utilizar la internacionalizacion usaremos el <b>ResourceBundle</b>.</p>
+
+            <ul>
+
+              <li>Antes de nada tenemos que crear nuestros archivos de recursos, los archivos donde iran las palabras que queremos añadir en cada idioma.</li>
+              <p>Dentro de <b>src/main</b> creamos una carpeta <b>resources</b> y dentro de esta carpeta creamos dos archivos: <b>WordList_en_US.properties</b> y <b>WordList_es_ES.properties</b></p>
+
+              <p>Dentro del archivo <b>WordList_en_US.properties</b> colocamos:</p>
+              <pre><code>coche = car
+casa = house
+hola = hello</code></pre>
+
+              <p>Dentro del archivo <b>WordList_es_ES.properties</b> colocamos:</p>
+              <pre><code>coche = coche
+casa = casa
+hola = hola</code></pre>
+
+              <img src="Implementar internacionalizacion/2.png">
+
+              <p><b>NOTA</b>: Se puede usar un archivo genérico para los idiomas no indicados, en este caso sería <b>WordList.properties</b>, pero siempre es mejor añadir todos los idiomas que vamos a utilizar en vez de usar uno genérico, ya que puede dar problemas.</p>
+
+
+              <li>Dentro del código definimos dos objetos <b>Locale</b> uno para el español y otro para el ingles:</li>
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">Locale usLocale = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Locale(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;en&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;US&quot;</span>);
+Locale esLocale = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Locale(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;es&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ES&quot;</span>);</code></pre>
+
+              <li>Declaramos el <b>ResourceBundle</b> y le asociamos uno de los <b>Locale</b>, el primer parámetro hace referencia a nuestro archivo de recursos sin ningun sufijo, en este caso <b>WordList</b>:</li>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">ResourceBundle</span> words;
+
+<span style="color:rgb(129, 162, 190); font-weight:400;">words</span> = ResourceBundle.getBundle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;WordList&quot;</span>, esLocale);</code></pre>
+
+              <li>Ahora usamos la variable words para devolver las palabras que tenemos en nuestro archivo de recursos, las palabras se escribiran en castellano:</li>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Palabras en español:&quot;</span>);
+System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;coche&quot;</span>));
+System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;casa&quot;</span>));
+System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;hola&quot;</span>));</code></pre>
+
+              <li>A continuación asignamos el otro <b>Locale</b> al <b>ResourceBundle</b> y volvemos a escribir las mismas palabras, pero en este caso apareceran en ingles, ya que hemos cambiado el <b>ResourceBundle</b>:</li>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">words = ResourceBundle.getBundle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;WordList&quot;</span>, usLocale);
+
+System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;\nPalabras en ingles:&quot;</span>);
+System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;coche&quot;</span>));
+System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;casa&quot;</span>));
+System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;hola&quot;</span>));</code></pre>
+            </ul>
+
+            <p>El código completo es el siguiente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">package com.example;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">App</span>
+{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"> String[] args </span>)</span>
+    {
+        Locale usLocale = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Locale(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;en&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;US&quot;</span>);
+        Locale esLocale = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Locale(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;es&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ES&quot;</span>);
+
+        ResourceBundle words;
+
+        words = ResourceBundle.getBundle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;WordList&quot;</span>, esLocale);
+
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Palabras en español:&quot;</span>);
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;coche&quot;</span>));
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;casa&quot;</span>));
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;hola&quot;</span>));
+
+        words = ResourceBundle.getBundle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;WordList&quot;</span>, usLocale);
+
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;\nPalabras en ingles:&quot;</span>);
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;coche&quot;</span>));
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;casa&quot;</span>));
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(words.getString(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;hola&quot;</span>));
+
+
+    }
+}</code></pre>
+
+          <p>Y la salida es la siguiente:</p>
+          <img src="Implementar internacionalizacion/1.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | idiomas | internacionalizacion</p>
+        </div>
+
+    </body>
+</html>

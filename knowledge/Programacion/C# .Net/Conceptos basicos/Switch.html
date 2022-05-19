@@ -1,0 +1,67 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Switch</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar la sentencia <b>switch</b> en C#.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>El switch podemos usarlo de la siguiente manera (de la misma manera que en otros lenguajes):</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span> nombre = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gato&quot;</span>;
+<span style="color:rgb(181, 189, 104); font-weight:400;">String</span> tipo;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">switch</span> (nombre)
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gato&quot;</span>:
+        tipo = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;animal&quot;</span>;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cactus&quot;</span>:
+        tipo = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;planta&quot;</span>;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;coche&quot;</span>:
+        tipo = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;objeti&quot;</span>;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">default</span>:
+        tipo = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;desconocido&quot;</span>;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+}
+
+WriteLine(tipo);</code></pre>
+
+          <p>En C# contamos con una estructura del switch mucho mas limpia, el código anterior se podría escribir de la siguiente manera:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span> nombre = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gato&quot;</span>;
+<span style="color:rgb(181, 189, 104); font-weight:400;">String</span> tipo;
+
+tipo = nombre <span style="color:rgb(204, 153, 204); font-weight:400;">switch</span>
+{
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gato&quot;</span> =&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;animal&quot;</span>,
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cactus&quot;</span> =&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;planta&quot;</span>,
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;coche&quot;</span> =&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;objeto&quot;</span>,
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">_</span> =&gt;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;desconocido&quot;</span>
+};
+
+WriteLine(tipo);</code></pre>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Switch</p>
+        </div>
+
+    </body>
+</html>

@@ -130,6 +130,21 @@
     }
 }</code></pre>
 
+        <p>En C# podemos hacer una implementacion con <b>switch</b>, de una manera muy simplificada:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span> nombre = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gato&quot;</span>;
+<span style="color:rgb(181, 189, 104); font-weight:400;">String</span> tipo;
+
+tipo = nombre <span style="color:rgb(204, 153, 204); font-weight:400;">switch</span>
+{
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;gato&quot;</span> =&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;animal&quot;</span>,
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cactus&quot;</span> =&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;planta&quot;</span>,
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;coche&quot;</span> =&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;objeto&quot;</span>,
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">_</span> =&gt;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;desconocido&quot;</span>
+};
+
+WriteLine(tipo);</code></pre>
+
         </div>
 
     <div class="t2">Tags</div>
