@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Resolucion de problemas general</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Configuraciones a tener en cuenta cuando se proudcen ciertos fallos.</p>
+
+        </div>
+
+    <div class="t2">Soluciones</div>
+        <div class="cont">
+
+          <h2>Repositorio offline</h2>
+          <p>Cuando modificamos un archivo el propio visual studio debería de hacer un <b>checkout</b> del archivo, pero a veces se pueden producir situaciones en las que no se hace el checkout y se muestra la siguiente advertencia:</p>
+
+          <img src="Resolucion de problemas general/1.png">
+
+          <p>Este problema se puede dar porque estamos tabajando con el repositorio en modo <b>offline</b>, en ese caso deberíamos de haber recibido un mensaje como el siguiente previamente:</p>
+          <img src="Resolucion de problemas general/2.png">
+
+          <p>Para volver a trabajar con el repositorio en modo <b>online</b> hacemos click derecho en la <b>solucion</b> y hacemos click en <b>go online</b>:</p>
+
+          <img src="Resolucion de problemas general/3.png">
+
+          <p>Otra manera de saber si no estamos trabajando con el repositorio <b>online</b> es mirando abajo a la derecha en el Visual Studio:</p>
+          <img src="Resolucion de problemas general/4.png">
+
+          <p>Si vemos el mensaje <b>Add to Source Control</b> quiere decir que el repositorio está <b>offline</b></p>
+
+          <h2>Sin asociacion con un servidor remoto</h2>
+
+          <img src="Resolucion de problemas general/1.png">
+
+          <p>Otra de las causas por las que se puede dar ese mensaje es que no tengamos la solucion asociada con un servidor remoto.</p>
+
+          <p>Para comprobar esto nos vamos a <b>File</b> > <b>Source Control</b> > <b>Advanced</b> > <b>Change Source Control</b></p>
+
+          <img src="Resolucion de problemas general/5.png">
+
+          <p>Si vemos algo como esto:</p>
+          <img src="Resolucion de problemas general/6.png">
+
+          <p>Quiere decir que la solución no está asociada a ningún servidor, simplemente seleccionamos la solución y le damos a <b>bind</b></p>
+          <p>Se nos debería de mostrar algo así:</p>
+
+          <img src="Resolucion de problemas general/7.png">
+
+          <h2>Cambios no se muestran en "Pending changes"</h2>
+          <p>A veces se puede dar esta situación, tenemos cambios en nuestro proyecto, pero no se muestran en <b>Pending changes</b></p>
+
+          <img src="Resolucion de problemas general/8.png">
+
+          <p>Hay cambios en el <b>solution explorer</b>, pero en el <b>team explorer</b>, vemos que no se marca nada:</p>
+          <img src="Resolucion de problemas general/9.png">
+
+          <p>Este problema se suele dar cuando trabajamos con varios <b>Workspaces</b> y tenemos abiertos archivos de distintos workspaces, tenemos que comprobar que estamos mirando el mismo workspace, nos vamos a "home" en el <b>Team explorer</b>:</p>
+
+          <img src="Resolucion de problemas general/10.png">
+
+          <p>Si nos fijamos en las soluciones ya vemos que niguna está en <b>negrita</b>, por lo tanto el workspace que estamos mirando en el <b>Team explorer</b> no es el mismo que el que tenemos abierto en el <b>Solution Explorer</b>.</p>
+
+          <img src="Resolucion de problemas general/11.png">
+
+          <p>Si cambiamos el <b>Workspace</b> vemos que ahora aparece la solución <b>DeltaApp</b> en negrita, esta es la solución en la que estamos trabajando:</p>
+          <img src="Resolucion de problemas general/12.png">
+
+
+           <p>Si volvemos a la sección <b>Pending changes</b> vemos que ahora si que salen los cambios:</p>
+           <img src="Resolucion de problemas general/13.png">
+
+          <h2>Otra información de interes</h2>
+          <p>Datos que podemos consultar de forma general para resolver problemas:</p>
+
+          <ul>
+            <li>Proyecto al que estamos conectados:</li>
+            <img src="Resolucion de problemas general/14.png">
+
+            <li>Mapeo del workspace:</li>
+            <img src="Resolucion de problemas general/15.png">
+            <img src="Resolucion de problemas general/16.png">
+            <img src="Resolucion de problemas general/17.png">
+
+            <li>Direccion del archivo con el que estamos trabajando:</li>
+            <img src="Resolucion de problemas general/18.png">
+
+            <p>(Mantenemos el cursor sobre la pestaña del archivo y se muestra la dirección absoluta, que podemos comprobar si coincide con la del workspace sobre el que estamos trabajando.)</p>
+
+          </ul>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>TFVC | errores </p>
+        </div>
+
+    </body>
+</html>

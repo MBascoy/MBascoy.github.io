@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Publicar cambios</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como publicar cambios en un proyecto con TFVC.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Partimos de un proyecto de consola básico que ya tenemos sincronizado con nuetro repositorio TFVC.</p>
+
+          <p>Antes de hacer ningun cambio primero tendríamos que hacer un <b>checkout</b> del archivo que queramos modificar, sin embargo si tenemos bien configurada nuestra solución dentro del repositorio el propio visual studio hace el checkout automáticamente:</p>
+
+          <img src="Publicar cambios/1.png">
+
+          <p>La marca roja en el <b>Solution Explorer</b> nos indica que hay cambios desde el último <b>check in</b>.</p>
+
+          <p>Para publicar los cambios nos vamos al <b>Team explorer</b>, y accedemos a la pestaña de <b>Pending changes</b> </p>
+
+          <img src="Publicar cambios/2.png">
+
+          <p>En el desplegable de <b>Included changes</b> podemos revisar los archivos que se van a subir al repositorio, si queremos podemos hacer una comparacion de los cambios que se han producido en el archivo, haciendo <b>click derecho</b> > <b>Compare with last version</b>:</p>
+
+          <img src="Publicar cambios/3.png">
+
+          <p>Se nos mostrará la comparación de las dos versiones:</p>
+          <img src="Publicar cambios/4.png">
+
+          <p>Para publicar los cambios simplemente hacemos click en el boton <b>check in </b>:</p>
+          <img src="Publicar cambios/5.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>TFVC | Publicar </p>
+        </div>
+
+    </body>
+</html>

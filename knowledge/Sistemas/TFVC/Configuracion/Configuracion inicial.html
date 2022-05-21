@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Configuracion inicial</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Creacion y configuracion inicial de un proyecto con Team Foundation Version Control (TFVC).</p>
+            <p><b>NOTA:</b> el sistema de control de versiones TFVC antes usaba el servidio Team Foundation Server (TFS), pero ahora el servicio se llama <b>Azure DevOps Server</b>.</p>
+
+            <p><a href="https://docs.microsoft.com/es-es/azure/devops/repos/tfvc/share-your-code-in-tfvc-vs?view=azure-devops">Documentación TFVC Microsoft</a></p>
+
+        </div>
+
+
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para crear un proyecto con <b>TFVC</b> primero tenemos que crear un repositorio en <b>Azure DevOps</b>:</p>
+
+          <ul>
+            <li>Nos vamos a la página de <a href="https://dev.azure.com">Azure DevOps</a></li>
+            <li>Seleccionamos la opción de <b>New project</b>.</li>
+            <img src="Configuracion inicial/1.png">
+            <li>Le damos un nombre a nuestro proyecto y le damos a <b>create</b>:</li>
+            <img src="Configuracion inicial/2.png">
+            <li>Ahora mismo ya tenemos nuestro proyecto creado, pero por defecto los proyectos utilizan el control de versiones de GIT, tenemos que crear un nuevo repositorio con TFVC, para ello nos vamos a <b>Repos</b>.</li>
+            <img src="Configuracion inicial/3.png">
+            <li>Dentro de repos podemos ver que hay creado un repositorio de GIT, le damos a <b>New repository</b>, para crear un repositorio <b>TFVC</b>.</li>
+            <img src="Configuracion inicial/4.png">
+            <li>En el tipo de repositorio seleccionamos TFVC, y le damos a crear:</li>
+            <img src="Configuracion inicial/5.png">
+            <li>Despues de realizar todos estos pasos ya podemos ver que nuestro proyecto tiene un repositorio TFVC asignado:</li>
+            <img src="Configuracion inicial/6.png">
+
+            <li>A continuación tenemos que asociar dicho repositorio a un <b>Workspace</b> en nuestro <b>Visual Studio</b>, iniciamos visual studio y selecionamos la opción <b>Clone a repository</b>:</li>
+            <img src="Configuracion inicial/7.png">
+
+            <li>Seleccionamos clonar desde el repositorio de Azure DevOps:</li>
+            <img src="Configuracion inicial/8.png">
+
+            <li>Seleccionamos nuestros repositorio:</li>
+            <img src="Configuracion inicial/9.png">
+
+            <li>Mapeamos el repositorio con una carpeta local, por defecto los repositorios se almacenan en: <b>%USERPROFILE%\Source\Workspaces\</b></li>
+            <img src="Configuracion inicial/10.png">
+
+            <li>Por defecto visual studio crea un nuevo workspace para el repositorio:</li>
+            <img src="Configuracion inicial/11.png">
+
+            <li>Podemos modificar el nombre del workspace si queremos:</li>
+            <img src="Configuracion inicial/12.png">
+            <img src="Configuracion inicial/13.png">
+
+            <li>Si queremos tambien podemos mapear carpetas adicionales al repositorio:</li>
+            <img src="Configuracion inicial/14.png">
+
+          </ul>
+
+          <h2>Añadir solucion al repositorio</h2>
+
+          <p>En este punto ya tenemos nuestro repositorio creado y mapeado con una carpeta local en nuestro Visual Studio, ahora crearemos una nueva solucion y la meteremos dentro del repositorio.</p>
+
+          <ul>
+            <li>Desde el <b>team explorer</b> hacemos click en <b>New</b>:</li>
+            <img src="Configuracion inicial/15.png">
+
+            <li>Creamos un nuevo proyecto (y solucion), en este caso usaremos un programa de consola como ejemplo:</li>
+            <img src="Configuracion inicial/16.png">
+
+            <li>Una vez creado el proyecto (solucion) veremos que la lista de soluciones sigue vacia, tenemos que irnos al <b>Solution explorer</b> para añadirla:</li>
+            <img src="Configuracion inicial/17.png">
+
+            <li>Una vez en el <b>Solution Explorer</b> hacemos click derecho en la solución y le damos a <b>Add Solution to Source Control</b>:</li>
+            <img src="Configuracion inicial/18.png">
+
+            <li>Si volvemos al <b>Team Explorer</b> vemos que la solución ahora aparece en la lista:</li>
+            <img src="Configuracion inicial/19.png">
+
+            <p><b>NOTA:</b> si tenemos varias soluciones la que está en negrita es la que está activa en el <b>Solution Explorer</b>, si ninguna de las soluciones está en negrita quiere decir que la solución activa está en otro <b>Workspace</b></p>
+
+            <li>Ahora solo nos queda subir la nueva solución que hemos añadido al repositorio central, para esto nos vamos a <b>Pending changes</b>:</li>
+            <img src="Configuracion inicial/20.png">
+
+            <li>En esta pestaña simplemente tenemos que pulsar el boton <b>check in</b> para subir los cambios, en la parte inferior podemos ver los cambios que se subiran:</li>
+
+            <img src="Configuracion inicial/21.png">
+
+            <p>Una vez se suban los cambios la pestaña de pending changes ya no apareceran cambios pendientes:</p>
+            <img src="Configuracion inicial/22.png">
+
+
+          </ul>
+
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>TFVC | configuracion </p>
+        </div>
+
+    </body>
+</html>
