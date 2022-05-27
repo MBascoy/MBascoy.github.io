@@ -7,16 +7,46 @@
 
     <body>
 
-    <h1 class="t1">Maven generar jar</h1>
+    <h1 class="t1">Generar jar (consola o Maven)</h1>
 
     <div class="t2">Descripcion</div>
         <div class="cont">
 
-            <p>Como generar un archivo <b>.jar</b> con <b>maven</b></p>
+            <p>Como generar un archivo <b>.jar</b> desde <b>consola</b> o con <b>maven</b>.</p>
 
         </div>
 
-    <div class="t2">Metodo</div>
+    <div class="t2">Usando la consola</div>
+        <div class="cont">
+          <p>Para generar un <b>.jar</b> desde consola lo hacemos con el siguiente comando:</p>
+          <code>jar cfe archivo.jar main_class archivo.class</code>
+
+          <ul>
+            <li><b>cfe</b> - son las opciones para crear el jar, la opción <b>e</b> nos permite indicar un <b>entrypoint</b> (la clase principal), sin tener que crear un archivo manifest</li>
+            <li><b>archivo.jar</b> - es el nombre del archivo final que se generará</li>
+            <li><b>main_class</b> - es el nombre de la clase que contiene la función main, osea el <b>entrypoint</b> del programaa</li>
+            <li><b>archivo.class</b> - clases que iran en el jar, si nuestro programa tiene varias clases tenemos que indicarlas todas, podemos hacerlo incluso con un wildcard como <b>*.class</b>.</li>
+          </ul>
+
+          <p>Ejemplo:</p>
+
+          <p>Tenemos un programa con dos clases:</p>
+          <ul>
+            <li>HelloWorld</li>
+            <img src="Generar jar (consola o Maven)/5.png">
+            <li>Mensaje</li>
+            <img src="Generar jar (consola o Maven)/6.png">
+          </ul>
+
+          <p>Parar generar el <b>jar</b> en este caso usaríamos el siguiente comando:</p>
+          <code>jar cfe hola.jar HelloWorld HelloWorld.class Mensaje.class</code>
+
+          <p>Para ejecutar el jar lo haríamos con el siguiente comando:</p>
+          <code>java -jar hola.jar</code>
+
+        </div>
+
+    <div class="t2">Usando Maven</div>
         <div class="cont">
           <p>Primero tenemos que importar el siguiente plugin:</p>
 
@@ -41,7 +71,7 @@
   <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">configuration</span>&gt;</span>
 <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">plugin</span>&gt;</span></code></pre>
 
-          <img src="Maven generar jar/1.png">
+          <img src="Generar jar (consola o Maven)/1.png">
 
           <p>Dentro de <b>configuration</b> tenemos que modificar la parte de <b>mainClass</b> para que coincida con la clase principal de nuestro proyecto.</p>
 
@@ -49,17 +79,17 @@
 
           <code>maven > plugins > jar > jar:jar</code>
 
-          <img src="Maven generar jar/2.png">
+          <img src="Generar jar (consola o Maven)/2.png">
 
           <p>El <b>.jar</b> se genera en la carpeta <b>target</b>:</p>
 
-          <img src="Maven generar jar/3.png">
+          <img src="Generar jar (consola o Maven)/3.png">
 
           <p>Para ejecutar el <b>.jar</b> lo hacemos de la siguiente manera:</p>
 
           <code>java -jar things-1.0-SNAPSHOT.jar</code>
 
-          <img src="Maven generar jar/4.png">
+          <img src="Generar jar (consola o Maven)/4.png">
 
         </div>
 
