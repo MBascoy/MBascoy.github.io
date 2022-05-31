@@ -1,0 +1,100 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Unit testing (MSTest)</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Como hacer unit testing en .net usando el framework de testing <b>MSTest</b>.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Partimos de un programa <b>Calculator</b> con el siguiente código:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">using</span> CalcLib;
+
+<span style="color:rgb(129, 162, 190); font-weight:400;">Calculator</span> calculator = new();
+
+<span style="color:rgb(129, 162, 190); font-weight:400;">Console</span>.WriteLine(calculator.Add(<span style="color:rgb(249, 145, 87); font-weight:400;">3</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>));</code></pre>
+
+          <p>La clase <b>Calculator</b> está definida así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> CalcLib
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Calculator</span>
+    {</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">double</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Add</span> <span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> num1, <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> num2)</span>
+        </span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> num1 + num2;
+        }
+    }
+}</code></pre>
+
+          <p>A continuación crearemos un test para probar la función <b>Add</b> de la clase <b>Calculator</b>.</p>
+
+          <p>Creamos un nuevo proyecto con la plantilla <b>MSTest Test Project</b>:</p>
+
+          <img src="Unit testing (MSTest)/1.png">
+          <img src="Unit testing (MSTest)/2.png">
+
+          <p>Por defecto el test se crea con el siguiente código:</p>
+          <img src="Unit testing (MSTest)/3.png">
+
+        <p>A continuación lo que tenemos que hacer es añadir la referencía de la clase que queremos probar en el test al proyecto del test, seleccionamos el proyecto y hacemos click en <b>Project</b>><b>Add Project Reference</b>:</p>
+        <img src="Unit testing (MSTest)/4.png">
+
+        <img src="Unit testing (MSTest)/5.png">
+
+        <p>A continuación añadimos el namespace en la clase del test:</p>
+        <code>using CalcLib;</code>
+
+        <p>y en el método del test añadimos el test en si:</p>
+
+        <pre><code>Calculator calculator = new ();
+Assert.AreEqual(9, calculator.Add(2, 7));</code></pre>
+
+        <p>El código final de la clase del test nos queda tal que así:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Microsoft.VisualStudio.TestTools.UnitTesting;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> CalcLib;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">CalcTest</span>
+{
+    [<span style="color:rgb(249, 145, 87); font-weight:400;">TestClass</span>]
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">UnitTest1</span>
+    {
+        [<span style="color:rgb(249, 145, 87); font-weight:400;">TestMethod</span>]
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">TestMethod1</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+        {
+            Calculator calculator = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ();
+
+            Assert.AreEqual(<span style="color:rgb(249, 145, 87); font-weight:400;">9</span>, calculator.Add(<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>));
+        }
+    }
+}</code></pre>
+
+          <p>Ya tendríamos nuestro test listo comprobando que la suma de 2 y 7 da 9, eso es lo que debería de devolver la funcion <b>Add</b>, para ejecutar el test y comprobar que es correcto nos vamos a <b>Test</b> > <b>Run All Test</b>, si el test se ejecuta correctamente se mostrará en verde:</p>
+
+          <img src="Unit testing (MSTest)/6.png">
+          <img src="Unit testing (MSTest)/7.png">
+
+          <p>Si forzamos el test para que falle veremos algo como esto, indicandonos el valor obtenido y el esperado:</p>
+          <img src="Unit testing (MSTest)/8.png">
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | .Net | test </p>
+        </div>
+
+    </body>
+</html>

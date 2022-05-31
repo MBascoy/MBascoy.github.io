@@ -1,0 +1,38 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Failed to discover tests from assembly</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Al intentar ejecutar los tests en <b>Visual Studio</b> obtenemos el siguiente error:</p>
+
+          <code>[MSTest][Discovery][C:\Users\manuel.bascoy\source\Workspaces\Varys\Main\IG.ICIO.Varys\IG.ICIO.Varys.Consultorias.Test\bin\Debug\IG.ICIO.Varys.Consultorias.Test.dll] Failed to discover tests from assembly C:\Users\manuel.bascoy\source\Workspaces\Varys\Main\IG.ICIO.Varys\IG.ICIO.Varys.Consultorias.Test\bin\Debug\IG.ICIO.Varys.Consultorias.Test.dll. Reason:Could not load type 'Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupBehavior' from assembly 'Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.</code>
+        </div>
+
+        <div class="t2">Metodo</div>
+            <div class="cont">
+              <p>Para solucionar este fallo tenemos que actualizar los paquetes de <b>NuGet</b>, dos en concreto:</p>
+
+              <ul>
+                <li>MSTest.TestAdapter</li>
+                <li>MSTest.TestFramework</li>
+              </ul>
+
+              <img src="Failed to discover tests from assembly/1.png">
+              <img src="Failed to discover tests from assembly/2.png">
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | .Net | Tests</p>
+        </div>
+
+    </body>
+</html>

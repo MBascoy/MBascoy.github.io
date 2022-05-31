@@ -1,0 +1,50 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Top-level programs</h1>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>A partir de la verion 9 de C# podemos simplificar la <b>clase principal</b> y la llamada a <b>main</b> de un programa.</p>
+
+          <p>Normalmente declaramos la clase principal de un programa asi:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ConsoleApp1</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">internal</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Program</span>
+    {
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span class="hljs-built_in">string</span>[] args</span>)</span>
+        {
+            Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hello&quot;</span>);
+        }
+    }
+}</code></pre>
+
+          <p>Usando <b>top-level programs</b> podemos escribir el mismo programa tal que así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">System</span>;
+Console.WriteLine(&quot;Hello&quot;);</code></pre>
+
+          <p>En este caso solo tenemos que definir los <b>using</b> y el código que iría dentro de la función <b>main</b>.</p>
+
+          <p>El resto de código de generación de la <b>clase</b>, <b>namespace</b> y función <b>main</b> es autogenerado por el compilador.</p>
+
+          <p><b>Nota:</b> este tipo de sintaxis solo se puede usar en un archivo por proyecto, generalmente la función main (el entrypoint del programa).</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | .Net | top-level | main</p>
+        </div>
+
+    </body>
+</html>
