@@ -1,0 +1,154 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Posicionar componentes</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como posicionar los componentes en una aplicación gráfica con swing.</p>
+
+        </div>
+
+    <div class="t2">GridBagLayout</div>
+        <div class="cont">
+
+            <p>Para utilizar el <b>GridBagLayout</b>, primero tenemos que establecer el layout despues de obtener el panel principal, tal que así:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">Container contenedor = getContentPane();
+contenedor.setLayout(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagLayout());</code></pre>
+
+            <p>Despues para introducir los componentes en el contendor tenemos que definir las propiedades que tendrá el elemento dentro del grid, lo hacemos de la siguiente manera usando un <b>GridBagConstraints</b> (en el siguiente código introducimos 3 botones):</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">        <span style="color:rgb(129, 162, 190); font-weight:400;">GridBagConstraints</span> gridConstraints = new GridBagConstraints();
+
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>.<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>.<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.fill = GridBagConstraints.BOTH;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.insets = new Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+
+        <span style="color:rgb(129, 162, 190); font-weight:400;">JButton</span> boton<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> = new JButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Boton1&quot;</span>);
+        <span style="color:rgb(129, 162, 190); font-weight:400;">contenedor</span>.add(boton<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, gridConstraints);
+
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>.<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>.<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.fill = GridBagConstraints.BOTH;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.insets = new Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+
+        <span style="color:rgb(129, 162, 190); font-weight:400;">JButton</span> boton<span style="color:rgb(249, 145, 87); font-weight:400;">2</span> = new JButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Boton2&quot;</span>);
+        <span style="color:rgb(129, 162, 190); font-weight:400;">contenedor</span>.add(boton<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, gridConstraints);
+
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>.<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>.<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.gridwidth = <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.fill = GridBagConstraints.BOTH;
+        <span style="color:rgb(129, 162, 190); font-weight:400;">gridConstraints</span>.insets = new Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+
+        <span style="color:rgb(129, 162, 190); font-weight:400;">JButton</span> boton<span style="color:rgb(249, 145, 87); font-weight:400;">3</span> = new JButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Boton3&quot;</span>);
+        <span style="color:rgb(129, 162, 190); font-weight:400;">contenedor</span>.add(boton<span style="color:rgb(249, 145, 87); font-weight:400;">3</span>, gridConstraints);</code></pre>
+
+            <ul>
+              <li><b>gridx / gridy</b>: establece en que posicion del grid estará el elemento, <b>gridx</b> indica la columna y <b>gridy</b> la fila. </li>
+              <li><b>weightx / weighty</b>: va de 0.0 a 1.0 indica cuanto de su "celda" ocupará el componente si lo ponemos en 1.0 ocupará el maximo espacio posible, si lo ponemos en 0.5 ocupará la mitad del maximo espacio posible.</li>
+              <li><b>gridwidth / gridheight</b>: indica cuantas "celdas" se expandirá el componente a lo largo de las filas (gridheight) o a lo largo de las columnas (gridwidth).</li>
+              <li><b>fill</b>: indica de que manera los componentes deben de rellenar el espacio que hay entre ellos.</li>
+              <li><b>insets</b>: indica el margen exterior que tendrán los componentes con los otros componentes que los rodean.</li>
+            </ul>
+
+            <p>El código completo de la aplicación es el siguiente:</p>
+
+            <pre>
+ <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.swing.*;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ButtonApp</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">JFrame</span></span>{
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ButtonApp</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+
+        Container contenedor = getContentPane();
+        contenedor.setLayout(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagLayout());
+
+        GridBagConstraints gridConstraints = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagConstraints();
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.fill = GridBagConstraints.BOTH;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+
+        JButton boton1 = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Boton1&quot;</span>);
+        contenedor.add(boton1, gridConstraints);
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.fill = GridBagConstraints.BOTH;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+
+        JButton boton2 = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Boton2&quot;</span>);
+        contenedor.add(boton2, gridConstraints);
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.gridwidth = <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>;
+        gridConstraints.fill = GridBagConstraints.BOTH;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+
+        JButton boton3 = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Boton3&quot;</span>);
+        contenedor.add(boton3, gridConstraints);
+
+        pack();
+        setVisible(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setResizable(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setSize(<span style="color:rgb(249, 145, 87); font-weight:400;">300</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>);
+        setTitle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Grid example&quot;</span>);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String[] args)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ButtonApp();
+    }
+}</code></pre>
+
+            <p>El resultado final es este:</p>
+
+            <img src="Posicionar componentes/1.png">
+
+        <div class="t2">Ejercicios</div>
+            <div class="cont">
+              <p>Conseguir los siguientes resultados:</p>
+
+              <p><img src="Posicionar componentes/2.png"></p>
+              <p><img src="Posicionar componentes/3.png"></p>
+              <p><img src="Posicionar componentes/4.png"></p>
+              <p><img src="Posicionar componentes/5.png"></p>
+              <p><img src="Posicionar componentes/6.png"></p>
+
+
+            </div>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | Swing | GridBagLayout</p>
+        </div>
+
+    </body>
+</html>

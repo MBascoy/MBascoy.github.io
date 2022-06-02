@@ -1,0 +1,93 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Clases</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Conceptos generales sobre clases en .Net.</p>
+
+        </div>
+
+    <div class="t2">Crear clase</div>
+        <div class="cont">
+          <p>Para crear una nueva clase hacemos click derecho en el proyecto y vamos a <b>Add</b> > <b>New Item</b></p>
+          <img src="Clases/1.png" alt="">
+
+          <p>Y seleccionamos <b>Class</b> (Podemos darle un nombre en la caja de texto inferior):</p>
+          <img src="Clases/2.png" alt="">
+
+          <p>Por defecto la clase se genera así:</p>
+          <img src="Clases/3.png" alt="">
+
+
+
+        </div>
+
+    <div class="t2">Properties</div>
+        <div class="cont">
+          <p>Podemos crear propiedades directamente con su getter y setter de la siguiente manera:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> Titulo { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }</code></pre>
+
+          <p>Si queremos definir el getter y setter para realizar una encapsulación mas compleja podemos hacerlo asi:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">GammaApp</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">internal</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Gamma</span>
+    {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> titulo;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> Titulo
+        {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>
+            {
+                <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> titulo;
+            }
+
+            <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>
+            {
+                titulo = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;El titulo es: &quot;</span> + <span style="color:rgb(204, 153, 204); font-weight:400;">value</span>;
+            }
+
+        }
+    }
+}</code></pre>
+
+        </div>
+
+    <div class="t2">Metodos y paso por referencia</div>
+        <div class="cont">
+          <p>Podemos usar el operador <b>ref</b> para pasar parametros una función por <b>referencia</b> en vez de pasar por valor.</p>
+
+          <p>En el siguiente ejemplo pasamos un parametro por referencia a la función <b>ModificarTexto</b>. </p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ModificarTexto</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"> <span style="color:rgb(204, 153, 204); font-weight:400;">ref</span> <span class="hljs-built_in">string</span> texto</span>)</span>
+{
+    texto = texto + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; ha pasado por ModificarTexto&quot;</span>;
+}</code></pre>
+
+          <p>Al llamar a la función tenemos que usar tambien el operador <b>ref</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;">string</span> texto = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;hola&quot;</span>;
+
+objeto.ModificarTexto(<span style="color:rgb(204, 153, 204); font-weight:400;">ref</span> texto);
+
+Console.WriteLine(texto);</code></pre>
+
+          <p>En el ejemplo anterior la variable <b>texto</b> se modifica al pasar por la función <b>ModificarTexto</b>, ya que se pasa por referencia.</p>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | clases</p>
+        </div>
+
+    </body>
+</html>
