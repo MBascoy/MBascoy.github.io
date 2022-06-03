@@ -24,6 +24,9 @@
             <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">Container contenedor = getContentPane();
 contenedor.setLayout(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagLayout());</code></pre>
 
+            <p><b>NOTA</b>: Para usar el <b>GridBagLayout</b> tenemos que tener el siguiente import:</p>
+            <code>import java.awt.*;</code>
+
             <p>Despues para introducir los componentes en el contendor tenemos que definir las propiedades que tendrá el elemento dentro del grid, lo hacemos de la siguiente manera usando un <b>GridBagConstraints</b> (en el siguiente código introducimos 3 botones):</p>
 
             <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">        <span style="color:rgb(129, 162, 190); font-weight:400;">GridBagConstraints</span> gridConstraints = new GridBagConstraints();
@@ -61,10 +64,11 @@ contenedor.setLayout(<span style="color:rgb(204, 153, 204); font-weight:400;">ne
 
             <ul>
               <li><b>gridx / gridy</b>: establece en que posicion del grid estará el elemento, <b>gridx</b> indica la columna y <b>gridy</b> la fila. </li>
-              <li><b>weightx / weighty</b>: va de 0.0 a 1.0 indica cuanto de su "celda" ocupará el componente si lo ponemos en 1.0 ocupará el maximo espacio posible, si lo ponemos en 0.5 ocupará la mitad del maximo espacio posible.</li>
+              <li><b>weightx / weighty</b>: va de 0.0 a 1.0, indica cuanto debe de ocupar un elemento con respecto a otro a la hora de repartir el espacio, los elementos con mas peso ocuparan más que los que tengan un peso inferior.</li>
               <li><b>gridwidth / gridheight</b>: indica cuantas "celdas" se expandirá el componente a lo largo de las filas (gridheight) o a lo largo de las columnas (gridwidth).</li>
-              <li><b>fill</b>: indica de que manera los componentes deben de rellenar el espacio que hay entre ellos.</li>
+              <li><b>fill</b>: indica de que manera los componentes deben de rellenar el espacio que hay en su fila o columna, hay que tener en cuenta que el tamaño de una fila o columna viene dado por el elemento de mayor tamaño que haya en la fila o columna.</li>
               <li><b>insets</b>: indica el margen exterior que tendrán los componentes con los otros componentes que los rodean.</li>
+              <li><b>ipadx / ipady</b>: (no aparece en el código anterior) nos permite añadir un padding interno a los botones tanto en horizontal (ipadx), como en vertical (ipady).</li>
             </ul>
 
             <p>El código completo de la aplicación es el siguiente:</p>

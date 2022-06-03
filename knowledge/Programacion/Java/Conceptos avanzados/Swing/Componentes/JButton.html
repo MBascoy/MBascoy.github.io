@@ -1,0 +1,145 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">JButton</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como crear botones y asignarles acciones cuando se interactue con ellos.</p>
+
+        </div>
+
+    <div class="t2">Crear JButton</div>
+        <div class="cont">
+
+            <p>Para crear un <b>JButton</b>, lo hacemos así:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">JButton</span> boton<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> = new JButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Boton1&quot;</span>);</code></pre>
+
+
+            <p><b>NOTA</b>: Para usar el <b>JButton</b> tenemos que tener el siguiente import:</p>
+            <code>import javax.swing.*;</code>
+
+            <p>El parametro que le indicamos al crear el <b>JButton</b> es el texto que mostrará el boton por defecto.</p>
+
+            <p>Una vez tenemos creado el boton lo introducimos en nuestro contenedor:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">contenedor</span>.add(boton<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, gridConstraints);</code></pre>
+
+            <p>El primer parametro es el componente que vamos a introducir y el segundo las propiedades del <b>GridBagLayout</b> para posicionar el elemento dentro del layout del contenedor.</p>
+
+            <img src="JButton/1.png">
+
+        </div>
+
+    <div class="t2">Asociar evento al boton</div>
+        <div class="cont">
+          <p>Para asociar un evento a un boton lo hacemos creando un objeto <b>ActionListener</b>, definiendo la funcion <b>actionPerformed</b> (que es la función que se ejecutará al hacer click en el botón) y asociando el ActionListener al boton:</p>
+
+          <p>Primero creamos el <b>ActionListener</b> y definimos la función <b>actionPerformed</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">ActionListener buttonAction = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ActionListener</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">actionPerformed</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ActionEvent e</span>)</span> {
+        numberOfClicks++;
+        boton1.setText(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;pulsado &quot;</span> + numberOfClicks + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; veces&quot;</span>);
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Boton pulsado&quot;</span>);
+    }
+};</code></pre>
+
+          <p><b>NOTA</b>: Para poder crear un ActionListener necesitamos el siguiente import:</p>
+
+          <code>import java.awt.event.*;</code>
+
+          <p>En este caso realizamos tres acciones dentro de la función:</p>
+          <ul>
+            <li>Aumentamos la variable <b>numberOfClicks</b>.</li>
+            <li>Cambiamos el texto del propio boton.</li>
+            <li>Imprimimos por consola que el botón ha sido pulsado.</li>
+          </ul>
+
+          <p>A continuación asignamos el <b>ActionListener</b> que hemos creado al <b>boton</b> que habíamos creado previamente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">boton1</span><span style="color:rgb(209, 217, 225); font-weight:400;">.addActionListener</span>(buttonAction);</code></pre>
+
+
+          <p>El resultado final al pulsar el boton es el siguiente:</p>
+
+          <img src="JButton/2.png">
+
+          <p>El código completo es el siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.event.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.swing.*;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ButtonActionApp</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">JFrame</span></span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numberOfClicks = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ButtonActionApp</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+
+        Container contenedor = getContentPane();
+        contenedor.setLayout(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagLayout());
+
+        GridBagConstraints gridConstraints = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagConstraints();
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.ipadx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>);
+
+        JButton boton1 = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Boton1&quot;</span>);
+        contenedor.add(boton1, gridConstraints);
+
+        ActionListener buttonAction = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ActionListener() {
+            <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">actionPerformed</span><span style="color:rgb(209, 217, 225); font-weight:400;">(ActionEvent e)</span> </span>{
+                numberOfClicks++;
+                boton1.setText(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;pulsado &quot;</span> + numberOfClicks + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; veces&quot;</span>);
+                System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Boton pulsado&quot;</span>);
+            }
+        };
+
+        boton1.addActionListener(buttonAction);
+
+        pack();
+        setVisible(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setResizable(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setSize(<span style="color:rgb(249, 145, 87); font-weight:400;">300</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>);
+        setTitle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Button example&quot;</span>);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String[] args)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ButtonActionApp();
+    }
+}</code></pre>
+
+
+        </div>
+
+    <div class="t2">Ejercicios</div>
+        <div class="cont">
+          <p>Conseguir el siguiente resultado:</p>
+
+          <img src="JButton/3.png">
+
+          <p>Dos <b>botones</b> y un <b>label</b>, cuando se pulsa uno de los botones el label muestra el botón que ha sido pulsado.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | Swing | JButton</p>
+        </div>
+
+    </body>
+</html>
