@@ -1,0 +1,159 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">JLabel</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como crear etiquetas y asignarles una accion al pasar el cursor por encima.</p>
+
+        </div>
+
+    <div class="t2">Crear JLabel</div>
+        <div class="cont">
+
+            <p>Para crear un <b>JLabel</b>, lo hacemos así:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">JLabel label = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JLabel(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola soy un label&quot;</span>);</code></pre>
+
+            <p><b>NOTA</b>: Para usar el <b>JLabel</b> tenemos que tener el siguiente import:</p>
+            <code>import javax.swing.*;</code>
+
+            <p>El parametro que le indicamos al crear el <b>JLabel</b> es el texto que mostrará la etiqueta por defecto.</p>
+
+            <p>Una vez tenemos creado el label lo introducimos en nuestro contenedor:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">contenedor.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(label, gridConstraints);</code></pre>
+
+            <p>El primer parametro es el componente que vamos a introducir y el segundo las propiedades del <b>GridBagLayout</b> para posicionar el elemento dentro del layout del contenedor.</p>
+
+            <img src="JLabel/1.png">
+
+        </div>
+
+    <div class="t2">Obtener y establecer valores del label</div>
+        <div class="cont">
+
+          <ul>
+            <li><b>getText()</b>: nos permite obtener el valor actual del label:</li>
+            <li><b>setText()</b>: nos permite establecer el valor del label.</li>
+          </ul>
+
+          <p>Un ejemplo para usar <b>getText</b> sería el siguiente:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(label.getText());
+</code></pre>
+
+          <p>Un ejemplo para usar <b>setText</b> sería el siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">label</span><span style="color:rgb(209, 217, 225); font-weight:400;">.setText</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Nuevo texto&quot;</span>);</code></pre>
+
+
+        </div>
+
+    <div class="t2">Asociar evento al label</div>
+        <div class="cont">
+          <p>El componente <b>JLabel</b> no suele estar asociado a ningun evento (ni siquiera dispone del metoodo addActionListener), ya que su unica funcionalidad es la de mostrar información, pero podemos asignarle un <b>MouseAdapter</b> para hacer que label reaccione cuando pasemos el ratón por encima.</p>
+
+
+          <p>Primero creamos el <b>MouseAdapter</b> y definimos la función <b>mouseEntered</b>, que estará asociada a cuando pasemos el cursor por encima del label y una función <b>mouseExited</b>, que estará asociada a cuando el cursor deje de estár encima del label:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">MouseAdapter mouseAction = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">MouseAdapter</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">mouseEntered</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">java.awt.event.MouseEvent evt</span>)</span> {
+        label.setOpaque(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        label.setText(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Esta dentro !!!&quot;</span>);
+        label.setBackground(Color.GREEN);
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">mouseExited</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">java.awt.event.MouseEvent evt</span>)</span> {
+        label.setText(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Cursor fuera del label&quot;</span>);
+        label.setBackground(UIManager.getColor(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;control&quot;</span>));
+    }
+};</code></pre>
+
+          <p><b>NOTA</b>: Para poder crear un MouseAdapter necesitamos el siguiente import:</p>
+
+          <code>import java.awt.event.*;</code>
+
+          <p>En este caso hacemos que el texto y el fondo del label cambien tanto cuando el ratón pasa por encima como cuando sale de encima del label.</p>
+
+          <p>(el label.setOpaque(true) es necesario ya que por defecto no se dibuja ningun fondo para el label, si no se pone esto no se verá el color que le asignemos.)</p>
+
+          <p>A continuación asignamos el <b>MouseAdapter</b> que hemos creado al <b>label</b> usando el metodo <b>addMouseListener</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">label</span><span style="color:rgb(209, 217, 225); font-weight:400;">.addMouseListener</span>(mouseAction);</code></pre>
+
+
+          <p>El resultado final al pasar el raton por ecima del label es el siguiente:</p>
+
+          <img src="JLabel/2.png">
+
+          <p>El código completo es el siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.event.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.swing.*;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">LabelActionApp</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">JFrame</span></span>{
+
+    int clicksNumber = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">LabelActionApp</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+
+        Container contenedor = getContentPane();
+        contenedor.setLayout(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagLayout());
+
+        GridBagConstraints gridConstraints = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagConstraints();
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>);
+
+        JLabel label = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JLabel(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola soy un label&quot;</span>);
+        contenedor.add(label, gridConstraints);
+
+        MouseAdapter mouseAction = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">MouseAdapter</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">mouseEntered</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">java.awt.event.MouseEvent evt</span>)</span> {
+                label.setOpaque(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+                label.setText(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Esta dentro !!!&quot;</span>);
+                label.setBackground(Color.GREEN);
+            }
+            <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">mouseExited</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">java.awt.event.MouseEvent evt</span>)</span> {
+                label.setText(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Cursor fuera del label&quot;</span>);
+                label.setBackground(UIManager.getColor(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;control&quot;</span>));
+            }
+        };
+
+        label.addMouseListener(mouseAction);
+
+        pack();
+        setVisible(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setResizable(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setSize(<span style="color:rgb(249, 145, 87); font-weight:400;">300</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>);
+        setTitle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Label example&quot;</span>);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] args</span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> LabelActionApp();
+    }
+}</code></pre>
+
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | Swing | JLabel</p>
+        </div>
+
+    </body>
+</html>

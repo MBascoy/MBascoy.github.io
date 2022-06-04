@@ -1,0 +1,221 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">JTextField</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como crear y usar cajas de texto.</p>
+
+        </div>
+
+    <div class="t2">Crear JTextField</div>
+        <div class="cont">
+
+            <p>Para crear un <b>JTextField</b>, lo hacemos así:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">JTextField textField = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JTextField();</code></pre>
+
+            <p><b>NOTA</b>: Para usar el <b>JTextField</b> tenemos que tener el siguiente import:</p>
+            <code>import javax.swing.*;</code>
+
+            <p>El parametro que le indicamos al crear el <b>JTextField</b> es el texto que se mostrará dentro de la caja de texto por defecto, si queremos que se muestre vacía no le pasamos ningún argumento (no hace falta pasar un string vacio).</p>
+
+            <p>Una vez tenemos creado el <b>JTextField</b> lo introducimos en nuestro contenedor:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">contenedor.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(textField, gridConstraints);
+</code></pre>
+
+            <p>El primer parametro es el componente que vamos a introducir y el segundo las propiedades del <b>GridBagLayout</b> para posicionar el elemento dentro del layout del contenedor.</p>
+
+            <img src="JTextField/1.png">
+
+        </div>
+
+    <div class="t2">Obtener y establecer valores del TextField</div>
+        <div class="cont">
+
+          <ul>
+            <li><b>getText()</b>: nos permite obtener el contenido actual del TextField.</li>
+            <li><b>setText()</b>: nos permite establecer el valor del TextField desde el código.</li>
+          </ul>
+
+          <p>Un ejemplo para usar <b>getText</b> sería el siguiente:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(textField.getText());
+</code></pre>
+
+          <p>Un ejemplo para usar <b>setText</b> sería el siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">textField</span><span style="color:rgb(209, 217, 225); font-weight:400;">.setText</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>);
+</code></pre>
+
+          <p>Este código borraría el contenido del TextField en caso de que hubiese algo escrito en el.</p>
+
+
+        </div>
+
+    <div class="t2">Asociar evento al TextField</div>
+        <div class="cont">
+          <p>Al <b>JTextField</b> podemos asociarle un <b>ActionListener</b>, que se asociará al evento de pulsar la tecla <b>Enter</b> dentro de la caja de texto, por lo tanto cuando pulsemo <b>Enter</b> en el TextField se ejecutará el código que nosotros queramos.</p>
+
+          <p>Definimos el <b>ActionListener</b> así:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">textField.addActionListener(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ActionListener</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">actionPerformed</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ActionEvent e</span>)</span> {
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Texto escrito: &quot;</span> + textField.getText());
+    }
+});</code></pre>
+
+          <img src="JTextField/2.png">
+        </div>
+
+    <div class="t2">Asociar click del raton al TextField</div>
+        <div class="cont">
+          <p>El evento mas común para un Textfield es el de pulsar la tecla enter dentro del mismo, pero tambien podemos asignar otros eventos como cuando hacemos click con el ratón en el TextField.</p>
+
+          <p>Para esto usaremos un <b>MouseAdapter</b>, de la siguiente manera:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">textField.addMouseListener(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">MouseAdapter</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">mouseClicked</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">MouseEvent e</span>)</span> {
+        textField.setText(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>);
+    }
+});</code></pre>
+
+          <p>Con el código anterior lo que conseguimos es que al hacer click sobre el TextField si hay algo escrito se borra.</p>
+        </div>
+
+
+    <div class="t2">Codigo completo</div>
+        <div class="cont">
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.event.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.swing.*;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">TextFieldApp</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">JFrame</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">TextFieldApp</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+
+        Container contenedor = getContentPane();
+        contenedor.setLayout(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagLayout());
+
+        GridBagConstraints gridConstraints = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagConstraints();
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.fill = gridConstraints.HORIZONTAL;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>);
+
+        JTextField textField = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JTextField();
+        contenedor.add(textField, gridConstraints);
+
+        textField.addActionListener(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ActionListener</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">actionPerformed</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ActionEvent e</span>)</span> {
+                System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Texto escrito: &quot;</span> + textField.getText());
+            }
+        });
+
+        textField.addMouseListener(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">MouseAdapter</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">mouseClicked</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">MouseEvent e</span>)</span> {
+                textField.setText(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>);
+            }
+        });
+
+        pack();
+        setVisible(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setResizable(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setSize(<span style="color:rgb(249, 145, 87); font-weight:400;">300</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>);
+        setTitle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;TextField example&quot;</span>);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] args</span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> TextFieldApp();
+    }
+}</code></pre>
+
+        </div>
+
+    <div class="t2">Resolución de problemas</div>
+        <div class="cont">
+          <p>En el código anterior si quitamos la siguiente linea:</p>
+          <code>gridConstraints.fill = gridConstraints.HORIZONTAL;</code>
+
+          <p>Al ejecutar el programa veremos que se visualiza así:</p>
+
+          <img src="JTextField/5.png">
+
+          <p>Esto se produce porque al no haber ningun elemento más en esa columna y no tener la propiedad <b>fill</b> el TextField ocupa el menor espacio posible, para evitar este fallo asegurarse de que el componente va a tener un tamaño acorde a lo que necesitamos añadiendo un <b>fill</b> u otra propiedad que le dé un tamaño al componente.</p>
+
+        </div>
+
+
+    <div class="t2">Detectar cambios</div>
+        <div class="cont">
+          <p>Para lanzar una función cuando se producen cambios en un JTextField podemos hacerlo usando un <b>DocumentListener</b>, tal que así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">textField.getDocument().addDocumentListener(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">DocumentListener</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">changedUpdate</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">DocumentEvent e</span>)</span> {
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">removeUpdate</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">DocumentEvent e</span>)</span> {
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;se ha borrado un caracter&quot;</span>);
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">insertUpdate</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">DocumentEvent e</span>)</span> {
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;se ha introducido un caracter&quot;</span>);
+    }
+});</code></pre>
+
+          <p>Es obligatorio implementar las 3 funciones, aunque no las usemos todas.</p>
+
+        </div>
+
+    <div class="t2">Detectar pulsación de teclas</div>
+        <div class="cont">
+          <p>Si queremos detectar la pulsación de teclas concretas dentro del TextField podemos hacerlo usando un <b>KeyAdapter</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">textField.addKeyListener(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">KeyAdapter</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">keyReleased</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">KeyEvent e</span>)</span> {
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">keyTyped</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">KeyEvent e</span>)</span> {
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">keyPressed</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">KeyEvent e</span>)</span> {
+        System.out.println(e.getKeyCode());
+    }
+  });</code></pre>
+
+          <p>Usamos <b>e.getKeyCode()</b> para obtener el código ASCII de la tecla que ha sido pulsada.</p>
+
+
+        </div>
+
+    <div class="t2">Ejercicios</div>
+        <div class="cont">
+          <img src="JTextField/3.png">
+
+          <p>Tenemos un <b>TextField</b> y un <b>Label</b>, tenemos que hacer que al escribir en el TextField y pulsar <b>Enter</b> el contenido del TextField se vaya acumulando en el label y el TextField se vacie para introducir más contenido.</p>
+
+          <img src="JTextField/4.png">
+
+          <p>Lo mismo que el ejercicio anterior pero ahora usaremos un boton para hacer que el texto se acumule.</p>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | Swing | JTextField</p>
+        </div>
+
+    </body>
+</html>
