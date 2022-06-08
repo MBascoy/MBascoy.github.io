@@ -1,0 +1,157 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">JComboBox</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como crear un menu desplegable de seleccion y asignar acciones al elegir una opción.</p>
+
+        </div>
+
+    <div class="t2">Crear JComboBox</div>
+        <div class="cont">
+
+            <p>Para crear un <b>JComboBox</b>, lo hacemos así:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] opciones = { <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;opcion1&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;opcion2&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;opcion3&quot;</span>};
+
+JComboBox combo = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JComboBox(opciones);</code></pre>
+
+            <p><b>NOTA</b>: Para usar el <b>JComboBox</b> tenemos que tener el siguiente import:</p>
+            <code>import javax.swing.*;</code>
+
+            <p>El parametro que le indicamos al crear el <b>JComboBox</b> es un array de strings que serán las opciones que figuren en el JComboBox.</p>
+
+            <p>Una vez tenemos creado el ComboBox lo introducimos en nuestro contenedor:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">contenedor.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(combo, gridConstraints);</code></pre>
+
+            <p>El primer parametro es el componente que vamos a introducir y el segundo las propiedades del <b>GridBagLayout</b> para posicionar el elemento dentro del layout del contenedor.</p>
+
+            <img src="JComboBox/1.png">
+
+        </div>
+
+
+    <div class="t2">Asociar evento al JComboBox</div>
+        <div class="cont">
+          <p>Para asociar el evento de seleccionar un elemento del ComboBox a una función usaremos un <b>ActionListener</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">combo.addActionListener(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ActionListener</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">actionPerformed</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ActionEvent e</span>)</span>{
+        System.out.println(combo.getSelectedItem());
+    }
+});</code></pre>
+
+
+          <img src="JComboBox/2.png">
+
+          <p>El código completo de la aplicación es el siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.event.*;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.swing.*;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ComboBox</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">JFrame</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ComboBox</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+
+        Container contenedor = getContentPane();
+        contenedor.setLayout(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagLayout());
+
+        GridBagConstraints gridConstraints = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagConstraints();
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.fill = gridConstraints.HORIZONTAL;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>);
+
+        <span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] opciones = { <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;opcion1&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;opcion2&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;opcion3&quot;</span>};
+
+        JComboBox combo = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JComboBox(opciones);
+        contenedor.add(combo, gridConstraints);
+
+        combo.addActionListener(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ActionListener</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">actionPerformed</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ActionEvent e</span>)</span>{
+                System.out.println(combo.getSelectedItem());
+            }
+        });
+
+        pack();
+        setVisible(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setResizable(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setSize(<span style="color:rgb(249, 145, 87); font-weight:400;">300</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>);
+        setTitle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ComboBox example&quot;</span>);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] args</span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ComboBox();
+    }
+}</code></pre>
+
+        </div>
+
+    <div class="t2">Añadir elementos al ComboBox</div>
+        <div class="cont">
+          <p>Para añadir nuevos elementos a un ComboBox que ya está creado lo hacemos con el metodo <b>addItem</b>, pero tenemos que pasarle un objeto de un tipo concreto que tenemos que crear nosotros, la <b>clase</b> tiene que ser tal que así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ComboBoxOption</span>
+</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> key;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> value;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ComboBoxOption</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span> option</span>)</span>
+    {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.key = option;
+        <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.value = option;
+    }
+
+    <span style="color:rgb(249, 145, 87); font-weight:400;">@Override</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">toString</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> key;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getKey</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> key;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">getValue</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> value;
+    }
+}</code></pre>
+
+          <p>Una vez tenemos esa clase podemos añadir nuevos elementos al ComboBox de la siguiente manera:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">combo.addItem(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ComboBoxOption(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Value 2&quot;</span>));</code></pre>
+        </div>
+
+    <div class="t2">Ejercicios</div>
+        <div class="cont">
+
+          <img src="JComboBox/3.png">
+
+          <p>Mostrar por la consola la opcion seleccionada en el combobox pero en vez de mostrarla al hacer la selección en el combo se mostrará al pulsar el boton "Mostrar seleccion"</p>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | Swing | JComboBox</p>
+        </div>
+
+    </body>
+</html>

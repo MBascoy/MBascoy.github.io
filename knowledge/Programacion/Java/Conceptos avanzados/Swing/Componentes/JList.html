@@ -1,0 +1,189 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">JList</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como crear listas y disparar eventos al seleccionar elementos de la lista.</p>
+
+        </div>
+
+    <div class="t2">Crear JList</div>
+        <div class="cont">
+
+            <p>Para crear una lista tenemos que realizar varios pasos:</p>
+
+            <ul>
+              <li>Primero tenemos que crear un <b>DefaultListModel</b> que será el que contenga los elementos de la lista..</li>
+              <li>Despues creamos un componente <b>JList</b> en el que meteremos la lista de elementos que creamos antes.</li>
+              <li>Despues podemos crear un <b>ListSelectionListener</b>, que nos permitirá realizar acciones al pulsar los elementos de la lista.</li>
+            </ul>
+
+            <p>El <b>DefaultListModel</b> los creamos de la siguiente manra:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">DefaultListModel listModel = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> DefaultListModel();
+listModel.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Coche&quot;</span>);
+listModel.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Tren&quot;</span>);
+listModel.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Avion&quot;</span>);</code></pre>
+
+            <p>Creamos el <b>JList</b> y le pasamos como argumento el <b>listModel</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">JList lista = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JList(listModel);</code></pre>
+
+            <p>De manera optativa podemos usar el metodo <b>setSelectedIndex</b> para indicar cual es el elemento que debe de estar seleccionado por defecto, a este método se le pasa un número para indicar el indice del elemento que queremos que esté seleccionado:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">lista</span>.setSelectedIndex(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>);</code></pre>
+
+
+
+          <img src="JList/1.png" alt="">
+        </div>
+
+    <div class="t2">Asociar evento a los elementos de la lista</div>
+        <div class="cont">
+          <p>Para que al pulsar cada uno de los elemento de la lista se dispare una accion lo haremos con un <b>ListSelectionListener</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">ListSelectionListener listListener = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ListSelectionListener</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">valueChanged</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ListSelectionEvent e</span>)</span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (e.getValueIsAdjusting() == <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>) {
+            System.out.println(lista.getSelectedValue());
+        }
+    }
+};
+lista.addListSelectionListener(listListener);</code></pre>
+
+          <p>En este ejemplo simplemente imprimimos el valor seleccionado por la consola usando:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">lista</span><span style="color:rgb(209, 217, 225); font-weight:400;">.getSelectedValue</span>()</code></pre>
+
+          <p>Y usamos:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">if</span> (e.getValueIsAdjusting() == <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>)</code></pre>
+
+          <p>Para que se ejecute el código solo cuando se finalice la seleccion (esto es cuando se levante el boton izquierdo del raton), si no el código se ejecutaría dos veces.</p>
+
+          <img src="JList/2.png">
+
+        </div>
+
+
+    <div class="t2">Establecer una lista alternativa</div>
+        <div class="cont">
+          <p>Si queremos una vez creada la lista establecer una nueva lista de elementos, primero definimos una nueva lista:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">DefaultListModel</span> listModel<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>;
+<span style="color:rgb(129, 162, 190); font-weight:400;">listModel2</span> = new DefaultListModel();
+<span style="color:rgb(129, 162, 190); font-weight:400;">listModel2</span>.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Patata&quot;</span>);
+<span style="color:rgb(129, 162, 190); font-weight:400;">listModel2</span>.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Sandia&quot;</span>);
+<span style="color:rgb(129, 162, 190); font-weight:400;">listModel2</span>.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Manzana&quot;</span>);</code></pre>
+
+          <p>Y despues usamos el metodo <b>setModel</b> para establecer los nuevos valores de la lista:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">lista</span>.setModel(listModel<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>);</code></pre>
+
+          <p>En el siguiente ejemplo se usa un botón para cambiar la lista inicial por una nueva lista:</p>
+
+          <img src="JList/3.png">
+
+
+        </div>
+
+    <div class="t2">Codigo completo</div>
+        <div class="cont">
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.event.*;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.swing.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.swing.event.ListSelectionEvent;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.swing.event.ListSelectionListener;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ItemList</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">JFrame</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ItemList</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+
+        Container contenedor = getContentPane();
+        contenedor.setLayout(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagLayout());
+
+        GridBagConstraints gridConstraints = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagConstraints();
+
+        DefaultListModel listModel = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> DefaultListModel();
+        listModel.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Coche&quot;</span>);
+        listModel.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Tren&quot;</span>);
+        listModel.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Avion&quot;</span>);
+
+        DefaultListModel listModel2;
+        listModel2 = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> DefaultListModel();
+        listModel2.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Patata&quot;</span>);
+        listModel2.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Sandia&quot;</span>);
+        listModel2.addElement(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Manzana&quot;</span>);
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.fill = gridConstraints.HORIZONTAL;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>);
+
+        JList lista = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JList(listModel);
+        contenedor.add(lista, gridConstraints);
+
+        lista.setSelectedIndex(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>);
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.fill = gridConstraints.HORIZONTAL;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>);
+
+        JButton boton = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Nueva Lista&quot;</span>);
+        contenedor.add(boton, gridConstraints);
+
+        ActionListener actionListener = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ActionListener</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">actionPerformed</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ActionEvent e</span>)</span>{
+                lista.setModel(listModel2);
+            }
+        };
+        boton.addActionListener(actionListener);
+
+        ListSelectionListener listListener = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ListSelectionListener</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">valueChanged</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ListSelectionEvent e</span>)</span>{
+                <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (e.getValueIsAdjusting() == <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>) {
+                    System.out.println(lista.getSelectedValue());
+                }
+            }
+        };
+        lista.addListSelectionListener(listListener);
+
+        pack();
+        setVisible(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setResizable(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setSize(<span style="color:rgb(249, 145, 87); font-weight:400;">300</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>);
+        setTitle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;List example&quot;</span>);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] args</span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ItemList();
+    }
+}</code></pre>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | Swing | JList</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,86 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">ImageIcon</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Mostrar imagenes en nuestra aplicación seing.</p>
+
+        </div>
+
+    <div class="t2">Crear JLabel con una imagen</div>
+        <div class="cont">
+
+            <p>Para mostrar una imagen en nuestra aplicación lo haremos a traves de un label, pasandole como parámetro un <b>ImageIcon</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">ImageIcon icon = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ImageIcon(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;pig.png&quot;</span>);
+
+JLabel labelIcon = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JLabel(icon);
+contenedor.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(labelIcon, gridConstraints);</code></pre>
+
+            <img src="ImageIcon/1.png">
+
+            <p><b>NOTA:</b> La ruta de la imagen es en relación al <b>working directory</b> de la aplicación, lo cual <b>NO es recomendable</b>, ya que el working directory variará segun ejecutemos el programa desde un sitio u otro.</p>
+
+            <p>Para hacer que la ruta sea relativa a la localización de la clase que estamos ejecutando lo haríamos de la siguiente manera:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">ImageIcon icon = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ImageIcon(getClass().getResource(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;pig.png&quot;</span>));</code></pre>
+
+
+            <p>El código completo es el siguiente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.awt.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> javax.swing.*;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Icon</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">JFrame</span> </span>{
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Icon</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+
+        Container contenedor = getContentPane();
+        contenedor.setLayout(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagLayout());
+
+        GridBagConstraints gridConstraints = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagConstraints();
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.fill = gridConstraints.HORIZONTAL;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>);
+
+        ImageIcon icon = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ImageIcon(getClass().getResource(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;pig.png&quot;</span>));
+
+        JLabel labelIcon = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JLabel(icon);
+        contenedor.add(labelIcon, gridConstraints);
+
+        pack();
+        setVisible(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setResizable(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setSize(<span style="color:rgb(249, 145, 87); font-weight:400;">300</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>);
+        setTitle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Icon example&quot;</span>);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String[] args)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Icon();
+    }
+}</code></pre>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | Swing | ImageIcon</p>
+        </div>
+
+    </body>
+</html>

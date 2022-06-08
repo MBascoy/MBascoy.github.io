@@ -1,0 +1,167 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">JRadioButton</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como crear botones de selección múltiple.</p>
+
+        </div>
+
+    <div class="t2">Crear JRadioButton</div>
+        <div class="cont">
+
+            <p>Para crear una serie de botones de selección multiple tenemos que realizar varios pasos:</p>
+
+            <ul>
+              <li>Primero tenemos que crear tantos <b>JRadioButton</b> como opciones queramos tener.</li>
+              <li>Despues creamos un <b>ButtonGroup</b> para agrupar todos los botones.</li>
+              <li>Despues podemos crear un <b>ActionListener</b>, para aplicarlo en todos los botones o crear un <b>ActionListener</b> para cada uno de los botones.</li>
+            </ul>
+
+            <p>Los <b>JRadioButton</b> los creamos de la siguiente manra:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">JRadioButton</span> button<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> = new JRadioButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton1&quot;</span>);
+<span style="color:rgb(129, 162, 190); font-weight:400;">button1</span>.setActionCommand(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton1&quot;</span>);
+<span style="color:rgb(129, 162, 190); font-weight:400;">button1</span>.setSelected(true);
+<span style="color:rgb(129, 162, 190); font-weight:400;">contenedor</span>.add(button<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, gridConstraints);</code></pre>
+
+            <p>Cuando creamos los <b>JRadioButton</b> es importante indicar el <b>setActionCommand</b> ya que es lo que nos permitirá obtener el valor seleccionado del grupo de botones, lo que indiquemos en el <b>setActionCommand</b> será el valor que nos devuelva cuando ese sea el boton seleccionado del <b>ButtonGroup</b>.</p>
+
+            <p>De manera optativa podemos indicar el <b>setSelected</b> en solo uno de los botones del grupo para indicar que es el boton que tiene que estár seleccionado por defecto.</p>
+
+            <p>Creamos un segundo boton:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">JRadioButton</span> button<span style="color:rgb(249, 145, 87); font-weight:400;">2</span> = new JRadioButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton2&quot;</span>);
+<span style="color:rgb(129, 162, 190); font-weight:400;">button2</span>.setActionCommand(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton2&quot;</span>);
+<span style="color:rgb(129, 162, 190); font-weight:400;">contenedor</span>.add(button<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, gridConstraints);</code></pre>
+
+            <p>A continuación creamos el <b>ButtonGroup</b> y añadimos los botones:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">ButtonGroup <span style="color:rgb(204, 153, 204); font-weight:400;">group</span> = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ButtonGroup();
+<span style="color:rgb(204, 153, 204); font-weight:400;">group</span>.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(button1);
+<span style="color:rgb(204, 153, 204); font-weight:400;">group</span>.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(button2);</code></pre>
+
+          <img src="JRadioButton/1.png" alt="">
+        </div>
+
+    <div class="t2">Asociar evento a los botones</div>
+        <div class="cont">
+          <p>Si queremos que se realice una acción al pulsar los botones podemos asignarlos a un <b>ActionListener</b>, en este caso asociaré todos los botones al mismo listener para imprimir por consola el valor del botón seleccionado:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">ActionListener radioListener = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ActionListener</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">actionPerformed</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ActionEvent e</span>)</span>{
+        System.out.println(e.getActionCommand());
+    }
+};
+
+button1.addActionListener(radioListener);
+button2.addActionListener(radioListener);</code></pre>
+
+          <p>Como hemos asociado el mismo listener a los dos botones el <b>ActionEvent</b> contendrá el valor del botón que dispara el evento, por lo tanto <b>e.getActionCommand()</b> será el <b>ActionCommand</b> que hayamos establecido al crear los botones.</p>
+
+          <img src="JRadioButton/2.png">
+
+        </div>
+
+
+    <div class="t2">Obtener valor seleccionado</div>
+        <div class="cont">
+
+          <p>Si queremos obtener el valor seleccionado en el <b>ButtonGroup</b> en cualquier momento y no solo al pulsar los botones del propio <b>ButtonGroup</b> podemos hacerlo a traves del objeto del propio <b>ButtonGroup</b>, tal que así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(<span style="color:rgb(204, 153, 204); font-weight:400;">group</span>.getSelection().getActionCommand());</code></pre>
+
+        </div>
+
+    <div class="t2">Codigo completo</div>
+        <div class="cont">
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">import java.awt.*;
+import java.awt.<span style="color:rgb(204, 153, 204); font-weight:400;">event</span>.*;
+
+import javax.swing.*;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">RadioButton</span> <span style="color:rgb(181, 189, 104); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">JFrame</span> {
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">RadioButton</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+
+        Container contenedor = getContentPane();
+        contenedor.setLayout(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagLayout());
+
+        GridBagConstraints gridConstraints = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> GridBagConstraints();
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.fill = gridConstraints.HORIZONTAL;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>);
+
+        JRadioButton button1 = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JRadioButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton1&quot;</span>);
+        button1.setActionCommand(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton1&quot;</span>);
+        button1.setSelected(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        contenedor.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(button1, gridConstraints);
+
+        gridConstraints.gridx = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        gridConstraints.gridy = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+        gridConstraints.weightx = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.weighty = <span style="color:rgb(249, 145, 87); font-weight:400;">1.0</span>;
+        gridConstraints.fill = gridConstraints.HORIZONTAL;
+        gridConstraints.insets = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Insets(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>);
+
+        JRadioButton button2 = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> JRadioButton(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton2&quot;</span>);
+        button2.setActionCommand(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton2&quot;</span>);
+        contenedor.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(button2, gridConstraints);
+
+        ButtonGroup <span style="color:rgb(204, 153, 204); font-weight:400;">group</span> = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ButtonGroup();
+        <span style="color:rgb(204, 153, 204); font-weight:400;">group</span>.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(button1);
+        <span style="color:rgb(204, 153, 204); font-weight:400;">group</span>.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(button2);
+
+        ActionListener radioListener = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ActionListener(){
+            <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">actionPerformed</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ActionEvent e</span>)</span>{
+                System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(e.getActionCommand());
+            }
+        };
+
+        button1.addActionListener(radioListener);
+        button2.addActionListener(radioListener);
+
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(<span style="color:rgb(204, 153, 204); font-weight:400;">group</span>.getSelection().getActionCommand());
+
+        pack();
+        setVisible(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setResizable(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>);
+        setSize(<span style="color:rgb(249, 145, 87); font-weight:400;">300</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>);
+        setTitle(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Icon example&quot;</span>);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">String[] args</span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> RadioButton();
+    }
+}</code></pre>
+
+        </div>
+
+        <div class="t2">Ejercicios</div>
+            <div class="cont">
+              <img src="JRadioButton/3.png">
+              <p>Tenemos un <b>ButtonGroup</b> con dos <b>JRadioButton</b>, despues tenemos un <b>JButton</b> y un <b>JLabel</b>, el objetivo es que el label muestre cual de los dos botones está seleccionado pero SOLO al pulsar en el boton "Mostrar", al seleccionar cualquiera de los dos botones no se debe de lanzar ninguna accion. </p>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | Swing | JRadioButton</p>
+        </div>
+
+    </body>
+</html>
