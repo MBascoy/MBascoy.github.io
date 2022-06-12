@@ -1,0 +1,73 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Objeto atributo autoincrement</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como crear un objeto que tenga un atributo que se autoincremente con cada nueva instancia del objeto</p>
+        </div>
+
+    <div class="t2">Codigo</div>
+        <div class="cont">
+
+          <p>Función main del programa:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">AutoIncrementApp</span> {
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">String[] args</span>)</span> {
+        AutoIncrement numero = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> AutoIncrement();
+        AutoIncrement numero2 = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> AutoIncrement();
+
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(numero.getId());
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println(numero2.getId());
+    }
+}</code></pre>
+
+          <p>Clase AutoIncrement:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">AutoIncrement</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> increment = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> id;
+
+    AutoIncrement(){
+        id = increment++;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">getIncrement</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> increment;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">setIncrement</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> increment)</span> </span>{
+        AutoIncrement.increment = increment;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">getId</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> id;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">setId</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> id)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.id = id;
+    }
+}
+</code></pre>
+
+          <p>El atributo que se autoincrementa (id en este caso), funciona de la siguiente manera, tenemos una variable <b>static</b> que se usa para almacenar el número que tendrá el nuevo objeto que se cree y en el constructor asignamos esa variable a una variable <b>no static</b> del objeto e incrementamos el valor de la variable static, por lo tanto de esta manera se genera el autoincremento para cada nuevo objeto que instanciemos.</p>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>java | AutoIncrement</p>
+        </div>
+
+    </body>
+</html>
