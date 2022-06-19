@@ -1,0 +1,116 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Depurar codigo Visual Studio</h1>
+
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Como utilizar <b>Breakpoints</b> en visual studio para depurar el código.</p>
+        </div>
+
+
+    <div class="t2">Establecer Breakpoints</div>
+        <div class="cont">
+          <p>Para establecer un breakpoint podemos hacerlo de dos maneras:</p>
+
+          <ul>
+            <li>Haciendo <b>click izquierdo</b> en la barra lateral justo a la altura de la línea en la que queramos poner el breakpoint:</li>
+            <img src="Depurar codigo Visual Studio/1.png">
+
+            <li>Haciendo click derecho en la línea donde queremos poner el breakpoint y a continuación: <b>Breakpoint</b> > <b>Insert Breakpoint</b></li>
+            <img src="Depurar codigo Visual Studio/2.png">
+
+          </ul>
+
+        </div>
+
+    <div class="t2">Watches</div>
+        <div class="cont">
+          <p>Una vez tenemos puesto los breakpoint al ejecutar el programa en modo depuración cuando se alcance cierto breakpoint podemos usar la ventana <b>Watch</b> para visualizar ciertos valores del programa.</p>
+          <img src="Depurar codigo Visual Studio/3.png">
+
+          <p>Para contiunar la ejecución del programa hacemos click en <b>Continue</b> o pulsamos <b>F5</b>:</p>
+          <img src="Depurar codigo Visual Studio/15.png">
+
+          <p><b>NOTA</b>: Cuando se alcanza un <b>breakpoint</b> la línea en la que se para la ejecución todavía no se ha ejecutado, esa será la siguiente linea en ejecutarse, en el ejemplo anterior el <b>Console.WriteLine</b> todavía no se ha ejecutado (no se ha mostrado nada por pantalla).</p>
+
+
+        </div>
+
+
+    <div class="t2">Ejecución linea a linea</div>
+        <div class="cont">
+          <p>Una vez se ha alcanzado un breakpoint podemos hacer una ejecución <b>linea a linea</b> para ir viendo la ejecución del programa poco a poco.</p>
+          <p>Las funciones que tenemos para hacer una ejecución linea a linea son las siguientes:</p>
+
+          <img src="Depurar codigo Visual Studio/14.png">
+
+          <ul>
+            <li><b>Step into (F11)</b>: Ejecuta la linea actual en la que está parado el programa, si la linea actual es una llamada a una función <b>entra</b> dentro de la función. </li>
+            <li><b>Step over (F10)</b>: Ejecuta la linea actual en la que está parado el programa, si la linea actual es una llamada a una función ejecuta la función completa <b>sin entrar</b> linea por linea dentro de dicha función.</li>
+            <li><b>Step Out (Shift+F11)</b>: Ejecuta la función en la que estamos actualmente por completo hasta que la ejecución <b>salga</b> de dicha función.</li>
+          </ul>
+        </div>
+
+    <div class="t2">Breakpoints con excepciones</div>
+        <div class="cont">
+          <p>Para poner <b>breakpoints</b> en las excepciones abrimos la ventana de <b>Exception Settings</b>:</p>
+          <img src="Depurar codigo Visual Studio/4.png">
+
+          <p>En la ventana de <b>Exception Settings</b> marcamos las excepciones que queramos que tengan un break point, de manera que cuando se lanzen dichas excepciones la aplicación parará la ejecución como si se tratase de un breakpoint en la linea concreta en la que se lanza la excepción:</p>
+          <img src="Depurar codigo Visual Studio/5.png">
+
+          <p>En este caso marcamos la excepción <b>System.Net.WebException</b>. Al ejecutar el proyecto en modo depuración, la ejecución se detiene cuando se lanza la excepción a pesar de que no tenemos colocado ningún breakpoint en esa linea:</p>
+          <img src="Depurar codigo Visual Studio/6.png">
+
+        </div>
+
+    <div class="t2">Breakpoints condicionales</div>
+        <div class="cont">
+          <p>Para poner breakpoints condicionales hacemos click derecho sobre la linea en la que queramos poner el breakpoint y seleccionamos <b>Insert Conditional Breakpoint</b>:</p>
+          <img src="Depurar codigo Visual Studio/7.png">
+
+          <p>y en el formulario que se muestra metemos la condición que queremos que se cumpla para que se lance la excepción:</p>
+
+          <img src="Depurar codigo Visual Studio/8.png">
+
+          <p>En este caso el breakpoint se lanzará siempre que la variable numero sea igual a 7.</p>
+
+          <p>Podemos usar otras condiciones para que se lanze el breakpoint como por ejemplo el <b>Hit Count</b> para que se lance solo cuando se haya pasado <b>X</b> veces por ese breakpoint.</p>
+          <img src="Depurar codigo Visual Studio/10.png">
+
+        </div>
+
+    <div class="t2">Acciones al pasar por un breakpoint</div>
+        <div class="cont">
+          <p>Las acciones en los breakpoints nos permiten ejecutar acciones al lanzar los breakpoints, generalmente la acción que se lanza es la de mostrar algo por consola.</p>
+          <p>Para añadir una accion en un breakpoint añadimos un <b>Tracepoint</b> haciendo click derecho en la linea en la que queremos colocar el tracepoint y seleccionamos <b>Insert Tracepoint</b>:</p>
+          <img src="Depurar codigo Visual Studio/9.png">
+
+          <p>En el formulario que se abre introducimos la expresion que queremos que se muestre por pantalla entre llaves <b>{}</b>, en el siguiente ejemplo mostramos la variable <b>numero</b> por consola:</p>
+          <img src="Depurar codigo Visual Studio/11.png">
+
+          <p>Tambien podemos usar expresiones concretas del <b>Visual Studio</b> para mostrar información por pantalla, por ejemplo <b>$HITCOUNT</b> es una expresion que nos permite ver cuantas veces se ha alcanzado un breakpoint:</p>
+
+          <img src="Depurar codigo Visual Studio/12.png">
+
+          <p>Al ejecutar el código vemos la siguiente salida:</p>
+          <img src="Depurar codigo Visual Studio/13.png">
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Visual Studio | BreakPoints | Depuracion</p>
+        </div>
+
+    </body>
+</html>
