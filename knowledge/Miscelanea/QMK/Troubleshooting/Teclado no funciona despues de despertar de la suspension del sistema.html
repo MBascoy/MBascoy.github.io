@@ -1,0 +1,35 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Teclado no funciona despues de despertar de la suspension del sistema</h1>
+    
+    <div class="t2">Problema</div>
+        <div class="cont">
+            <p>Cuando el sistema operativo entra en suspensión durante unos minutos despues al despertar el teclado no reponde de ninguna manera, siendo necesario desconectar y volver a conectar el teclado para que vuelva a funcionar:</p>
+            
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+            <p>Para solucionar este fallo solo tenemos que incluir la siguiente linea de configuración en el archivo <b>rules.mk</b> que hay dentro de la carpeta de nuestro teclado:</p>
+            
+            <code>NO_USB_STARTUP_CHECK = yes</code>
+            
+            <p><b>NOTA:</b> esto hará que cuando el sistema entre en suspensión el teclado queda inactivo, necesitando que se mueva el raton para poder despertar el sistema, pero esto nos garantiza que el teclado seguirá funcionando una vez el sistema haya despertado.</p>
+            
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+          <p>QMK | xd75re | Suspension | Not working</p>
+        </div>
+
+    </body>
+</html>
