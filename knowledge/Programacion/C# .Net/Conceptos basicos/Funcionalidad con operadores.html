@@ -1,0 +1,74 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Funcionalidad con operadores</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como hacer que los operadores realicen las operaciones que queramos cuando se pasan nuestros objetos en una operación con dichos operadores.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para definir una funcionalidad a traves de operadores para nuestro objeto tenemos que definir dentro de nuestra clase cual es la funcionalidad que se realizará al pasar nuestro objeto como uno de los operadores de una operación binaria (ya sea sumar, restar, multiplicar...etc):</p>
+
+          <p>Usamos la palabra reservada <b>operator</b> seguida del operador sobre el que queramos definidr la funcionalidad, y los parametros que se pasan al operador, por lo menos uno de los dos parámetros tiene que ser del mismo tipo que el de nuestra clase:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(204, 153, 204); font-weight:400;">operator</span> +(Persona persona1, Persona persona2)
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> persona1.nombre.Length + persona2.nombre.Length;
+}</code></pre>
+
+          <p>En este caso tenemos un objeto persona con un campo nombre, la funcionalidad que le estamos dando al operador de suma (+) es la de devolver la suma de los caracteres del string del nombre de los dos objetos.</p>
+
+          <p>Aplicación principal:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">using</span> PersonaApp;
+
+<span style="color:rgb(129, 162, 190); font-weight:400;">Persona</span> persona<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> = new Persona(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Juan&quot;</span>);
+
+<span style="color:rgb(129, 162, 190); font-weight:400;">Persona</span> persona<span style="color:rgb(249, 145, 87); font-weight:400;">2</span> = new Persona(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Maria&quot;</span>);
+
+
+<span style="color:rgb(129, 162, 190); font-weight:400;">Console</span>.Write(persona<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> + persona<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>);</code></pre>
+
+        <p>Clase Persona:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Collections;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> PersonaApp
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>
+    {</span>
+        string nombre;
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span><span style="color:rgb(209, 217, 225); font-weight:400;">(string nombre)</span>
+        </span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.nombre = nombre;
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(204, 153, 204); font-weight:400;">operator</span> +(Persona persona1, Persona persona2)
+        {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> persona1.nombre.Length + persona2.nombre.Length;
+        }
+    }
+}
+</code></pre>
+
+
+      </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | operadores</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,95 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Generics</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Los <b>generics</b> nos permiten realizar tipados mas fuertes a la hora de trabajar con ciertos tipos de datos.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Un ejemplo en el que se usan <b>Generics</b> es con el tipo <b>List</b> al usar este tipo tenemos que indicar entre <b>parentesis angulares</b> el tipo de dato que almacenará:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">List&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">String</span>&gt; lista = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>();
+</code></pre>
+
+          <p>En este caso indicamos que la lista contendrá elementos <b>String</b>.</p>
+
+          <p>El siguiente código producirá un error en la compilación en el tercer <b>Add</b> ya que se está rompiendo la restrición de tipado y se está intentando añadir un int en vez de un string:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">List&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">String</span>&gt; lista = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>();
+
+lista.Add(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Manzana&quot;</span>);
+lista.Add(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Sandia&quot;</span>);
+lista.Add(<span style="color:rgb(249, 145, 87); font-weight:400;">56</span>);
+
+lista.ForEach(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">a</span> =&gt;</span> Console.WriteLine(a));</code></pre>
+
+        </div>
+
+    <div class="t2">Metodo para manejar varios tipos de datos con Generics</div>
+        <div class="cont">
+          <p>El siguiente ejemplo muestra como se usan generics para hacer que un metodo pueda trabajar con varios tipos de datos:</p>
+
+          <p>Programa principal:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> AlmacenApp;
+
+Almacen datos = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Almacen();
+
+datos.IniciarAlmacenamiento();
+
+String cadena = datos.getValor&lt;String&gt;(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
+<span style="color:rgb(181, 189, 104); font-weight:400;">int</span> numero = datos.getValor&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">int</span>&gt;(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>);
+
+Console.Write(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">{numero}</span> <span style="color:rgb(249, 145, 87); font-weight:400;">{cadena}</span>&quot;</span>);</code></pre>
+
+        <p>Clase almacen:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Collections;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">AlmacenApp</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Almacen</span>
+    {
+        ArrayList datos;
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Almacen</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+        {
+            datos = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>();
+        }
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">IniciarAlmacenamiento</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+        {
+            datos.Add(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Ejemplo&quot;</span>);
+            datos.Add(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+        }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> T <span style="color:rgb(181, 189, 104); font-weight:400;">getValor</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">T</span>&gt;(<span style="color:rgb(209, 217, 225); font-weight:400;"><span class="hljs-built_in">int</span> i</span>)</span>
+        {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (T)datos[i];
+        }
+    }
+}
+</code></pre>
+
+      <p>En este ejemplo se usa un ArrayList en la clase Almacen para almacenar varios tipos de datos, despues hacemos uso de los generics en el metodo <b>getValor</b> para que nos devuelva un tipo de valor u otro segun el valor que solicitamos, en este caso el valor 0 es un <b>string</b> y el valor 1 es un <b>int</b></p>
+
+    </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Generics</p>
+        </div>
+
+    </body>
+</html>
