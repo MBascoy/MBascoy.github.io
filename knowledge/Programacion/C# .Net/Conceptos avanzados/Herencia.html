@@ -1,0 +1,127 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Herencia</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como hacer que una clase herede de otra.</p>
+
+            <p>La herencia nos permite crear </b>subclases</b> a partir de clases que ya tenemos creadas. Estas subclases contendrán los campos y metodos de la superclase</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para hacer que una clase herede de otra lo hacemos poniendo dos puntos (:) despues del nombre de la clase e indicando despues de los dos puntos de que clase hereda.</p>
+
+          <p>Vamos a crear una clase <b>Estudiante</b> que herede de la clase <b>Persona</b>.</p>
+
+          <p>Clase Persona, con un campo <b>nombre</b> y una funcion <b>ObtenerLongitudNombre</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> PersonaApp
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span> :</span> Object
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> string nombre;
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ObtenerLongitudNombre</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span>
+        </span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> nombre.Length;
+        }
+    }
+}</code></pre>
+
+          <p>Clase Estudiante que hereda de Persona, con un constructor para establecer el campo nombre:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> PersonaApp
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Estudiante</span> :</span> Persona
+    {
+        string instituto;
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Estudiante</span><span style="color:rgb(209, 217, 225); font-weight:400;">(string nombre)</span>
+        </span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.nombre = nombre;
+        }
+
+    }
+}
+</code></pre>
+
+        <p>Cuando instanciamos la clase <b>Estudiante</b> vemos que podemos usar el método que estaba definido en la clase Persona, ya que Estudiante hereda de persona</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> PersonaApp;
+
+Estudiante estudiante = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Estudiante</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pepe&quot;</span>);
+
+Console.<span style="color:rgb(181, 189, 104); font-weight:400;">Write</span>(estudiante.<span style="color:rgb(181, 189, 104); font-weight:400;">ObtenerLongitudNombre</span>());</code></pre>
+
+        </div>
+
+    <div class="t2">Constructores</div>
+        <div class="cont">
+          <p>Los constructores no se heredan al igual que los metodos normales, para heredar un constructor tenemos que hacerlo de manera explicita tal que así:</p>
+
+          <p>Clase Persona con constructor con un parámetro:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> PersonaApp
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span> :</span> Object
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> string nombre;
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span><span style="color:rgb(209, 217, 225); font-weight:400;">(string nombre)</span>
+        </span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.nombre = nombre;
+        }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ObtenerLongitudNombre</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span>
+        </span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> nombre.Length;
+        }
+    }
+}</code></pre>
+
+          <p>Clase Estudiante declarando la herencía del constructor con un parámetro:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> PersonaApp
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Estudiante</span> :</span> Persona
+    {
+        string instituto;
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Estudiante</span><span style="color:rgb(209, 217, 225); font-weight:400;">(string nombre)</span> : base(nombre)
+        {</span>
+        }
+    }
+}</code></pre>
+
+          <p>Usamos <b>: base</b> para asociar el constructor de la subclase con el constructor de la superclase.</p>
+
+        </div>
+
+    <div class="t2">Problema al no tener constructor por defecto en la clase padre</div>
+        <div class="cont">
+          <p>Si no tenemos un <b>constructor por defecto</b> en la clase padre no podemos encontrar con el siguiente error al heredar:</p>
+
+          <code>There is no argument given that correspond to the required formal parameter 'nombre' of 'Persona.Persona(string)'</code>
+
+          <img src="Herencia/1.png">
+
+          <p>Para solucionar este error solo tenemos que declarar el <b>constructor por defecto</b> en la superclase o si no queremos crear el constructor por defecto tambien podemos hacer que la subclase <b>herede el constructor</b> que tiene creado la superclase (utilizando :base como se indica en el apartado anterior)</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Herencia</p>
+        </div>
+
+    </body>
+</html>

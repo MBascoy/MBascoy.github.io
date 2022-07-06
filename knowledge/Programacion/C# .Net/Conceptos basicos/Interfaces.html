@@ -1,0 +1,106 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Interfaces</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como definir e implementar interfaces.</p>
+
+            <p>Cuando una clase implementa una interfaz se suele decir que se establece un contrato de manera que la clase se compromete a tener que implementar los métodos que hay en la interfaz.</p>
+
+        </div>
+
+    <div class="t2">Implementacion</div>
+        <div class="cont">
+          <p>Hay muchas interfaces predefinidas que podemos usar en nuestras clases, por ejemplo <b>IComparable</b>, esta interfaz obliga a definir un metodo <b>CompareTo</b> cuyo objetivo es comparar dos objetos.</p>
+
+          <p>Para implementar una interfaz en una clase simplemente tenemos que poner dos puntos (:) y a continuación el nombre de la interfaz, después a mayores tenemos que implementar los metodos que nos exisge la interfaz.</p>
+
+          <p>En el siguiente ejemplo implementamos la interfaz <b>IComparable</b> en la clase persona:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">PersonaApp</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span> : <span style="color:rgb(181, 189, 104); font-weight:400;">IComparable</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>&gt;
+    {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> nombre;
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">string</span> nombre</span>)</span>
+        {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.nombre = nombre;
+        }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">CompareTo</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">Persona? other</span>)</span>
+        {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> nombre.CompareTo(other?.nombre);
+        }
+    }
+}</code></pre>
+
+          <p><b>NOTA:</b> La interfaz IComparable tiene dos implementaciones posibles. una con generics para indicar un tipo de dato concreto (como en este caso pesrona) y otra con la clase object.</p>
+        </div>
+
+    <div class="t2">Definir interfaces</div>
+        <div class="cont">
+          <p>Para definir nuestras propias interfaces lo hacemos de la siguiente manera usando la palabra reservada <b>interface</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">PersonaApp</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">interface</span> <span style="color:rgb(181, 189, 104); font-weight:400;">IEstudiante</span>
+    {
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">SumarNotas</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>;
+    }
+}</code></pre>
+
+          <p>Los metodos que se indican en la interfaz siempre serán <b>públicos</b> ya que solo se indican los métodos que serán accesibles a la hora de utilizar la clase de manera externa.</p>
+
+          <p>A continuación implementamos la interfaz y sus metodos requeridos en la clase persona:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> PersonaApp
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span> :</span> IEstudiante
+    {
+        string nombre;
+        List&lt;<span style="color:rgb(204, 153, 204); font-weight:400;">int</span>&gt; listaNotas;
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span><span style="color:rgb(209, 217, 225); font-weight:400;">(string nombre)</span>
+        </span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.nombre = nombre;
+
+            listaNotas = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> List&lt;<span style="color:rgb(204, 153, 204); font-weight:400;">int</span>&gt;();
+
+            listaNotas.<span style="color:rgb(181, 189, 104); font-weight:400;">Add</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">6</span>);
+            listaNotas.<span style="color:rgb(181, 189, 104); font-weight:400;">Add</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>);
+            listaNotas.<span style="color:rgb(181, 189, 104); font-weight:400;">Add</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">9</span>);
+            listaNotas.<span style="color:rgb(181, 189, 104); font-weight:400;">Add</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">6</span>);
+
+        }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">SumarNotas</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span>
+        </span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> suma = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+            listaNotas.<span style="color:rgb(181, 189, 104); font-weight:400;">ForEach</span>(x =&gt; suma += x);
+
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> suma;
+        }
+    }
+}</code></pre>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Interfaces</p>
+        </div>
+
+    </body>
+</html>

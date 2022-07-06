@@ -1,0 +1,39 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Separar un string</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Como utilizar la funcion <b>split</b> para generar un array de strings a partir de un string.</p>
+        </div>
+
+        <div class="t2">Metodo</div>
+            <div class="cont">
+              <p>Si tenemos un string que contiene varios elementos con un separador comun (una coma por ejemplo) podemos generar un array de la siguiente manera:</p>
+
+<pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;">string</span> nombres = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Maria,Jose,Juan,Sandra&quot;</span>;
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">string</span>[] nombreArray = nombres.Split(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;,&#x27;</span>);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (<span style="color:rgb(181, 189, 104); font-weight:400;">string</span> nombre <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> nombreArray)
+{
+    Console.WriteLine(nombre);
+}</code></pre>
+
+              <p>Solo tenemos que llamar a la funcion <b>Split</b> indicando el separador, en este caso la coma, la función se encarga de generar un array con cada uno de los elementos resultantes al aplicar el separador.</p>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Split</p>
+        </div>
+
+    </body>
+</html>

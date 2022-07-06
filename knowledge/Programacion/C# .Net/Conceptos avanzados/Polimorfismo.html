@@ -1,0 +1,92 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Herencia</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>El polimorfismo nos permite utilizar una clase generica para hacer que se comporte como una de sus subclases de manera que tenemos una clase que se puede comportar de varias formas.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Podemos ilustrarlo de la siguiente manera: tenemos 3 clases, una clase Persona y dos clases que descienden de Persona: Estudiante y Profesor</p>
+
+          <p>Dentro de la clase Persona tenemos un método estático <b>ObtenerLongitudNombre</b> que recibe como parámetro un objeto Persona, el <b>polimorfismo</b> nos permite pasarle a este método cualquiera de las subclases de Persona:</p>
+
+          <p>Clase Persona:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> PersonaApp
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span> :</span> Object
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> string nombre;
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span>
+        </span>{
+
+        }
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span><span style="color:rgb(209, 217, 225); font-weight:400;">(string nombre)</span>
+        </span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.nombre = nombre;
+        }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ObtenerLongitudNombre</span><span style="color:rgb(209, 217, 225); font-weight:400;">(Persona persona)</span>
+        </span>{
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> persona.nombre.Length;
+        }
+    }
+}</code></pre>
+
+          <p>Clase Estudiante:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> PersonaApp
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Estudiante</span> :</span> Persona
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> string instituto;
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Estudiante</span><span style="color:rgb(209, 217, 225); font-weight:400;">(string nombre)</span> : base(nombre)
+        {</span>
+        }
+    }
+}</code></pre>
+
+          <p>En la aplicación principal podemos ver como le pasamos un objeto <b>Estudiante</b> en vez de un objeto <b>Persona</b> a la función:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> PersonaApp;
+
+Estudiante estudiante = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Estudiante</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Juan&quot;</span>);
+
+estudiante.instituto = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Instituto 1&quot;</span>;
+
+Console.<span style="color:rgb(181, 189, 104); font-weight:400;">Write</span>(Persona.<span style="color:rgb(181, 189, 104); font-weight:400;">ObtenerLongitudNombre</span>(estudiante));</code></pre>
+
+          <p>Incluso podemos definir el método <b>ObtenerLongitudNombre</b> de la siguiente manera para utilizar campos de la clase <b>Estudiante</b>, como instituto en este caso:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ObtenerLongitudNombre</span><span style="color:rgb(209, 217, 225); font-weight:400;">(Persona persona)</span>
+</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> ((Estudiante)persona).instituto.Length;
+}</code></pre>
+
+
+        <p>Pero en este caso si le pasasemos un objeto de tipo <b>Profesor</b> a la función obtendríamos una excepción ya que no se podría realizar la conversión a al tipo <b>Estudiante</b>:</p>
+
+        <code>Unhandled exception. System.InvalidCastException: Unable to cast object of type 'ConsoleApp1.Profesor' to type 'PersonaApp.Estudiante'.</code>
+      </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Polimorfismo</p>
+        </div>
+
+    </body>
+</html>
