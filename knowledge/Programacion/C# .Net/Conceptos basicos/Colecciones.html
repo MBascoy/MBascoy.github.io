@@ -1,0 +1,129 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Colecciones</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Manejar colecciones de datos en C#:</p>
+            <ul>
+              <li>Listas</li>
+              <li>Diccionarios</li>
+              <li>Pilas (Stacks)</li>
+              <li>Colas (Queues)</li>
+            </ul>
+
+        </div>
+
+    <div class="t2">Usar Listas</div>
+        <div class="cont">
+          <p>Para usar listas las creamos usando la palabra reservada <b>List</b> de la siguiente manera:</p>
+          <code>List&lt;string&gt; lista = new List&lt;string&gt;();</code>
+
+          <p>Al crear una lista tenemos que indicar con un <b>generic</b> el tipo de datos que contendrá la lista, en este caso hemos indicado <b>string</b>.</p>
+
+          <p>Ejemplo de uso de una lista:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">List&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">string</span>&gt; lista = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> List&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">string</span>&gt;();
+
+lista.Add(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Casa&quot;</span>);
+lista.Add(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Coche&quot;</span>);
+lista.Add(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Arbol&quot;</span>);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">var</span> item <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> lista)
+{
+    Console.WriteLine(item);
+}</code></pre>
+
+        </div>
+
+    <div class="t2">Usar Diccionarios</div>
+        <div class="cont">
+          <p>Para usar diccionarios utilizamos la palabra reservada <b>Dictionary</b> de la siguiente manera:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">Dictionary&lt;<span style="color:rgb(204, 153, 204); font-weight:400;">int</span>, string&gt; diccionario = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Dictionary&lt;<span style="color:rgb(204, 153, 204); font-weight:400;">int</span>, string&gt;();</code></pre>
+
+          <p>Ejemplo de uso de un diccionario:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">Dictionary&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">int</span>, <span style="color:rgb(181, 189, 104); font-weight:400;">string</span>&gt; diccionario = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Dictionary&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">int</span>, <span style="color:rgb(181, 189, 104); font-weight:400;">string</span>&gt;();
+
+diccionario.Add(<span style="color:rgb(249, 145, 87); font-weight:400;">20</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Veinte&quot;</span>);
+diccionario.Add(<span style="color:rgb(249, 145, 87); font-weight:400;">34</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Treinta y cuatro&quot;</span>);
+diccionario.Add(<span style="color:rgb(249, 145, 87); font-weight:400;">68</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Sesenta y ocho&quot;</span>);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span>( <span style="color:rgb(204, 153, 204); font-weight:400;">var</span> item <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> diccionario)
+{
+    Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">{item.Key}</span> =&gt; <span style="color:rgb(249, 145, 87); font-weight:400;">{item.Value}</span>&quot;</span>);
+}</code></pre>
+        </div>
+
+    <div class="t2">Usar Pilas (Stacks)</div>
+        <div class="cont">
+          <p>Para crear pilas usamos la palabra reservada <b>Stack</b>:</p>
+
+          <p>Las pilas nos permiten almacenar elementos utilizando una mecánica <b>LIFO</b> (Last In First Out)</p>
+
+          <p>Usamos los siguiente metodos para gestionar una lista:</p>
+
+          <ul>
+            <li><b>Push</b> para añadir elementos a la lista</li>
+            <li><b>Pop</b> para quitar el último elemento añadido, la función devuelve dicho elemento.</li>
+            <li><b>Peek</b> para consultar cual es el último elemento añadido y por lo tanto el siguiente element que será quitado de la pila con <b>Pop</b>.</li>
+
+          </ul>
+
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">Stack&lt;string&gt; pila = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Stack&lt;string&gt;();
+
+pila.<span style="color:rgb(181, 189, 104); font-weight:400;">Push</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola&quot;</span>);
+pila.<span style="color:rgb(181, 189, 104); font-weight:400;">Push</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Adios&quot;</span>);
+
+Console.<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(pila.<span style="color:rgb(181, 189, 104); font-weight:400;">Peek</span>());
+
+Console.<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(pila.<span style="color:rgb(181, 189, 104); font-weight:400;">Pop</span>());
+Console.<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(pila.<span style="color:rgb(181, 189, 104); font-weight:400;">Peek</span>());
+</code></pre>
+
+          <p>Cuando intentamos sacar un elemento de una pila vacia obtenemos la siguiente excepción:</p>
+          <code>Unhandled exception. System.InvalidOperationException: Stack empty.</code>
+        </div>
+
+    <div class="t2">Usar Colas (Queues)</div>
+        <div class="cont">
+          <p>Para usar colas usamos la palabra reservada <b>Queue</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">Queue&lt;string&gt; cola = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Queue&lt;string&gt;();
+</code></pre>
+
+          <p>Las colas funcionan con una mecánica FIFO (First In First Out)</p>
+
+          <p>Ejemplo de uso de colas:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">Queue&lt;string&gt; cola = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Queue&lt;string&gt;();
+
+cola.<span style="color:rgb(181, 189, 104); font-weight:400;">Enqueue</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola&quot;</span>);
+cola.<span style="color:rgb(181, 189, 104); font-weight:400;">Enqueue</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Adios&quot;</span>);
+
+Console.<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(cola.<span style="color:rgb(181, 189, 104); font-weight:400;">Dequeue</span>());
+
+Console.<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(cola.<span style="color:rgb(181, 189, 104); font-weight:400;">Dequeue</span>());
+</code></pre>
+
+          <p>Cuando intentamos "desencolar" un elemento en una cola que está vacía obtenemos la siguiente excepción:</p>
+
+          <code>Unhandled exception. System.InvalidOperationException: Queue empty.</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Colecciones</p>
+        </div>
+
+    </body>
+</html>

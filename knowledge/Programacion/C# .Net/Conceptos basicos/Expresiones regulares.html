@@ -1,0 +1,82 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Expresiones regulares</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar expresiones regulares en C#</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para utilizar expresiones regulares primero tenemos que añadir el siguiente namespace:</p>
+
+          <code>using System.Text.RegularExpressions;</code>
+
+          <p>Despues simplemente tenemos que definir la expresión regular (creando un objeto <b>Regex</b>) y aplicarla a un texto.</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Text.RegularExpressions;
+
+
+String texto = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;maria 56 pedro&quot;</span>;
+
+Regex regex = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Regex(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[A-Za-z]+&quot;</span>);
+
+Console.WriteLine(regex.IsMatch(texto));
+
+MatchCollection resultados = regex.Matches(texto);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (Match s <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> resultados)
+{
+    Console.WriteLine(s);
+
+}
+</code></pre>
+
+          <p>En el ejemplo anterior usamos dos funciones:</p>
+
+          <ul>
+            <li><b>IsMatch</b>: nos dice si hay coincidencia o no de la expresion regular en el texto que le pasamos</li>
+            <li><b>Matches</b>: Devuelve una coleccion con todos los matches que hay en el texto, esta colección podemos recorrerla con un <b>foreach</b> para acceder a todas las coincidencias</li>
+          </ul>
+
+          <p>La salida de este código sería:</p>
+
+          <pre><code>True
+maria
+pedro</code></pre>
+
+        </div>
+
+    <div class="t2">Escapar caracteres</div>
+        <div class="cont">
+          <p>Hay ciertas expresiones regulares que se referencian con la barra invertida, si queremos por ejemplo indicar \d en la expresion regular (que se usa para coincidir con cualquier digito) tendríamos que pasar la expresión regular tal que así:</p>
+
+          <code>Regex regex = new Regex("\\d");</code>
+
+          <p>Tenemos que escapar la barra invertida ya que sino el propio string en C# interpretará el \d como un caracter escapado en vez de pasar \d a la expresion regular.</p>
+          <p>Otra manera de evitar esto es usando <b>Verbatim String</b>:</p>
+
+          <code>Regex regex = new Regex(@"\d");</code>
+
+          <p>De esta manera no tenemos que escapar las barras invertidas, ya que se escapan automáticamente</p>
+
+          <p>Un problema que podemos tener con esto es a la hora de pasar comillas doubles ("), normalmente tenemos que escaparlas con la barra invertida, pero si usamos el verbatim string tenemos que poner <b>dos veces las comillas dobles</b> ("") para pasarselas de manera correcta a la expresión regular (sino es como si se indicase el fin del string que le estamos pasando)</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Regular expresion</p>
+        </div>
+
+    </body>
+</html>
