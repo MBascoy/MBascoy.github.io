@@ -1,0 +1,53 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Medir tiempo entre dos breakpoints</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como medir el tiempo de ejecución entre dos breakpoints para poder medir el rendimiento</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para medir el tiempo de ejecución simplemente tenemos que añadir el siguiente código alrededor del código del que queramos medir el tiempo de ejecución:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">long</span> startTime = System.<span style="color:rgb(181, 189, 104); font-weight:400;">currentTimeMillis</span>();
+...
+<span style="color:rgb(204, 153, 204); font-weight:400;">long</span> endTime = System.<span style="color:rgb(181, 189, 104); font-weight:400;">currentTimeMillis</span>();
+<span style="color:rgb(204, 153, 204); font-weight:400;">long</span> executionTime = endTime - startTime;</code></pre>
+
+          <p>Antes de ejecutar el código en el IDE solo tenemos que poner un breakpoint justo antes del código y otro justo después del código, tal que así:</p>
+
+          <img src="Medir tiempo entre dos breakpoints/1.png">
+
+          <p>Al ejecutar el código solo tenemos que añadir un watch para la variable <b>executionTime</b> y cuando se alcance el segundo breakpoint veremos el tiempo que ha tardado en ejecutarse la porción de código:</p>
+
+          <img src="Medir tiempo entre dos breakpoints/2.png">
+
+        </div>
+
+    <div class="t2">Intellij IDEA</div>
+        <div class="cont">
+          <p>Con el IDE Intellij tenemos la siguiente extensión que nos permite hacer exactamente lo mismo que hacemos arriba:</p>
+
+          <img src="" alt="">
+
+          <p>Simplemente hacemos click derecho con las líneas de código que queramos medir el tiempo de ejecución y hacemos click en </p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | Debug ! Measure Time </p>
+        </div>
+
+    </body>
+</html>
