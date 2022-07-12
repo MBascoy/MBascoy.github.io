@@ -1,0 +1,62 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Ejemplo select jquery</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como manejar un select usando <b>jquery</b> para obtener el valor seleccionado cuando se hace la selección.</p>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Para obtener la selección lo hacemos de la siguiente manera:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+    $(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.select-practicas&#x27;</span>).change(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> (<span class="hljs-params"></span>) </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> seleccion = $(<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>).find(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;:selected&quot;</span>).text();
+        <span style="color:rgb(181, 189, 104); font-weight:400;">console</span>.log(seleccion);
+    });
+</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span></code></pre>
+
+            <p>En este caso <b>select-practicas</b> es la clase del select del que estamos obteniendo la seleccion.</p>
+
+            <p>A continuación se muestra un ejemplo completo que simplemente introduce en un parrafo la opción seleccionada:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">select</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;select-practicas&quot;</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">option</span> <span style="color:rgb(129, 162, 190); font-weight:400;">value</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;hola&quot;</span>&gt;</span>hola<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">option</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">option</span> <span style="color:rgb(129, 162, 190); font-weight:400;">value</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;adios&quot;</span>&gt;</span>adios<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">option</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">select</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;seleccionado&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span> <span style="color:rgb(129, 162, 190); font-weight:400;">src</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://code.jquery.com/jquery-3.6.0.js&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+            $(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.select-practicas&#x27;</span>).change(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> (<span class="hljs-params"></span>) </span>{
+                <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> seleccion = $(<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>).find(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;:selected&quot;</span>).text();
+                $(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.seleccionado&#x27;</span>).text(seleccion);
+            });
+        </span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span></code></pre>
+
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Jquery | select | desplegable</p>
+        </div>
+
+    </body>
+</html>

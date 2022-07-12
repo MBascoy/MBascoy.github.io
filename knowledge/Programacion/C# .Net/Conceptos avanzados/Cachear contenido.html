@@ -1,0 +1,133 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Cachear contenido</h1>
+
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Como utilizar <b>Breakpoints</b> en visual studio para depurar el código.</p>
+
+          <a href="https://github.com/MBascoy/CSharp-Examples/tree/main/CacheExample">Código Ejemplo</a>
+        </div>
+
+
+    <div class="t2">Cachear en aplicacion (.net Framework 4.7.2)</div>
+        <div class="cont">
+          <p>En <b>.Net Framework 4.8</b> y anteriores podemos usar la clase <b>Cache</b> para cachear información, para poder usarla en un proyecto tenemos que crear un proyecto <b>MVC</b>:</p>
+
+          <img src="Cachear contenido/1.png">
+
+          <p>Otra alternativa es crear un proyecto de <b>consola</b> y añadir la referencia de <b>System.Web</b>:</p>
+
+          <code>&lt;Reference Include="System.Web" /&gt;</code>
+          <img src="Cachear contenido/2.png">
+
+          <p>También es necesario añadir el siguiente namespace:</p>
+          <code>using System.Web.Caching;</code>
+
+          <p>Podemos implementar la clase <b>Cache</b> de la siguiente manera, en este caso es utilizando una aplicación de consola:</p>
+
+          <p>Clase Almacen:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Collections.Generic;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Linq;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Text;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Threading.Tasks;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Web.Caching;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">AlmacenApp</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">internal</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Almacen</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> Cache cache;
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Almacen</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+        {
+            cache = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Cache();
+        }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> String <span style="color:rgb(181, 189, 104); font-weight:400;">ObtenerDato</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+        {
+            String dato;
+
+            dato = cache.Get(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;datoCadena&quot;</span>) <span style="color:rgb(204, 153, 204); font-weight:400;">as</span> String;
+
+            <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (dato == <span style="color:rgb(204, 153, 204); font-weight:400;">null</span>)
+            {
+                dato = ObtenerDesdeFuenteExterna();
+                cache.Add(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;datoCadena&quot;</span>, dato, <span style="color:rgb(204, 153, 204); font-weight:400;">null</span>, DateTime.Now.AddDays(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>), TimeSpan.Zero, CacheItemPriority.High,
+                <span style="color:rgb(204, 153, 204); font-weight:400;">null</span>);
+            }
+
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> dato;
+        }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">private</span> String <span style="color:rgb(181, 189, 104); font-weight:400;">ObtenerDesdeFuenteExterna</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+        {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;hola&quot;</span>;
+        }
+
+
+    }
+}</code></pre>
+
+          <p>Programa principal:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Collections.Generic;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Linq;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Text;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Threading.Tasks;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> System.Web.Caching;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">AlmacenApp</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">internal</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">AlmacenApp</span>
+    {
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span class="hljs-built_in">string</span>[] args</span>)</span>
+        {
+            Almacen almacen = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Almacen();
+
+            Console.WriteLine(almacen.ObtenerDato());
+
+            Console.WriteLine(almacen.ObtenerDato());
+        }
+    }
+}
+</code></pre>
+
+          <p>En este caso la primera vez que se llama a <b>ObtenerDato()</b> como no hay nada en cache obtiene la información de una fuente externa (en este caso simplemente está simulada como una funcion normal), pero la segunda vez que se ejecuta la función la información ya está almacenada en cache y se obtiene de ahí sin necesidad de tener que recurrir a una fuente de datos externa como puede ser una API o una base de datos.</p>
+
+        </div>
+
+    <div class="t2">Cachear en el navegador</div>
+        <div class="cont">
+
+          <p>Establecer cabeceras para que el navegador haga el cacheo.</p>
+
+          <p>Añadimos la siguiente configuración en el <b>web.config</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">httpProtocol</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">customHeaders</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">add</span> <span style="color:rgb(129, 162, 190); font-weight:400;">name</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Cache-Control&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">value</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;public, max-age=86400&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">customHeaders</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">httpProtocol</span>&gt;</span></code></pre>
+
+          <p><b>max-age</b> indica el tiempo a cachear el contenido en segundos, en este caso 86400 indica un día completo.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>.net | Cache</p>
+        </div>
+
+    </body>
+</html>
