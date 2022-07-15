@@ -1,0 +1,42 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Consultar y conectar directorios de red</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como manejar unidades de red en Windows 10.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <h2>Consultar</h2>
+        <p>Para consultar que unidades de red tenemos actualmente y en que estado se encuentran usamos el siguiente comando:</p>
+        <code>> net use</code>
+
+        <h2>Eliminar</h2>
+        <p>Para borrar una unidade de red usamos el siguiente comando:</p>
+        <code>> net use h: /DELETE</code>
+        <p>Con este comando borrariamos la unidad <b>h:</b></p>
+
+        <h2>Conectar nueva unidad</h2>
+        <code>> net use h: \\example.com\recurso$\carpeta</code>
+        <p>Con este comando conectariamos la carpeta <b>\carpeta</b> del recurso <b>recurso$</b> del servidor <b>example.com</b> y lo asignaríamos a la unidad <b>h:</b></p>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Windows 10 | Network drives </p>
+        </div>
+
+    </body>
+</html>
