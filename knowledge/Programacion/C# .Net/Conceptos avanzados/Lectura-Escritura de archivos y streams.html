@@ -1,0 +1,126 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Lectura-Escritura de archivos y streams</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como leer y escribir en archivos y usar streams para manejar los datos de distintas maneras.</p>
+
+        </div>
+
+    <div class="t2">Leer-Escribir archivos de Caracteres</div>
+        <div class="cont">
+          <p>Para leer y escribir caracteres en un archivo usamos las clases <b>StreamWriter</b> y <b>StreamReader</b>, y los métodos <b>WriteLine()</b> y <b>ReadToEnd()</b>.</p>
+
+          <p>Código de ejemplo:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> System.IO.Directory;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> System.IO.Path;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> System.Environment;
+
+string dir = <span style="color:rgb(181, 189, 104); font-weight:400;">Combine</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">GetFolderPath</span>(SpecialFolder.UserProfile), <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;PruebaArchivo&quot;</span>);
+<span style="color:rgb(181, 189, 104); font-weight:400;">CreateDirectory</span>(dir);
+
+string archivo = <span style="color:rgb(181, 189, 104); font-weight:400;">Combine</span>(dir, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Caracteres.txt&quot;</span>);
+
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">/***** ESCRITURA DE ARCHIVO *****/</span>
+
+StreamWriter escritor = File.<span style="color:rgb(181, 189, 104); font-weight:400;">CreateText</span>(archivo);
+
+escritor.<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Texto de ejemplo&quot;</span>);
+
+escritor.<span style="color:rgb(181, 189, 104); font-weight:400;">Close</span>();
+
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">/***** LECTURA DE ARCHIVO *****/</span>
+
+StreamReader lector = File.<span style="color:rgb(181, 189, 104); font-weight:400;">OpenText</span>(archivo);
+
+String texto = lector.<span style="color:rgb(181, 189, 104); font-weight:400;">ReadToEnd</span>();
+
+Console.<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(texto);
+
+lector.<span style="color:rgb(181, 189, 104); font-weight:400;">Close</span>();</code></pre>
+
+        </div>
+
+    <div class="t2">Leer-Escribir archivos Binarios</div>
+        <div class="cont">
+          <p>Para escribir datos binarios en un fichero primero creamos un objeto <b>FileStream</b> y a continuación lo encapsulamos con un stream <b>BinaryWriter</b>, despues solo tenemos que usar el método <b>Write</b> para escribir los datos al archivo</p>
+
+           <p>El método Write se encarga de escribir los datos según el tipo de dato que le pasemos, si por ejemplo le pasamos un int escribirá 4 bytes, si le pasamos un long 8 bytes...etc </p>
+
+           <p>Código de ejemplo:</p>
+
+           <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> System.IO.Directory;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> System.IO.Path;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> System.Environment;
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">string</span> dir = Combine(GetFolderPath(SpecialFolder.UserProfile), <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;PruebaArchivo&quot;</span>);
+CreateDirectory(dir);
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">string</span> archivo = Combine(dir, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Binario.dat&quot;</span>);
+
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">/***** ESCRITURA DE ARCHIVO *****/</span>
+
+FileStream escritor = File.Create(archivo);
+
+BinaryWriter writer= <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> BinaryWriter(escritor);
+writer.Write(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+
+writer.Close();
+escritor.Close();
+
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">/***** LECTURA DE ARCHIVO *****/</span>
+
+FileStream lector = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> FileStream(archivo, FileMode.Open, FileAccess.Read);
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">byte</span>[] buffer = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">byte</span>[<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>];
+lector.Read(buffer, <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">4</span>);
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">int</span> numero = (<span style="color:rgb(181, 189, 104); font-weight:400;">int</span>)buffer[<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>];
+
+Console.WriteLine(numero);
+
+lector.Close();</code></pre>
+
+        </div>
+
+        <div class="t2">Utilizar using</div>
+            <div class="cont">
+              <p>En vez de cerrar los recursos de manera manual usando <b>close</b> podemos utilizar la sentencia <b>using</b> para que el propio lenguaje lo haga de manera automática.</p>
+
+              <p>Este código:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">StreamWriter</span> escritor = File.CreateText(archivo);
+
+<span style="color:rgb(129, 162, 190); font-weight:400;">escritor</span>.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Texto de ejemplo&quot;</span>);
+
+<span style="color:rgb(129, 162, 190); font-weight:400;">escritor</span>.Close();</code></pre>
+
+              <p>Pasaría a quedar así:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> (StreamWriter escritor = File.CreateText(archivo))
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">escritor</span><span style="color:rgb(209, 217, 225); font-weight:400;">.WriteLine</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Texto de ejemplo&quot;</span>);
+}</code></pre>
+
+            </div>
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Archivos | Streams</p>
+        </div>
+
+    </body>
+</html>

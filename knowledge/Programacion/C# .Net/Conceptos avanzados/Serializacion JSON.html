@@ -1,0 +1,134 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Serializacion JSON</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como <b>Serializar-Deserializar</b> un objeto usando JSON.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Primero tenemos que añadir el paquete de <b>Newtonsoft.Json</b> desde nuget:</p>
+
+          <img src="Serializacion JSON/1.png">
+
+          <p>A continuación importamos el <b>namespace</b> de la librería:</p>
+
+          <code>using Newtonsoft.Json;</code>
+
+          <p>En este caso vamos a usar una lista de objetos para serializarla en un archivo</p>
+
+          <p>Clase Persona:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> FileExample
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">Persona</span>
+    {</span>
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> string nombre;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> edad;
+    }
+}
+</code></pre>
+
+          <p><b>NOTA:</b> Solo se serializarán los campos del objeto que sean públicos.</p>
+
+          <p>Definimos nuestros objetos:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">List&lt;Persona&gt; lista = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> List&lt;Persona&gt;()
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+    {
+        nombre = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pepe&quot;</span>,
+        edad = <span style="color:rgb(249, 145, 87); font-weight:400;">45</span>
+    },
+    <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+    {
+        nombre = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Mercedes&quot;</span>,
+        edad = <span style="color:rgb(249, 145, 87); font-weight:400;">56</span>
+    }
+};</code></pre>
+
+            <h2>Serializar</h2>
+
+            <p>Para serializar declaramos una clase <b>JsonSerializer</b> y usamos el método <b>Serialize</b> pasándole el <b>steam</b> en el que escribiremos y los <b>datos</b> que queremos serializar:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span></span> (StreamWriter escritor = File.<span style="color:rgb(181, 189, 104); font-weight:400;">CreateText</span>(archivo))
+{
+    JsonSerializer serializador = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">JsonSerializer</span>();
+
+    serializador.<span style="color:rgb(181, 189, 104); font-weight:400;">Serialize</span>(escritor, lista);
+}</code></pre>
+
+            <h2>Deserializar</h2>
+
+            <p>Para <b>deserializar</b> usamod el método estático <b>DeserializeObject</b> la clase <b>JsonConvert</b></p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">string data <span style="color:rgb(209, 217, 225); font-weight:400;">=</span> <span style="color:rgb(204, 153, 204); font-weight:400;">File</span>.<span style="color:rgb(204, 153, 204); font-weight:400;">ReadAllText</span>(archivo);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">List</span>&lt;<span style="color:rgb(204, 153, 204); font-weight:400;">Persona</span>&gt; nuevaLista <span style="color:rgb(209, 217, 225); font-weight:400;">=</span> <span style="color:rgb(204, 153, 204); font-weight:400;">JsonConvert</span>.<span style="color:rgb(204, 153, 204); font-weight:400;">DeserializeObject</span>&lt;<span style="color:rgb(204, 153, 204); font-weight:400;">List</span>&lt;<span style="color:rgb(204, 153, 204); font-weight:400;">Persona</span>&gt;&gt;(data);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">Console</span>.<span style="color:rgb(204, 153, 204); font-weight:400;">WriteLine</span>(nuevaLista[<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>].nombre);</code></pre>
+
+            <p>Código Completo:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> System.IO.Directory;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> System.IO.Path;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> System.Environment;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Newtonsoft.Json;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> FileExample;
+
+string dir = <span style="color:rgb(181, 189, 104); font-weight:400;">Combine</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">GetFolderPath</span>(SpecialFolder.UserProfile), <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;PruebaArchivo&quot;</span>);
+<span style="color:rgb(181, 189, 104); font-weight:400;">CreateDirectory</span>(dir);
+
+string archivo = <span style="color:rgb(181, 189, 104); font-weight:400;">Combine</span>(dir, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;persona.json&quot;</span>);
+
+Persona persona = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>();
+
+List&lt;Persona&gt; lista = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> List&lt;Persona&gt;()
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>()
+    {
+        nombre = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pepe&quot;</span>,
+        edad = <span style="color:rgb(249, 145, 87); font-weight:400;">45</span>
+    },
+    <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>()
+    {
+        nombre = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Mercedes&quot;</span>,
+        edad = <span style="color:rgb(249, 145, 87); font-weight:400;">56</span>
+    }
+};
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">/**** SERIALIZAR *****/</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span></span> (StreamWriter escritor = File.<span style="color:rgb(181, 189, 104); font-weight:400;">CreateText</span>(archivo))
+{
+    JsonSerializer serializador = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">JsonSerializer</span>();
+
+    serializador.<span style="color:rgb(181, 189, 104); font-weight:400;">Serialize</span>(escritor, lista);
+}
+
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">/**** DESERIALIZAR *****/</span>
+
+string data = File.<span style="color:rgb(181, 189, 104); font-weight:400;">ReadAllText</span>(archivo);
+
+List&lt;Persona&gt; nuevaLista = JsonConvert.DeserializeObject&lt;List&lt;Persona&gt;&gt;(data);
+
+Console.<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(nuevaLista[<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>].nombre);</code></pre>
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Serializar | JSON</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,98 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Manejo de Excepciones</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como manejar excepciones en C# y como crear nuestras propias excepciones.</p>
+
+        </div>
+
+    <div class="t2">Manejo de excepciones</div>
+        <div class="cont">
+          <p>Para manejar exceciones en C# lo hacemos con la siguiente estructura:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">try</span>
+{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//Codigo que puede lanzar una excepción</span>
+}
+<span style="color:rgb(204, 153, 204); font-weight:400;">catch</span> (<span style="color:rgb(181, 189, 104); font-weight:400;">Exception</span>)
+{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//Manejo de la exepción</span>
+}</code></pre>
+
+      <p>Podemos hacer una prueba con el siguiente código:</p>
+
+      <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">try</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> cero = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero = <span style="color:rgb(249, 145, 87); font-weight:400;">5</span> / cero;
+    Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Despues de la excepción&quot;</span>);
+}
+<span style="color:rgb(204, 153, 204); font-weight:400;">catch</span> (<span style="color:rgb(181, 189, 104); font-weight:400;">Exception</span>)
+{
+    Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Division entre cero&quot;</span>);
+}
+
+Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Despues del catch&quot;</span>);</code></pre>
+
+        <p>Al intentar dividir entre 0 se lanzará una excepción, la ejecución del código es la siguiente:</p>
+
+        <img src="Manejo de Excepciones/1.png"/>
+
+        <h2>Flujo de ejecución</h2>
+
+        <p>El código que hay dentro del bloque <b>try</b> se ejecutará de forma normal hasta que se lance una excepción, en caso de que no se lance ninguna excepción el código continuará su ejecución hasta el final del bloque <b>try</b> y el <b>catch</b> no se llegará a ejecutar nunca.</p>
+
+        <p>Cuando se lanza una excepción dentro del bloque <b>try</b> la ejecución se para en ese punto y se salta directamente al bloque <b>catch</b> una vez finalizado el bloque catch la ejecución continua justo <b>despues del catch</b>, <b>NO se vuelve</b> al punto donde se lanzo la excepción, por eso en el ejemplo anterior nunca se llega a ejecutar el código:</p>
+
+        <code>Console.WriteLine("Despues de la excepción");</code>
+
+      </div>
+
+      <div class="t2">Declaración de excepciones propias</div>
+          <div class="cont">
+            <p>Para declarar nuestras propias excepciones tenemos que declarar una clase que herede de <b>Exception</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">NuevaExcepcion</span> :</span> Exception
+{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">NuevaExcepcion</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> : base() {</span> }
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">NuevaExcepcion</span><span style="color:rgb(209, 217, 225); font-weight:400;">(string mensaje)</span> : base(mensaje) {</span> }
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">NuevaExcepcion</span><span style="color:rgb(209, 217, 225); font-weight:400;">(string mensaje, Exception innerException)</span> : base(mensaje, innerException) {</span> }
+}</code></pre>
+
+            <p>No es es imprescindible pero es aconsejable declarar esos tres constructores para cada una de las nuevas excepciones que declaremos.</p>
+
+            <p>Para usar nuestra nueva excepción lo haríamos de la siguiente manera:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> ExceptionExample;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">try</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">throw</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">NuevaExcepcion</span>();
+
+    Console.<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Despues de la excepción&quot;</span>);
+}
+<span style="color:rgb(181, 189, 104); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">catch</span></span> (NuevaExcepcion)
+{
+    Console.<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;NuevaExcepción lanzada&quot;</span>);
+}
+
+Console.<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Despues del catch&quot;</span>);</code></pre>
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Excepcion</p>
+        </div>
+
+    </body>
+</html>
