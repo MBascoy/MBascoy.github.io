@@ -1,0 +1,38 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Nmap escanear dispositivos en la red</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+        
+            <p>Usar <b>nmap</b> para saber que dispositivos hay conectados en nuestra red local.</p>
+
+        </div>
+        
+    <div class="t2">Explicacion</div>
+        <div class="cont">
+            <p>Para escanear toda nuestra red y saber que dispositivos hay conectados solo tenemos que lanzar el siguiente comando con permisos de <b>root</b>:</p>
+            
+            <code># nmap -sP 192.168.120.0-255</code>
+            <img src="Nmap escanear dispositivos en la red/1.png"/>
+            
+            <p>Solo tenemos que indicar el rango de <b>IPs</b> que queremos escanear, en este caso toda la mascara /24 osea el rango <b>0-255</b> del ultimo byte.</p>
+            
+            <p>Es importante hacerlo con permisos de root, ya que así nmap hará un escanea <b>ARP</b> que es más fiable que simplemente un escaneo <b>ICMP</b></p>
+        </div>
+    
+    
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Nmap | Red | ping | ARP</p>
+        </div>
+    
+    </body>
+</html>
