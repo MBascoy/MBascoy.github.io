@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">SQLite crear base de datos a partir de script</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Crear base de datos con SQLite desde cero usando la linea de comandos.</p>
+            
+            <p><a href="https://www.sqlite.org/">Pagina web SQLite</a></p>
+
+        </div>
+        
+    <div class="t2">Funcionamiento SQLite</div>
+        <div class="cont">
+            <p>El funcionamiento de SQLite es distinto al de otros gestores de bases de datos, ya que <b>no necesita de un servicio</b> levantado para poder administrar las bases de datos.</p>
+            
+            <p>Las bases de datos SQLite funcionan directamente con un <b>archivo</b> en el que se almacena la información y es la propia API de SQLite la que gestiona el acceso usando locks para el archivo de la base de datos.</p>
+        
+        </div>
+    
+
+    <div class="t2">Crear base de datos</div>
+        <div class="cont">
+            <p>Para crear una base de datos usamos el siguiente comando:</p>
+            <code>sqlite3 test.db</code>
+            
+            <p>Con esto se almacenará nuestra base de datos en el archivo <b>test.db</b>, despues de introducir el comando se abrirá el <b>CLI</b> de SQLite donde podemos lanzar consultas a la base de datos</p>
+            
+            <p>Creamos una <b>tabla</b> con el siguiente comando;</p>
+            
+            <pre><code>CREATE TABLE "Personas" (
+"Id" INTEGER PRIMARY KEY,
+"Name" nvarchar (20) NOT NULL,
+"Age" INTEGER NOT NULL
+);</code></pre>
+            
+            <p>Introducimos datos en la tabla con el siguiente comando:</p>
+            <code>INSERT INTO "Personas" VALUES (1, "Manuel", 15);</code>
+
+            <p>Llegados a este punto ya tenemos nuestra <b>base de datos</b> creada con una <b>tabla</b> y con <b>contenido</b> dentro, si quisiesemos consultar la información simplemente tenemos que hacer un <b>select</b> tal que así:</p>
+            
+            <code>SELECT Name, Age FROM Personas;</code>
+            
+            <p><b>NOTA:</b> Si queremos que se muestre la cabecera de la tabla para indicar el nombre de cada columna tenemos que activarlo con el siguiente comando:</p>
+            <code>.headers on</code>
+            
+            <img src="SQLite crear base de datos/1.png"/>
+            
+            <p>Para salir del CLI de SQLite pulsamos <b>cntrl + D</b>.</p>
+            
+            <p>Para volver a acceder a nuestra base de datos simplemente tendríamos que volver a usar el comando <b>sqlite3</b> pasándole como argumento el archivo de nuestra base de datos, en este caso <b>test.db</b>.</p>
+            
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>SQLite | CLI</p>
+        </div>
+
+    </body>
+</html>
