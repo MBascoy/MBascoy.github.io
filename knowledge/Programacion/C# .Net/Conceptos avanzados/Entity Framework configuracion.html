@@ -1,0 +1,349 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Entity Framework configuracion</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Crear una base de datos básica y configurar Entity Framework para acceder a ella.</p>
+
+        </div>
+
+    <div class="t2">Crear base de datos</div>
+        <div class="cont">
+
+          <pre><code>CREATE TABLE Estudiantes (
+  Id INTEGER  PRIMARY KEY,
+  Nombre TEXT,
+);</code></pre>
+
+          <pre><code>CREATE TABLE Asignaturas (
+  Id INTEGER PRIMARY KEY,
+  Nombre TEXT,
+);</code></pre>
+
+          <pre><code>CREATE TABLE AsignaturaEstudiante (
+  Id INTEGER IDENTITY(1,1),
+  EstudianteId INTEGER ,
+  AsignaturaId INTEGER ,
+  PRIMARY KEY (Id),
+  FOREIGN KEY (EstudianteId) REFERENCES Estudiantes(Id),
+  FOREIGN KEY (AsignaturaId) REFERENCES Asignaturas(Id),
+);</code></pre>
+
+
+<pre><code>INSERT INTO Estudiantes VALUES(1, 'Fran');
+INSERT INTO Estudiantes VALUES(2, 'Maria');
+INSERT INTO Estudiantes VALUES(3, 'Clay');</code></pre>
+
+<pre><code>INSERT INTO Asignaturas VALUES(1, 'Matematicas');
+INSERT INTO Asignaturas VALUES(2, 'Lengua');
+INSERT INTO Asignaturas VALUES(3, 'Educacion fisica');</code></pre>
+
+<pre><code>INSERT INTO AsignaturaEstudiante VALUES(1,1);
+INSERT INTO AsignaturaEstudiante VALUES(2,1);
+INSERT INTO AsignaturaEstudiante VALUES(3,1);
+INSERT INTO AsignaturaEstudiante VALUES(1,2);
+INSERT INTO AsignaturaEstudiante VALUES(2,3);
+INSERT INTO AsignaturaEstudiante VALUES(3,3);</code></pre>
+      </div>
+
+    <div class="t2">EF Core consultar una tabla</div>
+        <div class="cont">
+          <p>Para consutlar una tabla solo tenemos que definir primero el contexto con la conexión a la base de datos y la tabla que queremos mapear (definiendo tambien la clase referente a la tabla):</p>
+
+          <p>Clase Estudiante:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">EFCoreExample</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Estudiante</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">int</span> Id { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> Nombre { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+    }
+}</code></pre>
+
+          <p>Contexto:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">EFCoreExample</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">internal</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ColegioContext</span> : <span style="color:rgb(181, 189, 104); font-weight:400;">DbContext</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> DbSet&lt;Estudiante&gt;? Estudiantes { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> <span style="color:rgb(204, 153, 204); font-weight:400;">override</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnConfiguring</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">DbContextOptionsBuilder optionBuilder</span>)</span>
+        {
+            <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> connection = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Data Source=.;&quot;</span> +
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Initial Catalog = Colegio;&quot;</span> +
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Integrated Security = true;&quot;</span> +
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;MultipleActiveResultSets = true;&quot;</span>;
+
+            optionBuilder.UseSqlServer(connection);
+
+        }
+    }
+}</code></pre>
+
+          <p>En el programa principal creamos la consulta usando el contexto y mostramos los datos de todas las filas con un <b>foreach</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> EFCoreExample;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> (ColegioContext db = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>())
+{
+    IQueryable&lt;Estudiante&gt;? estudiantes = db.Estudiantes;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (Estudiante e <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> estudiantes)
+    {
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">{e.Id}</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">{e.Nombre}</span>&quot;</span>);
+    }
+}</code></pre>
+
+        </div>
+
+    <div class="t2">EF Core con relación N:N</div>
+        <div class="cont">
+
+          <p><a href="https://github.com/MBascoy/CSharp-Examples/tree/main/EFCoreExample">Ejemplo Codigo</a> </p>
+
+          <p>Cuando tenemos dos tablas con una relacion N:N en una base de datos relacional se genera una tercera tabla que maneja las relaciones entre las dos tablas, a partir de <b>EF Core 5.0</b> podemos configurar una relacion <b>many-to-many</b> sin necesidad de mapear la tabla intermedia que se genera en la relacion (en el siguiente apartado se muestra como mapear la tabla intermedia por si queremos hacer algún mapeo con un nombre alternativo de alguna columna)</p>
+
+          <p>En este ejemplo tendremos una tabla <b>Estudiantes</b> y una tabla <b>Asignaturas</b> que tienen una relacion N:N entre ellas, por lo tanto se generará una tabla <b>AsignaturaEstudiante</b>.</p>
+
+          <p>Antes de nada tenemos que añadir el paquete <b>Microsoft.EntityFrameworkCore.SqlServer</b> para poder manejar conexiones con una base de datos <b>SQL Server</b>:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">ItemGroup</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">PackageReference</span> <span style="color:rgb(129, 162, 190); font-weight:400;">Include</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Microsoft.EntityFrameworkCore.SqlServer&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">Version</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;6.0.7&quot;</span> /&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">ItemGroup</span>&gt;</span></code></pre>
+
+          <p>El código lo añadimos en el archivo del proyecto (.csproj) o tambien podemos añadir el paquete con el <b>NuGet</b>.</p>
+
+          <p>Primero creamos el contexto para conectarnos a la base de datos:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">EFCoreExample</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">internal</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ColegioContext</span> : <span style="color:rgb(181, 189, 104); font-weight:400;">DbContext</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> DbSet&lt;Estudiante&gt;? Estudiantes { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> DbSet&lt;Asignatura&gt;? Asignaturas { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> <span style="color:rgb(204, 153, 204); font-weight:400;">override</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnConfiguring</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">DbContextOptionsBuilder optionBuilder</span>)</span>
+        {
+            <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> connection = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Data Source=.;&quot;</span> +
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Initial Catalog = Colegio;&quot;</span> +
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Integrated Security = true;&quot;</span> +
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;MultipleActiveResultSets = true;&quot;</span>;
+
+            optionBuilder.UseSqlServer(connection);
+
+        }
+    }
+}
+</code></pre>
+
+          <p>En el contexto indicamos con <b>DbSet</b> las tablas que mapearemos de la base de datos, y en el método <b>OnConfiguring</b> configuramos la conexión con la base de datos.</p>
+
+          <p><b>NOTA:</b> Los nombres que indicamos en las variables de <b>DbSet</b> tienen que coincidir con los nombres de las tablas en la base de datos, en este caso Estudiantes y Asignaturas.</p>
+
+          <p>A continuación definimos las clases en las que almacenaremos la información relativa a las tablas de la base de datos:</p>
+
+          <p>Clase Asignatura:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">EFCoreExample</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Asignatura</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">int</span> Id { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> Nombre { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">virtual</span> ICollection&lt;Estudiante&gt; Estudiante { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+    }
+}
+</code></pre>
+
+          <p>Clase Estudiante</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">EFCoreExample</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Estudiante</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">int</span> Id { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> Nombre { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public virtual</span> ICollection&lt;Asignatura&gt; Asignatura { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+    }
+}
+</code></pre>
+
+          <p><b>NOTA:</b> Al definir las clases definimos una <b>coleccion</b> que será donde se almacene la información referente a la tabla con la que está relacionada, en este caso Estudiante almacenará las asignaturas de dicho estudiante por ejemplo... <b>EF</b> realizará un mapeo automático de la tabla intermedia, y usará el nombre de dicha <b>colección</b> y el nombre de la <b>clave primaria</b> para establecer el nombre de la columna en la tabla intermedia con el que se se tiene que mapear, en este caso en la clase Estudiante por ejemplo, la coleccion se llama <b>Asignatura</b>, y la clave primaria <b>Id</b> por lo tanto se mapeará con la columna <b>AsignaturaId</b> en la tabla intermedia, si la tabla intermedia no tiene una columna con ese nombre EF lanzará una excepción al intentar realizar el mapeo, en el caso de que quisiésemos utilizar algún nombre alternativo tendríamos que realizar el mapeo de la tabla intermedia de forma manual.</p>
+
+          <p>Desde la clase principal realizamos la consulta asi:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> EFCoreExample;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> (ColegioContext db = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>())
+{
+    IQueryable&lt;Estudiante&gt;? estudiantes = db.Estudiantes?.Include(e =&gt; e.Asignatura);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (Estudiante e <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> estudiantes)
+    {
+        Console.WriteLine(e.Nombre);
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Asignaturas:&quot;</span>);
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (Asignatura item <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> e.Asignatura)
+        {
+            Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;\t&quot;</span> + item.Nombre);
+
+        }
+    }
+}</code></pre>
+
+          <p>Usamos <b>Include</b> para que se haga una consulta de los datos de la tabla <b>Asignaturas</b> para poder rellenar la información relativa a las asignaturas de cada estudiante.</p>
+
+        </div>
+
+    <div class="t2">EF Core mapeando tabla intermedia en relacion N:N</div>
+        <div class="cont">
+          <p>En el caso anterior si quisiesemos usar como nombre de la coleccion <b>Asignaturas</b> en vez de <b>Asignatura</b> (plural en vez de singular) necesitamos hacer un mapeo manual de la tabla intermedia para poder asignar de manera manual el nombre de las columnas.</p>
+
+          <p>La aplicación principal queda igual, solo que cambiamos <b>Asignatura</b> por <b>Asignaturas</b>.</p>
+
+          <p>Aplicacion:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> EFCoreExample;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> (ColegioContext db = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>())
+{
+    IQueryable&lt;Estudiante&gt;? estudiantes = db.Estudiantes?.Include(c =&gt; c.Asignaturas);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (Estudiante e <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> estudiantes)
+    {
+        Console.WriteLine(e.Nombre);
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Asignaturas:&quot;</span>);
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (Asignatura item <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> e.Asignaturas)
+        {
+            Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;\t&quot;</span> + item.Nombre);
+
+        }
+    }
+}</code></pre>
+
+          <p>En el contexto declaramos un nuevo <b>DbSet</b> para indicar la tabla intermedia <b>AsignaturaEstudiante</b>.</p>
+
+          <p>A mayores definimos la función <b>OnModelCreating</b> para indicar como realizar el mapeo entre la tabla intermedia y sus columnas y las demas tablas:</p>
+
+          <p>Contexto:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">EFCoreExample</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">internal</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ColegioContext</span> : <span style="color:rgb(181, 189, 104); font-weight:400;">DbContext</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> DbSet&lt;Estudiante&gt;? Estudiantes { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> DbSet&lt;Asignatura&gt;? Asignaturas { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> DbSet&lt;AsignaturaEstudiante&gt;? AsignaturaEstudiante { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> <span style="color:rgb(204, 153, 204); font-weight:400;">override</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnConfiguring</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">DbContextOptionsBuilder optionBuilder</span>)</span>
+        {
+            <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> connection = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Data Source=.;&quot;</span> +
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Initial Catalog = Colegio;&quot;</span> +
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Integrated Security = true;&quot;</span> +
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;MultipleActiveResultSets = true;&quot;</span>;
+            optionBuilder.UseSqlServer(connection);
+
+        }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> <span style="color:rgb(204, 153, 204); font-weight:400;">override</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnModelCreating</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ModelBuilder modelBuilder</span>)</span>
+        {
+            modelBuilder.Entity&lt;Estudiante&gt;()
+                .HasMany(p =&gt; p.Asignaturas)
+                .WithMany(p =&gt; p.Estudiantes)
+                .UsingEntity&lt;AsignaturaEstudiante&gt;(
+                    j =&gt; j
+                        .HasOne(pt =&gt; pt.Asignatura)
+                        .WithMany(t =&gt; t.AsignaturaEstudiantes)
+                        .HasForeignKey(pt =&gt; pt.AsignaturaId),
+                    j =&gt; j
+                        .HasOne(pt =&gt; pt.Estudiante)
+                        .WithMany(p =&gt; p.AsignaturaEstudiantes)
+                        .HasForeignKey(pt =&gt; pt.EstudianteId));
+        }
+    }
+}
+</code></pre>
+
+          <p>En las clases <b>Estudiante</b> y <b>Asignatura</b> añadimos una coleccion para la tabla intermedia.</p>
+
+          <p>Estudiante:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">EFCoreExample</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Estudiante</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">int</span> Id { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> Nombre { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> ICollection&lt;Asignatura&gt; Asignaturas { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> List&lt;AsignaturaEstudiante&gt; AsignaturaEstudiantes { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+    }
+}
+</code></pre>
+
+          <p>Asignatura:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">EFCoreExample</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Asignatura</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">int</span> Id { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> Nombre { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">virtual</span> ICollection&lt;Estudiante&gt; Estudiantes { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> List&lt;AsignaturaEstudiante&gt; AsignaturaEstudiantes { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+
+    }
+}
+</code></pre>
+
+          <p>Creamos una nueva clase <b>AsignaturaEstudiante</b> que almacenará la información de la tabla intermedia.</p>
+
+          <p>Hay que tener en cuenta que a mayores de los Ids (que es la información que hay almacenada en la base de datos) estamos creando objetos que alamcenaran la información completa de las tablas que hay relacionadas (Estudiantes y Asignaturas).</p>
+
+          <p>AsignaturaEstudiante:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">EFCoreExample</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">AsignaturaEstudiante</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">int</span> Id { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">int</span> AsignaturaId { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> Asignatura Asignatura { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">int</span> EstudianteId { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> Estudiante Estudiante { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+    }
+}
+</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Entity Framework</p>
+        </div>
+
+    </body>
+</html>
