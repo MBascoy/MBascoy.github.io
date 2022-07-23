@@ -1,0 +1,1437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://mbascoy.github.io/</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/index.html</loc>
+  <lastmod>2022-07-17T13:22:01+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/JavaScript%20-%20TypeScript.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/IDEs.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Codigo%20con%20colores%20en%20HTML%20(highlight%20code).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Tipos%20de%20fuentes%20(CSS).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Expresiones%20Regulares.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Docker.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/TFVC.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/RPM.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Shell.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Azure.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/AWS.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/DataBases.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Configurar%20Subwoofer%20G56JR.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Formatear%20USB%20como%20NTFS.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Chrome%20deshabilitar%20CORS.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Xorg.conf%20Intel%20NUC.html</loc>
+  <lastmod>2022-07-17T13:22:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/A%C3%B1adir%20fuentes%20en%20linux.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Consultar%20password%20Wi-Fi.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Nmap%20escanear%20dispositivos%20en%20la%20red.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/SWO.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/QMK.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/PENDIENTE.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/HOJA%20DE%20RUTA.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/GLOSARIO%20informatica.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/EL%20METODO.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/Proyectos%20realizados.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/Asociacion%20de%20archivos%20y%20programas%20por%20defecto.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/Android%20restablecer%20aplicaciones%20por%20defecto.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/Algoritmos%20cubo%20rubik.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/whatsapp%20a%20pdf.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/Grabar%20ISO%20a%20USB.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/Lector%20tarjetas%20(DNIe).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/Expresion%20TRUE%20or%20TRUE%20and%20FALSE.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/Desbloquear%20scroll%20paginas%20web.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/Web%20URL%20text%20fragments.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/Gimp%20dibujar%20flechas.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/como%20buscar%20en%20el%20manual.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/Template.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Troubleshooting/Fix%20GRUB.html</loc>
+  <lastmod>2022-07-17T13:22:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Troubleshooting/Steam%20no%20se%20inicia.html</loc>
+  <lastmod>2022-07-17T13:22:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Troubleshooting/Instalacion%20KDE%20Framework.html</loc>
+  <lastmod>2022-07-17T13:22:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Troubleshooting/Display%20manager%20(sddm)%20no%20inicia%20sesion.html</loc>
+  <lastmod>2022-07-17T13:22:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Troubleshooting/Archivo%20desktop%20formato%20de%20ejecutable%20incorrecto.html</loc>
+  <lastmod>2022-07-17T13:22:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Troubleshooting/mailto%20no%20inicia%20el%20cliente%20de%20correo.html</loc>
+  <lastmod>2022-07-17T13:22:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Troubleshooting/Las%20actualizaciones%20no%20seran%20instaladas%20(zypper).html</loc>
+  <lastmod>2022-07-17T13:22:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Economia/Calcular%20IPC.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Economia/CNMV%20Buscador%20ISIN.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Economia/Analisis%20acciones.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Economia/Definiciones%20economia.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/Compilar%20programa.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/Tipos%20de%20datos%20y%20valores%20por%20defecto.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/String%20formato%20compuesto.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/String%20interpolation%20y%20Verbatim%20string.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/Arrays.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/If.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/Switch.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/For%20y%20foreach.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/Clases.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/Modificadores%20de%20acceso.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/Generics.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/Funcionalidad%20con%20operadores.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/Interfaces.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/Expresiones%20regulares.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20basicos/Colecciones.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20avanzados/Depurar%20codigo%20Visual%20Studio.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20avanzados/Manejo%20de%20Excepciones.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20avanzados/Herencia.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20avanzados/Polimorfismo.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20avanzados/Cachear%20contenido.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20avanzados/Lectura-Escritura%20de%20archivos%20y%20streams.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20avanzados/Serializacion%20JSON.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Ejemplos%20codigo/Hello%20World.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Ejemplos%20codigo/Serializar%20objeto%20a%20archivo%20binario.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20desordenados/Versiones%20.Net%20y%20C%23.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20desordenados/Top-level%20programs.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20desordenados/Simplificar%20Console%20(static%20imports).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20desordenados/nameof%20(nombre%20variables).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20desordenados/Importar%20libreria%20externa.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20desordenados/Internationalized%20resources.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20desordenados/Unit%20testing%20(MSTest).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Conceptos%20desordenados/Separar%20un%20string.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/C%23%20.Net/Troubleshooting/Failed%20to%20discover%20tests%20from%20assembly.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20basicos/Conversion%20explicita%20de%20objetos.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20basicos/Maven%20generar%20proyecto.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20basicos/Generar%20jar%20(consola%20o%20Maven).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20basicos/VSCode%20indicar%20parametros%20de%20ejecucion.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20basicos/VSCode%20classpath%20y%20librerias%20externas.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20basicos/Estructura%20de%20Excepciones.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Swing.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Lombok.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Object%20Mapper.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Unit%20testing.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Maven%20ver%20versiones%20de%20librerias.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Implementar%20internacionalizacion.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Ejemplos%20codigo/Hello%20World.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Ejemplos%20codigo/Escribir-Leer%20en%20archivos%20(caracteres).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Ejemplos%20codigo/Escribir-Leer%20en%20archivos%20(datos%20binarios).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Ejemplos%20codigo/Objeto%20atributo%20autoincrement.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20desordenados/Seleccionar%20version%20de%20Java%20(Linux).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20desordenados/Medir%20tiempo%20entre%20dos%20breakpoints.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Troubleshooting/Java%20no%20encuentra%20la%20clase%20main.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Troubleshooting/Netbeans%20no%20compila%20(Broken%20platform).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Troubleshooting/Visual%20Code%20muestra%20version%20incorrecta%20de%20java.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20basicos/Configuracion%20proyecto%20base.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20basicos/Mapping%20Request.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20basicos/Acceso%20a%20Base%20de%20datos%20repositorio%20JPA.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20basicos/VSCode%20activar%20AutoBuild.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20basicos/Consultar%20version%20Spring%20y%20Spring%20Boot.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20avanzados/Jacoco%20cobertura%20de%20codigo%20de%20tests.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20avanzados/Spring%20validations.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20avanzados/Spring%20consultas%20JPQL%20y%20consultas%20nativas.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20avanzados/Spring%20funciones%20consultas%20avanzadas.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20avanzados/Documentacion%20con%20Swagger%20SpringFox.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20avanzados/Permitir%20CORS.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20avanzados/Usar%20logger%20Slf4j.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Conceptos%20avanzados/Establecer%20Log%20Level.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Troubleshooting/Tests%20se%20conectan%20con%20la%20base%20de%20datos.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Troubleshooting/Cannot%20load%20driver%20class%20com.mysql.jdbc.Driver.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Troubleshooting/Maven%20clean%20cache.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Spring/Troubleshooting/Swagger%20issue%20%20NumberFormatException.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20basicos/Instalacion%20Angular.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20basicos/Generar%20proyecto%20base.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20basicos/Crear%20un%20componente.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20basicos/Routing.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20basicos/Services.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20basicos/ngIf.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20basicos/ngFor.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20basicos/ngTemplate.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20basicos/Pipes.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20basicos/ngClass.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20basicos/Two%20way%20binding.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Optional%20Chaining%20vs%20Assertion%20Operator.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Bloquear%20Navegacion%20(canDeactivate).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Comunicacion%20entre%20componentes%20padre-hijo.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Path%20variables.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Query%20parameters.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Reactive%20forms.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Template%20driven%20forms.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Validacion%20formularios.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Http%20Client.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Testing%20con%20Jasmine.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Modificar%20DOM%20usando%20Viewchild.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/Event%20Input.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Conceptos%20avanzados/ngOnChanges.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Escenarios/forEach%20is%20not%20a%20function.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Escenarios/Module%20not%20found%20cdk.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/ng%20serve%20ERROR%20on%20rebuild.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/Resolver%20dependencias.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/Variable%20no%20inicializada.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/Array%20-%20Cannot%20read%20properties%20of%20undefined.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/Cannot%20read%20properties%20of%20undefined.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/Error%20dependencia%20jasmine.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/npm%20start,%20error%20TS1084.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/npm%20start,%20Observable(T)%20is%20not%20assignable%20to%20Observable(R).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/string,null%20is%20not%20assignable%20to%20type%20string%20TS%202322.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/TESTING,%20Export%20of%20name%20'ngForm'%20not%20found.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/TESTING,%20text%20to%20equal%20text.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Troubleshooting/TESTING,%20NG0304%20is%20not%20a%20known%20element.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Configuracion/Npm%20listar%20paquetes%20y%20dependencias.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Configuracion/Prevenir%20CORS.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Angular/Trucos/Evitar%20usar%20ngIf.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/JavaScript%20-%20TypeScript/Conceptos%20basicos/Generar%20proyecto%20typescript%20con%20NODE.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/JavaScript%20-%20TypeScript/Conceptos%20basicos/Public,%20private,%20var,%20let.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/JavaScript%20-%20TypeScript/Conceptos%20basicos/Comprobar%20version%20TypeScript%20de%20un%20proyecto.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/JavaScript%20-%20TypeScript/Conceptos%20avanzados/Autogenerar%20objetos%20TypeScript%20desde%20Spring.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/JavaScript%20-%20TypeScript/Conceptos%20avanzados/Arrays%20asociativos.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/JavaScript%20-%20TypeScript/Ejemplos%20codigo/Ejemplo%20select%20jquery.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development/Conceptos%20basicos/Etiquetas%20basicas.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development/Conceptos%20basicos/Flexbox.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development/Conceptos%20basicos/Fuentes%20custom%20en%20CSS.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development/Conceptos%20avanzados/Responsive%20design.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development/Conceptos%20avanzados/Menu%20desplegable.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development/Conceptos%20avanzados/Iconos%20Bootstrap.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development/Conceptos%20avanzados/Implementar%20Bootstrap.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development/Conceptos%20avanzados/Bootstrap%20collapse.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development/Miscelanea/Enlazar%20archivos%20externos.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development/Miscelanea/Mostrar%20texto%20flotante.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Web%20Development/Miscelanea/Librerias%20animaciones%20y%20efectos%20CSS%20JavaScript.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code/Conceptos%20basicos/Naming.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code/Conceptos%20basicos/Funciones.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code/Conceptos%20basicos/Comentarios.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code/Conceptos%20basicos/Formateo.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code/Conceptos%20basicos/Objects%20y%20Data%20structure.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code/Conceptos%20basicos/Error%20handling.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code/Conceptos%20basicos/Boundaries.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code/Conceptos%20avanzados/Refactorizar%20estructura%20if%20else.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code/Code%20style/Documentacion%20inicial%20proyecto.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code/Code%20style/Naming%20Convention.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Clean%20Code/Code%20style/File%20Organization.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/IDEs/Atom/Configuracion%20snippets%20en%20Atom.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/IDEs/Atom/Java.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/IDEs/Atom/TypeScript.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/IDEs/Visual%20Code/Configuracion%20snippets%20en%20Visual%20Code.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/IDEs/Visual%20Code/Java.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/IDEs/Visual%20Code/TypeScript.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/IDEs/Visual%20Studio/Cambiar%20indentacion.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Tipos%20de%20fuentes/CSS%20Fonts.pdf</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Docker/Conceptos%20basicos/Comandos%20Docker.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Docker/Conceptos%20basicos/Docker%20compose.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Docker/Conceptos%20basicos/Comandos%20WSL.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Docker/Conceptos%20basicos/Instalar%20Docker%20en%20WSL.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Docker/Conceptos%20desordenados/Crear%20imagen%20con%20maven%20y%20spring-boot.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Docker/Conceptos%20desordenados/Configurar%20Docker%20en%20WSL%20para%20desplegar%20imagenes.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Docker/Conceptos%20desordenados/Arrancar%20Docker%20al%20inicio%20en%20WSL.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Docker/Troubleshooting/Docker%20compose%20no%20arranca.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Conceptos%20basicos/Abortar%20merge.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Conceptos%20basicos/Stash.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Conceptos%20basicos/Revert.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Conceptos%20basicos/Squash.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Conceptos%20basicos/Restaurar%20o%20recuperar%20archivos.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Conceptos%20basicos/Request-Pull.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Conceptos%20basicos/Comandos%20basicos.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Conceptos%20basicos/Branching.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Configuracion/Configuracion%20inicial%20Git.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Configuracion/Cambiar%20credenciales%20de%20acceso.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Configuracion/Almacenar%20password%20o%20PAT.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Configuracion/Sincronizar%20con%20remoto%20y%20descartar%20cache.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Configuracion/Git%20Bash%20prompt.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Escenarios/Buscar%20origen%20archivo.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Escenarios/Github%20merge%20de%20archivos%20borrados.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Escenarios/merge%20FAST-FORWARD.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Escenarios/Errores%20temporales.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Conceptos%20avanzados/Comprobar%20cambios,%20log,%20show,%20diff.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Conceptos%20avanzados/Trackear%20rama%20local%20con%20remota.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Conceptos%20avanzados/Show%20merge%20CONFLICTOS.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Troubleshooting/Permission%20denied%20(publickey).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Troubleshooting/Evitar%20paginacion.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Troubleshooting/Error%20al%20clonar%20repositorio.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Troubleshooting/Aborting%20PULL%20o%20CHECKOUT.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Troubleshooting/Unmerged%20paths.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Troubleshooting/Repository%20not%20found.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Troubleshooting/new%20branch%20issue%20when%20pull.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Git/Troubleshooting/warning%20-%20redirigiendo%20a%20(url).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/TFVC/Conceptos%20basicos/Publicar%20cambios.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/TFVC/Conceptos%20basicos/Agregar%20proyecto%20existente.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/TFVC/Configuracion/Configuracion%20inicial.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/TFVC/Troubleshooting/Resolucion%20de%20problemas%20general.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/RPM/Conceptos%20basicos/Consultas%20RPM.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/RPM/Conceptos%20basicos/Consultar%20informacion%20de%20un%20paquete.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/RPM/Conceptos%20basicos/Actualizar%20paquetes.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/RPM/Conceptos%20desordenados/zypper%20paquetes%20del%20sistema.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/RPM/Troubleshooting/Resolver%20problema%20de%20dependencias.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Shell/Conceptos%20basicos/Cambiar%20colores%20bash.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Shell/Conceptos%20basicos/PowerShell%20variables%20de%20entorno.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Shell/Conceptos%20basicos/Grabar%20comandos%20y%20su%20salida%20en%20consola.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Shell/Configuracion/Git%20Bash%20bashrc.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Shell/Conceptos%20desordenados/Abrir%20directorio%20startup%20Win10.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Shell/Conceptos%20desordenados/Consultar%20y%20conectar%20directorios%20de%20red.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Azure/Conceptos%20basicos/Azure%20(Esquema).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/Azure/Conceptos%20desordenados/Desplegar%20aplicacion%20Spring%20maven.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/AWS/Conceptos%20basicos/AWS%20(Esquema).html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/DataBases/Conceptos%20basicos/Instalacion%20SQL%20Server.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/DataBases/Conceptos%20basicos/Ejecucion%20SQL%20Server.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/DataBases/Conceptos%20basicos/Exportar%20Base%20de%20datos%20SQL%20Server%20con%20SSMS.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/DataBases/Conceptos%20basicos/SQLite%20crear%20base%20de%20datos.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/DataBases/Conceptos%20basicos/SQLite%20crear%20base%20de%20datos%20a%20partir%20de%20script.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/DataBases/Conceptos%20basicos/SQLite%20con%20SQLiteStudio.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/DataBases/Configuracion/DBeaver%20cargar%20script%20sql.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Sistemas/DataBases/Configuracion/SSMS%20cargar%20script%20sql.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/SWO/Soporte%20tecnico/Instalacion%20de%20software.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/SWO/Conceptos%20Basicos/Consultar%20nominas.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/SWO/Conceptos%20Basicos/Comunicar%20ausencias.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/SWO/Conceptos%20Basicos/Ver%20calendario%20de%20otras%20personas.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/SWO/Extra/Enlaces.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/QMK/Conceptos%20basicos/Configuracion%20teclados%20QMK.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/QMK/Conceptos%20desordenados/Flashear%20archivo%20hex.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/QMK/Conceptos%20desordenados/Template%20xd75re.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Miscelanea/QMK/Troubleshooting/Teclado%20no%20funciona%20despues%20de%20despertar%20de%20la%20suspension%20del%20sistema.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Swing/Conceptos%20basicos/Posicionar%20componentes.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Swing/Componentes/JButton.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Swing/Componentes/JLabel.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Swing/Componentes/JTextField.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Swing/Componentes/JComboBox.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Swing/Componentes/ImageIcon.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Swing/Componentes/JRadioButton.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://mbascoy.github.io/knowledge/Programacion/Java/Conceptos%20avanzados/Swing/Componentes/JList.html</loc>
+  <lastmod>2022-07-17T13:22:00+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+
+
+</urlset>
