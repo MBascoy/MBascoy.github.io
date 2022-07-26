@@ -1,0 +1,50 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">LINQ filtro con Length falla</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Al intentar ejecutar una consulta <b>Where</b> con <b>LINQ</b> en la que usamos la propiedad <b>Length</b> se lanza la siguiente excepción:</p>
+          <code>Unhandled exception. Microsoft.Data.SqlClient.SqlException (0x80131904): Argument data type text is invalid for argument 1 of len function.</code>
+
+          <p>El código con el que estamos lanzando la consulta es el siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> EFCoreExample;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> (ColegioContext db = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>())
+{
+    IQueryable&lt;Estudiante&gt;? estudiantes = db.Estudiantes?.Where(e =&gt; e.Nombre.Length &gt; <span style="color:rgb(249, 145, 87); font-weight:400;">4</span>);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (Estudiante e <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> estudiantes)
+    {
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">{e.Id}</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">{e.Nombre}</span>&quot;</span>);
+    }
+}</code></pre>
+
+        </div>
+
+        <div class="t2">Explicacion</div>
+            <div class="cont">
+              <p>El error se debe a que el campo de la base de datos que estamos intentando consultar está definido con el tipo <b>TEXT</b> y este tipo no permite consultar la longitud del string que almacena:</p>
+
+              <img src="LINQ filtro con Length falla/1.png"/>
+
+              <p>Para solucionar el fallo simplemente tenemos que cambiar el tipo <b>TEXT</b> en la base de datos, por un tipo <b>VARCHAR</b>:</p>
+
+              <img src="LINQ filtro con Length falla/2.png"/>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | .Net | LINQ | Where</p>
+        </div>
+
+    </body>
+</html>

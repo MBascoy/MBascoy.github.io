@@ -1,0 +1,71 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Concatenar strings con StringBuilder</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Cuando tenemos que concatenar <b>strings en bucle</b>, en vez de hacerlo directamente con el operador + es mas óptimo hacerlo con un <b>StringBuilder</b>.</p>
+
+            <p>Si solo vamos a concatenar un string aislado (sin que sea una operación repetitiva), podríamos hacerlo directamente con el operador +.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+          <p><a href="https://github.com/MBascoy/CSharp-Examples/tree/main/StringBuilderExample">Código Ejemplo</a></p>
+
+          <p>En el siguiente ejemplo se muestra una concatenación en bucle, comparando el método con el operador de concatenación con el StringBuilder:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> MonitoringLib;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> System.Console;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">int</span>[] numbers = Enumerable.<span style="color:rgb(181, 189, 104); font-weight:400;">Range</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">50</span>_000).<span style="color:rgb(181, 189, 104); font-weight:400;">ToArray</span>();
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;String con +&quot;</span>);
+Recorder.<span style="color:rgb(181, 189, 104); font-weight:400;">Start</span>();
+
+string s = string.Empty;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; numbers.Length; i++)
+{
+    s+= numbers[i] + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;, &quot;</span>;
+}
+
+Recorder.<span style="color:rgb(181, 189, 104); font-weight:400;">Stop</span>();
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">WriteLine</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;String con stringBuilder&quot;</span>);
+
+Recorder.<span style="color:rgb(181, 189, 104); font-weight:400;">Start</span>();
+
+System.Text.StringBuilder sb = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> System.Text.<span style="color:rgb(181, 189, 104); font-weight:400;">StringBuilder</span>();
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; numbers.Length; i++)
+{
+    sb.<span style="color:rgb(181, 189, 104); font-weight:400;">Append</span>(numbers[i]);
+    sb.<span style="color:rgb(181, 189, 104); font-weight:400;">Append</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;, &quot;</span>);
+}
+
+Recorder.<span style="color:rgb(181, 189, 104); font-weight:400;">Stop</span>();</code></pre>
+
+        <img src="Concatenar strings con StringBuilder/1.png"/>
+
+        <p>Como se puede ver en la ejecución, con el operador +, tarda unos 4.700 milisegundos mientras que con el <b>StringBuilder</b> tarda <b>1 milisegundo.</b></p>
+
+      </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | StringBuilder</p>
+        </div>
+
+    </body>
+</html>

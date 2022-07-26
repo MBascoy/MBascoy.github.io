@@ -1,0 +1,120 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Consultas LINQ</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar LINQ para filtrar y ordenar datos de consultas.</p>
+
+        </div>
+
+    <div class="t2">Escenario</div>
+        <div class="cont">
+
+          <p>Partimos de una aplicación que usa EFCore y que realiza una consulta a la tabla <b>Estudiantes</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> EFCoreExample;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> (ColegioContext db = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>())
+{
+    DbSet&lt;Estudiante&gt;? estudiantes = db.Estudiantes;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (Estudiante e <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> estudiantes)
+    {
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">{e.Id}</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">{e.Nombre}</span>&quot;</span>);
+    }
+}</code></pre>
+
+        <img src="Consultas LINQ/1.png"/>
+      </div>
+
+      <div class="t2">Filtrar datos</div>
+          <div class="cont">
+          <p>Para filtrar consultas con <b>LINQ</b> usamos el método <b>Where</b> sobre el DbSet de la consulta, y como parámetro del Where indicamos una función lambda que indicará la condición que se usará para filtrar, en este caso la longitud del nombre:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> EFCoreExample;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> (ColegioContext db = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>())
+{
+    DbSet&lt;Estudiante&gt;? estudiantes = db.Estudiantes;
+
+    IQueryable&lt;Estudiante&gt; estudiantesFiltro = estudiantes.Where(e =&gt; e.Nombre.Length &gt; <span style="color:rgb(249, 145, 87); font-weight:400;">4</span>);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (Estudiante e <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> estudiantesFiltro)
+    {
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">{e.Id}</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">{e.Nombre}</span>&quot;</span>);
+    }
+}</code></pre>
+
+            <img src="Consultas LINQ/2.png"/>
+
+            <p>Otro ejemplo podría ser el siguiente filtrando por el contenido del nombre:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> EFCoreExample;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> (ColegioContext db = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>())
+{
+    DbSet&lt;Estudiante&gt;? estudiantes = db.Estudiantes;
+
+    IQueryable&lt;Estudiante&gt; estudiantesFiltro = estudiantes.Where(e =&gt; e.Nombre.Contains(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;n&quot;</span>));
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (Estudiante e <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> estudiantesFiltro)
+    {
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">{e.Id}</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">{e.Nombre}</span>&quot;</span>);
+    }
+}</code></pre>
+
+            <img src="Consultas LINQ/3.png"/>
+
+          </div>
+
+            <div class="t2">Ordenar datos</div>
+                <div class="cont">
+                  <p>Para realizar la ordenación de los datos solo tenemos que concatenar al final del metodo <b>Where</b> el metodo <b>OrderedBy</b> o <b>OrderByDescending</b> pasándole como argumento una lambda indicando el parámetro sobre el que realizaremos la ordenación:</p>
+                  <code>.OrderByDescending(e => e.Nombre)</code>
+
+                  <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> EFCoreExample;
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">using</span> (ColegioContext db = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span>())
+{
+    DbSet&lt;Estudiante&gt;? estudiantes = db.Estudiantes;
+
+    IQueryable&lt;Estudiante&gt; estudiantesFiltro = estudiantes.Where(e =&gt; e.Nombre.Contains(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;n&quot;</span>)).OrderByDescending(e =&gt; e.Nombre);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">foreach</span> (Estudiante e <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> estudiantesFiltro)
+    {
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">{e.Id}</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">{e.Nombre}</span>&quot;</span>);
+    }
+}</code></pre>
+
+                  <p>En este caso estamos ordenando la última consulta pero de manera descendente:</p>
+                  <img src="Consultas LINQ/4.png"/>
+
+                </div>
+
+    <div class="t2">Ejecución en diferido</div>
+        <div class="cont">
+          <p>Las consultas de <b>LINQ</b> no se ejecutan en el momento en el que se generan, si no que se ejecutan cuando se van a <b>consultar los datos</b> (ya sea cuando se recorrer la consulta con un <b>foreach</b> o cuando se llama algun método sobre la consulta (en este caso <b>estudiantes</b> o <b>estudiantesFiltro</b> son las consultas) que necesite obtener los datos), de manera que se generan las consultas por completo para obtener ya todos los datos filtrados y ordenados.</p>
+
+          <p>No se obtienen todos los datos de la base de datos y se filtran en la aplicación, como podría parecer al mirar el código, sino que se genera una consulta para la base de datos con la que se obtenga la información ya filtrada y ordenada.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | LINQ</p>
+        </div>
+
+    </body>
+</html>
