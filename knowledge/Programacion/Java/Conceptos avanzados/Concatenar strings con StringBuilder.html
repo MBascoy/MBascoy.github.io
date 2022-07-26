@@ -1,0 +1,80 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Concatenar strings con StringBuilder</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Cuando tenemos que concatenar <b>strings en bucle</b>, en vez de hacerlo directamente con el operador + es mas óptimo hacerlo con un <b>StringBuilder</b>.</p>
+
+            <p>Si solo vamos a concatenar un string aislado (sin que sea una operación repetitiva), podríamos hacerlo directamente con el operador +.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>La implementación del <b>StringBuilder</b> es practicamente identica tanto en <b>Java</b> como en <b>C#</b></p>
+
+          <p>Código para mostrar la diferencia entre operador + y StringBuilder:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.util.stream.IntStream;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">App</span> </span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String[] args)</span> </span>{
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">int</span>[] numArray = IntStream.rangeClosed(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">70000</span>).toArray();
+
+        <span style="color:rgb(150, 152, 150); font-weight:400;">//Usando operador +</span>
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">long</span> startTime = System.currentTimeMillis();
+
+        String cadena = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>;
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> num : numArray) {
+            cadena += num + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;, &quot;</span>;
+        }
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">long</span> endTime = System.currentTimeMillis();
+        <span style="color:rgb(204, 153, 204); font-weight:400;">long</span> executionTime = endTime - startTime;
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Tiempo de ejecución concatenando con el operador +: &quot;</span> + executionTime + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ms&quot;</span>);
+
+
+        <span style="color:rgb(150, 152, 150); font-weight:400;">//Usando StringBuilder</span>
+
+        startTime = System.currentTimeMillis();
+
+        StringBuilder sb = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> StringBuilder();
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> num : numArray) {
+            sb.append(num);
+            sb.append(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;, &quot;</span>);
+        }
+
+        endTime = System.currentTimeMillis();
+        executionTime = endTime - startTime;
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Tiempo de ejecución con StringBuilder: &quot;</span> + executionTime + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ms&quot;</span>);
+
+    }
+}
+</code></pre>
+
+        <img src="Concatenar strings con StringBuilder/1.png"/>
+
+        <p>Como se puede ver en la ejecución, con el operador + tarda unos 3.600 milisegundos mientras que con el <b>StringBuilder</b> tarda <b>7 milisegundos.</b></p>
+
+      </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Java | StringBuilder</p>
+        </div>
+
+    </body>
+</html>
