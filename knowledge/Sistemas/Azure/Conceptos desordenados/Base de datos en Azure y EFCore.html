@@ -1,0 +1,116 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Base de datos en Azure y EFCore</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Crear una base de datos en Azure y configurar EF Core para utilizarla</p>
+
+        </div>
+
+    <div class="t2">Método</div>
+        <div class="cont">
+          <p>Primero tenemos que desplegar una base de datos <b>SQL</b> en Azure, desde el portal de Azure buscamos SQL, y seleccionamos <b>SQL Databases</b>:</p>
+
+          <img src="Base de datos en Azure y EFCore/1.png"/>
+
+          <p>Seleccionamos <b>Create</b>:</p>
+
+          <img src="Base de datos en Azure y EFCore/2.png"/>
+
+          <p>En la configuración básica seleccionamos una <b>suscripción</b> y un <b>resorce group</b> (en caso de que no tengamos ninguno lo podemos crear):</p>
+          <img src="Base de datos en Azure y EFCore/3.png"/>
+
+          <p>Indicamos el nombre que le queremos dar a la base de datos y seleccionamos el servidor en el que se creará la base de datos:</p>
+          <img src="Base de datos en Azure y EFCore/4.png"/>
+
+          <p>Si no tenemos ningún servidor creado de base de datos tendremos que crearlo, hacemos click en <b>Create new</b> y en la siguiente pantalla indicamos un nombre para el servidor (tiene que ser un identificador único), y un usuario y una contraseña:</p>
+          <img src="Base de datos en Azure y EFCore/5.png"/>
+
+          <p>Al volver a la pantalla de configuración básica nos aseguramos de que está seleccionado el servidor que acabamos de crear y en <b>Workload Environment</b> seleccionamos <b>Development</b>, el precio final debería de ser bastante reducido:</p>
+          <img src="Base de datos en Azure y EFCore/6.png"/>
+
+          <p>Las demas opciones las dejamos por defecto y pulsamos en <b>Review+Create</b>:</p>
+          <img src="Base de datos en Azure y EFCore/7.png"/>
+
+          <p>En la pantalla de resumen revisamos que todo esté ok, sobre todo el precio, y le damos a <b>Create</b>.</p>
+          <p>A mi me sale en unos 4 Euros al mes al ser una base de datos de desarrollo, si elijes una de producción se va a los 190, asi que para hacer pruebas de de desarrollo nos vale:</p>
+
+          <img src="Base de datos en Azure y EFCore/8.png"/>
+
+          <p>La base de datos tarda un rato en crearse:</p>
+          <img src="Base de datos en Azure y EFCore/9.png"/>
+
+          <h2>Dar acceso publico a la base de datos</h2>
+          <p>Si queremos acceder a la base de datos desde fuera de Azure tenemos que configurar el servidor para que permita el acceso público. En la barra de busqueda buscamos <b>SQL Servers</b>:</p>
+          <img src="Base de datos en Azure y EFCore/10.png"/>
+
+          <p>Seleccionamos nuestro servidor:</p>
+          <img src="Base de datos en Azure y EFCore/11.png"/>
+
+          <p>Nos vamos a <b>Networking</b> dentro de <b>Security</b>:</p>
+          <img src="Base de datos en Azure y EFCore/12.png"/>
+
+
+          <p>En la pestaña de <b>Public access</b> seleccionamos <b>Selected networks</b>:</p>
+          <img src="Base de datos en Azure y EFCore/13.png"/>
+
+          <p>Y a continuación indicamos que queremos añadir nuestra IP en el firewall:</p>
+          <img src="Base de datos en Azure y EFCore/14.png"/>
+
+          <p>Despues solo hacemos click en <b>Save</b>.</p>
+
+          <p><b>NOTA:</b> si obtenemos un error al guardar a veces simplemente tenemos que hacer los dos pasos por separado, primero seleccionar <b>Selected networks</b> darle a save y despues <b>añadir nuestra IP</b> en el firewall y darle a save.</p>
+
+          <p>En este momento la base de datos ya está creada y lista para ser accedida desde fuera de Azure.</p>
+
+          <h2>Configuración de EF Core con la base de datos de Azure</h2>
+          <p>En el portal de Azure nos vamos a nuestra base de datos:</p>
+          <p>(No confundir con el servidor, podemos acceder a nuestras bases de datos buscando <b>SQL databases</b> en la barra de busqueda)</p>
+          <img src="Base de datos en Azure y EFCore/15.png"/>
+
+          <p>Y entramos en la sección de connection string:</p>
+          <img src="Base de datos en Azure y EFCore/16.png"/>
+
+
+          <p>Seleccionamos el connection string que aparece y cambiamos el parámetro de <b>Password</b> por la contraseña del usuario de nuestra base de datos:</p>
+          <img src="Base de datos en Azure y EFCore/17.png"/>
+
+          <p>Ponemos el <b>ConnectionString</b> en la configuración del <b>DBContext</b> de nuestra aplicación, el string podemos dividirlo en varias lineas para que sea mas facil la lectura:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">string connection = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Server = tcp:efcoreexample.database.windows.net,1433;&quot;</span> +
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Initial Catalog = EFCoreExample;&quot;</span> +
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Persist Security Info = False;&quot;</span> +
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;User ID = EFCore;&quot;</span> +
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Password = abc123.,;&quot;</span> +
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;MultipleActiveResultSets = False;&quot;</span> +
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Encrypt = True;&quot;</span> +
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;TrustServerCertificate = False;&quot;</span> +
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Connection Timeout = 30;&quot;</span>;</code></pre>
+
+          <img src="Base de datos en Azure y EFCore/18.png"/>
+
+          <p>Y listo, en este momento nuestra aplicación ya estará funcionando con la base de datos de Azure.</p>
+
+          <p>Hay que tener en cuenta de que en este ejemplo en concreto tenemos que <b>cargar los datos en la base de datos</b> antes de nada, si no obtendremos una excepción como la siguiente indicando que no existen las tablas:</p>
+          <img src="Base de datos en Azure y EFCore/19.png"/>
+
+          <p>Para cargar la información simplemente nos conectamos con <b>SQL Server Management Studio(SSMS)</b> o con <b>DBeaver</b> y cargamos nuestro script SQL.</p>
+
+
+    </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Azure | EF Core</p>
+        </div>
+
+    </body>
+</html>
