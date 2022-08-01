@@ -1,0 +1,369 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">ASP net y Razor pages</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como crear páginas <b>ASP</b> con una plantilla vacia y crear páginas con <b>Razor Pages</b>.</p>
+
+        </div>
+
+    <div class="t2">Plantilla ASP .Net Core vacía</div>
+      <div class="cont">
+        <p>Primero crearemos una plantilla vacía de <b>ASP .Net Core</b> y a partir de ahí iremos añadiendo cosas.</p>
+
+        <p>Creamos un nuevo proyecto y seleccionamos la plantilla <b>ASP .Net Core Empty</b>:</p>
+        <img src="ASP net y Razor pages/1.png">
+
+        <p>Le damos un nombre al proyecto:</p>
+        <img src="ASP net y Razor pages/2.png">
+
+        <p>Dejamos las opciones por defecto:</p>
+        <img src="ASP net y Razor pages/3.png">
+
+        <p>El proyecto se crea con la siguiente estructura de archivos:</p>
+        <img src="ASP net y Razor pages/4.png">
+
+        <p>En el archivo <b>Program.cs</b> tenemos el siguiente contenido:</p>
+        <img src="ASP net y Razor pages/5.png">
+
+        <p>Al ejecutar el proyecto se ejecutará el servidor web <b>Kestrel</b> y se abrirá un navegador para conectarse al servidor, como podemos ver se devuelve el contenido que hemos indicado en el <b>Endpoint</b>.</p>
+        <img src="ASP net y Razor pages/6.png">
+      </div>
+
+
+      <div class="t2">Crear un Startup para separar la configuración del proyecto</div>
+        <div class="cont">
+          <p>Podemos usar directamente el archivo <b>Program.cs</b> para inicializar nuestro servicio, pero es mas eficiente separar la configuración en un archivo <b>Startup.cs</b>.</p>
+
+          <p>Dentro de nuestro proyecto creamos un archivo de clase llamado <b>Startup.cs</b>:</p>
+          <img src="ASP net y Razor pages/7.png">
+
+          <p>Dentro de la clase <b>Startup</b> crearemos dos metodos: <b>ConfigureServices</b> y <b>Configure</b>, el código sería tal que así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> WebAppExample
+{
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Startup</span>
+  </span>{
+      <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ConfigureServices</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">IServiceCollection services</span>)</span>
+      {
+
+      }
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">Configure</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"> IApplicationBuilder app, IWebHostEnvironment env</span>)</span>
+      {
+          <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (env.IsDevelopment())
+          {
+              app.UseHsts();
+          }
+          app.UseRouting();
+          app.UseHttpsRedirection();
+          app.UseEndpoints(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">endpoints</span> =&gt;</span>
+          {
+              endpoints.MapGet(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/&quot;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hello World&quot;</span>);
+          });
+      }
+  }
+}
+</code></pre>
+
+          <p>Modificamos la clase <b>Program.cs</b> para que quede tal que así:</p>
+          <pre><code>using WebAppExample;
+
+Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder =>
+{
+    webBuilder.UseStartup<Startup>();
+}).Build().Run();</code></pre>
+
+        </div>
+
+
+      <div class="t2">Servir contenido estático</div>
+        <div class="cont">
+
+          <p>Actualmente solo tenemos un endpoint que devuelve la cadena "Hello World", vamos a cambiar la configuración de nuestro proyecto para que sirva páginas con contenido estático.</p>
+
+          <p>Primero creamos un directorio <b>wwwroot</b> dentro de nuestro proyecto, dentro de este directorio introduciremos las páginas que queramos que sirva el servidor:</p>
+
+          <img src="ASP net y Razor pages/8.png">
+
+          <p>Dentro de <b>wwwroot</b> podemos introducir un <b>index.html</b> simple para probar que funciona:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">&lt;!DOCTYPE <span style="color:rgb(249, 145, 87); font-weight:400;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">meta</span> <span style="color:rgb(129, 162, 190); font-weight:400;">charset</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;utf-8&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">title</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">title</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span>Página HTML estática<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span></code></pre>
+
+          <p>Añadimos las siguientes líneas en nuestro <b>Startup.cs</b>:</p>
+
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">app</span><span style="color:rgb(209, 217, 225); font-weight:400;">.UseDefaultFiles</span>(); <span style="color:rgb(150, 152, 150); font-weight:400;">//Permite asociar archivos por defecto (como index.html o default.html) al endpoint &quot;/&quot;</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">app</span><span style="color:rgb(209, 217, 225); font-weight:400;">.UseStaticFiles</span>(); <span style="color:rgb(150, 152, 150); font-weight:400;">//Permite servir archivos estáticos</span></code></pre>
+
+          <p>El <b>Startup.cs</b> completo se queda así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> WebAppExample
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Startup</span>
+    </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ConfigureServices</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">IServiceCollection services</span>)</span>
+        {
+
+        }
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">Configure</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"> IApplicationBuilder app, IWebHostEnvironment env</span>)</span>
+        {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (env.IsDevelopment())
+            {
+                app.UseHsts();
+            }
+            app.UseRouting();
+            app.UseHttpsRedirection();
+
+            app.UseDefaultFiles(); <span style="color:rgb(150, 152, 150); font-weight:400;">//Permite asociar archivos por defecto (como index.html o default.html) al endpoint &quot;/&quot;</span>
+            app.UseStaticFiles(); <span style="color:rgb(150, 152, 150); font-weight:400;">//Permite servir archivos estáticos</span>
+
+            app.UseEndpoints(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">endpoints</span> =&gt;</span>
+            {
+                endpoints.MapGet(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/hola&quot;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hello World&quot;</span>);
+            });
+        }
+    }
+}
+</code></pre>
+
+          <p>Hemos cambiado el <b>endpoint</b> "/" por "/hola" para que no entre en conflicto a la hora de servir las páginas estáticas.</p>
+
+          <p>Al ejecutar el proyecto vemos que se devuelve nuestro <b>index.html</b>:</p>
+
+          <img src="ASP net y Razor pages/9.png">
+
+          <p>Y al entrar en el endpoint <b>"/hola"</b> se devuelve el string que teníamos configurado:</p>
+
+          <img src="ASP net y Razor pages/10.png">
+
+
+        </div>
+
+    <div class="t2">Razor Pages</div>
+        <div class="cont">
+          <p>Las <b>Razor Pages</b> nos permiten introducir código C# en las páginas html de manera que nos permiten generar páginas de manera dinámica.</p>
+
+          <p>Para utilizar las <b>Razor Pages</b> primero tenemos que crear una carpeta <b>Pages</b> que será donde vayan colocados nuestros archivos <b>.cshtml</b>:</p>
+
+          <img src="ASP net y Razor pages/11.png">
+
+          <p>Movemos nuestro archivo <b>index.html</b> a la carpeta <b>Pages</b> y le cambiamos la extension a <b>.cshtml</b>:</p>
+          <img src="ASP net y Razor pages/12.png">
+
+          <p>Modificamos el código de archivo index.cshtml para dejarlo tal que así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">@page
+@functions
+{
+    public int Epoch { get; set; }
+
+    public void OnGet()
+    {
+        Model.Epoch = (int) (DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds;
+    }
+}
+<span style="color:rgb(249, 145, 87); font-weight:400;">&lt;!DOCTYPE <span style="color:rgb(249, 145, 87); font-weight:400;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">meta</span> <span style="color:rgb(129, 162, 190); font-weight:400;">charset</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;utf-8&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">title</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">title</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span>Unix time: @Model.Epoch<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span></code></pre>
+
+          <p>Todas las sentencias que empiezan por <b>@</b> indican una sentencia de <b>Razor</b> la sentencía <b>@page</b> indica que es una <b>Razor page</b> y que contendrá contenido dinamico, en el bloque <b>@functions</b> definimos nuestro código y despues en medio del código html usamos @Model para llamar a la variable que hemos declarado.</p>
+
+          <p>Añadimos la siguiente configuracion en el archivo <b>Startup.cs</b> para activar las <b>Razor Pages</b>:</p>
+
+          <p>En el metodo ConfigureServices:</p>
+          <code>services.AddRazorPages();</code>
+
+          <p>En la lambda de UseEndpoints:</p>
+          <code>endpoints.MapRazorPages();</code>
+
+          <p>El código de <b>Startup.cs</b> queda así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> WebAppExample
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Startup</span>
+    </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">ConfigureServices</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">IServiceCollection services</span>)</span>
+        {
+            services.AddRazorPages();
+        }
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">Configure</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"> IApplicationBuilder app, IWebHostEnvironment env</span>)</span>
+        {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (env.IsDevelopment())
+            {
+                app.UseHsts();
+            }
+            app.UseRouting();
+            app.UseHttpsRedirection();
+
+            app.UseDefaultFiles(); <span style="color:rgb(150, 152, 150); font-weight:400;">//Permite asociar archivos por defecto (como index.html o default.html) al endpoint &quot;/&quot;</span>
+            app.UseStaticFiles(); <span style="color:rgb(150, 152, 150); font-weight:400;">//Permite servir archivos estáticos</span>
+
+            app.UseEndpoints(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">endpoints</span> =&gt;</span>
+            {
+                endpoints.MapRazorPages();
+                endpoints.MapGet(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/hola&quot;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hello World&quot;</span>);
+            });
+        }
+    }
+}
+</code></pre>
+
+          <p>Una vez hechos estos cambios ejecutamos el proyecto y veremos que cada vez que ejecutamos la página el valor de Epoch cambia:</p>
+
+          <img src="ASP net y Razor pages/13.png">
+
+
+        </div>
+
+
+    <div class="t2">Usar Layouts</div>
+        <div class="cont">
+        <p>El uso de layouts nos permite reutilizar código a lo largo de varias páginas, por ejemplo el código html de un menu en una web.</p>
+
+        <p>Primero creamos el archivo <b>_ViewStart.cshtml</b> dentro de la carpeta pages, podemos hacerlo directamente con una plantilla de Visual Studio</p>
+        <p><b>click derecho en Pages > Add > New Item</b></p>
+
+        <img src="ASP net y Razor pages/14.png">
+
+        <p>Seleccionamos la plantilla <b>Razor View Start</b></p>
+
+        <img src="ASP net y Razor pages/15.png">
+
+        <p>Se nos crea directamente el archivo <b>_ViewStart.cshtml</b> con el contenido necesario:</p>
+
+        <img src="ASP net y Razor pages/16.png">
+
+        <p>Creamos una carpeta <b>Shared</b> dentro de la carpeta <b>Pages</b>, dentro de esta carpeta shared crearemos un archivo <b>_layout.cshtml</b> que será el que contenga el código compartido entre las páginas, en este caso usaremos un mini menú:</p>
+
+        <p><b>click derecho en Shared > Add > New Item</b></p>
+
+        <p>Y seleccionamos <b>Razor Layout</b>:</p>
+        <img src="ASP net y Razor pages/17.png">
+
+        <p>La estructura de archivos queda tal que así:</p>
+        <img src="ASP net y Razor pages/18.png">
+
+        <p>En el archivo <b>_Layout.cshtml</b> dejamos el código tal que así:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">&lt;!DOCTYPE <span style="color:rgb(249, 145, 87); font-weight:400;">html</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">meta</span> <span style="color:rgb(129, 162, 190); font-weight:400;">name</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;viewport&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">content</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;width=device-width&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">title</span>&gt;</span>@ViewBag.Title<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">title</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">a</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/&quot;</span>&gt;</span>Epoch<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">a</span>&gt;</span> | <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">a</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/dia&quot;</span>&gt;</span>Dia<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">a</span>&gt;</span>  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+        @RenderBody()
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+</code></pre>
+
+        <p>La funcion <b>@RenderBody()</b> será la que renderice el código de la página en la que nos encontramos.</p>
+
+        <p>A continuación tenemos que modificar la página index.cshtml, para eliminar todo el código que ya está puesto en el archivo _Layout.cshtml y dejar solo lo relativo a dicha página, el contenido de index.cshtml quedaría tal que así:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">@page
+@functions
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">int</span> Epoch { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnGet</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+    {
+        Model.Epoch = (<span style="color:rgb(181, 189, 104); font-weight:400;">int</span>) (DateTime.Now - <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> DateTime(<span style="color:rgb(249, 145, 87); font-weight:400;">1970</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>)).TotalSeconds;
+    }
+}
+
+&lt;h1&gt;Unix time: @Model.Epoch&lt;/h1&gt;</code></pre>
+
+        <p>A continuación añadimos una segunda página en la que mostraremos el día actual de la semana. Para crear la segunda página podemos duplicar el index.cshtml, pero esto generará un problema, la manera correcta en teoría es utilizando la plantilla <b>Razor Page - Empty</b>, pero en este caso como será una página muy simple solo duplicaremos el archivo index.cshtml y lo renombramos como <b>Dia.cshtml</b>, mas abajo se explica el problema que surge y como solucionarlo.</p>
+
+        <img src="ASP net y Razor pages/19.png">
+
+        <p>El código de la nueva página solo sería el encabezado que muestra el día de la semana, el resto del código ya se carga directamente del layout. El código sería el siguiente:</p>
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@page</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@functions</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> Dia { get; set; }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">OnGet</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+    {
+        Model.Dia = DateTime.Now.DayOfWeek.ToString();
+    }
+}
+
+&lt;h1&gt;Dia de la semana: <span style="color:rgb(249, 145, 87); font-weight:400;">@Model</span>.Dia&lt;/h1&gt;
+</code></pre>
+
+        <h2>Solucionar problema de objeto eliminado en el proyecto</h2>
+
+        <p>Al duplicar una página o añadirla como una clase mas (sin usar la plantilla de Razor Page), el Visual Studio bloquea dicha página para que no se pueda acceder en el archivo del proyecto (en el .csproj): </p>
+        <img src="ASP net y Razor pages/20.png">
+
+        <p>Como se puede ver en la configuración el archivo Dia.cshtml aparece como <b>"Remove"</b>, no solo tenemos que asegurarnos de ELIMINAR esa linea, si no que tambien tenemos que asegurarnos que aparezca como Objeto añadido (en este caso como <b>"None"</b>), otro fallo que se puede dar es que salga añadido pero como <b>Compile</b> en vez de <b>None</b>, en ese caso solo tendríamos que cambiar Compile a None y listo.</p>
+
+        <p>En este caso el archivo del proyecto quedaría asi:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">Project</span> <span style="color:rgb(129, 162, 190); font-weight:400;">Sdk</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Microsoft.NET.Sdk.Web&quot;</span>&gt;</span>
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">PropertyGroup</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">TargetFramework</span>&gt;</span>net6.0<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">TargetFramework</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">Nullable</span>&gt;</span>enable<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">Nullable</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">ImplicitUsings</span>&gt;</span>enable<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">ImplicitUsings</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">PropertyGroup</span>&gt;</span>
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">ItemGroup</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">Folder</span> <span style="color:rgb(129, 162, 190); font-weight:400;">Include</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;wwwroot\&quot;</span> /&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">ItemGroup</span>&gt;</span>
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">ItemGroup</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">None</span> <span style="color:rgb(129, 162, 190); font-weight:400;">Include</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pages\Dia.cshtml&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">None</span> <span style="color:rgb(129, 162, 190); font-weight:400;">Include</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pages\index.cshtml&quot;</span> /&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">ItemGroup</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">Project</span>&gt;</span>
+</code></pre>
+
+        <p>Ahora tenemos el menu arriba para seleccionar la página, y al seleccionar día se carga la nueva página:</p>
+
+        <img src="ASP net y Razor pages/21.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | ASP | Razor Pages</p>
+        </div>
+
+    </body>
+</html>
