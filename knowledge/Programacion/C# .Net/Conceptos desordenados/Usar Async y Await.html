@@ -1,0 +1,78 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Usar Async y Await</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Como funcionan las palabras reservadas <b>async</b> y <b>await</b>.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Tanto <b>async</b> como <b>await</b>, se utilizan para dar al código funcionalidades  sincronas y asíncronas</p>
+
+          <p>El modificador <b>async</b> lo usaremos en funciones que queremos que se ejecuten de manera asíncrona en paralelo con otras funciones</p>
+          <p>El modificador <b>await</b> lo usaremos para esperar a que termine cierta funcion asíncrona antes de seguir ejecutando código.</p>
+
+          <p>Ejemplo:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Program</span>
+</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> Task <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">Main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span class="hljs-built_in">String</span>[] args</span>)</span>
+    {
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Inicio&quot;</span>);
+        Task procesoA = LanzarProcesoA();
+        Task procesoB = LanzarProcesoB();
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> procesoA;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> procesoB;
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;terminado&quot;</span>);
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> Task <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">LanzarProcesoA</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+    {
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ProcesoA iniciando&quot;</span>);
+        <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> Task.Delay(<span style="color:rgb(249, 145, 87); font-weight:400;">5000</span>);
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ProcesoA terminado&quot;</span>);
+
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> Task <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">LanzarProcesoB</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>
+    {
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ProcesoB iniciando&quot;</span>);
+        <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> Task.Delay(<span style="color:rgb(249, 145, 87); font-weight:400;">5500</span>);
+        Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ProcesoB terminado&quot;</span>);
+    }
+}</code></pre>
+
+          <p>En el ejemplo anterior las funciones LanzarProcesoA y LanzarProcesoB están declaradas como <b>async</b>, por lo tanto se ejecutarán practicamente en paralelo, ya que se llaman desde la funcion principal una despues de la otra:</p>
+
+          <img src="Usar Async y Await/1.png"/>
+
+          <p>Dentro de cada función se lanza una subtarea que llama a <b>Delay()</b> y usamos <b>await</b> para esperar a que termine dicha subtarea, si no usasemos await en está linea la ejecución sería inmediata, ya que el delay se ejecutaría de manera asíncrona.</p>
+
+          <img src="Usar Async y Await/2.png"/>
+
+          <p>Al final de la función main llamamos a await para procesoA y procesoB, de está manera no aseguramos que ambas funciones terminen su ejecución antes de escribir el mensaje final.</p>
+          <img src="Usar Async y Await/3.png"/>
+
+
+          <p>Una cosa a tener en cuenta es que la ejecución del programa en total tarda algo mas de 5500 milisegundos, que es el delay del procesoB, esto nos indica que el procesoA y procesoB se ejecutan en paralelo, si no la ejecución del programa tardaría uno 10500 milisegundos</p>
+
+          <p></p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Async | Await</p>
+        </div>
+
+    </body>
+</html>
