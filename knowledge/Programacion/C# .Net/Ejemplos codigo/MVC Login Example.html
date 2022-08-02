@@ -1,0 +1,124 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">MVC Login Example</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Ejemplo de un proyecto con una plantilla ASP .Net Core MVC haciendo uso de login de usuarios</p>
+        </div>
+
+    <div class="t2">Setup de proyecto</div>
+        <div class="cont">
+          <p>Creamos un proyecto usando la plantilla de <b>ASP.NET Core Web App (Model-View-Controller)</b>:</p>
+          <img src="MVC Login Example/1.png">
+
+          <p>Le damos un nombre al proyecto:</p>
+          <img src="MVC Login Example/2.png">
+
+          <p>Creamos el proyecto usando como "Authentication type" <b>Individual Accounts</b>:</p>
+          <img src="MVC Login Example/3.png">
+
+          <h2>Gestionar base de datos</h2>
+          <p>Para crear la base de datos usaremos la herramienta de migración <b>dotnet-ef</b>, para consultar si la tenemos instalada lo hacemos con el siguiente comando:</p>
+
+          <code>dotnet tool list --global</code>
+          <img src="MVC Login Example/4.png">
+
+          <p>En este caso no la tenemos instalada, para instalarla lo hacemos con el siguiente comando:</p>
+          <code>dotnet tool install --global dotnet-ef --version 6.0.0 </code>
+          <img src="MVC Login Example/5.png">
+
+          <p>Una vez tenemos instalada la herramienta, para generar la base de datos de nuestros proyecto lanzamos el siguiente comando desde la carpeta de del proyecto:</p>
+          <code>dotnet ef database update</code>
+          <img src="MVC Login Example/6.png">
+
+          <p>Este comando generará la base de datos en el servidor que esté indicado en el <b>connection string</b>, podemos consultar el connection string en el archivo <b>appsettings.json</b>:</p>
+          <img src="MVC Login Example/7.png">
+
+          <p>Por defecto la plantilla de Visual Studio genera el connection string para conectarse a una base de datos <b>localdb</b> y por lo tanto el comando dotnet-ef genera una instancia de esta DB, <a href="../Conceptos desordenados/LocalDB manejar conexiones.html">Aqui se explica como gestionar las conexiones a una base de datos localdb</a></p>
+
+          <p>Una vez llegados a este punto podemos ejecutar el proyecto y acceder a la pantalla de registro para registrar un nuevo usuario.</p>
+          <img src="MVC Login Example/8.png">
+
+          <p>Como no tenemos configurado un enviador de correos se nos muestra el siguiente mensaje y nos da acceso automáticamente al enlace para confirmar la cuenta:</p>
+          <img src="MVC Login Example/9.png">
+
+          <p>Hacemos click en <b>Click here to confirm your account</b> para finalizar la verificación de la cuenta:</p>
+          <img src="MVC Login Example/10.png">
+
+          <p>Ahora podemos acceder a la pantalla de login para hacer login con nuestra cuenta:</p>
+          <img src="MVC Login Example/11.png">
+
+          <p>Despues de hacer login se nos muestra con que cuenta estamos logueados:</p>
+          <img src="MVC Login Example/12.png">
+
+
+
+
+        </div>
+
+    <div class="t2">Codigo</div>
+        <div class="cont">
+          <p>Para la realización de la creación e identificación de usuarios se utiliza el paquete <b>Microsoft.AspNetCore.Identity.UI</b> que proporciona toda la funcionalidad.</p>
+
+          <p><a href="https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=visual-studio">Información Identity Microsoft Docs</a></p>
+
+          <p>La librería Identity genera una serie de endpoints para crear y manejar las cuentas de usuarios:</p>
+
+          <ul>
+            <li>/Identity/Account/Register</li>
+            <li>/Identity/Account/Login</li>
+            <li>/Identity/Account/Logout</li>
+            <li>/Identity/Account/Manage/Index</li>
+          </ul>
+
+          <p>Podemos ver los enlaces a estos endpoints en algunos sitios del proyecto, pero si queremos acceder al código, para poder editar las páginas no podemos, ya que está integrado en las propias DLLs.</p>
+
+          <h2>Customizar páginas de Identity</h2>
+          <p>Si queremos modificar el código de las páginas por defecto de Identity tenemos que hacerlo de la siguiente manera:</p>
+
+          <p><b>Click derecho en el proyecto > Add > New Scaffolded Item</b></p>
+          <img src="MVC Login Example/13.png">
+
+          <p>Seleccionamos Identity:</p>
+          <img src="MVC Login Example/14.png">
+
+          <p>Seleccionamos las páginas que queremos modificar (voy a marcar login en este caso), y en Data Context Class seleccionamos la opción que nos da:</p>
+          <img src="MVC Login Example/15.png">
+
+          <p>Al terminar se nos generan una serie de archivos:</p>
+          <img src="MVC Login Example/16.png">
+
+          <p>El archivo <b>Login.cshtml</b> es donde está la página html referente al login, si la modificamos los cambios aparecerán en la pantalla de login.</p>
+
+          <p><b>NOTA</b>: En mi caso dentro de la carpeta data se genera un <b>ApplicationDbContext</b> que hace que se genere un fallo porque esa clase ya existe en otra localización, solo con borrar esa carpeta con el archivo se soluciona el problema.</p>
+
+          <img src="MVC Login Example/17.png">
+
+          <p><b>NOTA:</b> Al usar la opcion <b>New Scaffolded Item</b> se generan errores muchas veces, no se el motivo exactamente, pero simplemente con volver a lanzar la opción acaba funcionando.</p>
+
+          <p>Al hacer cambios en el código de <b>Login.cshtml</b>:</p>
+          <img src="MVC Login Example/18.png">
+
+          <p>Los cambios se reflejan en la página:</p>
+          <img src="MVC Login Example/19.png">
+
+
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | Login | ASP Net Core</p>
+        </div>
+
+    </body>
+</html>

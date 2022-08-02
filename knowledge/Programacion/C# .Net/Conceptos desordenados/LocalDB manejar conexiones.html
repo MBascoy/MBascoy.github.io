@@ -1,0 +1,55 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">LocalDB manejar conexiones</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como manejar instancias de <b>LocalDB</b> y conectarse para hacer consultas.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <h2>Consultar instancias de LocalDB</h2>
+          <p>Para consultar las instancias creadas de LocalDB lo hacemos con el siguiente comando:</p>
+          <code>SqlLocalDB info</code>
+
+          <p>Para consultar información de una instancia en concreto lo hacemos asi:</p>
+          <code>SqlLocalDB info "instancia"</code>
+
+          <img src="LocalDB manejar conexiones/1.png">
+
+          <p>Si tenemos una instancia que está en estado <b>"Stopped"</b> podemos arrancarla de nuevo con el siguiente comando:</p>
+          <code>SqlLocalDB start "instancia"</code>
+
+          <img src="LocalDB manejar conexiones/2.png">
+
+          <h2>Conectarnos a una instancia</h2>
+          <p>Una vez tenemos arrancada una instancia de localdb podemos conectarnos a ella usando SQL Server Management Studio(SSMS).</p>
+
+          <p>Para conectarnos a una instancia necesitamos el <b>Instance pipe name</b> que nos aparece al consultar informacion de la instancia:</p>
+          <img src="LocalDB manejar conexiones/3.png">
+
+          <p>En SSMS introducimos dicho enlace como dirección del servidor:</p>
+          <img src="LocalDB manejar conexiones/4.png">
+
+          <p>Y la conexión debería de realizarse:</p>
+          <img src="LocalDB manejar conexiones/5.png">
+
+          <p><b>NOTA:</b> Cada vez que una instancia se levanta de nuevo la cadena de conexión cambia y debemos de volver a consultarla para poder conectarnos de nuevo a la instancia.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | .Net | LocalDB</p>
+        </div>
+
+    </body>
+</html>
