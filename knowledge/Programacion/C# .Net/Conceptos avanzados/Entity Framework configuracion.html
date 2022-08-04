@@ -21,12 +21,12 @@
 
           <pre><code>CREATE TABLE Estudiantes (
   Id INTEGER  PRIMARY KEY,
-  Nombre VARCHAR(50),
+  Nombre VARCHAR(50)
 );</code></pre>
 
           <pre><code>CREATE TABLE Asignaturas (
   Id INTEGER PRIMARY KEY,
-  Nombre VARCHAR(50),
+  Nombre VARCHAR(50)
 );</code></pre>
 
           <pre><code>CREATE TABLE AsignaturaEstudiante (
@@ -35,7 +35,7 @@
   AsignaturaId INTEGER ,
   PRIMARY KEY (Id),
   FOREIGN KEY (EstudianteId) REFERENCES Estudiantes(Id),
-  FOREIGN KEY (AsignaturaId) REFERENCES Asignaturas(Id),
+  FOREIGN KEY (AsignaturaId) REFERENCES Asignaturas(Id)
 );</code></pre>
 
 
@@ -47,13 +47,24 @@ INSERT INTO Estudiantes VALUES(3, 'Clay');</code></pre>
 INSERT INTO Asignaturas VALUES(2, 'Lengua');
 INSERT INTO Asignaturas VALUES(3, 'Educacion fisica');</code></pre>
 
-<pre><code>INSERT INTO AsignaturaEstudiante VALUES(1,1);
-INSERT INTO AsignaturaEstudiante VALUES(2,1);
-INSERT INTO AsignaturaEstudiante VALUES(3,1);
-INSERT INTO AsignaturaEstudiante VALUES(1,2);
-INSERT INTO AsignaturaEstudiante VALUES(2,3);
-INSERT INTO AsignaturaEstudiante VALUES(3,3);</code></pre>
+<pre><code>INSERT INTO AsignaturaEstudiante (EstudianteId, AsignaturaId) VALUES(1,1);
+INSERT INTO AsignaturaEstudiante (EstudianteId, AsignaturaId) VALUES(2,1);
+INSERT INTO AsignaturaEstudiante (EstudianteId, AsignaturaId) VALUES(3,1);
+INSERT INTO AsignaturaEstudiante (EstudianteId, AsignaturaId) VALUES(1,2);
+INSERT INTO AsignaturaEstudiante (EstudianteId, AsignaturaId) VALUES(2,3);
+INSERT INTO AsignaturaEstudiante (EstudianteId, AsignaturaId) VALUES(3,3);</code></pre>
       </div>
+
+    <div class="t2">Añadir paquetes NuGet</div>
+        <div class="cont">
+          <p>Dependiendo de la base de datos que vayamos a utilizar tendremos que importar un paquete u otro:</p>
+
+          <p>Si vamos a trabajar con una base de datos <b>SQL Server</b> importaremos el paquete <b>Microsoft.EntityFrameworkCore.SqlServer</b>:</p>
+          <img src="Entity Framework configuracion/1.png"/>
+
+          <p>Si vamos a trabajar con una base de datos <b>SQLite</b> importaremos el paquete <b>Microsoft.EntityFrameworkCore.Sqlite</b>:</p>
+          <img src="Entity Framework configuracion/2.png"/>
+        </div>
 
     <div class="t2">EF Core consultar una tabla</div>
         <div class="cont">
@@ -106,6 +117,33 @@ INSERT INTO AsignaturaEstudiante VALUES(3,3);</code></pre>
         Console.WriteLine(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">{e.Id}</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">{e.Nombre}</span>&quot;</span>);
     }
 }</code></pre>
+
+          <h2>Contexto con SQLite</h2>
+          <p>Si estamos usando una base de datos <b>SQLite</b> el contexto sería tal que así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">namespace</span> <span style="color:rgb(181, 189, 104); font-weight:400;">EFCoreExample</span>
+{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">internal</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ColegioContext</span> : <span style="color:rgb(181, 189, 104); font-weight:400;">DbContext</span>
+    {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> DbSet&lt;Estudiante&gt;? Estudiantes { <span style="color:rgb(204, 153, 204); font-weight:400;">get</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">set</span>; }
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> <span style="color:rgb(204, 153, 204); font-weight:400;">override</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnConfiguring</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">DbContextOptionsBuilder optionBuilder</span>)</span>
+        {
+            <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> connection = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dbtest.db&quot;</span>;
+
+            <span style="color:rgb(150, 152, 150); font-weight:400;">//string connectionALTERNATIVA = Path.Combine(Environment.CurrentDirectory, &quot;dbtest.db&quot;);</span>
+
+            optionBuilder.UseSqlite(<span style="color:rgb(138, 190, 183); font-weight:400;">$&quot;Filename=<span style="color:rgb(249, 145, 87); font-weight:400;">{connection}</span>&quot;</span>);
+
+        }
+    }
+}
+</code></pre>
+
+          <p>En este caso solo tenemos que indicar el archivo de la base de datos, para no tener que indicar toda la ruta podemos indicarle al Visual Studio que copie el archivo en el working directory del programa:</p>
+          <img src="Entity Framework configuracion/3.png"/>
 
         </div>
 

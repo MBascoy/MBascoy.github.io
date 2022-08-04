@@ -1,0 +1,70 @@
+
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Utilizar Bearer Token</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+            <p>Como consultar un API REST usando un <b>Bearer</b> token para autenticarse.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>En el siguiente ejemplo usamos las siguientes URLs:</p>
+          <ul>
+            <li><b>http://localhost:5214/api/employee</b> esta URL la utilizamos para consultar una lista de empleados</li>
+            <li><b>http://localhost:5214/api/token</b> esta URL la usamos para obtener nuestro token</li>
+          </ul>
+
+          <p>Primero intentamos obtener nuestra lista de empleados con un GET y obtenemos la siguiente respuesta:</p>
+
+          <img src="Utilizar Bearer Token/1.png"/>
+
+          <p>Al hacer un GET sobre <b>employee</b> obtenemos un <b>401</b>, indicandonos que debemos de autenticarnos para realizar dicha solicitud.</p>
+
+          <p>Para autenticarnos en este caso lo haremos con un <b>Bearer Token</b>, para obtener dicho token tenemos que hacer una solicitud POST a la URL del token con los parámetros necesarios para que se nos devuelva un token válido.</p>
+
+          <p>En este caso los parámetros requeridos son el email y la contraseña, así que los pasamos como un JSON en el cuerpo de la petición POST:</p>
+
+          <img src="Utilizar Bearer Token/2.png"/>
+
+          <p>Como podemos ver esta petición nos devuelve el <b>Bearer Token</b> que debemos de utilizar para autenticarnos al hacer la petición al endpoint de employee.</p>
+
+          <p>Para utilizar el token volvemos a la solicitud del endpoint the employee y hacemos click  en la pestaña de <b>Authorization</b> y seleccionamos <b>Bearer Token</b> en el desplegable:</p>
+          <img src="Utilizar Bearer Token/3.png"/>
+
+          <p>A continuación introducimos el token que hemos obtenido en la solicitud anterior en el input que nos aparece para introducir el token:</p>
+          <img src="Utilizar Bearer Token/4.png"/>
+
+          <p>Al hacer la petición ahora se nos muestra la información de manera correcta:</p>
+          <img src="Utilizar Bearer Token/5.png"/>
+
+
+          <h2>Alternativa para indicar el token</h2>
+
+          <p>En vez de usar el método de <b>Authorization > Bearer Token</b> para indicar nuestro token en la petición podemos hacerlo de la siguiente manera:</p>
+
+          <p>En la petición de employee nos vamos a <b>Headers</b> y añadimos un header con el nombre <b>Authorization</b> como valor ponemos Bearer + "token" (o sea la palabra "Bearer", un espacio, y despues el token para autenticarnos.)</p>
+
+          <img src="Utilizar Bearer Token/6.png"/>
+
+          <p>Al final los dos métodos hacen lo mismo, añadir una cabecera <b>Authorization</b> indicando el token en ella.</p>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Token | Bearer | API REST</p>
+        </div>
+
+    </body>
+</html>

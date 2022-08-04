@@ -1,0 +1,39 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Combinar strings para crear rutas</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como combinar rutas para crear rutas usando los separadores adecuados.</p>
+
+        </div>
+
+        <div class="t2">Metodo</div>
+            <div class="cont">
+              <p>Segun el SO que utilicemos las rutas pueden usar una barra (/) o una barra invertida (\) para separar los elementos de una ruta</p>
+
+              <p>Para generar un string que contenga una ruta debemos de utilizar el método <b>Combine</b> para enlazar los distintos elementos de la ruta, este metodo generará la ruta de manera correcta según el SO en el que se ejecute el programa.</p>
+
+              <p>Ejemplo:</p>
+
+              <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">Console</span><span style="color:rgb(209, 217, 225); font-weight:400;">.WriteLine</span>(Path.Combine(Environment.CurrentDirectory, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;carpeta&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;archivo.txt&quot;</span>));</code></pre>
+
+              <p>El código anterior genera la siguiente salida:</p>
+              <code>C:\Users\manuel.bascoy\lab\ConsoleApp1\ConsoleApp1\bin\Debug\net6.0\carpeta\archivo.txt</code>
+
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C# | .Net | Combine</p>
+        </div>
+
+    </body>
+</html>
