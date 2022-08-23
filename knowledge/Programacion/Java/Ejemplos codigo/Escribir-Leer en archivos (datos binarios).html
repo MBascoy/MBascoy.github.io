@@ -55,6 +55,8 @@
     }
         </code></pre>
 
+        <p><b>NOTA:</b> La clase del objeto a serializar deber de implementar la interfaz <b>Serializable</b>.</p>
+
         <h2>Usando FileOutputStream y DataOutputStream</h2>
 
         <p>Con este método podemos escribir los tipos de datos primitivos tal cual en un archivo binario:</p>
@@ -75,7 +77,7 @@
             dataOutputStream.writeInt(2);
             dataOutputStream.writeInt(3);
             dataOutputStream.writeInt(255);
-            
+
             dataOutputStream.close();
         }
     }

@@ -1,0 +1,81 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Instalacion entorno de desarrollo</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Instalar todos los elementos necesarios para poder desarrollar con <b>React Native</b>.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Usaremos <b>Android Studio</b> y el SDK 31 que es el de android 12 (S)  para desarrollar aplicaciones con <b>React Native</b>.</p>
+
+          <p>Pasos:</p>
+
+          <ul>
+            <li>Descargamos el instalador de <b>Android Studio</b> (<a href="https://developer.android.com/studio">Descarga</a>)</li>
+            <li>En la instalación seleccionamos los siguientes componentes:</li>
+            <ul>
+              <li>Android SDK</li>
+              <li>Android SDK Platform</li>
+              <li>Android Virtual Device</li>
+              <li>Performance (Intel ® HAXM)</li>
+            </ul>
+
+            <li>Una vez instalado en la configuración inicial instalamamos los siguientes paquetes desde el <b>SDK manager</b>:</li>
+            <img src="Instalacion entorno de desarrollo/1.png"/>
+            <ul>
+              <li>Android SDK Platform 31</li>
+              <li>Intel x86 Atom_64 System Image</li>
+              <img src="Instalacion entorno de desarrollo/2.png"/>
+            </ul>
+          </ul>
+
+          <p>A continuación tenemos que configurar las variables de entornos:</p>
+          <ul>
+            <li>ANDROID_HOME</li>
+            <li>PATH</li>
+          </ul>
+
+          <p>Añadimos la variable <b>ANDROID_HOME</b>, indicando la ruta del sdk de android <b>%LOCALAPPDATA%\Android\Sdk</b> :</p>
+          <img src="Instalacion entorno de desarrollo/3.png"/>
+
+          <p>Modificamos la variable <b>PATH</b> para añadir a mayores la carpetas de herramientas del Android Studio, añadimos la siguiente ruta <b>%LOCALAPPDATA%\Android\Sdk\platform-tools</b> :</p>
+        <img src="Instalacion entorno de desarrollo/4.png"/>
+
+        <p>Una vez hecho todo esto ya tendremos nuestro entorno listo para crear aplicaciones con <b>React Native</b></p>
+
+        </div>
+
+    <div class="t2">Creación de aplicación con React Native</div>
+        <div class="cont">
+          <p>Para crear una aplicación con <b>React Native</b>, lanzamos el siguiente comando desde la consola (Nos creará una carpeta con toda la estructura de nuestro proyecto):</p>
+          <code>npx react-native init MiPrimeraApp</code>
+
+          <p>A continuación para ejecutar la aplicación primero necesitamos ejecutar <b>Metro</b> que se encargará de empaquetar nuestra aplicación, lo hacemos lanzando el siguiente comando:</p>
+          <code>npx react-native start</code>
+
+          <p><b>NOTA</b>: Tenemos que dejar esta consola abierta con el comando en ejecución.</p>
+          <p><b>NOTA2</b>: Este comando lo tenemos que ejecutar desde la carpeta donde tengamos nuestros proyecto en este caso la carpeta de <b>MiPrimeraApp</b>.</p>
+
+          <p>A continuación ejecutamos el siguiente comando para lanzar la App (Desde la carpeta del proyecto), tendremos que abrir una nueva consola para lanzar este comando, no tenemos que cerrar la consola donde estámos ejecutando <b>Metro</b>.</p>
+          <code>npx react-native run-android</code>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>React Native | Entorno Desarrollo | Android Studio | Node</p>
+        </div>
+
+    </body>
+</html>

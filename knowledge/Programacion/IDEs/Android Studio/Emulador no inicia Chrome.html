@@ -1,0 +1,36 @@
+
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Emulador no inicia Chrome</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Al intentar ejecutar <b>Google Chrome</b> en un dispositivo emulado se queda cargando eternamente.</p>
+
+        </div>
+
+    <div class="t2">Solución</div>
+        <div class="cont">
+          <p>Para solucionar este problema creamos un archivo <b>advancedFeatures.ini</b> dentro de la carpeta <b>.android</b> que hay en nuestra carpeta persona, la ruta sería <b>%USERPROFILE%\.android\</b></p>
+
+          <p>El contenido del archivo será el siguiente:</p>
+          <pre><code>Vulkan = off
+GLDirectMem = on</code></pre>
+
+          <p>Una vez hecho esto el navegador ya se debería de cargar de forma correcta.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Android Studio | AVD | Emulador | Chrome</p>
+        </div>
+
+    </body>
+</html>
