@@ -1,0 +1,187 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Asociacion de archivos y programas por defecto</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Explicacion sobre las asociaciones de tipos de archivos y de las aplicaciones por defecto para dichos archivos</p>
+
+        </div>
+
+    <div class="t2">Explicacion</div>
+        <div class="cont">
+
+        <p>En Linux la asociacion entre tipos de archivos y su aplicacion por defecto se configura en dos sitios:</p>
+
+        <ul>
+            <li>Los archivos <b>mimeapps.list</b></li>
+            <li>Los archivos .desktop</b></li>
+        </ul>
+
+        <p>La localizacion de los archivos de <b>mimeapps.list</b> es la siguiente (por orden de preferencia):</p>
+
+
+        <ul>
+            <li>~/.config/kde-mimeapps.list</li>
+            <li>~/.config/mimeapps.list</li>
+            <li>/usr/local/share/applications/mimeapps.list</li>
+            <li>/usr/share/applications/mimeapps.list</li>
+        </ul>
+
+
+        <p>Los archivos <b>.desktop</b> se encuentra en una de estas localizaciones:</p>
+
+        <ul>
+            <li>~/.local/share/applications/</li>
+            <li>/usr/share/applications/</li>
+            <li>/usr/local/share/applications/</li>
+        </ul>
+
+
+        <p>La manera en la que el sistema busca las aplicaciones por defecto es la siguiente</p>
+
+        <ul>
+            <li>Primero busca en los archivos <b>mimeapps.list</b> si hay alguna entrada que coincida con la asociacion de archivo que se busca</li>
+            <li>Si no se encuentra ninguna asociacion en los archivos <b>mimeapps.list</b>, se leen todos los archivos <b>.desktop</b> de las carpetas indicadas anteriormete y busca el parametro <b>MimeType</b> asociado con el tipo de archivo que busca, si encuentra alguna coincidencia usara esa aplicacion por defecto.</li>
+
+        </ul>
+
+
+        <p>Dentro de un archivo <b>mimeapps.list</b> nos podemos encontrar algo como esto:</p>
+
+        <code><pre>[Added Associations]
+application/pdf=okularApplication_pdf.desktop;draw.desktop;gimp.desktop;org.inkscape.Inkscape.desktop;google-chrome.desktop;
+audio/mpeg=vlc.desktop;audacity.desktop;
+image/svg+xml=org.inkscape.Inkscape.desktop;gimp.desktop;org.kde.kate.desktop;org.kde.kwrite.desktop;writer.desktop;okularApplication_txt.desktop;google-chrome.desktop;firefox.desktop;
+inode/directory=org.kde.dolphin.desktop;
+message/rfc822=userapp-Thunderbird-LLP660.desktop;
+text/plain=org.kde.kate.desktop;org.kde.kwrite.desktop;writer.desktop;okularApplication_txt.desktop;
+video/x-matroska=vlc.desktop;org.kde.kaffeine.desktop;
+x-scheme-handler/afirma=autofirma.desktop
+x-scheme-handler/http=google-chrome.desktop;
+x-scheme-handler/https=google-chrome.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-LLP660.desktop;
+
+[Default Applications]
+application/pdf=okularApplication_pdf.desktop;
+audio/mpeg=vlc.desktop;
+image/svg+xml=org.inkscape.Inkscape.desktop;
+inode/directory=org.kde.dolphin.desktop;
+message/rfc822=userapp-Thunderbird-LLP660.desktop
+text/html=google-chrome.desktop
+text/plain=org.kde.kwrite.desktop;
+video/x-matroska=vlc.desktop;
+x-scheme-handler/afirma=autofirma.desktop
+x-scheme-handler/http=google-chrome.desktop;
+x-scheme-handler/https=google-chrome.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-LLP660.desktop
+x-scheme-handler/prorealtimesoftware=ProRealTime.desktop</pre></code>
+
+
+    <p>Aqui se pueden encontrar dos cosas:</p>
+
+    <ul>
+        <li>Asociaciones de archivos</li>
+        <code>application/pdf
+        <br/>audio/mpeg
+        <br/>text/plain</code>
+
+        <p>Hacen referencia a un tipo de archivo (con una extension o extensiones concretas).</p>
+
+        <p>si queremos revisar a que extension o extensiones estan asociadas podemos consultarlo dentro de:</p>
+
+        <code>/usr/share/mime</code>
+
+        <p>Dentro de esa carpeta tenemos subcarpetas asociadas a cada categoria.</p>
+
+        <img src="Asociacion de archivos y programas por defecto/1.png"/>
+
+        <p>y dentro de esas subcarpetas tenemos archivos xml con la informacion para cada tipo de archivo, en el caso de pdf podemos encontrar:</p>
+
+        <code>> cat application/pdf.xml </code>
+
+        <img src="Asociacion de archivos y programas por defecto/2.png"/>
+
+        <p>En el caso de <b>audio/mpeg</b> por ejemplo, hay mas de una extension asociada</p>
+
+        <img src="Asociacion de archivos y programas por defecto/3.png"/>
+
+        <li>Asociaciones de protocolos</li>
+
+        <code>
+        x-scheme-handler/afirma
+        <br/>x-scheme-handler/http
+        <br/>x-scheme-handler/https
+        <br/>x-scheme-handler/mailto
+        </code>
+
+        <p>Se usa <b>x-scheme-handler/</b> seguido del nombre del protocolo</p>
+
+        <p>No son asociaciones directas con un tipo de archivo, si no con un protocolo como <b>http</b> o como <b>mailto</b>. Podemos incluso definir protocolos personalizados y no tan genericos como por ejemplo el de <b>afirma</b> que usa el dni electronico.</p>
+
+        <p>Cuando estas asociaciones apuntan a un archivo <b>.desktop</b> tenemos que asegurarnos de que el archivo <b>.desktop</b> este bien configurado con la linea <b>MimeType</b> haciendo referencia al mismo protocolo con el que este asignado, si no puede dar lugar a errores.</p>
+
+        <p>En el caso de protoclo <b>http</b> por ejemplo, que esta asociado con <b>google-chrome.desktop</b>:</p>
+
+        <img src="Asociacion de archivos y programas por defecto/4.png"/>
+
+        <p>Podemos ver que entre otros muchos protocolos la linea <b>MimeType</b> esta asociada al <b>http</b> (x-scheme-handler/http)</p>
+
+    </ul>
+
+
+        </div>
+
+    <div class="t2">Programas</div>
+        <div class="cont">
+
+        <h2>xdg-open</h2>
+        <p>Para utilizar los programas por defecto muchas aplicaciones utilizan <b>xdg-open</b> para que se abra la aplicacion por defecto asociada al tipo de archivo</p>
+
+        <p>Ejemplos:</p>
+        <code>> xdg-open archivo.txt</code>
+
+        <p>Abrira un editor de texto (como kwrite o kate) para gestionar el archivo</p>
+
+        <code>> xdg-open archivo.pdf</code>
+
+        <p>Abrira un lector de pdf (como okular)</p>
+
+
+        <h2>xdg-mime</h2>
+
+        <p>Esta aplicacion (en realidad es un script) se utiliza para establecer o consultar cuales son las aplicaciones asociadas a los tipos de archivos</p>
+
+        <p><b>NOTA</b>: xdg-mime es un script que internamente utiliza la aplicacion <b>ktraderclient5</b> para realizar ciertas consultas.</p>
+
+        <p>Ejemplos:</p>
+
+        <code>xdg-mime query default application/pdf</code>
+
+        <p>Devuelve la aplicacion por defecto para archivos pdf</p>
+
+        <code>xdg-mime default google-chrome.desktop application/pdf</code>
+
+        <p>Establece google chrome como aplicacion por defecto para archivos pdf</p>
+
+
+        <h2>xdg-email</h2>
+
+        <p>Abre el gestor de correo por defecto</p>
+
+        </div>
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>xdg | mimeapps.list | xdg-open | MimeType </p>
+        </div>
+
+    </body>
+</html>

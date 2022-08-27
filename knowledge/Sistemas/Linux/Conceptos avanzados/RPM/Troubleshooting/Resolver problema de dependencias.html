@@ -1,0 +1,159 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Resolver problema de dependencias</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Ejemplo de un problema de dependencias con paquetes RPM</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <p>Vamos a instalar el programa Drawing (0.8.0) y hacer pequenias comprobaciones de dependencias.</p>
+
+        <p>Ya tengo todos los paquetes que se necesitan en la carpeta "drawing"</p>
+
+        <img src="Resolver problema de dependencias/1.png"/>
+
+        <p>Despues explicare por que hay todos esos paquetes y como se llega a la conclusion de que hacen falta esos paquetes y no solo el paquete principal (drawing-0.8.0-1.1.noarch.rpm)
+
+        <p>primero vamos a consultar la informacion general del paquete:</p>
+
+        <code><p>> rpm -qip drawing-0.8.0-1.1.noarch.rpm</p>
+
+        <img src="Resolver problema de dependencias/2.png"/></code>
+
+
+        <p>Vamos a consultar las dependencias del paquete principal de la aplicacion:</p>
+        <code><p>> rpm -qR drawing-0.8.0-1.1.noarch.rpm</p>
+
+        <img src="Resolver problema de dependencias/3.png"/></code>
+
+        <p>Ahora intentamos instalar el programa a ver que pasa:</p>
+
+        <code><p># rpm -i drawing-0.8.0-1.1.noarch.rpm</p>
+
+        <img src="Resolver problema de dependencias/4.png"/></code>
+
+        <p>Tenemos un problema de dependencias, ya que nos falta la capacidad <b>"python3-pycairo"</b></p>
+
+        <p>Si no sabemos que paquete proporciona esa capacidad podemos usar <b>zypper</b> para buscarlo de la siguiente manera:</p>
+
+        <code><p># zypper se --provides python3-pycairo</p>
+
+        <img src="Resolver problema de dependencias/5.png"/></code>
+
+
+        <p>En mi caso ese paquete ya lo tengo descargado en la carpeta y listo para ser instalado:</p>
+
+        <code><p># rpm -i python38-pycairo-1.20.0-1.6.x86_64.rpm</p>
+
+        <img src="Resolver problema de dependencias/6.png"/></code>
+
+        <p>El paquete se ha instalado sin ningun error, ahora que ya hemos resuleto la dependencia que nos impedia instalar el paquete principal vamos a intentar instalarlo de nuevo:</p>
+
+        <code><p># rpm -i drawing-0.8.0-1.1.noarch.rpm</p>
+
+        <img src="Resolver problema de dependencias/7.png"/></code>
+
+        <p>En esta ocasion el paquete se ha instalado sin ningun problema, ya podemos ejecutar el programa y usarlo.</p>
+
+        <img src="Resolver problema de dependencias/8.png"/>
+
+        <p><img src="Resolver problema de dependencias/9.png"/></p>
+
+        <p>Si no sabemos cual es el comando para ejecutar el programa del paquete que instalamos podemos usar este truco:</p>
+
+        <code><p>> rpm -qlp drawing-0.8.0-1.1.noarch.rpm</p>
+
+        <img src="Resolver problema de dependencias/10.png"/></code>
+
+
+        <p>(Por lo general el nombre del binario de un programa es casi el mismo que el del propio paquete y no suele dar problema, pero no siempre es asi)</p>
+
+        <p>Como podemos ver en este caso el nombre del binario es "drawing" incluso podemos ver la ruta completa del sitio donde se instalara <b>/usr/bin/drawing</b></p>
+
+        <p>Ahora bien, solo instalamos 2 paquetes, pero en la carpeta habia unos cuantos mas, porque?</p>
+
+        <p>Si intentamos instalar el programa desde <b>zypper</b> obtenemos esto:</p>
+
+        <img src="Resolver problema de dependencias/11.png"/>
+
+        <p>Como podemos ver cuando <b>zypper</b> intenta instalar <b>drawing</b> tambien instalara todos los paquetes que yo tenia en la carpeta, en realidad todos esos paquetes no son necesarios, pero son paquetes recomendados y paquetes que complementan las funciones de drawing (en este caso un paquete de idiomas)</p>
+
+        <p>Cuando <b>zypper</b> intenta instalar un paquete hace lo siguiente:</p>
+
+        <ul>
+        <li>Busca las dependencias del paquete y se asegura de que todas se cumplen, si hay alguna que no se cumple zypper buscara un paquete que posea la capacidad que necesita el paquete principal</li>
+        <li>Busca los paquetes recomendados para ese paquete que queramos instalar</li>
+        <li>Busca los paquetes que complementen el paquete que queramos instalar</li>
+        </ul>
+
+        <p>En nuestro caso seria:</p>
+
+        <ul>
+        <li>Paquete inicial y sus dependencias:</li>
+        <code><p>> rpm -qRp drawing-0.8.0-1.1.noarch.rpm</p>
+
+        <img src="Resolver problema de dependencias/12.png"/></code>
+
+        <p>En nuestro caso se cumplen todas las dependencias menos la de <b>"python3-pycairo"</b>
+
+        <li>Paquetes recomendados:</li>
+
+        <code><p>> rpm -q --recommends drawing-0.8.0-1.1.noarch.rpm</p>
+
+        <img src="Resolver problema de dependencias/13.png"/></code>
+
+        <p>Otra manera de mostrar los paquetes recomendados es:</p>
+
+        <code><p>> zypper info --recommends drawing</p>
+
+        <img src="Resolver problema de dependencias/14.png"/></code>
+
+        <p>En nuestro caso <b>"yelp"</b> es el paquete recomendado, asi que en este caso zypper lo instalara, pero a su vez, yelp tiene dependencias, por lo tanto zypper tambien las instalara, las dependencias no cumplidas de yelp son <b>yelp-xsl</b> y <b>libyelp</b></p>
+
+        <li>Por ultimo los paquetes <b>complementarios</b></li>
+
+        <code><p>> zypper se --supplements drawing</p>
+
+        <img src="Resolver problema de dependencias/15.png"/></code>
+
+        <code><p>> zypper se --supplements yelp</p>
+
+        <img src="Resolver problema de dependencias/16.png"/></code>
+
+        </ul>
+
+        <p>Como podemos ver aqui tanto el paquete <b>"drawing"</b> como el paquete <b>"yelp"</b> tienen paquetes complementarios, por lo tanto <b>zypper</b> los instalara</p>
+
+        <p><b>zypper</b> siempre intentara instalar la mayor cantidad de paquetes para dotar al maximo de funcionalidades al paquete inicial que queremos instalar, no siempre son necesarios todos los paquetes para hacer funcionar el programa que queramos instalar, pero de esta manera no perdemos posibles funcionalidades o como en este caso paquetes de idiomas.</p>
+
+        </div>
+
+    <div class="t2">Anotaciones</div>
+        <div class="cont">
+        <p>Si queremos usar <b>zypper</b> para descargar solo paquetes sin instalarlos, por si queremos usar el comando <b>rpm</b> para hacer consultas sober los paquetes o cualquiera otra cosa, podemos hacerlo de la siguiente manera:
+
+        <code>zypper in --download-only "nombre_paquete"</code>
+
+        <p>Los paquetes que descargamos de este modo se guardaran en <b>/var/cache/zypp/packages/</b> dentro de esa carpeta hay unas cuantas subcarpetas por cada repositorio del que se descarguen los paquetes, cada paquete descargado estara dentro de la subcarpeta del repositorio al que pertenezca</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>zypper | dependencias </p>
+        </div>
+
+    </body>
+</html>

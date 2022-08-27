@@ -1,0 +1,82 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Consultas RPM</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Consultas generales para obtener informacion sobre los paquetes RPM del sistema</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <p>Consultar todos los paquetes RPM del sistema:</p>
+        <code>> rpm -qa</code>
+
+        <p>Buscar un paquete entre todos los paquetes instalados en el sistema:</p>
+        <code>> rpm -qa | grep "nombre"</code>
+
+
+        <p>Consultar <b>archivos que proporciona</b> un paquete instalado en el sistema</p>
+        <code>> rpm -ql "nombre_paquete"</code>
+
+        <p>Consultar <b>archivos que proporciona</b> un paquete de un archivo rpm</p>
+        <code>> rpm -qlp "archivo_rpm"</code>
+
+
+        <p>Consultar <b>capacidades</b> que proporciona un paquete (Las capacidades nos muestran una caracteristica concreta de un paquete y la version concreta)</p>
+        <code>> rpm -qP "nombre_paquete"</code>
+
+        <p>Consultar <b>capacidades</b> que requiere un paquete</p>
+        <code>> rpm -qR "nombre_paquete"</code>
+
+        <p>Consultar que paquete proporciona una capacidad concreta</p>
+        <code>> rpm -q --whatprovides "capacidad"</code>
+
+        <p>Consultar que paquete requiere una capacidad concreta</p>
+        <code>> rpm -q --whatrequires "capacidad"</code>
+        
+        <p>Consultar que paquete proporciona un archivo concreto</p>
+        <code>> rpm -q -f "archivo.txt"</code>
+
+        </div>
+
+    <div class="t2">Ejemplos</div>
+        <div class="cont">
+        <p>Buscar paquetes que contengan "nvidia" en su nombre:</p>
+        <img src="Consultas RPM/1.png"/>
+
+        <p>Consultar archivos del paquete "nvidia-glG05-460.84-40.1.x86_64":</p>
+        <img src="Consultas RPM/2.png"/>
+
+        <p>Consultar Capacidades del paquete "nvidia-glG05-460.84-40.1.x86_64":</p>
+        <img src="Consultas RPM/3.png"/>
+
+        <p>Consultar capacidades que requiere el paquete "nvidia-glG05-460.84-40.1.x86_64":</p>
+        <img src="Consultas RPM/4.png"/>
+
+        <p>Consultar el paquete que proporciona la capacidad "nvidia-gfxG05-kmp":</p>
+        <img src="Consultas RPM/5.png"/>
+
+        <p>Consultar que paquetes requieren la capacidad "nvidia-gfxG05-kmp":</p>
+        <img src="Consultas RPM/6.png"/>
+        
+        <p>Consultar que paquete proporciona el archivo "/etc/NetworkManager/NetworkManager.conf"</p>
+        <img src="Consultas RPM/7.png"/>
+
+        </div>
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>RPM | capabilities | consultas </p>
+        </div>
+
+    </body>
+</html>
