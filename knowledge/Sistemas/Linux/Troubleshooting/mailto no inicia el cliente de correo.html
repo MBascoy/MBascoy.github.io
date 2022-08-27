@@ -1,0 +1,120 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">mailto no inicia el cliente de correo</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Desde el navegador de google chrome cuando tenemos un enlace con el protocolo <b>mailto</b> no se inicia ningun gestor de correo al pulsar el enlace o sale el siguiente error:</p>
+
+            <img src="mailto no inicia el cliente de correo/1.png"/>
+
+        </div>
+
+    <div class="t2">Explicacion</div>
+        <div class="cont">
+
+        <p><b>NOTA</b>: Google Chrome usa el programa <b>xdg-email</b> para abrir el gestor de correo por defecto.</p>
+
+        <p>En total se pueden dar 4 situaciones:</p>
+
+        <ul>
+            <li>Al hacer click en el enlace no ocurre nada</li>
+            <p>En este caso el protoclo mailto esta asociado a algun binario que no funciona correctamente</p>
+
+            <li>Al hacer click en el enlace se muestre el error <b>Protocolo desconocido "mailto"</b></li>
+            <p>El protocolo mailto esta asociado a algun archivo .desktop que no esta bien configurado porque le falta la asociacion con el protoclo <b>mailto</b>
+            <img src="mailto no inicia el cliente de correo/1.png"/>
+
+            <li>Al hacer click en el enlace se muestra una ventana para seleccionar una aplicacion</li>
+            <p>No existe ninguna asociacion para el protocolo <b>mailto</b> asi que el navegador nos pregunta una aplicacion para ser abierta</p>
+
+            <img src="mailto no inicia el cliente de correo/2.png"/>
+
+            <li>Al hacer click en el enlace se ejecuta el gestor de correo sin problemas</li>
+            <p>Esta es la situacion de funcionamiento correcta</p>
+
+        </ul>
+
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+        <p>Lo primero que tenemos que hacer es revisar los archivos de <b>mimeapps.list</b> para saber cual es la asociacion exacta que hay con el protocolo <b>mailto</b></p>
+
+        <p>La localizacion de los archivos de <b>mimeapps.list</b> es la siguiente (por orden de preferencia):</p>
+
+
+
+        <ul>
+            <li>~/.config/kde-mimeapps.list</li>
+            <li>~/.config/mimeapps.list</li>
+            <li>/usr/local/share/applications/mimeapps.list</li>
+            <li>/usr/share/applications/mimeapps.list</li>
+        </ul>
+
+
+            <p><b>NOTA</b>: hay un archivo mas que no tiene que ver con mimeapps.list, pero que tambien se usa para definir el gestor de correo por defecto:</p>
+        <ul>
+            <li>~/.config/emaildefaults</li>
+        </ul>
+
+        <p>En nuesrto caso si revisamos el contenido de <b>~/.config/mimeapps.list</b> nos encontramos con lo siguiente:</p>
+
+        <img src="mailto no inicia el cliente de correo/3.png"/>
+
+        <p>Vemos que el parametro <b>x-scheme-handler/mailto</b> esta asociado al archivo <b>userapp-Thunderbird-LLP660.desktop</b></p>
+
+        <p>Los archivos <b>.desktop</b> se encuentra en una de estas localizaciones:</p>
+
+        <ul>
+            <li>~/.local/share/applications/</li>
+            <li>/usr/share/applications/</li>
+            <li>>/usr/local/share/applications/</li>
+        </ul>
+
+        <p>En mi caso el archivo esta ubicado en <b>~/.local/share/applications/</b>, si miramos su contenido vemos:</p>
+
+        <img src="mailto no inicia el cliente de correo/4.png"/>
+
+        <p>Ahi falta una linea que es la asociacion con el protocolo <b>mailto</b> la linea es la siguiente:</p>
+
+        <code>MimeType=x-scheme-handler/mailto;</code>
+
+        <p>Incluyendo esa linea al final del archivo <b>.desktop</b> se solucionaria el error <b>Protocolo desconocido "mailto"</b></p>
+
+        <p>En mi caso en vez de modificar el archivo <b>userapp-Thunderbird-LLP660.desktop</b> (que es un archivo generado por thunderbird cuando no se detecta a si mismo como cliente de correo por defecto) voy a modificar el parametro <b>x-scheme-handler/mailto</b> del archivo <b>mimeapps.list</b> y voy a hacer que apunte a <b>thunderbird.desktop</b> (que es el archivo por defecto del thunderbird, y que tiene toda la configuracion necesaria).</p>
+
+        <p>Con esto el problema estaria solucionado</p>
+
+        <p>En el caso de que no se produzca ningun error al hacer click en un enlace <b>mailto</b> podemos revisar los archivos <b>mimeapps.list</b> para verificar cual es el programa que esta manejando el protocolo y asegurarnos de que funcione bien, o incluso de modificarlo para hacer que otro programa maneje el protocolo <b>mailto</b>
+
+        <p>En el caso de que se nos abra una ventana pidiendo seleccionar una aplicacion quiere decir que el sistema no puede encontrar ninguna asociacion entre el protoclo <b>mailto</b> y una aplicacion concreta, por lo tanto en ese caso podemos editar el archivo <b>mimeapps.list</b> para incluir la linea <b>x-scheme-handler/mailto</b> e indicar un programa que se encarge de gestionar el protocolo <b>mailto</b>
+
+        <p><b>NOTA</b>: En el caso de que no exista ninguna referencia a <b>x-scheme-handler/mailto</b> en los archivos <b>mimeapps.list</b> el sistema todavia hara una ultima comprobacion, que es la de buscar en los archivos .desktop una asociacion con el protoclo <b>mailto</b>, buscara el parametro <b>MimeType</b> con la opcion <b>x-scheme-handler/mailto;</b> dentro de todos los archivos <b>.desktop</b>, si la encuentra en alguno usara dicho programa para manejar el <b>mailto</b>
+
+
+        </div>
+
+    <div class="t2">Enlaces</div>
+        <div class="cont">
+
+        <a href="https://specifications.freedesktop.org/mime-apps-spec/latest/index.html">Especificacion mime-apps</a>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Thunderbird | mailto | Google Chrome </p>
+        </div>
+
+    </body>
+</html>
