@@ -1,0 +1,46 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Dependency requires compileSdkVersion</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Al intentar compilar una aplicación obtenemos el siguiente error:</p>
+
+          <code>Dependency 'androidx.appcompat:appcompat-resources:1.5.0' requires 'compileSdkVersion' to be set to 32 or higher.</code>
+
+          <img src="Dependency requires compileSdkVersion/1.png"/>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+          <p>Para solucionar este problema tenemos que cambiar la versión que le estámos indicando a <b>gradle</b> del <b>appcompat</b>.</p>
+
+          <p>Para ello tenemos que editar el archivo <b>build.gradle</b> que está dentro de la carpeta <b>app</b>.</p>
+
+          <p><b>NOTA</b>: hay varios archivos <b>build.gradle</b> en un proyecto, el que buscamos en este caso es el que está en: android/app/build.gradle</p>
+
+          <p>Abrimos el archivo y editamos la siguiente linea (está casi al final del todo):</p>
+          <code>implementation 'androidx.appcompat:appcompat:1.5.0'</code>
+
+          <p>Y cambiamos la versión del <b>Appcompat</b> para poner la <b>1.4.1</b>, la línea quedaría tal que así:</p>
+          <code>implementation 'androidx.appcompat:appcompat:1.4.1'</code>
+
+          <p>Una vez hechos los cambios guardamos el archivo y volvemos a reconstruir el proyecto, <b>Build > Make Project</b>.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>React Native | appcompat | SDK</p>
+        </div>
+
+    </body>
+</html>

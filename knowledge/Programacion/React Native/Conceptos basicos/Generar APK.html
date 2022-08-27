@@ -1,0 +1,47 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Generar APK</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como generar un archivo <b>APK</b> a partir de nuestro proyecto en <b>React Native</b>.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+          <p>Ejecutamos los siguientes comandos desde la carpeta raiz de nuestro proyecto:</p>
+          <p><b>NOTA</b>: es importante hacerlo desde la carpeta raiz si no podriamos obtener errores.</p>
+
+          <code>> npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res</code>
+
+          <p>Al ejecutar el comando anterior podemos encontrarnos con el siguiente error:</p>
+
+          <pre><code>error ENOENT: no such file or directory, open 'C:\Users\manuel.bascoy\lab\React Native\CallJavaFromReact\android\app\src\main\assets\index.android.bundle'.
+Error: ENOENT: no such file or directory, open 'C:\Users\manuel.bascoy\lab\React Native\CallJavaFromReact\android\app\src\main\assets\index.android.bundle'</code></pre>
+
+          <img src="Generar APK/1.png">
+
+          <p>Este error se da porque no tenemos creada la carpeta <b>assets</b> dentro de <b>android\app\src\main</b>, para solucionar el error simplemente creamos la carpeta <b>assets</b> y volvemos a ejecutar el comando.</p>
+
+          <p>A continuación entramos dentro de la carpeta <b>android</b> (cd android) y ejecutamos el siguiente comando:</p>
+          <code>> gradlew assembleDebug</code>
+
+          <p>Una vez termine la ejecución del comando tendremos nuestro <b>APK</b> ubicado en la carpeta <b>android\app\build\outputs\apk\debug</b></p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>React Native | APK </p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,67 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Comandos de Red</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Configurar interfaz de red usando los nuevos comandos de configuración como <b>ip</b>(sustituto de ifconfig) y <b>ss</b>(sustituto de netstat)</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+            <h2>Configurar interfaz</h2>
+
+            <p><b>Mostrar</b> configuración de red:</p>
+            <code>> ip addr</code>
+            <p>Podemos simplificarlo como:</p>
+            <code>> ip a</code>
+
+            <p>Una interfaz puede tener asignada <b>mas de una dirección IP</b>, si solo queremos dejarle asignada una IP tenemos que añadir la nueva y borrar la antigua.</p>
+            <p><b>Añadir</b> dirección de red, a una interfaz:</p>
+            <code># ip addr add IP/MASCARA dev INTERFAZ</code>
+            <p>Ejemplo:</p>
+            <code># ip addr add 192.168.1.56/24 dev eth0</code>
+
+            <p><b>Eliminar</b> dirección de red de una interfaz:</p>
+            <code># ip addr del IP/MASCARA dev INTERFAZ</code>
+            <p>Ejemplo:</p>
+            <code># ip addr del 192.168.1.56/24 dev eth0</code>
+            <h2>Tabla de rutas</h2>
+
+            <p>Mostrar tabla de rutas:</p>
+            <code>> ip route</code>
+
+            <p>Modificar tabla de rutas para añadir ruta por defecto (gateway):</p>
+            <code># ip route add default via IP_GATEWAY</code>
+            <p>Ejemplo:</p>
+            <code># ip route add default via 192.168.1.1</code>
+
+            <h2>Mostrar información conexiones</h2>
+
+            <p>Mostrar solo sockets con <b>conexión</b>:</p>
+            <code>> ss -ntp</code>
+
+            <p>Mostrar solo sockets a la <b>escucha</b>:</p>
+            <code>> ss -ntpl</code>
+
+            <p>Mostrar ambos sockets a la <b>escucha y con conexion</b>:</p>
+            <code>> ss -ntpa</code>
+
+        </div>
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Linux | Red | ip</p>
+        </div>
+
+    </body>
+</html>
