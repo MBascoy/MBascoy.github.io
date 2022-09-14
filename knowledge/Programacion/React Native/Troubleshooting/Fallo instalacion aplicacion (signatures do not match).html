@@ -1,0 +1,44 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Fallo instalacion aplicacion (signatures do not match)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Al intentar ejecutar una aplicacion usando <b>npx react-native run-android</b> obtenemos el siguiente error:</p>
+
+          <code><pre>Unable to install C:\Users\manuel.bascoy\code\Projects\NavigationSWO\android\app\build\outputs\apk\debug\app-debug.apk com.android.ddmlib.InstallException:
+INSTALL_FAILED_UPDATE_INCOMPATIBLE: Package com.navigationswo signatures do not match previously installed version; ignoring!</pre></code>
+
+          <code><pre>FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:installDebug'.
+> java.util.concurrent.ExecutionException: com.android.builder.testing.api.DeviceException: com.android.ddmlib.InstallException:
+INSTALL_FAILED_UPDATE_INCOMPATIBLE: Package com.navigationswo signatures do not match previously installed version; ignoring!</pre> </code>
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+          <p>Este error se produce porque ya tenemos instalada una aplicación con el <b>mismo nombre de paquete</b>, pero la aplicación es una aplicación distinta (tiene una <b>firma</b> distinta).</p>
+
+          <p>Para solucionar este problema solo tenemos que desinstalar la aplicación que ya está instalada en el dispositivo con el siguiente comando:</p>
+          <code>> adb uninstall "com.navigationswo"</code>
+
+          <p>En este caso el paquete es <b>com.navigationswo</b> (el nombre del paquete figura en el error), despues simplemente tenemos que volver a lanzar el comando para ejecutar la aplicación y ya debería de ir sin problemas.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>React Native | APK | Install</p>
+        </div>
+
+    </body>
+</html>
