@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Configurar MySQL Container</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como configurar un contendor <b>MySQL</b> para guardar la información de la base de datos permanentemente en un volumen y utilizar un script <b>.sql</b> para iniciar la base de datos en la primera ejecución del contenedor</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <p>Para esto usaremos <b>docker compose</b>, el script que usaremos para el compose (<b>docker-compose.yml</b>) será el siguiente:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">version:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;3&#x27;</span>
+
+<span style="color:rgb(129, 162, 190); font-weight:400;">services:</span>
+
+  <span style="color:rgb(129, 162, 190); font-weight:400;">skill-matrix-mysql:</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">image:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">mysql:5</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">restart:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">on-failure</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">volumes:</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">./mydb-db:/var/lib/mysql</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">./mydb-init-db:/docker-entrypoint-initdb.d</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">environment:</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">MYSQL_ROOT_PASSWORD=admin</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">MYSQL_DATABASE=mysample</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">MYSQL_USER=myuser</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(138, 190, 183); font-weight:400;">MYSQL_PASSWORD=mypass</span>
+    <span style="color:rgb(129, 162, 190); font-weight:400;">ports:</span>
+      <span style="color:rgb(249, 145, 87); font-weight:400;">-</span> <span style="color:rgb(249, 145, 87); font-weight:400;">3306</span><span style="color:rgb(138, 190, 183); font-weight:400;">:3306</span></code></pre>
+
+        <p>La parte clave del script está en la seccion de <b>volumes</b>, indicamos dos carpetas que deberían de existir en nuestro sistema y que se mapean con unas carpetas concretas del contenedor, en concreto la carpeta <b>mydb-db</b> almacenará todos los archivos relativos a la base de datos, y la carpeta <b>mydb-init-db</b> será donde colocaremos nuestro script que usaremos para que la base de datos se inicie en la primera ejecución.</p>
+
+        <p>Primero creamos las carpetas <b>mydb-db</b> y <b>mydb-init-db</b> justo donde hemos colocado nuestro <b>docker-compose.yml</b> en la carpeta mydb-init-db colocaremos el script sql que se usará para iniciar la base de datos:</p>
+
+        <p>La carpeta principal quedaría tal que así:</p>
+        <img src="Configurar MySQL Container/1.png">
+
+        <p>Y la carpeta <b>mydb-init-db</b> así:</p>
+        <img src="Configurar MySQL Container/2.png">
+
+        <p>Ahora simplemente tenemos que ejecutar el comando <b>docker-compose up</b> dentro de la carpeta donde tenemos el archivo <b>docker-compose.yml</b> y se lanzará el contenedor y se creará la base de datos usando el script que hayamos puesto en la carpeta <b>mydb-init-db</b>.</p>
+
+        <p><b>NOTA</b>: el nombre de la base de datos que tengamos dentro de nuestro script <b>.sql</b> (en las sentencias CREATE DATABASE o USE por ejemplo), tiene que coincidir con el nombre de la base de datos que hemos indicado en el archivo <b>docker-compose.yml</b>, si no el archivo .sql no ejecutará las sentencías dentro de dicha base de datos.</p>
+
+        <p>Una vez hayamos realizado el primer arranque del contenedor toda la información de la base de datos quedará almacenada en la carpeta <b>mydb-db</b> si queremos eliminar la base de datos para que se vuelva a cargar el script inicial y dejar la base de datos como en el inicio simplemente tenemos que parar el contenedor, borrar el contenido de la carpeta <b>mydb-db</b> y realanzar el contenedor, la base de datos se volvera a cargar desde cero.</p>
+
+      </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>MySQL | Init | Script</p>
+        </div>
+
+    </body>
+</html>
