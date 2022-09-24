@@ -32,6 +32,28 @@
           <p>Una vez tenemos arrancado el servidor ya podemos conectarnos usando cualquier navegador, si no existe ningun archivo <b>index.html</b> en la carpeta donde hemos ejecutado el comando se listará todo el contenido de la carpeta (se hace una indexación de la misma) permitiendonos acceder a todos los archivos dentro de la misma, esto es util si queremos compartir archivos de manera rápida</p>
 
         </div>
+        
+    <div class="t2">Conectarse a un puerto</div>
+        <div class="cont">
+            <p>Podemos usar el siguiente código con <b>Python 3</b> para hacer pruebas de conexión a un puerto (de la misma manera que usando netcat):</p>
+            
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> socket
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> sys
+
+HOST = sys.argv[<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>] 
+PORT = <span style="color:rgb(181, 189, 104); font-weight:400;">int</span>(sys.argv[<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>])
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">with</span> socket.socket(socket.AF_INET, socket.SOCK_STREAM) <span style="color:rgb(204, 153, 204); font-weight:400;">as</span> s:
+    s.connect((HOST, PORT))
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;CONECTION OPEN ON PORT: &quot;</span>, PORT)
+    s.sendall(<span style="color:rgb(181, 189, 104); font-weight:400;">input</span>().encode() + <span style="color:rgb(138, 190, 183); font-weight:400;">b&quot;\n\n&quot;</span>)
+    data = s.recv(<span style="color:rgb(249, 145, 87); font-weight:400;">1024</span>)
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Received: &quot;</span>,data)</code></pre>
+            
+            <p>Para ejecutar el comando lo haríamos así:<p>
+            <code>> python &lt;IP&gt; &lt;PUERTO&gt;</code>
+        </div>
 
 
     <div class="t2">Tags</div>
