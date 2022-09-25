@@ -1,0 +1,47 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Gamepad mal detectado (Switch Pro)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Al conectar un mando es detectado como un <b>Nintendo Switch Pro Controller</b> a pesar de que no lo es, y por lo tanto los controles funcionan de manera muy incorrecta.</p>
+            
+            <img src="Gamepad mal detectado (Switch Pro)/1.png"/>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>En mi caso esto se produce con el <b>GameSir T4</b>, si lanzo el siguiente comando:</p>
+            
+            <code>lsmod | grep nintendo</code>
+            
+            <p>Puedo ver que el siguiente modulo está cargado:</p>
+            
+            <code>hid_nintendo</code>
+            
+            <p>El problema es que ese modulo está substituyendo al modulo <b>Xpad</b> que es el que se debería de encargar de manejar dicho gamepad.</p>
+            
+            <p>Para solucionar el problema solo añadimos la siguiente linea al archivo <b>/etc/modprobe.d/50-blacklist.conf</b></p>
+            
+            <code>blacklist hid_nintendo</code>
+            
+            <p>Una vez hecho esto reiniciamos el PC y si volvemos a lanzar el comando <b>lsmod</b> podremos ver que el modulo <b>Xpad</b> está ahora cargado</p>
+        </div>
+        
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Gamepad | Modulo | Xpad </p>
+        </div>
+
+    </body>
+</html>

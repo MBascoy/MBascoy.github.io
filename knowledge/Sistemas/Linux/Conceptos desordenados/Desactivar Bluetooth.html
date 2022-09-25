@@ -1,0 +1,43 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Desactivar Bluetooth</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como desactivar el Bluetooth de manera permanente que se cargen ciertos modulos del kernel.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Para desactivar el <b>Bluetooth</b> añadimos las siguientes lineas en el archivo <b>/etc/modprobe.d/50-blacklist.conf</b></p>
+            
+            <pre><code>blacklist btusb
+blacklist btrtl
+blacklist btbcm
+blacklist btintel
+blacklist bluetooth
+
+blacklist ath9k
+blacklist ath3k
+            </code></pre>
+            
+            <p>Una vez hecho esto reiniciamos el PC y no se activará el bluetooth</p>
+        </div>
+        
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Bluetooth | Modulos </p>
+        </div>
+
+    </body>
+</html>
