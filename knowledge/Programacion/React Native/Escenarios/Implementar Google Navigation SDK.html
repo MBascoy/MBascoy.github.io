@@ -1,0 +1,59 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Implementar Google Navigation SDK</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como implementar en <b>React-Native</b> el SDK de Google Navigation.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+          <h2>Fallo Gradle y ADC (Application Default Credentials)</h2>
+          <p>Al intentar compilar el proyecto obtenemos el siguiente error:</p>
+          <pre><code>An exception occurred applying plugin request [id: 'com.google.cloud.artifactregistry.gradle-plugin', version: '2.1.1']
+> Failed to apply plugin 'com.google.cloud.artifactregistry.gradle-plugin'.
+   > Failed to get access token from gcloud or Application Default Credentials</code></pre>
+
+          <p>Este error se produce porque no estámos logueados con <b>gcloud</b>, para poder loguearnos primero tenemos que instalar el <b>google cloud cli</b>:</p>
+
+          <p><a href="https://cloud.google.com/sdk/docs/install?hl=es_419&_ga=2.63360303.-1082834852.1664363382">Instalar Google Cloud CLI</a></p>
+          <p>Una vez termina la instalación se inicia la configuración inicial de gcloud, donde le indicaremos lo siguiente:</p>
+          <ul>
+            <li>Cuenta de google para loguearnos.</li>
+            <li>Proyecto de Google Cloud que queremos asociar.</li>
+          </ul>
+
+          <p><b>NOTA:</b> si no se inicia la configuración de gcloud podemos hacerlo manualmente desde una consola con el comando "<b>gcloud init</b>"</p>
+
+          <p>Una vez finalizada la instalación y la configuración inicial de <b>gcloud</b> ya podemos hacer el <b>build</b> de nuestra aplicación.</p>
+
+          <h2>Not Enough Space</h2>
+          <p>Al intentar desplegar la aplicación en nuestro dispositivo obtenemos el siguiente error:</p>
+          <pre><code>com.android.ddmlib.InstallException: Unknown failure: Exception occurred while executing 'install':
+android.os.ParcelableException: java.io.IOException: Requested internal only, but not enough space</code></pre>
+
+          <img src="Implementar Google Navigation SDK/1.png">
+
+          <p>Este error se produce porque el dispositivo no tienen espacio suficiente para instalar la aplicación, es necesario crear un dispositivo con más almacenamiento.</p>
+          <p>Este fallo suele ser común al trabajar con <b>React-Native</b> ya que las aplicaciones pesan unos 500MB de base y los emuladores que se crear por defecto no suelen tener un almacenamiento tan grande.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Google Navigation | SDK</p>
+        </div>
+
+    </body>
+</html>
