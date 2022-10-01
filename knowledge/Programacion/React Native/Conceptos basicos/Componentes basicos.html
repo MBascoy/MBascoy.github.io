@@ -17,10 +17,145 @@
 
     <div class="t2">Metodo</div>
         <div class="cont">
-          <h2>TextInput y Text</h2>
+          <h2>Text</h2>
+          <p>La etiqueta <b>Text</b> nos permite mostrar texto en la aplicacion:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> React <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {
+  Text,
+  View,
+} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react-native&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> App = <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{padding:</span> <span class="hljs-attr">10</span>}}&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{padding:</span> <span class="hljs-attr">10</span>, <span class="hljs-attr">fontSize:</span> <span class="hljs-attr">42</span>}}&gt;</span>
+        Texto de prueba
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">default</span> App;</code></pre>
+
+          <h2>TextInput</h2>
+          <p>Usamos <b>TextInput</b> para introducir una caja de texto y con <b>Text</b> podemos mostrar un texto por pantalla.</p>
+
+          <p>En el siguiente ejemplo se usa un <b>Text</b> para mostrar lo que metamos en el <b>TextInput</b>, hacemos uso tambien de useState para recoger los datos introducido y meterlos dentro de una variable <b>textData</b>.</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> React, { useState } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {
+  Text,
+  TextInput,
+  View,
+} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react-native&#x27;</span>;
 
 
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> App = <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> [text, setText] = useState(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;&#x27;</span>);
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{padding:</span> <span class="hljs-attr">10</span>}}&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">TextInput</span>
+        <span class="hljs-attr">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{height:</span> <span class="hljs-attr">40</span>}}
+        <span class="hljs-attr">placeholder</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Escribe un texto&quot;</span>
+        <span class="hljs-attr">onChangeText</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{newText</span> =&gt;</span> setText(newText)}
+      /&gt;
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{padding:</span> <span class="hljs-attr">10</span>, <span class="hljs-attr">fontSize:</span> <span class="hljs-attr">42</span>}}&gt;</span>
+        {text}
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+}
 
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">default</span> App;</code></pre>
+
+
+          <h2>Image</h2>
+          <p>Nos permite cargar una imagen en nuestra aplicación:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> React <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {
+  Image,
+  View,
+} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react-native&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> App = <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{padding:</span> <span class="hljs-attr">10</span>}}&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">Image</span>
+        <span class="hljs-attr">source</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{</span>
+          <span class="hljs-attr">uri:</span> &#x27;<span class="hljs-attr">https:</span>//<span class="hljs-attr">reactnative.dev</span>/<span class="hljs-attr">docs</span>/<span class="hljs-attr">assets</span>/<span class="hljs-attr">p_cat2.png</span>&#x27;,
+        }}
+        <span class="hljs-attr">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{</span> <span class="hljs-attr">width:</span> <span class="hljs-attr">200</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">200</span> }}
+      /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">default</span> App;</code></pre>
+
+          <h2>Button</h2>
+          <p>Nos permite incluir un boton en nuestra aplicación:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> React <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {
+  Button,
+  View,
+  Alert
+} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react-native&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> App = <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{padding:</span> <span class="hljs-attr">10</span>}}&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">Button</span>
+        <span class="hljs-attr">title</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Press me&quot;</span>
+        <span class="hljs-attr">onPress</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{()</span> =&gt;</span> Alert.alert(&#x27;Simple Button pressed&#x27;)}
+      /&gt;
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">default</span> App;
+</code></pre>
+
+          <h2>TouchableOpacity</h2>
+
+          <p>El <b>TouchableOpacity</b> es lo mismo que un <b>Button</b> solo que nos da mas flexibilidad.</p>
+
+          <p>En este caso usamos un <b>Text</b> como contenido del <b>TouchableOpacity</b> y a mayores le damos un estilo para que tenga apariencia de boton.</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> React <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  View,
+  Alert
+} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react-native&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> App = <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{padding:</span> <span style="color:rgb(129, 162, 190); font-weight:400;">10</span>}}&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">TouchableOpacity</span>
+        <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{styles.button}</span>
+        <span style="color:rgb(129, 162, 190); font-weight:400;">onPress</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{()</span> =&gt;</span> Alert.alert(&quot;Hola Mundo!!&quot;)}
+      &gt;
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">Text</span>&gt;</span>Pulsame<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> styles = StyleSheet.create({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">button</span>: {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">alignItems</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;center&quot;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">backgroundColor</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;#DDDDDD&quot;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">padding</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>
+  }
+});
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">default</span> App;</code></pre>
         </div>
 
     <div class="t2">Tags</div>
