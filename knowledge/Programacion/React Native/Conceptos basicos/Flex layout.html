@@ -1,0 +1,166 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Flex layout</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como organizar los componentes en nuestra aplicación usando flexbox.</p>
+        </div>
+
+    <div class="t2">Código base</div>
+        <div class="cont">
+          <p>Este es el código base usado para los ejemplos:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> React <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {
+  StyleSheet,
+  View,
+} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react-native&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> App = <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{styles.container}</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{[styles.box,</span> {<span style="color:rgb(129, 162, 190); font-weight:400;">backgroundColor:</span>&quot;<span style="color:rgb(129, 162, 190); font-weight:400;">blue</span>&quot;}]}&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{[styles.box,</span> {<span style="color:rgb(129, 162, 190); font-weight:400;">backgroundColor:</span>&quot;<span style="color:rgb(129, 162, 190); font-weight:400;">red</span>&quot;}]}&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{[styles.box,</span> {<span style="color:rgb(129, 162, 190); font-weight:400;">backgroundColor:</span>&quot;<span style="color:rgb(129, 162, 190); font-weight:400;">green</span>&quot;}]}&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> styles = StyleSheet.create({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">container</span>: {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">padding</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">flex</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>
+  },
+
+  <span style="color:rgb(129, 162, 190); font-weight:400;">box</span>: {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">height</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">70</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">width</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">70</span>
+  }
+
+});
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">default</span> App;</code></pre>
+
+          <p>En la <b>View</b> principal indicamos siempre <b>flex: 1</b>, para que ocupe toda la pantalla.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para organizar los componentes podemos usar principalmente la siguientes propiedades de flexbox:</p>
+
+          <ul>
+            <li>flexDirection</li>
+            <li>alignItems</li>
+            <li>justifyContent</li>
+          </ul>
+
+          <p>En React-Native podemos usar la etiqueta <b>View</b> para organizar los componentes en bloques (de igual manera que div en html)</p>
+
+          <h2>flexDirection</h2>
+          <p>Podemos usar la propiedad <b>flexDirection</b> para organizar los componentes en filas o columnas (Por defeccto se alinean en columnas):</p>
+
+          <img src="Flex layout/1.png"/>
+
+          <p>Podemos cambiar el <b>flexDirection</b> a "row" y se vería así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">container: {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">padding</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">flex</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">flexDirection</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;row&quot;</span>
+}</code></pre>
+
+          <img src="Flex layout/2.png"/>
+
+          <h2>alignItems</h2>
+          <p>Está propiedad está afectada directamente por el <b>flexDirection</b>, si <b>flexDirection</b> está en <b>row</b> entonces la propiedad <b>alignItems</b> alineará los elementos verticalmente, si <b>flexDirection</b> está en <b>column</b> entonces <b>alignItems</b> alineará los elementos horizontalmente.</p>
+
+          <p>Puede tomar los siguientes valores, entre otros:</p>
+          <ul>
+            <li>center</li>
+            <li>flex-end</li>
+            <li>flex-start</li>
+          </ul>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">container: {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">padding</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">flex</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">flexDirection</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;row&quot;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">alignItems</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;center&quot;</span>
+}</code></pre>
+
+          <img src="Flex layout/3.png"/>
+
+          <h2>justifyContent</h2>
+          <p>De igual manera que <b>alignItems</b> está propiedad está afectada por <b>flexDirection</b>, y funciona al reves que <b>alignItems</b>, si <b>flexDirection</b> es <b>row</b> alinea en horizontal, si <b>flexDirection</b> es <b>column</b> alinea verticalmente.</p>
+
+          <p>Algunos de los valores que podemos indicar:</p>
+          <ul>
+            <li>center</li>
+            <li>space-around</li>
+            <li>space-between</li>
+            <li>flex-end</li>
+            <li>flex-start</li>
+          </ul>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">container: {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">padding</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">flex</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">flexDirection</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;row&quot;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">justifyContent</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;space-between&quot;</span>
+}</code></pre>
+
+          <img src="Flex layout/4.png"/>
+
+          <h2>Usar varios Views</h2>
+          <p>Podemos usar la propiedad <b>flex</b> para indicar cuanto queremos que ocupe cada <b>View</b>, normalmente la view que agrupa todos los demas componentes tendrá un flex de 1 (al ser el único elemento ocupará toda la pantalla).</p>
+
+          <p>En el ejemplo anterior podemos eliminar la clase <b>box</b> del css, de manera que los elmentos se expandirán ocupando todo el espacio disponible.</p>
+
+          <p>En este caso podemos usar la propiedad <b>flex</b> para indicar cuando debe de ocupar cada elemento, la propiedad flex funciona de manera que los elementos ocuparán la parte proporcional en funcion del valor que tengan, si un elemento tiene flex 2 y otro flex 1 un elemento ocupará el doble que el otro:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> React <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {
+  StyleSheet,
+  View,
+} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react-native&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> App = <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{styles.container}</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{height:70,</span> <span style="color:rgb(129, 162, 190); font-weight:400;">flex:1</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">backgroundColor:</span>&quot;<span style="color:rgb(129, 162, 190); font-weight:400;">blue</span>&quot;}}&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{height:70,</span> <span style="color:rgb(129, 162, 190); font-weight:400;">flex:3</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">backgroundColor:</span>&quot;<span style="color:rgb(129, 162, 190); font-weight:400;">red</span>&quot;}}&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{height:70,</span> <span style="color:rgb(129, 162, 190); font-weight:400;">flex:2</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">backgroundColor:</span>&quot;<span style="color:rgb(129, 162, 190); font-weight:400;">green</span>&quot;}}&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> styles = StyleSheet.create({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">container</span>: {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">padding</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">flex</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">flexDirection</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;row&quot;</span>
+  },
+});
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">default</span> App;</code></pre>
+
+          <p>En este ejemplo tenemos un elemento con <b>flex 1</b>, otro elemento con <b>flex 3</b> y otro elemento con <b>flex 2</b>, y la distribución queda tal que así:</p>
+
+          <img src="Flex layout/5.png"=>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>React Native | Componentes</p>
+        </div>
+
+    </body>
+</html>
