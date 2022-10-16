@@ -1,0 +1,127 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Crear y utilizar librerias</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como crear una librería con código nativo y usarla posteriormente en un nuevo proyecto.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+          <h2>Crear librería</h2>
+
+          <ul>
+            <li>Ejecutamos el siguiente comando para crear un scafolding básico de una librería:</li>
+            <code>npx create-react-native-library mi-libreria</code>
+
+            <li>El comando se ejecuta de manera interactiva, se nos preguntan una serie de datos básicos de la libreria:</li>
+
+            <img src="Crear y utilizar librerias/1.png">
+            <img src="Crear y utilizar librerias/2.png">
+
+
+            <li>Entramos en la carpeta del paquete e instalamos todas las dependencias:</li>
+            <code>cd mi-libreria</code>
+            <code>yarn</code>
+            <li>Añadir nuestro código a la librería, definimos las funciones java en <b>"android/src/main/java/com/reactnativemilibreria"</b> y a mayores tenemos que exportar las funciones en el archivo <b>"src/index.tsx"</b></li>
+
+            <p>En este caso simplemente usaremos un toast para mostrar un mensaje por pantalla.</p>
+            <p>MiLibreriaModule.java:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> android.content.Context;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> android.widget.Toast;</code></pre>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@ReactMethod</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">show</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span> text</span>)</span> {
+    Context context = getReactApplicationContext();
+    Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+}</code></pre>
+
+            <p>index.tsx:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">export</span> function <span style="color:rgb(181, 189, 104); font-weight:400;">show</span><span style="color:rgb(209, 217, 225); font-weight:400;">(text: string)</span>: Promise&lt;number&gt; {</span>
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> MiLibreria.<span style="color:rgb(181, 189, 104); font-weight:400;">show</span>(text);
+}</code></pre>
+
+            <p>En esta parte tendríamos que cambiar <b>MiLibreria</b> por el nombre de nuestra librería:</p>
+
+            <img src="Crear y utilizar librerias/4.png">
+
+
+            <li>Empaquetamos la librería (creamos un tarball) usando el siguiente comando:</li>
+            <code>npm pack</code>
+            <p>Una vez finaliza la ejecución se genera un archivo <b>.tgz</b> dentro de la carpeta (<b>react-native-mi-libreria-0.1.0.tgz</b> en este caso), mas adelante podremos usar este archivo para importar la librería en otros proyectos.</p>
+
+          </ul>
+
+          <h2>Utilizar librería</h2>
+
+          <ul>
+            <li>Creamos un nuevo proyecto de <b>React-Native</b>:</li>
+            <code>npx react-native init EjemploUsoLibreria</code>
+            <img src="Crear y utilizar librerias/3.png">
+
+            <li>Instalar nuestra librería:</li>
+            <p>En nuestro caso instalamos la librería desde nuestro <b>tarball</b> que hemos creado previamente indicando el archivo con el siguiente comando:</p>
+            <code>cd EjemploUsoLibreria</code>
+            <code>npm install ..\mi-libreria\react-native-mi-libreria-0.1.0.tgz</code>
+
+            <p>Si tenemos nuestra librería en un repositorio podriamos instalarlo con el siguiente comando:</p>
+            <code>npm install react-native-mi-libreria</code>
+
+            <li>Configuramos el archivo <b>metro.config.js</b> añadiendo las siguientes lineas:</li>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">const</span> path = <span style="color:rgb(181, 189, 104); font-weight:400;">require</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;path&#x27;</span>);
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> root = path.resolve(__dirname, <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;node_modules/react-native-mi-libreria&#x27;</span>); </code></pre>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(129, 162, 190); font-weight:400;">projectRoot</span><span style="color:rgb(209, 217, 225); font-weight:400;">: </span>__dirname,
+<span style="color:rgb(129, 162, 190); font-weight:400;">watchFolders</span><span style="color:rgb(209, 217, 225); font-weight:400;">: </span>[root],</code></pre>
+
+            <img src="Crear y utilizar librerias/5.png">
+
+            <li>Añadir código para utilizar funciones de la libreria:</li>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> React <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {
+  Button,
+  View,
+} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react-native&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { multiply, show } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react-native-mi-libreria&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> App = <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{padding:</span> <span class="hljs-attr">10</span>}}&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">Button</span>
+        <span class="hljs-attr">title</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Press me&quot;</span>
+        <span class="hljs-attr">onPress</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{()</span> =&gt;</span> show(&#x27;Simple Button pressed&#x27;)}
+      /&gt;
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">default</span> App;</code></pre>
+
+            <li>Ejecutamos la App con el siguiente comando:</li>
+            <code>npx react-native run-android</code>
+
+            <p>Y verificamos que todo funciona correctamente:</p>
+            <img src="Crear y utilizar librerias/6.png">
+
+          </ul>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>React Native | Java | Native Modules | libreria </p>
+        </div>
+
+    </body>
+</html>
