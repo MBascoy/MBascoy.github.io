@@ -1,0 +1,89 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Implementar Google Navigation SDK</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como implementar en <b>React-Native</b> el SDK de Google Navigation.</p>
+
+          <p><a href="https://dev.azure.com/manuelbascoy/_git/NavigationSWOLibrary">Código de Ejemplo</a> (Está en Azure Devops se necesita cuenta con permisos)</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <ul>
+            <li>Creamos una nueva aplicación React-native:</li>
+            <code>npx react-native init ImplementacionLibNavSDK</code>
+
+            <li>Instalamos el paquete de neustra libreria:</li>
+            <code>npm install ..\NavigationSwoLibrary\navigation-swo-library-0.1.0.tgz</code>
+
+            <li>Modificamos el archivo <b>metro.config.js</b>:</li>
+            <pre><code> const path = require('path');
+ const root = path.resolve(__dirname, 'node_modules/navigation-swo-library'); </code></pre>
+
+            <pre><code>projectRoot: __dirname,
+watchFolders: [root],</code></pre>
+
+            <img src="Implementar Librearia Google Navigation/1.png">
+
+            <li>Modificamos los archivos <b>build.gradle</b>:</li>
+            <p>Build.gradle a nivel proyecto (android/build.gradle), añadimos las siguientes configuraciones:</p>
+
+            <pre><code>plugins {
+    id "com.google.cloud.artifactregistry.gradle-plugin" version "2.1.1"
+}</code></pre>
+
+            <code>maven {url "artifactregistry://us-west2-maven.pkg.dev/gmp-artifacts/transportation"}</code>
+
+            <pre><code>configurations {
+    implementation {
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
+    }
+}</code></pre>
+
+            <img src="Implementar Librearia Google Navigation/2.png">
+
+            <p>Build.gradel a nivel app (android/app/build.gradle), añadimos la siguiente linea al principio:</p>
+            <code>apply plugin: 'com.google.cloud.artifactregistry.gradle-plugin'</code>
+
+            <img src="Implementar Librearia Google Navigation/3.png">
+
+            <li>En el archivo <b>App.js</b> metemos un código de ejemplo para llamar una función de la librería:</li>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> React <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {
+  Button,
+  View,
+} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;react-native&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { openNavigationActivity } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;navigation-swo-library&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> App = <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{{padding:</span> <span class="hljs-attr">10</span>}}&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">Button</span>
+      <span class="hljs-attr">title</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Press me&quot;</span>
+      <span class="hljs-attr">onPress</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">{()</span> =&gt;</span> openNavigationActivity(&quot;ChIJp3Hd4kT-Lg0REeOHwIhoFOA&quot;)}
+    /&gt;
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">default</span> App;</code></pre>
+          </ul>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Google Navigation | SDK</p>
+        </div>
+
+    </body>
+</html>
