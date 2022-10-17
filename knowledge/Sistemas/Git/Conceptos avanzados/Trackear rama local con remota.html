@@ -16,6 +16,14 @@
 
     <div class="t2">Comandos basicos</div>
         <div class="cont">
+          <h2>Consultar repositorio remoto</h2>
+          <p>Primero tenemos que consultar si nuestro repositorio está enlazado con algún repositorio remoto:</p>
+          <code>git remote -v</code>
+          <img src="Trackear rama local con remota/8.png"/>
+
+          <p>Nos devolverá la dirección del repositorio remoto, <b>en caso de que el comando no devuelva nada</b>, quiere decir que tendremos que configurar nuestro repositorio remoto usando el siguiente comando:</p>
+          <code>git remote add origin &lt;DIRECCION_REPO&gt;</code>
+
           <h2>Consultar estado de la rama</h2>
           <p>Primero consultamos el estado de la rama en la que estamos con el siguiente comando:</p>
 

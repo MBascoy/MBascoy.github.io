@@ -1,0 +1,68 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">commitlint</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Cuando ejecutamos un commit se  produce un error como el siguiente:</p>
+
+            <pre><code>RUNNING HOOKS GROUP: pre-commit
+
+types (SKIP. NO FILES FOR INSPECTING)
+
+lint (SKIP. NO FILES FOR INSPECTING)
+
+SUMMARY: (SKIP EMPTY)
+RUNNING HOOKS GROUP: commit-msg
+
+  EXECUTE > commitlint
+ ⧗   input: fesf
+✖   subject may not be empty [subject-empty]
+✖   type may not be empty [type-empty]
+
+✖   found 2 problems, 0 warnings
+ⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
+
+
+
+SUMMARY: (done in 18.54 seconds)
+🥊  commitlint</code> </pre>
+
+            <img src="commitlint/1.png"/>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+        <p>Este fallo se da porque hay una extensión llamada <b>commitlint</b> instalada en el repo de Git, está extensión nos obliga a que los comentarios de los commits tengan un formato concreto, podemos consultar el formato aqui:</p>
+
+        <a href="https://github.com/conventional-changelog/commitlint/#what-is-commitlint">https://github.com/conventional-changelog/commitlint/#what-is-commitlint</a>
+
+        <p>Ejemplo:</p>
+
+        <code>build(app): first commit</code>
+
+        <p>El comando sería:</p>
+        <code>git commit -m "build(app): first commit"</code>
+
+        <p>Si simplemente queremos librarnos del <b>commitlint</b> podemos borrar la carpeta <b>.git</b> y volver a crear el repositorio con <b>git init</b>.</p>
+
+        <p>Normalmente este problema no se debería de dar, ya que la instalación del commitlint deberíamos de hacerla nosotros mismos, pero hay ciertos plugins para generar proyectos que lo incluyen de manera predeterminada, en ese caso podemos quitarlo volviendo a crear el repositorio como se indica arriba.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | commitlint </p>
+        </div>
+
+    </body>
+</html>

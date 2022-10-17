@@ -31,10 +31,16 @@
                 <p>Nos muestra el historial de commits que se han hecho</p>
                 <li><b>git diff</b></li>
                 <p>Nos permite comparar las modificaciones del arbol de trabajo con el ultimo commit realizado</p>
-                
+
                 <li><b>git remote -vv</b></li>
                 <p>Nos muestra el enlace del repositorio remoto</p>
-                
+                <ul>
+                  <li><b>git remote add origin &lt;DIRECCION_REPO&gt;</b></li>
+                  <p>Añade un repositorio remoto <b>origin</b></p>
+                  <li><b>git remote remove origin</b></li>
+                  <p>Eliminar el repositorio remoto <b>origin</b> (en caso de que exista)</p>
+                </ul>
+
 
                 <li><b>git remote update</b></li>
                 <p>Nos permite actualizar la informacion referente al repositorio remoto (util antes de hacer un git status)</p>
@@ -42,16 +48,16 @@
                 <li><b>git ls-tree</b></li>
                 <ul>
                     <li>git ls-tree -r &lt;rama&gt; --name-only</li>
-                    
+
                     <p>Si queremos mostrar solo una <b>subruta</b> podemos indicarsela al final del comando</p>
-                    
+
                     <li>git ls-tree -r &lt;rama&gt; --name-only &lt;ruta&gt;</li>
                 </ul>
                 <p>Permite listar los archivos que hay en una rama</p>
-                
+
                 <li><b>git rm --cache &lt;archivo&gt;</b></li>
                 <p>Borra un archivo <b>trackeado</b> de la rama actual</p>
-                
+
             </ul>
         </div>
 
@@ -87,14 +93,14 @@
 
         <p>Hacer un commit que haga el add automaticamente con los archivos modificados:</p>
         <code>> git commit -a -m "Descripcion commmit"</code>
-        
+
 
         <p>Comparar con el commit previo al ultimo (Util en caso de que justo acabemos de realizar un commit y el arbol de trabajo sea igual que el ultimo commit)</p>
         <code>> git diff HEAD^</code>
 
         <p>Configurar nuestra rama de trabajo actual (local) para que se sincronice con la rama main del repositorio remoto:</p>
         <code>> git branch --set-upstream-to origin/main</code>
-        
+
         <p>Listar los archivos de la rama main de manera recursiva y mostrando solo el nombre:</p>
         <code>> git ls-tree -r --name-only main
 </code>
