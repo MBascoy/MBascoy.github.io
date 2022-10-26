@@ -1,0 +1,44 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">The tag present in the reparse point buffer is invalid</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Al intentar acceder a una carpeta obtenemos el siguiente error:</p>
+
+            <img src="The tag present in the reparse point buffer is invalid/1.png"/>
+
+            <code>is not accesible</code>
+            <code>The tag present in the reparse point buffer is invalid</code>
+
+            <p>Si intentamos borrarla simplemente no nos deja, no se produce ningún error, pero no se borra.</p>
+        </div>
+
+    <div class="t2">Solución</div>
+        <div class="cont">
+        <p>Para solucionar este error tenemos que abrir una consola (cmd) con permisos de administrador y ejecutar el siguiente comando:</p>
+
+        <code>chkdsk c: /f</code>
+
+        <p><b>NOTA:</b> cambiar <b>c:</b> por el nombre de la unidad en el que se encuentre la carpeta corrupta.</p>
+        <p>Nos responderá con un mensaje diciendo que el disco está en uso y que si queremos programar una comprobación del disco para el siguiente reinicio respondemos que si (Y), y reiniciamos el sistema.</p>
+        <p>Al reiniciar el sistema se comprobará el disco y se solucionarán todos los problemas que haya en el sistema de archivos, una vez se inicie el sistema de nuevo ya prodriamos tener acceso a la carpeta que nos daba problemas.</p>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Carpeta corrupta | chkdsk</p>
+        </div>
+
+    </body>
+</html>
