@@ -121,6 +121,19 @@
 
               <p>Para ejecutar este proyecto es necesaria la versión <b>11</b> del JDK, tenemos que tener definida la variable de entorno <b>JAVA_HOME</b> con la carpeta del jdk 11</p>
 
+              <h2>gcloud crashed (FileNotFoundError)</h2>
+
+              <p>Al lanzar la applicación de backend obtenemos el siguiente mensaje:</p>
+
+              <img src="Last Mile Fleet Solution (LMFS)/14.png">
+
+              <p>Si accedemos a la ruta que aparece en el error vemos que ese archivo si que existe, pero el sistema no puede acceder a él.</p>
+              <p>Este error se da porque la ruta es demasiado larga, windows por defecto tiene un limite de 256 caracteres para las rutas, para solucionar este error tenemos que modificar la siguiente clave del registro:</p>
+
+              <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem\LongPathsEnabled</code>
+
+              <p>Modificamos el valor de <b>0</b> a <b>1</b>. Una vez modificada la clave reiniciamos el sistema y el error ya no debería de aparecer.</p>
+
             </div>
 
         <div class="t2">Metodo Android App</div>

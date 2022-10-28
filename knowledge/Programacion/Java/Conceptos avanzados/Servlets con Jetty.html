@@ -1,0 +1,170 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Servlets con Jetty</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como desplegar <b>servlets</b> en un servidor Jetty</p>
+        </div>
+
+    <div class="t2">Conceptos</div>
+        <div class="cont">
+          <p>Los servlets no tienen función <b>main</b> las clases que generamos se cargan directamente en el servidor que actua de <b>container</b>, en este caso podríamos decir que el punto de entrada (la función main), está en el servidor.</p>
+
+          <p><b>IMPORTANTE !!</b></p>
+          <p>En <b>jetty 11</b> se implementan los servlets con <b>jakarta</b>, pero en jetty 10 los servlets se implementan con <b>javax</b>, tenemos que tener esto en cuenta a la hora de importar la librería de servlets en nuestro código.</p>
+
+          <table style="width:50%">
+            <thead>
+              <tr>
+              <th>Jetty</th>
+              <th>Servlet</th>
+              <th>EE</th>
+              <th>Namespace</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>Jetty 10.x</td>
+              <td>Servlet 4.0</td>
+              <td>Jakarta EE 8</td>
+              <td><code>javax.servlet</code></td>
+              </tr>
+              <tr>
+              <td>Jetty 11.x</td>
+              <td>Servlet 5.0</td>
+              <td>Jakarta EE 9</td>
+              <td><code>jakarta.servlet</code></td>
+              </tr>
+            </tbody>
+            </table>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+          <h2>Configuración inicial Jetty</h2>
+          <p>Primero configuramos la variable <b>JETTY_HOME</b> para que apunte a la carpeta en la que tenemos instalada jetty:</p>
+
+          <img src="Servlets con Jetty/1.png">
+
+          <p>Ejecutamos el siguiente comando para generar un proyecto con jetty desplegado:</p>
+
+          <code>java -jar %JETTY_HOME%/start.jar --add-module=server,http,deploy</code>
+
+          <p>Esto generará un scafolding con una serie de carpetas.</p>
+
+          <p>En la carpeta <b>webapps</b> es donde pondremos la aplicación que queremos desplegar en el servidor.</p>
+
+          <h2>Servlet de ejemplo</h2>
+          <p>A continuación desarrollamos el servlet que queremos desplegar en el servidor <b>jetty</b>.</p>
+
+          <p>Para hacer el servlet generamos el siguiente scafolding:</p>
+
+          <img src="Servlets con Jetty/2.png">
+
+          <p>En este caso lo generamos directamente en la carpeta <b>webapps</b>, pero podemos crear la carpeta en cualquier otro lugar y moverla mas adelante si queremos a la carpeta webapps.</p>
+
+          <p>En el <b>index.html</b>, ponemos el siguiente código:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">form</span> <span style="color:rgb(129, 162, 190); font-weight:400;">action</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;saludo&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">method</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;get&quot;</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>Nombre<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span> <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">name</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;nombre&quot;</span> /&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">br</span> /&gt;</span>
+
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;submit&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">value</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;login&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">form</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span></code></pre>
+
+          <p>En el <b>WEB-INF/web.xml</b> ponemos el siguiente código:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">web-app</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">servlet</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">servlet-name</span>&gt;</span>EjemploServlet<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">servlet-name</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">servlet-class</span>&gt;</span>Ejemplo<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">servlet-class</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">servlet</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">servlet-mapping</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">servlet-name</span>&gt;</span>EjemploServlet<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">servlet-name</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">url-pattern</span>&gt;</span>/saludo<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">url-pattern</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">servlet-mapping</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">web-app</span>&gt;</span></code></pre>
+
+          <p>En el <b>WEB-INF/classes/Ejemplo.java</b> ponemos el siguiente código:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> jakarta.servlet.http.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> jakarta.servlet.*;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.io.*;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Ejemplo</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">HttpServlet</span> </span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">doGet</span><span style="color:rgb(209, 217, 225); font-weight:400;">(HttpServletRequest req, HttpServletResponse res)</span> <span style="color:rgb(204, 153, 204); font-weight:400;">throws</span> ServletException, IOException </span>{
+        res.setContentType(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text/html&quot;</span>);
+        PrintWriter pw = res.getWriter();
+        String name = req.getParameter(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name&quot;</span>);
+        pw.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola &quot;</span> + name);
+    }
+}</code></pre>
+
+          <h2>Compilación</h2>
+          <p>A continuación compilamos nuestra clase <b>Ejemplo.java</b> con el siguiente comando (Tenemos que ponernemos en la carpeta classes):</p>
+
+          <code>javac -cp jakarta.servlet-api-5.0.0.jar Ejemplo.java</code>
+
+          <p><b>NOTA</b>: necesitamos poner la librería <b>jakarta.servlet-api-5.0.0.jar</b> en el directorio classes, si no tenemos está librería obtendremos el siguiente error:</p>
+
+          <img src="Servlets con Jetty/3.png">
+
+          <h2>Ejecución</h2>
+
+          <p>Una vez lo tenemos compilado nos ponemos en la carpeta raiz del proyecto y ejecutamos el siguiente comando, para lanzar el servidor:</p>
+
+          <code>java -jar %JETTY_HOME%/start.jar</code>
+
+          <p>Una vez se ejecuta el comando podemos acceder con el navegador a <b>http://127.0.0.1:8080/ServletEjemplo</b></p>
+
+          <img src="Servlets con Jetty/4.png">
+          <img src="Servlets con Jetty/5.png">
+
+          <p>Y ya tendremos nuestro servlet ejecutandose en el servidor, en este caso simplemente es un formulario que manda una variable y la muestra.</p>
+
+        </div>
+
+
+    <div class="t2">Generar .war</div>
+        <div class="cont">
+          <p>Si queremos en vez de poner toda la carpeta de nuestro <b>servlet</b> dentro de la carpeta webapps, podemos generar un archivo <b>.war</b> de nuestro servlet y meterlo directamente en la carpeta <b>webapps</b>.</p>
+
+          <p>Para generar el archivo <b>.war</b> lo hacemos con el siguiente comando:</p>
+
+          <code>jar -cvf ejemplo.war *</code>
+
+          <p>El comando lo ejecutamos dentro de la carpeta del <b>servlet</b>, en este caso ServletEjemplo</p>
+
+          <p>Una vez ejecutado el comando se genera el archivo <b>ejemplo.war</b> dentro de la carpeta ServletEjemplo, el archivo <b>.war</b> tenemos que moverlo a la carpeta webapps, así que ahora tendríamos dos servlets, el del .war y el de la carpeta:</p>
+
+          <img src="Servlets con Jetty/6.png">
+
+          <img src="Servlets con Jetty/7.png">
+
+          <p>Para acceder al servlet que acabamos de generar del <b>.war</b> entraríamos en la dirección <b>http://127.0.0.1:8080/ejemplo/</b></p>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Jetty | Servlets | java</p>
+        </div>
+
+    </body>
+</html>
