@@ -1,0 +1,798 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Template Dactyl Manuform</h1>
+    
+    <div class="t2">Compilación</div>
+        <div class="cont">
+            <p>Para compilar el firmware de este teclado usamos lo siguiente:</p>
+            <ul>
+                <li>QMK Firmware 0.16.9</li>
+                <li>commit: d9737349769a8bd2198733a81c1c74bd7db82c3a</li>
+            </ul>
+            
+            <p>Podemos usar dos comandos distintos para compilar y flashear el firmware (básicamente los dos hacen los mismo);</p>
+            <ul>
+                <li>qmk flash -kb handwired/dactyl_manuform/5x6 -km Alfa-Omega</li>
+            </ul>
+        </div>
+
+    <div class="t2">Config</div>
+        <div class="cont">
+            <p>Para configurar las velocidades del raton editamos el archivo <b>config.h</b> dentro de la carpeta del teclado incluyendo lo siguiente al final:</p>
+            
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_3_SPEED</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_C_OFFSET_0 3</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_C_OFFSET_1 7</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_C_OFFSET_2 20</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_C_INTERVAL_2 10</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_W_OFFSET_0 1</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_W_INTERVAL_0 100</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_W_OFFSET_1 2</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_W_INTERVAL_1 80</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_W_OFFSET_2 6</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_W_INTERVAL_2 5</span></code></pre>
+        </div>
+        
+    <div class="t2">Template</div>
+        <div class="cont">
+            <p>Este archivo debe de estar colocado en: <b>qmk_firmware/keyboards/handwired/dactyl_manuform/5x6/keymaps/Alfa-Omega/keymap.c</b></p>
+<pre>
+ <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(150, 152, 150); font-weight:400;">#include QMK_KEYBOARD_H</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define _KB 0</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define _NAV 1</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define _MOUSE 2</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define _NUMBERS 3</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define _SYMBOLS 4</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define _GAMEMOD 5</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">enum</span> <span style="color:rgb(255, 204, 102); font-weight:400;">custom_keycodes</span> </span>{
+    MVKBD = SAFE_RANGE,
+    MVNAV,
+    MVMOUSE,
+    NAVBACK,
+    NAVFRNT,
+    SHDESK,
+    ALTWIN,
+    ALTTABR,
+    ALTTABL,
+    CRTTAB,
+    RUNTER,
+    RUNGB,
+    RUNCOM,
+    SOKEY,
+    SELECT,
+    CLIPB,
+    COPY,
+    PASTE,
+    CUTK,
+    UNDO,
+    DELETE,
+    CLOSETAB,
+    NEWTAB,
+    INCOG,
+    ALTF4,
+    RTAB,
+    APP1,
+    APP2,
+    APP3,
+    APP4,
+    APP5,
+    APP6,
+    APP7,
+    APPFOLDER,
+    DEV_EXP,
+    DEV_SEAR,
+    DEV_QUIT,
+    DEV_TAB,
+    DEV_RUN,
+    DEV_DEBUG,
+    DEV_STOP,
+    DEV_OVER,
+    DEV_INTO,
+    DEV_OUT,
+    DEV_SNPT,
+    DEV_FNC,
+    S_LANGBRT,
+    S_RANGBRT,
+    S_LCURLYBRT,
+    S_RCURLYBRT,
+    S_LSQBRT,
+    S_RSQBRT,
+    S_LPAREN,
+    S_RPAREN,
+    S_LQMARK,
+    S_RQMARK,
+    S_SLSH,
+    S_EQL,
+    S_QUOT,
+    S_AT,
+    S_ASTRK,
+    S_DOLLAR,
+    S_PERC,
+    S_HASTG,
+    S_ACFL,
+    S_AMP,
+    S_EXCL,
+    S_NFEM,
+    S_BSLSH,
+    S_VGL,
+    S_PIPE,
+    MIAU
+};
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">bool</span> process_record_user(uint16_t keycode, keyrecord_t *record) {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">switch</span> (keycode) {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> MVKBD:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            <span style="color:rgb(150, 152, 150); font-weight:400;">// when keycode is pressed</span>
+            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            <span style="color:rgb(150, 152, 150); font-weight:400;">// when keycode is released</span>
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> MVNAV:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>);
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> MVMOUSE:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            layer_move(_MOUSE);
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> NAVBACK:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LEFT));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> NAVFRNT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_RIGHT));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> SHDESK:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_D));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> ALTWIN:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_TAB));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> ALTTABR:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_TAB));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> ALTTABL:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LSFT) SS_TAP(X_TAB));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> CRTTAB:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_T));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> RUNTER:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LALT) SS_DOWN(X_T));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> RUNGB:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LALT) SS_DOWN(X_B));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> RUNCOM:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_F2));
+            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> SOKEY:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
+            SEND_STRING(SS_DOWN(X_LGUI));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> SELECT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LSFT));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> CLIPB:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_V));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> COPY:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_C));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> PASTE:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_V));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> CUTK:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_X));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> UNDO:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_Z));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            SEND_STRING(SS_UP(X_LCTL) SS_UP(X_Z));
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DELETE:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_BSPC));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> CLOSETAB:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_W));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> NEWTAB:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_T));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> INCOG:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LSFT) SS_DOWN(X_N));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> ALTF4:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_F4));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> RTAB:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_TAB));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> APP1:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_1));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> APP2:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_2));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> APP3:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_3));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> APP4:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_4));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> APP5:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_5));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> APP6:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_6));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> APP7:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_7));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> APPFOLDER:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_E));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_EXP:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LALT) SS_DOWN(X_L));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_SEAR:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LBRC));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_QUIT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_F4));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_TAB:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_TAB));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_RUN:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_F5));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_DEBUG:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_F5));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_STOP:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_F5));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_OVER:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_F10));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_INTO:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_F11));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_OUT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_F11));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_SNPT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_K) SS_TAP(X_X));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_FNC:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_F2));
+            SEND_STRING(SS_UP(X_LCTL));
+            SEND_STRING(SS_TAP(X_TAB) SS_TAP(X_TAB));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+
+        <span style="color:rgb(150, 152, 150); font-weight:400;">/*---------------SYMBOLS----------------*/</span>
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_RANGBRT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_NUBS));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_LCURLYBRT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_QUOT));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_RCURLYBRT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_BSLS));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+   <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_LSQBRT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_LBRC));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_RSQBRT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_RBRC));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_LPAREN:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_8));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_RPAREN:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_9));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_LQMARK:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_EQL));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_RQMARK:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_MINS));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_SLSH:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_7));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_EQL:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_UP(X_RALT));
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_0));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_QUOT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_2));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_AT:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_2));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_ASTRK:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_RBRC));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_DOLLAR:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_4));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_PERC:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_5));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_HASTG:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_3));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_ACFL:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LBRC));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_AMP:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_6));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_EXCL:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_1));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_NFEM:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_GRV));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_BSLSH:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_GRV));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_VGL:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_4));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> S_PIPE:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_1));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> MIAU:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Miau !!!&quot;</span>);
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+
+    }
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+};
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_KB] = LAYOUT_5x6(
+        MIAU,    APP4, APPFOLDER,  KC_COMM, KC_ESC,  KC_VOLD,                 KC_VOLU, APP3,   KC_DOT,  KC_DEL, TG(_GAMEMOD),    KC_PSCR,
+        SHDESK,  KC_Q, KC_W  ,   KC_E,     KC_R,    KC_T,                     KC_Y,    KC_U,   KC_I,    KC_O,   KC_P,    KC_QUOT,
+        KC_TAB,  KC_A, KC_S  ,   KC_D,     KC_F,    KC_G,                     KC_H,    KC_J,   KC_K,    KC_L,   KC_SLSH, KC_LCTL,
+        KC_LCTL, KC_Z, KC_X  ,   KC_C,     KC_V,    KC_B,                     KC_N,    KC_M,   S_EQL,   MVNAV,  KC_SCLN, KC_BSLASH,
+                         KC_APP,  KC_LGUI,                                                      MVMOUSE, KC_EQL,
+                                         KC_LSFT, KC_BSPC,                     KC_SPC,  KC_ENT,
+                                         KC_LALT, KC_TAB ,                     MO(_NUMBERS),  MO(_SYMBOLS),
+                                         KC_INS,  RUNCOM,                      MVMOUSE, KC_LALT
+    ),
+
+    [_NAV] = LAYOUT_5x6(
+        KC_NO,  KC_TRNS,   KC_TRNS,    KC_NO,   KC_ESC,  KC_TRNS,                  KC_TRNS, KC_TRNS,    KC_NO,    KC_TRNS, TG(_GAMEMOD),   KC_NO,
+        KC_TRNS,   ALTF4,   CLOSETAB, ALTTABL, ALTTABR, NEWTAB,                    KC_NO,   KC_NO,    KC_UP,    KC_PGUP,   KC_NO,   KC_NO,
+        KC_TRNS,   ALTWIN,  RTAB,     KC_LCTL, KC_LSFT, KC_NO,                     KC_HOME, KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_END,  KC_NO,
+        KC_NO,   UNDO,    CUTK,     COPY,    PASTE,   CLIPB,                       INCOG,   KC_PGDN,  KC_NO,    KC_NO,     KC_NO,   KC_NO,
+                          KC_APP,  KC_LGUI,                                                             MVMOUSE,  KC_NO,
+                                            MVKBD,   KC_TRNS,                      KC_TRNS,       KC_TRNS,
+                                            KC_TRNS,   KC_TRNS,                    MO(_NUMBERS),  KC_TRNS,
+                                            KC_TRNS,   KC_TRNS,                    KC_TRNS,       KC_TRNS
+
+    ),
+
+    [_MOUSE] = LAYOUT_5x6(
+          RESET,  KC_TRNS, KC_TRNS,  KC_NO,   KC_ESC,  KC_TRNS ,                  KC_TRNS,   KC_TRNS, KC_NO,   KC_NO,   TG(_GAMEMOD),   KC_NO ,
+          KC_NO,  ALTF4,   CLOSETAB, ALTTABL, ALTTABR, NEWTAB,                    KC_BTN2,   KC_BTN1, KC_MS_U, KC_WH_U, KC_NO,   KC_NO,
+          SHDESK, KC_ACL0, KC_ACL1,  KC_ACL2, KC_BTN1, KC_BTN2,                   NAVBACK,   KC_MS_L, KC_MS_D, KC_MS_R, NAVFRNT, KC_TRNS,
+          KC_NO,  UNDO,    CUTK,     COPY,    PASTE,   CLIPB,                     KC_NO,     KC_WH_D, KC_NO,   MVNAV,   KC_NO,   KC_NO,
+                           KC_APP,  KC_LGUI,                                                           KC_NO,   KC_NO,
+                                             MVKBD,   KC_TRNS,                   KC_TRNS,   KC_TRNS,
+                                             KC_TRNS, KC_TRNS,                   KC_TRNS,   KC_TRNS,
+                                             KC_TRNS, KC_TRNS,                   KC_TRNS,   KC_TRNS
+    ),
+
+    [_NUMBERS] = LAYOUT_5x6(
+        KC_NO,   KC_NO,   KC_NO,   KC_COMM, KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_DOT, KC_NO,   KC_NO,   KC_NO,
+        KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_NO,   KC_7,    KC_8,    KC_9,   KC_NO,   KC_NO,
+        KC_NO,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_NO,                        KC_NO,   KC_4,    KC_5,    KC_6,   KC_NO,   KC_LCTL,
+        KC_NO,   KC_F9,  KC_F10,  KC_F11,  KC_F12,   KC_NO,                        KC_0,    KC_1,    KC_2,    KC_3,   KC_NO,   KC_NO,
+                          KC_NO,   KC_NO,                                                            KC_NO,   KC_NO,
+                                            MVKBD,     KC_TRNS,                        KC_TRNS,   KC_TRNS,
+                                            KC_TRNS,   KC_TRNS,                        KC_TRNS,   KC_TRNS,
+                                            KC_TRNS,   KC_TRNS,                        KC_TRNS,   KC_TRNS
+    ),
+
+    [_SYMBOLS] = LAYOUT_5x6(
+        KC_NO,   S_NFEM,    KC_GRV,   S_AT,        KC_NO,       KC_NO,             KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,   KC_NO,
+        KC_NO,   S_LQMARK,  S_RQMARK, KC_NUBS,     S_RANGBRT,   S_EQL,             KC_NO,   S_ACFL,  S_LPAREN, S_RPAREN, S_VGL,   KC_NO,
+        KC_NO,   KC_RBRC,   S_SLSH,   S_LCURLYBRT, S_RCURLYBRT, S_DOLLAR,          KC_BSLS, S_AMP,   S_QUOT,   KC_MINS,  S_BSLSH, KC_LCTL,
+        KC_NO,   KC_LBRC,   S_ASTRK,  S_LSQBRT,    S_RSQBRT,    S_PERC,            KC_NO,   S_HASTG, S_PIPE,   S_EXCL,   KC_NO,   KC_NO,
+                            KC_NO,    KC_NO,                                                                    KC_NO,   KC_NO,
+                                            MVKBD,   KC_TRNS,                      KC_TRNS,   KC_TRNS,
+                                            KC_NO,   KC_LALT,                      KC_TRNS,   KC_TRNS,
+                                            KC_NO,   KC_TRNS,                      KC_TRNS,   KC_TRNS
+    ),
+
+    [_GAMEMOD] = LAYOUT_5x6(
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_ESC,   KC_TRNS,                    KC_TRNS, KC_NO,    KC_NO,    KC_TRNS,   KC_TRNS,   KC_NO,
+        KC_NO,   KC_NO,   KC_Q,    KC_W,    KC_E,     KC_R,                       KC_NO,   KC_NO,    KC_UP,    KC_PGUP,   KC_NO,   KC_NO,
+        KC_NO,   KC_LSFT, KC_A,    KC_S,    KC_D,     KC_F,                       KC_HOME, KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_END,  KC_NO,
+        KC_NO,   KC_LCTL, KC_Z,    KC_X,    KC_C,     KC_V,                       INCOG,   KC_PGDN,  KC_NO,    KC_NO,     KC_NO,   KC_NO,
+                          KC_NO,   KC_NO,                                                             MVMOUSE,  KC_NO,
+                                            KC_LSFT,    KC_SPC,                    KC_TRNS,       KC_TRNS,
+                                            KC_TRNS,   KC_TRNS,                    MO(_NUMBERS),  KC_TRNS,
+                                            KC_TRNS,   KC_TRNS,                    KC_TRNS,       KC_TRNS
+
+    )
+};
+</code></pre>
+</div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+          <p>QMK | Dactyl Manuform | keymap</p>
+        </div>
+
+    </body>
+</html>
