@@ -172,6 +172,142 @@
               </ul>
             </div>
 
+        <div class="t2">Consultas con curl</div>
+            <div class="cont">
+
+              <p><a href="https://developers.google.com/maps/documentation/transportation-logistics/last-mile-fleet-solution/shipment-tracking/fleet-engine/deliveries_api#create-vehicle">Google fleet engine</a></p>
+              <p><a href="https://developers.google.com/maps/documentation/transportation-logistics/last-mile-fleet-solution/shipment-tracking/fleet-engine/auth#creating_a_json_web_token_jwt_for_authorization">JWT Authorization</a></p>
+
+              <p>Usamos el siguiente comando para crear una nuevo vehiculo en el <b>fleet engine</b>, </p>
+              <pre><code>curl -X POST "https://fleetengine.googleapis.com/v1/providers/${PROJECT_ID}/deliveryVehicles?deliveryVehicleId=${VEHICLE_ID}" \
+  -H "Content-type: application/json" \
+  -H "Authorization: Bearer ${JWT}" \
+--data-binary @- << EOM
+{
+  "attributes": [{"key": "model", "value": "sedan"}],
+  "lastLocation": {"location": {"latitude": 12.1, "longitude": 14.5}}
+}
+EOM</code> </pre>
+
+              <p>Tenemos que modificar <b>${PROJECT_ID}</b> por el nombre de nuestro proyecto, <b>${VEHICLE_ID}</b> por el id que le queramos dar al nuevo vehiculo, y <b>${JWT}</b> por nuestro token JWT (A continuación se muestra como generar el token JWT).</p>
+
+              <h2>Generar token JWT</h2>
+
+              <p>Primero necesitamos crear una <b>cuenta de servicio</b> en nuestro proyecto de <b>google cloud</b> que tenga los roles: <b>"Fleet Engine Delivery Super User"</b> y <b>"Service Account Token Creator"</b></p>
+
+              <p>A continuación en la cuenta de servicio que acabamos de crear tenemos que generar una nueva clave:</p>
+
+              <p>Cuentas de servicio > (seleccionamos nuestra cuenta) > Claves > Agregar Clave > Crear clave nueva</p>
+
+              <img src="Last Mile Fleet Solution (LMFS)/14.png">
+
+              <p>Una vez creada la nueva clave se descargará un archivo <b>JSON</b>, con toda la información necesaria que necesitamos para generar el JWT</p>
+
+              <p>Para generar el token <b>JWT</b> lo haremos con un script de <b>Python</b>.</p>
+              <p>Primero necesitamos instalar dos modulos de <b>python</b>:</p>
+              <code>pip install PyJWT</code>
+              <code>pip install cryptography</code>
+
+              <p>El script es el siguiente:</p>
+
+              <pre>
+ <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">import jwt
+import <span style="color:rgb(181, 189, 104); font-weight:400;">time</span>
+
+iat = <span style="color:rgb(181, 189, 104); font-weight:400;">time</span>.<span style="color:rgb(181, 189, 104); font-weight:400;">time</span>()
+<span style="color:rgb(181, 189, 104); font-weight:400;">exp</span> = iat + <span style="color:rgb(249, 145, 87); font-weight:400;">3600</span>
+payload = {<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;iss&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;CUENTA_DE_SERVICIO&#x27;</span>,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;sub&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;CUENTA_DE_SERVICIO&#x27;</span>,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;aud&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;https://fleetengine.googleapis.com/&#x27;</span>,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;iat&#x27;</span>: iat,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;exp&#x27;</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">exp</span>,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;authorization&#x27;</span>: {
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;deliveryvehicleid&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;*&#x27;</span>
+            } }
+additional_headers = {<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;kid&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;PRIVATE_KEY_ID&#x27;</span>}
+signed_jwt = jwt.encode(payload, <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;PRIVATE_KEY&#x27;</span>, headers=additional_headers,
+                        algorithm=<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;RS256&#x27;</span>)
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(signed_jwt)</code></pre>
+
+              <p>Tenemos que modificar los valores <b>CUENTA_DE_SERVICIO</b>, <b>PRIVATE_KEY_ID</b> y <b>PRIVATE_KEY</b>, para substituirlos por los valores que aparecen en el <b>JSON</b> que hemos descargado al generar la clave de nuestra cuenta de servicio.</p>
+
+              <p>El campo de <b>authorization</b> tendremos que modificarlo según la consulta que vayamos a realizar, en este caso usamos <b>deliveryvehicleid</b> porque vamos a crear un vehiculo, otras opciones del campo authorization son:</p>
+
+              <ul>
+                <li>deliveryvehicleid</li>
+                <li>trackingid</li>
+                <li>taskid</li>
+                <li>taskids</li>
+              </ul>
+
+              <p>Una vez tengamos todo modificado ejecutamos el script y nos devolverá un token como el siguiente:</p>
+
+              <img src="Last Mile Fleet Solution (LMFS)/15.png">
+
+              <p>Este token es lo que tenemos que substituit en el comando <b>curl</b> por ${JWT}</p>
+
+              <p>Al ejecutar el comando de manera satisfactoria obtenemos una respuesta como esta:</p>
+
+              <img src="Last Mile Fleet Solution (LMFS)/16.png">
+
+              <h2>Consultar vehiculo creado</h2>
+
+              <p>Para realizar una consulta del recurso que acabamos de crear lo hacemos con el siguiente comando:</p>
+
+              <pre><code>curl -H "Authorization: Bearer ${JWT}" \
+  "https://fleetengine.googleapis.com/v1/providers/${PROJECT_ID}/deliveryVehicles/${VEHICLE_ID}"</code></pre>
+
+              <p>Nuevamente tenemos que realizar los cambios de los valores ${JWT}, ${PROJECT_ID} y ${VEHICLE_ID}</p>
+
+              <p>La respuesta será algo como esto:</p>
+
+              <img src="Last Mile Fleet Solution (LMFS)/17.png">
+
+              <h2>Troubleshooting</h2>
+
+              <p>Al hacer la solicitud con <b>curl</b> nos podemos encontrar con los siguientes errores:</p>
+
+              <h3>Error 1:</h3>
+              <pre><code>"code": 403,
+"message": "JWT does not contain any scopes.",
+"status": "PERMISSION_DENIED"</code></pre>
+              <img src="Last Mile Fleet Solution (LMFS)/18.png">
+
+              <p>Este error se da porque no hemos indicado el campo <b>authorization</b> a la hora de generar el token <b>JWT</b></p>
+
+              <h3>Error 2:</h3>
+              <pre><code>"code": 403,
+"message": "User does not have permissions to complete this request",
+"status": "PERMISSION_DENIED"</code></pre>
+
+              <img src="Last Mile Fleet Solution (LMFS)/19.png">
+
+              <p>Este error se da porque la cuenta de servicio que estamos utilizando no tiene los roles necesarios para llevar acabo la operación, la cuenta debería de tener los roles: <b>"Fleet Engine Delivery Super User"</b> y <b>"Service Account Token Creator"</b></p>
+
+              <h3>Error 3:</h3>
+
+              <pre><code>"code": 401,
+"message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential.
+See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+  "status": "UNAUTHENTICATED"</code></pre>
+
+              <img src="Last Mile Fleet Solution (LMFS)/20.png">
+
+              <p>Este error se da cuando alguno de los datos que hemos indicado al generar el token es incorrecto, algun nombre de cuenta mal puesto, algun id mal puesto o alguna url mal puesta...</p>
+
+              <h3>Error 4:</h3>
+
+              <pre><code>"code": 403,
+"message": "JWT does not contain a matching scope for requested delivery vehicle.",
+"status": "PERMISSION_DENIED"</code></pre>
+
+              <img src="Last Mile Fleet Solution (LMFS)/21.png">
+
+              <p>Este error se da cuando en el campo <b>authorization</b> estamos indicando un parámetro que no es correcto para la solicitud que estámos realizando, por ejemplo usar <b>taskid</b> en vez de <b>deliveryvehicleid</b></p>
+
+
+            </div>
+
     <div class="t2">Tags</div>
         <div class="cont">
         <p>java | LMFS</p>

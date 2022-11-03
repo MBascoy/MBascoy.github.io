@@ -1,0 +1,69 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">On-Demand Rides and Deliveries (ODRD)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Explicación de los componentes e implementación del entorno ODRD (On-Demand Rides and Deliveries) de Google</p>
+        </div>
+
+    <div class="t2">Implementacion ODRD</div>
+        <div class="cont">
+          <h2>Provider (Backend)</h2>
+          <p>Para lanzar el backend primero tenemos que configurar el siguiente archivo (dentro de la carpeta provider):</p>
+          <code>src\main\resources\config.properties</code>
+
+          <p>Modificamos los siguientes campos:</p>
+
+          <pre><code>provider-id=YOUR_PROVIDER_ID
+server-token-account=SERVER_TOKEN_ACCOUNT@PROJECT_ID.iam.gserviceaccount.com
+consumer-token-account=CONSUMER_TOKEN_ACCOUNT@PROJECT_ID.iam.gserviceaccount.com
+driver-token-account=DRIVER_TOKEN_ACCOUNT@PROJECT_ID.iam.gserviceaccount.com</code> </pre>
+
+          <p>Como <b>provider-id</b> indicamos el id de nuestro proyecto en google cloud</p>
+
+          <p><b>NOTA:</b> Las cuentas de servicio no son las mismas que en <b>LMFS</b>.</p>
+
+          <p>En <b>server-token-account</b> tenemos que indicar una cuenta de servicio que tenga el rol <b>Superusuario del servicio de Fleet Engine</b>.</p>
+          <p>En <b>consumer-token-account</b> tenemos que indicar una cuenta de servicio que tenga el rol <b>Usuario de SDK para el controlador de Fleet Engine</b>.</p>
+          <p>En <b>driver-token-account</b> tenemos que indicar una cuenta de servicio que tenga el rol <b>Usuario de SDK para el controlador de Fleet Engine</b>.</p>
+          <p>Si alguna de las cuentas no tiene los roles indicados obtendremos un error al intentar añadir un nuevo viaje como el siguiente:</p>
+
+          <code>PERMISSION_DENIED: User does not have permissions to complete this request</code>
+          <img src="On-Demand Rides and Deliveries (ODRD)/2.png">
+
+          <h2>Android App</h2>
+
+          <p>Tenemos dos aplicaciones: <b>Driver</b> y <b>Consumer</b></p>
+
+          <p>Para lanzar la aplicación android primero tenemos que realizar la siguiente configuración:</p>
+
+          <h2>Web App</h2>
+
+          <p>Para lanzar la aplicación web tenemos que realizar primero la siguiente configuración:</p>
+
+
+          <h2>Troubleshooting</h2>
+          <p>Al lanzar el proyecto obtenemos el siguiente error:</p>
+
+          <code>Could not resolve all artifacts for configuration ':classpath'.</code>
+
+          <img src="On-Demand Rides and Deliveries (ODRD)/1.png">
+
+          <p>Este error se da porque para que el proyecto funcione necesitamos <b>Java 8</b> si tenemos otra versión mas nueva se dará ese error, para solucionarlo solo tenemos que instalar <b>Java 8</b> y actualizar la variable <b>JAVA_HOME</b>.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>java | LMFS</p>
+        </div>
+
+    </body>
+</html>
