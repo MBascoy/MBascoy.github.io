@@ -45,9 +45,68 @@ driver-token-account=DRIVER_TOKEN_ACCOUNT@PROJECT_ID.iam.gserviceaccount.com</co
 
           <p>Para lanzar la aplicación android primero tenemos que realizar la siguiente configuración:</p>
 
-          <h2>Web App</h2>
+          <p>Dentro de la carpeta Android creamos un archivo <b>local.properties</b> con el siguietne contenido:</p>
+
+          <pre><code>MAPS_API_KEY=&lt;MAPS_API_KEY&gt;
+PROVIDER_ID=&lt;PROVIDER_ID&gt;
+PROVIDER_URL=http://10.0.2.2:8080</code> </pre>
+
+          <p>Cambiamos <b>&lt;MAPS_API_KEY&gt;</b> y <b>&lt;PROVIDER_ID&gt;</b> por los datos corresopndientes a nuestro proyecto, el <b>PROVIDER_URL</b> podemos dejar ese, porque es la dirección local de nuestro sistema anfitrión dentro del emulador de android.</p>
+
+          <p>Una vez añadido este archivo podemos abrir la carpeta <b>android</b> con el android studio y desde ahí ejecutar los dos poryecto, tanto la <b>Driver App</b> como la <b>Consumer App</b> </p>
+
+          <p>Antes de ejecutar las aplicaciones de android tenemos que asegurarnos de tener el <b>provider</b> ejecutandose, si no no podremos crear nuevas tareas.</p>
+
+          <p>Si ya tenemos todo ejecutandose creamos un nuevo viaje usando la aplicación de cliente, y aceptamos el viaje usando la aplicación de conductor</p>
+
+          <h3>Troubleshooting Android</h3>
+          <p>Al intentar crear un viaje desde la aplicación cliente podemos encontrarnos con el siguiente error:</p>
+
+          <img src="On-Demand Rides and Deliveries (ODRD)/3.png">
+
+          <code>com.google.api.gax.rpc.PermissionDeniedException: io.grpc.StatusRuntimeException: PERMISSION_DENIED: User does not have permissions to complete this request</code>
+
+          <p>Este error se debe a que la cuenta de servicio <b>server-token-account</b> está mal configurada en el <b>provider</b> en el archivo <b>src\main\resources\config.properties</b>, puede ser que la cuenta no tenga los permisos necesarios, los permisos que tendría que tener esta cuenta son los de  <b>Superusuario del servicio de Fleet Engine</b>.</p>
+
+          <p>Hay que tener cuidado porque hay dos roles que se parecen mucho: <b>Superusuario del servicio de Fleet Engine</b> y <b>Superusuario de entrega de Fleet Engine</b>. el que necesitamos en ODRD es el primero <b>Superusuario del servicio de Fleet Engine</b></p>
+
+
+          <h2>Web App (Angular)</h2>
 
           <p>Para lanzar la aplicación web tenemos que realizar primero la siguiente configuración:</p>
+
+          <p>En el archivo <b>src\app\journey-sharing-google-map\journey-sharing-google-map.component.ts</b> tenemos que cambiar 3 variables: <b>PROVIDER_URL</b>, <b>apiKey</b> y <b>projectId</b>. En el caso de PROVIDER_URL podemos indicar la dirección local http://127.0.0.1:8080</p>
+
+          <p>Una vez hechos estos cambios ya podemos ejecutar la applicación angular:</p>
+
+          <code>npm install</code>
+          <code>npm serve</code>
+
+          <h3>Solucionar problema CORS</h3>
+
+          <p>Por defecto las solicitudes que haga la aplicación web al backend (provider) serán bloqueadas por la politica <b>CORS</b> del navegador.</p>
+
+          <img src="On-Demand Rides and Deliveries (ODRD)/7.png">
+
+          <p>Para solucionar este problema tenemos que modificar el backend (provider) de la siguiente manera:</p>
+
+          <p>En el archivo <b>src\main\java\com\example\provider\TokenServlet.java</b> añadimos la siguiente linea de código:</p>
+
+          <code>response.addHeader("Access-Control-Allow-Origin", "*");</code>
+
+          <img src="On-Demand Rides and Deliveries (ODRD)/4.png">
+
+          <p>El asterisco indica que cualquier origen puede hacer solicitudes al servidor, si queremos podemos indicar un dominio concreto.</p>
+
+          <p>Una vez hecho este cambio en el backend podemos realizar solicitudes sobre viajes creados desde la aplicación web.</p>
+
+          <h3>Visualizar viajes en la Web App</h3>
+
+          <p>Desde la aplicación android de cliente creamos un nuevo viaje, desde la aplicación de conductor aceptamos el viaje, a continuación en la consola donde estamos ejecutando el <b>provider</b> cogemos el id del viaje y lo pegamos en la aplicación Web, y podremos ver el estado del viaje y la posición actual del conductor.</p>
+
+          <img src="On-Demand Rides and Deliveries (ODRD)/5.png">
+
+          <img src="On-Demand Rides and Deliveries (ODRD)/6.png">
 
 
           <h2>Troubleshooting</h2>
@@ -62,7 +121,7 @@ driver-token-account=DRIVER_TOKEN_ACCOUNT@PROJECT_ID.iam.gserviceaccount.com</co
 
     <div class="t2">Tags</div>
         <div class="cont">
-        <p>java | LMFS</p>
+        <p>java | ODRD</p>
         </div>
 
     </body>

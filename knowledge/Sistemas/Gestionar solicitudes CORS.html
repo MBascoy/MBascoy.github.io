@@ -1,0 +1,66 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Gestionar solicitudes CORS</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como gestionar solicitudes de dominio cruzados (CORS), ya sea desde el navegador o desde el servidor.</p>
+
+            <p>La cabecera que indica si se permiten solicitudes CORS en las cabeceras HTTP es la siguiente:</p>
+
+            <code>Access-Control-Allow-Origin</code>
+
+        </div>
+
+    <div class="t2">Gestionar CORS en el servidor</div>
+        <div class="cont">
+
+          <p>En esta web podemos ver como gestionar solicitudes CORS en varios servidores y con varios lenguajes: <a href="https://enable-cors.org/server.html">https://enable-cors.org</a> </p>
+
+          <h2>CORS en App Engine (google)</h2>
+          <p>Para gestionar las solicitudes <b>CORS</b> en servidores implementados con <b>App Engine</b> lo hacemos con la siguiente linea de código, dentro de la función <b>doGet</b>:</p>
+
+          <code>response.addHeader("Access-Control-Allow-Origin", "*");</code>
+
+          <p>Siendo <b>response</b> un objeto tipo <b>HttpServletResponse</b></p>
+
+          <p>En vez del asterisco (aceptar cualquiera solicitud) podemos indicar el dominio del que queramos aceptar solicitudes.</p>
+
+        </div>
+
+
+    <div class="t2">Deshabilitar CORS en Google Chrome</div>
+        <div class="cont">
+
+          <p>Para deshabilitar la politica CORS tenemos que ejecutar el google chrome desde la consola con el siguiente comando</p>
+
+          <code>"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir="C:\ChromeNewConfig"</code>
+
+          <p>NOTA: En windows indicamos toda la ruta del ejecutable si fuese en linux podemos utilizar el comando <b>google-chrome</b></p>
+
+        </div>
+
+        <div class="t2">Error</div>
+            <div class="cont">
+              <p>Desde la consola de desarrollador podemos ver mensajes como este cuando se produce una violacion de la politica CORS:</p>
+
+              <code>has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:8080' is therefore not allowed access.</code>
+
+            </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Chrome | CORS</p>
+        </div>
+
+    </body>
+</html>

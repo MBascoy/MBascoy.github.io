@@ -160,6 +160,21 @@
 
         </div>
 
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+          <p>Al tener configuraciones en el archivo <b>web.xml</b> que requieran de modulos externos como esta:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;</span><span style="color:rgb(204, 153, 204); font-weight:400;">filter</span><span style="color:rgb(209, 217, 225); font-weight:400;">&gt;</span>
+   <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;</span><span style="color:rgb(204, 153, 204); font-weight:400;">filter</span><span style="color:rgb(209, 217, 225); font-weight:400;">-</span>name<span style="color:rgb(209, 217, 225); font-weight:400;">&gt;</span><span style="color:rgb(204, 153, 204); font-weight:400;">cross</span><span style="color:rgb(209, 217, 225); font-weight:400;">-</span>origin<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">/</span><span style="color:rgb(204, 153, 204); font-weight:400;">filter</span><span style="color:rgb(209, 217, 225); font-weight:400;">-</span>name<span style="color:rgb(209, 217, 225); font-weight:400;">&gt;</span>
+   <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;</span><span style="color:rgb(204, 153, 204); font-weight:400;">filter</span><span style="color:rgb(209, 217, 225); font-weight:400;">-</span>class<span style="color:rgb(209, 217, 225); font-weight:400;">&gt;</span>org.eclipse.jetty.servlets.CrossOriginFilter<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">/</span><span style="color:rgb(204, 153, 204); font-weight:400;">filter</span><span style="color:rgb(209, 217, 225); font-weight:400;">-</span>class<span style="color:rgb(209, 217, 225); font-weight:400;">&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">/</span><span style="color:rgb(204, 153, 204); font-weight:400;">filter</span><span style="color:rgb(209, 217, 225); font-weight:400;">&gt;</span></code></pre>
+
+      <p>Podemos encontrarnos con un error como este al ejecutar el servidor:</p>
+      <code>java.lang.ClassNotFoundException: org.eclipse.jetty.servlets.CrossOriginFilter</code>
+
+      <p>Esto se da porque estos modulos tenemos que ponerlos dentro de una carpeta <b>lib</b> dentro de la carpeta <b>WEB-INF</b> (webapp/WEB-INF/lib), en este caso tendríamos que poner el jar <b>jetty-servlets-10.0.12.jar</b> dentro de la carpeta <b>lib</b>.</p>
+      </div>
+
 
     <div class="t2">Tags</div>
         <div class="cont">
