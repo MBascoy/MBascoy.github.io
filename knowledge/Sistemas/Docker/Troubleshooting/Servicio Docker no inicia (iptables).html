@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Servicio Docker no inicia (iptables)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Al intentar ejecutar el servicio de docker con <b>sudo service docker start</b> el servicio no se inicia, si miramos el archivo de log <b>/var/log/docker.log</b> vemos el siguiente error:</p>
+            <code>failed to start daemon: Error initializing network controller: error obtaining controller instance: failed to create NAT chain DOCKER: iptables failed: iptables -t nat -N DOCKER: iptables v1.8.4 (legacy): can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.</code>
+
+            <img src="Servicio Docker no inicia (iptables)/1.png">
+
+
+        </div>
+
+        <div class="t2">Solución</div>
+            <div class="cont">
+              <p>Este fallo se da porque <b>Docker</b> se está ejecutando en una distribución con <b>WSL1</b> y necesita <b>WSL2</b>.</p>
+
+              <p>Podemos consultar la versión de WSL de nuestra distribución con el siguiente comando:</p>
+
+              <code>wsl -l -v</code>
+
+              <p>Para solucionar este problema solo tenemos que actualizar la distribución con el siguiente comando:</p>
+
+              <code>wsl --set-version DISTRO 2</code>
+
+              <p>Cambiamos <b>DISTRO</b> por el nombre de nuestra distribución, el nombre aparece en el comando <b>wsl -l -v</b>, el comando puede tardar un par de minutos en ejecutarse.</p>
+            </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker | Error | Iptables</p>
+        </div>
+
+    </body>
+</html>
