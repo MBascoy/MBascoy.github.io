@@ -14,6 +14,53 @@
             <p>Explicación de los componentes e implementación del entorno ODRD (On-Demand Rides and Deliveries) de Google</p>
         </div>
 
+    <div class="t2">Componentes</div>
+        <div class="cont">
+          <ul>
+            <li>Fleet Engine</li>
+            <li>Navigation SDK</li>
+            <li>Driver SDK</li>
+            <li>Consumer SDK</li>
+            <li>Location Selection API</li>
+          </ul>
+
+          <h2>Fleet Engine</h2>
+          <ul>
+            <li>Es módulo principal de la solución.</li>
+            <li>Se encarga de gestionar todos los recursos relacionados con las tareas.</li>
+            <li>Gestiona vehículos</li>
+            <li>Gestiona las tareas que tiene que realizar cada vehículo.</li>
+            <li>Gestiona el estado actual en el que está cada tarea.</li>
+            <li>Gestiona la posición geolocalizada de cada vehículo.</li>
+            <li>El Driver SDK puede comunicarse con el fleet engine utilizando “The Fleet Engine Deliveries API”</li>
+          </ul>
+
+          <h2>Driver SDK</h2>
+          <ul>
+            <li>Se encarga de informar de la posición geolocalizada del repartidor al Fleet engine.</li>
+            <li>Actualiza el estado de las entregas en el Fleet engine cuando el repartidor modifica su estado.</li>
+          </ul>
+
+          <h2>Navigation SDK</h2>
+          <ul>
+            <li>Se encarga de proporcionar a los repartidores las indicaciones para llegar a su siguiente destino.</li>
+          </ul>
+
+          <h2>Consumer SDK</h2>
+          <ul>
+            <li>Se encarga de gestionar las solicitudes del cliente.</li>
+            <li>Crea nuevos viajes, indicando un punto de recogida y un punto de destino</li>
+            <li>Recibir información relativa al Driver SDK para saber a que distancia se encuentra el conductor.</li>
+          </ul>
+
+          <h2>Location Selection API</h2>
+          <ul>
+            <li>Esta API se encarga de mostrar putnos de recogida cerca del cliente.</li>
+            <li>A diferencia del Consumer SDK donde se solicita un punto concreto de recogida, está API muestra puntos de recogida ya creados que están cercanos al cliente, como podría ser en el caso de uso de estaciones de autobuses o aplicaciones para compartir coche.</li>
+            <li>La API devuelve los puntos de recogida mas cercanos y sus respectivos puntos de destino.</li>
+          </ul>
+        </div>
+
     <div class="t2">Implementacion ODRD</div>
         <div class="cont">
           <h2>Provider (Backend)</h2>

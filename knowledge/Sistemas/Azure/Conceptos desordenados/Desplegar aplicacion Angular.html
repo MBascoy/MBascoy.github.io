@@ -17,7 +17,128 @@
 
     <div class="t2">Método</div>
         <div class="cont">
-          <p>Video explicacion: <a href="https://www.youtube.com/watch?v=9PTFz_hTEpU">https://www.youtube.com/watch?v=9PTFz_hTEpU</a></p> 
+          <p>Video explicacion: <a href="https://www.youtube.com/watch?v=9PTFz_hTEpU">https://www.youtube.com/watch?v=9PTFz_hTEpU</a></p>
+
+        </div>
+
+    <div class="t2">Despliege manual</div>
+        <div class="cont">
+          <p>Para desplegar una aplicación de Angular manualmente en azure seguimos los siguientes pasos:</p>
+
+          <ul>
+            <li>Hacemos un <b>build</b> de la aplicación Angular.</li>
+            <li>Creamos un almacenamiento en Azure y activamos "<b>static website</b>".</li>
+            <li>Subimos los archivos de la aplicación Angular al amacenamiento.</li>
+          </ul>
+
+          <h2>Build App Angular</h2>
+          <p>Para hacer una build de nuestra aplicación lanzamos el siguiente comando, desde la carpeta de la applicación:</p>
+
+          <code>ng build</code>
+
+          <p>Tambien podemos usar este comando (este comando lo tendremos que usar al crear la pipeline):</p>
+          <code>npm run build</code>
+
+          <p>Como resultado dentro de la carpeta <b>dist</b> se generará una carpeta con todos los archivos de nuestra applicación listos para ser desplegados:</p>
+          <img src="Desplegar aplicacion Angular/1.png">
+
+          <h2>Almacenamiento Azure</h2>
+          <p>Primero creamos una <b>Storage Account</b>, desde la página principal del <b>Azure Portal</b> nos vamos a <b>More Servides</b>:</p>
+          <img src="Desplegar aplicacion Angular/2.png">
+
+          <p>Seleccionamos <b>Storage Accounts</b> de entre todos los servicios:</p>
+          <img src="Desplegar aplicacion Angular/3.png">
+
+          <p>Creamos un nuevo <b>Storage</b>:</p>
+          <img src="Desplegar aplicacion Angular/4.png">
+
+          <p>Le damos un <b>nombre único</b> y le damos a <b>Review</b>:</p>
+          <img src="Desplegar aplicacion Angular/5.png">
+
+          <p>En la siguiente pantalla le damos a <b>Create</b> y el recurso se creará (puede tardar unos segundos en crearse...)</p>
+
+          <p>Una vez creado el recurso accedemos a el y en el apartado <b>static website</b> lo marcamos como <b>Enabled</b>:</p>
+          <img src="Desplegar aplicacion Angular/6.png">
+
+          <p>En el apartado de <b>index document</b> indicamos <b>index.html</b> y le damos a <b>Save</b>:</p>
+          <img src="Desplegar aplicacion Angular/7.png">
+
+          <p>Una vez le damos a <b>Save</b> en el mismo apartado se nos mostrará la dirección con la que podemos acceder a la web:</p>
+          <img src="Desplegar aplicacion Angular/8.png">
+
+          <p>Ahora solo nos queda subir los archivos al almacenamiento, nos vamos al apartado <b>Containers</b> y despues elegimos <b>$web</b> (Este contenedor se crea al activar <b>static website</b>):</p>
+          <img src="Desplegar aplicacion Angular/9.png">
+
+          <p>Hacemos click en la opción <b>Upload</b>:</p>
+          <img src="Desplegar aplicacion Angular/10.png">
+
+          <p>Y seleccionamos todos los archivos que se generaron con el comando <b>ng build</b>:</p>
+          <img src="Desplegar aplicacion Angular/11.png">
+
+          <p>Una vez subidos los archivos, entramos en la dirección que figura en el apartado <b>Static website</b> y veremos nuestra aplicación Angular desplegada:</p>
+          <img src="Desplegar aplicacion Angular/12.png">
+
+        </div>
+
+    <div class="t2">Despliege con pipeline CI/CD</div>
+        <div class="cont">
+          <p>Primero creamos un repositorio en <b>Azure Devops</b> y subimos el código de nuestra aplicación Angular.</p>
+          <img src="Desplegar aplicacion Angular/13.png">
+          <img src="Desplegar aplicacion Angular/14.png">
+
+          <p>Creamos una nueva <b>pipeline</b> desde <b>Azure Devops</b>:</p>
+          <img src="Desplegar aplicacion Angular/15.png">
+
+          <p>Indicamos que queremos usar el editor antiguo:</p>
+          <img src="Desplegar aplicacion Angular/16.png">
+
+          <p>Indicamos el repositorio que creamos previamente:</p>
+          <img src="Desplegar aplicacion Angular/17.png">
+
+          <p>Indicamos que queremos empezar con un <b>Empty job</b>:</p>
+          <img src="Desplegar aplicacion Angular/18.png">
+
+          <h2>Creación pipeline</h2>
+          <p>Añadimos una tarea de <b>npm</b> a la pipeline:</p>
+          <img src="Desplegar aplicacion Angular/19.png">
+
+          <p>está tarea ejecutará <b>npm install</b> para instalar todos los paquetes de <b>package.json</b>:</p>
+          <img src="Desplegar aplicacion Angular/20.png">
+
+          <p>Volvemos a añadir una tarea de <b>npm</b>:</p>
+          <img src="Desplegar aplicacion Angular/21.png">
+
+          <p>En este caso modificaremos la tarea para que realice la build de nuestra aplicación, le indicamos un nombre, en <b>Command</b> indicamos <b>custom</b>, y en <b>Command and Arguments</b> indicamos <b>run build</b> (el comando resultante de esta tarea será "npm run build"):</p>
+          <img src="Desplegar aplicacion Angular/22.png">
+
+          <p>Ahora a mayores añadimos una tarea de <b>Publish build artifact</b>:</p>
+          <img src="Desplegar aplicacion Angular/23.png">
+
+          <p>En <b>Path to publish</b> indicamos <b>$(System.DefaultWorkingDirectory)\dist</b>, esta variable hace referencia a la carpeta <b>dist</b> donde se genera la build de nuestro proyecto de angular.</p>
+
+          <img src="Desplegar aplicacion Angular/24.png">
+
+          <p>Hacemos click en <b>Save</b>:</p>
+          <img src="Desplegar aplicacion Angular/25.png">
+
+          <p>Indicamos un comentario para guardarlo:</p>
+          <img src="Desplegar aplicacion Angular/26.png">
+
+          <p>Le damos a <b>Queue</b>:</p>
+          <img src="Desplegar aplicacion Angular/27.png">
+
+          <p>Y ejecutamos la pipeline dandole a <b>Run</b>:</p>
+          <img src="Desplegar aplicacion Angular/28.png">
+
+
+          <p>Si al ejecutar la pipeline obtenemos el siguiente error tenemos que rellenar el formulario del enlace (tarda entre 1-3 días):</p>
+          <code>##[error]No hosted parallelism has been purchased or granted. To request a free parallelism grant, please fill out the following form https://aka.ms/azpipelines-parallelism-request</code>
+          <img src="Desplegar aplicacion Angular/29.png">
+
+
+
+
+
 
         </div>
 
