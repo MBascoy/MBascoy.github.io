@@ -1,0 +1,335 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Implementar Material Design con CDN</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como implementar Material Design en un proyecto mediante CDN</p>
+
+        </div>
+
+    <div class="t2">Material Design con CDN</div>
+        <div class="cont">
+
+          <h2>Implementar liberías CSS y JavaScript</h2>
+          <p>Incluimos el siguiente código en el <b>head</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;stylesheet&quot;</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;stylesheet&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot;</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span> <span style="color:rgb(129, 162, 190); font-weight:400;">src</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span></code></pre>
+
+          <h2>Instanciar JavaScript</h2>
+          <p>Para instanciar el JavaScript usando el <b>CDN</b> cogemos el código del componente (el que figura en la web de material design), y en vez de hacer el <b>import</b> cambiamos el nombre del componente añadiendo <b>mdc.libreria</b> al inicio.</p>
+          <p>Por ejemplo con el componente <b>Button</b> sería así:</p>
+
+          <p>Código de componente:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {MDCRipple} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@material/ripple&#x27;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> buttonRipple = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> MDCRipple(<span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.mdc-button&#x27;</span>));</code></pre>
+
+          <p>En este caso quedaría así:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+  <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> buttonRipple = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.ripple.MDCRipple(<span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.mdc-button&#x27;</span>));
+</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span></code></pre>
+
+          <p>Eliminamos el import y antes de <b>MDCRipple</b> añadimos el nombre de la librería, en este caso: <b>mdc.ripple</b>.</p>
+          <p>En este caso el código javascript solo se usa para añadir el efecto visual del ripple, al pulsar el boton.</p>
+
+          <h2>Componente Button</h2>
+
+          <p>Código HTML:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button mdc-button--raised&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">onclick</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mensaje()&quot;</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button__label&quot;</span>&gt;</span>Contained Button<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span></code></pre>
+
+
+          <p>Código Javascript:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+  <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> buttonRipple = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.ripple.MDCRipple(<span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.mdc-button&#x27;</span>));
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> <span class="hljs-title">mensaje</span>(<span class="hljs-params"></span>) </span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">window</span>.alert(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola !!!&quot;</span>);
+  }
+</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span></code></pre>
+          <p>El código completo para implementar un botón sería así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">&lt;!DOCTYPE <span style="color:rgb(249, 145, 87); font-weight:400;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span> <span style="color:rgb(129, 162, 190); font-weight:400;">lang</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;en&quot;</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;stylesheet&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;stylesheet&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span> <span style="color:rgb(129, 162, 190); font-weight:400;">src</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button mdc-button--raised&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">onclick</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mensaje()&quot;</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button__label&quot;</span>&gt;</span>Contained Button<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+      <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> buttonRipple = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.ripple.MDCRipple(<span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.mdc-button&#x27;</span>));
+
+      <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> <span class="hljs-title">mensaje</span>(<span class="hljs-params"></span>) </span>{
+        <span style="color:rgb(181, 189, 104); font-weight:400;">window</span>.alert(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola !!!&quot;</span>);
+      }
+    </span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+</code></pre>
+
+          <p>La linea:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span></code></pre>
+
+          <p>Es la que se encarga de añadir el effecto <b>ripple</b> junto con el javascript.</p>
+
+          <h2>Componente TextField</h2>
+          <p>Para el componente <b>TextField</b> la librería de JavaScript que se usa con el <b>CDN</b> es la siguiente:</p>
+          <code>mdc.textField</code>
+
+          <p>Código HTML:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">&lt;label <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span></span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-text-field mdc-text-field--filled&quot;</span>&gt;
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-text-field__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-floating-label&quot;</span> <span class="hljs-attr">id</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;my-label-id&quot;</span>&gt;</span>Hint text<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-text-field__input&quot;</span> <span class="hljs-attr">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text&quot;</span> <span class="hljs-attr">aria-labelledby</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;my-label-id&quot;</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-line-ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span class="hljs-name">label</span>&gt;</span></span></code></pre>
+
+          <p>Código JavaScript:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">let</span> textField = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.textField.MDCTextField(<span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.mdc-text-field&#x27;</span>));</code></pre>
+
+          <p>Ejemplo con un botón que indica el texto introducido en el <b>textField</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">&lt;!DOCTYPE <span style="color:rgb(249, 145, 87); font-weight:400;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span> <span style="color:rgb(129, 162, 190); font-weight:400;">lang</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;en&quot;</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;stylesheet&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;stylesheet&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span> <span style="color:rgb(129, 162, 190); font-weight:400;">src</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button mdc-button--raised&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">onclick</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mensaje()&quot;</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button__label&quot;</span>&gt;</span>Contained Button<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">label</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-text-field mdc-text-field--filled&quot;</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-text-field__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-floating-label&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">id</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;my-label-id&quot;</span>&gt;</span>Hint text<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-text-field__input&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">aria-labelledby</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;my-label-id&quot;</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-line-ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">label</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+      <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> textField = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.textField.MDCTextField(<span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.mdc-text-field&#x27;</span>));
+
+      <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> <span class="hljs-title">mensaje</span>(<span class="hljs-params"></span>)</span>{
+        <span style="color:rgb(181, 189, 104); font-weight:400;">window</span>.alert(textField.value)
+      }
+    </span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+</code></pre>
+
+          <p>Para leer el valor del <b>TextField</b> usamos:</p>
+
+          <code>textField.value</code>
+
+          <h2>Componente Switch</h2>
+
+          <p>Para el componente <b>switch</b>, la libería de javascript que se usa con el <b>CDN</b> es la siguiente:</p>
+          <code>mdc.switchControl</code>
+
+          <p>Código HTML:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> <span style="color:rgb(129, 162, 190); font-weight:400;">id</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;selected-switch&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch mdc-switch--selected&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;button&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">role</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;switch&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">aria-checked</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;true&quot;</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__track&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__handle-track&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__handle&quot;</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__shadow&quot;</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-elevation-overlay&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__icons&quot;</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">svg</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__icon mdc-switch__icon--on&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">viewBox</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0 0 24 24&quot;</span>&gt;</span>
+          <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">path</span> <span style="color:rgb(129, 162, 190); font-weight:400;">d</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;M19.69,5.23L8.96,15.96l-4.23-4.23L2.96,13.5l6,6L21.46,7L19.69,5.23z&quot;</span> /&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">svg</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">svg</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__icon mdc-switch__icon--off&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">viewBox</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0 0 24 24&quot;</span>&gt;</span>
+          <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">path</span> <span style="color:rgb(129, 162, 190); font-weight:400;">d</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;M20 13H4v-2h16v2z&quot;</span> /&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">svg</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">label</span> <span style="color:rgb(129, 162, 190); font-weight:400;">for</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;selected-switch&quot;</span>&gt;</span>off/on<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">label</span>&gt;</span></code></pre>
+
+          <p>Código JavaScript:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">let</span> switchControl
+<span style="color:rgb(181, 189, 104); font-weight:400;">for</span> (<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">const</span> el of document.querySelectorAll(<span class="hljs-string">&#x27;.mdc-switch&#x27;</span></span>))</span> {
+  switchControl = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.switchControl.MDCSwitch(el);
+}</code></pre>
+
+          <p>Ejemplo con un boton que indica si el <b>switch</b> está o no seleccionado:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">&lt;!DOCTYPE <span style="color:rgb(249, 145, 87); font-weight:400;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span> <span style="color:rgb(129, 162, 190); font-weight:400;">lang</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;en&quot;</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;stylesheet&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;stylesheet&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span> <span style="color:rgb(129, 162, 190); font-weight:400;">src</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button mdc-button--raised&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">onclick</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mensaje()&quot;</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button__label&quot;</span>&gt;</span>Contained Button<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> <span style="color:rgb(129, 162, 190); font-weight:400;">id</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;basic-switch&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch mdc-switch--unselected&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;button&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">role</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;switch&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">aria-checked</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;false&quot;</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__track&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__handle-track&quot;</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__handle&quot;</span>&gt;</span>
+          <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__shadow&quot;</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-elevation-overlay&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+          <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+          <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+          <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__icons&quot;</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">svg</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__icon mdc-switch__icon--on&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">viewBox</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0 0 24 24&quot;</span>&gt;</span>
+              <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">path</span> <span style="color:rgb(129, 162, 190); font-weight:400;">d</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;M19.69,5.23L8.96,15.96l-4.23-4.23L2.96,13.5l6,6L21.46,7L19.69,5.23z&quot;</span> /&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">svg</span>&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">svg</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-switch__icon mdc-switch__icon--off&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">viewBox</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0 0 24 24&quot;</span>&gt;</span>
+              <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">path</span> <span style="color:rgb(129, 162, 190); font-weight:400;">d</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;M20 13H4v-2h16v2z&quot;</span> /&gt;</span>
+            <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">svg</span>&gt;</span>
+          <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">label</span> <span style="color:rgb(129, 162, 190); font-weight:400;">for</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;basic-switch&quot;</span>&gt;</span>off/on<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">label</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+      <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> buttonRipple = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.ripple.MDCRipple(<span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.mdc-button&#x27;</span>));
+      <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> switchControl
+      <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> el <span style="color:rgb(204, 153, 204); font-weight:400;">of</span> <span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.querySelectorAll(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.mdc-switch&#x27;</span>)) {
+          switchControl = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.switchControl.MDCSwitch(el);
+      }
+
+      <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> <span class="hljs-title">mensaje</span>(<span class="hljs-params"></span>) </span>{
+        <span style="color:rgb(181, 189, 104); font-weight:400;">window</span>.alert(switchControl.selected);
+
+      }
+    </span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+</code></pre>
+
+          <p>Para leer el estado del <b>Switch</b> usamos:</p>
+          <code>switchControl.selected</code>
+
+          <h2>Componente List</h2>
+
+          <p>Para el componente <b>list</b>, la librería que se usa para el <b>CDN</b> es la siguiente:</p>
+          <code>mdc.list</code>
+
+          <p>Código HTML:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">ul</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list&quot;</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">li</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">tabindex</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__text&quot;</span>&gt;</span>First<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">li</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">li</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__text&quot;</span>&gt;</span>Second<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">li</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">li</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__text&quot;</span>&gt;</span>Third<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">li</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">ul</span>&gt;</span></code></pre>
+
+
+          <p>Código JavaScript:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">let</span> list = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.list.MDCList(<span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.mdc-list&#x27;</span>));
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> listItemRipples = list.listElements.map(<span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(209, 217, 225); font-weight:400;">listItemEl</span>) =&gt;</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.ripple.MDCRipple(listItemEl));
+list.singleSelection = <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;</code></pre>
+
+          <p>Código de ejemplo con un botón para mostrar que opción está selecionada:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">&lt;!DOCTYPE <span style="color:rgb(249, 145, 87); font-weight:400;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span> <span style="color:rgb(129, 162, 190); font-weight:400;">lang</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;en&quot;</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;stylesheet&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;stylesheet&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span> <span style="color:rgb(129, 162, 190); font-weight:400;">src</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button mdc-button--raised&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">onclick</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mensaje()&quot;</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-button__label&quot;</span>&gt;</span>Contained Button<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">ul</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list&quot;</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">li</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">tabindex</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0&quot;</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__text&quot;</span>&gt;</span>First<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">li</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">li</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item&quot;</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__text&quot;</span>&gt;</span>Second<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">li</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">li</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item&quot;</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__ripple&quot;</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">span</span> <span style="color:rgb(129, 162, 190); font-weight:400;">class</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mdc-list-item__text&quot;</span>&gt;</span>Third<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">span</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">li</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">ul</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+      <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> list = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.list.MDCList(<span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.mdc-list&#x27;</span>));
+      <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> listItemRipples = list.listElements.map(<span style="color:rgb(209, 217, 225); font-weight:400;">(<span class="hljs-params">listItemEl</span>) =&gt;</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> mdc.ripple.MDCRipple(listItemEl));
+      list.singleSelection = <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+
+      <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> <span class="hljs-title">mensaje</span>(<span class="hljs-params"></span>)</span>{
+        <span style="color:rgb(181, 189, 104); font-weight:400;">window</span>.alert(list.selectedIndex)
+      }
+    </span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span></code></pre>
+
+          <p>Para leer el estado del <b>List</b> usamos:</p>
+          <code>list.selectedIndex</code>
+
+          <p>Si queremos obtener el <b>texto</b> de la opción seleccionada podemos substituir la linea del <b>windows.alert</b> por algo como esto:</p>
+          <code>window.alert(document.getElementsByClassName("mdc-list-item__text")[list.selectedIndex].innerHTML)</code>
+        </div>
+
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Web development | Material Design | CDN</p>
+        </div>
+
+    </body>
+</html>
