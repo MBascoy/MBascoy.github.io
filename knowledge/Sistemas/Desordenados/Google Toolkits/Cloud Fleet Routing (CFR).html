@@ -1,0 +1,210 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Cloud Fleet Routing (CFR)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Explicación de los componentes e implementación del entorno CFR (Cloud Fleet Routing) de Google</p>
+
+            <p><a href="https://cloud.google.com/optimization/docs/overview">Documentación CFR</a></p>
+        </div>
+
+    <div class="t2">Implementación</div>
+        <div class="cont">
+          <p>Primero tenemos que activar estas dos APIs:</p>
+          <ul>
+            <li>Cloud Optimization API</li>
+            <li>Google Maps for Fleet Routing</li>
+          </ul>
+          <img src="Cloud Fleet Routing (CFR)/4.png">
+
+
+          <p>Para hacer una consulta a la API podemos hacerlo mediante <b>curl</b> con el siguiente comando:</p>
+
+          <pre><code>curl -X POST \
+    -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+    -H "x-goog-user-project: $(ID-PROYECTO)" \
+    -H "Content-Type: application/json; charset=utf-8" \
+    -d @request.json \
+    "https://cloudoptimization.googleapis.com/v1/projects/$(ID-PROYECTO):optimizeTours"</code></pre>
+
+        <p>Necesitamos tener un archivo <b>request.json</b> en la ruta desde donde ejecutemos el comando, el archivo tendrá un contenido como el siguiente:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">{
+  <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;parent&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;projects/${YOUR_GCP_PROJECT_ID}&quot;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;model&quot;</span>: {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;shipments&quot;</span>: [
+      {
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;deliveries&quot;</span>: [
+          {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;arrivalLocation&quot;</span>: {
+              <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;latitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">48.880942</span>,
+              <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;longitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">2.323866</span>
+            },
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;duration&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;250s&quot;</span>,
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;timeWindows&quot;</span>: [
+              {
+                <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;endTime&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1970-01-01T01:06:40Z&quot;</span>,
+                <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;startTime&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1970-01-01T00:50:00Z&quot;</span>
+              }
+            ]
+          }
+        ],
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;loadDemands&quot;</span>: {
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;weight&quot;</span>: {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;amount&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;10&quot;</span>
+          }
+        },
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;pickups&quot;</span>: [
+          {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;arrivalLocation&quot;</span>: {
+              <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;latitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">48.874507</span>,
+              <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;longitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">2.30361</span>
+            },
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;duration&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;150s&quot;</span>,
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;timeWindows&quot;</span>: [
+              {
+                <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;endTime&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1970-01-01T00:33:20Z&quot;</span>,
+                <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;startTime&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1970-01-01T00:16:40Z&quot;</span>
+              }
+            ]
+          }
+        ]
+      },
+      {
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;deliveries&quot;</span>: [
+          {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;arrivalLocation&quot;</span>: {
+              <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;latitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">48.88094</span>,
+              <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;longitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">2.323844</span>
+            },
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;duration&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;251s&quot;</span>,
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;timeWindows&quot;</span>: [
+              {
+                <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;endTime&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1970-01-01T01:06:41Z&quot;</span>,
+                <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;startTime&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1970-01-01T00:50:01Z&quot;</span>
+              }
+            ]
+          }
+        ],
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;loadDemands&quot;</span>: {
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;weight&quot;</span>: {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;amount&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;20&quot;</span>
+          }
+        },
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;pickups&quot;</span>: [
+          {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;arrivalLocation&quot;</span>: {
+              <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;latitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">48.880943</span>,
+              <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;longitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">2.323867</span>
+            },
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;duration&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;151s&quot;</span>,
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;timeWindows&quot;</span>: [
+              {
+                <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;endTime&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1970-01-01T00:33:21Z&quot;</span>,
+                <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;startTime&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1970-01-01T00:16:41Z&quot;</span>
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;vehicles&quot;</span>: [
+      {
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;loadLimits&quot;</span>: {
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;weight&quot;</span>: {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;maxLoad&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">50</span>
+          }
+        },
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;endLocation&quot;</span>: {
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;latitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">48.86311</span>,
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;longitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">2.341205</span>
+        },
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;startLocation&quot;</span>: {
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;latitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">48.863102</span>,
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;longitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">2.341204</span>
+        }
+      },
+      {
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;loadLimits&quot;</span>: {
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;weight&quot;</span>: {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;maxLoad&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">60</span>
+          }
+        },
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;endLocation&quot;</span>: {
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;latitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">48.86312</span>,
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;longitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">2.341215</span>
+        },
+        <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;startLocation&quot;</span>: {
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;latitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">48.863112</span>,
+          <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;longitude&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">2.341214</span>
+        }
+      }
+    ]
+  }
+}</code></pre>
+
+        <p>Al recibir la respuesta de la solicitud al final del todo se indica cuantos vehiculos se han utilizado para realizar los repartos:</p>
+
+        <img src="Cloud Fleet Routing (CFR)/5.png">
+
+        <p>En este caso se ha utilizado un solo vehiculo para realizar los repartos a pesar de que hemos indicado dos vehiculos para hacer los repartos, esta situación se da porque la API determina que un solo vehiculo es suficiente para realizar todos los repartos.</p>
+
+        <p>En esta otra consulta al poner uno de los pedidos en una dirección más separada se utilizan dos vehiculos:</p>
+
+        <img src="Cloud Fleet Routing (CFR)/6.png">
+
+        <p>En esta otra consulta se ha utilizado un vehiculo y se ha descartado otro porque no se puede cumplir con la ventana de tiempo especificada:</p>
+        <img src="Cloud Fleet Routing (CFR)/7.png">
+        <img src="Cloud Fleet Routing (CFR)/8.png">
+
+
+
+
+        </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+          <p>Si no tenemos activada la API <b>Cloud Optimization API</b> obtendremos el siguiente error:</p>
+          <pre><code>"code": 403,
+    "message": "Cloud Optimization API has not been used in project 160010338462 before or it is disabled. Enable it
+    by visiting https://console.developers.google.com/apis/api/cloudoptimization.googleapis.com/overview?project=160010338462
+    then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.",
+    "status": "PERMISSION_DENIED"</code></pre>
+
+          <img src="Cloud Fleet Routing (CFR)/1.png">
+
+          <p>Si no tenemos activada la API <b>Google Maps for Fleet Routing</b> obtendremos el siguiente error:</p>
+          <pre><code>"error": {
+    "code": 403,
+    "message": "mapsfleetrouting.googleapis.com is not enabled.",
+    "status": "PERMISSION_DENIED"</code></pre>
+
+        <img src="Cloud Fleet Routing (CFR)/3.png">
+
+        <p>Si el <b>token</b> que estamos utilizando está caducado, obtendremos el siguiente error:</p>
+        <pre><code>"code": 401,
+    "message": "Request had invalid authentication credentials. Expected OAuth 2 access token,
+     login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+    "status": "UNAUTHENTICATED"</code></pre>
+
+        <img src="Cloud Fleet Routing (CFR)/2.png">
+
+
+
+
+        </div>
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>java | CFR</p>
+        </div>
+
+    </body>
+</html>

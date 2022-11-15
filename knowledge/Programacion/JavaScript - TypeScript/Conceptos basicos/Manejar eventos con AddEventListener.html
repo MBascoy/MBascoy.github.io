@@ -1,0 +1,66 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Manejar eventos con AddEventListener</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Podemos usar <b>addEventListener</b> para manejar eventos al interactuar con elementos de la página, de igual manera que usamos funciones como <b>onClick()</b> en una etiqueta para asociar el evento a una función.</p>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Para utilizar el <b>addEventListener</b> y asignar un evento de un elemento a una función lo hacemos con la siguiente sintaxis:</p>
+
+            <code>elemento.addEventListener(evento, funcion)</code>
+
+            <p><a href="https://developer.mozilla.org/en-US/docs/Web/Events">Lista de Eventos</a></p>
+
+            <p>Un ejemplo es el siguiente, asignamos el evento <b>click</b> a un elemento boton y hacemos que llame a la función <b>mensaje</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">&lt;!DOCTYPE <span style="color:rgb(249, 145, 87); font-weight:400;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span> <span style="color:rgb(129, 162, 190); font-weight:400;">lang</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;en&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">meta</span> <span style="color:rgb(129, 162, 190); font-weight:400;">charset</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;UTF-8&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> <span style="color:rgb(129, 162, 190); font-weight:400;">id</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton&quot;</span>&gt;</span>BOTON<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+            <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> boton = <span style="color:rgb(181, 189, 104); font-weight:400;">document</span>.getElementById(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton&quot;</span>);
+
+            <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> <span class="hljs-title">mensaje</span>(<span class="hljs-params"></span>)</span>{
+                alert(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;hola&quot;</span>)
+            }
+
+            boton.addEventListener(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;click&quot;</span>, mensaje)
+        </span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span></code></pre>
+
+          <h2>preventDefault</h2>
+          <p>Podemos usar esta propiedad para evitar que el elemento que tiene asociado el evento realice la función que normalmente realiza por defecto.</p>
+
+          <p>Por ejemplo por defecto un checkbox al pulsarlo se queda marcado, con está propiedad evitaríamos que se produzca eso y simplemente podemos manejar el eventos del "click"</p>
+
+          <p><a href="https://developer.mozilla.org/es/docs/Web/API/Event/preventDefault">Mas información sobre el <b>preventDefault</b></a> </p>
+
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>JavaScript | Events | addEventListener</p>
+        </div>
+
+    </body>
+</html>
