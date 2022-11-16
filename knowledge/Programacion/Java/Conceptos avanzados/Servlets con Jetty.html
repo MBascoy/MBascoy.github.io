@@ -51,11 +51,14 @@
         <div class="cont">
 
           <h2>Configuración inicial Jetty</h2>
+          <a href="https://www.eclipse.org/jetty/download.php">Descargar Jetty</a>
+
           <p>Primero configuramos la variable <b>JETTY_HOME</b> para que apunte a la carpeta en la que tenemos instalada jetty:</p>
 
           <img src="Servlets con Jetty/1.png">
 
           <p>Ejecutamos el siguiente comando para generar un proyecto con jetty desplegado:</p>
+          <p>(El proyecto se genera en la carpeta que estemos, es mejor lanzar el comando en una carpeta vacia.)</p>
 
           <code>java -jar %JETTY_HOME%/start.jar --add-module=server,http,deploy</code>
 
@@ -173,6 +176,8 @@
       <code>java.lang.ClassNotFoundException: org.eclipse.jetty.servlets.CrossOriginFilter</code>
 
       <p>Esto se da porque estos modulos tenemos que ponerlos dentro de una carpeta <b>lib</b> dentro de la carpeta <b>WEB-INF</b> (webapp/WEB-INF/lib), en este caso tendríamos que poner el jar <b>jetty-servlets-10.0.12.jar</b> dentro de la carpeta <b>lib</b>.</p>
+
+      <p><b>NOTA</b>: nunca llegué a probar el CORS con jetty, esto fue resultado de una prueba que hice con <b>App Engine</b> para permitir solicitudes CORS, pero al final se solucionaba de otra manera (exlpicada en la seccion de CORS)</p>
       </div>
 
 

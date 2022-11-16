@@ -165,9 +165,83 @@
         <img src="Cloud Fleet Routing (CFR)/7.png">
         <img src="Cloud Fleet Routing (CFR)/8.png">
 
+        </div>
+
+    <div class="t2">Restricciones</div>
+        <div class="cont">
+          <h2>Time restriction</h2>
+          <p>Podemos indicar una restricción de tiempo global en la que todas las tareas tienen que ser realizadas en ese rango de tiempo, si alguna tarea no puede ser realizada es descartada.</p>
+
+          <p>Para usar la restriccion de tiempo global usamos el siguiente <b>json</b> dentro de <b>model</b>:</p>
+
+          <a href="Cloud Fleet Routing (CFR)/Example Request 1.json">Example Request 1</a>
+
+          <pre><code>    "globalStartTime": {
+      "seconds": "1650412800"
+    },
+    "globalEndTime": {
+      "seconds": "1650535200"
+    }</code></pre>
+
+        <p>Si queremos indicar una <b>ventana de tiempo</b> para cada tarea lo hacemos de la siguiente manera:</p>
+
+        <a href="Cloud Fleet Routing (CFR)/Example Request 2.json">Example Request 2</a>
+
+        <pre><code>            "timeWindows": [
+              {
+                "startTime": {
+                  "seconds": "1650412800"
+                },
+                "endTime": {
+                  "seconds": "1650416400"
+                }
+              }
+            ],</code></pre>
+
+          <p>Las vetanas de tiempo pueden ser <b>hard</b> o <b>soft</b>, la vetana tipo hard es la que creamos en el paso anterior, para crear una tipo soft se hace asi:</p>
+
+          <a href="Cloud Fleet Routing (CFR)/Example Request 3.json">Example Request 3</a>
+
+      <pre><code>            "softStartTime": {
+                "seconds": "1650413700"
+            },
+            "softEndTime": {
+                "seconds": "1650415500"
+            },</code></pre>
 
 
+          <h2>Restricciones de carga</h2>
 
+          <p>Para indicar restricciones de carga tenemos que indicar el limite de cada vehiculo y la carga de cada tarea, lo hacemos así:</p>
+          <a href="Cloud Fleet Routing (CFR)/Example Request 4.json">Example Request 4</a>
+
+          <p>En la tarea:</p>
+          <pre><code>"loadDemands": {
+    "books": {
+        "amount": "1"
+    }
+}</code></pre>
+
+          <p>En el vehiculo:</p>
+          <pre><code>"loadLimits": {
+    "books": {
+        "maxLoad": "2",
+        "startLoadInterval": {},
+        "endLoadInterval": {}
+    }
+}</code></pre>
+
+          <h2>Otros parámetros</h2>
+          <p>Costes de vehiculo:</p>
+          <pre><code>"costPerHour": 2,
+"costPerKilometer": 2,
+"fixedCost": 50,</code></pre>
+
+          <p>Configurar si tener en cuenta el tráfico:</p>
+          <code> "considerRoadTraffic": false,</code>
+
+          <p>Configurar modo de busqueda:</p>
+          <code> "searchMode": 1,</code>
         </div>
 
     <div class="t2">Troubleshooting</div>
