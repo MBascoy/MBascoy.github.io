@@ -1,0 +1,53 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">XMLHttpRequest</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como utilizar <b>XMLHttpRequest</b> para realizar solicitudes con JavaScript.</p>
+
+        </div>
+
+      <div class="t2">Código</div>
+          <div class="cont">
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">&lt;!DOCTYPE <span style="color:rgb(249, 145, 87); font-weight:400;">html</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span> <span style="color:rgb(129, 162, 190); font-weight:400;">lang</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;en&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">meta</span> <span style="color:rgb(129, 162, 190); font-weight:400;">charset</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;UTF-8&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> <span style="color:rgb(129, 162, 190); font-weight:400;">id</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">onclick</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;boton()&quot;</span>&gt;</span>BOTON<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+            <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> <span class="hljs-title">reqListener</span>(<span class="hljs-params"></span>) </span>{
+            <span style="color:rgb(181, 189, 104); font-weight:400;">console</span>.log(<span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.responseText);
+            }
+
+            <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> <span class="hljs-title">boton</span>(<span class="hljs-params"></span>)</span>{
+                <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> req = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> XMLHttpRequest();
+                req.addEventListener(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;load&quot;</span>, reqListener);
+                req.open(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;GET&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;http://127.0.0.1:8080&quot;</span>);
+                req.send();
+            }
+        </span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">script</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span></code></pre>
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>XMLHttpRequest | JavaScript</p>
+        </div>
+
+    </body>
+</html>
