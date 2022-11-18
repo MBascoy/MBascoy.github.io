@@ -23,11 +23,27 @@
             </ul>
         </div>
 
-    <div class="t2">Config</div>
+    <div class="t2">dactyl_manuform/5x6/config.h</div>
+        <div class="cont">
+        <p>En el archivo <b>config.h</b> que está dentro de la carpeta 5x6 ponemos la siguiente configuración para activar la iluminación LED en el teclado:</p>
+        
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> RGB_DI_PIN D3</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> RGBLED_NUM 7</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> RGBLIGHT_ANIMATIONS</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> RGBLIGHT_LAYERS</span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF</span></code></pre>
+
+            <p>Y en el archivo <b>rules.mk</b> tenemos que tener la siguiente linea:</p>
+            <code>RGBLIGHT_ENABLE = yes</code>
+        </div>
+        
+    <div class="t2">dactyl_manuform/5x6/keymaps/Alfa-Omega/config.h</div>
         <div class="cont">
             <p>Para configurar las velocidades del raton editamos el archivo <b>config.h</b> dentro de la carpeta del teclado incluyendo lo siguiente al final:</p>
             
-            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_3_SPEED</span>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(150, 152, 150); font-weight:400;">//Lineal</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_3_SPEED</span>
 <span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_C_OFFSET_0 3</span>
 <span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_C_OFFSET_1 7</span>
 <span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_C_OFFSET_2 20</span>
@@ -37,14 +53,28 @@
 <span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_W_OFFSET_1 2</span>
 <span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_W_INTERVAL_1 80</span>
 <span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_W_OFFSET_2 6</span>
-<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_W_INTERVAL_2 5</span></code></pre>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(249, 145, 87); font-weight:400;">define</span> MK_W_INTERVAL_2 5</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">//Aceleracion cuadratica</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MK_KINETIC_SPEED</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MOUSEKEY_DELAY 0</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MOUSEKEY_INTERVAL 16</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MOUSEKEY_MOVE_DELTA 4</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MOUSEKEY_INITIAL_SPEED 100</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MOUSEKEY_BASE_SPEED 100</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MOUSEKEY_DECELERATED_SPEED 400</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MOUSEKEY_ACCELERATED_SPEED 3000</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 32</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MOUSEKEY_WHEEL_BASE_MOVEMENTS 42</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 48</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">//#define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8</span></code></pre>
         </div>
         
     <div class="t2">Template</div>
         <div class="cont">
             <p>Este archivo debe de estar colocado en: <b>qmk_firmware/keyboards/handwired/dactyl_manuform/5x6/keymaps/Alfa-Omega/keymap.c</b></p>
-<pre>
- <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(150, 152, 150); font-weight:400;">#include QMK_KEYBOARD_H</span>
+        
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(150, 152, 150); font-weight:400;">#include QMK_KEYBOARD_H</span>
 
 <span style="color:rgb(150, 152, 150); font-weight:400;">#define _KB 0</span>
 <span style="color:rgb(150, 152, 150); font-weight:400;">#define _NAV 1</span>
@@ -52,6 +82,15 @@
 <span style="color:rgb(150, 152, 150); font-weight:400;">#define _NUMBERS 3</span>
 <span style="color:rgb(150, 152, 150); font-weight:400;">#define _SYMBOLS 4</span>
 <span style="color:rgb(150, 152, 150); font-weight:400;">#define _GAMEMOD 5</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define _MEDIA 6</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define VAL             140</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define SOFT_RED        0, 255, VAL</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define SOFT_GREEN      85, 255, VAL</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define SOFT_BLUE       170, 255, VAL</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define SOFT_PURPLE     191, 255, VAL</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define SOFT_YELLOW     43, 255, VAL</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">#define SOFT_ORANGE     21, 255, VAL</span>
 
 <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">enum</span> <span style="color:rgb(255, 204, 102); font-weight:400;">custom_keycodes</span> </span>{
     MVKBD = SAFE_RANGE,
@@ -88,6 +127,7 @@
     APP6,
     APP7,
     APPFOLDER,
+    BRWBAR,
     DEV_EXP,
     DEV_SEAR,
     DEV_QUIT,
@@ -408,6 +448,15 @@
         }
         <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
 
+    <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> BRWBAR:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_K));
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            clear_keyboard();
+            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
     <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> DEV_EXP:
         <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
             SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LALT) SS_DOWN(X_L));
@@ -711,7 +760,6 @@
         }
         <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
 
-
     }
   <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
 };
@@ -721,18 +769,18 @@
         MIAU,    APP4, APPFOLDER,  KC_COMM, KC_ESC,  KC_VOLD,                 KC_VOLU, APP3,   KC_DOT,  KC_DEL, TG(_GAMEMOD),    KC_PSCR,
         SHDESK,  KC_Q, KC_W  ,   KC_E,     KC_R,    KC_T,                     KC_Y,    KC_U,   KC_I,    KC_O,   KC_P,    KC_QUOT,
         KC_TAB,  KC_A, KC_S  ,   KC_D,     KC_F,    KC_G,                     KC_H,    KC_J,   KC_K,    KC_L,   KC_SLSH, KC_LCTL,
-        KC_LCTL, KC_Z, KC_X  ,   KC_C,     KC_V,    KC_B,                     KC_N,    KC_M,   S_EQL,   MVNAV,  KC_SCLN, KC_BSLASH,
+        KC_LCTL, KC_Z, KC_X  ,   KC_C,     KC_V,    KC_B,                     KC_N,    KC_M,   S_EQL,   MVNAV,  KC_SCLN, TG(_MEDIA),
                          KC_APP,  KC_LGUI,                                                      MVMOUSE, KC_EQL,
                                          KC_LSFT, KC_BSPC,                     KC_SPC,  KC_ENT,
-                                         KC_LALT, KC_TAB ,                     MO(_NUMBERS),  MO(_SYMBOLS),
+                                         KC_LALT, KC_TAB,                     MO(_NUMBERS),  MO(_SYMBOLS),
                                          KC_INS,  RUNCOM,                      MVMOUSE, KC_LALT
     ),
 
     [_NAV] = LAYOUT_5x6(
-        KC_NO,  KC_TRNS,   KC_TRNS,    KC_NO,   KC_ESC,  KC_TRNS,                  KC_TRNS, KC_TRNS,    KC_NO,    KC_TRNS, TG(_GAMEMOD),   KC_NO,
-        KC_TRNS,   ALTF4,   CLOSETAB, ALTTABL, ALTTABR, NEWTAB,                    KC_NO,   KC_NO,    KC_UP,    KC_PGUP,   KC_NO,   KC_NO,
-        KC_TRNS,   ALTWIN,  RTAB,     KC_LCTL, KC_LSFT, KC_NO,                     KC_HOME, KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_END,  KC_NO,
-        KC_NO,   UNDO,    CUTK,     COPY,    PASTE,   CLIPB,                       INCOG,   KC_PGDN,  KC_NO,    KC_NO,     KC_NO,   KC_NO,
+        KC_NO,  KC_TRNS,   KC_TRNS,   BRWBAR,   KC_ESC,  KC_TRNS,                  KC_TRNS, KC_TRNS,    KC_NO,    KC_TRNS, TG(_GAMEMOD),  KC_PSCR,
+        SHDESK,   ALTF4,   CLOSETAB, ALTTABL, ALTTABR, NEWTAB,                    KC_NO,   KC_NO,    KC_UP,    KC_PGUP,   KC_NO,   KC_NO,
+        KC_TRNS,  ALTWIN,  RTAB,     KC_LCTL, KC_LSFT, KC_NO,                     KC_HOME, KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_END,  KC_NO,
+        KC_NO,    UNDO,    CUTK,     COPY,    PASTE,   CLIPB,                     INCOG,   KC_PGDN,  KC_NO,    KC_NO,     KC_NO,   TG(_MEDIA),
                           KC_APP,  KC_LGUI,                                                             MVMOUSE,  KC_NO,
                                             MVKBD,   KC_TRNS,                      KC_TRNS,       KC_TRNS,
                                             KC_TRNS,   KC_TRNS,                    MO(_NUMBERS),  KC_TRNS,
@@ -741,10 +789,10 @@
     ),
 
     [_MOUSE] = LAYOUT_5x6(
-          RESET,  KC_TRNS, KC_TRNS,  KC_NO,   KC_ESC,  KC_TRNS ,                  KC_TRNS,   KC_TRNS, KC_NO,   KC_NO,   TG(_GAMEMOD),   KC_NO ,
-          KC_NO,  ALTF4,   CLOSETAB, ALTTABL, ALTTABR, NEWTAB,                    KC_BTN2,   KC_BTN1, KC_MS_U, KC_WH_U, KC_NO,   KC_NO,
-          SHDESK, KC_ACL0, KC_ACL1,  KC_ACL2, KC_BTN1, KC_BTN2,                   NAVBACK,   KC_MS_L, KC_MS_D, KC_MS_R, NAVFRNT, KC_TRNS,
-          KC_NO,  UNDO,    CUTK,     COPY,    PASTE,   CLIPB,                     KC_NO,     KC_WH_D, KC_NO,   MVNAV,   KC_NO,   KC_NO,
+          RESET,  KC_TRNS, KC_TRNS,  BRWBAR,   KC_ESC,  KC_TRNS ,                  KC_TRNS,   KC_TRNS, KC_NO,   KC_NO,   TG(_GAMEMOD),  KC_PSCR,
+          SHDESK,  ALTF4,   CLOSETAB, ALTTABL, ALTTABR, NEWTAB,                    KC_BTN2,   KC_BTN1, KC_MS_U, KC_WH_U, KC_NO,   KC_NO,
+          ALTWIN, KC_ACL0, KC_ACL1,  KC_ACL2, KC_BTN1, KC_BTN2,                   KC_WBAK,   KC_MS_L, KC_MS_D, KC_MS_R, KC_WFWD, KC_TRNS,
+          KC_NO,  UNDO,    CUTK,     COPY,    PASTE,   CLIPB,                     KC_NO,     KC_WH_D, KC_NO,   MVNAV,   KC_NO,   TG(_MEDIA),
                            KC_APP,  KC_LGUI,                                                           KC_NO,   KC_NO,
                                              MVKBD,   KC_TRNS,                   KC_TRNS,   KC_TRNS,
                                              KC_TRNS, KC_TRNS,                   KC_TRNS,   KC_TRNS,
@@ -756,7 +804,7 @@
         KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_NO,   KC_7,    KC_8,    KC_9,   KC_NO,   KC_NO,
         KC_NO,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_NO,                        KC_NO,   KC_4,    KC_5,    KC_6,   KC_NO,   KC_LCTL,
         KC_NO,   KC_F9,  KC_F10,  KC_F11,  KC_F12,   KC_NO,                        KC_0,    KC_1,    KC_2,    KC_3,   KC_NO,   KC_NO,
-                          KC_NO,   KC_NO,                                                            KC_NO,   KC_NO,
+                          KC_NO,  KC_LGUI,                                                            KC_NO,   KC_NO,
                                             MVKBD,     KC_TRNS,                        KC_TRNS,   KC_TRNS,
                                             KC_TRNS,   KC_TRNS,                        KC_TRNS,   KC_TRNS,
                                             KC_TRNS,   KC_TRNS,                        KC_TRNS,   KC_TRNS
@@ -767,26 +815,110 @@
         KC_NO,   S_LQMARK,  S_RQMARK, KC_NUBS,     S_RANGBRT,   S_EQL,             KC_NO,   S_ACFL,  S_LPAREN, S_RPAREN, S_VGL,   KC_NO,
         KC_NO,   KC_RBRC,   S_SLSH,   S_LCURLYBRT, S_RCURLYBRT, S_DOLLAR,          KC_BSLS, S_AMP,   S_QUOT,   KC_MINS,  S_BSLSH, KC_LCTL,
         KC_NO,   KC_LBRC,   S_ASTRK,  S_LSQBRT,    S_RSQBRT,    S_PERC,            KC_NO,   S_HASTG, S_PIPE,   S_EXCL,   KC_NO,   KC_NO,
-                            KC_NO,    KC_NO,                                                                    KC_NO,   KC_NO,
+                            KC_NO,    KC_LGUI,                                                                    KC_NO,   KC_NO,
                                             MVKBD,   KC_TRNS,                      KC_TRNS,   KC_TRNS,
-                                            KC_NO,   KC_LALT,                      KC_TRNS,   KC_TRNS,
-                                            KC_NO,   KC_TRNS,                      KC_TRNS,   KC_TRNS
+                                            KC_TRNS,   KC_TRNS,                      KC_TRNS,   KC_TRNS,
+                                            KC_TRNS,   KC_TRNS,                      KC_TRNS,   KC_TRNS
     ),
 
     [_GAMEMOD] = LAYOUT_5x6(
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_ESC,   KC_TRNS,                    KC_TRNS, KC_NO,    KC_NO,    KC_TRNS,   KC_TRNS,   KC_NO,
+        KC_NO,   KC_ESC,  KC_1,    KC_2,    KC_3,     KC_4,                       KC_5,    KC_6,     KC_7,     KC_8,      KC_TRNS,   KC_PSCR,
         KC_NO,   KC_NO,   KC_Q,    KC_W,    KC_E,     KC_R,                       KC_NO,   KC_NO,    KC_UP,    KC_PGUP,   KC_NO,   KC_NO,
         KC_NO,   KC_LSFT, KC_A,    KC_S,    KC_D,     KC_F,                       KC_HOME, KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_END,  KC_NO,
         KC_NO,   KC_LCTL, KC_Z,    KC_X,    KC_C,     KC_V,                       INCOG,   KC_PGDN,  KC_NO,    KC_NO,     KC_NO,   KC_NO,
                           KC_NO,   KC_NO,                                                             MVMOUSE,  KC_NO,
                                             KC_LSFT,    KC_SPC,                    KC_TRNS,       KC_TRNS,
                                             KC_TRNS,   KC_TRNS,                    MO(_NUMBERS),  KC_TRNS,
-                                            KC_TRNS,   KC_TRNS,                    KC_TRNS,       KC_TRNS
+                                            KC_VOLD,   KC_VOLU,                    KC_TRNS,       KC_TRNS
 
+    ),
+
+    [_MEDIA] = LAYOUT_5x6(
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_VOLD,                        KC_VOLU,   KC_NO,      KC_NO,      KC_NO,    KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_MFFD,  KC_MRWD,  KC_NO,                        KC_NO,   RGB_HUI,    RGB_SAI,    RGB_VAI,  KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_MSTP, KC_MPRV,  KC_MNXT,  KC_NO,                        KC_NO,   RGB_HUD,    RGB_SAD,    RGB_VAD,  KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,                        KC_NO,   RGB_RMOD,   RGB_MOD,    KC_NO,    KC_NO,   KC_TRNS,
+                          KC_NO,   KC_NO,                                                              KC_NO,    KC_NO,
+                                            MVKBD,     KC_MPLY,                    KC_TRNS,   RGB_TOG,
+                                            KC_MSTP,   KC_MUTE,                    KC_TRNS,   KC_TRNS,
+                                            KC_TRNS,   KC_TRNS,                    KC_TRNS,   KC_TRNS
     )
 };
+
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>, SOFT_BLUE}
+);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM mouse_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>, SOFT_GREEN}
+);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM symbols_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>, SOFT_PURPLE}
+);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM numbers_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>, SOFT_YELLOW}
+);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, SOFT_ORANGE},
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, SOFT_ORANGE}
+);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM media_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">6</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, SOFT_RED}
+);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_RED},
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_GREEN},
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_BLUE},
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">3</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_GOLD},
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">4</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_PURPLE},
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_GOLD},
+    { <span style="color:rgb(249, 145, 87); font-weight:400;">6</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_PINK}
+);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t* <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    nav_layer,
+    mouse_layer,
+    symbols_layer,
+    numbers_layer,
+    media_layer,
+    game_layer,
+    caps_layer
+);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">void</span> keyboard_post_init_user(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>) {
+    rgblight_layers = my_rgb_layers;
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">bool</span> led_update_user(led_t led_state) {
+    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">6</span>, led_state.caps_lock);
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+}
+
+
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
+    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, layer_state_cmp(state, _KB));
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, layer_state_cmp(state, _NAV));
+    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, layer_state_cmp(state, _MOUSE));
+    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, layer_state_cmp(state, _NUMBERS));
+    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">3</span>, layer_state_cmp(state, _SYMBOLS));
+
+    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>, layer_state_cmp(state, _MEDIA));
+    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, layer_state_cmp(state, _GAMEMOD));
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> state;
+}
 </code></pre>
-</div>
+        
+        </div>
 
 
     <div class="t2">Tags</div>
