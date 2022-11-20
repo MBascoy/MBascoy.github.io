@@ -11,14 +11,38 @@
 
     <div class="t2">Descripcion</div>
         <div class="cont">
-
-            <p></p>
-
+            <p>El principio de <b>responsabilidad única</b> nos dice que cada <b>clase</b> debe de tener una única responsabilidad, dicho de otra manera, cada clase solo puede tener una razón para cambiar.</p>
         </div>
 
-    <div class="t2">Metodo</div>
+    <div class="t2">Explicación</div>
         <div class="cont">
 
+            <p>Si tenemos una clase como la siguiente:</p>
+
+            <pre><code>Class Modem
+{
+  public void dial(String pno);
+  public void hangup();
+  public void send(char c);
+  public char recv();
+}</code></pre>
+
+            <p>En esta clase tendríamos 2 responsabilidades, las funciones que se encargan de realizar la conexión (dial y hangup), y las funciones que se encargan de transmitir los datos (send y recv), en este caso podríamos separar dichas funciones en dos clases como <b>DataTransmision</b> y <b>Connection</b>.</p>
+
+            <p>De todas maneras no siempre tenemos que separar las responsabilidades, tendríamos que realizar dicha separación solo si el diseño de la clase es susceptible de ser cambiado en el futuro, de este modo solo tendríamos que cambiar la responsabilidad que es afectada, pero si el diseño no es susceptible a cambios no debemos de separar las clases, ya que en ese caso estaríamos introduciendo una <b>complejidad innecesaria</b> en el diseño.</p>
+
+
+            <p>Explicar complejidad innecesaria y como se aplica el principio solo cuando hay posibilidades de que ocurra un cambio</p>
+
+            <p>Otro ejemplo comun en el que debemos de separar una clase en varias es cuando manejamos <b>persistencia</b> un error muy común es el siguiente:</p>
+
+            <pre><code>Class Empleado
+{
+  calcularPago();
+  almacenar();
+}</code></pre>
+
+          <p>En este caso es importante separar las dos responsabilidades, por un lado la que se encarga del almacenamiento y por otro la que se encarga de calculos, ya que una (la del almacenamiento), es muy poco susceptible a recibir cambios pero la de calculo es mas susceptible a cambiar, por lo tanto todos los cambios que se hagan sobre <b>calcularPago</b> estarían afectando a <b>almacenar</b>, ya que están dentro de la misma clase, esto implicaría por ejemplo retestear todas las clases que utilicen la función almacenar incluso aún cuando esta no haya sufrido cambios</p>
         </div>
 
     <div class="t2">Tags</div>

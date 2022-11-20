@@ -9,12 +9,47 @@
 
     <h1 class="t1">ACE Esquema</h1>
 
-    <div class="t2">Descripcion</div>
+    <div class="t2">Setting up cloud projects and accounts</div>
         <div class="cont">
-            
+          <h2>Identity and Access Management (IAM)</h2>
+          <a href="https://cloud.google.com/iam/docs/overview">Documentación IAM</a>
+          <p>Para aplicar permisos a los usuarios en Google cloud es recomendable hacerlo a traves de <b>grupos</b> a los cuales se les asigna un <b>rol</b> que tiene ciertos <b>permisos</b>, de modo que los permisos no se aplican directamente a los usarios... para darle permisos a un usuario lo metemos en un grupo.</p>
 
+          <p>Los componentes de una IAM policy son:</p>
+          <ul>
+            <li><b>Principal</b>: usuario al que se le aplicarán roles, puede ser: Una cuenta de google, un grupo de Google, una cuenta de servicio o un dominio de cloud identity.</li>
+            <li><b>Rol</b>: grupo de permisos que se aplicarán a un <b>principal</b></li>
+            <li><b>Politica</b>: Permite definir que roles y que principales pueden acceder a un recurso, las politicas se asignan directamente a un recurso.</li>
+          </ul>
+          <h2>Resource Hierarchy</h2>
+          <a href="https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy#resource-hierarchy-detail">Documentación jerarquia</a>
+
+          <p>La jerarquía de recursos en google cloud es la siguiente:</p>
+          <ul>
+            <li>Organización</li>
+            <li>Folder (opcional)</li>
+            <li>Project</li>
+            <li>Resource</li>
+          </ul>
+
+          <p>Cuando le damos a un usuario un rol sobre un recurso, la política resultante es heradada hacia abajo en la jerarquía, de modo que si le damos un rol a un usuario sobre un <b>folder</b> los proyectos y recursos que cuelguen de ese folder heredarán dicha politica.</p>
+
+          <img src="ACE Esquema/1.svg" >
+
+          <h2>Roles tipos</h2>
+          <a href="https://cloud.google.com/iam/docs/roles-overview">Documentación roles</a>
+          <p>Existen 3 tipos de roles</p>
+
+          <ul>
+            <li><b>Basic roles</b>: Solo existen 3 roles básicos: <b>Owner, Editor y Viewer</b></li>
+            <li><b>Predefined roles</b>: Son roles adicionales a los básicos para tener un control mas preciso, ya que los roles básicos son muy amplios, estos roles tienen reglas mas especificas para redes, almacenamiento, maquinas virtuales... etc</li>
+            <li><b>Custon roles</b>: Son conjuntos de roles personalizados por el usuario.</li>
+          </ul>
+
+          <h2>Billing configuration</h2>
 
         </div>
+
     <div class="t2">Tags</div>
         <div class="cont">
         <p>Google Cloud | ACE</p>
