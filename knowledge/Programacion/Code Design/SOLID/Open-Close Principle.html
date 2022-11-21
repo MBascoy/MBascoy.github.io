@@ -14,11 +14,164 @@
             <p>El principio <b>Open-Close</b> nos dice que un modulo debe de ser abierto (open) para su expansión y cerrado (close) para su modificación.</p>
 
             <p>Esto quiere decir que si queremos añadir nuevas funcionalidades solo deberíamos de escribir nuevas clases y no modificar las existentes.</p>
+
+            <a href="https://github.com/MBascoy/Java-Examples/tree/main/Open%20Close%20Principle">Ejemplo código</a>
         </div>
 
     <div class="t2">Metodo</div>
         <div class="cont">
+          <p>Para mostrar este principio un ejemplo clásico es una aplicación que tiene que trabajar con ciertas formas geometricas.</p>
 
+          <p>Tendremos una clase <b>forma</b>, dos clases que heredan de esta, <b>cuadrado</b> y <b>circulo</b> y la clase principal, que se encarga de gestionar todas las demás clases</p>
+
+          <p>El objetivo de esta aplicación es que si queremos introducir una nueva forma, un triangulo por ejemplo, para cumplir con el OCP deberíamos de escribir solo el código de la nueva clase triangulo y cambiar la clase principal para hacer uso de esta, no deberíamos de tener que modificar la clase <b>forma</b> ya que esta debería de ser <b>cerrada a modificación</b> pero <b>abierta a extension</b>.</p>
+
+          <p>El siguiente código muestra un ejemplo de la aplicación que <b>NO</b> cumpliría con el OCP:</p>
+
+          <p>Clase principal:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.util.ArrayList;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OpenClose</span> </span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String[] args)</span> </span>{
+        Circulo primerCirculo = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Circulo();
+        Cuadrado primerCuadrado = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Cuadrado();
+
+        primerCirculo.radio = <span style="color:rgb(249, 145, 87); font-weight:400;">33</span>;
+        primerCuadrado.lado = <span style="color:rgb(249, 145, 87); font-weight:400;">44</span>;
+
+        ArrayList&lt;Forma&gt; lista = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ArrayList&lt;Forma&gt;();
+
+        lista.add(primerCirculo);
+        lista.add(primerCuadrado);
+
+        Forma.imprimirAreaFormas(lista);
+    }
+}</code></pre>
+
+          <p>Clase Forma:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.util.ArrayList;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Forma</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">enum</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Tipo</span> </span>{CIRCULO, CUADRADO};
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> Tipo esTipo;
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">imprimirAreaFormas</span><span style="color:rgb(209, 217, 225); font-weight:400;">(ArrayList&lt;Forma&gt; lista)</span></span>{
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (Forma forma : lista) {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">switch</span> (forma.esTipo) {
+                <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> CUADRADO:
+                    Cuadrado.printArea((Cuadrado)forma);;
+                    <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+
+                <span style="color:rgb(204, 153, 204); font-weight:400;">case</span> CIRCULO:
+                    Circulo.printArea((Circulo)forma);;
+                    <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+                <span style="color:rgb(204, 153, 204); font-weight:400;">default</span>:
+                    <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+            }
+
+        }
+    }
+}
+</code></pre>
+
+          <p>Clase Cuadrado:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Cuadrado</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Forma</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> lado;
+
+    Cuadrado(){
+        esTipo = Tipo.CUADRADO;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">printArea</span><span style="color:rgb(209, 217, 225); font-weight:400;">(Cuadrado cuadrado)</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">double</span> areaCuadrado = cuadrado.lado * cuadrado.lado;
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;El area del cuadrado es: &quot;</span> + areaCuadrado);
+    }
+
+}</code></pre>
+
+          <p>Clase Circulo:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Circulo</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Forma</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> radio;
+
+    Circulo(){
+        esTipo = Tipo.CIRCULO;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">printArea</span><span style="color:rgb(209, 217, 225); font-weight:400;">(Circulo circulo)</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">double</span> areaCirculo = <span style="color:rgb(249, 145, 87); font-weight:400;">3.14</span> * (circulo.radio * circulo.radio);
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;El area del circulo es: &quot;</span> + areaCirculo);
+    }
+}</code></pre>
+
+          <p>En el ejemplo anterior si queremos añadir una nueva forma (triangulo por ejemplo), tendríamos que modificar la estructura <b>switch</b> que tenemos en la clase <b>forma</b> para añadir la nueva forma, incluso si tuviesemos mas funciones a parte de <b>printArea</b> esa estructura <b>switch</b> estaría repetida varias veces y cada vez que añadimos una nueva forma tendríamos que modificar todas esas estructuras <b>switch</b> que tuviesemos.</p>
+
+          <h2>Cumplir el OCP</h2>
+
+          <p>El siguiente ejemplo cumple con el OCP, para ello utiliza funciones abstractas en la clase <b>forma</b> de esta manera aunque añadamos nuevas formas la clase <b>forma</b> permanece intacta sin necesidad de realizar modificaciones.</p>
+
+          <p>Clase principal</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.util.ArrayList;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OpenClose</span> </span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String[] args)</span> </span>{
+        Circulo primerCirculo = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Circulo();
+        Cuadrado primerCuadrado = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Cuadrado();
+
+        primerCirculo.radio = <span style="color:rgb(249, 145, 87); font-weight:400;">33</span>;
+        primerCuadrado.lado = <span style="color:rgb(249, 145, 87); font-weight:400;">44</span>;
+
+        ArrayList&lt;Forma&gt; lista = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ArrayList&lt;Forma&gt;();
+
+        lista.add(primerCirculo);
+        lista.add(primerCuadrado);
+
+        Forma.imprimirAreaFormas(lista);
+    }
+}</code></pre>
+
+          <p>Clase Forma</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> java.util.ArrayList;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">abstract</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Forma</span> </span>{
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> <span style="color:rgb(204, 153, 204); font-weight:400;">abstract</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">printArea</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>;
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">imprimirAreaFormas</span><span style="color:rgb(209, 217, 225); font-weight:400;">(ArrayList&lt;Forma&gt; lista)</span></span>{
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (Forma forma : lista) {
+            forma.printArea();
+        }
+    }
+}
+</code></pre>
+
+          <p>Clase Cuadrado</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Cuadrado</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Forma</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> lado;
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">printArea</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> areaCuadrado = <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.lado * <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.lado;
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;El area del cuadrado es: &quot;</span> + areaCuadrado);
+    }
+
+}
+</code></pre>
+
+          <p>Clase Circulo</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Circulo</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Forma</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> radio;
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">printArea</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">double</span> areaCirculo = <span style="color:rgb(249, 145, 87); font-weight:400;">3.14</span> * (<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.radio * <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.radio);
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;El area del circulo es: &quot;</span> + areaCirculo);
+    }
+}
+</code></pre>
+
+          <p>En este nuevo ejemplo <b>printArea</b> es un metodo abstracto, que tenemos que implementar dentro de cada nueva forma, de manera que si ahora necesitamos crear una nueva forma como triangulo, solo tendríamos que crear la nueva clase triangulo e implementar ahí dentro la función, en la clase <b>Forma</b> no tenemos que realizar ninguna modificación ya que el método está abstraido, si tuviesemos mas métodos a parte de <b>printArea</b> solo tendríamos que implementarlos en las nuevas formas que vayamos añadiendo, no tendríamos el problema de la estrutura <b>switch</b> repetida varias veces a lo largo del código.</p>
         </div>
 
     <div class="t2">Tags</div>
