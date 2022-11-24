@@ -48,7 +48,196 @@
 
           <h2>Billing configuration</h2>
 
+          <p>Para utilizar los recursos de Google cloud necesitamos tener una cuenta de facturación, las caracteristicas de la facturación son:</p>
+
+          <ul>
+            <li>Aunque usemos servicios gratuitos de Google cloud tenemos que tener una cuenta de facturación</li>
+            <li>Una cuenta puede estar asociada a varios proyectos</li>
+            <li>Cada proyecto solo puede estar asociado a una cuenta.</li>
+            <li>Podemos utilizar Cloud Monitoring channels para enviar alertas por email en relación a un budget</li>
+          </ul>
+
+          <h2>Google cloud GUI y CLI</h2>
+
+          <p>Hay 4 maneras de interactuar con google cloud:</p>
+
+          <ul>
+            <li>Google Cloud console (interfaz WEB)</li>
+            <li>Google Cloud SDK (CLI) y Google Cloud Shell (CLI desde web)</li>
+            <li>Google Cloud Mobile App</li>
+            <li>Mediante APIs</li>
+          </ul>
+
+          <p>Podemos usar dos comandos principalmente para gestionar Google Cloud:</p>
+          <ul>
+            <li>gcloud: para gestionar recursos</li>
+            <li>gsutil: para gestionar almacenamientos</li>
+          </ul>
+
+
+          <h2>Google Cloud Pricing Calculator</h2>
+
+          <a href="https://cloud.google.com/products/calculator/">Google pricing calculator</a>
+
+          <p>Podemos usar esta herramienta para obtener un calculo aproximado de cuanto nos costará un servicio de Google Cloud.</p>
+
+          <h2>Computing Solutions</h2>
+
+          <img src="ACE Esquema/2.png">
+
+          <p>Los servicios de computación que tenemos en Google Cloud son:</p>
+
+          <ul>
+            <li>Compute Engine (GCE): es una maquina virtual que nos permite el control total del sistema operativo.</li>
+            <li>Kubernetes Engine (GKE): es un gestor de contenedores que no nos permite controlar directamente el sistema operativo</li>
+            <li>App Engine (GAE): es un PaS que nos permite desplegar aplicaciones en Google Cloud.</li>
+            <li>Cloud Run: Nos permite desplegar contenedores o código a la escucha de ciertas peticiones.</li>
+          </ul>
+
+          <h2>Serverless compute</h2>
+
+          <p>Tenemos 3 productos para computación serverless:</p>
+          <ul>
+            <li>App Engine</li>
+            <li>Cloud Run <a href="https://cloud.google.com/blog/topics/developers-practitioners/cloud-run-story-serverless-containers">Documentación Cloud run</a> </li>
+
+            <li>Cloud Functions <a href="https://cloud.google.com/functions">Documentacion Cloud functions</a></li>
+          </ul>
+
+          <h2>Cloud Storage</h2>
+
+          <p>Data Storage y DataBase en Google Cloud:</p>
+          <img src="ACE Esquema/3.png">
+
+          <a href="https://cloud.google.com/products/storage">Documentación Storage</a>
+          <ul>
+            <li>BigQuery: es una implementación de warehouse data, permite analizar datos historicos y usa un motor SQL para las consultas.</li>
+            <li>Firestore y Cloud Bigtable: son soluciones NO-SQL</li>
+            <li>Cloud Storage: es la solución de Google Cloud para almacenar objetos, ya sean videos, imagenes, logs...etc</li>
+            <a href="https://cloud.google.com/storage/docs/introduction">Documentacion Cloud Storage</a>
+            <li>Cloud SQl y Cloud Spanner: son soluciones SQL</li>
+            <a href="https://cloud.google.com/spanner">Documentacion Cloud Spanner</a>
+            <li>Cloud Spanner: Spanner is a distributed, globally scalable SQL database</li>
+          </ul>
+
+          <p>Los tipos de almacenamiento pueden ser:</p>
+          <a href="https://cloud.google.com/storage/docs/storage-classes">Documentación tipos de Almacenamiento</a>
+          <ul>
+            <li>Archive: Información que se accede menos de una vez al año.</li>
+            <li>Coldline: Información que se accede cada 90 días.</li>
+            <li>Nearline: Información que se accede cada 30 días.</li>
+            <li>Standar: Información que se accede frecuentemente.</li>
+          </ul>
+
+          <p><b>NOTA:</b> si se accede a la información antes del tiempo minimo se realizará un cargo por el acceso.</p>
+
+          <img src="ACE Esquema/4.png">
+
+          <p>Comparaciones de las opciones de almacenamiento:</p>
+          <img src="ACE Esquema/5.png">
+
+          <h2>Load balance</h2>
+          <p>Resumen de balanceadores de carga en google cloud:</p>
+          <img src="ACE Esquema/6.png">
+
+          <h2>Managed instance groups (MIGs)</h2>
+          <a href="https://cloud.google.com/compute/docs/instance-groups/creating-groups-of-managed-instances">Documentacion MIG</a>
+          <p>Es un grupo de maquinas virtuales que se manejan como una sola entidad.</p>
+          <img src="ACE Esquema/7.png">
+
+          <p>Si queremos configurar las actualizaciones de las maquinas virtuales, tenemos dos opciones:</p>
+          <ul>
+            <li>proactive, las actualizaciones se realizan de manera automatica.</li>
+            <li>opportunistic, las actualizaciones se aplican de manera selectiva.</li>
+          </ul>
+
+          <h2>Google Kubernetes Engine (GKE)</h2>
+          <a href="https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters">Documentacion GKE</a>
+
+
+          <p>Podemos crear <b>clusters</b> de kubernetes usando dos modos:</p>
+          <ul>
+            <li>Autopilot: las configuraciónes se crean de manera automatica.</li>
+            <li>Standard: Nosotros realizamos las configuraciones de los clusters.</li>
+          </ul>
+
+          <h2>Cargar datos en BigQuery</h2>
+          <p>Exiten varias maneras con las que podemos cargar información en BigQuery:</p>
+          <ul>
+            <li>Batch Ingestion</li>
+            <li>Streaming Ingestion</li>
+            <li>Data Transfer Service (DTS)</li>
+            <li>Query Materialization</li>
+            <li>Partner Integrations</li>
+          </ul>
+
+          <h2>Virtual Private Cloud(VPC) networks</h2>
+          <p>Las VPC nos permiten crear redes virtuales para conectar nuestros recursos de google cloud.</p>
+
+          <h3>Subnet creation mode</h3>
+          <p>Hay dos modos para crear subredes:</p>
+
+          <ul>
+            <li>Auto mode: se crear subredes de manera automática</li>
+            <li>Custom mode: nosotros creamos las subredes manualmente, pudiendo decidir el tamaño y el rango de IPs</li>
+          </ul>
+
+          <h2>Terraform</h2>
+          <a href="https://developer.hashicorp.com/terraform/intro">Documentacion Terraform</a>
+          <p>Es un IaaS (Infraestructure as a Service), que nos permite desplegar recursos en base a un archivo de configuracion.</p>
         </div>
+
+        <h2>CLI CheatSheet</h2>
+        <a href="https://cloud.google.com/sdk/docs/cheatsheet">Google Cloud CLI</a>
+
+
+        <h2>Snapshots</h2>
+        <a href="https://cloud.google.com/compute/docs/disks/snapshots">Documentacion Snapshots.</a>
+        <p>Los <b>snapshots</b> son copias de seguridad de nuestros discos en google cloud.</p>
+
+        <h2>Instance Groups</h2>
+        <p>Tenemos dos tipos:</p>
+        <ul>
+          <li>Managed instance groups</li>
+          <li>Unmanaged instance groups</li>
+        </ul>
+
+        <h2>GKE Load Balancer</h2>
+        <img src="ACE Esquema/8.png">
+
+        <p>Para implementar un baleanzador interno tenemos que configurar un <b>ingres</b> con un NEG (Network Endpoint groups)</p>
+        <a href="https://cloud.google.com/kubernetes-engine/docs/concepts/ingress-ilb">Documentación ingress</a>
+
+        <h2>Kubernetes Objetos</h2>
+        <ul>
+          <li>Pod</li>
+          <li>Deployment</li>
+          <li>Services</li>
+        </ul>
+
+        <h2>Cloud Run Autoscaling</h2>
+        <a href="https://cloud.google.com/run/docs/about-instance-autoscaling">Documentación AutoScaling Cloud Run</a>
+
+        <h2>Lifecycle management</h2>
+        <p>Nos permite que acciones tomar sobre un almacenamiento en base a unos cirterios</p>
+        <a href="https://cloud.google.com/storage/docs/lifecycle">Documentación Lifecycle</a>
+
+        <h2>Cloud Monitoring</h2>
+        <p>Esta herramienta nos permite monitorizar los recursos de Google Cloud y enviar alertas en base a ciertas métricas que definamos.</p>
+
+        <a href="https://cloud.google.com/monitoring/alerts">Documentación alerting</a>
+
+        <h2>Tipos de cuentas IAM</h2>
+        <p>Existen varios tipos de cuentas que podemos usar para autenticarnos en <b>IAM</b>.</p>
+        <img src="ACE Esquema/9.png">
+
+        <ul>
+          <li>Google Account</li>
+          <li>Service Account</li>
+          <li>Google Groups</li>
+          <li>Google Workspace y Google indentity domains</li>
+        </ul>
+
 
     <div class="t2">Tags</div>
         <div class="cont">

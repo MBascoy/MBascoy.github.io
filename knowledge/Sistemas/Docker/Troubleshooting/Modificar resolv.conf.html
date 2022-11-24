@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Modificar resolv.conf</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Configurar <b>WSL</b> para que no autogenere el archivo <b>/etc/resolv.conf</b> y podamos poner nuestra configuración de DNS.</p>
+
+        </div>
+
+        <div class="t2">Comandos</div>
+            <div class="cont">
+              <p>Primero tenemos que crear un archivo <b>/etc/wsl.conf</b> e introducir el siguiente contenido: </p>
+              <pre><code>[network]
+generateResolvConf = false</code></pre>
+
+              <img src="Modificar resolv.conf/1.png" >
+
+
+              <p>Una vez hecho esto tenemos que reiniciar <b>WSL</b>, salimos de la maquina virtual y ejecutamos el siguiente comando:</p>
+              <code>wsl --shutdown</code>
+
+              <p>Volvemos a arrancar WSL y tenemos que <b>eliminar</b> el enlace simbolico <b>/etc/resolv.conf</b>:</p>
+              <img src="Modificar resolv.conf/2.png" >
+
+              <p>A continuación creamos el archivo <b>/etc/resolv.conf</b> (esta vez será un archivo real, no un enlace a otro lado), indicando el servidor DNS:</p>
+              <code>nameserver 8.8.8.8</code>
+
+              <p>Con esta configuración el archivo <b>/etc/resolv.conf</b> no será regenerado por WSL y siempre mantendrá la configuración que le hayamos indicado.</p>
+            </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker | Error</p>
+        </div>
+
+    </body>
+</html>
