@@ -1,0 +1,147 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Liskov Substitution Principle (LSP)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>El principio de <b>substitución de Liskov</b> nos dice que una <b>subclase</b> tiene que poder substituir a la <b>clase base</b> cuando se pasa como argumento a una función sin causar un mal funcionamiento en dicha función.</p>
+
+            <p>Si por ejemplo tenemos una clase <b>Animal</b> y una subclase <b>Gato</b> que deriva de animal, en una funcion como <b>ObtenerEdad(Animal animal)</b>, da igual que le pasaemos un objeto de tipo <b>Animal</b> o de tipo <b>Gato</b>, la función debería de tener un resultado valido en ambos casos, en caso de no ser así se estaría violando el principio LSP. </p>
+        </div>
+
+    <div class="t2">Implementar LSP</div>
+        <div class="cont">
+
+          <p>Clase principal:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Liskov</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] args</span>)</span> {
+
+        Circulo circulo = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Circulo();
+
+        calcularAreaForma(circulo);
+
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">calcularAreaForma</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">Forma forma</span>)</span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (forma.esTipo.equals(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cuadrado&quot;</span>)) {
+            ((Cuadrado)forma).calcularArea();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (forma.esTipo.equals(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;circulo&quot;</span>)) {
+            ((Circulo)forma).calcularArea();
+        }
+    }
+}</code></pre>
+
+          <p>Clase Forma:</p>
+
+<pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">Forma</span> </span>{
+String esTipo;
+}
+</code></pre>
+
+          <p>Clase Cuadrado:</p>
+
+<pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Cuadrado</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Forma</span></span>{
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">Cuadrado</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+esTipo = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cuadrado&quot;</span>;
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">calcularArea</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;area cuadrado&quot;</span>);
+}
+}
+</code></pre>
+
+          <p>Clase Circulo:</p>
+
+<pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Circulo</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Forma</span> </span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">Circulo</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span> {
+        esTipo = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;circulo&quot;</span>;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">calcularArea</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Area Circulo&quot;</span>);
+    }
+}
+</code></pre>
+
+          <p>En este ejemplo en la funcion <b>calcularAreaForma</b> no podemos hacer la sustitución de circulo o cuadrado por forma lo que nos lleva a que se está violando el <b>LSP</b>, ya que la función <b>calcularArea</b> está definida solo en las subclases y no en la clase base como función abstracta, por lo tanto lo que se hace para poder utilizar las clases circulo y cuadrado es utilizar una cadena de <b>if/else</b> para determinar que tipo de objeto se está pasando y llamar a la función de cada subclase, pero esto nos lleva a que estamos violando el <b>OCP</b>.</p>
+
+          <p>La solución en este caso es definir la función <b>calcularArea</b> en la clase base como función abstracta, lo que nos permite cumplir tanto con el <b>LSP</b> como con el <b>OCP</b></p>
+
+          <p>Clase principal:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Liskov</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] args</span>)</span> {
+
+        Circulo circulo = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Circulo();
+
+        calcularAreaForma(circulo);
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">calcularAreaForma</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">Forma forma</span>)</span>{
+        forma.calcularArea();
+    }
+}</code></pre>
+
+          <p>Clase Forma:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">abstract</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Forma</span> </span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">protected</span> <span style="color:rgb(204, 153, 204); font-weight:400;">abstract</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">calcularArea</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>;
+}</code></pre>
+
+          <p>Clase Circulo:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Circulo</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Forma</span> </span>{
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">calcularArea</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Area Circulo&quot;</span>);
+    }
+}
+</code></pre>
+
+          <p>Clase Cuadrdado:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Cuadrado</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Forma</span> </span>{
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">calcularArea</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;area cuadrado&quot;</span>);
+    }
+}
+</code></pre>
+        </div>
+
+    <div class="t2">Relacion IS-A</div>
+        <div class="cont">
+          <p>Cuando derivamos una subclase para saber si la abstracción que estamos creando es correcta podemos usar la relación "is a" (en español "es un"), para saber si nuestro diseño tiene sentido en principio...</p>
+
+          <p>Este metodo se basa en lo siguiente: si por ejemplo queremos crear una subclase de <b>Animal</b>, podemos decir que <b>Pato</b> "es un" Animal, siempre que se cumpla esta realación la abstracción tiene coherencia, por ejemplo en el caso de una clase <b>coche</b> si queremos crear una subclase motor, NO podemos decir <b>motor</b> "es un" coche, por lo tanto en este caso no tendría sentido crear dicha subclase porque probablemente estemos usando una abstacción incorrecta.</p>
+        </div>
+
+    <div class="t2">Design By Contract (DBC)</div>
+        <div class="cont">
+          <p>Design by contract implica que los metodos de una clase tienen que cumplir unas <b>precondiciones</b> y unas <b>postcondiiciones</b>.</p>
+
+          <p>Los métodos de una subclase tienen que cumplir las condiciones de la siguiente manera:</p>
+          <ul>
+            <li><b>Precondiciones</b>: Tienen que cumplir todas las condiciones del metodo de la clase base y pueden añadir nuevas restricciones a mayores, por ejemplo si un método en la clase base requiere que un valor esté entre 20 y 100 el método de la subclase podría decidir que ese valor esté entre 0 y 110, pero no podría exigir que ese valor estuviese entre 30 y 80 ya que sería un valor mas estricto y no cumpliría las precondiciones del metodo de la clase base.</li>
+
+            <li><b>Postcondiciones</b>: Tienen que cumplir las condiciones de la clase base y no pueden salirse de esas restricciones, por ejemplo si un metodo puede devolver valores entre 0 y 50 el metodo de la subclase no puede devolver un valor fuera de esa restricción, la restricción no puede ser más debil, ya que eso supondría devolver un valor inesperado.</li>
+          </ul>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>SOLID | Liskov Substitution</p>
+        </div>
+
+    </body>
+</html>

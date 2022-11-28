@@ -7,9 +7,9 @@
 
     <body>
 
-    <h1 class="t1">ACE Esquema</h1>
+    <h1 class="t1">ACE Esquema Parte 1</h1>
 
-    <div class="t2">Setting up cloud projects and accounts</div>
+    <div class="t2">Preparing for Your Associate Cloud Engineer Journey</div>
         <div class="cont">
           <h2>Identity and Access Management (IAM)</h2>
           <a href="https://cloud.google.com/iam/docs/overview">Documentación IAM</a>
@@ -34,7 +34,7 @@
 
           <p>Cuando le damos a un usuario un rol sobre un recurso, la política resultante es heradada hacia abajo en la jerarquía, de modo que si le damos un rol a un usuario sobre un <b>folder</b> los proyectos y recursos que cuelguen de ese folder heredarán dicha politica.</p>
 
-          <img src="ACE Esquema/1.svg" >
+          <img src="ACE Esquema Parte 1/1.svg" >
 
           <h2>Roles tipos</h2>
           <a href="https://cloud.google.com/iam/docs/roles-overview">Documentación roles</a>
@@ -83,7 +83,7 @@
 
           <h2>Computing Solutions</h2>
 
-          <img src="ACE Esquema/2.png">
+          <img src="ACE Esquema Parte 1/2.png">
 
           <p>Los servicios de computación que tenemos en Google Cloud son:</p>
 
@@ -107,7 +107,7 @@
           <h2>Cloud Storage</h2>
 
           <p>Data Storage y DataBase en Google Cloud:</p>
-          <img src="ACE Esquema/3.png">
+          <img src="ACE Esquema Parte 1/3.png">
 
           <a href="https://cloud.google.com/products/storage">Documentación Storage</a>
           <ul>
@@ -131,19 +131,19 @@
 
           <p><b>NOTA:</b> si se accede a la información antes del tiempo minimo se realizará un cargo por el acceso.</p>
 
-          <img src="ACE Esquema/4.png">
+          <img src="ACE Esquema Parte 1/4.png">
 
           <p>Comparaciones de las opciones de almacenamiento:</p>
-          <img src="ACE Esquema/5.png">
+          <img src="ACE Esquema Parte 1/5.png">
 
           <h2>Load balance</h2>
           <p>Resumen de balanceadores de carga en google cloud:</p>
-          <img src="ACE Esquema/6.png">
+          <img src="ACE Esquema Parte 1/6.png">
 
           <h2>Managed instance groups (MIGs)</h2>
           <a href="https://cloud.google.com/compute/docs/instance-groups/creating-groups-of-managed-instances">Documentacion MIG</a>
           <p>Es un grupo de maquinas virtuales que se manejan como una sola entidad.</p>
-          <img src="ACE Esquema/7.png">
+          <img src="ACE Esquema Parte 1/7.png">
 
           <p>Si queremos configurar las actualizaciones de las maquinas virtuales, tenemos dos opciones:</p>
           <ul>
@@ -185,59 +185,79 @@
           <h2>Terraform</h2>
           <a href="https://developer.hashicorp.com/terraform/intro">Documentacion Terraform</a>
           <p>Es un IaaS (Infraestructure as a Service), que nos permite desplegar recursos en base a un archivo de configuracion.</p>
+
+
+          <h2>CLI CheatSheet</h2>
+          <a href="https://cloud.google.com/sdk/docs/cheatsheet">Google Cloud CLI</a>
+
+
+          <h2>Snapshots</h2>
+          <a href="https://cloud.google.com/compute/docs/disks/snapshots">Documentacion Snapshots.</a>
+          <p>Los <b>snapshots</b> son copias de seguridad de nuestros discos en google cloud.</p>
+
+          <h2>Instance Groups</h2>
+          <p>Tenemos dos tipos:</p>
+          <ul>
+            <li>Managed instance groups</li>
+            <li>Unmanaged instance groups</li>
+          </ul>
+
+          <h2>GKE Load Balancer</h2>
+          <img src="ACE Esquema Parte 1/8.png">
+
+          <p>Para implementar un baleanzador interno tenemos que configurar un <b>ingres</b> con un NEG (Network Endpoint groups)</p>
+          <a href="https://cloud.google.com/kubernetes-engine/docs/concepts/ingress-ilb">Documentación ingress</a>
+
+          <h2>Kubernetes Objetos</h2>
+          <ul>
+            <li>Pod</li>
+            <li>Deployment</li>
+            <li>Services</li>
+          </ul>
+
+          <h2>Cloud Run Autoscaling</h2>
+          <a href="https://cloud.google.com/run/docs/about-instance-autoscaling">Documentación AutoScaling Cloud Run</a>
+
+          <h2>Lifecycle management</h2>
+          <p>Nos permite que acciones tomar sobre un almacenamiento en base a unos cirterios</p>
+          <a href="https://cloud.google.com/storage/docs/lifecycle">Documentación Lifecycle</a>
+
+          <h2>Cloud Monitoring</h2>
+          <p>Esta herramienta nos permite monitorizar los recursos de Google Cloud y enviar alertas en base a ciertas métricas que definamos.</p>
+
+          <a href="https://cloud.google.com/monitoring/alerts">Documentación alerting</a>
+
+          <h2>Tipos de cuentas IAM</h2>
+          <p>Existen varios tipos de cuentas que podemos usar para autenticarnos en <b>IAM</b>.</p>
+          <img src="ACE Esquema Parte 1/9.png">
+
+          <ul>
+            <li>Google Account</li>
+            <li>Service Account</li>
+            <li>Google Groups</li>
+            <li>Google Workspace y Google indentity domains</li>
+          </ul>
+
+          <h2>Creacion de custom roles</h2>
+          <a href="https://cloud.google.com/iam/docs/creating-custom-roles#iam-custom-roles-get-metadata-gcloud">Documentacion Custom roles</a>
+
+          <p>Los custom roles se pueden aplicar sobre <b>organizaciones</b> o <b>proyectos</b>.</p>
+
+          <p>Para crear <b>custom roles</b> necesitas tener el permiso <b>Iam.roles.create permission</b> y ser el propietario del grupo o proyecto o tener el role de administrador de la organización</p>
+
+          <p>Service Accounts</p>
+          <a href="https://cloud.google.com/iam/docs/creating-managing-service-accounts">Documentación Service Accounts</a>
+          <p>Son cuentas que se usan para hacer una autenticación de servicio a servicio, no es una cuenta que use un usuario, es una cuenta que usa una aplicación para conectarse a un servicio de google cloud.</p>
+
+          <h2>Cloud Audit Log</h2>
+          <p>Existen 4 tipos de logs:</p>
+          <ul>
+            <li>Admin Activity</li>
+            <li>Data Access</li>
+            <li>System Event</li>
+            <li>Policy Denied</li>
+          </ul>
         </div>
-
-        <h2>CLI CheatSheet</h2>
-        <a href="https://cloud.google.com/sdk/docs/cheatsheet">Google Cloud CLI</a>
-
-
-        <h2>Snapshots</h2>
-        <a href="https://cloud.google.com/compute/docs/disks/snapshots">Documentacion Snapshots.</a>
-        <p>Los <b>snapshots</b> son copias de seguridad de nuestros discos en google cloud.</p>
-
-        <h2>Instance Groups</h2>
-        <p>Tenemos dos tipos:</p>
-        <ul>
-          <li>Managed instance groups</li>
-          <li>Unmanaged instance groups</li>
-        </ul>
-
-        <h2>GKE Load Balancer</h2>
-        <img src="ACE Esquema/8.png">
-
-        <p>Para implementar un baleanzador interno tenemos que configurar un <b>ingres</b> con un NEG (Network Endpoint groups)</p>
-        <a href="https://cloud.google.com/kubernetes-engine/docs/concepts/ingress-ilb">Documentación ingress</a>
-
-        <h2>Kubernetes Objetos</h2>
-        <ul>
-          <li>Pod</li>
-          <li>Deployment</li>
-          <li>Services</li>
-        </ul>
-
-        <h2>Cloud Run Autoscaling</h2>
-        <a href="https://cloud.google.com/run/docs/about-instance-autoscaling">Documentación AutoScaling Cloud Run</a>
-
-        <h2>Lifecycle management</h2>
-        <p>Nos permite que acciones tomar sobre un almacenamiento en base a unos cirterios</p>
-        <a href="https://cloud.google.com/storage/docs/lifecycle">Documentación Lifecycle</a>
-
-        <h2>Cloud Monitoring</h2>
-        <p>Esta herramienta nos permite monitorizar los recursos de Google Cloud y enviar alertas en base a ciertas métricas que definamos.</p>
-
-        <a href="https://cloud.google.com/monitoring/alerts">Documentación alerting</a>
-
-        <h2>Tipos de cuentas IAM</h2>
-        <p>Existen varios tipos de cuentas que podemos usar para autenticarnos en <b>IAM</b>.</p>
-        <img src="ACE Esquema/9.png">
-
-        <ul>
-          <li>Google Account</li>
-          <li>Service Account</li>
-          <li>Google Groups</li>
-          <li>Google Workspace y Google indentity domains</li>
-        </ul>
-
 
     <div class="t2">Tags</div>
         <div class="cont">
