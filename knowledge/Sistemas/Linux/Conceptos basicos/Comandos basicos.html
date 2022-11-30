@@ -28,6 +28,12 @@
               <li><b>2>/dev/null</b>: indica que todos los errores no se muestren, por ejemplo si intenta buscar en carpetas en las que no se tiene permisos de lectura.</li>
             </ul>
 
+            <h2>Buscar archivo por contenido</h2>
+            <code>grep -r CADENA DIRECTORIO</code>
+
+            <p>Si por ejemplo queremos buscar los archivos que contengan la palabra "gato" en la carpeta actual lo haremos así:</p>
+            <code>grep -r gato .</code>
+
             <h2>Consultar descriptores de archivo de un proceso</h2>
             <code>lsof -p PID</code>
 
