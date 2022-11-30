@@ -1,0 +1,47 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Comandos basicos</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Comandos generales de Linux</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+            <h2>Buscar un archivo en el sistema de archivos</h2>
+            <code>find / -iname NOMBRE 2>/dev/null</code>
+
+            <ul>
+              <li><b>iname</b>: indica que NO distinga entre mayusculas y minusculas (ignore case-sensitive), si queremos que las tenga en cuenta podemos usar <b>name</b></li>
+              <li><b>NOMBRE</b>: es el nombre del archivo que queremos buscar, podemos usar wildcards como <b>*</b> por ejemplo "*.jpg" buscaría todos los archivos con extensión jpg</li>
+              <li><b>2>/dev/null</b>: indica que todos los errores no se muestren, por ejemplo si intenta buscar en carpetas en las que no se tiene permisos de lectura.</li>
+            </ul>
+
+            <h2>Consultar descriptores de archivo de un proceso</h2>
+            <code>lsof -p PID</code>
+
+            <h2>Consultar SystemCalls de un proceso</h2>
+            <code>strace -p PID</code>
+
+            <p>Si queremos filtrar la salida tenemos que hacerlo así:</p>
+            <code>strace -p PID 2>&1 | grep FILTRO</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Linux</p>
+        </div>
+
+    </body>
+</html>
