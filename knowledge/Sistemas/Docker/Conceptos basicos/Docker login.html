@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Docker login</h1>
+
+    <div class="t2">Comandos</div>
+        <div class="cont">
+          <p>Para hacer login con una cuenta en docker hub lo hacemos con el siguiente comando:</p>
+          <code>docker login</code>
+
+          <p>Una vez introducido el comando se nos preguntará <b>usuario</b> y <b>contraseña</b></p>
+
+          <p>Para desloguearnos lo hacemos con el siguiente comando:</p>
+          <code>docker logout</code>
+
+
+          <h2>Comprobar si estamos logueados</h2>
+          <p>Para saber si estamos logueados con alguna cuenta ejecutamos el siguiente comando:</p>
+          <code>docker info | grep Username</code>
+
+          <p>Si tenemos alguna sesión iniciada su mostrará una linea <b>Username</b> con el usuario con el que estamos logueados.</p>
+
+          <p><b>NOTA</b>: podemos ejecutar el comando <b>docker info</b> sin el grep para obtener mas información general sobre docker, como el registro contra el que estamos logueados.</p>
+
+          <p>Otra manera de saber si tenemos algun login configurado es mirando el archivo <b>~/docker/config.json</b>, si tenemos algún login configurado veremos algo como lo siguiente:</p>
+          <img src="Docker login/1.png">
+
+          <p>El archivo muestra el <b>registro</b> en el que estamos logueados y el token que usa para autenticarse.</p>
+
+          <p>Si no hubiese ningun usuario logueado veríamos algo como esto:</p>
+          <img src="Docker login/2.png">
+
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker | login</p>
+        </div>
+
+    </body>
+</html>

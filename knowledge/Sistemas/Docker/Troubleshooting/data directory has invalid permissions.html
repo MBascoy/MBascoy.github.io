@@ -25,7 +25,8 @@
               <pre><code>volumes:
       - ./skill-matrix-db:/var/lib/postgresql/data 750</code> </pre>
 
-      <p>En este caso le estaríamos dando permisos <b>750</b> a la carpeta del volumen que estamos mapeando.</p>
+              <p>En este caso le estaríamos dando permisos <b>750</b> (rwxr-x---) a la carpeta del volumen que estamos mapeando.</p>
+              <p><b>NOTA:</b> Si ya tenemos contenedores creados no basta con solo añadir los permisos en el docker-compose, tenemos que borrar los contenedores que se hayan creado con <b>docker rm</b>, una vez borrados podemos ejecutar de nuevo el docker-compose.</p>
             </div>
 
 
