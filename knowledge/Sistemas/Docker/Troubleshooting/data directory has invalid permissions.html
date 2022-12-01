@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">data directory has invalid permissions</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Al ejecutar un contenedor <b>postgres</b> obtenemos el siguiente error:</p>
+            <code>data directory "/var/lib/postgresql/data" has invalid permissions</code>
+
+            <img src="data directory has invalid permissions/1.png" >
+
+
+        </div>
+
+        <div class="t2">Solución</div>
+            <div class="cont">
+              <p>Para resolver este problema tenemos que indicar los permisos que queremos darle a la carpeta al crear el volumen en nuetro <b>docker-compose</b></p>
+
+              <pre><code>volumes:
+      - ./skill-matrix-db:/var/lib/postgresql/data 750</code> </pre>
+
+      <p>En este caso le estaríamos dando permisos <b>750</b> a la carpeta del volumen que estamos mapeando.</p>
+            </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker | Error</p>
+        </div>
+
+    </body>
+</html>
