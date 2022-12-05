@@ -11,12 +11,129 @@
 
     <div class="t2">Descripcion</div>
         <div class="cont">
-            <p>.</p>
+            <p>Este principio consiste en que cuando dos objetos están relacionados, ninguno tiene dependencia del otro, los dos dependen en una abstracción que une a las dos clases.</p>
         </div>
 
     <div class="t2">Explicación</div>
         <div class="cont">
 
+          <p>Si tenemos una clase <b>Boton</b> y na clase <b>Bombilla</b> en la que el boton se encarga de decidir si la bombilla está encendida o no, en este caso la clase <b>Boton</b> tendría dependencia de <b>Bombilla</b> si lo implementamos tal que así:</p>
+
+          <p>Clase main:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] args</span>)</span> {
+
+        Bombilla bombilla = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Bombilla();
+        Boton boton = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Boton(bombilla);
+
+        boton.pulsarBoton();
+        boton.pulsarBoton();
+    }
+}</code></pre>
+
+          <p>Clase Boton:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Boton</span> </span>{
+
+    Bombilla bombilla = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Bombilla() ;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(181, 189, 104); font-weight:400;">boolean</span> activado = <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">Boton</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">Bombilla bombilla</span>)</span>{
+        <span style="color:rgb(181, 189, 104); font-weight:400;">this</span>.bombilla = bombilla;
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">pulsarBoton</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (activado){
+            activado = !activado;
+            bombilla.apagarLuz();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>{
+            activado = !activado;
+            bombilla.encenderLuz();
+
+        }
+    }
+}
+</code></pre>
+
+          <p>Clase Bombilla:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Bombilla</span> {
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">encenderLuz</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println((<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Luz encendida&quot;</span>));
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">apagarLuz</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println((<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Luz apagada&quot;</span>));
+    }
+}</code></pre>
+
+          <p>En este ejemplo la clase <b>Boton</b> es dependiente de <b>Bombilla</b> lo que hace que no podamos reutilizar la clase boton con otros objetos o incluso que si la clase Bombilla cambia esto podría afectar a la clase Boton.</p>
+
+          <h2>Solucion para cumplir con DIP</h2>
+
+          <p>Para cumplir con el principio DIP, añadiremos una <b>interfaz entre las dos clases</b>, de manera que ninguna de las dos clases dependerá de la otra, si no que las dos dependerán de la propia interfaz:</p>
+
+          <p>Clase main:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] args</span>)</span> {
+
+        Bombilla bombilla = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Bombilla();
+        Boton boton = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Boton();
+
+        boton.pulsarBoton(bombilla);
+        boton.pulsarBoton(bombilla);
+    }
+}</code></pre>
+
+          <p>Clase Boton:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Boton</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> activado = <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">pulsarBoton</span><span style="color:rgb(209, 217, 225); font-weight:400;">(Interruptor dispositivo)</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (activado){
+            activado = !activado;
+            dispositivo.apagar();
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>{
+            activado = !activado;
+            dispositivo.encender();
+
+        }
+    }
+}
+</code></pre>
+
+          <p>Clase Bombilla:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Bombilla</span> <span style="color:rgb(181, 189, 104); font-weight:400;">implements</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Interruptor</span> {
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">encender</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println((<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Luz encendida&quot;</span>));
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">apagar</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>)</span>{
+        System.<span style="color:rgb(204, 153, 204); font-weight:400;">out</span>.println((<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Luz apagada&quot;</span>));
+    }
+}
+</code></pre>
+
+          <p>Interfaz Interruptor:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">interface</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Interruptor</span> </span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">encender</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>;
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">apagar</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>;
+}
+</code></pre>
+
+          <p>En este ejemplo, <b>Boton</b> usa la interfaz interruptor para acceder a los metodos que tendrán las clases que implementen dicha interfaz, y <b>Bombilla</b> implementa la interfaz interruptor</p>
         </div>
 
     <div class="t2">Tags</div>
