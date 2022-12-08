@@ -1,0 +1,58 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Interface Segregation Principle (ISP)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Este principio consiste en que cuando tienes una <b>interfaz</b> con <b>muchas funciones</b> las cuales no son necesarias en todas las clases que implementen dicha interfaz tenemos que <b>separar dichas funciones en varias subinterfaces</b>, para que sean implementadas solo en las clases que realmente utilizan las funciones asociadas a la interfaz.</p>
+        </div>
+
+    <div class="t2">Ejemplos</div>
+        <div class="cont">
+
+          <h2>Ejemplo clase transacción</h2>
+          <p>En este ejemplo tenemos una clase <b>transaccion</b> la cual tiene una serie de subclases para encapsular los distintos tipos de transacciones, a su vez cada subclase tiene que hacer uso de funciones de la clase <b>UI</b> para solicitar datos al usuario:</p>
+
+          <img src="Interface Segregation Principle (ISP)/1.png">
+
+          <p>En este caso como todas las subclases de transacción hacen uso de la interfaz <b>UI</b> si una de las subclases necesita modificar la interfaz para añadir algún metodo nuevo <b>todas las subclases</b> se veran obligadas a ser <b>recompiladas</b> a pesar de que no haya ningún cambio en dichas clases, todas las clases están acopladas porque hacen uso de la misma interfaz.</p>
+
+          <p>La manera de solucionar este problema es utilizar <b>varias interfaces</b> para que cada subclase solo hago uso de una interfaz con métodos que solo use dicha subclase:</p>
+
+          <img src="Interface Segregation Principle (ISP)/2.png">
+
+          <p>De esta manera estaremos cumpliendo con el <b>principio de segregación de interfaces</b>.</p>
+
+          <h2>Ejemplo clase puerta</h2>
+
+          <p>En este ejemplo tenemos una <b>interfaz</b> puerta (Door), la cual usaremos para crear clases que la implementen, pero una situación que se puede dar es que necesitemos un tipo de puerta que tenga alguna función exclusiva, como por ejemplo una puerta con temporizador (Timed Door), que requiere de una funcion <b>Timeout</b>, en este caso la interfaz Door tiene que implementar dicha interfaz (Timer Client):</p>
+
+          <img src="Interface Segregation Principle (ISP)/3.png">
+
+          <p>Esto obliga a que todas las clases que implementen la interfaz Door tengan que implementar dicha función, a pesar de que no tengan relacion con el temporizador... por lo tanto estamos violando el ISP.</p>
+
+          <p>La solución a esto es hacer que solo las subclases que necesiten esta interfaz (timer client) la implementen, asi:</p>
+
+          <img src="Interface Segregation Principle (ISP)/4.png">
+
+          <p><b>NOTA:</b> tenemos que tener en cuenta que en el primer diseño <b>Timed Door</b> sería una clase que implementaría la interfaz Door, pero en el segundo diseño podría ser una <b>clase</b> o una <b>interfaz</b> dependiendo de si queremos hacer una abstracción, de manera que las clases clientes podrían obtar por implementar Door para obtener las funciones básicas de la clase, o si necesitasen un tipo temporizado implementar Timed Door.</p>
+
+          <p>De esta manera lo que hacemos es segregar la interfaz y evitar que haya subclases de Door que tengan que implementar funciones que no van a utilizar.</p>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>SOLID | Interface Segregation</p>
+        </div>
+
+    </body>
+</html>
