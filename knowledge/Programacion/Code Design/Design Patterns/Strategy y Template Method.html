@@ -11,7 +11,188 @@
 
     <div class="t2">Descripcion</div>
         <div class="cont">
-            <p></p>
+            <p>Los patrones <b>Strategy</b> y <b>Template Method</b> nos permiten definir la estructura base de un algoritmo y despues realizar modificaciones en las partes que nosotros consideremos mas variables de dicho algoritmo.</p>
+
+            <p>Template Method consigue esto a traves de <b>herencia</b>, mientras que Strategy lo consigue a traves de <b>delegación</b></p>
+
+            <h2>Ejemplo</h2>
+            <p>El ejemplo consiste en un algoritmo que recibe un numero y le suma uno (esta es la parte comun del algoritmo), despues la parte variable es la validación para saber si cumple las condiciones para "ser mágico", tenemos una validación <b>Alpha</b> que decide si es mágico en caso de ser par y estar entre 10 y 20, y una validación <b>Beta</b> que decide si es mágico en caso de ser impar.</p>
+
+            <h2>Strategy</h2>
+
+            <img src="Strategy y Template Method/1.png">
+
+            <h3>StrategyApp.java</h3>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">StrategyApp</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] args</span>)</span> {
+        ValidadorAlpha validadorAlpha = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ValidadorAlpha();
+        ValidadorBeta validadorBeta = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ValidadorBeta();
+
+        NumeroMagico numeroMagicoAlpha = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> NumeroMagico(validadorAlpha);
+        NumeroMagico numeroMagicoBeta = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> NumeroMagico(validadorBeta);
+
+        numeroMagicoAlpha.setNumero(<span style="color:rgb(249, 145, 87); font-weight:400;">12</span>);
+        numeroMagicoBeta.setNumero(<span style="color:rgb(249, 145, 87); font-weight:400;">12</span>);
+
+        printMagic(numeroMagicoAlpha, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Alpha&quot;</span>);
+        printMagic(numeroMagicoBeta, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Beta&quot;</span>);
+
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">printMagic</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">NumeroMagico numeroMagico, <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> nombre</span>)</span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(numeroMagico.check())
+            System.out.println(nombre + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; es magico&quot;</span>);
+        <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+            System.out.println(nombre + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; no magic&quot;</span>);
+    }
+}</code></pre>
+
+            <h3>NumeroMagico.java</h3>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">NumeroMagico</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> ValidacionHandler validador;
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">NumeroMagico</span><span style="color:rgb(209, 217, 225); font-weight:400;">(ValidacionHandler validador)</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.validador = validador;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">setNumero</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.numero = numero;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">check</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numeroMagico = numero + <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> validador.esMagico(numeroMagico);
+    }
+}
+</code></pre>
+
+            <h3>ValidacionHandler.java</h3>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">interface</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ValidacionHandler</span> </span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esMagico</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span></span>;
+}
+</code></pre>
+
+            <h3>ValidadorAlpha.java</h3>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ValidadorAlpha</span> <span style="color:rgb(204, 153, 204); font-weight:400;">implements</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ValidacionHandler</span></span>{
+
+    <span style="color:rgb(249, 145, 87); font-weight:400;">@Override</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esMagico</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> esPar(numero) &amp;&amp; esRango10a20(numero);
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esPar</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> numero % <span style="color:rgb(249, 145, 87); font-weight:400;">2</span> == <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esRango10a20</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> numero &gt; <span style="color:rgb(249, 145, 87); font-weight:400;">10</span> &amp;&amp; numero &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">20</span>;
+    }
+}
+</code></pre>
+
+            <h3>ValidadorBeta.java</h3>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ValidadorBeta</span> <span style="color:rgb(204, 153, 204); font-weight:400;">implements</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ValidacionHandler</span></span>{
+
+    <span style="color:rgb(249, 145, 87); font-weight:400;">@Override</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esMagico</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> esImpar(numero);
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esImpar</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> numero % <span style="color:rgb(249, 145, 87); font-weight:400;">2</span> != <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    }
+
+}
+</code></pre>
+
+
+            <h2>Template Method</h2>
+            <img src="Strategy y Template Method/2.png">
+
+            <h3>TemplateMethodApp.java</h3>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">TemplateMethodApp</span> </span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">main</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">String</span>[] args</span>)</span> {
+
+        NumeroMagico numeroMagicoAlpha = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ValidadorAlpha();
+        NumeroMagico numeroMagicoBeta = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ValidadorBeta();
+
+        numeroMagicoAlpha.setNumero(<span style="color:rgb(249, 145, 87); font-weight:400;">15</span>);
+        numeroMagicoBeta.setNumero(<span style="color:rgb(249, 145, 87); font-weight:400;">15</span>);
+
+        printMagic(numeroMagicoAlpha, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Alpha&quot;</span>);
+        printMagic(numeroMagicoBeta, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Beta&quot;</span>);
+
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">printMagic</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">NumeroMagico numeroMagico, <span style="color:rgb(181, 189, 104); font-weight:400;">String</span> nombre</span>)</span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(numeroMagico.check())
+            System.out.println(nombre + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; es magico&quot;</span>);
+        <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+            System.out.println(nombre + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; no magic&quot;</span>);
+    }
+}</code></pre>
+
+            <h3>NumeroMagico.java</h3>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">abstract</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">NumeroMagico</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero;
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">setNumero</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.numero = numero;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">check</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numeroMagico = numero + <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> esMagico(numeroMagico);
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">abstract</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esMagico</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span></span>;
+}
+</code></pre>
+
+            <h3>ValidadorAlpha</h3>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ValidadorAlpha</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">NumeroMagico</span></span>{
+
+    <span style="color:rgb(249, 145, 87); font-weight:400;">@Override</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esMagico</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> esPar(numero) &amp;&amp; esRango10a20(numero);
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esPar</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> numero % <span style="color:rgb(249, 145, 87); font-weight:400;">2</span> == <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esRango10a20</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> numero &gt; <span style="color:rgb(249, 145, 87); font-weight:400;">10</span> &amp;&amp; numero &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">20</span>;
+    }
+}
+</code></pre>
+
+            <h3>ValidadorBeta</h3>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ValidadorBeta</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span style="color:rgb(181, 189, 104); font-weight:400;">NumeroMagico</span></span>{
+
+    <span style="color:rgb(249, 145, 87); font-weight:400;">@Override</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esMagico</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> esImpar(numero);
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">boolean</span> <span style="color:rgb(181, 189, 104); font-weight:400;">esImpar</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numero)</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> numero % <span style="color:rgb(249, 145, 87); font-weight:400;">2</span> != <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    }
+
+}
+</code></pre>
+
+
+
         </div>
 
     <div class="t2">Tags</div>

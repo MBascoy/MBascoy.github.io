@@ -11,7 +11,18 @@
 
     <div class="t2">Descripcion</div>
         <div class="cont">
-            <p></p>
+            <p>El patron de diseño <b>command</b> consiste en abstraer una serie de funciones (comandos) mediante una interfaz, de manera que puedan ser llamados mediante varios tipos de objetos.</p>
+
+            <p>Un ejemplo es el siguiente:</p>
+
+            <img src="Command/1.png">
+
+            <p>En este ejemplo tenemos varios tipos de actuadores (boton, sensor y api), que utilizarán la interfaz <b>"command"</b>, y a su vez tenemos dos tipos de objetos que implementan la interfaz <b>"command"</b>, si por ejemplo queremos ejecutar la accion de <b>"ApagarLuz"</b> podríamos hacerlo desde cualquiera de los actuadores, pasándole un objeto <b>ApagarLuzCommand</b>, y llamando a su función <b>execute</b>.</p>
+
+            <p>Con este patrón estamos elevando las funciones a nivel de clase, y al utilizar la interfaz command nos permite separar el objeto que llama a la función de la ejecución en sí, los objetos que llaman a los comandos (boton, sensor y api) no saben nada de los comandos en sí.</p>
+
+            <p>De esta manera podemos añadir mas actuadores de manera aislada sin que afecte a los comandos, y podemos añadir mas comandos sin que afecte a los actuadores.</p>
+
         </div>
 
     <div class="t2">Tags</div>
