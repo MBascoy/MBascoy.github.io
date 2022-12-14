@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Verificar paquetes</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como verificar que todos los archivos de un paquete están instalados de manera correcta.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+        <p>Para verificar los arhivos de un paquete usamos el siguiente comando:</p>
+
+        <code>> rpm -V &lt;nombre paquete&gt;</code>
+        
+        <p>Si todos los paquetes están exactamente igual que cuando se instaló el paquete el comando no dara <b>ninguna salida</b>, en el caso de que haya archivos modificados o archivos que han sido eliminados veremos una salida como la siguiente:</p>
+
+        <img src="Verificar paquetes/1.png"/>
+        
+        <p>Si queremos restaurar todos los archivos al estado inicial de cuando instalamos el paquete ejecutamos el siguiente comando:</p>
+        
+        <code>rpm -i --replacepkgs autofirma-1.7.1-1.noarch_SUSE.rpm</code>
+        
+        <p>Básicamente es reinstalar el paquete.</p>
+        
+        <p>Para hacer la verificación de archivos <b>no necesitamos el archivo .rpm</b>, pero para hacer la reinstalación <b>si que es necesario</b> el paquete .rpm</p>
+
+
+    </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>RPM | verificar </p>
+        </div>
+
+    </body>
+</html>
