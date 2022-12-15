@@ -209,6 +209,42 @@ name=DNIe</code></pre>
 
         </div>
 
+    <div class="t2">TroubleShooting AutoFirma</div>
+        <div class="cont">
+            <p>Cuando intentamos acceder a la información del certificado de un archivo firmado obtenemos el siguiente error:</p>
+            
+            <img src="Lector tarjetas (DNIe)/11.png"/>
+            
+            <p>Para solucionar este error y que se muestre la información del certificado hacemos lo siguiente:</p>
+            
+            <p>Primero dentro de la carpeta <b>/usr/local/share/applications</b> creamos un archivo <b>certView.desktop</b> con el siguiente contenido:</p>
+            
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(181, 189, 104); font-weight:700;">[Desktop Entry]</span>
+<span style="color:rgb(129, 162, 190); font-weight:400;">Encoding</span>=UTF-<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>
+<span style="color:rgb(129, 162, 190); font-weight:400;">Version</span>=<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>
+<span style="color:rgb(129, 162, 190); font-weight:400;">Type</span>=Application
+<span style="color:rgb(129, 162, 190); font-weight:400;">Terminal</span>=<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>
+<span style="color:rgb(129, 162, 190); font-weight:400;">Categories</span>=<span style="color:rgb(204, 153, 204); font-weight:400;">Off</span>ice<span style="color:rgb(150, 152, 150); font-weight:400;">;Utilities;Signature</span>
+<span style="color:rgb(129, 162, 190); font-weight:400;">Exec</span>=/home/jericho/certView.sh %U
+<span style="color:rgb(129, 162, 190); font-weight:400;">Name</span>=CertView
+<span style="color:rgb(129, 162, 190); font-weight:400;">MimeType</span>=application/pkix-cert<span style="color:rgb(150, 152, 150); font-weight:400;">;</span></code></pre>
+        
+            <p>Despues en nuestra carpeta personal en mi caso <b>/home/jericho</b> creamos el archivo <b>certView.sh</b> con el siguiente contenido:</p>
+            
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#!/bin/bash</span>
+openssl x509 -<span style="color:rgb(204, 153, 204); font-weight:400;">in</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$1</span> -inform der -text | less</code></pre>
+
+            <p>Y le damos permisos de ejecucion:</p>
+
+            <code>chmod +x certView.sh</code>
+            
+            <p>Para terminar, en el archivo <b>~/.config/mimeapps.list</b> añadimos la siguiente linea para que se ejecute el archivo desktop que acabamos de crear asociado con los archivos <b>application/pkix-cert</b> (.cer):</p>
+            
+            <code>application/pkix-cert=certView.desktop</code>
+            
+            <p>Una vez hecho todo esto al intentar abrir la información del certificado se abrirá una terminal con la información que nos da el comando <b>openssl</b> sobre el certificado.</p>
+        </div>
+        
     <div class="t2">DNI 3.0 en Linux</div>
         <div class="cont">
 
