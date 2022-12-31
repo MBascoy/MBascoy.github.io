@@ -29,12 +29,16 @@
                 <br/>
                 > git branch -a -vv
                 </code>
-                <li>Eliminar rama</li>
+                <li>Eliminar rama local</li>
                 <code>> git branch -d &lt;nombre branch&gt;
                     <br/>
                     > git branch -D &lt;nombre branch&gt;
                     </code>
                 <p>La opcion <b>-D</b> permite forzar el borrado en caso de que la rama tenga un merge pendiente</p>
+                <li>Eliminar rama remota</li>
+                <code>git push &lt;nombre remoto&gt; --delete &lt;nombre rama&gt;</code>
+                <p>Ejemplo:</p>
+                <code>git push origin --delete feature/login</code>
             </ul>
         </p>
         </div>
