@@ -1,0 +1,80 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Angular Material</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como Implementar Angular Material en un proyecto, para utilizar los distintos componentes gráficos.</p>
+
+          <p><a href="https://material.angular.io/">Documentación Referencia</a> </p>
+
+          <p><b>NOTA:</b> no confundir <b>Angular Material</b> con <b>Material Design</b>.</p>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+
+            <p>Para utilizar <b>Angular Material</b> primero tenemos que instalarlo con el siguiente comando:</p>
+
+            <code>ng add @angular/material</code>
+
+            <img src="Angular Material/1.png">
+
+            <p>Seleccionamos todas las opciones por defecto cuando nos pregunte.</p>
+
+            <p>A continuación tenemos que importar el modulo del componente que vayamos a utilizar en nuestro <b>app.module.ts</b>, en este ejemplo usaremos un toggle:</p>
+
+            <p>En este caso tenemos que incluir las siguientes lineas:</p>
+
+            <code>import { MatSlideToggleModule } from '@angular/material/slide-toggle';</code>
+            <code>MatSlideToggleModule</code>
+
+            <p>NOTA: puede ser que el <b>import</b> no se autoincluya y tendremos que ponerlo manualmente.</p>
+
+            <img src="Angular Material/2.png">
+
+            <p>Una vez hecho esto simplemente tenemos que incluir el siguiente código en la plantilla:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">mat-slide-toggle</span>&gt;</span>Toggle me!<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">mat-slide-toggle</span>&gt;</span></code></pre>
+
+            <p>y el componente se mostrará en nuestra página:</p>
+            <img src="Angular Material/3.png">
+
+        </div>
+
+
+
+        <div class="t2">Troubleshooting</div>
+            <div class="cont">
+              <p>Al ejecutar nuestra aplicación podemos obtener un error como el siguiente:</p>
+
+              <img src="Angular Material/4.png">
+
+              <pre><code>Error: src/app/app.component.html:1:5 - error NG8001: 'mat-slide-toggle' is not a known element:
+1. If 'mat-slide-toggle' is an Angular component, then verify that it is part of this module.
+2. If 'mat-slide-toggle' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.</code></pre>
+
+
+              <p>Este error aparece cuando no hemos realizado el <b>import</b> del componente que estamos utilizando.</p>
+
+
+            </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Material</p>
+        </div>
+
+    </body>
+</html>

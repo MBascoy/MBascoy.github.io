@@ -1,0 +1,43 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">NullInjectorError, No provider for CLASS</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+          <p>Al intentar ejecutar la aplicación o al intentar lanzar los tests obtenemos el siguiente error:</p>
+
+          <pre><code>NullInjectorError: R3InjectorError(DynamicTestModule)[SelectorsService -> HttpClient -> HttpClient]:
+  NullInjectorError: No provider for HttpClient!</code></pre>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+        <p>Este error se da porque nos hace falta importar el módulo relativo a la clase que aparece en el error, en el ejemplo anterior sería el modulo "HttpClientTestingModule", para saber el modulo que tenemos que importar lo mejor es buscar en google, ya que el nombre no siempre es intuitivo...:</p>
+
+        <p>Para solucionar el error en el caso de que se de en un test, podemos importarlo en la sección de <b>imports</b> dentro de la configuración del test:</p>
+
+        <img src="NullInjectorError, No provider for CLASS/1.png">
+
+        <p>En el caso de que el error nos dé en un componente tenemos que importar el módulo dentro del <b>app.module.ts</b> o dentro de un module.ts relátivo a ese componente.</p>
+
+        <p>Este error también podemos verlo en la consola del navegador, indicandonos el archivo de modulos donde no se está encontrando el import (users.module en este caso):</p>
+
+        <img src="NullInjectorError, No provider for CLASS/2.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | import</p>
+        </div>
+
+    </body>
+</html>
