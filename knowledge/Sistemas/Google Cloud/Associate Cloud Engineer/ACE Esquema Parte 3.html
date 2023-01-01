@@ -9,9 +9,83 @@
 
     <h1 class="t1">ACE Esquema Parte 3</h1>
 
-    <div class="t2"></div>
+    <div class="t2">Essential Google Cloud Infrastructure: Foundation</div>
         <div class="cont">
+          <h2>Interactuar con Gcloud</h2>
+          <p>Para interactuar con gcloud podemos hacerlo de las siguientes maneras:</p>
+
+          <ul>
+            <li>Google Cloud Console</li>
+            <li>Cloud Shell y Cloud SDK</li>
+            <li>REST Api</li>
+            <li>Cloud Mobile App</li>
+          </ul>
+
+          <h2>Virtual Networks</h2>
+          <ul>
+            <li>Networks</li>
+            <ul>
+              <li>Default</li>
+              <li>Auto</li>
+              <li>Custom</li>
+            </ul>
+            <li>Subnetworks</li>
+            <p>Cuando creamos una red con modo "auto", se crea una subred por cada una de las regiones de Goolge cloud</p>
+            <li>Regions</li>
+            <li>Zones</li>
+            <li>IP Addresses</li>
+            <ul>
+              <li>internal</li>
+              <p>Las maquinas virtuales solo tienen de manera obligatoria una <b>ip interna</b>, las demas son opcionales.</p>
+              <li>external</li>
+              <li>range</li>
+            </ul>
+            <li>Routes</li>
+            <li>Firewall Rules</li>
+          </ul>
+
+          <h2>Compute Engine</h2>
+          <ul>
+            <li>Machine Families</li>
+            <ul>
+              <li>General-purpose</li>
+              <li>Compute-optimized</li>
+              <li>Memory-optimized</li>
+              <li>Accelerator-optimized</li>
+            </ul>
+          </ul>
+
+          <p>Las maquinas virtuales se cobran <b>por segundo</b> a partir del primer minuto.</p>
+
+          <p>Los tipos de instancias <b>Spot</b> y <b>Preemtible</b> son los que mas descuentos ofrecen, y están orientadas a trabajos que pueden ser interrumpidos.</p>
+
+          <h2>Disk options</h2>
+          <img src="ACE Esquema Parte 3/1.png">
+
         </div>
+
+    <div class="t2">Essential Cloud Infrastructure: Core Services</div>
+        <div class="cont">
+          <h2>Identity and Access Management (IAM)</h2>
+
+          <ul>
+            <li>Roles</li>
+            <ul>
+              <li>Basic</li>
+              <li>Predifined</li>
+              <li>Custom</li>
+            </ul>
+            <li>Members</li>
+            <ul>
+              <li>Google Account</li>
+              <li>Service Account</li>
+              <li>Google Group</li>
+              <li>Cloud Identity or Google Workspace</li>
+            </ul>
+          </ul>
+
+        </div>
+
 
     <div class="t2">Tags</div>
         <div class="cont">

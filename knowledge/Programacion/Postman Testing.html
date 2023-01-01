@@ -1,0 +1,67 @@
+
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Postman Testing</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+            <p>Como utilizar postman para testear las request de un API Rest.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Por cada una de las <b>request</b> que tengamos en postman podemos realizar una serie de tests en base a la respuesta a esa solicitud, los tests los escribiremos en la pestaña <b>Tests</b>:</p>
+
+          <img src="Postman Testing/1.png" alt="">
+
+          <p>Cada uno de los tests se crean utilizando <b>pm.test()</b></p>
+
+          <h2>Testear código de respuesta</h2>
+          <p>Para testear el código que nos devuelve una request lo hacemos así:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">pm.test(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Status code is 201&quot;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> <span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span> {
+    pm.response.to.have.<span style="color:rgb(181, 189, 104); font-weight:400;">status</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">201</span>);
+});</code></pre>
+
+          <h2>Testear contenido de la respuesta:</h2>
+
+          <p>Usando <b>pm.response.json()</b> podemos acceder a la respuesta en formato json.</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">pm.test(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Get correct selectors&quot;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">function</span> (<span style="color:rgb(209, 217, 225); font-weight:400;"></span>) </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">var</span> jsonData = pm.response.json();
+    pm.expect(jsonData).to.eql([<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;gremios&#x27;</span>,<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;comarcas&#x27;</span>,<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;provincias&#x27;</span>]);
+});</code></pre>
+
+          <p>En este caso testeamos que la respuesta sea un array de strings (con 3 valores en el array).</p>
+
+          <h2>Variables de Postman</h2>
+
+          <p>Utilizando <b>pm.collectionVariables</b> podemos acceder a las variables de la colección de postman, tanto para leerlas como para escribir nuevas variables.</p>
+
+          <p>Esto podemos usarlo para <b>compartir una variable</b> entre varios tests, o para asignar una variable con el resultado de una de las requests y utilizarla posteriormente en otro tests para comprobar un valor.</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">let</span> jsonData = pm.response.json();
+pm.collectionVariables.<span style="color:rgb(204, 153, 204); font-weight:400;">set</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;SelectorId&quot;</span>, jsonData.id);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> SelectorName = pm.collectionVariables.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;SelectorName&quot;</span>);
+pm.test(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Get correct SelectorName&quot;</span>, function () {
+    pm.expect(jsonData.<span style="color:rgb(204, 153, 204); font-weight:400;">value</span>).to.eql(SelectorName);
+});</code></pre>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Postman | test | API REST</p>
+        </div>
+
+    </body>
+</html>

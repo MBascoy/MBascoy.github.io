@@ -1,0 +1,42 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Declarar clase solo para constantes</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Crear una clase a la que llamaremos cuando queramos acceder a constantes de la aplicación.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para realizar esto solo tenemos que crear una clase normal y a continuación declararemos las constantes como estáticas.</p>
+
+          <p>Ejemplo:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(255, 204, 102); font-weight:400;">AppConstants</span> </span>{
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">readonly</span> urlBack = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;example.com&quot;</span>;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">readonly</span> maxNumberOfUsers = <span style="color:rgb(249, 145, 87); font-weight:400;">100</span>;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">readonly</span> appName = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;example&quot;</span>;
+}</code></pre>
+
+          <p>Una vez tenemos esta clase podemos llamar a las constantes desde cualquier parte usando:</p>
+
+          <code>AppConstants.maxNumberOfUsers</code>
+
+          <p>(Necesitamos importar dicha clase en los sitios donde vayamos a llamar a la clase de constantes.)</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Constantes</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Volumenes en DOcker</h1>
+
+    <div class="t2">Comandos</div>
+        <div class="cont">
+          <p>Crear un volumen:</p>
+          <code>docker volume create &lt;NOMBRE_VOLUMEN&gt;</code>
+
+          <p>Listar volumenes:</p>
+          <code>docker volume ls</code>
+
+          <p>Borrar volumen</p>
+          <code>docker volume rm &lt;NOMBRE_VOLUMEN&gt;</code>
+
+          <p>La información de los volumenes de docker se almacenan en <b>/var/lib/docker/volumes/NOMBRE_VOLUMEN/_data</b>, si queremos borrar la información de un volumen podemos hacerlo borrando dicha carpeta:</p>
+          <code># rm -rf /var/lib/docker/volumes/NOMBRE_VOLUMEN/_data</code>
+
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Docker | Volumenes</p>
+        </div>
+
+    </body>
+</html>
