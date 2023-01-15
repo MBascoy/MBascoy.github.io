@@ -1,0 +1,44 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Nombres de ramas mayusculas y minusculas</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Cuando tenemos una rama con un nombre como <b>"ejemplo/RamaDeEjemplo"</b> la parte que va antes de la barra (/) no la podemos cambiar si solo queremos hacer el cambio a <b>mayusculas (o minusculas)</b></p>
+            <p>En este caso poner algo como: <b>Ejemplo/RamaDeEjemplo</b></p>
+
+        </div>
+
+    <div class="t2">Explicación</div>
+        <div class="cont">
+          <p>Git suele dar problemas siempre que queremos renombrar un nombre solo para cambiar <b>mayusculas por minusculas (o viceversa)</b>, normalmente este problema lo podemos solucionar haciendo un renombrado intermedio, o sea poner un nombre diferente en vez de cambiar directamente las mayusculas por minusculas.</p>
+
+          <p>Pero en el caso de tener un nombre con una barra <b>(/)</b> por el medio provoca que git cree una carpeta, y el nombre de esa carpeta será constante, no lo podremos cambiar nunca usando comandos de Git directamente.</p>
+
+          <p>En el ejemplo anterior se crearía una carpeta "ejemplo", y ese nombre se va a mantener para siempre, ya no solo para la rama que hemos creado, incluso si creamos nuevas ramas como: EJEMPLO/RamaEjemplo2, aún en este caso el nombre de la rama a pesar de que la hemos crado nueva sería con "ejemplo" en minusculas, porque git meterá dicha rama en la carpeta "ejemplo" ya existente (al haber creado la primera rama), y el nombre no se cambia.</p>
+        </div>
+
+        <div class="t2">Solución</div>
+            <div class="cont">
+              <p>Para solucionar este problema tenemos que <b>renombrar el nombre de la carpeta manualmente</b>, para ello nos vamos a la siguiente carpeta dentro de nuestro repositorio git:</p>
+
+              <code>.git\refs\heads</code>
+
+              <p>En esta carpeta están todas las ramas y carpetas donde git almacena la información local de las ramas, en el caso anterior tendríamos dentro de esta carpeta una carpeta <b>ejemplo</b> simplemente tendríamos que renombrarla al nombre que le queramos dar, por ejemplo </b>Ejemplo</b> y esto ya renombrará todas nuestras ramas que tengan la carpeta <b>ejemplo/</b> indicando el prefijo con el nombre que le hemos dado a la carpeta.</p>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | Ramas | uppercase | lowercase </p>
+        </div>
+
+    </body>
+</html>

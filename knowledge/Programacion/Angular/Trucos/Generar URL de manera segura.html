@@ -1,0 +1,79 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Generar URL de manera segura</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como generar URLs de manera que no contengan un formato invalido (como caracteres / de mas).</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para generar URLs de manera seguro lo hacemos de la siguiente manera:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span class="hljs-title function_">ngOnInit</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>){
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> path = <span style="color:rgb(181, 189, 104); font-weight:400;">require</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;path&#x27;</span>);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> baseUrl = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ejemplo.com&#x27;</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> pathExtra1 = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ejemplo&#x27;</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> pathExtra2 = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;dos&#x27;</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> <span style="color:rgb(129, 162, 190); font-weight:400;">fullUrl</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title function_">URL</span>(path.<span class="hljs-title function_">join</span>(pathExtra1, pathExtra2, pathExtra1), baseUrl).<span class="hljs-title function_">toString</span>();
+
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(fullUrl);
+  }</code></pre>
+
+          <p>Primero importamos el modulo <b>path</b> (Si usamos una versión de angular 12 o superior tendremos un problema con esto, explicado en troubleshooting), despues simplemente usamos <b>path.join</b> para unir todos los trozos de la ruta y creamos un objeto <b>URL</b> para unir la dirección base con toda la ruta que ha generado el path.join, esto nos generará un string resultante como el siguiente:</p>
+
+          <code>http://ejemplo.com/ejemplo/dos/ejemplo</code>
+
+          <p>La URL es correcta, no tiene barras (/) de más, cosa que podría suceder si usasemos el operador + e intentamos concatenar por ejemplo "/ejemplo/" y "/ejemplo2" la url resultante sería algo como "/ejemplo//ejemplo2" dando lugar a una url invalida.</p>
+        </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+          <p>Si usamos angular 12 o superior obtendremos un error al intentar hacer el <b>require</b> del modulo <b>path</b>:</p>
+
+          <pre><code>./src/app/app.component.ts:46:13-28 - Error: Module not found: Error: Can't resolve 'path' in 'C:\Users\manuel.bascoy\lab\AngularDeploy\src\app'
+
+BREAKING CHANGE: webpack < 5 used to include polyfills for node.js core modules by default.
+This is no longer the case. Verify if you need this module and configure a polyfill for it.
+
+If you want to include a polyfill, you need to:
+        - add a fallback 'resolve.fallback: { "path": require.resolve("path-browserify") }'
+        - install 'path-browserify'
+If you don't want to include a polyfill, you can use an empty module like this:
+        resolve.fallback: { "path": false }</code></pre>
+
+        <img src="Generar URL de manera segura/1.png"/>
+
+        <p>Para solucionar este problema primero tenemos que instalar el siguiente modulo:</p>
+
+        <code>npm install path-browserify</code>
+
+        <p>Y a continuación en el archivo <b>tsconfig.json</b>, introducir la siguiente configuración dentro del apartado <b>"compilerOptions"</b>:</p>
+
+        <pre><code>"paths": {
+  "path": [
+    "./node_modules/path-browserify"
+  ]
+}</code></pre>
+
+          <img src="Generar URL de manera segura/2.png"/>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | URL |</p>
+        </div>
+
+    </body>
+</html>
