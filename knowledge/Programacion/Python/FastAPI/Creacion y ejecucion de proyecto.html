@@ -1,0 +1,86 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Creacion y ejecucion de proyecto</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como crear un proyecto base con <b>FastAPI</b>, y comandos a usar para ejecutarlo.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+          <h2>Pasos previos</h2>
+          <p>Primero creamos la carpeta donde tendremos nuestro proyecto:</p>
+          <code>mkdir FastApiExample</code>
+
+          <p>A continuación dentro de esa carpeta creamos el entorno virtual que usaremos para ejecutar nuestra aplicación:</p>
+          <code>python -m venv VirtualEnvironment</code>
+
+          <p><b>NOTA:</b> VirtualEnvironment es el nombre que le queremos dar a nuestro entorno virtual, se creará una carpeta con dicho nombre.</p>
+
+          <p>Activamos el entorno virtual:</p>
+          <p>(en bash):</p>
+          <code>source VirtualEnvironment/Scripts/activate</code>
+
+          <p>(en cmd):</p>
+          <code>VirtualEnvironment\Scripts\activate.bat</code>
+
+          <p>Cuando estamos dentro de un entorno virtual se muestra de la siguiente manera en la consola:</p>
+          <img src="Creacion y ejecucion de proyecto/1.png">
+
+          <p>Si quisiesemos desactivar el entorno virtual:</p>
+
+          <p>(en bash):</p>
+          <code>deactivate</code>
+
+          <p>(en cmd):</p>
+          <code>VirtualEnvironment\Scripts\deactivate.bat</code>
+
+          <h2>Instalación</h2>
+          <p>A continuación tenemos que instalar el paquete de <b>fastapi</b> y el paquete de <b>uvicorn</b> (que es el servidor que usará nuestra aplicación)</p>
+
+          <code>pip install fastapi uvicorn</code>
+
+          <h2>Código aplicación</h2>
+          <p>Creamos un archivo <b>api.py</b> dentro de nuestra carpeta <b>FastApiExample</b> en el que introduciremos nuestro código:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">from</span> fastapi import FastAPI
+app = FastAPI()
+
+@app.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/&quot;</span>)
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">async</span> def <span style="color:rgb(181, 189, 104); font-weight:400;">welcome</span>() -&gt; dict:
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span></span> { <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;message&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hello World!!!&quot;</span>}</code></pre>
+
+          <h2>Ejecución</h2>
+          <p>Para ejecutar nuestra aplicación lo hacemos de la siguiente manera:</p>
+
+          <code>uvicorn.exe api:app --port 8000 --reload</code>
+
+          <p><b>NOTA</b>: tenemos que asegurarnos de que estamos dentro de nuestro entorno virtual, ya que los paquetes que hemos instalado previamente están en ese entorno.</p>
+
+          <p><b>api</b> hace referencia a nuestro arhicvo api.py, <b>app</b> hace referencia a la variable donde hemos almacenado la inicialización de FastApi, y <b>port</b> hace referencia al puerto sobre el que escuchará el servidor.</p>
+
+          <p>Cuando la aplicación está ejecutada se muestra así en la consola:</p>
+          <img src="Creacion y ejecucion de proyecto/2.png">
+
+          <p>Una vez tenemos la aplicación ejecutada podemos acceder desde nuestro navegador a la dirección local en el puerto que hemos indicado y obtendremos la respuesta del endpoint que hemos creado:</p>
+          <img src="Creacion y ejecucion de proyecto/3.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | FastAPI | Creacion | Ejecucion</p>
+        </div>
+
+    </body>
+</html>

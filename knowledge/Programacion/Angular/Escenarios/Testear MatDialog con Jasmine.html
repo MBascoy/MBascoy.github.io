@@ -1,0 +1,75 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Testear MatDialog con Jasmine</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Testear la respuesta de un componente <b>MatDialog</b> desde el componente que se llama, fakeando la respuesta.</p>
+        </div>
+
+    <div class="t2">Código</div>
+        <div class="cont">
+          <p>Funcion que llama al <b>MatDialog</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span class="hljs-title function_">showDeleteUser</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">id: <span style="color:rgb(181, 189, 104); font-weight:400;">string</span></span>) {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> titleDelete = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Eliminar el usuario&quot;</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> messageDelete = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Quieres eliminar el usuario?&quot;</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> dialogRef = <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">_userDeleteDialog</span>.<span class="hljs-title function_">open</span>(<span class="hljs-title class_">ConfirmDialogComponent</span>, {
+      <span style="color:rgb(129, 162, 190); font-weight:400;">data</span>: { <span style="color:rgb(129, 162, 190); font-weight:400;">title</span>: titleDelete, <span style="color:rgb(129, 162, 190); font-weight:400;">message</span>: messageDelete},
+    });
+
+    dialogRef.<span class="hljs-title function_">afterClosed</span>().<span class="hljs-title function_">subscribe</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">result</span> =&gt;</span> {
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (result) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">deleteUser</span>(id);
+      }
+    });
+  }</code></pre>
+
+        <p>Tests para comproba tanto la respuesta positiva como negativa:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span class="hljs-title function_">it</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;showDeleteUser should call deleteUser if dialog returns true&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> dialogResult = <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> userToDelete = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;exampleUser&#x27;</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> dialogRefSpyObj = jasmine.<span class="hljs-title function_">createSpyObj</span>({
+      <span style="color:rgb(129, 162, 190); font-weight:400;">afterClosed</span>: <span class="hljs-title function_">of</span>(dialogResult),
+      <span style="color:rgb(129, 162, 190); font-weight:400;">close</span>: dialogResult,
+    });
+    <span class="hljs-title function_">spyOn</span>(component, <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;deleteUser&#x27;</span>);
+    <span class="hljs-title function_">spyOn</span>(<span class="hljs-title class_">TestBed</span>.<span class="hljs-title function_">inject</span>(<span class="hljs-title class_">MatDialog</span>), <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;open&#x27;</span>).<span style="color:rgb(209, 217, 225); font-weight:400;">and</span>.<span class="hljs-title function_">returnValue</span>(dialogRefSpyObj);
+
+    component.<span class="hljs-title function_">showDeleteUser</span>(userToDelete);
+
+    <span class="hljs-title function_">expect</span>(component.<span style="color:rgb(209, 217, 225); font-weight:400;">deleteUser</span>).<span class="hljs-title function_">toHaveBeenCalledWith</span>(userToDelete);
+  });
+
+  <span class="hljs-title function_">it</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;showDeleteUser should NOT call deleteUser if dialog returns false&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> dialogResult = <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> userToDelete = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;exampleUser&#x27;</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> dialogRefSpyObj = jasmine.<span class="hljs-title function_">createSpyObj</span>({
+      <span style="color:rgb(129, 162, 190); font-weight:400;">afterClosed</span>: <span class="hljs-title function_">of</span>(dialogResult),
+      <span style="color:rgb(129, 162, 190); font-weight:400;">close</span>: dialogResult,
+    });
+    <span class="hljs-title function_">spyOn</span>(component, <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;deleteUser&#x27;</span>);
+    <span class="hljs-title function_">spyOn</span>(<span class="hljs-title class_">TestBed</span>.<span class="hljs-title function_">inject</span>(<span class="hljs-title class_">MatDialog</span>), <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;open&#x27;</span>).<span style="color:rgb(209, 217, 225); font-weight:400;">and</span>.<span class="hljs-title function_">returnValue</span>(dialogRefSpyObj);
+
+    component.<span class="hljs-title function_">showDeleteUser</span>(userToDelete);
+
+    <span class="hljs-title function_">expect</span>(component.<span style="color:rgb(209, 217, 225); font-weight:400;">deleteUser</span>).<span style="color:rgb(209, 217, 225); font-weight:400;">not</span>.<span class="hljs-title function_">toHaveBeenCalled</span>();
+  });</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Test | MatDialog | Jasmine </p>
+        </div>
+
+    </body>
+</html>

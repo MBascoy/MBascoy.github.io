@@ -1,0 +1,69 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Injeccion de servicios</h1>
+
+    <div class="t2">Usar servicio injectado dentro de callback</div>
+        <div class="cont">
+          <img src="Injeccion de servicios/1.png">
+          <p>En este código estamos pasando <b>errorHandler</b> como referencía de está manera cuando se llama a <b>notifi</b> dentro de la función obtendremos un error de que notifi es <b>undefined</b> ya que al llamarse la función por referencia el contexto de la clase ya no existe.</p>
+
+          <p>Para solucionar este problema tendríamos que cambiar el código de la siguiente manera:</p>
+
+          <img src="Injeccion de servicios/2.png">
+
+          <p>En vez de pasar una referencia de la función errorHandler llamamos directamente a la función:</p>
+          <code>error => this.errorHandler(error)</code>
+
+        </div>
+
+    <div class="t2">Injectar servicios en clases que no son componentes</div>
+        <div class="cont">
+          <p>Cuando tenemos una clase propia (ni componente, ni servicio de Angular...), y queremos injectar un servicio dentro de dichar clase tendremos que hacerlo asi:</p>
+
+          <h2>A traves del constructor</h2>
+
+          <img src="Injeccion de servicios/4.png">
+          <p>En este caso tenemos una clase <b>ShiftParser</b>, dentro de dicha clase queremos injectar <b>TranslateService</b>:</p>
+
+          <p>Para inyectar un servicio a traves del constructor lo hacemos asi:</p>
+
+          <ul>
+            <li>Marcamos la clase como <b>@Injectable()</b></li>
+            <li>Declaramos nuestro servicio en el constructor</li>
+            <li>Usamos el servicio inyectado con el constructor (al igual que en cualquier componente)</li>
+            <li>Esta clase para poder ser utilizada debe de ser injectada en un componente tal que asi:</li>
+            <img src="Injeccion de servicios/5.png">
+            <li>Y la utilizamos</li>
+            <img src="Injeccion de servicios/6.png">
+
+
+          </ul>
+
+          <h2>A traves de injector</h2>
+
+
+          <img src="Injeccion de servicios/3.png">
+
+          <p>Con la clase <b>Injector</b> sería así:</p>
+          <ul>
+            <li>Primero tenemos que marcar la clase como <b>@Injectable()</b>, ya que la clase para poder utilizarla tendremos que injectarla en algún componente de angular (a traves del <b>construct</b>).</li>
+            <li>En el constructor inyectamos la clase <b>Injector</b></li>
+            <li>Utilizamos <b>injector</b> para obtener el servicio que queremos utlizar.</li>
+          </ul>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Injection | Servicios | Troubleshooting </p>
+        </div>
+
+    </body>
+</html>

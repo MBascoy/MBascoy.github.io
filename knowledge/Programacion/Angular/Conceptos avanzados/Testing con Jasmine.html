@@ -211,6 +211,17 @@ describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test1Com
               <code>expect(errResponse).toEqual(new Error("Error on request"));</code>
 
               <br/><br/>
+              <h2>Testear Servicios privados</h2>
+
+              <p>En el caso de que tengamos un servicio que lo tenemos declarado como privado podemos acceder a el con la siguiente sintaxis:</p>
+
+              <code>component['variablePrivada']</code>
+
+              <img src="Testing con Jasmine/14.png"/>
+
+              <p>En el ejemplo anterior estamos almacenando el servicio, que es privado dentro componente, en una variable, esto nos permite utilizar un <b>spyOn</b> sobre el y así saber cuando se llama a la funcion <b>showError</b> del servicio.</p>
+
+              <br/><br/>
               <h2>Testear Routing</h2>
               <p>Para hacer tests relaccionados con rutas lo hacemos de la siguiente manera:</p>
 

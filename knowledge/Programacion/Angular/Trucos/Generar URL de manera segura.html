@@ -36,6 +36,21 @@
           <code>http://ejemplo.com/ejemplo/dos/ejemplo</code>
 
           <p>La URL es correcta, no tiene barras (/) de más, cosa que podría suceder si usasemos el operador + e intentamos concatenar por ejemplo "/ejemplo/" y "/ejemplo2" la url resultante sería algo como "/ejemplo//ejemplo2" dando lugar a una url invalida.</p>
+
+          <h2>Query parameters</h2>
+          <p>A mayores tambien podemos añadir parámetros a la url usando el tipo URL, se haría de la siguiente manera:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> myPath = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/api/usuarios&quot;</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> server = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;http://127.0.0.1/&quot;</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> myURL = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title function_">URL</span>(myPath, server);
+    myURL.<span style="color:rgb(209, 217, 225); font-weight:400;">searchParams</span>.<span class="hljs-title function_">append</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;page&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;1&quot;</span>);
+    myURL.<span style="color:rgb(209, 217, 225); font-weight:400;">searchParams</span>.<span class="hljs-title function_">append</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;size&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;10&quot;</span>);
+
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myURL.<span class="hljs-title function_">toString</span>())</code></pre>
+
+          <p>Este código nos generaría la siguiente URL:</p>
+          <code>http://127.0.0.1/api/usuarios?page=1&size=10</code>
         </div>
 
     <div class="t2">Troubleshooting</div>
