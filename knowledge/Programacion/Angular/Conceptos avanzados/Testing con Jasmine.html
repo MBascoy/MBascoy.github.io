@@ -309,6 +309,11 @@ describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test1Com
 
                 <p>Tenemos que tener en cuenta de llamar a la <b>funcion</b> (en este caso <b>ngOnInit</b>) despues de hacer el <b>spyOn</b>, ya que el componente se crea antes de ejecutar el test y por lo tanto <b>ngOnInit</b> por defecto se llama antes del test (osea antes de aplicar el <b>spyOn</b>), asi que para que se vuelva a ejecutar la funcion (<b>mostrarTexto</b> o el <b>emitter</b> en este caso) sobre la que llamamos al <b>spyOn</b> tenemos que volver a ejecutar el <b>ngOnInit</b>.</p>
 
+                <h2>Testear comoprtamientos Responsive</h2>
+                <p>Para poder testear una aplicación responsive tenemos que instalar el paquete <b>karma viewport</b></p>
+
+                <p><a href="https://www.npmjs.com/package/karma-viewport">Paquete karma-iewport</a></p>
+
           </div>
 
     <div class="t2">Tags</div>
