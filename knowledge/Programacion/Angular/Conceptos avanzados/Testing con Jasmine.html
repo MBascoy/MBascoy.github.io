@@ -278,6 +278,7 @@ describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test1Com
                 <br/><br/>
                 <h2>Testear setTimeout</h2>
                 <p>Para testear una funcion <b>setTimeout</b> tenemos que utilizar <b>fakeAsync</b> y <b>tick</b> para simular el paso del tiempo y que la funcion se dispare</p>
+                <code>import { fakeAsync, tick} from '@angular/core/testing';</code>
                 <p>En el test tenemos que pasarle un <b>numero entero</b> a <b>tick</b> para simular el tiempo que queremos que pase</p>
 
                 <p>Ejemplo:</p>
@@ -313,6 +314,15 @@ describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test1Com
                 <p>Para poder testear una aplicación responsive tenemos que instalar el paquete <b>karma viewport</b></p>
 
                 <p><a href="https://www.npmjs.com/package/karma-viewport">Paquete karma-iewport</a></p>
+
+                <h2>Testear Excepciones</h2>
+                <p>Para testear si una funciona lanza una excepción lo hacemos de la siguiente manera:</p>
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span class="hljs-title function_">it</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;check checkValidForm to throw an exception&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+    <span class="hljs-title function_">expect</span>( <span style="color:rgb(204, 153, 204); font-weight:400;">function</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>){ component.<span class="hljs-title function_">checkValidForm</span>(); } ).<span class="hljs-title function_">toThrow</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title class_">Error</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;TEMPLATES.INVALID&quot;</span>));
+});</code></pre>
+
+                <p>Con ese código testearíamos cuando se lanza una excepción como la siguiente:</p>
+                <img src="Testing con Jasmine/15.png"/>
 
           </div>
 

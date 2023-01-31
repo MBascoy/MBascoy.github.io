@@ -1,0 +1,85 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Testear Path Variables</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como testear las variables que pasamos como parte de la <b>URL</b>, las <b><a href="../conceptos avanzados/Path Variables.html">Path Variables</a></b>.</p>
+
+          <p><a href="https://www.joshuacolvin.net/mocking-activated-route-data-in-angular/">Pagina en la que se explica</a></p>
+        </div>
+
+    <div class="t2">Código</div>
+        <div class="cont">
+
+          <p>Para establecer una <b>Path Variable</b> en nuestros test lo hacemos de la siguiente manera, añadimos el siguiente código dentro del <b>configureTestingModule</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">providers: [
+    {
+      provide: ActivatedRoute,
+      useValue: {
+        snapshot: {
+          paramMap: {
+            get: () =&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;hofes&#x27;</span>,
+          },
+        },
+      },
+    },
+  ]</code></pre>
+
+          <p>Esto funcionará si solo tenemos una <b>Path variable</b>, el siguiente código muesra un ejemplo de como se testearía, (en este caso el test daría error ya que se está comparando "hofes" con "2")</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">TestBed</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core/testing&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">ActivatedRoute</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/router&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">RouterTestingModule</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/router/testing&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">ComponentFixture</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core/testing&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">AppComponent</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./app.component&#x27;</span>;
+
+<span class="hljs-title function_">describe</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;AppComponent&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> <span style="color:rgb(129, 162, 190); font-weight:400;">component</span>: <span class="hljs-title class_">AppComponent</span>;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> <span style="color:rgb(129, 162, 190); font-weight:400;">fixture</span>: <span class="hljs-title class_">ComponentFixture</span>&lt;<span class="hljs-title class_">AppComponent</span>&gt;;
+
+  <span class="hljs-title function_">beforeEach</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">async</span> () =&gt; {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title class_">TestBed</span>.<span class="hljs-title function_">configureTestingModule</span>({
+      <span style="color:rgb(129, 162, 190); font-weight:400;">imports</span>: [<span class="hljs-title class_">RouterTestingModule</span>],
+      <span style="color:rgb(129, 162, 190); font-weight:400;">declarations</span>: [<span class="hljs-title class_">AppComponent</span>],
+      <span style="color:rgb(129, 162, 190); font-weight:400;">providers</span>: [
+        {
+          <span style="color:rgb(129, 162, 190); font-weight:400;">provide</span>: <span class="hljs-title class_">ActivatedRoute</span>,
+          <span style="color:rgb(129, 162, 190); font-weight:400;">useValue</span>: {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">snapshot</span>: {
+              <span style="color:rgb(129, 162, 190); font-weight:400;">paramMap</span>: {
+                <span style="color:rgb(129, 162, 190); font-weight:400;">get</span>: <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;hofes&#x27;</span>,
+              },
+            },
+          },
+        },
+      ],
+    }).<span class="hljs-title function_">compileComponents</span>();
+
+    fixture = <span class="hljs-title class_">TestBed</span>.<span class="hljs-title function_">createComponent</span>(<span class="hljs-title class_">AppComponent</span>);
+    component = fixture.<span style="color:rgb(209, 217, 225); font-weight:400;">componentInstance</span>;
+  });
+
+  <span class="hljs-title function_">it</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">`check Path Variable`</span>, <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+    component.<span class="hljs-title function_">ngOnInit</span>();
+    <span class="hljs-title function_">expect</span>(component.<span style="color:rgb(209, 217, 225); font-weight:400;">name</span>).<span class="hljs-title function_">toEqual</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;2&#x27;</span>);
+  });
+});</code></pre>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Test | PathVariables | Jasmine </p>
+        </div>
+
+    </body>
+</html>
