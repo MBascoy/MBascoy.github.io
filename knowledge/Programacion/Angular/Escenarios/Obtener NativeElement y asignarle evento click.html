@@ -1,0 +1,51 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Obtener NativeElement y asignarle evento click</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como obtener un <b>elemento nativo</b> de html usando angular y asociarle un evento de click</p>
+
+        </div>
+
+        <div class="t2">Escenario</div>
+            <div class="cont">
+              <p>En el constructor definimos las siguientes injecciones:</p>
+
+              <pre>
+ <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span class="hljs-title function_ invoke__">constructor</span>(
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(129, 162, 190); font-weight:400;">el</span>: ElementRef,
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span style="color:rgb(129, 162, 190); font-weight:400;">renderer</span>: Renderer2
+) {}</code></pre>
+
+              <p>Y despues usamos el siguiente código para obtener la etiqueta que queramos y asignarle el evento de click:</p>
+
+              <pre>
+ <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.btnElement = (&lt;HTMLElement&gt;<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.el.nativeElement)
+    .querySelector(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;.mi-clase&#x27;</span>)!;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.renderer.listen(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.btnElement, <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;click&#x27;</span>, (event) =&gt; {
+    console.log(event.srcElement.innerHTML);
+});</code></pre>
+
+            <p>En este caso ademas de asociar el evento de click usamos <b>event</b> para obtener el contenido de la etiqueta pulsada usando:</p>
+            <code>event.srcElement.innerHTML</code>
+
+
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>NativeElement | onclick </p>
+        </div>
+
+    </body>
+</html>
