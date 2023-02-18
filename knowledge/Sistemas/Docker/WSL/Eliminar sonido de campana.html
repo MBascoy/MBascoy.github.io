@@ -1,0 +1,37 @@
+ <html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Montar sistema de archivos de windows</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como eliminar el sonido tan molesto de la campana en WSL</p>
+        </div>
+
+        <div class="t2">Solución</div>
+            <div class="cont">
+
+              <p>Para eliminarlo de manera general lo hacemos editando el archivo <b>/etc/inputrc</b>, añadimos la opción:</p>
+
+              <code>set bell-style none</code>
+
+              <p>Quitar el sonido en <b>Vim</b>: editamos el archivo <b>~/.vimrc</b> añadiendo el siguiente contenido:</p>
+              <pre><code>set visualbell
+set t_vb=</code></pre>
+
+              <p>Quitar el sonido en <b>less</b>: editamos el archivo <b>~/.profile</b> añadiendo la siguiente linea:</p>
+              <code>export LESS="$LESS -R -Q"</code>
+
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>WSL | mount</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,34 @@
+ <html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Montar sistema de archivos de windows</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como montar una unidad (como C:) dentro de <b>wsl</b></p>
+        </div>
+
+        <div class="t2">Solución</div>
+            <div class="cont">
+
+              <p>Para realizar un montaje de la <b>unidad C:</b> lo haríamos de la siguiente manera:</p>
+              <code>sudo mount -t drvfs C: /mnt/c</code>
+
+              <p>Otra manera es editar el archivo <b>/etc/fstab</b> con la siguiente linea:</p>
+              <code>C: /mnt/c drvfs defaults 0 0</code>
+
+              <p>Si usamos esta segunda forma tendremos que ejecutar <b>mount -a</b> para que se recargue la configuración del fichero y se monte la unidad.</p>
+
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>WSL | mount</p>
+        </div>
+
+    </body>
+</html>
