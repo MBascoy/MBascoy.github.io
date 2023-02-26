@@ -1,0 +1,70 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Debugging en VSCode</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como depurar el código de angular desde Visual Studio Code</p>
+
+        </div>
+
+      <div class="t2">Descripcion</div>
+          <div class="cont">
+            <p>Para poder depurar una aplicación de angular primero tenemos que lanzarla como haríamos normalmente con el comando <b>ng serve</b>.</p>
+
+            <p>Para poder depurar nestra aplicación angular tendremos que añadir la siguiente configuración al archivo <b>launch.json</b> localizado en la carpeta <b>.vscode</b> de nuestro proyecto, en caso de que no tengamos el archivo podemos autogenerarlo en "Run and debug" > "Add configuration":</p>
+
+            <img src="Debugging en VSCode/1.png">
+
+            <p>En este archivo tendremos un contenido como el siguiente:</p>
+            <img src="Debugging en VSCode/2.png">
+
+            <p>Para poder ejecutar la aplicación en <b>Chrome</b> usando la depuración tendremos que añadir una opción de lanzamiento igual que la que hay actualmente pero sin la linea <b>"preLaunchTask": "npm: start"</b></p>
+
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">{</span>
+  <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;name&quot;</span><span style="color:rgb(209, 217, 225); font-weight:400;">:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ng debugging&quot;</span><span style="color:rgb(209, 217, 225); font-weight:400;">,</span>
+  <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;type&quot;</span><span style="color:rgb(209, 217, 225); font-weight:400;">:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;pwa-chrome&quot;</span><span style="color:rgb(209, 217, 225); font-weight:400;">,</span>
+  <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;request&quot;</span><span style="color:rgb(209, 217, 225); font-weight:400;">:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;launch&quot;</span><span style="color:rgb(209, 217, 225); font-weight:400;">,</span>
+  <span style="color:rgb(129, 162, 190); font-weight:400;">&quot;url&quot;</span><span style="color:rgb(209, 217, 225); font-weight:400;">:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;http://localhost:4200/&quot;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">}</span><span style="color:rgb(209, 217, 225); font-weight:400;">,</span></code></pre>
+
+            <p>El archivo quedaría tal que así:</p>
+            <img src="Debugging en VSCode/3.png">
+
+            <p>Una vez añadido esto guardamos el archivo y en la sección de <b>Run and Debug</b> podremos lanzar el navegador en modo depuración pulsando en <b>"ng debugging"</b></p>
+
+            <img src="Debugging en VSCode/4.png">
+
+            <p>Al ejecutarse el navegador con esta opción podremos establecer <b>breakpoints</b> y consultar las variables durante la ejecución del código:</p>
+            <img src="Debugging en VSCode/5.png">
+          </div>
+
+      <div class="t2">Depuración con async/await</div>
+          <div class="cont">
+            <p>Si estamos depurando un código que contiene funciones <b>async/await</b> nos encontraremos con situaciones en las que la clase entera sale como <b>undefined</b> y no podremos consultar el valor de ninguna variable:</p>
+
+            <img src="Debugging en VSCode/6.png">
+
+            <p>En este caso podemos consultar las variables dentro del apartado <b>Closure</b> del depurador:</p>
+            <img src="Debugging en VSCode/7.png">
+
+            <p>Si queremos poner una variable en el watch podemos hacerlo usando <b>_this</b> como prefijo, en este caso <b>_this.title</b>.</p>
+
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | debugging</p>
+        </div>
+
+    </body>
+</html>

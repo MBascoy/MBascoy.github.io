@@ -242,6 +242,42 @@
 
         </div>
 
+    <div class="t2">Desactivar input</div>
+        <div class="cont">
+          <p>Para desactivar un campo podemos hacerlo de dos maneras, cuando lo iniciamos pasando el valor inicial tal que así:</p>
+          <code>{value: "mivalor" disabled: true}</code>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userForm = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">FormGroup</span>(
+{
+    name: <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">FormControl</span>( {value:<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pepe&quot;</span>, disabled:<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>}, [Validators.required, Validators.<span style="color:rgb(181, 189, 104); font-weight:400;">minLength</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>)]),
+    edad: <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span style="color:rgb(181, 189, 104); font-weight:400;">FormControl</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0&quot;</span>, Validators.<span style="color:rgb(181, 189, 104); font-weight:400;">pattern</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^[0-9]*$&quot;</span>))
+});</code></pre>
+
+          <p>O tambien llamando al metodo <b>disable()</b> del form control:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userForm = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> FormGroup(
+  {
+        name: <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> FormControl( <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pepe&quot;</span>, [Validators.required, Validators.minLength(<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>)]),
+        edad: <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> FormControl(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0&quot;</span>, Validators.pattern(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^[0-9]*$&quot;</span>))
+    });
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.name.disable();
+  }
+
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">get</span> <span style="color:rgb(181, 189, 104); font-weight:400;">name</span>()</span> {<span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userForm.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>)!}
+  <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">get</span> <span style="color:rgb(181, 189, 104); font-weight:400;">edad</span>()</span> {<span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userForm.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;edad&#x27;</span>)!}</code></pre>
+        </div>
+
+    <div class="t2">Establecer campo invalido manualmente</div>
+        <div class="cont">
+          <p>Si queremos controlar la validez de un campo de manera manual lo podemos hacer con la funcion <b>setErrors</b> del formcontrol del campo, para establecerlo como invalido sería asi:</p>
+          <code>this.name.setErrors({incorrect: true})</code>
+
+          <p>Y para establecerlo como valido sería asi:</p>
+          <code>this.name.setErrors(null)</code>
+
+        </div>
+
 
     <div class="t2">Tags</div>
         <div class="cont">
