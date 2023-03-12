@@ -324,6 +324,26 @@ describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test1Com
                 <p>Con ese código testearíamos cuando se lanza una excepción como la siguiente:</p>
                 <img src="Testing con Jasmine/15.png"/>
 
+                <h2>Mockear funciones y su return value</h2>
+                <p>Si queremos mockear una funcion lo hacemos de la siguiente manera.</p>
+
+                <p>Codigo a testear:</p>
+                <img src="Testing con Jasmine/16.png"/>
+
+                <p>Test:</p>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span class="hljs-title function_">it</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;check myMessage is set&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+    <span class="hljs-title function_">spyOn</span>(component, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;setHello&quot;</span>).<span style="color:rgb(209, 217, 225); font-weight:400;">and</span>.<span class="hljs-title function_">returnValue</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hello World!&quot;</span>)
+    component.<span class="hljs-title function_">ngOnInit</span>();
+
+    <span class="hljs-title function_">expect</span>(component.<span style="color:rgb(209, 217, 225); font-weight:400;">myMessage</span>).<span class="hljs-title function_">toEqual</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Hello World!&#x27;</span>);
+  });</code></pre>
+
+                <p>Para mockear una funcion simplemente usamos un <b>spyOn</b> e indicamos el valor a devolver con:</p>
+                <code>and.returnValue</code>
+
+                <p>Si queremos mockear una función que no devuelve nada (<b>void</b>) simplemente hacemos el spyOn con un returnValue vacio:</p>
+                <code>.and.returnValue()</code>
           </div>
 
     <div class="t2">Tags</div>

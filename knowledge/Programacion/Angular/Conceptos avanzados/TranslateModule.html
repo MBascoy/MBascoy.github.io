@@ -1,0 +1,130 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">TranslateModule</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Implementar <b>TranslateModule</b> para incorporar internacionalización a nuestra aplicación</p>
+
+          <p><a href="https://www.digitalocean.com/community/tutorials/angular-ngx-translate">Enlace referencia</a></p>
+        </div>
+
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Primero instalamos los paquetes <b>@ngx-translate</b> y <b>@ngx-translate/http-loader</b></p>
+
+          <code>npm install @ngx-translate/core</code>
+
+          <code>npm install @ngx-translate/http-loader</code>
+
+          <p>Una vez hecho esto añadimos los dos modulos a nuestro AppModules (<b>app.module.ts</b>):</p>
+
+          <p>core:</p>
+          <img src="TranslateModule/1.png">
+
+          <p>http-loader:</p>
+          <img src="TranslateModule/2.png">
+
+          <p>HttpLoaderFactory:</p>
+          <pre><code>export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}</code></pre>
+
+          <p>loader:</p>
+          <pre><code>      loader: {
+        provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }</code></pre>
+
+
+          <h2>Archivos de traduccion</h2>
+          <p>Una vez hecha toda la configuración inicial tenemos que añadir los archivos donde iran nuestras traducciones, estos archivos iran colocados en la carpeta <b>assets</b> dentro de la subcarpeta <b>i18n</b> (esta carpeta tenemos que crearla):</p>
+
+          <img src="TranslateModule/3.png">
+
+          <p>En nuestro caso hemos creado dos archivos <b>es.json</b> y <b>en.json</b> para incluir traducciones en español e ingles, si queremos mas idiomas tenemos que incluir nuevos archivos.</p>
+
+          <img src="TranslateModule/4.png">
+
+          <p>Añadimos la configuración inicial en el constructor de nuestro <b>app.component.ts</b>:</p>
+          <img src="TranslateModule/5.png">
+
+          <p>Indicamos los lenguajes que vamos a usar, los nombres deben de coincidir con los archivos que hemos creado previamente.</p>
+
+          <p>Para realizar una traducción en un template podemos usar el pipe <b>translate</b> tal que así:</p>
+          <img src="TranslateModule/6.png">
+
+          <p>Esto nos mostrará lo siguiente en el navegador ya que hemos configurado el idioma como "es" inicialmente:</p>
+          <img src="TranslateModule/7.png">
+
+          <p>Para cambiar el idioma por defecto durante la ejecución podemos hacer tal que así:</p>
+
+          <p>componente:</p>
+          <img src="TranslateModule/8.png">
+
+          <p>template:</p>
+          <img src="TranslateModule/9.png">
+
+          <p>Con esto simplemente tenemos que pulsar uno de los dos botones y el idioma de la página cambiará:</p>
+          <img src="TranslateModule/10.png">
+
+
+          <h2>Traducción en el componente</h2>
+          <p>Si en vez de hacer la traducción en el template queremos hacerla directamente en el componente podemos hacerlo de dos maneras, de manera asincrona o de manera sincrona:</p>
+
+          <p>asincrona con la funcion <b>get</b>:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.translate.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>([<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;MESSAGE&#x27;</span>])
+  .subscribe(translations =&gt; {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.myMessage = translations[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;MESSAGE&#x27;</span>];
+  });</code></pre>
+
+          <p>sincrona usando <b>instant</b>:</p>
+          <img src="TranslateModule/11.png">
+
+          <p><b>IMPORTANTE</b>: en este caso estamos usando una función que será llamada al pulsar un boton, si colocamos la traducción con el instant directamente en el ngOnInit no funcionaría porque el servicio de traducción aún no está inicializado (al hacer uso de llamadas http no se inicia en tiempo real de ejecución hay una cierta latencia)</p>
+
+          <p>En los dos casos anteriores tenemos el siguiente template, con el subscribe funciona sin más, con el instant tenemos que pulsar el botón para hacerlo funcionar</p>
+
+          <img src="TranslateModule/12.png">
+
+          <h2>Traducciones con interpolación</h2>
+
+          <p>Si queremos podemos añadir una variable en medio del mensaje traducido, para ello en los archivos de traducción tenemos que añadir la siguiente sintaxis:</p>
+          <img src="TranslateModule/13.png">
+
+          <p>Y a la hora de traducir, introducir la variable que queremos se incluya tal que así:</p>
+
+          <p>Con instant:</p>
+          <img src="TranslateModule/14.png">
+
+          <p>Desde el template:</p>
+          <img src="TranslateModule/15.png">
+
+          <p>En ambos casos se mostraría asi:</p>
+          <img src="TranslateModule/16.png">
+
+
+          <p>Con la traducción asincrona no encontré ninguna manera de hacerlo.</p>
+
+
+
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>TranslateModule | i18n</p>
+        </div>
+
+    </body>
+</html>

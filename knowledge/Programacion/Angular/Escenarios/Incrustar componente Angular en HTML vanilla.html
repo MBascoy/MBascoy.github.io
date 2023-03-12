@@ -1,0 +1,79 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Incrustar componente Angular en HTML vanilla</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <h2> Compilación del proyecto:</h2>
+          <ul>
+            <li>Eliminamos el siguiente fragmento de código del archivo "<b>angular.json</b>" para que no se reemplace el archivo "<b>environment.ts</b>" y se mantengan las variables definidas en el archivo:</li>
+            <img src="Incrustar componente Angular en HTML vanilla/1.png">
+
+            <li>Lanzamos el siguiente comando para instalar el elements:</li>
+            <code>ng add @angular/elements</code>
+
+            <li>Modificamos el archivo <b>app.module.ts</b></li>
+            <img src="Incrustar componente Angular en HTML vanilla/2.png">
+
+            <li>Añadimos todo el código que va dentro de <b>class AppModule{}</b></li>
+
+            <li><b>IMPORTANTE:</b> Tenemos que borrar <b>AppComponent</b> de bootstrap y añadir la linea de <b>entryComponents</b> con el <b>AppComponent</b>, podemos cambiar la llamada a <b>customElements.define()</b> para llamar al componente como queramos para cuando lo vayamos a usar, en este caso usaremos <b>magenda-app</b></li>.
+
+            <li>Lanzamos <code>ng build -c production</code> para compilar todo el proyecto</li>
+
+            <li>Una vez finalizado el comando nuestro proyecto estará en la carpeta "<b>dist</b>"</li>
+          </ul>
+
+          <img src="Incrustar componente Angular en HTML vanilla/3.png">
+
+
+          <p>En el archivo "<b>index.html</b>" que se genera podemos ver como se incrusta toda nuestra página usando la etiqueta <b>&lt;magenda-app&gt;</b> e incluyendo los imports del <b>.css</b> y los archivos <b>.js</b>, podemos usar la misma estructura para usar esta etiqueta en cualquiera página en la que queramos incrustarla.</p>
+
+          <h2>Simplificar los archivos generados</h2>
+          <p>En este caso se generan varios archivos ya que el proyecto tiene varios módulos, si queremos podemos simplificar todos estos archivos de la siguiente manera:</p>
+
+          <ul>
+            <li>Juntamos todos los archivos "<b>.js</b>" en un solo archivo con el siguiente comando:</li>
+            <code>cat *.js > magenda-app.js</code>
+
+            <li>Quitamos los estilos que hay dentro de "<b>index.html</b>" y los metemos dentro del archivo <b>styles.css</b> (solo copiamos el contenido y lo pegamos al principio del archivo):</li>
+          </ul>
+          <img src="Incrustar componente Angular en HTML vanilla/4.png">
+
+          <img src="Incrustar componente Angular en HTML vanilla/5.png">
+
+
+          <p>Una vez hecho esto, podemos borrar todos los archivos y quedarnos solo con <b>magenda-app.js</b> y <b>styles.css</b> (el archivo styles podemos renombrarlo porque el nombre que tendrá será algo como stylesXXXXXXX.css)</p>
+
+          <p>A continuación ya podríamos incrustar nuestra app de la siguiente manera:</p>
+          <img src="Incrustar componente Angular en HTML vanilla/6.png">
+
+
+          <p>Solo tenemos que importar el archivo <b>js</b>, el <b>css</b> y poner el nombre de nuestra etiqueta <b>magenda-app</b> en nuestro caso.</p>
+
+          <h2>Pasar parámetros a nuestra página incrustada</h2>
+          <p>Para pasar parámetros a nuestro componente solo tenemos que hacerlo indicando como atributos de la etiqueta de nuestro componente:</p>
+          <img src="Incrustar componente Angular en HTML vanilla/7.png">
+
+          <p>y en el <b>app.component.ts</b> tendríamos que configurar un Input de la siguiente manera:</p>
+          <img src="Incrustar componente Angular en HTML vanilla/8.png">
+
+          <p>esto lo veríamos así en el navegador:</p>
+          <img src="Incrustar componente Angular en HTML vanilla/9.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular elements | embedded components </p>
+        </div>
+
+    </body>
+</html>

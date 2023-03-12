@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Volver a commit anterior y mantener cambios</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como <b>volver a un commit</b> anterior pero dejando los cambios de los commits posteriores como pendientes de commit.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Se puede dar la situación en la que hayamos hecho un commit pero queremos <b>volver atras</b> porque nos hemos equivocado al hacer el commit y no queremos hacer un nuevo commit si no que queremos modificar el commit que hemos hecho mal <b>sin perder la información</b> de dicho commit</p>
+
+          <p>En eses casos no nos valdría hacer un checkout a commits anteriores, ni un revert, ya que perderíamos la información, en estas situaciones tenemos que utilizar el siguiente comando:</p>
+
+          <code>git reset --soft &lt;COMMIT&gt;</code>
+
+          <p>Con este comando volveremos al commit que hemos indicado en el comando, pero los cambios producidos por los commits posteriores a ese no se borrarán, sino que se mostrarán en el commit actual como cambios pendientes de comitear, lo que nos permitirá hacer un nuevo commit sin perder la información.</p>
+
+          <p><b>NOTA</b>: esto solo debemos de hacerlo en local, si ya hemos subido un commit a un repositorio remoto no es aconsejable hacer este tipo de operaciones, ya que pueden resultar en dejar el repositorio en un estado inconsistente (sobre todo cuando trabajamos con varias personas sobre un repositorio)</p>
+
+          <h2>Ejemplo</h2>
+          <img src="Volver a commit anterior y mantener cambios/1.png">
+
+          <p>En este ejemplo hemos hecho dos commits (los dos ultimos), en los que hemos añadido un nuevo archivo y despues lo hemos modificado, queremos volver al commit <b>"primer commit"</b> pero no queremos perder la información de estos dos nuevos commits, ejecutamos el siguiente comando:</p>
+
+          <code>git reset --soft e5f6c7dc6822cf3420fc95f4f1a1777b711db8b6</code>
+
+          <p>Despues de ejecutar el comando estamos en esta situación:</p>
+          <img src="Volver a commit anterior y mantener cambios/2.png">
+
+          <p>Hemos vuelto al commit indicado, pero no solo eso, si hacemos un <b>git status</b> o un <b>git diff HEAD</b> vemos que los cambios de los dos ultimos commits siguen estándo pero como pendientes de comitear:</p>
+
+          <img src="Volver a commit anterior y mantener cambios/3.png">
+
+          <p>De manera que podemos volver a realizar los commits sobre esta información.</p>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | reset | soft </p>
+        </div>
+
+    </body>
+</html>
