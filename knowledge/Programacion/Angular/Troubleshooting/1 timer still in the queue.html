@@ -1,0 +1,36 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">1 timer still in the queue</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Al lanzar los tests obtenemos el siguiente error:</p>
+
+          <code>1 timer(s) still in the queue</code>
+          <img src="1 timer still in the queue/1.png">
+        </div>
+
+    <div class="t2">Solución</div>
+        <div class="cont">
+          <p>Para solucionar este problema tenemos que añadir el metodo <b>flush()</b> al final de nuestro test:</p>
+
+          <img src="1 timer still in the queue/2.png">
+
+          <p>necesitamos el siguiente import para utilizar dicho metodo:</p>
+          <code>import { flush } from '@angular/core/testing';</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>java | Angular | variable | inicializacion</p>
+        </div>
+
+    </body>
+</html>
