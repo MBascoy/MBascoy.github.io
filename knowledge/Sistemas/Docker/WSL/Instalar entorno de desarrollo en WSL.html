@@ -1,0 +1,254 @@
+ <html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Instalar entorno de desarrollo en WSL</h1>
+
+    <div class="t2">Introducción</div>
+        <div class="cont">
+            <p>A continuación se explica como instalar un entorno de desarrollo (docker, angular, python) dentro de <b>wsl</b>, para hacer que el ordenador tenga un mejor rendimiento.</p>
+        </div>
+
+    <div class="t2">El problema</div>
+        <div class="cont">
+            <p>No sé decir cual es la causa raiz del problema exactamente, pero está claramente relacionada con el sistema de archivos, siempre que se intenta ejecutar algo en nuestro entorno de windows hay algún tipo de monitorización en el sistema de archivos(probablemente el antivirus o algo por el estilo) que hace que la ejecución vaya mas lenta.</p>
+
+            <p>El truco de todo esto es que desde el sistema de archivos interno del <b>WSL</b> no se da este problema y la ejecución es mucho más rapida. Incluso si estamos dentro del WSL y ejecutamos comandos que hacen uso del sistema de archivos anfitrion (la particion montada en <b>/mnt/c/</b>) seguiremos teniendo estos problemas de rendimiento, el truco es usar solo el sistema de archivos interno de la maquina montada en WSL. Los problemas de rendimiento se acentuan sobre todo con lenguajes de scripting, node, python...etc</p>
+
+            <p>Para utilizar solo el sistema de archivos interno instalaremos todo nuestro entorno de desarrollo <b>dentro de la maquina de WSL</b> y programaremos directamente dentro de dicha maquina, solo tendremos que conectar el <b>VSCode</b> a la maquina que hay dentro de WSL y podremos hacerlo funcionar todo de manera transparente.</p>
+        </div>
+
+        <div class="t2">Mini-trucos para el rendimiento</div>
+            <div class="cont">
+              <p>A pesar de que la solución principal es utilizar WSL os dejo aqui un par de trucos para cargar menos el ordenador:</p>
+
+              <h2>Cambiar la resolución</h2>
+              <p>La resolución que trae por defecto el surface es altísima, podemos bajar la resolución para que el sistema tenga menos carga.</p>
+
+              <p>Por defecto la resolución es 2256x1504 con un aumento del 150%, para mantener la relación de aspecto de la pantalla podeis coger la resolucion <b>1620x1080</b> con aumento al <b>100%</b>.</p>
+
+              <img src="Instalar entorno de desarrollo en WSL/1.png">
+
+              <p>La diferencía es inapreciable, pero el rendimiento del ordenador será mejor ya que tiene que procesar mucho menos.</p>
+
+              <h2>Dejarlo enchufado a la corriente</h2>
+              <p>Esto pasa con todos los portatiles, cuando se desconectan del cargador y se deja solo con la batería el sistema limita el procesador para alargar la duración de la bateria, si quereis tener mas rendimiento dejarlo enchufado al cargador.</p>
+
+            </div>
+
+        <div class="t2">Instalar WSL</div>
+            <div class="cont">
+              <p>Lo primero es instalar WSL, podeis ver todos los detalles en la página de microsoft:</p>
+              <a href="https://learn.microsoft.com/en-us/windows/wsl/install">Install WSL</a>
+
+              <p>Básicamente lo único que hay que hacer es abrir un terminal <b>como administrador</b> y lanzar el comando:</p>
+
+              <code>wsl --install</code>
+
+              <p>Por defecto instala una distribución de ubuntu, yo estoy usando la versión <b>20.04 LTS</b></p>
+
+              <p>Al finalizar el proceso de instalación igual ya os entra directamente en la maquina virtual que os instale, podeis salir tecleando el comando <b>"exit"</b> </p>
+
+              <h2>Comprobar WSL2</h2>
+
+              <p>Es importante que la maquina que estemos usando esté con la <b>versión 2</b> de <b>WSL</b>, para comprobar esto lanzamos el siguiente comando desde una terminal de windows:</p>
+
+              <code>wsl -l -v</code>
+
+              <p>Deberíamos de ver algo como esto:</p>
+
+              <img src="Instalar entorno de desarrollo en WSL/2.png">
+
+              <p>Si vemos que tenemos la version 1, tenemos que cambiarla, usaríamos el siguiente comando:</p>
+
+              <code>wsl --set-version Ubuntu 2</code>
+
+              <p>El proceso le puede llevar un par de minutos...</p>
+            </div>
+
+        <div class="t2">Realizar configuraciones de archivos</div>
+            <div class="cont">
+
+              <p>Una vez tengamos instalado <b>WSL</b> y configurada la <b>versión 2</b>, tenemos que configurar una serie de archivos dentro de nuestra maquina virtual.</p>
+
+              <p>Accedemos a nuestra maquina de WSL (ubuntu en mi caso), ejecutamos el siguiente comando en una consola:</p>
+
+              <code>wsl</code>
+
+              <p>Si solo tenemos una maquina instalada no hace falta indicar ningún parámetro, WSL iniciará nuestra maquina por defecto, si tenemos varías maquinas podemos indicar el nombre de la distribución como segundo parámetro y se lanzará la que indiquemos (podemos consultar la lista de todas las distribuciones instaladas con el comando <b>wsl -l -v</b>).</p>
+
+              <p>Una vez dentro de nuestra maquina tendremos que editar varios archivos, podemos hacer con <b>vim</b>, <b>nano</b> o cualquier otro editor de archivos.</p>
+
+              <h2>Archivos a editar</h2>
+              <ul>
+                <li>Creamos el archivo <b>/etc/wsl.conf</b> e introducimos el siguiente contenido:</li>
+                <pre><code>[network]
+generateResolvConf = false
+
+[interop]
+appendWindowsPath = false</code></pre>
+
+                <li>Borramos el enlace simbolico <b>/etc/resolv.conf</b></li>
+                <code>sudo rm /etc/resolv.conf</code>
+
+                <li>Creamos el archivo <b>/etc/resolv.conf</b>, con el siguiente contenido:</li>
+                <code>nameserver 8.8.8.8</code>
+
+                <li>En el archivo <b>/etc/profile</b> añadimos la siguiente linea al final del archivo:</li>
+                <p><b>NOTA:</b> Cambiar el nombre de usuario por el vuestro en la ruta.</p>
+                <code>export PATH="$PATH:/mnt/c/WINDOWS/System32:/mnt/c/Users/manuel.bascoy/AppData/Local/Programs/Microsoft VS Code/bin"</code>
+
+                <li>En el archivo <b>~/.profile:</b> (el archivo profile de la carpeta de usuario), añadimos el siguiente contenido:</li>
+                <code>export PATH="/home/usuario/.local/bin:$PATH"</code>
+
+                <p><b>NOTA:</b> en este caso "usuario" es el nombre de mi usuario, aqui tendreis que poner el nombre de vuestro usuario, <b>es el usuario de la maquina virtual</b>, tiene que haberse indicado durante la instalación de la distribución.</p>
+              </ul>
+
+              <p>Una vez hecho todo esto solo nos queda instalar los entornos de programación que utilicemos, en este caso instalaré: Angular, Python y Docker</p>
+            </div>
+
+        <div class="t2">Instalación de git</div>
+            <div class="cont">
+              <p>Comprobad si teneis instalado <b>git</b> en la maquina virtual, si no lo teneis instalado podeis instalarlo con el siguiente comando:</p>
+
+              <code>sudo apt-get install git</code>
+            </div>
+
+        <div class="t2">Abrir VSCode</div>
+            <div class="cont">
+              <p>Para abrir el <b>VSCode</b> conectado a nuestra maquina virtual solo tenemos que lanzar el siguiente comando dentro de nuestra maquina virtual:</p>
+
+              <code>code .</code>
+
+              <p>Ese comando abrirá el VSCode en la carpeta actual, podemos indicarle como parámetro un archivo de <b>workspace</b> si queremos.</p>
+
+              <p>Desde el <b>VSCode</b> todas las <b>terminales</b> que abramos serán terminales dentro de la propia maquina virtual, de manera que  podemos trabajar directamente con las terminales en VSCode sin tener que usar el cmd para ejecutar otros comandos.</p>
+            </div>
+
+        <div class="t2">Instalación de Angular</div>
+            <div class="cont">
+              <p>Para instalar <b>Angular</b> ejecutamos los siguientes comandos:</p>
+              <pre><code>curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&\
+sudo apt-get install -y nodejs</code></pre>
+
+              <code>sudo npm install -g npm@latest</code>
+
+              <code>sudo npm install -g @angular/cli@latest</code>
+
+            </div>
+
+        <div class="t2">Instalación de Python</div>
+            <div class="cont">
+              <p>Para instalar <b>Python</b> ejecutamos los siguientes comandos:</p>
+              <code>sudo apt install software-properties-common -y</code>
+              <code>sudo add-apt-repository ppa:deadsnakes/ppa</code>
+              <code>sudo apt-get update</code>
+              <code>sudo apt install python3.10</code>
+
+              <p>Una vez instalado todo esto abrimos nuestro VSCode (con el comando <b>code</b> desde la maquina virtual), e instalamos la siguiente extensión para poder código de python:</p>
+              <img src="Instalar entorno de desarrollo en WSL/5.png">
+
+
+              <p>Si ya teniamos alguna versión de python3 instalada tendremos que actualizar el enlace simbolico:</p>
+              <code>cd /usr/bin/</code>
+              <code>sudo rm python3</code>
+              <code>sudo ln ls python3.10 python</code>
+
+              <h2>Instalarción Poetry</h2>
+              <p>Para instalar <b>poetry</b> y configurarlo en el VSCode lo hacemos asi:</p>
+              <p>Ejecutamos el siguiente comando:</p>
+              <code>curl -sSL https://install.python-poetry.org | python3 -</code>
+
+              <p>En la carpeta de nuestro proyecto ejecutamos el comando:</p>
+              <code>poetry install</code>
+
+              <p>Lanzamos el siguiente comando para obtener el interprete virtual:</p>
+              <code>poetry env info</code>
+
+              <p>Cogemos la linea <b>Executable</b> y en nuestro VSCode pulsamos <b>F1</b> y buscamos la opción <b>"python interpreter"</b> y añadimos el interprete que hemos obtenido con el comando anterior, con esto nuestro proyecto ya está listo para ser lanzado desde el VSCode.</p>
+
+              <img src="Instalar entorno de desarrollo en WSL/3.png">
+              <img src="Instalar entorno de desarrollo en WSL/4.png">
+
+            </div>
+
+        <div class="t2">Instalación de Docker</div>
+            <div class="cont">
+              <p>Si queremos instalar docker en nuestro WSL ejecutamos los siguientes comandos:</p>
+
+              <code>sudo apt-get update</code>
+
+              <pre><code>sudo apt-get install \
+   apt-transport-https \
+   ca-certificates \
+   curl \
+   gnupg \
+   lsb-release</code></pre>
+
+              <code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg</code>
+
+              <pre><code>echo \
+   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null</code></pre>
+
+              <code>sudo apt-get update</code>
+
+              <code>sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose</code>
+
+              <code>sudo service docker start</code>
+
+              <code>sudo groupadd docker</code>
+
+              <code>sudo usermod -aG docker $USER</code>
+
+              <p>Si queremos que el servicio de docker se inicie de manera automática al arrancar nuestra maquina virtual podemos añadir la siguiente configuración en el archivo <b>~/.profile</b> (el archivo .profile de nuestra carpeta de usuario):</p>
+              <code>wsl.exe -u root -e sh -c "service docker status || service docker start"</code>
+
+            </div>
+
+        <div class="t2">Acceso a los archivos de WSL desde windows</div>
+            <div class="cont">
+              <p>Para acceder mas comodamente al sistema de archivos interno de WSL podemos hacerlo de dos maneras:</p>
+
+              <h2>Desde el explorador de archivos</h2>
+              <p>Podemos acceder al sistema de archivos usando la siguiente dirección en el explorador de archivos:</p>
+              <code>\\wsl$</code>
+
+              <img src="Instalar entorno de desarrollo en WSL/6.png">
+
+              <p>De esta manera podemos acceder al sistema entero (solo es una ubicación de red), y tratarlo como si fuese una carpeta más del sistema, podemos crear accesos directos a las carpetas donde tengamos nuestros proyectos si queremos.</p>
+
+              <h2>Desde VSCode</h2>
+              <p>Para esto tendremos que instalar la siguiente extensión:</p>
+
+              <img src="Instalar entorno de desarrollo en WSL/7.png">
+
+              <p>Una vez instalada podemos acceder al sistema de archivos desde la siguiente opción del IDE</p>
+              <img src="Instalar entorno de desarrollo en WSL/8.png">
+
+              <p>De igual manera que con el explorador de archivos podemos acceder a todo el contenido de la maquina virtual, pero en este caso directamente desde el propio VSCode.</p>
+
+            </div>
+
+        <div class="t2">Quitar el sonido molesto de la campana</div>
+            <div class="cont">
+
+              <p>El WSL tiene un sonido constante de la campana del sistema, cada vez que tabulas o pulsas backspace y no hay nada que borrar se emite el sonido, que puede llegar a ser muy molesto, se puede desactivar de la siguiente manera:</p>
+
+              <p>Para eliminarlo de manera general lo hacemos editando el archivo <b>/etc/inputrc</b>, añadimos la opción:</p>
+
+              <code>set bell-style none</code>
+
+              <p>Quitar el sonido en <b>Vim</b>: editamos el archivo <b>~/.vimrc</b> añadiendo el siguiente contenido:</p>
+              <pre><code>set visualbell
+set t_vb=</code></pre>
+
+              <p>Quitar el sonido en <b>less</b>: editamos el archivo <b>~/.profile</b> añadiendo la siguiente linea:</p>
+              <code>export LESS="$LESS -R -Q"</code>
+            </div>
+
+    </body>
+</html>
