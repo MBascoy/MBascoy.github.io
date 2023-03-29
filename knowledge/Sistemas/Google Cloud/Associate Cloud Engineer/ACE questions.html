@@ -597,8 +597,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
             </div>
 
         <p onclick="checkResponse(this)">A. Store the database password inside the Docker image of the container, not in the YAML file.</p>
-        <p onclick="checkResponse(this)" correct>B. Store the database password inside a Secret object. Modify the YAML file to populate the DB_PASSWORD environment variable from the
-            Secret.</p>
+        <p onclick="checkResponse(this)" correct>B. Store the database password inside a Secret object. Modify the YAML file to populate the DB_PASSWORD environment variable from the Secret.</p>
         <p onclick="checkResponse(this)">C. Store the database password inside a ConfigMap object. Modify the YAML file to populate the DB_PASSWORD environment variable from the ConfigMap.</p>
         <p onclick="checkResponse(this)">D. Store the database password in a file inside a Kubernetes persistent volume, and use a persistent volume claim to mount the volume to the container.</p>
     </div>
@@ -606,7 +605,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
     <div class="question">
         <div class="question-text">
             <span class="question-number">#43</span>
-            You are running an application on multiple virtual machines within a managed instance group and have autoscaling enabled. The autoscaling policy is configured so that additional instances are added to the group if the CPU utilization of instances goes above 80%. VMs are added until the instance group reaches its maximum limit of five VMs or until CPU utilization of instances lowers to 80%. The initial delay for HTTP health checks against the instances is set to 30 seconds. The virtual machine instances take around three minutes to become available for users. You observe that when the instance group autoscales, it adds more instances then necessary to support the levels of end-user tra¨c. You want to properly maintain instance group sizes when autoscaling. What should you do?
+            You are running an application on multiple virtual machines within a managed instance group and have autoscaling enabled. The autoscaling policy is configured so that additional instances are added to the group if the CPU utilization of instances goes above 80%. VMs are added until the instance group reaches its maximum limit of five VMs or until CPU utilization of instances lowers to 80%. The initial delay for HTTP health checks against the instances is set to 30 seconds. The virtual machine instances take around three minutes to become available for users. You observe that when the instance group autoscales, it adds more instances then necessary to support the levels of end-user traffic. You want to properly maintain instance group sizes when autoscaling. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Set the maximum number of instances to 1.</p>
@@ -635,8 +634,8 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
 
         <p onclick="checkResponse(this)">A. Run gcloud app restore.</p>
         <p onclick="checkResponse(this)">B. On the App Engine page of the GCP Console, select the application that needs to be reverted and click Revert.</p>
-        <p onclick="checkResponse(this)" correct>C. On the App Engine Versions page of the GCP Console, route 100% of the tra¨c to the previous version.</p>
-        <p onclick="checkResponse(this)">D. Deploy the original version as a separate application. Then go to App Engine settings and split tra¨c between applications so that the
+        <p onclick="checkResponse(this)" correct>C. On the App Engine Versions page of the GCP Console, route 100% of the traffic to the previous version.</p>
+        <p onclick="checkResponse(this)">D. Deploy the original version as a separate application. Then go to App Engine settings and split traffic between applications so that the
             original version serves 100% of the requests.</p>
     </div>
 
@@ -781,13 +780,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. Deploy the new version in the same application and use the --migrate option.</p>
         <p onclick="checkResponse(this)" correct>B. Deploy the new version in the same application and use the --splits option to give a weight of 99 to the current version and a weight of 1 to the new version.</p>
         <p onclick="checkResponse(this)">C. Create a new App Engine application in the same project. Deploy the new version in that application. Use the App Engine library to proxy 1% of the requests to the new version.</p>
-        <p onclick="checkResponse(this)">D. Create a new App Engine application in the same project. Deploy the new version in that application. Configure your network load balancer to send 1% of the tra¨c to that new application.</p>
+        <p onclick="checkResponse(this)">D. Create a new App Engine application in the same project. Deploy the new version in that application. Configure your network load balancer to send 1% of the traffic to that new application.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#57</span>
-            You have a web application deployed as a managed instance group. You have a new version of the application to gradually deploy. Your web application is currently receiving live web tra¨c. You want to ensure that the available capacity does not decrease during the deployment. What should you do?
+            You have a web application deployed as a managed instance group. You have a new version of the application to gradually deploy. Your web application is currently receiving live web traffic. You want to ensure that the available capacity does not decrease during the deployment. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Perform a rolling-action start-update with maxSurge set to 0 and maxUnavailable set to 1.</p>
@@ -827,7 +826,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)" correct>A. 1. In GKE, create a Service of type LoadBalancer that uses the application's Pods as backend. 2. Set the service's externalTrafficPolicy to Cluster. 3. Configure the Compute Engine instance to use the address of the load balancer that has been created.</p>
-        <p onclick="checkResponse(this)">B. 1. In GKE, create a Service of type NodePort that uses the application's Pods as backend. 2. Create a Compute Engine instance called proxy with 2 network interfaces, one in each VPC. 3. Use iptables on this instance to forward tra¨c from gce-network to the GKE nodes. 4. Configure the Compute Engine instance to use the address of proxy in gce-network as endpoint.</p>
+        <p onclick="checkResponse(this)">B. 1. In GKE, create a Service of type NodePort that uses the application's Pods as backend. 2. Create a Compute Engine instance called proxy with 2 network interfaces, one in each VPC. 3. Use iptables on this instance to forward traffic from gce-network to the GKE nodes. 4. Configure the Compute Engine instance to use the address of proxy in gce-network as endpoint.</p>
         <p onclick="checkResponse(this)">C. 1. In GKE, create a Service of type LoadBalancer that uses the application's Pods as backend. 2. Add an annotation to this service: cloud.google.com/load-balancer-type: Internal 3. Peer the two VPCs together. 4. Configure the Compute Engine instance to use the address of the load balancer that has been created.</p>
         <p onclick="checkResponse(this)">D. 1. In GKE, create a Service of type LoadBalancer that uses the application's Pods as backend. 2. Add a Cloud Armor Security Policy to the load balancer that whitelists the internal IPs of the MIG's instances. 3. Configure the Compute Engine instance to use the address of the load balancer that has been created.</p>
     </div>
@@ -1029,7 +1028,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. Deploy a new version of your application in Google Kubernetes Engine instead of App Engine and then use GCP Console to split traffic.</p>
         <p onclick="checkResponse(this)">B. Deploy a new version of your application in a Compute Engine instance instead of App Engine and then use GCP Console to split traffic.</p>
         <p onclick="checkResponse(this)">C. Deploy a new version as a separate app in App Engine. Then configure App Engine using GCP Console to split traffic between the two apps.</p>
-        <p onclick="checkResponse(this)" correct>D. Deploy a new version of your application in App Engine. Then go to App Engine settings in GCP Console and split tra¨c between the current version and newly deployed versions accordingly</p>
+        <p onclick="checkResponse(this)" correct>D. Deploy a new version of your application in App Engine. Then go to App Engine settings in GCP Console and split traffic between the current version and newly deployed versions accordingly</p>
     </div>
 
     <div class="question">
@@ -1053,13 +1052,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)" correct>A. Create a Kubernetes Service of type NodePort for your application, and a Kubernetes Ingress to expose this Service via a Cloud Load Balancer.</p>
         <p onclick="checkResponse(this)">B. Create a Kubernetes Service of type ClusterIP for your application. Configure the public DNS name of your application using the IP of this Service.</p>
         <p onclick="checkResponse(this)">C. Create a Kubernetes Service of type NodePort to expose the application on port 443 of each node of the Kubernetes cluster. Configure the public DNS name of your application with the IP of every node of the cluster to achieve load-balancing.</p>
-        <p onclick="checkResponse(this)">D. Create a HAProxy pod in the cluster to load-balance the tra¨c to all the pods of the application. Forward the public traffic to HAProxy with an iptable rule. Configure the DNS name of your application using the public IP of the node HAProxy is running on.</p>
+        <p onclick="checkResponse(this)">D. Create a HAProxy pod in the cluster to load-balance the traffic to all the pods of the application. Forward the public traffic to HAProxy with an iptable rule. Configure the DNS name of your application using the public IP of the node HAProxy is running on.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#79</span>
-            You need to enable tra¨c between multiple groups of Compute Engine instances that are currently running two different GCP projects. Each group of Compute Engine instances is running in its own VPC. What should you do?
+            You need to enable traffic between multiple groups of Compute Engine instances that are currently running two different GCP projects. Each group of Compute Engine instances is running in its own VPC. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Verify that both projects are in a GCP Organization. Create a new VPC and add all instances.</p>
@@ -1401,7 +1400,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#107</span>
-            You are building an archival solution for your data warehouse and have selected Cloud Storage to archive your data. Your users need to be able to access this archived data once a quarter for some regulatory requirements. You want to select a cost-e¨cient option. Which storage option should you use?
+            You are building an archival solution for your data warehouse and have selected Cloud Storage to archive your data. Your users need to be able to access this archived data once a quarter for some regulatory requirements. You want to select a cost-efficient option. Which storage option should you use?
             </div>
 
         <p onclick="checkResponse(this)">A. Cold Storage</p>
@@ -1569,7 +1568,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#121</span>
-            Your managed instance group raised an alert stating that new instance creation has failed to create new instances. You need to maintain the number of running instances specified by the template to be able to process expected application tra¨c. What should you do?
+            Your managed instance group raised an alert stating that new instance creation has failed to create new instances. You need to maintain the number of running instances specified by the template to be able to process expected application traffic. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Create an instance template that contains valid syntax which will be used by the instance group. Delete any persistent disks with the same name as instance names.</p>
@@ -1605,7 +1604,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#124</span>
-            You have an application that uses Cloud Spanner as a backend database. The application has a very predictable tra¨c pattern. You want to automatically scale up or down the number of Spanner nodes depending on tra¨c. What should you do?
+            You have an application that uses Cloud Spanner as a backend database. The application has a very predictable traffic pattern. You want to automatically scale up or down the number of Spanner nodes depending on traffic. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Create a cron job that runs on a scheduled basis to review Cloud Monitoring metrics, and then resize the Spanner instance accordingly.</p>
@@ -1641,13 +1640,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#127</span>
-            You have an application that receives SSL-encrypted TCP tra¨c on port 443. Clients for this application are located all over the world. You want to minimize latency for the clients. Which load balancing option should you use?
+            You have an application that receives SSL-encrypted TCP traffic on port 443. Clients for this application are located all over the world. You want to minimize latency for the clients. Which load balancing option should you use?
             </div>
 
         <p onclick="checkResponse(this)">A. HTTPS Load Balancer</p>
         <p onclick="checkResponse(this)">B. Network Load Balancer</p>
         <p onclick="checkResponse(this)" correct>C. SSL Proxy Load Balancer</p>
-        <p onclick="checkResponse(this)">D. Internal TCP/UDP Load Balancer. Add a firewall rule allowing ingress tra¨c from 0.0.0.0/0 on the target instances.</p>
+        <p onclick="checkResponse(this)">D. Internal TCP/UDP Load Balancer. Add a firewall rule allowing ingress traffic from 0.0.0.0/0 on the target instances.</p>
     </div>
 
     <div class="question">
@@ -1719,7 +1718,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. Move both projects under the same folder.</p>
         <p onclick="checkResponse(this)" correct>B. Grant the VM Service Account the role Storage Object Creator on corp-aggregate-reports-storage.</p>
         <p onclick="checkResponse(this)">C. Create a Shared VPC network between both projects. Grant the VM Service Account the role Storage Object Creator on corp-iot-insights.</p>
-        <p onclick="checkResponse(this)">D. Make corp-aggregate-reports-storage public and create a folder with a pseudo-randomized su¨x name. Share the folder with the IoT team.</p>
+        <p onclick="checkResponse(this)">D. Make corp-aggregate-reports-storage public and create a folder with a pseudo-randomized suffix name. Share the folder with the IoT team.</p>
     </div>
 
     <div class="question">
@@ -1821,13 +1820,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#142</span>
-            Your company has workloads running on Compute Engine and on-premises. The Google Cloud Virtual Private Cloud (VPC) is connected to your WAN over a Virtual Private Network (VPN). You need to deploy a new Compute Engine instance and ensure that no public Internet tra¨c can be routed to it. What should you do?
+            Your company has workloads running on Compute Engine and on-premises. The Google Cloud Virtual Private Cloud (VPC) is connected to your WAN over a Virtual Private Network (VPN). You need to deploy a new Compute Engine instance and ensure that no public Internet traffic can be routed to it. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Create the instance without a public IP address.</p>
         <p onclick="checkResponse(this)">B. Create the instance with Private Google Access enabled.</p>
         <p onclick="checkResponse(this)">C. Create a deny-all egress firewall rule on the VPC network.</p>
-        <p onclick="checkResponse(this)">D. Create a route on the VPC to route all tra¨c to the instance over the VPN tunnel.</p>
+        <p onclick="checkResponse(this)">D. Create a route on the VPC to route all traffic to the instance over the VPN tunnel.</p>
     </div>
 
     <div class="question">
@@ -1869,7 +1868,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#146</span>
-            You have an application that uses Cloud Spanner as a database backend to keep current state information about users. Cloud Bigtable logs all events triggered by users. You export Cloud Spanner data to Cloud Storage during daily backups. One of your analysts asks you to join data from Cloud Spanner and Cloud Bigtable for specific users. You want to complete this ad hoc request as e¨ciently as possible. What should you do?
+            You have an application that uses Cloud Spanner as a database backend to keep current state information about users. Cloud Bigtable logs all events triggered by users. You export Cloud Spanner data to Cloud Storage during daily backups. One of your analysts asks you to join data from Cloud Spanner and Cloud Bigtable for specific users. You want to complete this ad hoc request as efficiently as possible. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Create a data§ow job that copies data from Cloud Bigtable and Cloud Storage for specific users.</p>
@@ -1945,7 +1944,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Enable Cloud IAP for the Compute Engine instances, and add the operations partner as a Cloud IAP Tunnel User.</p>
-        <p onclick="checkResponse(this)">B. Tag all the instances with the same network tag. Create a firewall rule in the VPC to grant TCP access on port 22 for tra¨c from the operations partner to instances with the network tag.</p>
+        <p onclick="checkResponse(this)">B. Tag all the instances with the same network tag. Create a firewall rule in the VPC to grant TCP access on port 22 for traffic from the operations partner to instances with the network tag.</p>
         <p onclick="checkResponse(this)">C. Set up Cloud VPN between your Google Cloud VPC and the internal network of the operations partner.</p>
         <p onclick="checkResponse(this)">D. Ask the operations partner to generate SSH key pairs, and add the public keys to the VM instances.</p>
     </div>
@@ -2117,8 +2116,8 @@ VMs must be able to reach each other over Internal IP without creating additiona
             Your web application has been running successfully on Cloud Run for Anthos. You want to evaluate an updated version of the application with a specific percentage of your production users (canary deployment). What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" >A. Create a new service with the new version of the application. Split tra¨c between this version and the version that is currently running.</p>
-        <p onclick="checkResponse(this)" correct>B. Create a new revision with the new version of the application. Split tra¨c between this version and the version that is currently running.</p>
+        <p onclick="checkResponse(this)" >A. Create a new service with the new version of the application. Split traffic between this version and the version that is currently running.</p>
+        <p onclick="checkResponse(this)" correct>B. Create a new revision with the new version of the application. Split traffic between this version and the version that is currently running.</p>
         <p onclick="checkResponse(this)">C. Create a new service with the new version of the application. Add an HTTP Load Balancer in front of both services.</p>
         <p onclick="checkResponse(this)">D. Create a new revision with the new version of the application. Add an HTTP Load Balancer in front of both revisions.</p>
     </div>
@@ -2186,7 +2185,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#172</span>
-            You are monitoring an application and receive user feedback that a specific error is spiking. You notice that the error is caused by a Service Account having insu¨cient permissions. You are able to solve the problem but want to be notified if the problem recurs. What should you do?
+            You are monitoring an application and receive user feedback that a specific error is spiking. You notice that the error is caused by a Service Account having insufficient permissions. You are able to solve the problem but want to be notified if the problem recurs. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. In the Log Viewer, filter the logs on severity 'Error' and the name of the Service Account.</p>
@@ -2275,10 +2274,10 @@ VMs must be able to reach each other over Internal IP without creating additiona
             Your company is moving its entire workload to Compute Engine. Some servers should be accessible through the Internet, and other servers should only be accessible over the internal network. All servers need to be able to talk to each other over specific ports and protocols. The current onpremises network relies on a demilitarized zone (DMZ) for the public servers and a Local Area Network (LAN) for the private servers. You need to design the networking infrastructure on Google Cloud to match these requirements. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. 1. Create a single VPC with a subnet for the DMZ and a subnet for the LAN. 2. Set up firewall rules to open up relevant tra¨c between the DMZ and the LAN subnets, and another firewall rule to allow public ingress tra¨c for the DMZ.</p>
-        <p onclick="checkResponse(this)">B. 1. Create a single VPC with a subnet for the DMZ and a subnet for the LAN. 2. Set up firewall rules to open up relevant tra¨c between the DMZ and the LAN subnets, and another firewall rule to allow public egress tra¨c for the DMZ.</p>
-        <p onclick="checkResponse(this)">C. 1. Create a VPC with a subnet for the DMZ and another VPC with a subnet for the LAN. 2. Set up firewall rules to open up relevant traffic between the DMZ and the LAN subnets, and another firewall rule to allow public ingress tra¨c for the DMZ.</p>
-        <p onclick="checkResponse(this)">D. 1. Create a VPC with a subnet for the DMZ and another VPC with a subnet for the LAN. 2. Set up firewall rules to open up relevant traffic between the DMZ and the LAN subnets, and another firewall rule to allow public egress tra¨c for the DMZ.</p>
+        <p onclick="checkResponse(this)" correct>A. 1. Create a single VPC with a subnet for the DMZ and a subnet for the LAN. 2. Set up firewall rules to open up relevant traffic between the DMZ and the LAN subnets, and another firewall rule to allow public ingress traffic for the DMZ.</p>
+        <p onclick="checkResponse(this)">B. 1. Create a single VPC with a subnet for the DMZ and a subnet for the LAN. 2. Set up firewall rules to open up relevant traffic between the DMZ and the LAN subnets, and another firewall rule to allow public egress traffic for the DMZ.</p>
+        <p onclick="checkResponse(this)">C. 1. Create a VPC with a subnet for the DMZ and another VPC with a subnet for the LAN. 2. Set up firewall rules to open up relevant traffic between the DMZ and the LAN subnets, and another firewall rule to allow public ingress traffic for the DMZ.</p>
+        <p onclick="checkResponse(this)">D. 1. Create a VPC with a subnet for the DMZ and another VPC with a subnet for the LAN. 2. Set up firewall rules to open up relevant traffic between the DMZ and the LAN subnets, and another firewall rule to allow public egress traffic for the DMZ.</p>
     </div>
 
     <div class="question">
@@ -2344,11 +2343,11 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#185</span>
-            You are developing a new web application that will be deployed on Google Cloud Platform. As part of your release cycle, you want to test updates to your application on a small portion of real user tra¨c. The majority of the users should still be directed towards a stable version of your application. What should you do?
+            You are developing a new web application that will be deployed on Google Cloud Platform. As part of your release cycle, you want to test updates to your application on a small portion of real user traffic. The majority of the users should still be directed towards a stable version of your application. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. Deploy the application on App Engine. For each update, create a new version of the same service. Configure tra¨c splitting to send a small percentage of traffic to the new version.</p>
-        <p onclick="checkResponse(this)">B. Deploy the application on App Engine. For each update, create a new service. Configure tra¨c splitting to send a small percentage of traffic to the new service.</p>
+        <p onclick="checkResponse(this)" correct>A. Deploy the application on App Engine. For each update, create a new version of the same service. Configure traffic splitting to send a small percentage of traffic to the new version.</p>
+        <p onclick="checkResponse(this)">B. Deploy the application on App Engine. For each update, create a new service. Configure traffic splitting to send a small percentage of traffic to the new service.</p>
         <p onclick="checkResponse(this)">C. Deploy the application on Kubernetes Engine. For a new release, update the deployment to use the new version.</p>
         <p onclick="checkResponse(this)">D. Deploy the application on Kubernetes Engine. For a new release, create a new deployment for the new version. Update the service to use the new deployment.</p>
     </div>
@@ -2476,7 +2475,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#196</span>
-            You are running multiple microservices in a Kubernetes Engine cluster. One microservice is rendering images. The microservice responsible for the image rendering requires a large amount of CPU time compared to the memory it requires. The other microservices are workloads that are optimized for n1-standard machine types. You need to optimize your cluster so that all workloads are using resources as e¨ciently as possible. What should you do?
+            You are running multiple microservices in a Kubernetes Engine cluster. One microservice is rendering images. The microservice responsible for the image rendering requires a large amount of CPU time compared to the memory it requires. The other microservices are workloads that are optimized for n1-standard machine types. You need to optimize your cluster so that all workloads are using resources as efficiently as possible. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Assign the pods of the image rendering microservice a higher pod priority than the other microservices.</p>
