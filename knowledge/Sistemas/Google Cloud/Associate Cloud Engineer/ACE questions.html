@@ -365,10 +365,10 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
 
             <img src="ACE questions/1.png"/>
 
-        <p onclick="checkResponse(this)">A. Cloud Pub/Sub, Cloud Data§ow, Cloud Datastore, BigQuery</p>
+        <p onclick="checkResponse(this)">A. Cloud Pub/Sub, Cloud Dataflow, Cloud Datastore, BigQuery</p>
         <p onclick="checkResponse(this)">B. Firebase Messages, Cloud Pub/Sub, Cloud Spanner, BigQuery</p>
         <p onclick="checkResponse(this)">C. Cloud Pub/Sub, Cloud Storage, BigQuery, Cloud Bigtable</p>
-        <p onclick="checkResponse(this)" correct>D. Cloud Pub/Sub, Cloud Data§ow, Cloud Bigtable, BigQuery</p>
+        <p onclick="checkResponse(this)" correct>D. Cloud Pub/Sub, Cloud Dataflow, Cloud Bigtable, BigQuery</p>
     </div>
 
     <div class="question">
@@ -840,7 +840,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. Create an export to the sink that saves logs from Cloud Audit to BigQuery.</p>
         <p onclick="checkResponse(this)" correct>B. Create an export to the sink that saves logs from Cloud Audit to a Coldline Storage bucket.</p>
         <p onclick="checkResponse(this)">C. Write a custom script that uses logging API to copy the logs from Stackdriver logs to BigQuery.</p>
-        <p onclick="checkResponse(this)">D. Export these logs to Cloud Pub/Sub and write a Cloud Data§ow pipeline to store logs to Cloud SQL.</p>
+        <p onclick="checkResponse(this)">D. Export these logs to Cloud Pub/Sub and write a Cloud Dataflow pipeline to store logs to Cloud SQL.</p>
     </div>
 
     <div class="question">
@@ -1232,7 +1232,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)" correct>A. Go to Data Catalog and search for employee_ssn in the search box.</p>
         <p onclick="checkResponse(this)">B. Write a shell script that uses the bq command line tool to loop through all the projects in your organization.</p>
         <p onclick="checkResponse(this)">C. Write a script that loops through all the projects in your organization and runs a query on INFORMATION_SCHEMA.COLUMNS view to find the employee_ssn column.</p>
-        <p onclick="checkResponse(this)">D. Write a Cloud Data§ow job that loops through all the projects in your organization and runs a query on INFORMATION_SCHEMA.COLUMNS view to find employee_ssn column.</p>
+        <p onclick="checkResponse(this)">D. Write a Cloud Dataflow job that loops through all the projects in your organization and runs a query on INFORMATION_SCHEMA.COLUMNS view to find employee_ssn column.</p>
     </div>
 
     <div class="question">
@@ -1272,7 +1272,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)" correct>B. Apply a user- or project-level custom query quota for BigQuery data warehouse.</p>
         <p onclick="checkResponse(this)">C. Create separate copies of your BigQuery data warehouse for each business unit.</p>
         <p onclick="checkResponse(this)">D. Split your BigQuery data warehouse into multiple data warehouses for each business unit.</p>
-        <p onclick="checkResponse(this)" correct>E. Change your BigQuery query model from on-demand to §at rate. Apply the appropriate number of slots to each Project.</p>
+        <p onclick="checkResponse(this)" correct>E. Change your BigQuery query model from on-demand to flat rate. Apply the appropriate number of slots to each Project.</p>
     </div>
 
     <div class="question">
@@ -1544,7 +1544,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#119</span>
-            Your company has a large quantity of unstructured data in different file formats. You want to perform ETL transformations on the data. You need to make the data accessible on Google Cloud so it can be processed by a Data§ow job. What should you do?
+            Your company has a large quantity of unstructured data in different file formats. You want to perform ETL transformations on the data. You need to make the data accessible on Google Cloud so it can be processed by a Dataflow job. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Upload the data to BigQuery using the bq command line tool.</p>
@@ -1740,8 +1740,8 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Using the Cloud SDK, create a new project, enable the Compute Engine API in that project, and then create the instance specifying your new project.</p>
-        <p onclick="checkResponse(this)">B. Enable the Compute Engine API in the Cloud Console, use the Cloud SDK to create the instance, and then use the --project §ag to specify a new project.</p>
-        <p onclick="checkResponse(this)">C. Using the Cloud SDK, create the new instance, and use the --project §ag to specify the new project. Answer yes when prompted by Cloud SDK to enable the Compute Engine API.</p>
+        <p onclick="checkResponse(this)">B. Enable the Compute Engine API in the Cloud Console, use the Cloud SDK to create the instance, and then use the --project flag to specify a new project.</p>
+        <p onclick="checkResponse(this)">C. Using the Cloud SDK, create the new instance, and use the --project flag to specify the new project. Answer yes when prompted by Cloud SDK to enable the Compute Engine API.</p>
         <p onclick="checkResponse(this)">D. Enable the Compute Engine API in the Cloud Console. Go to the Compute Engine section of the Console to create a new instance, and look for the Create In A New Project option in the creation form.</p>
     </div>
 
@@ -1871,8 +1871,8 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You have an application that uses Cloud Spanner as a database backend to keep current state information about users. Cloud Bigtable logs all events triggered by users. You export Cloud Spanner data to Cloud Storage during daily backups. One of your analysts asks you to join data from Cloud Spanner and Cloud Bigtable for specific users. You want to complete this ad hoc request as efficiently as possible. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Create a data§ow job that copies data from Cloud Bigtable and Cloud Storage for specific users.</p>
-        <p onclick="checkResponse(this)">B. Create a data§ow job that copies data from Cloud Bigtable and Cloud Spanner for specific users.</p>
+        <p onclick="checkResponse(this)">A. Create a dataflow job that copies data from Cloud Bigtable and Cloud Storage for specific users.</p>
+        <p onclick="checkResponse(this)">B. Create a dataflow job that copies data from Cloud Bigtable and Cloud Spanner for specific users.</p>
         <p onclick="checkResponse(this)">C. Create a Cloud Dataproc cluster that runs a Spark job to extract data from Cloud Bigtable and Cloud Storage for specific users.</p>
         <p onclick="checkResponse(this)" correct>D. Create two separate BigQuery external tables on Cloud Storage and Cloud Bigtable. Use the BigQuery console to join these tables through user fields, and apply appropriate filters.</p>
     </div>
@@ -1958,7 +1958,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. Use App Engine and configure Cloud Scheduler to trigger the application using Pub/Sub.</p>
         <p onclick="checkResponse(this)" correct>B. Use Cloud Functions and configure the bucket as a trigger resource.</p>
         <p onclick="checkResponse(this)">C. Use Google Kubernetes Engine and configure a CronJob to trigger the application using Pub/Sub.</p>
-        <p onclick="checkResponse(this)">D. Use Data§ow as a batch job, and configure the bucket as a data source.</p>
+        <p onclick="checkResponse(this)">D. Use Dataflow as a batch job, and configure the bucket as a data source.</p>
     </div>
 
     <div class="question">
@@ -2082,8 +2082,8 @@ VMs must be able to reach each other over Internal IP without creating additiona
 
         <p onclick="checkResponse(this)">A. Deploy the container on Cloud Run for Anthos, and set the minimum number of instances to zero.</p>
         <p onclick="checkResponse(this)" correct>B. Deploy the container on Cloud Run (fully managed), and set the minimum number of instances to zero.</p>
-        <p onclick="checkResponse(this)">C. Deploy the container on App Engine §exible environment with autoscaling, and set the value min_instances to zero in the app.yaml.</p>
-        <p onclick="checkResponse(this)">D. Deploy the container on App Engine §exible environment with manual scaling, and set the value instances to zero in the app.yaml.</p>
+        <p onclick="checkResponse(this)">C. Deploy the container on App Engine flexible environment with autoscaling, and set the value min_instances to zero in the app.yaml.</p>
+        <p onclick="checkResponse(this)">D. Deploy the container on App Engine flexible environment with manual scaling, and set the value instances to zero in the app.yaml.</p>
     </div>
 
     <div class="question">
@@ -2141,7 +2141,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)">A. Create a Pub/Sub topic, and enable a Cloud Storage trigger for the Pub/Sub topic. Create an application that sends all medical images to the Pub/Sub topic.</p>
-        <p onclick="checkResponse(this)">B. Deploy a Data§ow job from the batch template, €גDatastore to Cloud Storage. €גSchedule the batch job on the desired interval.</p>
+        <p onclick="checkResponse(this)">B. Deploy a Dataflow job from the batch template, €גDatastore to Cloud Storage. €גSchedule the batch job on the desired interval.</p>
         <p onclick="checkResponse(this)" correct>C. Create a script that uses the gsutil command line interface to synchronize the on-premises storage with Cloud Storage. Schedule the script as a cron job.</p>
         <p onclick="checkResponse(this)">D. In the Cloud Console, go to Cloud Storage. Upload the relevant images to the appropriate bucket.</p>
     </div>
@@ -2264,7 +2264,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. Create a Data Studio dashboard that uses the related BigQuery tables as a source and give the BI team view access to the Data Studio
             dashboard.</p>
         <p onclick="checkResponse(this)">B. Create a Service Account for the BI team and distribute a new private key to each member of the BI team.</p>
-        <p onclick="checkResponse(this)">C. Use Cloud Scheduler to schedule a batch Data§ow job to copy the data from BigQuery to the BI team's internal data warehouse.</p>
+        <p onclick="checkResponse(this)">C. Use Cloud Scheduler to schedule a batch Dataflow job to copy the data from BigQuery to the BI team's internal data warehouse.</p>
         <p onclick="checkResponse(this)" correct>D. Assign the IAM role of BigQuery User to a Google Group that contains the members of the BI team.</p>
     </div>
 
@@ -2355,11 +2355,11 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#186</span>
-            You need to add a group of new users to Cloud Identity. Some of the users already have existing Google accounts. You want to follow one of Google's recommended practices and avoid con§icting accounts. What should you do?
+            You need to add a group of new users to Cloud Identity. Some of the users already have existing Google accounts. You want to follow one of Google's recommended practices and avoid conflicting accounts. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Invite the user to transfer their existing account.</p>
-        <p onclick="checkResponse(this)">B. Invite the user to use an email alias to resolve the con§ict.</p>
+        <p onclick="checkResponse(this)">B. Invite the user to use an email alias to resolve the conflict.</p>
         <p onclick="checkResponse(this)">C. Tell the user that they must delete their existing account.</p>
         <p onclick="checkResponse(this)">D. Tell the user to remove all personal email from the existing account.</p>
     </div>
