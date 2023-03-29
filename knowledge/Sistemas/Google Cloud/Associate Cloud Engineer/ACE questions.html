@@ -22,7 +22,7 @@
         .question{
             margin:80px 20px;
         }
-        
+
         .question-text {
             background-color: lightblue;
             padding: 15px;
@@ -69,7 +69,7 @@
                     element.classList.add("question-right")
                 else
                     element.classList.add("question-wrong")
-            }    
+            }
             setScore();
         }
 
@@ -96,10 +96,10 @@ Each member of this team needs only administrative access to the servers. Your s
 is operationally efficient and must be able to determine who accessed a given instance. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Generate a new SSH key pair. Give the private key to each member of your team. Con¦gure the public key in the metadata of each instance.</p>
-        <p onclick="checkResponse(this)">B. Ask each member of the team to generate a new SSH key pair and to send you their public key. Use a con¦guration management tool to deploy those keys on each instance.</p>
+        <p onclick="checkResponse(this)">A. Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key in the metadata of each instance.</p>
+        <p onclick="checkResponse(this)">B. Ask each member of the team to generate a new SSH key pair and to send you their public key. Use a configuration management tool to deploy those keys on each instance.</p>
         <p onclick="checkResponse(this)" correct>C. Ask each member of the team to generate a new SSH key pair and to add the public key to their Google account. Grant the "compute.osAdminLogin" role to the Google group corresponding to this team.</p>
-        <p onclick="checkResponse(this)">D. Generate a new SSH key pair. Give the private key to each member of your team. Con¦gure the public key as a project-wide public SSH key in your Cloud Platform project and allow project-wide public SSH keys on each instance.</p>
+        <p onclick="checkResponse(this)">D. Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key as a project-wide public SSH key in your Cloud Platform project and allow project-wide public SSH keys on each instance.</p>
     </div>
 
     <div class="question">
@@ -117,7 +117,7 @@ is operationally efficient and must be able to determine who accessed a given in
     <div class="question">
         <div class="question-text">
             <span class="question-number">#3</span>
-            You want to select and con¦gure a cost-effective solution for relational data on Google Cloud Platform. You are working with a small set of operational data in one geographic location. You need to support point-in-time recovery. What should you do?
+            You want to select and configure a cost-effective solution for relational data on Google Cloud Platform. You are working with a small set of operational data in one geographic location. You need to support point-in-time recovery. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Select Cloud SQL (MySQL). Verify that the enable binary logging option is selected.</p>
@@ -134,7 +134,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
             </div>
 
         <p onclick="checkResponse(this)">A. Create an HTTP load balancer with a backend configuration that references an existing instance group. Set the health check to healthy (HTTP)</p>
-        <p onclick="checkResponse(this)">B. Create an HTTP load balancer with a backend configuration that references an existing instance group. De¦ne a balancing mode and set the maximum RPS to 10.</p>
+        <p onclick="checkResponse(this)">B. Create an HTTP load balancer with a backend configuration that references an existing instance group. Define a balancing mode and set the maximum RPS to 10.</p>
         <p onclick="checkResponse(this)" correct>C. Create a managed instance group. Set the Autohealing health check to healthy (HTTP)</p>
         <p onclick="checkResponse(this)">D. Create a managed instance group. Verify that the autoscaling setting is on.</p>
     </div>
@@ -142,13 +142,13 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
     <div class="question">
         <div class="question-text">
             <span class="question-number">#5</span>
-            You are using multiple configurations for gcloud. You want to review the configured Kubernetes Engine cluster of an inactive con¦guration using the fewest possible steps. What should you do?
+            You are using multiple configurations for gcloud. You want to review the configured Kubernetes Engine cluster of an inactive configuration using the fewest possible steps. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Use gcloud con¦g con¦gurations describe to review the output.</p>
-        <p onclick="checkResponse(this)">B. Use gcloud con¦g con¦gurations activate and gcloud con¦g list to review the output.</p>
-        <p onclick="checkResponse(this)">C. Use kubectl con¦g get-contexts to review the output.</p>
-        <p onclick="checkResponse(this)" correct>D. Use kubectl con¦g use-context and kubectl con¦g view to review the output.</p>
+        <p onclick="checkResponse(this)">A. Use gcloud config configurations describe to review the output.</p>
+        <p onclick="checkResponse(this)">B. Use gcloud config configurations activate and gcloud config list to review the output.</p>
+        <p onclick="checkResponse(this)">C. Use kubectl config get-contexts to review the output.</p>
+        <p onclick="checkResponse(this)" correct>D. Use kubectl config use-context and kubectl config view to review the output.</p>
     </div>
 
     <div class="question">
@@ -178,7 +178,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
     <div class="question">
         <div class="question-text">
             <span class="question-number">#8</span>
-            You have an application that looks for its licensing server on the IP 10.0.3.21. You need to deploy the licensing server on Compute Engine. You do not want to change the con¦guration of the application and want the application to be able to reach the licensing server. What should you do?
+            You have an application that looks for its licensing server on the IP 10.0.3.21. You need to deploy the licensing server on Compute Engine. You do not want to change the configuration of the application and want the application to be able to reach the licensing server. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Reserve the IP 10.0.3.21 as a static internal IP address using gcloud and assign it to the licensing server.</p>
@@ -202,7 +202,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
     <div class="question">
         <div class="question-text">
             <span class="question-number">#10</span>
-            You have a development project with appropriate IAM roles de¦ned. You are creating a production project and want to have the same IAM roles on the new project, using the fewest possible steps. What should you do?
+            You have a development project with appropriate IAM roles defined. You are creating a production project and want to have the same IAM roles on the new project, using the fewest possible steps. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Use gcloud iam roles copy and specify the production project as the destination project.</p>
@@ -226,12 +226,12 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
     <div class="question">
         <div class="question-text">
             <span class="question-number">#12</span>
-            You have a Docker¦le that you need to deploy on Kubernetes Engine. What should you do?
+            You have a Dockerfile that you need to deploy on Kubernetes Engine. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Use kubectl app deploy &lt;dockerfilename&gt;.</p>
         <p onclick="checkResponse(this)">B. Use gcloud app deploy &lt;dockerfilename&gt;.</p>
-        <p onclick="checkResponse(this)" correct>C. Create a docker image from the Docker¦le and upload it to Container Registry. Create a Deployment YAML file to point to that image. Use kubectl to create the deployment with that file.</p>
+        <p onclick="checkResponse(this)" correct>C. Create a docker image from the Dockerfile and upload it to Container Registry. Create a Deployment YAML file to point to that image. Use kubectl to create the deployment with that file.</p>
         <p onclick="checkResponse(this)">D. Create a docker image from the Dockerfile and upload it to Cloud Storage. Create a Deployment YAML file to point to that image. Use kubectl to create the deployment with that file</p>
     </div>
 
@@ -278,7 +278,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
             </div>
 
         <p onclick="checkResponse(this)">A. Create a Google Kubernetes Engine cluster, and use horizontal pod autoscaling to scale the application.</p>
-        <p onclick="checkResponse(this)" correct>B. Create an instance template, and use the template in a managed instance group with autoscaling con¦gured.</p>
+        <p onclick="checkResponse(this)" correct>B. Create an instance template, and use the template in a managed instance group with autoscaling configured.</p>
         <p onclick="checkResponse(this)">C. Create an instance template, and use the template in a managed instance group that scales up and down based on the time of day.</p>
         <p onclick="checkResponse(this)">D. Use a set of third-party tools to build automation around scaling the application up and down, based on Stackdriver CPU usage monitoring.</p>
     </div>
@@ -291,7 +291,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
 
         <p onclick="checkResponse(this)">A. Export your bill to a Cloud Storage bucket, and then import into Cloud Bigtable for analysis.</p>
         <p onclick="checkResponse(this)">B. Export your bill to a Cloud Storage bucket, and then import into Google Sheets for analysis.</p>
-        <p onclick="checkResponse(this)">C. Export your transactions to a local ¦le, and perform analysis with a desktop tool.</p>
+        <p onclick="checkResponse(this)">C. Export your transactions to a local file, and perform analysis with a desktop tool.</p>
         <p onclick="checkResponse(this)" correct>D. Export your bill to a BigQuery dataset, and then write time window-based SQL queries for analysis.</p>
     </div>
 
@@ -329,7 +329,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
         <p onclick="checkResponse(this)" correct>B. Install a RDP client in your desktop. Set a Windows username and password in the GCP Console. Use the credentials to log in to the
             instance.</p>
         <p onclick="checkResponse(this)">C. Set a Windows password in the GCP Console. Verify that a firewall rule for port 22 exists. Click the RDP button in the GCP Console and supply the credentials to log in.</p>
-        <p onclick="checkResponse(this)">D. Set a Windows username and password in the GCP Console. Verify that a ¦rewall rule for port 3389 exists. Click the RDP button in the GCP Console, and supply the credentials to log in.</p>
+        <p onclick="checkResponse(this)">D. Set a Windows username and password in the GCP Console. Verify that a firewall rule for port 3389 exists. Click the RDP button in the GCP Console, and supply the credentials to log in.</p>
     </div>
 
     <div class="question">
@@ -338,23 +338,23 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
             You have one GCP account running in your default region and zone and another account running in a non-default region and zone. You want to start a new Compute Engine instance in these two Google Cloud Platform accounts using the command line interface. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. Create two con¦gurations using gcloud con¦g con¦gurations create [NAME]. Run gcloud con¦g con¦gurations activate [NAME] to switch
+        <p onclick="checkResponse(this)" correct>A. Create two configurations using gcloud config configurations create [NAME]. Run gcloud config configurations activate [NAME] to switch
             between accounts when running the commands to start the Compute Engine instances.</p>
-        <p onclick="checkResponse(this)">B. Create two con¦gurations using gcloud con¦g con¦gurations create [NAME]. Run gcloud con¦gurations list to start the Compute Engine instances.</p>
-        <p onclick="checkResponse(this)">C. Activate two con¦gurations using gcloud con¦gurations activate [NAME]. Run gcloud con¦g list to start the Compute Engine instances.</p>
-        <p onclick="checkResponse(this)">D. Activate two con¦gurations using gcloud con¦gurations activate [NAME]. Run gcloud con¦gurations list to start the Compute Engine instances.</p>
+        <p onclick="checkResponse(this)">B. Create two configurations using gcloud config configurations create [NAME]. Run gcloud configurations list to start the Compute Engine instances.</p>
+        <p onclick="checkResponse(this)">C. Activate two configurations using gcloud configurations activate [NAME]. Run gcloud config list to start the Compute Engine instances.</p>
+        <p onclick="checkResponse(this)">D. Activate two configurations using gcloud configurations activate [NAME]. Run gcloud configurations list to start the Compute Engine instances.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#22</span>
-            You signi¦cantly changed a complex Deployment Manager template and want to con¦rm that the dependencies of all de¦ned resources are properly met before committing it to the project. You want the most rapid feedback on your changes. What should you do?
+            You significantly changed a complex Deployment Manager template and want to confirm that the dependencies of all defined resources are properly met before committing it to the project. You want the most rapid feedback on your changes. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" >A. Use granular logging statements within a Deployment Manager template authored in Python.</p>
         <p onclick="checkResponse(this)">B. Monitor activity of the Deployment Manager execution on the Stackdriver Logging page of the GCP Console.</p>
-        <p onclick="checkResponse(this)">C. Execute the Deployment Manager template against a separate project with the same con¦guration, and monitor for failures.</p>
-        <p onclick="checkResponse(this)" correct>D. Execute the Deployment Manager template using the €"-גpreview option in the same project, and observe the state of interdependent resources</p>
+        <p onclick="checkResponse(this)">C. Execute the Deployment Manager template against a separate project with the same configuration, and monitor for failures.</p>
+        <p onclick="checkResponse(this)" correct>D. Execute the Deployment Manager template using the --preview option in the same project, and observe the state of interdependent resources</p>
     </div>
 
     <div class="question">
@@ -379,19 +379,19 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
 
         <p onclick="checkResponse(this)" correct>A. Use gcloud to create the new project, and then deploy your application to the new project</p>
         <p onclick="checkResponse(this)">B. Use gcloud to create the new project and to copy the deployed application to the new project.</p>
-        <p onclick="checkResponse(this)">C. Create a Deployment Manager con¦guration ¦le that copies the current App Engine deployment into a new project.</p>
+        <p onclick="checkResponse(this)">C. Create a Deployment Manager configuration file that copies the current App Engine deployment into a new project.</p>
         <p onclick="checkResponse(this)">D. Deploy your application again using gcloud and specify the project parameter with the new project name to create the new project.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#25</span>
-            You need to con¦gure IAM access audit logging in BigQuery for external auditors. You want to follow Google-recommended practices. What should you do?
+            You need to configure IAM access audit logging in BigQuery for external auditors. You want to follow Google-recommended practices. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. Add the auditors group to the 'logging.viewer' and 'bigQuery.dataViewer' prede¦ned IAM roles.</p>
+        <p onclick="checkResponse(this)" correct>A. Add the auditors group to the 'logging.viewer' and 'bigQuery.dataViewer' predefined IAM roles.</p>
         <p onclick="checkResponse(this)">B. Add the auditors group to two new custom IAM roles.</p>
-        <p onclick="checkResponse(this)">C. Add the auditor user accounts to the 'logging.viewer' and 'bigQuery.dataViewer' prede¦ned IAM roles.</p>
+        <p onclick="checkResponse(this)">C. Add the auditor user accounts to the 'logging.viewer' and 'bigQuery.dataViewer' predefined IAM roles.</p>
         <p onclick="checkResponse(this)">D. Add the auditor user accounts to two new custom IAM roles.</p>
     </div>
 
@@ -410,11 +410,11 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
     <div class="question">
         <div class="question-text">
             <span class="question-number">#27</span>
-            You have sensitive data stored in three Cloud Storage buckets and have enabled data access logging. You want to verify activities for a particular user for these buckets, using the fewest possible steps. You need to verify the addition of metadata labels and which ¦les have been viewed from those buckets. What should you do?
+            You have sensitive data stored in three Cloud Storage buckets and have enabled data access logging. You want to verify activities for a particular user for these buckets, using the fewest possible steps. You need to verify the addition of metadata labels and which files have been viewed from those buckets. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Using the GCP Console, filter the Activity log to view the information.</p>
-        <p onclick="checkResponse(this)">B. Using the GCP Console, ¦lter the Stackdriver log to view the information.</p>
+        <p onclick="checkResponse(this)">B. Using the GCP Console, filter the Stackdriver log to view the information.</p>
         <p onclick="checkResponse(this)">C. View the bucket in the Storage section of the GCP Console.</p>
         <p onclick="checkResponse(this)">D. Create a trace in Stackdriver to view the information.</p>
     </div>
@@ -422,7 +422,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
     <div class="question">
         <div class="question-text">
             <span class="question-number">#28</span>
-            You are the project owner of a GCP project and want to delegate control to colleagues to manage buckets and ¦les in Cloud Storage. You want to follow Google- recommended practices. Which IAM roles should you grant your colleagues?
+            You are the project owner of a GCP project and want to delegate control to colleagues to manage buckets and files in Cloud Storage. You want to follow Google- recommended practices. Which IAM roles should you grant your colleagues?
             </div>
 
         <p onclick="checkResponse(this)">A. Project Editor</p>
@@ -439,8 +439,8 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
 
         <p onclick="checkResponse(this)" correct>A. Create a signed URL with a four-hour expiration and share the URL with the company.</p>
         <p onclick="checkResponse(this)">B. Set object access to 'public' and use object lifecycle management to remove the object after four hours.</p>
-        <p onclick="checkResponse(this)">C. Con¦gure the storage bucket as a static website and furnish the object's URL to the company. Delete the object from the storage bucket after four hours.</p>
-        <p onclick="checkResponse(this)">D. Create a new Cloud Storage bucket speci¦cally for the external company to access. Copy the object to that bucket. Delete the bucket after four hours have passed.</p>
+        <p onclick="checkResponse(this)">C. Configure the storage bucket as a static website and furnish the object's URL to the company. Delete the object from the storage bucket after four hours.</p>
+        <p onclick="checkResponse(this)">D. Create a new Cloud Storage bucket specifically for the external company to access. Copy the object to that bucket. Delete the bucket after four hours have passed.</p>
     </div>
 
     <div class="question">
@@ -476,14 +476,14 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
 
         <p onclick="checkResponse(this)">A. Use Shared VPC to connect all projects, and link Stackdriver to one of the projects.</p>
         <p onclick="checkResponse(this)">B. For each project, create a Stackdriver account. In each project, create a service account for that project and grant it the role of Stackdriver Account Editor in all other projects.</p>
-        <p onclick="checkResponse(this)" correct>C. Con¦gure a single Stackdriver account, and link all projects to the same account.</p>
-        <p onclick="checkResponse(this)">D. Con¦gure a single Stackdriver account for one of the projects. In Stackdriver, create a Group and add the other project names as criteria for that Group.</p>
+        <p onclick="checkResponse(this)" correct>C. Configure a single Stackdriver account, and link all projects to the same account.</p>
+        <p onclick="checkResponse(this)">D. Configure a single Stackdriver account for one of the projects. In Stackdriver, create a Group and add the other project names as criteria for that Group.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#33</span>
-            You are deploying an application to a Compute Engine VM in a managed instance group. The application must be running at all times, but only a single instance of the VM should run per GCP project. How should you con¦gure the instance group?
+            You are deploying an application to a Compute Engine VM in a managed instance group. The application must be running at all times, but only a single instance of the VM should run per GCP project. How should you configure the instance group?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Set autoscaling to On, set the minimum number of instances to 1, and then set the maximum number of instances to 1.</p>
@@ -596,17 +596,17 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
             <div>You need to refactor this configuration so that the database password is not stored in plain text. You want to follow Google-recommended practices. What should you do?</div>
             </div>
 
-        <p onclick="checkResponse(this)">A. Store the database password inside the Docker image of the container, not in the YAML ¦le.</p>
+        <p onclick="checkResponse(this)">A. Store the database password inside the Docker image of the container, not in the YAML file.</p>
         <p onclick="checkResponse(this)" correct>B. Store the database password inside a Secret object. Modify the YAML file to populate the DB_PASSWORD environment variable from the
             Secret.</p>
-        <p onclick="checkResponse(this)">C. Store the database password inside a Con¦gMap object. Modify the YAML file to populate the DB_PASSWORD environment variable from the ConfigMap.</p>
+        <p onclick="checkResponse(this)">C. Store the database password inside a ConfigMap object. Modify the YAML file to populate the DB_PASSWORD environment variable from the ConfigMap.</p>
         <p onclick="checkResponse(this)">D. Store the database password in a file inside a Kubernetes persistent volume, and use a persistent volume claim to mount the volume to the container.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#43</span>
-            You are running an application on multiple virtual machines within a managed instance group and have autoscaling enabled. The autoscaling policy is con¦gured so that additional instances are added to the group if the CPU utilization of instances goes above 80%. VMs are added until the instance group reaches its maximum limit of ¦ve VMs or until CPU utilization of instances lowers to 80%. The initial delay for HTTP health checks against the instances is set to 30 seconds. The virtual machine instances take around three minutes to become available for users. You observe that when the instance group autoscales, it adds more instances then necessary to support the levels of end-user tra¨c. You want to properly maintain instance group sizes when autoscaling. What should you do?
+            You are running an application on multiple virtual machines within a managed instance group and have autoscaling enabled. The autoscaling policy is configured so that additional instances are added to the group if the CPU utilization of instances goes above 80%. VMs are added until the instance group reaches its maximum limit of five VMs or until CPU utilization of instances lowers to 80%. The initial delay for HTTP health checks against the instances is set to 30 seconds. The virtual machine instances take around three minutes to become available for users. You observe that when the instance group autoscales, it adds more instances then necessary to support the levels of end-user tra¨c. You want to properly maintain instance group sizes when autoscaling. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Set the maximum number of instances to 1.</p>
@@ -618,7 +618,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
     <div class="question">
         <div class="question-text">
             <span class="question-number">#44</span>
-            You need to select and con¦gure compute resources for a set of batch processing jobs. These jobs take around 2 hours to complete and are run nightly. You want to minimize service costs. What should you do?
+            You need to select and configure compute resources for a set of batch processing jobs. These jobs take around 2 hours to complete and are run nightly. You want to minimize service costs. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Select Google Kubernetes Engine. Use a single-node cluster with a small instance type.</p>
@@ -643,19 +643,19 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
     <div class="question">
         <div class="question-text">
             <span class="question-number">#46</span>
-            You deployed an App Engine application using gcloud app deploy, but it did not deploy to the intended project. You want to ¦nd out why this happened and where the application deployed. What should you do?
+            You deployed an App Engine application using gcloud app deploy, but it did not deploy to the intended project. You want to find out why this happened and where the application deployed. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Check the app.yaml ¦le for your application and check project settings.</p>
-        <p onclick="checkResponse(this)">B. Check the web-application.xml ¦le for your application and check project settings.</p>
+        <p onclick="checkResponse(this)">A. Check the app.yaml file for your application and check project settings.</p>
+        <p onclick="checkResponse(this)">B. Check the web-application.xml file for your application and check project settings.</p>
         <p onclick="checkResponse(this)">C. Go to Deployment Manager and review settings for deployment of applications.</p>
-        <p onclick="checkResponse(this)" correct>D. Go to Cloud Shell and run gcloud con¦g list to review the Google Cloud con¦guration used for deployment.</p>
+        <p onclick="checkResponse(this)" correct>D. Go to Cloud Shell and run gcloud config list to review the Google Cloud configuration used for deployment.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#47</span>
-            You want to con¦gure 10 Compute Engine instances for availability when maintenance occurs. Your requirements state that these instances should attempt to automatically restart if they crash. Also, the instances should be highly available including during system maintenance. What should you do?
+            You want to configure 10 Compute Engine instances for availability when maintenance occurs. Your requirements state that these instances should attempt to automatically restart if they crash. Also, the instances should be highly available including during system maintenance. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Create an instance template for the instances. Set the 'Automatic Restart' to on. Set the 'On-host maintenance' to Migrate VM instance. Add the instance template to an instance group.</p>
@@ -667,7 +667,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
     <div class="question">
         <div class="question-text">
             <span class="question-number">#48</span>
-            You host a static website on Cloud Storage. Recently, you began to include links to PDF ¦les on this site. Currently, when users click on the links to these PDF ¦les, their browsers prompt them to save the ¦le onto their local system. Instead, you want the clicked PDF ¦les to be displayed within the browser window directly, without prompting the user to save the ¦le locally. What should you do?
+            You host a static website on Cloud Storage. Recently, you began to include links to PDF files on this site. Currently, when users click on the links to these PDF files, their browsers prompt them to save the file onto their local system. Instead, you want the clicked PDF files to be displayed within the browser window directly, without prompting the user to save the file locally. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Enable Cloud CDN on the website frontend.</p>
@@ -679,7 +679,7 @@ You need to configure re-creation of VMs if they are unresponsive after 3 attemp
     <div class="question">
         <div class="question-text">
             <span class="question-number">#49</span>
-            You have a virtual machine that is currently con¦gured with 2 vCPUs and 4 GB of memory. It is running out of memory. You want to upgrade the virtual machine to have 8 GB of memory. What should you do?
+            You have a virtual machine that is currently configured with 2 vCPUs and 4 GB of memory. It is running out of memory. You want to upgrade the virtual machine to have 8 GB of memory. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Rely on live migration to move the workload to a machine with more memory.</p>
@@ -729,7 +729,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#53</span>
-            Your company has a 3-tier solution running on Compute Engine. The con¦guration of the current infrastructure is shown below.
+            Your company has a 3-tier solution running on Compute Engine. The configuration of the current infrastructure is shown below.
 
             <img src="ACE questions/3.png"/>
 
@@ -744,7 +744,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. 1. Create an ingress firewall rule with the following settings: >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.2.0/24)  >Protocols: allow all 2. Create an ingress firewall rule with the following settings:  >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.1.0/24)  >Protocols: allow all</p>
         <p onclick="checkResponse(this)" correct>B. 1. Create an ingress firewall rule with the following settings:  >Targets: all instances with tier #2 service account  >Source filter: all instances with tier #1 service account  >Protocols: allow TCP:8080 2. Create an ingress firewall rule with the following settings:  >Targets: all instances with tier #3 service account  >Source filter: all instances with tier #2 service account  >Protocols: allow TCP: 8080</p>
         <p onclick="checkResponse(this)">C. 1. Create an ingress firewall rule with the following settings:  >Targets: all instances with tier #2 service account >Source filter: all instances with tier #1 service account  >Protocols: allow all 2. Create an ingress firewall rule with the following settings:  >Targets: all instances with tier #3 service account  >Source filter: all instances with tier #2 service account  >Protocols: allow all</p>
-        <p onclick="checkResponse(this)">D. 1. Create an egress firewall rule with the following settings:  >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.2.0/24)  €¢גProtocols: allow TCP: 8080 2. Create an egress ¦rewall rule with the following settings:  >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.1.0/24)  >Protocols: allow TCP: 8080</p>
+        <p onclick="checkResponse(this)">D. 1. Create an egress firewall rule with the following settings:  >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.2.0/24)  €¢גProtocols: allow TCP: 8080 2. Create an egress firewall rule with the following settings:  >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.1.0/24)  >Protocols: allow TCP: 8080</p>
     </div>
 
     <div class="question">
@@ -753,9 +753,9 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You are given a project with a single Virtual Private Cloud (VPC) and a single subnetwork in the us-central1 region. There is a Compute Engine instance hosting an application in this subnetwork. You need to deploy a new instance in the same project in the europe-west1 region. This new instance needs access to the application. You want to follow Google-recommended practices. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. 1. Create a subnetwork in the same VPC, in europe-west1. 2. Create the new instance in the new subnetwork and use the ¦rst instance's private address as the endpoint.</p>
+        <p onclick="checkResponse(this)" correct>A. 1. Create a subnetwork in the same VPC, in europe-west1. 2. Create the new instance in the new subnetwork and use the first instance's private address as the endpoint.</p>
         <p onclick="checkResponse(this)">B. 1. Create a VPC and a subnetwork in europe-west1. 2. Expose the application with an internal load balancer. 3. Create the new instance in the new subnetwork and use the load balancer's address as the endpoint.</p>
-        <p onclick="checkResponse(this)">C. 1. Create a subnetwork in the same VPC, in europe-west1. 2. Use Cloud VPN to connect the two subnetworks. 3. Create the new instance in the new subnetwork and use the ¦rst instance's private address as the endpoint.</p>
+        <p onclick="checkResponse(this)">C. 1. Create a subnetwork in the same VPC, in europe-west1. 2. Use Cloud VPN to connect the two subnetworks. 3. Create the new instance in the new subnetwork and use the first instance's private address as the endpoint.</p>
         <p onclick="checkResponse(this)">D. 1. Create a VPC and a subnetwork in europe-west1. 2. Peer the 2 VPCs. 3. Create the new instance in the new subnetwork and use the first instance's private address as the endpoint.</p>
     </div>
 
@@ -781,7 +781,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. Deploy the new version in the same application and use the --migrate option.</p>
         <p onclick="checkResponse(this)" correct>B. Deploy the new version in the same application and use the --splits option to give a weight of 99 to the current version and a weight of 1 to the new version.</p>
         <p onclick="checkResponse(this)">C. Create a new App Engine application in the same project. Deploy the new version in that application. Use the App Engine library to proxy 1% of the requests to the new version.</p>
-        <p onclick="checkResponse(this)">D. Create a new App Engine application in the same project. Deploy the new version in that application. Con¦gure your network load balancer to send 1% of the tra¨c to that new application.</p>
+        <p onclick="checkResponse(this)">D. Create a new App Engine application in the same project. Deploy the new version in that application. Configure your network load balancer to send 1% of the tra¨c to that new application.</p>
     </div>
 
     <div class="question">
@@ -799,7 +799,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#58</span>
-            You are building an application that stores relational data from users. Users across the globe will use this application. Your CTO is concerned about the scaling requirements because the size of the user base is unknown. You need to implement a database solution that can scale with your user growth with minimum con¦guration changes. Which storage solution should you use?
+            You are building an application that stores relational data from users. Users across the globe will use this application. Your CTO is concerned about the scaling requirements because the size of the user base is unknown. You need to implement a database solution that can scale with your user growth with minimum configuration changes. Which storage solution should you use?
             </div>
 
         <p onclick="checkResponse(this)">A. Cloud SQL</p>
@@ -811,25 +811,25 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#59</span>
-            You are the organization and billing administrator for your company. The engineering team has the Project Creator role on the organization. You do not want the engineering team to be able to link projects to the billing account. Only the ¦nance team should be able to link a project to a billing account, but they should not be able to make any other changes to projects. What should you do?
+            You are the organization and billing administrator for your company. The engineering team has the Project Creator role on the organization. You do not want the engineering team to be able to link projects to the billing account. Only the finance team should be able to link a project to a billing account, but they should not be able to make any other changes to projects. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Assign the ¦nance team only the Billing Account User role on the billing account.</p>
+        <p onclick="checkResponse(this)">A. Assign the finance team only the Billing Account User role on the billing account.</p>
         <p onclick="checkResponse(this)">B. Assign the engineering team only the Billing Account User role on the billing account.</p>
-        <p onclick="checkResponse(this)" correct>C. Assign the ¦nance team the Billing Account User role on the billing account and the Project Billing Manager role on the organization.</p>
+        <p onclick="checkResponse(this)" correct>C. Assign the finance team the Billing Account User role on the billing account and the Project Billing Manager role on the organization.</p>
         <p onclick="checkResponse(this)">D. Assign the engineering team the Billing Account User role on the billing account and the Project Billing Manager role on the organization.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#60</span>
-            You have an application running in Google Kubernetes Engine (GKE) with cluster autoscaling enabled. The application exposes a TCP endpoint. There are several replicas of this application. You have a Compute Engine instance in the same region, but in another Virtual Private Cloud (VPC), called gce-network, that has no overlapping IP ranges with the ¦rst VPC. This instance needs to connect to the application on GKE. You want to minimize effort. What should you do?
+            You have an application running in Google Kubernetes Engine (GKE) with cluster autoscaling enabled. The application exposes a TCP endpoint. There are several replicas of this application. You have a Compute Engine instance in the same region, but in another Virtual Private Cloud (VPC), called gce-network, that has no overlapping IP ranges with the first VPC. This instance needs to connect to the application on GKE. You want to minimize effort. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. 1. In GKE, create a Service of type LoadBalancer that uses the application's Pods as backend. 2. Set the service's externalTrafficPolicy to Cluster. 3. Con¦gure the Compute Engine instance to use the address of the load balancer that has been created.</p>
-        <p onclick="checkResponse(this)">B. 1. In GKE, create a Service of type NodePort that uses the application's Pods as backend. 2. Create a Compute Engine instance called proxy with 2 network interfaces, one in each VPC. 3. Use iptables on this instance to forward tra¨c from gce-network to the GKE nodes. 4. Con¦gure the Compute Engine instance to use the address of proxy in gce-network as endpoint.</p>
-        <p onclick="checkResponse(this)">C. 1. In GKE, create a Service of type LoadBalancer that uses the application's Pods as backend. 2. Add an annotation to this service: cloud.google.com/load-balancer-type: Internal 3. Peer the two VPCs together. 4. Con¦gure the Compute Engine instance to use the address of the load balancer that has been created.</p>
-        <p onclick="checkResponse(this)">D. 1. In GKE, create a Service of type LoadBalancer that uses the application's Pods as backend. 2. Add a Cloud Armor Security Policy to the load balancer that whitelists the internal IPs of the MIG's instances. 3. Con¦gure the Compute Engine instance to use the address of the load balancer that has been created.</p>
+        <p onclick="checkResponse(this)" correct>A. 1. In GKE, create a Service of type LoadBalancer that uses the application's Pods as backend. 2. Set the service's externalTrafficPolicy to Cluster. 3. Configure the Compute Engine instance to use the address of the load balancer that has been created.</p>
+        <p onclick="checkResponse(this)">B. 1. In GKE, create a Service of type NodePort that uses the application's Pods as backend. 2. Create a Compute Engine instance called proxy with 2 network interfaces, one in each VPC. 3. Use iptables on this instance to forward tra¨c from gce-network to the GKE nodes. 4. Configure the Compute Engine instance to use the address of proxy in gce-network as endpoint.</p>
+        <p onclick="checkResponse(this)">C. 1. In GKE, create a Service of type LoadBalancer that uses the application's Pods as backend. 2. Add an annotation to this service: cloud.google.com/load-balancer-type: Internal 3. Peer the two VPCs together. 4. Configure the Compute Engine instance to use the address of the load balancer that has been created.</p>
+        <p onclick="checkResponse(this)">D. 1. In GKE, create a Service of type LoadBalancer that uses the application's Pods as backend. 2. Add a Cloud Armor Security Policy to the load balancer that whitelists the internal IPs of the MIG's instances. 3. Configure the Compute Engine instance to use the address of the load balancer that has been created.</p>
     </div>
 
     <div class="question">
@@ -847,7 +847,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#62</span>
-            You want to run a single caching HTTP reverse proxy on GCP for a latency-sensitive website. This speci¦c reverse proxy consumes almost no CPU. You want to have a 30-GB in-memory cache, and need an additional 2 GB of memory for the rest of the processes. You want to minimize cost. How should you run this reverse proxy?
+            You want to run a single caching HTTP reverse proxy on GCP for a latency-sensitive website. This specific reverse proxy consumes almost no CPU. You want to have a 30-GB in-memory cache, and need an additional 2 GB of memory for the rest of the processes. You want to minimize cost. How should you run this reverse proxy?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Create a Cloud Memorystore for Redis instance with 32-GB capacity.</p>
@@ -864,7 +864,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
 
         <p onclick="checkResponse(this)">A. 1. Use nslookup to get the IP address for storage.googleapis.com. 2. Negotiate with the security team to be able to give a public IP address to the servers. 3. Only allow egress traffic from those servers to the IP addresses for storage.googleapis.com.</p>
         <p onclick="checkResponse(this)">B. 1. Using Cloud VPN, create a VPN tunnel to a Virtual Private Cloud (VPC) in Google Cloud. 2. In this VPC, create a Compute Engine instance and install the Squid proxy server on this instance. 3. Configure your servers to use that instance as a proxy to access Cloud Storage.</p>
-        <p onclick="checkResponse(this)">C. 1. Use Migrate for Compute Engine (formerly known as Velostrata) to migrate those servers to Compute Engine. 2. Create an internal load balancer (ILB) that uses storage.googleapis.com as backend. 3. Con¦gure your new instances to use this ILB as proxy.</p>
+        <p onclick="checkResponse(this)">C. 1. Use Migrate for Compute Engine (formerly known as Velostrata) to migrate those servers to Compute Engine. 2. Create an internal load balancer (ILB) that uses storage.googleapis.com as backend. 3. Configure your new instances to use this ILB as proxy.</p>
         <p onclick="checkResponse(this)" correct>D. 1. Using Cloud VPN or Interconnect, create a tunnel to a VPC in Google Cloud. 2. Use Cloud Router to create a custom route advertisement for 199.36.153.4/30. Announce that network to your on-premises network through the VPN tunnel. 3. In your on-premises network, configure your DNS server to resolve *.googleapis.com as a CNAME to restricted.googleapis.com.</p>
     </div>
 
@@ -899,7 +899,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Link the acquired company's projects to your company's billing account.</p>
-        <p onclick="checkResponse(this)">B. Con¦gure the acquired company's billing account and your company's billing account to export the billing data into the same BigQuery
+        <p onclick="checkResponse(this)">B. Configure the acquired company's billing account and your company's billing account to export the billing data into the same BigQuery
             dataset.</p>
         <p onclick="checkResponse(this)">C. Migrate the acquired company's projects into your company's GCP organization. Link the migrated projects to your company's billing
             account.</p>
@@ -925,9 +925,9 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)">A. 1. Give the BigQuery Data Editor role on the platform-logs dataset to the service accounts used by your instances. 2. Update your instances' metadata to add the following value: logs-destination: bq://platform-logs.</p>
-        <p onclick="checkResponse(this)">B. 1. In Cloud Logging, create a logs export with a Cloud Pub/Sub topic called logs as a sink. 2. Create a Cloud Function that is triggered by messages in the logs topic. 3. Con¦gure that Cloud Function to drop logs that are not from Compute Engine and to insert Compute Engine logs in the platform-logs dataset.</p>
-        <p onclick="checkResponse(this)" correct>C. 1. In Cloud Logging, create a ¦lter to view only Compute Engine logs. 2. Click Create Export. 3. Choose BigQuery as Sink Service, and the platform-logs dataset as Sink Destination.</p>
-        <p onclick="checkResponse(this)">D. 1. Create a Cloud Function that has the BigQuery User role on the platform-logs dataset. 2. Con¦gure this Cloud Function to create a
+        <p onclick="checkResponse(this)">B. 1. In Cloud Logging, create a logs export with a Cloud Pub/Sub topic called logs as a sink. 2. Create a Cloud Function that is triggered by messages in the logs topic. 3. Configure that Cloud Function to drop logs that are not from Compute Engine and to insert Compute Engine logs in the platform-logs dataset.</p>
+        <p onclick="checkResponse(this)" correct>C. 1. In Cloud Logging, create a filter to view only Compute Engine logs. 2. Click Create Export. 3. Choose BigQuery as Sink Service, and the platform-logs dataset as Sink Destination.</p>
+        <p onclick="checkResponse(this)">D. 1. Create a Cloud Function that has the BigQuery User role on the platform-logs dataset. 2. Configure this Cloud Function to create a
             BigQuery Job that executes this query: INSERT INTO dataset.platform-logs (timestamp, log) SELECT timestamp, log FROM compute.logs WHERE timestamp > DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) 3. Use Cloud Scheduler to trigger this Cloud Function once a day.</p>
     </div>
 
@@ -938,9 +938,9 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Add the cluster's API as a new Type Provider in Deployment Manager, and use the new type to create the DaemonSet.</p>
-        <p onclick="checkResponse(this)">B. Use the Deployment Manager Runtime Con¦gurator to create a new Con¦g resource that contains the DaemonSet de¦nition.</p>
+        <p onclick="checkResponse(this)">B. Use the Deployment Manager Runtime Configurator to create a new Config resource that contains the DaemonSet definition.</p>
         <p onclick="checkResponse(this)">C. With Deployment Manager, create a Compute Engine instance with a startup script that uses kubectl to create the DaemonSet.</p>
-        <p onclick="checkResponse(this)">D. In the cluster's de¦nition in Deployment Manager, add a metadata that has kube-system as key and the DaemonSet manifest as value.</p>
+        <p onclick="checkResponse(this)">D. In the cluster's definition in Deployment Manager, add a metadata that has kube-system as key and the DaemonSet manifest as value.</p>
     </div>
 
     <div class="question">
@@ -950,7 +950,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)">A. Use service account credentials in your on-premises application.</p>
-        <p onclick="checkResponse(this)" correct>B. Use gcloud to create a key ¦le for the service account that has appropriate permissions.</p>
+        <p onclick="checkResponse(this)" correct>B. Use gcloud to create a key file for the service account that has appropriate permissions.</p>
         <p onclick="checkResponse(this)">C. Set up direct interconnect between your data center and Google Cloud Platform to enable authentication for your on-premises applications.</p>
         <p onclick="checkResponse(this)">D. Go to the IAM & admin console, grant a user account permissions similar to the service account permissions, and use this user account for authentication from your data center.</p>
     </div>
@@ -964,13 +964,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)" correct>A. In the project where the images are stored, grant the Storage Object Viewer IAM role to the service account used by the Kubernetes nodes.</p>
         <p onclick="checkResponse(this)">B. When you create the GKE cluster, choose the Allow full access to all Cloud APIs option under 'Access scopes'.</p>
         <p onclick="checkResponse(this)">C. Create a service account, and give it access to Cloud Storage. Create a P12 key for this service account and use it as an imagePullSecrets in Kubernetes.</p>
-        <p onclick="checkResponse(this)">D. Con¦gure the ACLs on each image in Cloud Storage to give read-only access to the default Compute Engine service account.</p>
+        <p onclick="checkResponse(this)">D. Configure the ACLs on each image in Cloud Storage to give read-only access to the default Compute Engine service account.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#72</span>
-            You deployed a new application inside your Google Kubernetes Engine cluster using the YAML ¦le speci¦ed below.
+            You deployed a new application inside your Google Kubernetes Engine cluster using the YAML file specified below.
 
             <img src="ACE questions/4.png"/>
             <div>You check the status of the deployed pods and notice that one of them is still in PENDING status:</div>
@@ -993,13 +993,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. After the VM has been created, use your Google Account credentials to log in into the VM.</p>
         <p onclick="checkResponse(this)" correct>B. After the VM has been created, use gcloud compute reset-windows-password to retrieve the login credentials for the VM.</p>
         <p onclick="checkResponse(this)">C. When creating the VM, add metadata to the instance using 'windows-password' as the key and a password as the value.</p>
-        <p onclick="checkResponse(this)">D. After the VM has been created, download the JSON private key for the default Compute Engine service account. Use the credentials in the JSON ¦le to log in to the VM.</p>
+        <p onclick="checkResponse(this)">D. After the VM has been created, download the JSON private key for the default Compute Engine service account. Use the credentials in the JSON file to log in to the VM.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#74</span>
-            You want to con¦gure an SSH connection to a single Compute Engine instance for users in the dev1 group. This instance is the only resource in this particular Google Cloud Platform project that the dev1 users should be able to connect to. What should you do?
+            You want to configure an SSH connection to a single Compute Engine instance for users in the dev1 group. This instance is the only resource in this particular Google Cloud Platform project that the dev1 users should be able to connect to. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Set metadata to enable-oslogin=true for the instance. Grant the dev1 group the compute.osLogin role. Direct them to use the Cloud Shell to ssh to that instance.</p>
@@ -1051,9 +1051,9 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Create a Kubernetes Service of type NodePort for your application, and a Kubernetes Ingress to expose this Service via a Cloud Load Balancer.</p>
-        <p onclick="checkResponse(this)">B. Create a Kubernetes Service of type ClusterIP for your application. Con¦gure the public DNS name of your application using the IP of this Service.</p>
-        <p onclick="checkResponse(this)">C. Create a Kubernetes Service of type NodePort to expose the application on port 443 of each node of the Kubernetes cluster. Con¦gure the public DNS name of your application with the IP of every node of the cluster to achieve load-balancing.</p>
-        <p onclick="checkResponse(this)">D. Create a HAProxy pod in the cluster to load-balance the tra¨c to all the pods of the application. Forward the public traffic to HAProxy with an iptable rule. Con¦gure the DNS name of your application using the public IP of the node HAProxy is running on.</p>
+        <p onclick="checkResponse(this)">B. Create a Kubernetes Service of type ClusterIP for your application. Configure the public DNS name of your application using the IP of this Service.</p>
+        <p onclick="checkResponse(this)">C. Create a Kubernetes Service of type NodePort to expose the application on port 443 of each node of the Kubernetes cluster. Configure the public DNS name of your application with the IP of every node of the cluster to achieve load-balancing.</p>
+        <p onclick="checkResponse(this)">D. Create a HAProxy pod in the cluster to load-balance the tra¨c to all the pods of the application. Forward the public traffic to HAProxy with an iptable rule. Configure the DNS name of your application using the public IP of the node HAProxy is running on.</p>
     </div>
 
     <div class="question">
@@ -1071,7 +1071,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#80</span>
-            You want to add a new auditor to a Google Cloud Platform project. The auditor should be allowed to read, but not modify, all project items. How should you con¦gure the auditor's permissions?
+            You want to add a new auditor to a Google Cloud Platform project. The auditor should be allowed to read, but not modify, all project items. How should you configure the auditor's permissions?
             </div>
 
         <p onclick="checkResponse(this)">A. Create a custom role with view-only project permissions. Add the user's account to the custom role.</p>
@@ -1086,10 +1086,10 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You are operating a Google Kubernetes Engine (GKE) cluster for your company where different teams can run non-production workloads. Your Machine Learning (ML) team needs access to Nvidia Tesla P100 GPUs to train their models. You want to minimize effort and cost. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Ask your ML team to add the €גaccelerator: gpu €גannotation to their pod speci¦cation.</p>
+        <p onclick="checkResponse(this)">A. Ask your ML team to add the €גaccelerator: gpu €גannotation to their pod specification.</p>
         <p onclick="checkResponse(this)">B. Recreate all the nodes of the GKE cluster to enable GPUs on all of them.</p>
         <p onclick="checkResponse(this)">C. Create your own Kubernetes cluster on top of Compute Engine with nodes that have GPUs. Dedicate this cluster to your ML team.</p>
-        <p onclick="checkResponse(this)" correct>D. Add a new, GPU-enabled, node pool to the GKE cluster. Ask your ML team to add the cloud.google.com/gke -accelerator: nvidia-tesla-p100 nodeSelector to their pod speci¦cation.</p>
+        <p onclick="checkResponse(this)" correct>D. Add a new, GPU-enabled, node pool to the GKE cluster. Ask your ML team to add the cloud.google.com/gke -accelerator: nvidia-tesla-p100 nodeSelector to their pod specification.</p>
     </div>
 
     <div class="question">
@@ -1122,8 +1122,8 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You have a Google Cloud Platform account with access to both production and development projects. You need to create an automated process to list all compute instances in development and production projects on a daily basis. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. Create two con¦gurations using gcloud con¦g. Write a script that sets con¦gurations as active, individually. For each con¦guration, use gcloud compute instances list to get a list of compute resources.</p>
-        <p onclick="checkResponse(this)">B. Create two con¦gurations using gsutil con¦g. Write a script that sets con¦gurations as active, individually. For each con¦guration, use gsutil compute instances list to get a list of compute resources.</p>
+        <p onclick="checkResponse(this)" correct>A. Create two configurations using gcloud config. Write a script that sets configurations as active, individually. For each configuration, use gcloud compute instances list to get a list of compute resources.</p>
+        <p onclick="checkResponse(this)">B. Create two configurations using gsutil config. Write a script that sets configurations as active, individually. For each configuration, use gsutil compute instances list to get a list of compute resources.</p>
         <p onclick="checkResponse(this)">C. Go to Cloud Shell and export this information to Cloud Storage on a daily basis.</p>
         <p onclick="checkResponse(this)">D. Go to GCP Console and export this information to Cloud SQL on a daily basis.</p>
     </div>
@@ -1131,7 +1131,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#85</span>
-            You have a large 5-TB AVRO file stored in a Cloud Storage bucket. Your analysts are proficient only in SQL and need access to the data stored in this ¦le. You want to find a cost-effective way to complete their request as soon as possible. What should you do?
+            You have a large 5-TB AVRO file stored in a Cloud Storage bucket. Your analysts are proficient only in SQL and need access to the data stored in this file. You want to find a cost-effective way to complete their request as soon as possible. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Load data in Cloud Datastore and run a SQL query against it.</p>
@@ -1146,8 +1146,8 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You need to verify that a Google Cloud Platform service account was created at a particular time. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. Filter the Activity log to view the Con¦guration category. Filter the Resource type to Service Account.</p>
-        <p onclick="checkResponse(this)">B. Filter the Activity log to view the Con¦guration category. Filter the Resource type to Google Project.</p>
+        <p onclick="checkResponse(this)" correct>A. Filter the Activity log to view the Configuration category. Filter the Resource type to Service Account.</p>
+        <p onclick="checkResponse(this)">B. Filter the Activity log to view the Configuration category. Filter the Resource type to Google Project.</p>
         <p onclick="checkResponse(this)">C. Filter the Activity log to view the Data Access category. Filter the Resource type to Service Account.</p>
         <p onclick="checkResponse(this)">D. Filter the Activity log to view the Data Access category. Filter the Resource type to Google Project.</p>
     </div>
@@ -1160,8 +1160,8 @@ VMs must be able to reach each other over Internal IP without creating additiona
 
         <p onclick="checkResponse(this)">A. Add the network tag allow-udp-636 to the VM instance running the LDAP server.</p>
         <p onclick="checkResponse(this)">B. Create a route called allow-udp-636 and set the next hop to be the VM instance running the LDAP server.</p>
-        <p onclick="checkResponse(this)" correct>C. Add a network tag of your choice to the instance. Create a ¦rewall rule to allow ingress on UDP port 636 for that network tag.</p>
-        <p onclick="checkResponse(this)">D. Add a network tag of your choice to the instance running the LDAP server. Create a ¦rewall rule to allow egress on UDP port 636 for that network tag.</p>
+        <p onclick="checkResponse(this)" correct>C. Add a network tag of your choice to the instance. Create a firewall rule to allow ingress on UDP port 636 for that network tag.</p>
+        <p onclick="checkResponse(this)">D. Add a network tag of your choice to the instance running the LDAP server. Create a firewall rule to allow egress on UDP port 636 for that network tag.</p>
     </div>
 
     <div class="question">
@@ -1191,7 +1191,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#90</span>
-            You want to con¦gure a solution for archiving data in a Cloud Storage bucket. The solution must be cost-effective. Data with multiple versions should be archived after 30 days. Previous versions are accessed once a month for reporting. This archive data is also occasionally updated at month-end. What should you do?
+            You want to configure a solution for archiving data in a Cloud Storage bucket. The solution must be cost-effective. Data with multiple versions should be archived after 30 days. Previous versions are accessed once a month for reporting. This archive data is also occasionally updated at month-end. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Add a bucket lifecycle rule that archives data with newer versions after 30 days to Coldline Storage.</p>
@@ -1206,16 +1206,16 @@ VMs must be able to reach each other over Internal IP without creating additiona
             Your company's infrastructure is on-premises, but all machines are running at maximum capacity. You want to burst to Google Cloud. The workloads on Google Cloud must be able to directly communicate to the workloads on-premises using a private IP range. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. In Google Cloud, con¦gure the VPC as a host for Shared VPC.</p>
-        <p onclick="checkResponse(this)">B. In Google Cloud, con¦gure the VPC for VPC Network Peering.</p>
-        <p onclick="checkResponse(this)">C. Create bastion hosts both in your on-premises environment and on Google Cloud. Con¦gure both as proxy servers using their public IP addresses.</p>
+        <p onclick="checkResponse(this)">A. In Google Cloud, configure the VPC as a host for Shared VPC.</p>
+        <p onclick="checkResponse(this)">B. In Google Cloud, configure the VPC for VPC Network Peering.</p>
+        <p onclick="checkResponse(this)">C. Create bastion hosts both in your on-premises environment and on Google Cloud. Configure both as proxy servers using their public IP addresses.</p>
         <p onclick="checkResponse(this)" correct>D. Set up Cloud VPN between the infrastructure on-premises and Google Cloud.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#92</span>
-            You want to select and con¦gure a solution for storing and archiving data on Google Cloud Platform. You need to support compliance objectives for data from one geographic location. This data is archived after 30 days and needs to be accessed annually. What should you do?
+            You want to select and configure a solution for storing and archiving data on Google Cloud Platform. You need to support compliance objectives for data from one geographic location. This data is archived after 30 days and needs to be accessed annually. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Select Multi-Regional Storage. Add a bucket lifecycle rule that archives data after 30 days to Coldline Storage.</p>
@@ -1227,13 +1227,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#93</span>
-            Your company uses BigQuery for data warehousing. Over time, many different business units in your company have created 1000+ datasets across hundreds of projects. Your CIO wants you to examine all datasets to ¦nd tables that contain an employee_ssn column. You want to minimize effort in performing this task. What should you do?
+            Your company uses BigQuery for data warehousing. Over time, many different business units in your company have created 1000+ datasets across hundreds of projects. Your CIO wants you to examine all datasets to find tables that contain an employee_ssn column. You want to minimize effort in performing this task. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Go to Data Catalog and search for employee_ssn in the search box.</p>
         <p onclick="checkResponse(this)">B. Write a shell script that uses the bq command line tool to loop through all the projects in your organization.</p>
         <p onclick="checkResponse(this)">C. Write a script that loops through all the projects in your organization and runs a query on INFORMATION_SCHEMA.COLUMNS view to find the employee_ssn column.</p>
-        <p onclick="checkResponse(this)">D. Write a Cloud Data§ow job that loops through all the projects in your organization and runs a query on INFORMATION_SCHEMA.COLUMNS view to ¦nd employee_ssn column.</p>
+        <p onclick="checkResponse(this)">D. Write a Cloud Data§ow job that loops through all the projects in your organization and runs a query on INFORMATION_SCHEMA.COLUMNS view to find employee_ssn column.</p>
     </div>
 
     <div class="question">
@@ -1245,22 +1245,22 @@ VMs must be able to reach each other over Internal IP without creating additiona
             <div>What is the most likely cause?</div>
             </div>
 
-        <p onclick="checkResponse(this)">A. The pending Pod's resource requests are too large to ¦t on a single node of the cluster.</p>
+        <p onclick="checkResponse(this)">A. The pending Pod's resource requests are too large to fit on a single node of the cluster.</p>
         <p onclick="checkResponse(this)">B. Too many Pods are already running in the cluster, and there are not enough resources left to schedule the pending Pod.</p>
-        <p onclick="checkResponse(this)">C. The node pool is con¦gured with a service account that does not have permission to pull the container image used by the pending Pod.</p>
+        <p onclick="checkResponse(this)">C. The node pool is configured with a service account that does not have permission to pull the container image used by the pending Pod.</p>
         <p onclick="checkResponse(this)" correct>D. The pending Pod was originally scheduled on a node that has been preempted between the creation of the Deployment and your verification of the Pods' status. It is currently being rescheduled on a new node.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#95</span>
-            You want to ¦nd out when users were added to Cloud Spanner Identity Access Management (IAM) roles on your Google Cloud Platform (GCP) project. What should you do in the GCP Console?
+            You want to find out when users were added to Cloud Spanner Identity Access Management (IAM) roles on your Google Cloud Platform (GCP) project. What should you do in the GCP Console?
             </div>
 
-        <p onclick="checkResponse(this)">A. Open the Cloud Spanner console to review con¦gurations.</p>
+        <p onclick="checkResponse(this)">A. Open the Cloud Spanner console to review configurations.</p>
         <p onclick="checkResponse(this)">B. Open the IAM & admin console to review IAM policies for Cloud Spanner roles.</p>
         <p onclick="checkResponse(this)">C. Go to the Stackdriver Monitoring console and review information for Cloud Spanner.</p>
-        <p onclick="checkResponse(this)" correct>D. Go to the Stackdriver Logging console, review admin activity logs, and ¦lter them for Cloud Spanner IAM roles.</p>
+        <p onclick="checkResponse(this)" correct>D. Go to the Stackdriver Logging console, review admin activity logs, and filter them for Cloud Spanner IAM roles.</p>
     </div>
 
     <div class="question">
@@ -1284,8 +1284,8 @@ VMs must be able to reach each other over Internal IP without creating additiona
 
         <p onclick="checkResponse(this)">A. Use Binary Authorization and whitelist only the container images used by your customers' Pods.</p>
         <p onclick="checkResponse(this)">B. Use the Container Analysis API to detect vulnerabilities in the containers used by your customers' Pods.</p>
-        <p onclick="checkResponse(this)" correct>C. Create a GKE node pool with a sandbox type con¦gured to gvisor. Add the parameter runtimeClassName: gvisor to the speci¦cation of your customers' Pods.</p>
-        <p onclick="checkResponse(this)">D. Use the cos_containerd image for your GKE nodes. Add a nodeSelector with the value cloud.google.com/gke-os-distribution: cos_containerd to the speci¦cation of your customers' Pods.</p>
+        <p onclick="checkResponse(this)" correct>C. Create a GKE node pool with a sandbox type configured to gvisor. Add the parameter runtimeClassName: gvisor to the specification of your customers' Pods.</p>
+        <p onclick="checkResponse(this)">D. Use the cos_containerd image for your GKE nodes. Add a nodeSelector with the value cloud.google.com/gke-os-distribution: cos_containerd to the specification of your customers' Pods.</p>
     </div>
 
     <div class="question">
@@ -1296,10 +1296,10 @@ VMs must be able to reach each other over Internal IP without creating additiona
             <img src="ACE questions/7.png"/>
             </div>
 
-        <p onclick="checkResponse(this)">A. Remove the pro¦le_picture ¦eld from the table.</p>
+        <p onclick="checkResponse(this)">A. Remove the profile_picture field from the table.</p>
         <p onclick="checkResponse(this)">B. Add a secondary index on the person_id column.</p>
         <p onclick="checkResponse(this)" correct>C. Change the primary key to not have monotonically increasing values.</p>
-        <p onclick="checkResponse(this)">D. Create a secondary index using the following Data De¦nition Language (DDL): <img src="ACE questions/8.png"/></p>
+        <p onclick="checkResponse(this)">D. Create a secondary index using the following Data Definition Language (DDL): <img src="ACE questions/8.png"/></p>
     </div>
 
     <div class="question">
@@ -1308,10 +1308,10 @@ VMs must be able to reach each other over Internal IP without creating additiona
             Your finance team wants to view the billing report for your projects. You want to make sure that the finance team does not get additional permissions to the project. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Add the group for the ¦nance team to roles/billing user role.</p>
-        <p onclick="checkResponse(this)">B. Add the group for the ¦nance team to roles/billing admin role.</p>
-        <p onclick="checkResponse(this)" correct>C. Add the group for the ¦nance team to roles/billing viewer role.</p>
-        <p onclick="checkResponse(this)">D. Add the group for the ¦nance team to roles/billing project/Manager role.</p>
+        <p onclick="checkResponse(this)">A. Add the group for the finance team to roles/billing user role.</p>
+        <p onclick="checkResponse(this)">B. Add the group for the finance team to roles/billing admin role.</p>
+        <p onclick="checkResponse(this)" correct>C. Add the group for the finance team to roles/billing viewer role.</p>
+        <p onclick="checkResponse(this)">D. Add the group for the finance team to roles/billing project/Manager role.</p>
     </div>
 
     <div class="question">
@@ -1382,8 +1382,8 @@ VMs must be able to reach each other over Internal IP without creating additiona
 
         <p onclick="checkResponse(this)">A. In Cloud Identity, set up SSO with Google as an identity provider to access custom SAML apps.</p>
         <p onclick="checkResponse(this)" correct>B. In Cloud Identity, set up SSO with a third-party identity provider with Google as a service provider.</p>
-        <p onclick="checkResponse(this)">C. Obtain OAuth 2.0 credentials, con¦gure the user consent screen, and set up OAuth 2.0 for Mobile & Desktop Apps.</p>
-        <p onclick="checkResponse(this)">D. Obtain OAuth 2.0 credentials, con¦gure the user consent screen, and set up OAuth 2.0 for Web Server Applications.</p>
+        <p onclick="checkResponse(this)">C. Obtain OAuth 2.0 credentials, configure the user consent screen, and set up OAuth 2.0 for Mobile & Desktop Apps.</p>
+        <p onclick="checkResponse(this)">D. Obtain OAuth 2.0 credentials, configure the user consent screen, and set up OAuth 2.0 for Web Server Applications.</p>
     </div>
 
     <div class="question">
@@ -1449,7 +1449,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#111</span>
-            Your management has asked an external auditor to review all the resources in a speci¦c project. The security team has enabled the Organization Policy called Domain Restricted Sharing on the organization node by specifying only your Cloud Identity domain. You want the auditor to only be able to view, but not modify, the resources in that project. What should you do?
+            Your management has asked an external auditor to review all the resources in a specific project. The security team has enabled the Organization Policy called Domain Restricted Sharing on the organization node by specifying only your Cloud Identity domain. You want the auditor to only be able to view, but not modify, the resources in that project. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Ask the auditor for their Google account, and give them the Viewer role on the project.</p>
@@ -1489,9 +1489,9 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)">A. Navigate to Stackdriver Logging and select resource.labels.project_id="*"</p>
-        <p onclick="checkResponse(this)" correct>B. Create a Stackdriver Logging Export with a Sink destination to a BigQuery dataset. Con¦gure the table expiration to 60 days.</p>
+        <p onclick="checkResponse(this)" correct>B. Create a Stackdriver Logging Export with a Sink destination to a BigQuery dataset. Configure the table expiration to 60 days.</p>
         <p onclick="checkResponse(this)">C. Create a Stackdriver Logging Export with a Sink destination to Cloud Storage. Create a lifecycle rule to delete objects after 60 days.</p>
-        <p onclick="checkResponse(this)">D. Con¦gure a Cloud Scheduler job to read from Stackdriver and store the logs in BigQuery. Con¦gure the table expiration to 60 days.</p>
+        <p onclick="checkResponse(this)">D. Configure a Cloud Scheduler job to read from Stackdriver and store the logs in BigQuery. Configure the table expiration to 60 days.</p>
     </div>
 
     <div class="question">
@@ -1509,7 +1509,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#116</span>
-            You are con¦guring service accounts for an application that spans multiple projects. Virtual machines (VMs) running in the web-applications project need access to BigQuery datasets in crm-databases-proj. You want to follow Google-recommended practices to give access to the service account in the web-applications project. What should you do?
+            You are configuring service accounts for an application that spans multiple projects. Virtual machines (VMs) running in the web-applications project need access to BigQuery datasets in crm-databases-proj. You want to follow Google-recommended practices to give access to the service account in the web-applications project. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Give "project owner" for web-applications appropriate roles to crm-databases-proj.</p>
@@ -1521,7 +1521,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#117</span>
-            An employee was terminated, but their access to Google Cloud was not removed until 2 weeks later. You need to ¦nd out if this employee accessed any sensitive customer information after their termination. What should you do?
+            An employee was terminated, but their access to Google Cloud was not removed until 2 weeks later. You need to find out if this employee accessed any sensitive customer information after their termination. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. View System Event Logs in Cloud Logging. Search for the user's email as the principal.</p>
@@ -1533,7 +1533,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#118</span>
-            You need to create a custom IAM role for use with a GCP service. All permissions in the role must be suitable for production use. You also want to clearly share with your organization the status of the custom role. This will be the ¦rst version of the custom role. What should you do?
+            You need to create a custom IAM role for use with a GCP service. All permissions in the role must be suitable for production use. You also want to clearly share with your organization the status of the custom role. This will be the first version of the custom role. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Use permissions in your role that use the 'supported' support level for role permissions. Set the role stage to ALPHA while testing the role permissions.</p>
@@ -1545,7 +1545,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#119</span>
-            Your company has a large quantity of unstructured data in different ¦le formats. You want to perform ETL transformations on the data. You need to make the data accessible on Google Cloud so it can be processed by a Data§ow job. What should you do?
+            Your company has a large quantity of unstructured data in different file formats. You want to perform ETL transformations on the data. You need to make the data accessible on Google Cloud so it can be processed by a Data§ow job. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Upload the data to BigQuery using the bq command line tool.</p>
@@ -1557,19 +1557,19 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#120</span>
-            You need to manage multiple Google Cloud projects in the fewest steps possible. You want to con¦gure the Google Cloud SDK command line interface (CLI) so that you can easily manage multiple projects. What should you do?
+            You need to manage multiple Google Cloud projects in the fewest steps possible. You want to configure the Google Cloud SDK command line interface (CLI) so that you can easily manage multiple projects. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. 1. Create a con¦guration for each project you need to manage. 2. Activate the appropriate con¦guration when you work with each of your assigned Google Cloud projects.</p>
-        <p onclick="checkResponse(this)">B. 1. Create a con¦guration for each project you need to manage. 2. Use gcloud init to update the con¦guration values when you need to work with a non-default project</p>
-        <p onclick="checkResponse(this)">C. 1. Use the default con¦guration for one project you need to manage. 2. Activate the appropriate con¦guration when you work with each of your assigned Google Cloud projects.</p>
-        <p onclick="checkResponse(this)">D. 1. Use the default con¦guration for one project you need to manage. 2. Use gcloud init to update the con¦guration values when you need to work with a non-default project.</p>
+        <p onclick="checkResponse(this)" correct>A. 1. Create a configuration for each project you need to manage. 2. Activate the appropriate configuration when you work with each of your assigned Google Cloud projects.</p>
+        <p onclick="checkResponse(this)">B. 1. Create a configuration for each project you need to manage. 2. Use gcloud init to update the configuration values when you need to work with a non-default project</p>
+        <p onclick="checkResponse(this)">C. 1. Use the default configuration for one project you need to manage. 2. Activate the appropriate configuration when you work with each of your assigned Google Cloud projects.</p>
+        <p onclick="checkResponse(this)">D. 1. Use the default configuration for one project you need to manage. 2. Use gcloud init to update the configuration values when you need to work with a non-default project.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#121</span>
-            Your managed instance group raised an alert stating that new instance creation has failed to create new instances. You need to maintain the number of running instances speci¦ed by the template to be able to process expected application tra¨c. What should you do?
+            Your managed instance group raised an alert stating that new instance creation has failed to create new instances. You need to maintain the number of running instances specified by the template to be able to process expected application tra¨c. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Create an instance template that contains valid syntax which will be used by the instance group. Delete any persistent disks with the same name as instance names.</p>
@@ -1597,9 +1597,9 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)">A. 1. Create a consumer Gmail account. 2. Write a script that monitors the CPU usage. 3. When the CPU usage exceeds the threshold, have that script send an email using the Gmail account and smtp.gmail.com on port 25 as SMTP server.</p>
-        <p onclick="checkResponse(this)" correct>B. 1. Create a Cloud Monitoring Workspace and associate your Google Cloud Platform (GCP) project with it. 2. Create a Cloud Monitoring Alerting Policy that uses the threshold as a trigger condition. 3. Con¦gure your email address in the noti¦cation channel.</p>
+        <p onclick="checkResponse(this)" correct>B. 1. Create a Cloud Monitoring Workspace and associate your Google Cloud Platform (GCP) project with it. 2. Create a Cloud Monitoring Alerting Policy that uses the threshold as a trigger condition. 3. Configure your email address in the notification channel.</p>
         <p onclick="checkResponse(this)">C. 1. Create a Cloud Monitoring Workspace and associate your GCP project with it. 2. Write a script that monitors the CPU usage and sends it as a custom metric to Cloud Monitoring. 3. Create an uptime check for the instance in Cloud Monitoring.</p>
-        <p onclick="checkResponse(this)">D. 1. In Cloud Logging, create a logs-based metric to extract the CPU usage by using this regular expression: CPU Usage: ([0-9] {1,3})% 2. In Cloud Monitoring, create an Alerting Policy based on this metric. 3. Con¦gure your email address in the noti¦cation channel.</p>
+        <p onclick="checkResponse(this)">D. 1. In Cloud Logging, create a logs-based metric to extract the CPU usage by using this regular expression: CPU Usage: ([0-9] {1,3})% 2. In Cloud Monitoring, create an Alerting Policy based on this metric. 3. Configure your email address in the notification channel.</p>
     </div>
 
     <div class="question">
@@ -1617,11 +1617,11 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#125</span>
-            Your company publishes large ¦les on an Apache web server that runs on a Compute Engine instance. The Apache web server is not the only application running in the project. You want to receive an email when the egress network costs for the server exceed 100 dollars for the current month as measured by Google Cloud. What should you do?
+            Your company publishes large files on an Apache web server that runs on a Compute Engine instance. The Apache web server is not the only application running in the project. You want to receive an email when the egress network costs for the server exceed 100 dollars for the current month as measured by Google Cloud. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Set up a budget alert on the project with an amount of 100 dollars, a threshold of 100%, and noti¦cation type of "email".</p>
-        <p onclick="checkResponse(this)">B. Set up a budget alert on the billing account with an amount of 100 dollars, a threshold of 100%, and noti¦cation type of "email".</p>
+        <p onclick="checkResponse(this)">A. Set up a budget alert on the project with an amount of 100 dollars, a threshold of 100%, and notification type of "email".</p>
+        <p onclick="checkResponse(this)">B. Set up a budget alert on the billing account with an amount of 100 dollars, a threshold of 100%, and notification type of "email".</p>
         <p onclick="checkResponse(this)" correct>C. Export the billing data to BigQuery. Create a Cloud Function that uses BigQuery to sum the egress network costs of the exported billing data for the Apache web server for the current month and sends an email if it is over 100 dollars. Schedule the Cloud Function using Cloud Scheduler to run hourly.</p>
         <p onclick="checkResponse(this)">D. Use the Cloud Logging Agent to export the Apache web server logs to Cloud Logging. Create a Cloud Function that uses BigQuery to parse the HTTP response log data in Cloud Logging for the current month and sends an email if the size of all HTTP responses, multiplied by current Google Cloud egress prices, totals over 100 dollars. Schedule the Cloud Function using Cloud Scheduler to run hourly.</p>
     </div>
@@ -1647,13 +1647,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. HTTPS Load Balancer</p>
         <p onclick="checkResponse(this)">B. Network Load Balancer</p>
         <p onclick="checkResponse(this)" correct>C. SSL Proxy Load Balancer</p>
-        <p onclick="checkResponse(this)">D. Internal TCP/UDP Load Balancer. Add a ¦rewall rule allowing ingress tra¨c from 0.0.0.0/0 on the target instances.</p>
+        <p onclick="checkResponse(this)">D. Internal TCP/UDP Load Balancer. Add a firewall rule allowing ingress tra¨c from 0.0.0.0/0 on the target instances.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#128</span>
-            You have an application on a general-purpose Compute Engine instance that is experiencing excessive disk read throttling on its Zonal SSD Persistent Disk. The application primarily reads large ¦les from disk. The disk size is currently 350 GB. You want to provide the maximum amount of throughput while minimizing costs. What should you do?
+            You have an application on a general-purpose Compute Engine instance that is experiencing excessive disk read throttling on its Zonal SSD Persistent Disk. The application primarily reads large files from disk. The disk size is currently 350 GB. You want to provide the maximum amount of throughput while minimizing costs. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Increase the size of the disk to 1 TB.</p>
@@ -1669,9 +1669,9 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)">A. Modify the existing subnet range to 172.16.20.0/24.</p>
-        <p onclick="checkResponse(this)">B. Create a new Secondary IP Range in the VPC and con¦gure the VMs to use that range.</p>
+        <p onclick="checkResponse(this)">B. Create a new Secondary IP Range in the VPC and configure the VMs to use that range.</p>
         <p onclick="checkResponse(this)" correct>C. Create a new VPC network for the VMs. Enable VPC Peering between the VMs' VPC network and the Dataproc cluster VPC network.</p>
-        <p onclick="checkResponse(this)">D. Create a new VPC network for the VMs with a subnet of 172.32.0.0/16. Enable VPC network Peering between the Dataproc VPC network and the VMs VPC network. Con¦gure a custom Route exchange.</p>
+        <p onclick="checkResponse(this)">D. Create a new VPC network for the VMs with a subnet of 172.32.0.0/16. Enable VPC network Peering between the Dataproc VPC network and the VMs VPC network. Configure a custom Route exchange.</p>
     </div>
 
     <div class="question">
@@ -1706,14 +1706,14 @@ VMs must be able to reach each other over Internal IP without creating additiona
 
         <p onclick="checkResponse(this)">A. Navigate to Cloud Logging and view the application logs.</p>
         <p onclick="checkResponse(this)">B. Connect to the instance's serial console and read the application logs.</p>
-        <p onclick="checkResponse(this)">C. Con¦gure a Health Check on the instance and set a Low Healthy Threshold value.</p>
-        <p onclick="checkResponse(this)" correct>D. Install and con¦gure the Cloud Logging Agent and view the logs from Cloud Logging.</p>
+        <p onclick="checkResponse(this)">C. Configure a Health Check on the instance and set a Low Healthy Threshold value.</p>
+        <p onclick="checkResponse(this)" correct>D. Install and configure the Cloud Logging Agent and view the logs from Cloud Logging.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#133</span>
-            An application generates daily reports in a Compute Engine virtual machine (VM). The VM is in the project corp-iot-insights. Your team operates only in the project corp-aggregate-reports and needs a copy of the daily exports in the bucket corp-aggregate-reports-storage. You want to con¦gure access so that the daily reports from the VM are available in the bucket corp-aggregate-reports-storage and use as few steps as possible while following Google-recommended practices. What should you do?
+            An application generates daily reports in a Compute Engine virtual machine (VM). The VM is in the project corp-iot-insights. Your team operates only in the project corp-aggregate-reports and needs a copy of the daily exports in the bucket corp-aggregate-reports-storage. You want to configure access so that the daily reports from the VM are available in the bucket corp-aggregate-reports-storage and use as few steps as possible while following Google-recommended practices. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Move both projects under the same folder.</p>
@@ -1725,13 +1725,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#134</span>
-            You built an application on your development laptop that uses Google Cloud services. Your application uses Application Default Credentials for authentication and works ¦ne on your development laptop. You want to migrate this application to a Compute Engine virtual machine (VM) and set up authentication using Google- recommended practices and minimal changes. What should you do?
+            You built an application on your development laptop that uses Google Cloud services. Your application uses Application Default Credentials for authentication and works fine on your development laptop. You want to migrate this application to a Compute Engine virtual machine (VM) and set up authentication using Google- recommended practices and minimal changes. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Assign appropriate access for Google services to the service account used by the Compute Engine VM.</p>
-        <p onclick="checkResponse(this)" correct>B. Create a service account with appropriate access for Google services, and con¦gure the application to use this account.</p>
-        <p onclick="checkResponse(this)">C. Store credentials for service accounts with appropriate access for Google services in a con¦g ¦le, and deploy this con¦g ¦le with your application.</p>
-        <p onclick="checkResponse(this)">D. Store credentials for your user account with appropriate access for Google services in a con¦g ¦le, and deploy this con¦g ¦le with your application.</p>
+        <p onclick="checkResponse(this)" correct>B. Create a service account with appropriate access for Google services, and configure the application to use this account.</p>
+        <p onclick="checkResponse(this)">C. Store credentials for service accounts with appropriate access for Google services in a config file, and deploy this config file with your application.</p>
+        <p onclick="checkResponse(this)">D. Store credentials for your user account with appropriate access for Google services in a config file, and deploy this config file with your application.</p>
     </div>
 
     <div class="question">
@@ -1788,8 +1788,8 @@ VMs must be able to reach each other over Internal IP without creating additiona
             The core business of your company is to rent out construction equipment at large scale. All the equipment that is being rented out has been equipped with multiple sensors that send event information every few seconds. These signals can vary from engine status, distance traveled, fuel level, and more. Customers are billed based on the consumption monitored by these sensors. You expect high throughput `" up to thousands of events per hour per device `" and need to retrieve consistent data based on the time of the event. Storing and retrieving individual signals should be atomic. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Create a ¦le in Cloud Storage per device and append new data to that ¦le.</p>
-        <p onclick="checkResponse(this)">B. Create a ¦le in Cloud Filestore per device and append new data to that ¦le.</p>
+        <p onclick="checkResponse(this)">A. Create a file in Cloud Storage per device and append new data to that file.</p>
+        <p onclick="checkResponse(this)">B. Create a file in Cloud Filestore per device and append new data to that file.</p>
         <p onclick="checkResponse(this)">C. Ingest the data into Datastore. Store data in an entity group based on the device.</p>
         <p onclick="checkResponse(this)" correct>D. Ingest the data into Cloud Bigtable. Create a row key based on the event timestamp.</p>
     </div>
@@ -1812,7 +1812,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You created several resources in multiple Google Cloud projects. All projects are linked to different billing accounts. To better estimate future charges, you want to have a single visual representation of all costs incurred. You want to include new cost data as soon as possible. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. Con¦gure Billing Data Export to BigQuery and visualize the data in Data Studio.</p>
+        <p onclick="checkResponse(this)" correct>A. Configure Billing Data Export to BigQuery and visualize the data in Data Studio.</p>
         <p onclick="checkResponse(this)">B. Visit the Cost Table page to get a CSV export and visualize it using Data Studio.</p>
         <p onclick="checkResponse(this)">C. Fill all resources in the Pricing Calculator to get an estimate of the monthly cost.</p>
         <p onclick="checkResponse(this)">D. Use the Reports view in the Cloud Billing Console to view the desired cost information.</p>
@@ -1826,7 +1826,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
 
         <p onclick="checkResponse(this)" correct>A. Create the instance without a public IP address.</p>
         <p onclick="checkResponse(this)">B. Create the instance with Private Google Access enabled.</p>
-        <p onclick="checkResponse(this)">C. Create a deny-all egress ¦rewall rule on the VPC network.</p>
+        <p onclick="checkResponse(this)">C. Create a deny-all egress firewall rule on the VPC network.</p>
         <p onclick="checkResponse(this)">D. Create a route on the VPC to route all tra¨c to the instance over the VPN tunnel.</p>
     </div>
 
@@ -1851,7 +1851,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. 1. Update your instances' metadata to add the following value: snapshot-schedule: 0 1 * * * 2. Update your instances' metadata to add the following value: snapshot-retention: 30</p>
         <p onclick="checkResponse(this)" correct>B. 1. In the Cloud Console, go to the Compute Engine Disks page and select your instance's disk. 2. In the Snapshot Schedule section, select Create Schedule and configure the following parameters: - Schedule frequency: Daily - Start time: 1:00 AM 2:00 AM - Autodelete snapshots after: 30 days</p>
         <p onclick="checkResponse(this)">C. 1. Create a Cloud Function that creates a snapshot of your instance's disk. 2. Create a Cloud Function that deletes snapshots that are older than 30 days. 3. Use Cloud Scheduler to trigger both Cloud Functions daily at 1:00 AM.</p>
-        <p onclick="checkResponse(this)">D. 1. Create a bash script in the instance that copies the content of the disk to Cloud Storage. 2. Create a bash script in the instance that deletes data older than 30 days in the backup Cloud Storage bucket. 3. Con¦gure the instance's crontab to execute these scripts daily at 1:00 AM.</p>
+        <p onclick="checkResponse(this)">D. 1. Create a bash script in the instance that copies the content of the disk to Cloud Storage. 2. Create a bash script in the instance that deletes data older than 30 days in the backup Cloud Storage bucket. 3. Configure the instance's crontab to execute these scripts daily at 1:00 AM.</p>
     </div>
 
     <div class="question">
@@ -1869,7 +1869,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#146</span>
-            You have an application that uses Cloud Spanner as a database backend to keep current state information about users. Cloud Bigtable logs all events triggered by users. You export Cloud Spanner data to Cloud Storage during daily backups. One of your analysts asks you to join data from Cloud Spanner and Cloud Bigtable for speci¦c users. You want to complete this ad hoc request as e¨ciently as possible. What should you do?
+            You have an application that uses Cloud Spanner as a database backend to keep current state information about users. Cloud Bigtable logs all events triggered by users. You export Cloud Spanner data to Cloud Storage during daily backups. One of your analysts asks you to join data from Cloud Spanner and Cloud Bigtable for specific users. You want to complete this ad hoc request as e¨ciently as possible. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Create a data§ow job that copies data from Cloud Bigtable and Cloud Storage for specific users.</p>
@@ -1887,7 +1887,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)" correct>A.  "Create Compute Engine resources in us"central1"b." Balance the load across both us"central1"a and us"central1"b</p>
         <p onclick="checkResponse(this)">B.  "Create a Managed Instance Group and specify us"central1"a as the zone.  "Configure the Health Check with a short Health Interval.</p>
         <p onclick="checkResponse(this)">C.  "Create an HTTP(S) Load Balancer."  Create one or more global forwarding rules to direct traffic to your VMs.</p>
-        <p onclick="checkResponse(this)">D.  "Perform regular backups of your application."  Create a Cloud Monitoring Alert and be noti¦ed if your application becomes unavailable.  "Restore from backups when notified.</p>
+        <p onclick="checkResponse(this)">D.  "Perform regular backups of your application."  Create a Cloud Monitoring Alert and be notified if your application becomes unavailable.  "Restore from backups when notified.</p>
     </div>
 
     <div class="question">
@@ -1899,7 +1899,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. In the console, validate which SSH keys have been stored as project-wide keys.</p>
         <p onclick="checkResponse(this)">B. Navigate to Identity-Aware Proxy and check the permissions for these resources.</p>
         <p onclick="checkResponse(this)">C. Enable Audit Logs on the IAM & admin page for all resources, and validate the results.</p>
-        <p onclick="checkResponse(this)" correct>D. Use the command gcloud projects get€"גiam€"גpolicy to view the current role assignments.</p>
+        <p onclick="checkResponse(this)" correct>D. Use the command gcloud projects get-iam-policy to view the current role assignments.</p>
     </div>
 
     <div class="question">
@@ -1929,7 +1929,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#151</span>
-            You are working with a user to set up an application in a new VPC behind a ¦rewall. The user is concerned about data egress. You want to con¦gure the fewest open egress ports. What should you do?
+            You are working with a user to set up an application in a new VPC behind a firewall. The user is concerned about data egress. You want to configure the fewest open egress ports. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Set up a low-priority (65534) rule that blocks all egress and a high-priority rule (1000) that allows only the appropriate ports.</p>
@@ -1945,7 +1945,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Enable Cloud IAP for the Compute Engine instances, and add the operations partner as a Cloud IAP Tunnel User.</p>
-        <p onclick="checkResponse(this)">B. Tag all the instances with the same network tag. Create a ¦rewall rule in the VPC to grant TCP access on port 22 for tra¨c from the operations partner to instances with the network tag.</p>
+        <p onclick="checkResponse(this)">B. Tag all the instances with the same network tag. Create a firewall rule in the VPC to grant TCP access on port 22 for tra¨c from the operations partner to instances with the network tag.</p>
         <p onclick="checkResponse(this)">C. Set up Cloud VPN between your Google Cloud VPC and the internal network of the operations partner.</p>
         <p onclick="checkResponse(this)">D. Ask the operations partner to generate SSH key pairs, and add the public keys to the VM instances.</p>
     </div>
@@ -1953,13 +1953,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#153</span>
-            You have created a code snippet that should be triggered whenever a new ¦le is uploaded to a Cloud Storage bucket. You want to deploy this code snippet. What should you do?
+            You have created a code snippet that should be triggered whenever a new file is uploaded to a Cloud Storage bucket. You want to deploy this code snippet. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Use App Engine and con¦gure Cloud Scheduler to trigger the application using Pub/Sub.</p>
-        <p onclick="checkResponse(this)" correct>B. Use Cloud Functions and con¦gure the bucket as a trigger resource.</p>
-        <p onclick="checkResponse(this)">C. Use Google Kubernetes Engine and con¦gure a CronJob to trigger the application using Pub/Sub.</p>
-        <p onclick="checkResponse(this)">D. Use Data§ow as a batch job, and con¦gure the bucket as a data source.</p>
+        <p onclick="checkResponse(this)">A. Use App Engine and configure Cloud Scheduler to trigger the application using Pub/Sub.</p>
+        <p onclick="checkResponse(this)" correct>B. Use Cloud Functions and configure the bucket as a trigger resource.</p>
+        <p onclick="checkResponse(this)">C. Use Google Kubernetes Engine and configure a CronJob to trigger the application using Pub/Sub.</p>
+        <p onclick="checkResponse(this)">D. Use Data§ow as a batch job, and configure the bucket as a data source.</p>
     </div>
 
     <div class="question">
@@ -1989,12 +1989,12 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#156</span>
-            You are the team lead of a group of 10 developers. You provided each developer with an individual Google Cloud Project that they can use as their personal sandbox to experiment with different Google Cloud solutions. You want to be noti¦ed if any of the developers are spending above $500 per month on their sandbox environment. What should you do?
+            You are the team lead of a group of 10 developers. You provided each developer with an individual Google Cloud Project that they can use as their personal sandbox to experiment with different Google Cloud solutions. You want to be notified if any of the developers are spending above $500 per month on their sandbox environment. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Create a single budget for all projects and con¦gure budget alerts on this budget.</p>
+        <p onclick="checkResponse(this)">A. Create a single budget for all projects and configure budget alerts on this budget.</p>
         <p onclick="checkResponse(this)">B. Create a separate billing account per sandbox project and enable BigQuery billing exports. Create a Data Studio dashboard to plot the spending per billing account.</p>
-        <p onclick="checkResponse(this)" correct>C. Create a budget per project and con¦gure budget alerts on all of these budgets.</p>
+        <p onclick="checkResponse(this)" correct>C. Create a budget per project and configure budget alerts on all of these budgets.</p>
         <p onclick="checkResponse(this)">D. Create a single billing account for all sandbox projects and enable BigQuery billing exports. Create a Data Studio dashboard to plot the spending per project.</p>
     </div>
 
@@ -2013,7 +2013,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#158</span>
-            Your company uses a large number of Google Cloud services centralized in a single project. All teams have speci¦c projects for testing and development. The DevOps team needs access to all of the production services in order to perform their job. You want to prevent Google Cloud product changes from broadening their permissions in the future. You want to follow Google-recommended practices. What should you do?
+            Your company uses a large number of Google Cloud services centralized in a single project. All teams have specific projects for testing and development. The DevOps team needs access to all of the production services in order to perform their job. You want to prevent Google Cloud product changes from broadening their permissions in the future. You want to follow Google-recommended practices. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Grant all members of the DevOps team the role of Project Editor on the organization level.</p>
@@ -2025,7 +2025,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#159</span>
-            You are building an application that processes data ¦les uploaded from thousands of suppliers. Your primary goals for the application are data security and the expiration of aged data. You need to design the application to: 
+            You are building an application that processes data files uploaded from thousands of suppliers. Your primary goals for the application are data security and the expiration of aged data. You need to design the application to:
             <div>* Restrict access so that suppliers can access only their own data.</div>
             <div>* Give suppliers write access to data only for 30 minutes.</div>
             <div>* Delete data that is over 45 days old.</div>
@@ -2066,12 +2066,12 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#162</span>
-            Your company has embraced a hybrid cloud strategy where some of the applications are deployed on Google Cloud. A Virtual Private Network (VPN) tunnel connects your Virtual Private Cloud (VPC) in Google Cloud with your company's on-premises network. Multiple applications in Google Cloud need to connect to an on-premises database server, and you want to avoid having to change the IP con¦guration in all of your applications when the IP of the database changes. What should you do?
+            Your company has embraced a hybrid cloud strategy where some of the applications are deployed on Google Cloud. A Virtual Private Network (VPN) tunnel connects your Virtual Private Cloud (VPC) in Google Cloud with your company's on-premises network. Multiple applications in Google Cloud need to connect to an on-premises database server, and you want to avoid having to change the IP configuration in all of your applications when the IP of the database changes. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Con¦gure Cloud NAT for all subnets of your VPC to be used when egressing from the VM instances.</p>
-        <p onclick="checkResponse(this)" correct>B. Create a private zone on Cloud DNS, and con¦gure the applications with the DNS name.</p>
-        <p onclick="checkResponse(this)">C. Con¦gure the IP of the database as custom metadata for each instance, and query the metadata server.</p>
+        <p onclick="checkResponse(this)">A. Configure Cloud NAT for all subnets of your VPC to be used when egressing from the VM instances.</p>
+        <p onclick="checkResponse(this)" correct>B. Create a private zone on Cloud DNS, and configure the applications with the DNS name.</p>
+        <p onclick="checkResponse(this)">C. Configure the IP of the database as custom metadata for each instance, and query the metadata server.</p>
         <p onclick="checkResponse(this)">D. Query the Compute Engine internal DNS from the applications to retrieve the IP of the database.</p>
     </div>
 
@@ -2093,8 +2093,8 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You have experimented with Google Cloud using your own credit card and expensed the costs to your company. Your company wants to streamline the billing process and charge the costs of your projects to their monthly invoice. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Grant the ¦nancial team the IAM role of €גBilling Account User €גon the billing account linked to your credit card.</p>
-        <p onclick="checkResponse(this)">B. Set up BigQuery billing export and grant your ¦nancial department IAM access to query the data.</p>
+        <p onclick="checkResponse(this)">A. Grant the financial team the IAM role of €גBilling Account User €גon the billing account linked to your credit card.</p>
+        <p onclick="checkResponse(this)">B. Set up BigQuery billing export and grant your financial department IAM access to query the data.</p>
         <p onclick="checkResponse(this)">C. Create a ticket with Google Billing Support to ask them to send the invoice to your company.</p>
         <p onclick="checkResponse(this)" correct>D. Change the billing account of your projects to the billing account of your company.</p>
     </div>
@@ -2114,7 +2114,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#166</span>
-            Your web application has been running successfully on Cloud Run for Anthos. You want to evaluate an updated version of the application with a speci¦c percentage of your production users (canary deployment). What should you do?
+            Your web application has been running successfully on Cloud Run for Anthos. You want to evaluate an updated version of the application with a specific percentage of your production users (canary deployment). What should you do?
             </div>
 
         <p onclick="checkResponse(this)" >A. Create a new service with the new version of the application. Split tra¨c between this version and the version that is currently running.</p>
@@ -2153,7 +2153,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             Your auditor wants to view your organization's use of data in Google Cloud. The auditor is most interested in auditing who accessed data in Cloud Storage buckets. You need to help the auditor access the data they need. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. Turn on Data Access Logs for the buckets they want to audit, and then build a query in the log viewer that ¦lters on Cloud Storage.</p>
+        <p onclick="checkResponse(this)" correct>A. Turn on Data Access Logs for the buckets they want to audit, and then build a query in the log viewer that filters on Cloud Storage.</p>
         <p onclick="checkResponse(this)">B. Assign the appropriate permissions, and then create a Data Studio report on Admin Activity Audit Logs.</p>
         <p onclick="checkResponse(this)">C. Assign the appropriate permissions, and then use Cloud Monitoring to review metrics.</p>
         <p onclick="checkResponse(this)">D. Use the export logs API to provide the Admin Activity Audit Logs in the format they want.</p>
@@ -2162,13 +2162,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#170</span>
-            You received a JSON ¦le that contained a private key of a Service Account in order to get access to several resources in a Google Cloud project. You downloaded and installed the Cloud SDK and want to use this private key for authentication and authorization when performing gcloud commands. What should you do?
+            You received a JSON file that contained a private key of a Service Account in order to get access to several resources in a Google Cloud project. You downloaded and installed the Cloud SDK and want to use this private key for authentication and authorization when performing gcloud commands. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Use the command gcloud auth login and point it to the private key.</p>
         <p onclick="checkResponse(this)" correct>B. Use the command gcloud auth activate-service-account and point it to the private key.</p>
-        <p onclick="checkResponse(this)">C. Place the private key ¦le in the installation directory of the Cloud SDK and rename it to "credentials.json".</p>
-        <p onclick="checkResponse(this)">D. Place the private key ¦le in your home directory and rename it to "GOOGLE_APPLICATION_CREDENTIALS".</p>
+        <p onclick="checkResponse(this)">C. Place the private key file in the installation directory of the Cloud SDK and rename it to "credentials.json".</p>
+        <p onclick="checkResponse(this)">D. Place the private key file in your home directory and rename it to "GOOGLE_APPLICATION_CREDENTIALS".</p>
     </div>
 
     <div class="question">
@@ -2177,28 +2177,28 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You are working with a Cloud SQL MySQL database at your company. You need to retain a month-end copy of the database for three years for audit purposes. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. Set up an export job for the ¦rst of the month. Write the export ¦le to an Archive class Cloud Storage bucket.</p>
-        <p onclick="checkResponse(this)">B. Save the automatic ¦rst-of-the-month backup for three years. Store the backup ¦le in an Archive class Cloud Storage bucket.</p>
-        <p onclick="checkResponse(this)">C. Set up an on-demand backup for the ¦rst of the month. Write the backup to an Archive class Cloud Storage bucket.</p>
-        <p onclick="checkResponse(this)">D. Convert the automatic ¦rst-of-the-month backup to an export ¦le. Write the export ¦le to a Coldline class Cloud Storage bucket.</p>
+        <p onclick="checkResponse(this)" correct>A. Set up an export job for the first of the month. Write the export file to an Archive class Cloud Storage bucket.</p>
+        <p onclick="checkResponse(this)">B. Save the automatic first-of-the-month backup for three years. Store the backup file in an Archive class Cloud Storage bucket.</p>
+        <p onclick="checkResponse(this)">C. Set up an on-demand backup for the first of the month. Write the backup to an Archive class Cloud Storage bucket.</p>
+        <p onclick="checkResponse(this)">D. Convert the automatic first-of-the-month backup to an export file. Write the export file to a Coldline class Cloud Storage bucket.</p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#172</span>
-            You are monitoring an application and receive user feedback that a speci¦c error is spiking. You notice that the error is caused by a Service Account having insu¨cient permissions. You are able to solve the problem but want to be noti¦ed if the problem recurs. What should you do?
+            You are monitoring an application and receive user feedback that a specific error is spiking. You notice that the error is caused by a Service Account having insu¨cient permissions. You are able to solve the problem but want to be notified if the problem recurs. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. In the Log Viewer, ¦lter the logs on severity 'Error' and the name of the Service Account.</p>
+        <p onclick="checkResponse(this)">A. In the Log Viewer, filter the logs on severity 'Error' and the name of the Service Account.</p>
         <p onclick="checkResponse(this)">B. Create a sink to BigQuery to export all the logs. Create a Data Studio dashboard on the exported logs.</p>
-        <p onclick="checkResponse(this)" correct>C. Create a custom log-based metric for the speci¦c error to be used in an Alerting Policy.</p>
+        <p onclick="checkResponse(this)" correct>C. Create a custom log-based metric for the specific error to be used in an Alerting Policy.</p>
         <p onclick="checkResponse(this)">D. Grant Project Owner access to the Service Account./p>
     </div>
 
     <div class="question">
         <div class="question-text">
             <span class="question-number">#173</span>
-            You are developing a ¦nancial trading application that will be used globally. Data is stored and queried using a relational structure, and clients from all over the world should get the exact identical state of the data. The application will be deployed in multiple regions to provide the lowest latency to end users. You need to select a storage option for the application data while minimizing latency. What should you do?
+            You are developing a financial trading application that will be used globally. Data is stored and queried using a relational structure, and clients from all over the world should get the exact identical state of the data. The application will be deployed in multiple regions to provide the lowest latency to end users. You need to select a storage option for the application data while minimizing latency. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Use Cloud Bigtable for data storage.</p>
@@ -2210,7 +2210,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#174</span>
-            You are about to deploy a new Enterprise Resource Planning (ERP) system on Google Cloud. The application holds the full database in-memory for fast data access, and you need to con¦gure the most appropriate resources on Google Cloud for this application. What should you do?
+            You are about to deploy a new Enterprise Resource Planning (ERP) system on Google Cloud. The application holds the full database in-memory for fast data access, and you need to configure the most appropriate resources on Google Cloud for this application. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Provision preemptible Compute Engine instances.</p>
@@ -2225,7 +2225,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You have developed an application that consists of multiple microservices, with each microservice packaged in its own Docker container image. You want to deploy the entire application on Google Kubernetes Engine so that each microservice can be scaled individually. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Create and deploy a Custom Resource De¦nition per microservice.</p>
+        <p onclick="checkResponse(this)">A. Create and deploy a Custom Resource Definition per microservice.</p>
         <p onclick="checkResponse(this)">B. Create and deploy a Docker Compose File.</p>
         <p onclick="checkResponse(this)">C. Create and deploy a Job per microservice.</p>
         <p onclick="checkResponse(this)" correct>D. Create and deploy a Deployment per microservice.</p>
@@ -2247,7 +2247,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#177</span>
-            You are creating an application that will run on Google Kubernetes Engine. You have identi¦ed MongoDB as the most suitable database system for your application and want to deploy a managed MongoDB environment that provides a support SLA. What should you do?
+            You are creating an application that will run on Google Kubernetes Engine. You have identified MongoDB as the most suitable database system for your application and want to deploy a managed MongoDB environment that provides a support SLA. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Create a Cloud Bigtable cluster, and use the HBase API.</p>
@@ -2272,7 +2272,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#179</span>
-            Your company is moving its entire workload to Compute Engine. Some servers should be accessible through the Internet, and other servers should only be accessible over the internal network. All servers need to be able to talk to each other over speci¦c ports and protocols. The current onpremises network relies on a demilitarized zone (DMZ) for the public servers and a Local Area Network (LAN) for the private servers. You need to design the networking infrastructure on Google Cloud to match these requirements. What should you do?
+            Your company is moving its entire workload to Compute Engine. Some servers should be accessible through the Internet, and other servers should only be accessible over the internal network. All servers need to be able to talk to each other over specific ports and protocols. The current onpremises network relies on a demilitarized zone (DMZ) for the public servers and a Local Area Network (LAN) for the private servers. You need to design the networking infrastructure on Google Cloud to match these requirements. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. 1. Create a single VPC with a subnet for the DMZ and a subnet for the LAN. 2. Set up firewall rules to open up relevant tra¨c between the DMZ and the LAN subnets, and another firewall rule to allow public ingress tra¨c for the DMZ.</p>
@@ -2284,11 +2284,11 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#180</span>
-            You have just created a new project which will be used to deploy a globally distributed application. You will use Cloud Spanner for data storage. You want to create a Cloud Spanner instance. You want to perform the ¦rst step in preparation of creating the instance. What should you do?
+            You have just created a new project which will be used to deploy a globally distributed application. You will use Cloud Spanner for data storage. You want to create a Cloud Spanner instance. You want to perform the first step in preparation of creating the instance. What should you do?
             </div>
 
         <p onclick="checkResponse(this)" correct>A. Enable the Cloud Spanner API.</p>
-        <p onclick="checkResponse(this)">B. Con¦gure your Cloud Spanner instance to be multi-regional.</p>
+        <p onclick="checkResponse(this)">B. Configure your Cloud Spanner instance to be multi-regional.</p>
         <p onclick="checkResponse(this)">C. Create a new VPC network with subnetworks in all desired regions.</p>
         <p onclick="checkResponse(this)">D. Grant yourself the IAM role of Cloud Spanner Admin.</p>
     </div>
@@ -2320,7 +2320,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#183</span>
-            You need to manage a third-party application that will run on a Compute Engine instance. Other Compute Engine instances are already running with default con¦guration. Application installation ¦les are hosted on Cloud Storage. You need to access these ¦les from the new instance without allowing other virtual machines (VMs) to access these files. What should you do?
+            You need to manage a third-party application that will run on a Compute Engine instance. Other Compute Engine instances are already running with default configuration. Application installation files are hosted on Cloud Storage. You need to access these files from the new instance without allowing other virtual machines (VMs) to access these files. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Create the instance with the default Compute Engine service account. Grant the service account permissions on Cloud Storage.</p>
@@ -2332,13 +2332,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#184</span>
-            You need to con¦gure optimal data storage for ¦les stored in Cloud Storage for minimal cost. The ¦les are used in a mission-critical analytics pipeline that is used continually. The users are in Boston, MA (United States). What should you do?
+            You need to configure optimal data storage for files stored in Cloud Storage for minimal cost. The files are used in a mission-critical analytics pipeline that is used continually. The users are in Boston, MA (United States). What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Con¦gure regional storage for the region closest to the users. Con¦gure a Nearline storage class.</p>
-        <p onclick="checkResponse(this)">B. Con¦gure regional storage for the region closest to the users. Con¦gure a Standard storage class.</p>
-        <p onclick="checkResponse(this)">C. Con¦gure dual-regional storage for the dual region closest to the users. Con¦gure a Nearline storage class.</p>
-        <p onclick="checkResponse(this)" correct>D. Con¦gure dual-regional storage for the dual region closest to the users. Con¦gure a Standard storage class.</p>
+        <p onclick="checkResponse(this)">A. Configure regional storage for the region closest to the users. Configure a Nearline storage class.</p>
+        <p onclick="checkResponse(this)">B. Configure regional storage for the region closest to the users. Configure a Standard storage class.</p>
+        <p onclick="checkResponse(this)">C. Configure dual-regional storage for the dual region closest to the users. Configure a Nearline storage class.</p>
+        <p onclick="checkResponse(this)" correct>D. Configure dual-regional storage for the dual region closest to the users. Configure a Standard storage class.</p>
     </div>
 
     <div class="question">
@@ -2347,12 +2347,12 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You are developing a new web application that will be deployed on Google Cloud Platform. As part of your release cycle, you want to test updates to your application on a small portion of real user tra¨c. The majority of the users should still be directed towards a stable version of your application. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. Deploy the application on App Engine. For each update, create a new version of the same service. Con¦gure tra¨c splitting to send a small percentage of traffic to the new version.</p>
-        <p onclick="checkResponse(this)">B. Deploy the application on App Engine. For each update, create a new service. Con¦gure tra¨c splitting to send a small percentage of traffic to the new service.</p>
+        <p onclick="checkResponse(this)" correct>A. Deploy the application on App Engine. For each update, create a new version of the same service. Configure tra¨c splitting to send a small percentage of traffic to the new version.</p>
+        <p onclick="checkResponse(this)">B. Deploy the application on App Engine. For each update, create a new service. Configure tra¨c splitting to send a small percentage of traffic to the new service.</p>
         <p onclick="checkResponse(this)">C. Deploy the application on Kubernetes Engine. For a new release, update the deployment to use the new version.</p>
         <p onclick="checkResponse(this)">D. Deploy the application on Kubernetes Engine. For a new release, create a new deployment for the new version. Update the service to use the new deployment.</p>
     </div>
-    
+
     <div class="question">
         <div class="question-text">
             <span class="question-number">#186</span>
@@ -2368,7 +2368,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#187</span>
-            You need to manage a Cloud Spanner instance for best query performance. Your instance in production runs in a single Google Cloud region. You need to improve performance in the shortest amount of time. You want to follow Google best practices for service con¦guration. What should you do?
+            You need to manage a Cloud Spanner instance for best query performance. Your instance in production runs in a single Google Cloud region. You need to improve performance in the shortest amount of time. You want to follow Google best practices for service configuration. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Create an alert in Cloud Monitoring to alert when the percentage of high priority CPU utilization reaches 45%. If you exceed this threshold, add nodes to your instance.</p>
@@ -2380,7 +2380,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#188</span>
-            Your company has an internal application for managing transactional orders. The application is used exclusively by employees in a single physical location. The application requires strong consistency, fast queries, and ACID guarantees for multi-table transactional updates. The ¦rst version of the application is implemented in PostgreSQL, and you want to deploy it to the cloud with minimal code changes. Which database is most appropriate for this application?
+            Your company has an internal application for managing transactional orders. The application is used exclusively by employees in a single physical location. The application requires strong consistency, fast queries, and ACID guarantees for multi-table transactional updates. The first version of the application is implemented in PostgreSQL, and you want to deploy it to the cloud with minimal code changes. Which database is most appropriate for this application?
             </div>
 
         <p onclick="checkResponse(this)">A. BigQuery</p>
@@ -2392,13 +2392,13 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#189</span>
-            You are assigned to maintain a Google Kubernetes Engine (GKE) cluster named 'dev' that was deployed on Google Cloud. You want to manage the GKE con¦guration using the command line interface (CLI). You have just downloaded and installed the Cloud SDK. You want to ensure that future CLI commands by default address this speci¦c cluster What should you do?
+            You are assigned to maintain a Google Kubernetes Engine (GKE) cluster named 'dev' that was deployed on Google Cloud. You want to manage the GKE configuration using the command line interface (CLI). You have just downloaded and installed the Cloud SDK. You want to ensure that future CLI commands by default address this specific cluster What should you do?
             </div>
 
-        <p onclick="checkResponse(this)" correct>A. Use the command gcloud con¦g set container/cluster dev.</p>
+        <p onclick="checkResponse(this)" correct>A. Use the command gcloud config set container/cluster dev.</p>
         <p onclick="checkResponse(this)">B. Use the command gcloud container clusters update dev.</p>
         <p onclick="checkResponse(this)">C. Create a file called gke.default in the ~/.gcloud folder that contains the cluster name.</p>
-        <p onclick="checkResponse(this)">D. Create a ¦le called defaults.json in the ~/.gcloud folder that contains the cluster name.</p>
+        <p onclick="checkResponse(this)">D. Create a file called defaults.json in the ~/.gcloud folder that contains the cluster name.</p>
     </div>
 
     <div class="question">
@@ -2416,11 +2416,11 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#191</span>
-            You have deployed multiple Linux instances on Compute Engine. You plan on adding more instances in the coming weeks. You want to be able to access all of these instances through your SSH client over the internet without having to con¦gure speci¦c access on the existing and new instances. You do not want the Compute Engine instances to have a public IP. What should you do?
+            You have deployed multiple Linux instances on Compute Engine. You plan on adding more instances in the coming weeks. You want to be able to access all of these instances through your SSH client over the internet without having to configure specific access on the existing and new instances. You do not want the Compute Engine instances to have a public IP. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Con¦gure Cloud Identity-Aware Proxy for HTTPS resources.</p>
-        <p onclick="checkResponse(this)" correct>B. Con¦gure Cloud Identity-Aware Proxy for SSH and TCP resources</p>
+        <p onclick="checkResponse(this)">A. Configure Cloud Identity-Aware Proxy for HTTPS resources.</p>
+        <p onclick="checkResponse(this)" correct>B. Configure Cloud Identity-Aware Proxy for SSH and TCP resources</p>
         <p onclick="checkResponse(this)">C. Create an SSH keypair and store the public key as a project-wide SSH Key.</p>
         <p onclick="checkResponse(this)">D. Create an SSH keypair and store the private key as a project-wide SSH Key.</p>
     </div>
@@ -2445,14 +2445,14 @@ VMs must be able to reach each other over Internal IP without creating additiona
 
         <p onclick="checkResponse(this)">A. Review the Error Reporting page in the Cloud Console to find any errors.</p>
         <p onclick="checkResponse(this)">B. Use the BigQuery interface to review the nightly job and look for any errors.</p>
-        <p onclick="checkResponse(this)">C. Use Cloud Debugger to ¦nd out why the data was not refreshed correctly.</p>
-        <p onclick="checkResponse(this)" correct>D. In Cloud Logging, create a ¦lter for your Data Studio report.</p>
+        <p onclick="checkResponse(this)">C. Use Cloud Debugger to find out why the data was not refreshed correctly.</p>
+        <p onclick="checkResponse(this)" correct>D. In Cloud Logging, create a filter for your Data Studio report.</p>
     </div>
-    
+
     <div class="question">
         <div class="question-text">
             <span class="question-number">#194</span>
-            You have been asked to set up the billing con¦guration for a new Google Cloud customer. Your customer wants to group resources that share common IAM policies. What should you do?
+            You have been asked to set up the billing configuration for a new Google Cloud customer. Your customer wants to group resources that share common IAM policies. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Use labels to group resources that share common IAM policies.</p>
@@ -2467,12 +2467,12 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You have been asked to create robust Virtual Private Network (VPN) connectivity between a new Virtual Private Cloud (VPC) and a remote site. Key requirements include dynamic routing, a shared address space of 10.19.0.1/22, and no overprovisioning of tunnels during a failover event. You want to follow Google- recommended practices to set up a high availability Cloud VPN. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Use a custom mode VPC network, con¦gure static routes, and use active/passive routing.</p>
-        <p onclick="checkResponse(this)">B. Use an automatic mode VPC network, con¦gure static routes, and use active/active routing.</p>
+        <p onclick="checkResponse(this)">A. Use a custom mode VPC network, configure static routes, and use active/passive routing.</p>
+        <p onclick="checkResponse(this)">B. Use an automatic mode VPC network, configure static routes, and use active/active routing.</p>
         <p onclick="checkResponse(this)" correct>C. Use a custom mode VPC network, use Cloud Router border gateway protocol (BGP) routes, and use active/passive routing.</p>
-        <p onclick="checkResponse(this)">D. Use an automatic mode VPC network, use Cloud Router border gateway protocol (BGP) routes, and con¦gure policy-based routing.</p>
+        <p onclick="checkResponse(this)">D. Use an automatic mode VPC network, use Cloud Router border gateway protocol (BGP) routes, and configure policy-based routing.</p>
     </div>
-    
+
     <div class="question">
         <div class="question-text">
             <span class="question-number">#196</span>
@@ -2482,7 +2482,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. Assign the pods of the image rendering microservice a higher pod priority than the other microservices.</p>
         <p onclick="checkResponse(this)" correct>B. Create a node pool with compute-optimized machine type nodes for the image rendering microservice. Use the node pool with generalpurpose machine type nodes for the other microservices.</p>
         <p onclick="checkResponse(this)">C. Use the node pool with general-purpose machine type nodes for the image rendering microservice. Create a node pool with computeoptimized machine type nodes for the other microservices.</p>
-        <p onclick="checkResponse(this)">D. Con¦gure the required amount of CPU and memory in the resource requests speci¦cation of the image rendering microservice deployment.
+        <p onclick="checkResponse(this)">D. Configure the required amount of CPU and memory in the resource requests specification of the image rendering microservice deployment.
             Keep the resource requests for the other microservices at the default./p>
     </div>
 
@@ -2497,7 +2497,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">C. 1. Verify that you are assigned the Organization Administrator IAM role for your organization's Google Cloud account. 2. Create a new Google Cloud Project for the Marketing department. 3. Link the new project to a Marketing Billing Account.</p>
         <p onclick="checkResponse(this)">D. 1. Verify that you are assigned the Organization Administrator IAM role for your organization's Google Cloud account. 2. Create a new Google Cloud Project for the Marketing department. 3. Set the default key-value project labels to department:marketing for all services in this project.</p>
     </div>
-    
+
 </body>
 
 </html>
