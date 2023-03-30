@@ -743,7 +743,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
         <p onclick="checkResponse(this)">A. 1. Create an ingress firewall rule with the following settings: >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.2.0/24)  >Protocols: allow all 2. Create an ingress firewall rule with the following settings:  >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.1.0/24)  >Protocols: allow all</p>
         <p onclick="checkResponse(this)" correct>B. 1. Create an ingress firewall rule with the following settings:  >Targets: all instances with tier #2 service account  >Source filter: all instances with tier #1 service account  >Protocols: allow TCP:8080 2. Create an ingress firewall rule with the following settings:  >Targets: all instances with tier #3 service account  >Source filter: all instances with tier #2 service account  >Protocols: allow TCP: 8080</p>
         <p onclick="checkResponse(this)">C. 1. Create an ingress firewall rule with the following settings:  >Targets: all instances with tier #2 service account >Source filter: all instances with tier #1 service account  >Protocols: allow all 2. Create an ingress firewall rule with the following settings:  >Targets: all instances with tier #3 service account  >Source filter: all instances with tier #2 service account  >Protocols: allow all</p>
-        <p onclick="checkResponse(this)">D. 1. Create an egress firewall rule with the following settings:  >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.2.0/24)  €¢גProtocols: allow TCP: 8080 2. Create an egress firewall rule with the following settings:  >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.1.0/24)  >Protocols: allow TCP: 8080</p>
+        <p onclick="checkResponse(this)">D. 1. Create an egress firewall rule with the following settings:  >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.2.0/24)  >Protocols: allow TCP: 8080 2. Create an egress firewall rule with the following settings:  >Targets: all instances  >Source filter: IP ranges (with the range set to 10.0.1.0/24)  >Protocols: allow TCP: 8080</p>
     </div>
 
     <div class="question">
@@ -1085,7 +1085,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You are operating a Google Kubernetes Engine (GKE) cluster for your company where different teams can run non-production workloads. Your Machine Learning (ML) team needs access to Nvidia Tesla P100 GPUs to train their models. You want to minimize effort and cost. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Ask your ML team to add the €גaccelerator: gpu €גannotation to their pod specification.</p>
+        <p onclick="checkResponse(this)">A. Ask your ML team to add the "accelerator: gpu" annotation to their pod specification.</p>
         <p onclick="checkResponse(this)">B. Recreate all the nodes of the GKE cluster to enable GPUs on all of them.</p>
         <p onclick="checkResponse(this)">C. Create your own Kubernetes cluster on top of Compute Engine with nodes that have GPUs. Dedicate this cluster to your ML team.</p>
         <p onclick="checkResponse(this)" correct>D. Add a new, GPU-enabled, node pool to the GKE cluster. Ask your ML team to add the cloud.google.com/gke -accelerator: nvidia-tesla-p100 nodeSelector to their pod specification.</p>
@@ -1748,7 +1748,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
     <div class="question">
         <div class="question-text">
             <span class="question-number">#136</span>
-            Your company runs one batch process in an on-premises server that takes around 30 hours to complete. The task runs monthly, can be performed o©ine, and must be restarted if interrupted. You want to migrate this workload to the cloud while minimizing cost. What should you do?
+            Your company runs one batch process in an on-premises server that takes around 30 hours to complete. The task runs monthly, can be performed offline, and must be restarted if interrupted. You want to migrate this workload to the cloud while minimizing cost. What should you do?
             </div>
 
         <p onclick="checkResponse(this)">A. Migrate the workload to a Compute Engine Preemptible VM.</p>
@@ -2092,7 +2092,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             You have experimented with Google Cloud using your own credit card and expensed the costs to your company. Your company wants to streamline the billing process and charge the costs of your projects to their monthly invoice. What should you do?
             </div>
 
-        <p onclick="checkResponse(this)">A. Grant the financial team the IAM role of €גBilling Account User €גon the billing account linked to your credit card.</p>
+        <p onclick="checkResponse(this)">A. Grant the financial team the IAM role of "Billing Account User" on the billing account linked to your credit card.</p>
         <p onclick="checkResponse(this)">B. Set up BigQuery billing export and grant your financial department IAM access to query the data.</p>
         <p onclick="checkResponse(this)">C. Create a ticket with Google Billing Support to ask them to send the invoice to your company.</p>
         <p onclick="checkResponse(this)" correct>D. Change the billing account of your projects to the billing account of your company.</p>
@@ -2141,7 +2141,7 @@ VMs must be able to reach each other over Internal IP without creating additiona
             </div>
 
         <p onclick="checkResponse(this)">A. Create a Pub/Sub topic, and enable a Cloud Storage trigger for the Pub/Sub topic. Create an application that sends all medical images to the Pub/Sub topic.</p>
-        <p onclick="checkResponse(this)">B. Deploy a Dataflow job from the batch template, €גDatastore to Cloud Storage. €גSchedule the batch job on the desired interval.</p>
+        <p onclick="checkResponse(this)">B. Deploy a Dataflow job from the batch template, "Datastore to Cloud Storage". Schedule the batch job on the desired interval.</p>
         <p onclick="checkResponse(this)" correct>C. Create a script that uses the gsutil command line interface to synchronize the on-premises storage with Cloud Storage. Schedule the script as a cron job.</p>
         <p onclick="checkResponse(this)">D. In the Cloud Console, go to Cloud Storage. Upload the relevant images to the appropriate bucket.</p>
     </div>
