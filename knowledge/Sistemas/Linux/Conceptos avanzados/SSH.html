@@ -1,0 +1,145 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">SSH</h1>
+
+    <div class="t2">Configuración OpenSSH Server</div>
+        <div class="cont">
+          <p>Para saber si el servidor se está ejecutando buscamos el proceso <b>sshd</b> en la lista de procesos, si el servidor no está en ejecución podemos ejecutarlo con:</p>
+          <code>#/etc/init.d/ssh start</code>
+          <p>o con (en sistemas con systemd):</p>
+          <code>#systemctl start ssh.service</code>
+
+          <p><b>NOTA:</b> Si tenemos problemas y queremos lanzar sshd en modo depuración podemos hacerlo con el comando <b>/usr/sbin/sshd -d</b></p>
+
+          <p><b>NOTA 2:</b> Siempre que hagamos cambios en el archivo de configuración tendremos que reiniciar el servidor, podemos hacerlo con la opción <b>restart</b> en vez de start</p>
+
+          <p>Para configurar el servidor lo hacemos a traves del archivio <b>/etc/ssh/sshd_config</b></p>
+
+          <p>Una de las opciones que tenemos que tener en cuenta al principio es la siguiente:</p>
+          <code>PasswordAuthentication no</code>
+
+          <p>Esta opción determina si podremos usar una <b>contraseña</b> para acceder o si tendremos que tener configurada una <b>clave publica</b>, principalmente estará configurado como "<b>no</b>", si queremos utilizar una contraseña tendremos que poner la opción a "<b>yes</b>"</p>
+
+          <p><b>NOTA:</b> No confundir esta contraseña, que es la contraseña del propio <b>usuario</b> con el que nos vayamos a identificar con la contraseña que podemos tener para nuestra <b>clave privada</b></p>
+
+          <p>El usuario con el que accederemos será uno de los <b>usuarios creados en el servidor</b>, si tenemos deshabilitada la opción de loguearnos con contraseña, tendremos que tener configurada una clave pública dentro de la carpeta del usuario (en el servidor) en: <b>~/.ssh/authorized_keys</b></p>
+
+          <h2>Crear claves publica/privada</h2>
+          <p>Para utilizar una clave pública para poder acceder al servidor primero tendremos que generar la clave, y despues tendremos que almacenar dicha clave en el servidor.</p>
+
+          <p>Para crear la clave lo hacemos con el siguiente comando (lo hacemos desde el cliente):</p>
+
+          <code>ssh-keygen</code>
+
+          <p>Al ejecutar el comando sin parámetros se ejecutará de manera interactiva, pregundandonos donde queremos guardar las claves y si queremos aplicar una contraseña a la clave privada que se generará, si no indicamos ninguna ruta la que se usará por defecto es <b>~/.ssh/id_rsa</b>, la clave pública se guardará con el mismo nombre, pero con la terminación <b>.pub</b>, por defecto será <b>id_rsa.pub</b>.</p>
+
+          <p>Si hemos indicado una contraseña (passphrase) para proteger nuestra <b>clave privada</b> está contraseña se nos preguntará cada vez que nos conectemos a un servidor y se use dicha clave.</p>
+
+          <h2>Configurar clave pública en el servidor</h2>
+          <p>Una vez tenemos generado nuestro par de claves público/privada tendremos que configurar la clave <b>pública</b> en el servidor, para que podamos acceder usando nuestra clave privada, para ello tenemos que crear el siguiente archivo:</p>
+
+          <code>/home/&lt;usuario&gt;/.ssh/authorized_keys</code>
+
+          <p><b>&lt;usuario&gt;</b> será el usuario que usaremos para loguearnos, esta será la carpeta donde <b>sshd</b> buscará las claves publicas (según el usuario con el que nos intentemos loguear buscará en la carpeta del propio usuario), si queremos podemos modificar esta carpeta, para indicar una carpeta alternativa modificando en el archivo <b>/etc/ssh/sshd_config</b> la opción:</p>
+
+          <code>AuthorizedKeysFile /etc/ssh/keys/%u/authorized_keys</code>
+
+          <p>Dentro del archivo <b>authorized_keys</b> colocaremos la <b>clave pública</b> que generamos previamente en el cliente, el contenido del archivo <b>id_rsa.pub</b></p>
+
+          <p>Una vez tenemos hechas todas estas configuraciones en el servidor ya podremos conectarnos desde el cliente.</p>
+
+          <p>Para conectarnos desde el cliente usaremos el comando <b>ssh</b>, de la siguiente manera:</p>
+
+          <code>ssh usuario@host</code>
+
+          <p>Si usamos el comando de esta manera buscará la clave privada en <b>~/.ssh/id_rsa</b>, que es la ruta donde <b>ssh-keygen</b> nos genera nuestro par de claves por defecto, si queremos indicar una ruta alternativa podemos usar la opción <b>-i</b>:</p>
+
+          <code>ssh miUsuario@ejemplo.com -i mi_archivo</code>
+
+          <h2>Troubleshooting</h2>
+
+          <p>Al intentar acceder a un servidor con el comando <b>ssh</b> nos aparece el siguiente error:</p>
+          <code>Permission denied (publickey)</code>
+
+          <p>Si nos encontramos con este error probablemente tendremos un problema con nuestras claves publica/privada, podemos volver a genrar las claves con <b>ssh-keygen</b> en el cliente y volver a cargar la clave publica en el archivo <b>authorized_keys</b> en el servidor para asegurarnos de que estamos usando las claves correctas.</p>
+        </div>
+
+    <div class="t2">SSH tunneling</div>
+        <div class="cont">
+          <p>El tunneling nos permite crear una conexión entre un cliente y un servidor y a traves de esta conexión conectar otros protocolos que iran encapsulados dentro de la conexión de ssh, de esta manera los datos viajan seguros y a mayores nos permite realizar una redirección de puertos lo que puede ser util para saltarse el bloqueo de un firewall por ejemplo.</p>
+
+          <p>El tunneling lo podemos hacer de manera remota o de manera local.</p>
+
+          <h2>Redirección remota</h2>
+          <p>Si lo hacemos de manera remota nos permitirá poner un puerto a la escucha en el servidor redireccionado al puerto que indiquemos en el cliente, de manera que cualquiera programa del servidor que se conecte de manera local a ese puerto se conectará automáticamente al puerto que hemos indicado de nuestro cliente.</p>
+
+          <p>Para hacer una redirección remota lo hacemos con el siguiente comando:</p>
+          <code>ssh -v -N -R 8083:127.0.0.1:8085 -l usuario 192.168.1.4</code>
+
+          <p>Los disinttos parámetros se explican a continuación:</p>
+
+          <ul>
+            <li><b>-v</b>: Modo verbose, nos mostrará mas información sobre las conexiones que se hagan sobre el tunel</li>
+            <li><b>-N</b>: Previene que se muestre el shell interactivo, en este caso solo queremos el tunnel, no una shell</li>
+            <li><b>-R</b>: Redirección remota</li>
+            <li><b>8083:localhost:8085</b>: La redirección en si</li>
+            <li><b>-l usuario</b>: El usuario con el que nos queremos loguear en el servidor ssh</li>
+            <li><b>192.168.1.4</b>: La dirección del servidor remoto</li>
+          </ul>
+
+          <p>En este caso le estamos diciendo que queremos redireccionar el puerto <b>8083</b> del servidor remoto al puerto <b>8085</b> de nuestro equipo local, por lo tanto todas las conexiones que se hagan en el servidor remoto al puerto 8083 serán redirigidas a traves de ssh al puerto 8085 de nuestro equipo local</p>
+        </div>
+
+    <div class="t2">SCP</div>
+        <div class="cont">
+          <p>Podemos usar el comando <b>scp</b> para transmitir archivos a traves de ssh.</p>
+
+          <p>la sintaxis del comando es la siguiente:</p>
+          <code>scp archivo_local usuario@host:/ruta_remota</code>
+
+          <p>Por ejemplo:</p>
+
+          <code>scp ejemplo.txt ejemploUsuario@192.168.1.4:/home/ejemploUsuario/</code>
+
+          <p>Si solo indicamos la carpeta de destino el archivo se creará con el mismo nombre que el que tenemos en local</p>
+
+          <p>Si queremos copiar carpeta tendremos que usar la opción <b>-r</b> al indicar una carpeta, si no lo hacemos obtendremos un error como el siguiente:</p>
+          <code>carpetaTest: not a regular file</code>
+
+          <p>Un ejemplo sería el siguiente:</p>
+          <code>scp -r carpetaTest ejemploUsuario@192.168.1.4:/home/ejemploUsuario/</code>
+
+          <p><b>Aclaración:</b> Si queremos usar el parámetro <b>-i</b> para indicar una clave privada alternativa a la por defecto tendremos que usar este parámetro antes de indicar los archivos a envíar en la linea de comandos, si usamos el parámetro <b>-i</b> al final despues de haber indicado los archivos el comando no funcionará.</p>
+
+          <h2>Troubleshooting</h2>
+
+          <p>Cuando queremos pasar un archivo tenemos que tener en cuenta que la ruta del servidor de destino se indica desde la raíz del sistema, un error tipico es el siguiente:</p>
+
+          <code>scp ejemplo.txt ejemploUsuario@192.168.1.4:/</code>
+
+          <p>Ese comando intentará copiar el archivo <b>ejemplo.txt</b> en la carpeta raiz <b>/</b> y como el usuario <b>ejemploUsuario</b> no tiene permisos para escribir en esa carpeta obtendremos el siguiente error:</p>
+
+          <code>scp: /ejemplo.txt: Permission denied</code>
+
+          <p>Normalmente intentaremos escribir siempre en la carpeta del usuario con el que nos estamos conectando, podemos usar el caracter "<b>~</b>" para acceder directamente a la carpeta del usuario, el comando anterior sería así:</p>
+          <code>scp ejemplo.txt ejemploUsuario@192.168.1.4:~/</code>
+
+
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>SSH | OpenSSH | SCP | Tunneling</p>
+        </div>
+
+    </body>
+</html>
