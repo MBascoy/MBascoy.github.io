@@ -1,0 +1,66 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Keys markup</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como hacer para mostrar teclas en un formato amigable dentro de HTML</p>
+
+          <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd">Pagina referencia mozilla</a> </p>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>En html podemos usar la etiqueta <b>&lt;kbd&gt;</b> para representar una tecla visualmente, a mayores necesitamos el siguiente <b>CSS</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">kbd</span> {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">background-color</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">#eee</span>;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">border-radius</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">3px</span>;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">border</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">1px</span> solid <span style="color:rgb(249, 145, 87); font-weight:400;">#b4b4b4</span>;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">box-shadow</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">0</span> <span style="color:rgb(249, 145, 87); font-weight:400;">1px</span> <span style="color:rgb(249, 145, 87); font-weight:400;">1px</span> <span style="color:rgb(181, 189, 104); font-weight:400;">rgba</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0.2</span>), <span style="color:rgb(249, 145, 87); font-weight:400;">0</span> <span style="color:rgb(249, 145, 87); font-weight:400;">2px</span> <span style="color:rgb(249, 145, 87); font-weight:400;">0</span> <span style="color:rgb(249, 145, 87); font-weight:400;">0</span> <span style="color:rgb(181, 189, 104); font-weight:400;">rgba</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">255</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">255</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">255</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0.7</span>) inset;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">color</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">#333</span>;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">display</span>: inline-block;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">font-size</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">1em</span>;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">font-weight</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">700</span>;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">line-height</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">padding</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">2px</span> <span style="color:rgb(249, 145, 87); font-weight:400;">4px</span>;
+    <span style="color:rgb(129, 162, 190); font-weight:400;">white-space</span>: nowrap;
+}</code></pre>
+
+            <p>Una vez tenemos esto solo tenemos que indicar con la etiqueta  <b>&lt;kbd&gt;</b> la tecla que queremos representar de la siguiente manera:</p>
+
+            <code>&lt;kbd&gt;Espacio&lt;/kbd&gt;</code>
+
+            <p>Tambien podemos hacer anidaciones:</p>
+
+            <code>&lt;kbd&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt; &lt;kbd&gt;Alt&lt;/kbd&gt; &lt;kbd&gt;Del&lt;/kbd&gt;&lt;/kbd&gt;</code>
+
+            <p>Los ejemplos anteriores se verían así:</p>
+
+            <kbd>Espacio</kbd>
+
+            <br/>
+            <br/>
+
+            <kbd><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>Del</kbd> </kbd>
+
+            <p>Ejemplo teclas integradas en texto:</p>
+
+            <p>Pulsa la tecla <kbd>Esc</kbd> para acceder, tecla <kbd>+</kbd> para hace zoom y combinación de <kbd><kbd>Ctrl</kbd> + <kbd>/</kbd></kbd> para buscar</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>HTML | key | input</p>
+        </div>
+
+    </body>
+</html>
