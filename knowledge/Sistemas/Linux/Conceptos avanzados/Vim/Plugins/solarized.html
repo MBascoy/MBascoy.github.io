@@ -1,0 +1,49 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">solarized</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Nos permite cambiar el esquema de colores de vim.</p>
+        </div>
+
+    <div class="t2">Instalacion</div>
+        <div class="cont">
+          <ul>
+            <li>Configuración vimrc:</li>
+            <code>Plug 'altercation/vim-colors-solarized'</code>
+
+            <li>Copiamos el esquema de colores del plugin que se acaba de descargar en la carpeta de colores de vim:</li>
+            <p>(Si no tenemos la carpeta <b>.vim/colors</b> tenemos que crearla)</p>
+            <code>mkdir ~/.vim/colors</code>
+            <code>mv ~/.vim/plugged/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/</code>
+
+            <li>Editamos el archivo .vimrc para que se utilice el esquema de colores de solarized usando la siguiente configuracion:</li>
+            <pre><code>syntax enable
+set background=dark
+colorscheme solarized</code></pre>
+
+            <li>Con estos cambios el plugin ya estaría funcional en terminales como <b>gvim</b>, pero si estamos usando un terminal de 256 colores, tendremos que añadir la siguiente configuración:</li>
+            <p><b>NOTA</b>: esta configuración tiene que ir ANTES de <b>colorscheme solarized</b></p>
+
+            <code>let g:solarized_termcolors=256</code>
+
+            <p>Esta configuración usará una versión degradada de los colores de solarized, si queremos usar los colores puros del plugin, tendremos que utilizar una terminal modificada o una interfaz gráfica como <b>gvim</b>.</p>
+          </ul>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Vim | plugin | polyglot</p>
+        </div>
+
+    </body>
+</html>
