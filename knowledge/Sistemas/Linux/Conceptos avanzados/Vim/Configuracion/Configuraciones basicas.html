@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Configuraciones basicas</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Configuraciones básicas que podemos realizar en el archivo <b>.vimrc</b> como "sintaxis highlight" o el "numero de lineas"</p>
+        </div>
+
+    <div class="t2">Configuracion</div>
+        <div class="cont">
+          <p>Para realizar la configuración de vim lo podemos hacer desde dos archivos:</p>
+
+          <p>De manera <b>local</b> para el usuario actual, tenemos que modificar el archivo:</p>
+          <code>~/.vimrc</code>
+
+          <p>De manera <b>global</b>, para cualquier usuario, tenemos que modificar el archivo:</p>
+          <code>/etc/vimrc</code>
+
+          <p>En algunas distribuciones el archivo global es el siguiente:</p>
+          <code>/etc/vim/vimrc</code>
+
+          <p>La configuración local sobreescribirá a la configuración global, en caso de que existan los dos archivos.</p>
+        </div>
+
+    <div class="t2">Syntax highlight</div>
+        <div class="cont">
+          <p>El <b>syntax highlight</b> nos permite hacer que los distintos elementos de un código se coloreen de una manera diferente.</p>
+
+          <p>Para activar esta opción solo tenemos que incluir la siguiente linea en el archivo de configuración:</p>
+
+          <code>syntax on</code>
+
+          <p>Si queremos activar esta opción desde el propio vim para la sesión actual podemos hacerlo con el comando:</p>
+
+          <code>:syntax on</code>
+
+          <p>(para desactivarlo):</p>
+          <code>:syntax off</code>
+        </div>
+
+    <div class="t2">Establecer numeros de linea</div>
+        <div class="cont">
+          <p>Para activar los numeros de linea añadimos la siguiente opción en el archivo de configuración:</p>
+          <code>set number</code>
+
+          <p>Para <b>activar</b> o <b>desactivar</b> desde la sesión actual de vim usamos:</p>
+
+          <code>:set number</code>
+          <code>:set nonumber</code>
+        </div>
+
+    <div class="t2">Establecer tamño de tabulador y usar espacios en vez de tabulado</div>
+        <div class="cont">
+          <p>Para establecer las tabulaciones y que se hagan con espacios lo hacemos de la siguiente manera:</p>
+          <code>set tabstop=4 shiftwidth=4 expandtab</code>
+
+          <ul>
+            <li><b>tabstop</b>: indica el tamaño de un tabulador</li>
+            <li><b>shiftwidth</b>: es el tamaño con que indentará un plugin, por ejemplo <b>smartindent</b>, de manera automatica</li>
+            <li><b>expandtab</b>: Modifica los tabuladores para que sean espacios</li>
+          </ul>
+        </div>
+
+    <div class="t2">Establecer autoindentación</div>
+        <div class="cont">
+          <p>Para activar la <b>autoindentacion</b> que trae vim por defecto lo hacemos con:</p>
+
+          <code>set autoindent</code>
+
+          <p>Esta autoindentación lo único que hará será <b>mantener el tamaño de la tabulación</b> actual que tengamos, pero no indentará según el código que estemos escribiendo, si hemos pulsado dos veces el tabulador despues al pulsar enter, en la siguiente linea se nos mantendrán esos dos tabuladores, pero nada más.</p>
+
+          <p>Para la autoindentación de <b>código en C</b> podemos usar la siguiente opción:</p>
+          <code>set smartindent</code>
+
+          <p>Si queremos tener autoindentación en otros lenguajes tendrémos que instalar un <b>plugin</b> a mayores.</p>
+        </div>
+
+    <div class="t2">Otras configuraciones</div>
+        <div class="cont">
+
+          <p>Establecer la posicion del cursor en la barra de estado:</p>
+          <code>set ruler</code>
+          <img src="Configuraciones basicas/1.png"/>
+
+          <p>Mostrar el comando que estamos ejecutando en la barra de estado, sobre todo cuando usamos la tecla <b>&lt;LEADER&gt;</b></p>
+          <code>set showcmd</code>
+          <img src="Configuraciones basicas/2.png"/>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Vim | configuracion </p>
+        </div>
+
+    </body>
+</html>
