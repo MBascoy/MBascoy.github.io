@@ -10,6 +10,76 @@
     <div class="t2">Descripcion</div>
         <div class="cont">
           <p>Como instalar <b>plugins</b> en <b>Vim</b> para conseguir nuevas funcionalidades.</p>
+
+          <p>Para instalar plugins en vim usaremos un gestor de plugins, podemos usar <b>vim-plug</b> o <b>vundle</b>.</p>
+        </div>
+
+    <div class="t2">vim-plug</div>
+        <div class="cont">
+          <p>Para instalar <b>vim-plug</b> lanzamos el siguiente comando:</p>
+          <code>curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim</code>
+
+          <p>Una vez finalizada la descarga, ya podremos realizar la instalación de plugins.</p>
+
+          <h2>Instalación de plugins</h2>
+
+          <p>Para instalar plugins tenemos que modificar el archivo <b>.vimrc</b> añadiendo la siguiente configuración:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">set</span> nocompatible
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">call</span> plug#<span style="color:rgb(204, 153, 204); font-weight:400;">begin</span>()
+
+Plug <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;nombrePlugin&#x27;</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">call</span> plug#<span style="color:rgb(204, 153, 204); font-weight:400;">end</span>()</code></pre>
+
+          <p>Por cada uno de los plugins que vayamos a instalar tenemos que tener una linea <b>Plug</b> dentro del bloque <b>"begin" "end"</b> indicando el nombre del plugin (este nombre es en realidad el usuario del github y el repo donde se encuentra dicho plugin, vim-plug se encarga de buscar en github y hacer la descarga, tambien se pueden indicar urls concretas a la hora de indicar plugins en la configuración).</p>
+
+          <p>En este caso vamos a instalar el plugin polyglot que nos permite formatear el código de varios lenguajes a medida que vayamos escribiendo.</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">call</span> plug#<span style="color:rgb(204, 153, 204); font-weight:400;">begin</span>()
+
+Plug <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;sheerun/vim-polyglot&#x27;</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">call</span> plug#<span style="color:rgb(204, 153, 204); font-weight:400;">end</span>()</code></pre>
+
+          <p>Para hacer la instalación de los plugins una vez guardado el archivo .vimrc tendremos cerrar y volver a abrir vim para que se carge la configuración o lanzar el siguiente comando sin necesidad de reiniciar el programa:</p>
+
+          <code>:source %</code>
+
+          <p>Una vez se haya cargado la configuración lanzamos el siguiente comando desde vim:</p>
+
+          <code>:PlugInstall</code>
+
+          <p>Al lanzar el comando se abre una nueva ventana dentro del editor que nos indica el estado de la instalación de los plugins:</p>
+
+          <img src="Instalar plugins/3.png">
+
+          <p>Una vez finalizada la instalación de los plugins podemos cerrar la ventana con <b>:q</b></p>
+
+          <h2>Desinstalación de plugins</h2>
+
+          <p>Para desinstalar plugins primero tendremos que borrar el plugin que queremos desinstalar de nuestro archivo .vimrc</p>
+
+          <p>Una vez borrada la linea en la que se mencionaba el plugin recargamos la configuración de vim (saliendo y entrando o con <b>:source %</b>)</p>
+
+          <p>Lanzamos el siguiente comando desde vim:</p>
+          <code>:PlugClean</code>
+
+          <p>Nos mostrará los plugins que serán eliminados y si realmente queremos borrarlos:</p>
+          <img src="Instalar plugins/1.png">
+
+          <p>Al aceptar se mostrará de la siguiente manera que se ha borrado el plugin:</p>
+          <img src="Instalar plugins/2.png">
+
+          <h2>Actualizar plugins</h2>
+          <p>Para actualizar la lista de plugins que tenemos configurada lo hacemos con el siguiente comando:</p>
+          <code>:PlugUpdate</code>
+
+          <h2>Actualizar vim-plug</h2>
+          <p>Para actualizar el propio plugin de gestión de plugins lo hacemos con el siguiente comando:</p>
+          <code>:PlugUpgrade</code>
+          
         </div>
 
     <div class="t2">Tags</div>
