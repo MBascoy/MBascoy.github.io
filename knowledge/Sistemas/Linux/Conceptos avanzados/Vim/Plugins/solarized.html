@@ -36,13 +36,73 @@ colorscheme solarized</code></pre>
 
             <code>let g:solarized_termcolors=256</code>
 
-            <p>Esta configuración usará una versión degradada de los colores de solarized, si queremos usar los colores puros del plugin, tendremos que utilizar una terminal modificada o una interfaz gráfica como <b>gvim</b>.</p>
+            <p>Esta configuración usará una versión degradada de los colores de solarized, si queremos usar los colores puros del plugin, tendremos que utilizar una terminal modificada o una interfaz gráfica como <b>gvim</b>, o modificar los colores de la terminal para que cuadre con el esquema de colores de solarized</p>
           </ul>
+        </div>
+
+    <div class="t2">Configuracion terminales</div>
+        <div class="cont">
+          <p>Para usar el esquema de colores desde una terminal sin tener que usar el sistema de colores degragado tendremos que añadir a mayores configuraciones en la terminal que vayamos a usar.</p>
+          <h2>Konsole</h2>
+
+          <h2>Windows Terminal</h2>
+          <p>No confundir con <b>cmd</b> esta terminal no es la que viene por defecto en Windows, se puede <a href="https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701?hl=es-es&gl=es">descargar desde la Microsoft Store</a></p>
+
+          <p>Para aplicar el esquema de colores seguimos estos pasos</p>
+
+          <p>Nos vamos a <b>settings</b>:</p>
+
+          <img src="solarized/1.png">
+
+          <p>Seleccionamos el terminal y le damos a <b>Appearance</b>:</p>
+
+          <img src="solarized/2.png">
+
+          <p>Seleccinoamos <b>Solarized dark</b> y le damos a <b>Save</b>:</p>
+
+          <img src="solarized/3.png">
+
+
+
+          <h2>VSCode integrated terminal</h2>
+          <p>Para cambiar la configuración en la terminal integrada de VSCode, lo hacemos de la siguiente manera:</p>
+
+          <p>Pulsamos <kbd>F1</kbd> y buscamos <b>user settings</b>:</p>
+
+          <img src="solarized/4.png">
+
+          <p>Y en el archivo JSON de configuración añadimos la opcion <b>"workbench.colorCustomizations"</b> con el siguiente contenido:</p>
+
+          <pre><code>"workbench.colorCustomizations": {
+    "terminal.background":"#002B36",
+    "terminal.foreground":"#93A1A1",
+    "terminalCursor.background":"#93A1A1",
+    "terminalCursor.foreground":"#93A1A1",
+    "terminal.ansiBlack":"#002B36",
+    "terminal.ansiBlue":"#268BD2",
+    "terminal.ansiBrightBlack":"#657B83",
+    "terminal.ansiBrightBlue":"#268BD2",
+    "terminal.ansiBrightCyan":"#2AA198",
+    "terminal.ansiBrightGreen":"#859900",
+    "terminal.ansiBrightMagenta":"#6C71C4",
+    "terminal.ansiBrightRed":"#DC322F",
+    "terminal.ansiBrightWhite":"#FDF6E3",
+    "terminal.ansiBrightYellow":"#B58900",
+    "terminal.ansiCyan":"#2AA198",
+    "terminal.ansiGreen":"#859900",
+    "terminal.ansiMagenta":"#6C71C4",
+    "terminal.ansiRed":"#DC322F",
+    "terminal.ansiWhite":"#93A1A1",
+    "terminal.ansiYellow":"#B58900"
+}</code></pre>
+
+          <p>En la siguiente página podemos encontrar varios esquemas de colores para ser añadidos directamente en esta opción de configuración <a href="https://glitchbone.github.io/vscode-base16-term/#/">VSCode color scheme</a></p>
+
         </div>
 
     <div class="t2">Tags</div>
         <div class="cont">
-        <p>Vim | plugin | polyglot</p>
+        <p>Vim | plugin | solarized</p>
         </div>
 
     </body>

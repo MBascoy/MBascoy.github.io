@@ -1,0 +1,107 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">NERD Tree</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Nos permite acceder a un explorador de archivos dentro de vim.</p>
+        </div>
+
+    <div class="t2">Instalacion</div>
+        <div class="cont">
+          <ul>
+            <li>Configuración vimrc:</li>
+            <code>Plug 'scrooloose/nerdtree'</code>
+
+            <li>Configuramos el mapeo de teclas</li>
+            <pre><code>nnoremap &lt;leader&gt;n :NERDTreeFocus&lt;CR&gt;
+nnoremap &lt;C-n&gt; :NERDTree&lt;CR&gt;
+nnoremap &lt;C-t&gt; :NERDTreeToggle&lt;CR&gt;
+nnoremap &lt;C-f&gt; :NERDTreeFind&lt;CR&gt;</code></pre>
+
+            <li>Podemos añadir la siguiente configuración si queremos que NERD Tree se abra automaticamente:</li>
+            <code>autocmd VimEnter * NERDTree | wincmd p</code>
+
+            <li>Para que se muestren los archivos ocultos lo hacemos con la siguiente configuración:</li>
+            <code>let NERDTreeShowHidden=1</code>
+            <p>Si queremos podemos mostrar/ocultar durante la ejecución usando <kbd><kbd>Shift</kbd> + <kbd>i</kbd></kbd></p>
+          </ul>
+        </div>
+
+    <div class="t2">Configurar iconos, colores y fuentes</div>
+        <div class="cont">
+        <p>Para configurar los iconos y que estos tengan colores tenemos que instalar los siguientes plugins:</p>
+
+        <pre><code>Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'</code></pre>
+
+          <p>Una vez instalados estos plugins añadimos la siguiente configuración a nuestro <b>.vimrc</b>:</p>
+          <pre><code>let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeLimitedSyntax = 1</code></pre>
+
+          <p>Las tres primeras lineas son para hacer que los nombres de los archivos se resalten con el mismo color que el icono, y la ultima linea limita el numero de extensiones que manejará el plugin, esto se hace para evitar problemas de rendimiento</p>
+
+          <h2>Instalar fuentes</h2>
+
+          <p>Una vez hechos los pasos anteriores los iconos todavía no se mostrarán de manera correcta, tenemos que instalar una fuente que soporte dichos iconos, para ello instalaremos una fuente de <b>NERD Fonts</b>:</p>
+
+          <a href="https://github.com/ryanoasis/nerd-fonts">NERD Fonts</a>
+
+          <p>Para instalar una fuente en <b>Windows</b> solo nos tenemos que descargar un archivo <b>.ttf</b> o <b>.otf</b> hacer click derecho sobre el y darle a <b>instalar</b></p>
+
+          <p>Una vez tenemos instalada la fuente tenemos que configurarla en nuestra terminal, esto se hace dependiendo del terminal:</p>
+
+          <h2>CMD</h2>
+          <p>Entramos en los ajustes del terminal:</p>
+          <img src="NERD Tree/1.png">
+
+          <p>Nos vamos a la pestaña de <b>Fonts</b> y seleccionamos la fuente que acabamos de instalar.</p>
+          <img src="NERD Tree/2.png">
+
+          <h2>Windows Terminal</h2>
+          <p>Accedemos a los ajustes del terminal</p>
+          <img src="NERD Tree/3.png">
+
+          <p>Seleccionamos el <b>terminal</b> y le damos a <b>Appearance</b>:</p>
+          <img src="NERD Tree/4.png">
+
+          <p>Seleccionamos la fuente que acabamos de instalar y le damos a save:</p>
+          <img src="NERD Tree/5.png">
+
+          <h2>VSCode Terminal</h2>
+          <p>Abrimos nuestro <b>settings.json</b> pulsando <kbd>F1</kbd> y buscando <b>user settings</b> </p>
+          <img src="NERD Tree/6.png">
+
+          <p>Añadimos la siguiente configuración indicando el nombre de nuestra fuente:</p>
+          <code>"terminal.integrated.fontFamily": "Hack Nerd Font Mono"</code>
+          <img src="NERD Tree/7.png">
+
+          <p>Y guardamos el archivo <b>settings.json</b>.</p>
+
+          <p>Para <b>saber el nombre</b> de nuestra fuente podemos verlo entrando en la carpeta de fuentes desde el explorador de archivos:</p>
+
+          <code>%LOCALAPPDATA%\Microsoft\Windows\Fonts</code>
+
+          <p>Una vez en la carpeta hacemos doble click sobre nuestra fuente y se abrirá un programa con textos de muestra, arriba de todo aparece el nombre de nuestra fuente tal y como lo debemos de utilizar en el archivo de configuración.</p>
+          <img src="NERD Tree/8.png">
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Vim | plugin | NERD Tree</p>
+        </div>
+
+    </body>
+</html>

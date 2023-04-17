@@ -1,0 +1,40 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">NERD Tree no puede cargar archivos</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Al lanzar <b>NERD Tree</b> se nos muestra el siguiente error:</p>
+          <code>NERDTree: 1 file(s) could not be loaded into the NERD tree</code>
+
+          <img src="NERD Tree no puede cargar archivos/1.png">
+
+          <p>El error no impide el uso del plugin, pero nos informa de que hay un archivo no se muestra en la lista</p>
+
+        </div>
+
+    <div class="t2">Solución</div>
+        <div class="cont">
+          <p>Para saber cual es el archivo que da problemas tendremos que comparar la lista de archivos que aparecen en el listado de <b>NERD Tree</b> (Tenemos que activar los archivos ocultos con <kbd><kbd>Shift</kbd> + <kbd>i</kbd></kbd>) y la salida que nos puede dar un comando como <b>"ls -la"</b></p>
+
+          <p>En este caso el archivo es request.txt y el motivo es que no tiene permisos para que NERD Tree pueda leer dicho archivo (podemos ver a la izquierda que no tiene absolutamente ningún permiso):</p>
+
+          <img src="NERD Tree no puede cargar archivos/2.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Vim | backspace</p>
+        </div>
+
+    </body>
+</html>
