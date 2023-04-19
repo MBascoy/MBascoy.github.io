@@ -1,0 +1,50 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">String formatting</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como utilizar el formateado de texto en python.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para usar el <b>string formatting</b> lo hacemos de la siguiente manera:</p>
+          <code>"texto %s" % variable</code>
+
+          <p>En el string se utilizarán indicadores de formato para que sean substituidos por las variables que se indican despues del % que va despues del string</p>
+
+          <p>Los indicadores de formato son los siguientes:</p>
+          <ul>
+            <li><b>%c</b>: Formato para un caracter</li>
+            <li><b>%s</b>: Formato para un string</li>
+            <li><b>%d</b>: Formato para un entero</li>
+            <li><b>%f</b>: formato para un numero flotante</li>
+          </ul>
+
+          <p>Si tenemos varias variables para ser substituidas en el string tenemos que indicarlas despues del <b>%</b> poniendolas entre parentesis <b>()</b> y separadas por comas <b>(,)</b> en el orden en el que aparecen en el string</p>
+
+          <h2>Ejemplos</h2>
+          <pre><code>mi_numero = 7
+mi_string = "ejemplo"
+"mi numero es: %d" % mi_numero
+"mi numero es: %d y mi string es: %s" % (mi_numero, mi_string)</code></pre>
+
+          <p>El primer string devuelve: "mi numero es: 7"</p>
+          <p>El segundo string devuelve: "mi numero es: 7 y mi string es: ejemplo"</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | string | format</p>
+        </div>
+
+    </body>
+</html>

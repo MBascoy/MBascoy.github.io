@@ -1,0 +1,53 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Membership (in operator)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Podemos utilizar el operador <b>in</b> para comprobar en varios tipos de datos (strings, listas, tuplas...) si contienen un valor.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>El operador <b>in</b> lo usamos de la siguiente manera:</p>
+
+          <ul>
+            <li>Comprobar <b>substring</b> en una cadena:</li>
+            <code>'pe' in 'pera' #devuelve True</code>
+
+            <li>Comprobar que una lista contiene un valor:</li>
+            <code>16 in [1,5,4,16,4,8] # devuelve True</code>
+
+            <li>Comprobar que una lista contiene un string:</li>
+            <code>"a" in ["hola", "adios"] # devuelve False</code>
+            <p>El ejemplo anterior devuelve false a pesar de que "hola" contiene una "a", ya que se busca la comparación de los elementos de la lista y no de los elementos del string interno</p>
+            <p>Si quisiesemos buscar en el string interno tendríamos que indicarlo de esta manera (el 0 del final hace referencia al primer elemento de la lista):</p>
+            <code>"a" in ["hola", "adios"][0] # devuelve True</code>
+
+            <code>"hola" in ["hola", "adios"] # devuelve True</code>
+
+            <li>Comprobar si un diccionario contiene un valor:</li>
+            <code>"animal" in {"fruta": "manzana", "animal": "gato"} # devuelve True</code>
+            <code>"gato" in {"fruta": "manzana", "animal": "gato"} # devuelve False</code>
+            <p>Por defecto la busqueda se hace en la <b>key</b> del diccionario</p>
+
+            <li>Comprobar si un diccionario contiene un valor en el value</li>
+            <code>"gato" in {"fruta": "manzana", "animal": "gato"}.values() # devuelve True</code>
+          </ul>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | Funciones</p>
+        </div>
+
+    </body>
+</html>

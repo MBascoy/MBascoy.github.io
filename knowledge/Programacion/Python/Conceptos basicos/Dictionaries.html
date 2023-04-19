@@ -1,0 +1,43 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Dictionaries</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Nos permite almacenar información <b>clave/valor</b>.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para crear diccionarios lo hacemos de la siguiente manera:</p>
+          <pre><code>mi_dict = {"animal": "gato", "objeto": "libro"}</code></pre>
+
+          <p>Para acceder a un valor del diccionario lo hacemos usando la clave del valor que queremos acceder:</p>
+
+          <code>mi_dict["animal"] # devuelve "gato"</code>
+
+          <p>Si solo quisiesemos obtener la lista de claves o la lista de valores podemos hacerlo de la siguiente manera:</p>
+
+          <code>mi_dict.keys()</code>
+          <code>mi_dict.values()</code>
+          <p>Devuelve: dict_values(['gato', 'libro'])</p>
+
+          <p>Estos dos metodos devuelven un tipo <b>dict_values</b> que no puede ser iterado, si queremos hacerlo mas manejable podemos convertirlo a una lista de la siguiente manera:</p>
+          <code>list(mi_dict.keys())</code>
+          <code>list(mi_dict.values())</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | List</p>
+        </div>
+
+    </body>
+</html>
