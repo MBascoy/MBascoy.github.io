@@ -38,7 +38,53 @@
 
             </ul>
 
+            <p>Añadimos la siguiente configuración en nuestro archivo <b>vimrc</b>:</p>
+            <pre><code>" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
+" unicode characters in the file autoload/float.vim
+set encoding=utf-8
+
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use &lt;c-space&gt; to trigger completion.
+if has('nvim')
+  inoremap &lt;silent&gt;&lt;expr&gt; &lt;c-space&gt; coc#refresh()
+else
+  inoremap &lt;silent&gt;&lt;expr&gt; &lt;c-@&gt; coc#refresh()
+endif
+
+" Make &lt;CR&gt; auto-select the first completion item and notify coc.nvim to
+" format on enter, &lt;cr&gt; could be remapped by other vim plugin
+inoremap &lt;silent&gt;&lt;expr&gt; &lt;cr&gt; pumvisible() ? coc#_select_confirm()
+            \: "\&lt;C-g&gt;u\&lt;CR&gt;\&lt;c-r&gt;=coc#on_enter()\&lt;CR&gt;"</code></pre>
           </ul>
+
+          <p>Para utilizar el autocompletado con esta configuración solo tenemos que empezar a escribir y aparecerán automaticamente las posibles opciones para autocompletar, si queremos que se autocomplete solo pulsamos <b>enter</b> y se autocompletará con la primera opción, si queremos elegir otra opción podemos elegirla con las flechas y pulsar enter.</p>
+
+          <p>Si queremos fozar la aparición del autocompletado (por ejemplo cuando nos movemos con el cursor en vez de estar escribiendo) podemos hacerlo pulsando <kbd><kbd>Ctrl</kbd> + <kbd>Espacio</kbd></kbd></p>
         </div>
 
     <div class="t2">Tags</div>
