@@ -21,10 +21,32 @@
            <ul>
             <li>Configuración vimrc:</li>
             <pre><code>Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim''</code></pre>
+Plug 'junegunn/fzf.vim'</code></pre>
+
+            <li>Dependencias</li>
+            <p>Para utilizar este plugin necesitamos los siguientes paquetes instaldos en nuestro sistema:</p>
+            <ul>
+                <li><b>fzf</b>: este comando debería de instalarse por defecto al instalar el plugin</li>
+                <li><b>ripgrep</b>: este paquete es necesario para el comando RG que nos permite hacer busquedas en el contenido de los archivos</li>
+                <p>Podemos instalarlo con:</p>
+                <code>zypper in ripgrep</code>
+                <code>apt-get install ripgrep</code>
+
+                <li><b>silver searcher</b>: este paquete nos permite utilizar el comando Ag</li>
+                <p>Podemos instalarlo con:</p>
+                <code>zypper in the_silver_searcher</code>
+                <code>apt-get install silversearcher-ag</code>
+
+                <li><b>bat</b>: este paquete nos permite tener syntax highlight en las previews</li>
+                <p>Podemos instalarlo con:</p>
+                <code>zypper in bat</code>
+                <code>apt-get install bat</code>
+
+            </ul>
 
             <li>Mapeo de teclas:</li>
             <code>nnoremap &lt;C-f&gt; :GFiles&lt;CR&gt;</code>
+            <code>nnoremap &lt;C-r&gt; :Rg&lt;CR&gt;</code>
          
         </div>
     
