@@ -1,0 +1,97 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Error Handling</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como usar la clase de <b>Error Handling</b> en angular para realizar la gestion de excepciones</p>
+        </div>
+
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Primero tenemos que indicar en el archivo <b>app.module.ts</b> la clase que usaremos para el ErrorHandler, lo hacemos en la seccion de <b>provider:[]</b> de la siguiente manera:</p> 
+            <code>providers: [{provide: ErrorHandler, useClass: MyErrorHandler}]</code>
+
+            <p>Donde <b>MyErrorHandler</b> será el nombre de la clase que usaremos para manejar los errores.</p>
+
+            <img src="Error Handling/1.png">
+
+            <p>A continuación creamos un archivo my-error-handler.ts donde definiremos nuestra clase <b>MyErrorHandler</b>:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">ErrorHandler</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;@angular/core&quot;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">MyErrorHandler</span> <span style="color:rgb(204, 153, 204); font-weight:400;">implements</span> <span class="hljs-title class_">ErrorHandler</span> {
+    <span class="hljs-title function_">handleError</span>(<span style="color:rgb(129, 162, 190); font-weight:400;">error</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">any</span>): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Ha ocurrido un error&quot;</span>);
+    }
+
+}</code></pre>
+
+            <p>La clase MyErrorHandler implementa <b>ErrorHandler</b> cuya interfaz nos obliga a definir la funcion handleError().</p>
+
+            <p>Con esta configuración la clase MyErrorHandler se encargará de manejar todas las excepciones que lance la aplicación, podríamos testearla con el siguiente código dentro de un componente:</p>
+
+            <code>throw new Error("Error de prueba");</code>
+
+        </div>
+
+        
+    <div class="t2">Gestionar distintos tipos de excepciones</div>
+        <div class="cont">
+            <p>Podemos hacer que la clase maneje distintos tipos de excepciones, para ello vamos a definir dos excepciones distintas:</p>
+
+            <p>ExcepcionUno:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">ExcepcionUno</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span class="hljs-title class_ inherited__">Error</span> {
+    <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">message: <span style="color:rgb(181, 189, 104); font-weight:400;">string</span></span>) {
+        <span class="hljs-variable language_">super</span>(message);
+    }
+}</code></pre>
+
+            <p>ExcepcionDos:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">ExcepcionDos</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span class="hljs-title class_ inherited__">Error</span> {
+    <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">message: <span style="color:rgb(181, 189, 104); font-weight:400;">string</span></span>) {
+        <span class="hljs-variable language_">super</span>(message);
+    }
+}</code></pre>
+
+            <p>Y ahora en nuestra clase MyErrorHandler pondríamos el siguiente código:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">ErrorHandler</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;@angular/core&quot;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">ExcepcionDos</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;./excepcion-dos&quot;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">ExcepcionUno</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;./excepcion-uno&quot;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">MyErrorHandler</span> <span style="color:rgb(204, 153, 204); font-weight:400;">implements</span> <span class="hljs-title class_">ErrorHandler</span> {
+    <span class="hljs-title function_">handleError</span>(<span style="color:rgb(129, 162, 190); font-weight:400;">error</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">any</span>): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(error <span style="color:rgb(204, 153, 204); font-weight:400;">instanceof</span> <span class="hljs-title class_">ExcepcionUno</span>){
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Se ha lanzado ExcepcionUno&quot;</span>);
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(error <span style="color:rgb(204, 153, 204); font-weight:400;">instanceof</span> <span class="hljs-title class_">ExcepcionDos</span>){
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Se ha lanzado ExcepcionDos&quot;</span>);
+        }
+    }
+
+}</code></pre>
+
+            <p>Ahora de esta manera podemos gestionar varios tipos de excepciones y hacer una cosa u otra en función de la excepción.</p>
+
+            <p>Este nuevo caso prodríamos probarlo lanzando los dos tipos de excepciones usando:</p>
+
+            <code>throw new ExcepcionUno("Error uno");</code>
+            <code>throw new ExcepcionDos("Error dos");</code>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Error Handling | Angular</p>
+        </div>
+
+    </body>
+</html>
