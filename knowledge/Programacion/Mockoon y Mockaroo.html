@@ -1,0 +1,130 @@
+
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Mockoon y Mockaroo</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+            <p>Como utilizar <b>Mockoon</b> para mockear un backend y <b>Mockaroo</b> para generar respuestas mockeadas (en formato json).</p>
+
+        </div>
+
+    <div class="t2">Mockoon</div>
+        <div class="cont">
+            <h2>Descarga</h2>
+            <p>Podemos descargar Mockoon desde su página, si no queremos instalarlo podemos descargar la versión portable: <a href="https://mockoon.com/">Pagina  Mockoon</a></p>
+
+            <h2>Configuracion inicial</h2>
+            <p>Por defecto <b>Mockoon</b> escucha en el puerto 3000 si queremos cambiarlo podemos hacerlo desde la pestaña de <b>settings</b>:</p>
+            <img src="Mockoon y Mockaroo/1.png">
+
+            <p>Para poner a la escucha el programa hacemos click en el play verde (arriba a la izquierda):</p>
+            <img src="Mockoon y Mockaroo/3.png">
+
+            <p>Si hemos hecho algun cambio en las rutas tendremos que reiniciar la escucha, se nos mostrará un icono de una flecha amarilla en ese caso:</p>
+            <img src="Mockoon y Mockaroo/4.png">
+
+            <h2>Añadir rutas</h2>
+            <p>Mockoon responderá a las rutas que le configuremos, si recibe una request para una ruta que no tiene configurada devolverá un 404 con un mensje de error</p>
+
+            <p>Para añadir rutas lo hacemos en la columna de la izquierda, por cada ruta podemos añadir varias respuestas, estas respuetas podemos hacer que sean aleatorias o en base a ciertos parámetros, y en el cuadro inferior introduciremos la respuesta que se enviará:)</p>
+            <img src="Mockoon y Mockaroo/2.png">
+
+            <h2>Access-Control-Allow-Origin</h2>
+            <p>Si lo necesitamos podemos configurar la cabecera <b>Access-Control-Allow-Origin</b> en una ruta, para ello lo hacemos de la siguiente manera en la pestaña de <b>headers</b>:</p>
+            <img src="Mockoon y Mockaroo/5.png">
+
+            <h2>Gestionar Query Params</h2>
+            <p>Si una solicitud viene con <b>query params</b> (parámetros en la url despues del "?"), podemos gestionarlos en la respuesta que vayamos a dar, para dar una respuesta de una manera o de otra.</p>
+
+            <p>Usaremos sentencias <b>if</b> para modificar la respuesta:</p>
+
+            <p>Para hacer una comprobación exacta:</p>
+            <pre><code>{{#if (eq (queryParam 'page') 1)}}
+{{/if}}</code></pre>
+            <p>Comprueba que "page" sea 1</p>
+
+            <p>Para hacer una comprobación parcial (o para <b>strings</b>)</p>
+            <pre><code>{{#if (includes (queryParam 'apellido') 'si')}}
+{{/if}}</code></pre>
+            <p>Comprueba que "apellido" sea 'si'</p>
+
+            <p>Un ejemplo completo es el siguiente:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">{{<span style="color:rgb(150, 152, 150); font-weight:400;">#if (eq (queryParam &#x27;page&#x27;) 1)}}</span>
+{
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;nombre&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;pepe&quot;</span>,
+
+  {{<span style="color:rgb(150, 152, 150); font-weight:400;">#if (includes (queryParam &#x27;apellido&#x27;) &#x27;si&#x27;)}}</span>
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;apellido&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;uno&quot;</span>,
+  {{/if}}
+
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;number&quot;</span>: 1
+}
+{{/if}}
+
+{{<span style="color:rgb(150, 152, 150); font-weight:400;">#if (eq (queryParam &#x27;page&#x27;) 2)}}</span>
+{
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;nombre&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;paco&quot;</span>,
+
+  {{<span style="color:rgb(150, 152, 150); font-weight:400;">#if (includes (queryParam &#x27;apellido&#x27;) &#x27;si&#x27;)}}</span>
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;apellido&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dos&quot;</span>,
+  {{/if}}
+
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;number&quot;</span>: 2
+}
+{{/if}}</code></pre>
+
+            <img src="Mockoon y Mockaroo/6.png">
+            <p>En este ejemplo se ve que al pasar los parametros page=2 y apellido=si se muestra la segunda respuesta incluyendo el apellido, tal y como lo habíamos puesto en la respuesta utilizando los if.</p>
+       </div>
+
+    <div class="t2">Mockaroo</div>
+        <div class="cont">
+            <p>Esta página nos permite generar una serie de datos de manera aleatoria en base a la estructura de un objeto que le indiquemos.</p>
+
+            <a href="https://www.mockaroo.com/">Pagina Mockaroo</a>
+
+            <p>Por defecto tenemos unos valores de ejemplo, podemos seleccionar el formato <b>Json</b> y darle a <b>Preview</b>:</p>
+            <img src="Mockoon y Mockaroo/7.png">
+
+            <p>Y se nos generará una respuesta como esta, con datos aleatorios:</p>
+            <img src="Mockoon y Mockaroo/8.png">
+
+            <h2>Anidar objetos</h2>
+            <p>Si queremos que se nos devuelva una respuesta con objetos anidados tendremos que usar la opción <b>Json Array</b> en uno de los campos:</p>
+            <img src="Mockoon y Mockaroo/9.png">
+
+            <p>Una vez tenemos el campo añadido le damos al icono de formulas (el que tiene un simbolo de sumatorio), y ahí dentro podremos definir nuestro objeto:</p>
+            <img src="Mockoon y Mockaroo/10.png">
+
+            <p>Y ahora las respuestas se generarán con nuestro subobjeto:</p>
+            <img src="Mockoon y Mockaroo/11.png">
+
+            <p>Si queremos que los datos que se muestran en el subobjeto sean tambien aleatorios tendremos que definir un campo oculto y usarlo despues dentro de nuestro subobjeto, para definir un campo oculto lo hacemos indicando __ (dos barras bajas seguidas) al principio del nombre del campo:</p>
+            <img src="Mockoon y Mockaroo/12.png">
+
+            <p><b>NOTA:</b> el campo oculto tiene que estar difinido en la lista antes que el campo del subobjeto, si no obtendremos un error.</p>
+   
+            <p>Una vez tenemos el campo oculto creado lo usamos dentro de nuestro subobjeto:</p>
+            <img src="Mockoon y Mockaroo/13.png">
+
+            <p>Ahora las respuestas se generaran con datos aleatorios dentro del subobjeto y el campo oculto que hemos definido no se mostrará como los otros, pero si que se muestra dentro del subobjeto (y sin las __ iniciales):</p>
+
+            <img src="Mockoon y Mockaroo/14.png">
+        
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Token | Mockoon | Mockaroo</p>
+        </div>
+
+    </body>
+</html>
