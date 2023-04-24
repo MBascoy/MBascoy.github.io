@@ -29,6 +29,31 @@
 
         </div>
 
+    <div class="t2">Obtener seed en consola</div>
+        <div class="cont">
+            <p>Si queremos obtener la seed en la salida de la consola (en vez de la interfaz del navegador) tendremos que instalar un paquete a mayores, ya que por defecto no se proporciona esta información.</p>
+
+            <p>El paquete que tenemos que instalar es el siguiente:</p>
+            <a href="https://www.npmjs.com/package/karma-jasmine-order-reporter">Paquete karma-jasmine-order-reporter</a>
+
+            <code>npm install karma-jasmine-order-reporter --save-dev</code>
+
+            <p>Una vez tenemos instalado el paquete en nuestro proyecto tenemos que configurar nuestro archivo <b>karma.conf.js</b></p>
+            <code>require('karma-jasmine-order-reporter')</code>
+
+            <img src="Ejecutar tests con seed/3.png"/>
+
+            <p>A la hora de ejecutar los tests tenemos que indicar el nuevo reporter de la siguiente manera:</p>
+            <code>ng test --browsers ChromeHeadless --code-coverage --reporters="jasmine-order"</code>
+            <p>La opción <b>--reporters="jasmine-order"</b> es la importante</p>
+
+            <p>Al ejecutar los test se mostrará con que <b>seed</b> se están ejecutando de esta manera:</p>
+
+            <img src="Ejecutar tests con seed/4.png"/>
+
+
+        </div> 
+
     <div class="t2">Tags</div>
         <div class="cont">
         <p>Test | Seed | Jasmine </p>
