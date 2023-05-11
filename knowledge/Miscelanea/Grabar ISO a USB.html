@@ -57,6 +57,13 @@
         
         <p>Una vez finalice el proceso el USB ya estara listo</p>
         
+        <h2>Comando dd alternativo</h2>
+
+        <p>Podemos usar el comando dd con las siguientes opciones para que sea mas cómodo:</p>
+
+        <code>dd if=debian-11.7.0-amd64-DVD-1.iso of=/dev/sdb bs=16M status=progress oflag=sync</code>
+
+        <p>Este comando nos mostrará el progreso del comando <b>dd</b> y a mayores el flag <b>sync</b> nos grarántiza que los datos estén sincronizados una vez termina la ejecución del comando (aunque esto ya debería de ser así con el comando por defecto)</p>
         </div>
     
     <div class="t2">Tags</div>
