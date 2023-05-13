@@ -1,0 +1,46 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">No se encuentra medios de instalacion</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>PC: <b>Lenovo T480s</b></p> 
+          <p>Al acceder a la instalación de Debian desde el <b>instalador grafico</b> obtenemos el siguiente error, cuando llegamos al punto en el que se tiene que <b>detectar el hardware</b>:</p>
+          
+          <code>No device for installation media was detected.</code>
+          
+          <img src="No se encuentra medios de instalacion/1.jpg">
+        </div>
+
+    <div class="t2">Solución</div>
+        <div class="cont">
+        <p>Este fallo se da solo al cargar la versión <b>grafica</b> del instalador:</p>
+        <img src="No se encuentra medios de instalacion/2.jpg">
+        
+        <p>Si miramos la configuración de ejecución vemos que carga la siguiente:</p>
+        <img src="No se encuentra medios de instalacion/3.jpg">
+        
+        <p>En la instalación normal:</p>
+        <img src="No se encuentra medios de instalacion/4.jpg">
+        
+        <p>Vemos la siguiente configuración de ejecución</p>
+        <img src="No se encuentra medios de instalacion/5.jpg">
+        
+        <p>Si lanzamos la "instalación normal" el proceso <b>funciona correctamente</b>, probablemente el error se debe a que lanza dos imagenes de arranque distintas (initrd.gz) y la versión de la instalación gráfica probablemente no cargue los drivers necesarios.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Debian | instalacion | t480s</p>
+        </div>
+
+    </body>
+</html>

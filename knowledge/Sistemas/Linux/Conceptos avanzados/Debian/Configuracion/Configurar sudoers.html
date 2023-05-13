@@ -1,0 +1,38 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Configurar sudoers</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Configurar un usuario para que pueda utilizar el comando <b>sudo</b></p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Cuando un usuario no está configurado para utilizar el comando sudo obtenemos el siguiente error al intentar utilizarlo:</p>
+            <code>MiUsuario is not in the sudoers file. This incident will be reported</code>
+            
+            <p>Para configurar nuestro usuario para que pueda utilizar sudo solo tenemos que añadirlo al <b>grupo</b> correcto del sistema con el siguiente comando:<p>
+            <code># usermod -aG sudo MiUsuario</code>
+            
+            <p><b>NOTA:</b> en los sistemas basados en debian el grupo es <b>sudo</b> y en sistemas basados en redhat el grupo es <b>wheel</b></p>
+            
+            <p>Una vez hecho esto <b>reiniciamos</b> el sistema y ya podremos usar sudo con nuestro usuario.</p>
+            
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Debian | usuarios | sudo</p>
+        </div>
+
+    </body>
+</html>
