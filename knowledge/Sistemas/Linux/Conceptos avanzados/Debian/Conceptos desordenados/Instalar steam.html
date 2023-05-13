@@ -1,0 +1,35 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Instalar steam</h1>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Primero tenemos que tener configurados los <a href="../Conceptos basicos/Repositorios.html">repositorios para el sistema de paquetes</a>.</p>
+          
+          <p>Despues tenemos que añadir la arquitectura de <b>32bits</b> a nuestro dpkg (para que se nos muestren los paquetes de 32bits a mayores de los paquetes de 64bits):</p>
+          <code>sudo dpkg --add-architecture i386</code>
+          
+          <p>Lanzamos un update de los repositorios</p>
+          
+          <code>apt-get update</code>
+          
+          <p>Y ahora solo tenemos que instalar steam:</p>
+          
+          <code>apt-get install steam</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Debian | Gnome</p>
+        </div>
+
+    </body>
+</html>
