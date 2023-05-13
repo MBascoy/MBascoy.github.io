@@ -1,0 +1,40 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Fix broken packages</h1>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Si tenemos paquetes que tienen depedencias pendientes (broken packages) podemos arreglarlos con el siguiente comando:</p>
+          <code># apt --fix-broken install</code>
+          
+          <p>Este comando intentará buscar e instalar las dependencias de los paquetes en los repositorios que tengamos configurados.</p>
+          
+        </div>
+
+    <div class="t2">Ejemplo</div>
+        <div class="cont">
+            <p>Al instalar el google chrome por ejemplo obtenemos la siguiente respuesta al instalar el paquete .deb con <b>dpkg</b>:</p>
+            <img src="Fix broken packages/1.png">
+            
+            <p>La instalación del paquete nos indica que hay dos paquetes faltantes</p>
+            
+            <p>Si lanzamos un apt-get install sin mas nos da la siguiente salida:</p>
+            <img src="Fix broken packages/2.png">
+            
+            <p>Al ejecutar el comando <b>apt --fix-broken install</b> estos paquetes faltantes serán instalados siempre que se encuentren en los repositorios configurados</p>
+        </div>
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Debian | Gnome</p>
+        </div>
+
+    </body>
+</html>
