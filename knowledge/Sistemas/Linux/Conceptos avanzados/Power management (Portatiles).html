@@ -1,0 +1,62 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Power management (Portatiles)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como configurar el <b>governor scaler</b> para que un portatil esté en modo ahorro o modo de rendimiento</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <ul>
+                <li>Consultar los modos disponibles:</li>
+                <code>cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors</code>
+                
+                <li>Consultar modo activo actualmente:</li>
+                <code>cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor</code>
+                
+                <li>Establecer un nuevo modo, performance en este caso (no permanente):</li>
+                <code>echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor</code>
+            </ul>
+            
+            <h2>cpufrequtils</h2>
+            <p>Con el paquete <b>cpufrequtils</b> tambien podemos hacer estas comprobaciones e incluso hacer los ajustes permanentes</p>
+            
+            <p><b>NOTA:</b> En algunos sistemas hay un paquete similar que se llama <b>cpupower</b> que funciona exactamente igual.</p>
+            <ul>
+                <li>Instalar (en Debian):</li>
+                <code>apt-get install cpufrequtils</code>
+                
+                <li>Consultar modos disponibles:</li>
+                <code>cpufreq-info -g</code>
+                
+                <li>Consultar modos activo actualmente:</li>
+                <code>cpufreq-info -p</code>
+                
+                <li>Establecer nuevo modo:</li>
+                <code>cpufreq-set -g performance</code>
+                
+                <p>Si queremos que los cambios sean permanentes tenemos que modificar el archivo <b>/etc/default/cpufrequtils</b> indicando el siguiente contenido:</p>
+                <code>GOVERNOR='performance'</code>
+            
+            </ul>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Linux | laptop | power | governor</p>
+        </div>
+
+    </body>
+</html>
