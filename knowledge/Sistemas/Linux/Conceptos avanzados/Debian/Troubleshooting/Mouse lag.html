@@ -1,0 +1,39 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Mouse lag</h1>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+            <p>El raton se mueve con cierto retraso o con una aceleración lenta en ciertos momentos</p>
+        </div>
+    
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para solucionar este problema primero me aseguré de que el pc estuviese en modo "performance", por si acaso el ahorro de batería estaba causando esto.</p>
+          
+          <a href="../../Power management (Portatiles).html">Power management</a>
+          
+          <p>y lo segundo es ejecutar los siguientes comandos que lo único que hacen es modificar el archivo <b>/etc/modprobe.d/local.conf</b>:</p>
+          
+          <code>sudo sh -c 'echo "options drm_kms_helper poll=0" >> /etc/modprobe.d/local.conf'</code>
+          <code>sudo update-initramfs -u</code>
+          
+          <p>De todas maneras no tengo claro que estas dos cosas hayan solucionado el problema del lag en el ratón, ya que despues de hacer el cambio me pasaba aún de vez en cuando que el ratón se quedaba con esa especie de lag y aún así despues terminé devolviendo las configuraciones a como estaban antes y el problema no se volvía a reproducir, igual el problema estaba relacionado con otra cosa....</p>
+          
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Debian | Mouse</p>
+        </div>
+
+    </body>
+</html>
