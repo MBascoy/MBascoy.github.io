@@ -1,0 +1,68 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Firewall (ufw)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Debian por defecto viene sin una herramiento para configurar <b>Netfilter</b> podemos usar <b>ufw</b> (Uncomplicated FireWall) para configurar las reglas del firewall</p>
+
+            <a href="https://wiki.debian.org/es/Uncomplicated%20Firewall%20%28ufw%29">Página UFW Debian</a>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Para instalar ufw lo hacemos con:</p>
+            <code>apt-get install ufw</code>
+
+            <p>Para habilitar el firewall lo hacemos con:</p>
+            <code># ufw enable</code>
+
+            <p>Al activar el firewall también queda configurado para que arranque con el sistema.</p>
+
+            <p>Por defecto se bloquean todas las conexiones entrantes y se permiten todas las salientes.</p>
+
+            <p>Para ver el estado actual del firewall y ver las reglas usamos el comando:</p>
+            <code># ufw status verbose</code>
+
+            <h2>Reglas de ejemplo</h2>
+
+            <p>Permitir todo el trafico saliente:</p>
+            <code># ufw default deny incoming</code>
+
+            <p>Permitir todo el trafico saliente:</p>
+            <code># ufw default allow outgoing</code>
+
+            <p>Permitir conexiones entrantes por el puerto 21 tcp</p>
+            <code># ufw allow 21/tcp</code>
+
+            <p>Permitir rango de puertos del 500 al 1000 tcp</p>
+            <code># ufw allow 500:1000/tcp</code>
+
+            <p>Permitir rango de puertos del 500 al 1000 udp</p>
+            <code># ufw allow 500:1000/udp</code>
+
+            <p>Permitir trafico entrante de la IP 1.2.3.4:</p>
+            <code># ufw allow from 1.2.3.4</code>
+
+            <h2>Borrar reglas</h2>
+
+            <p>Para borrar reglas simplemente tenemos que preceder las reglas que usamos para añadir de la palabra <b>delete</b>.</p>
+            <p>Por ejemplo para eliminar la regla que añade el puerto 21 tcp sería:</p>
+            <code># ufw delete allow 21/tcp</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Debian | firewall </p>
+        </div>
+
+    </body>
+</html>
