@@ -1,0 +1,49 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Lector de huellas (t480s)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Configurar el lector de huellas en el portatil <b>t480s</b></p>
+
+          <a href="https://www.tekovic.com/blog/configure-lenovo-thinkpad-t480s-fingerprint-reader-on-debian-bullseye/">Pagina referencia</a>
+          
+          <p>lsusb del lector de huellas:</p>
+          <code>Bus 001 Device 006: ID 06cb:009a Synaptics, Inc. Metallica MIS Touch Fingerprint Reader</code>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Añadimos el repositorio del que descargaremos <b>open-fprintd</b>:</p>
+            <code>sudo wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2937db010da51096cd4277ff8d4c774ba6d18f90' -O /etc/apt/trusted.gpg.d/uunicorn.asc</code>
+            <code>echo -e 'deb [signed-by=/etc/apt/trusted.gpg.d/uunicorn.asc] https://ppa.launchpadcontent.net/uunicorn/open-fprintd/ubuntu kinetic main\n#deb-src [signed-by=/etc/apt/trusted.gpg.d/uunicorn.asc] https://ppa.launchpadcontent.net/uunicorn/open-fprintd/ubuntu kinetic main' | sudo tee /etc/apt/sources.list.d/uunicorn-open-fprintd.list</code>
+
+            <p>Actualizamos el repositorio:</p>
+            <code>sudo apt-get update</code>
+
+            <p>instalamos los paquetes:</p>
+
+            <code>sudo apt install -V open-fprintd fprintd-clients python3-validity</code>
+
+            <p>Ejecutamos el enroll para registrar una nueva huella, (tenemos que tocar el sensor de huellas varias veces para terminar el registro de huella):</p>
+            <code>fprintd-enroll</code>
+
+            <p>Opcionalmente podemos habilitar el modulo <b>PAM</b> para que se nos exija la huella al hacer <b>sudo</b>>, si no lo activamos la huella funcionará solo en la pantalla de login:</p>
+            <code>sudo pam-auth-update</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Debian | fingerprint | sudo</p>
+        </div>
+
+    </body>
+</html>
