@@ -58,6 +58,18 @@
             <p>Tenemos que activar tanto la opción de <b>aplicaciones</b> como la de <b>Gnome shell</b>, aunque no todos los themes tienen ambas opciones.</p>
 
             <p><b>NOTA:</b> Si ya teniamos abierto <b>gnome tweaks</b> antes de extraer el theme tendremos que cerrar y volver a abrir la aplicación para que se recargen los themes</p>
+            
+            <h2>Themes para una sola aplicacion</h2>
+            <p>Si queremos configurar un theme para una sola aplicación (porque el theme principal se ve mal en esa aplicación en concreto o por cualquier otro motivo), podemos hacerlo indicando la siguiente variable de entorno con el nombre del theme que queramos usar:</p>
+
+            <code>GTK_THEME=Yaru-Aqua</code>
+
+            <p>Para ejecutar el cliente de correo <b>Evolution</b> con este theme lo haríamos así:</p>
+            <code>GTK_THEME=Yaru-Aqua Evolution</code>
+
+            <p>Si queremos modificar el archivo <b>.desktop</b> para que se ejecute con esta variable de entorno lo hacemos así usando <b>env</b>:</p>
+            <img src="Instalar icons y themes/5.png">
+
         </div>
 
     <div class="t2">Instalar iconos</div>
