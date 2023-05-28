@@ -1,0 +1,422 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="../../../style.css">
+</head>
+
+<body>
+
+    <h1 class="t1">Jwt Authentication</h1>
+
+    <div class="t2">Descripcion</div>
+    <div class="cont">
+        <p>Como configurar una aplicación de angular para que use un <b>token JWT</b> obtenido de una API para
+            autenticarse</p>
+
+        <a href="https://github.com/MBascoy/Angular-Examples/tree/main/JwtAuthExample"> Código de ejemplo</a>
+
+        <p>Como API para autenticarnos usaremos una fake API web para facilitar el proceso, normalmente esto debería de
+            estar integrado en nuestro backend.</p>
+        <a href="https://storerestapi.com/docs#id_auth--1">StoreRestAPI</a>
+    </div>
+
+    <div class="t2">Método</div>
+    <div class="cont">
+        <p>Instalamos el paquete <b>jwt-decode</b>:</p>
+        <code>npm install jwt-decode</code>
+
+        <p>Creamos el archibo <b>src/environments/environment.ts</b> donde indicaremos la dirección del servidor:</p>
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> environment = {
+    <span style="color:rgb(129, 162, 190); font-weight:400;">apiBaseUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;https://api.storerestapi.com&#x27;</span>
+};</code></pre>
+        
+    <p>Generamos el modulo <b>auth</b> (src/app/auth/auth.module.ts):</p>
+    <code>ng generate module auth --routing</code>
+
+    <p>Actualizamos el archivo <b>src/app/app-routing.module.ts</b> con el siguiente contenido</p>
+    <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">{
+    path: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;auth&#x27;</span>,
+    loadChildren: () =&gt; <span style="color:rgb(181, 189, 104); font-weight:400;">import</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./auth/auth.module&#x27;</span>).<span style="color:rgb(181, 189, 104); font-weight:400;">then</span>(m =&gt; m.AuthModule)
+}</code></pre>
+    <img src="Jwt Authentication/4.png"/>
+
+
+    <p>Metemos el <b>ReactiveFormsModule</b> en el auth.module.ts, ya que lo usaremos para el login:</p>
+    <img src="Jwt Authentication/1.png"/>
+
+    <p>Creamos el archivo <b>src/app/auth/auth.service.ts</b> con el siguiente contenido:</p>
+    <pre>
+        <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { HttpClient, HttpEvent } from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/common/http&#x27;</span>;
+       <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Injectable } from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+       <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { BehaviorSubject, Observable } from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;rxjs&#x27;</span>;
+       <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { environment } from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;src/environments/environment&#x27;</span>;
+       <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { map } from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;rxjs/operators&#x27;</span>;
+       <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> jwtDecode from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;jwt-decode&#x27;</span>;
+       
+       <span style="color:rgb(249, 145, 87); font-weight:400;">@Injectable({
+         providedIn: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;root&#x27;</span>
+       })</span>
+       export <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">AuthService</span> {
+         
+         ACCESS_TOKEN = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;access_token&#x27;</span>;
+         REFRESH_TOKEN = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;refresh_token&#x27;</span>;
+         <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> userDataSubject: BehaviorSubject&lt;any&gt; = new BehaviorSubject(<span style="color:rgb(204, 153, 204); font-weight:400;">null</span>);
+         userData$: Observable&lt;any&gt; = <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userDataSubject.asObservable();
+         
+         <span style="color:rgb(204, 153, 204); font-weight:400;">constructor</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">private</span> http: HttpClient) {
+           <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (localStorage.getItem(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.ACCESS_TOKEN) &amp;&amp; localStorage.getItem(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.REFRESH_TOKEN)) {
+             <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> access_token = (&lt;string&gt;localStorage.getItem(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.ACCESS_TOKEN));
+             <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> refresh_token = (&lt;string&gt;localStorage.getItem(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.REFRESH_TOKEN))
+             <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userDataSubject.next({access_token, refresh_token, userInfo: <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.getUserDataFromToken(access_token)})
+           }
+         }
+         
+         <span style="color:rgb(204, 153, 204); font-weight:400;">get</span> userData(): any {
+           <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userDataSubject.value
+         }
+       
+         <span style="color:rgb(204, 153, 204); font-weight:400;">get</span> userName(): string {
+           <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userData.userInfo.name
+         }
+       
+         <span style="color:rgb(204, 153, 204); font-weight:400;">get</span> userRole(): string {
+           <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userData.userInfo.role
+         }
+         
+         login(email: string, password: string): Observable&lt;any&gt; {
+           <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.http.post(`${environment.apiBaseUrl}/auth/login`, { email, password }).pipe(
+             map((res: any) =&gt; {
+               <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> access_token = res.<span style="color:rgb(204, 153, 204); font-weight:400;">data</span>.access_token;
+               <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> refresh_token = res.<span style="color:rgb(204, 153, 204); font-weight:400;">data</span>.refresh_token;
+               <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userDataSubject.next({access_token, refresh_token, userInfo: <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.getUserDataFromToken(access_token)});
+               localStorage.setItem(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.ACCESS_TOKEN, access_token)
+               localStorage.setItem(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.REFRESH_TOKEN, refresh_token)
+               <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> res
+             })
+           )
+         }
+         
+         logout(): void {
+           localStorage.removeItem(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.ACCESS_TOKEN);
+           localStorage.removeItem(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.REFRESH_TOKEN);
+           <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userDataSubject.next(<span style="color:rgb(204, 153, 204); font-weight:400;">null</span>);
+           <span style="color:rgb(150, 152, 150); font-weight:400;">// Call http logout method for block refresh token</span>
+         }
+         
+         generateNewTokens(): Observable&lt;HttpEvent&lt;any&gt;&gt; {
+           <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> refresh_token = <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userDataSubject.value?.refresh_token;
+           <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.http.post(`${environment.apiBaseUrl}/auth/refresh`, { refresh_token }).pipe(
+             map((res: any) =&gt; {
+               <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> access_token = res.<span style="color:rgb(204, 153, 204); font-weight:400;">data</span>.access_token;
+               <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> refresh_token = res.<span style="color:rgb(204, 153, 204); font-weight:400;">data</span>.refresh_token;
+               <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userDataSubject.next({access_token, refresh_token, userData: <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.getUserDataFromToken(access_token)});
+               localStorage.setItem(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.ACCESS_TOKEN, access_token);
+               localStorage.setItem(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.REFRESH_TOKEN, refresh_token);
+               <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> res
+             })
+           )
+         }
+         <span style="color:rgb(204, 153, 204); font-weight:400;">get</span> isAuthenticated(): boolean {
+           <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> refresh_token = <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.userDataSubject.value?.refresh_token;
+           <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (!refresh_token) {
+             <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>
+           }
+           <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.isAuthTokenValid(refresh_token)
+         }
+         
+         isAuthTokenValid(token: string): boolean {
+           <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> decoded: any = jwtDecode(token);
+       
+           <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> expMilSecond: number = decoded?.exp * <span style="color:rgb(249, 145, 87); font-weight:400;">1000</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">// milliseconds</span>
+           <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> currentTime = Date.now(); <span style="color:rgb(150, 152, 150); font-weight:400;">// milliseconds</span>
+       
+           <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (expMilSecond &lt; currentTime) {
+             <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+           }
+           <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+         }
+         
+         getUserDataFromToken(token: string): any {
+           <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> decoded: any = jwtDecode(token);
+           <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> decoded.<span style="color:rgb(204, 153, 204); font-weight:400;">data</span>
+         }
+       }</code></pre>
+
+    <p>En la funcion <b>login()</b> tenemos que tener en cuenta que la respuesta del servidor puede variar el objeto que se nos devuelva, en este caso se devuelve access_token dentro de un objeto data así que podemos acceder con <b>res.data.access_token</b></p>
+
+    <p>Creamos el componente para el login:</p>
+    <code>ng generate component auth/login</code>
+
+    <p>Y dentro del routing (src/app/auth/auth-routing.module.ts) indicamos el nuevo componente:</p>
+    <img src="Jwt Authentication/2.png"/>
+
+    <p>Dentro del archivo <b>src/app/auth/auth.module.ts</b> nos aseguramos de que el componente esté declarado:</p>
+    <img src="Jwt Authentication/6.png"/>
+
+    <p>Dentro del archivo <b>src/app/auth/login/login.component.ts</b> introducimos el siguiente contenido:</p>
+
+    <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Component</span>, <span class="hljs-title class_">OnInit</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">FormBuilder</span>, <span class="hljs-title class_">FormGroup</span>, <span class="hljs-title class_">Validators</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/forms&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Observable</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;rxjs&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">AuthService</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;../auth.service&#x27;</span>;
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+    <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-login&#x27;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./login.component.html&#x27;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">styleUrls</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./login.component.scss&#x27;</span>]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">LoginComponent</span> <span style="color:rgb(204, 153, 204); font-weight:400;">implements</span> <span class="hljs-title class_">OnInit</span> {
+    loginForm!: <span class="hljs-title class_">FormGroup</span>;
+    
+    requestData$!: <span class="hljs-title class_">Observable</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">any</span>&gt;;
+    
+    <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">private</span> fb: FormBuilder, <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> authService: AuthService</span>) { }
+    <span class="hljs-title function_">ngOnInit</span>(): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {
+    <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">requestData$</span> = <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">authService</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">userData$</span>;
+    
+    <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">loginForm</span> = <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">fb</span>.<span class="hljs-title function_">group</span>({
+        <span style="color:rgb(129, 162, 190); font-weight:400;">email</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;&#x27;</span>, [<span class="hljs-title class_">Validators</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">required</span>, <span class="hljs-title class_">Validators</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">email</span>]],
+        <span style="color:rgb(129, 162, 190); font-weight:400;">password</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;&#x27;</span>, <span class="hljs-title class_">Validators</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">required</span>]
+    })
+    }
+    
+    <span class="hljs-title function_">onFormSubmit</span>(): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> <span style="color:rgb(129, 162, 190); font-weight:400;">formData</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">any</span> = <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">loginForm</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">value</span>;
+    <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">authService</span>.<span class="hljs-title function_">login</span>(formData?.<span style="color:rgb(209, 217, 225); font-weight:400;">email</span>, formData?.<span style="color:rgb(209, 217, 225); font-weight:400;">password</span>)
+        .<span class="hljs-title function_">subscribe</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(209, 217, 225); font-weight:400;">res: <span style="color:rgb(181, 189, 104); font-weight:400;">any</span></span>) =&gt;</span> {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res)
+        <span style="color:rgb(150, 152, 150); font-weight:400;">// handle success message and redirect to next page</span>
+        }, <span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(209, 217, 225); font-weight:400;">err</span>) =&gt;</span> {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(err)
+        <span style="color:rgb(150, 152, 150); font-weight:400;">// handle invalid user message</span>
+        });
+    }
+}</code></pre>
+
+        <p>Y en el archivo <b>src/app/auth/login/login.component.html</b> introducimos el siguiente contenido:</p>
+
+    <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">h3</span>&gt;</span>Login Form<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">h3</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">form</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">formGroup</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;loginForm&quot;</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">ngSubmit</span>)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;onFormSubmit()&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">formControlName</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;email&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;email&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">required</span> <span style="color:rgb(129, 162, 190); font-weight:400;">placeholder</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Email&quot;</span>&gt;</span> <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">br</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">formControlName</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;password&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;password&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">required</span> <span style="color:rgb(129, 162, 190); font-weight:400;">placeholder</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Password&quot;</span>&gt;</span> <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">br</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> [<span style="color:rgb(129, 162, 190); font-weight:400;">disabled</span>]=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;this.loginForm.invalid&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;submit&quot;</span>&gt;</span>Submit<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">form</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;margin-top: 20px;&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">strong</span>&gt;</span>Requester Data<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">strong</span>&gt;</span>: <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">br</span>&gt;</span> {{ requestData$ | async | json }}
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span></code></pre>
+
+
+        <p>A continuación generamos los <b>Interceptors</b>:</p>
+        <code>ng generate interceptor _services/auth --skip-tests</code>
+        <code>ng generate interceptor _services/error --skip-tests</code>
+    
+        <p>En el archivo <b>src/app/app.module.ts</b> añadimos los interceptors como providers y el modulo <b>HttpClientModule</b>:</p>
+        <img src="Jwt Authentication/3.png"/>
+
+        <p>En el archivo <b>src/app/_services/auth.interceptor.ts</b> introducimos el siguiente contenido:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Injectable</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {
+    <span class="hljs-title class_">HttpRequest</span>,
+    <span class="hljs-title class_">HttpHandler</span>,
+    <span class="hljs-title class_">HttpEvent</span>,
+    <span class="hljs-title class_">HttpInterceptor</span>
+} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/common/http&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Observable</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;rxjs&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { switchMap, take } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;rxjs/operators&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">AuthService</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;src/app/auth/auth.service&#x27;</span>;
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Injectable</span>()
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">AuthInterceptor</span> <span style="color:rgb(204, 153, 204); font-weight:400;">implements</span> <span class="hljs-title class_">HttpInterceptor</span> {
+    <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">private</span> authService:AuthService</span>) {}
+    <span class="hljs-title function_">intercept</span>(<span style="color:rgb(129, 162, 190); font-weight:400;">request</span>: <span class="hljs-title class_">HttpRequest</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">any</span>&gt;, <span style="color:rgb(129, 162, 190); font-weight:400;">next</span>: <span class="hljs-title class_">HttpHandler</span>): <span class="hljs-title class_">Observable</span>&lt;<span class="hljs-title class_">HttpEvent</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">any</span>&gt;&gt; {
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// stage 1: Check if request for refresh token</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (request.<span style="color:rgb(209, 217, 225); font-weight:400;">url</span>.<span class="hljs-title function_">indexOf</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/auth/refresh&#x27;</span>) !== -<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> next.<span class="hljs-title function_">handle</span>(request);
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> data = <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">authService</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">userData</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> accessToken = data?.<span style="color:rgb(209, 217, 225); font-weight:400;">access_token</span>;
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// stage 2: Checking access_token exists(mean user logged in) or not</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (accessToken) {
+        <span style="color:rgb(150, 152, 150); font-weight:400;">// stage 3: checking access_token validity</span>
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (<span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">authService</span>.<span class="hljs-title function_">isAuthTokenValid</span>(accessToken)) {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> modifiedReq = request.<span class="hljs-title function_">clone</span>({
+            <span style="color:rgb(129, 162, 190); font-weight:400;">headers</span>: request.<span style="color:rgb(209, 217, 225); font-weight:400;">headers</span>.<span class="hljs-title function_">append</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Authorization&#x27;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">`Bearer <span style="color:rgb(249, 145, 87); font-weight:400;">${accessToken}</span>`</span>)
+        });
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> next.<span class="hljs-title function_">handle</span>(modifiedReq)
+        }
+        <span style="color:rgb(150, 152, 150); font-weight:400;">// stage 4: Going to generate new tokens</span>
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">authService</span>.<span class="hljs-title function_">generateNewTokens</span>()
+        .<span class="hljs-title function_">pipe</span>(
+            <span class="hljs-title function_">take</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>),
+            <span class="hljs-title function_">switchMap</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(209, 217, 225); font-weight:400;">res: <span style="color:rgb(181, 189, 104); font-weight:400;">any</span></span>) =&gt;</span> {
+            <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> modifiedReq = request.<span class="hljs-title function_">clone</span>({
+                <span style="color:rgb(129, 162, 190); font-weight:400;">headers</span>: request.<span style="color:rgb(209, 217, 225); font-weight:400;">headers</span>.<span class="hljs-title function_">append</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Authorization&#x27;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">`Bearer <span style="color:rgb(249, 145, 87); font-weight:400;">${res?.data?.access_token}</span>`</span>)
+            });
+            <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> next.<span class="hljs-title function_">handle</span>(modifiedReq)
+            })
+        )
+        
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> next.<span class="hljs-title function_">handle</span>(request);
+    }
+}</code></pre>
+
+        <p>En el archivo <b>src/app/_services/error.interceptor.ts</b> introducimos:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Injectable</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {
+    <span class="hljs-title class_">HttpRequest</span>,
+    <span class="hljs-title class_">HttpHandler</span>,
+    <span class="hljs-title class_">HttpEvent</span>,
+    <span class="hljs-title class_">HttpInterceptor</span>
+} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/common/http&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Observable</span>, throwError } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;rxjs&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { catchError } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;rxjs/operators&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">AuthService</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;src/app/auth/auth.service&#x27;</span>;
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Injectable</span>()
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">ErrorInterceptor</span> <span style="color:rgb(204, 153, 204); font-weight:400;">implements</span> <span class="hljs-title class_">HttpInterceptor</span> {
+    <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">private</span> authService: AuthService</span>) {}
+    <span class="hljs-title function_">intercept</span>(<span style="color:rgb(129, 162, 190); font-weight:400;">request</span>: <span class="hljs-title class_">HttpRequest</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">any</span>&gt;, <span style="color:rgb(129, 162, 190); font-weight:400;">next</span>: <span class="hljs-title class_">HttpHandler</span>): <span class="hljs-title class_">Observable</span>&lt;<span class="hljs-title class_">HttpEvent</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">any</span>&gt;&gt; {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> next.<span class="hljs-title function_">handle</span>(request).<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">catchError</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(209, 217, 225); font-weight:400;">res</span>) =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">errorHandler</span>(res)));
+    }
+    
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> <span class="hljs-title function_">errorHandler</span>(<span style="color:rgb(129, 162, 190); font-weight:400;">response</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">any</span>): <span class="hljs-title class_">Observable</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">any</span>&gt; {
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// console.error(&#x27;root error res&#x27;, response)</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> status = response?.<span style="color:rgb(209, 217, 225); font-weight:400;">status</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (status === <span style="color:rgb(249, 145, 87); font-weight:400;">401</span> || status === <span style="color:rgb(249, 145, 87); font-weight:400;">403</span>) {
+        <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">authService</span>.<span class="hljs-title function_">logout</span>();
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> error = response.<span style="color:rgb(209, 217, 225); font-weight:400;">error</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> message = response.<span style="color:rgb(209, 217, 225); font-weight:400;">message</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">typeof</span> error === <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;object&#x27;</span>) {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> keys = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(error);
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (keys.<span class="hljs-title function_">some</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">item</span> =&gt;</span> item === <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;message&#x27;</span>)) {
+        message = error.<span style="color:rgb(209, 217, 225); font-weight:400;">message</span>;
+        }
+    } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">typeof</span> error === <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;string&#x27;</span>) {
+        message = error;
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span class="hljs-title function_">throwError</span>({ message, status });
+    }
+}</code></pre>
+
+    <p>Generamos un <b>guard</b> con el siguiente comando:</p>
+    <code>ng generate guard _guard/roleBase --skip-tests</code>
+
+    <p>Cuando se nos pregunte el tipo de guard indicamos <b>CanActivate</b></p>
+
+    <p>En el archivo <b>src/app/_guard/role-base.guard.ts</b> introducimos el siguiente contenido:</p>
+
+    <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Injectable } from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { ActivatedRouteSnapshot, Router, UrlTree } from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/router&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { Observable } from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;rxjs&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { AuthService } from <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;../auth/auth.service&#x27;</span>;
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Injectable({
+    providedIn: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;root&#x27;</span>
+})</span>
+export <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">RoleBaseGuard</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">constructor</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">private</span> authService: AuthService, <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> router: Router) {}
+    canActivate(
+    route: ActivatedRouteSnapshot): Observable&lt;boolean | UrlTree&gt; | Promise&lt;boolean | UrlTree&gt; | boolean | UrlTree {
+        <span style="color:rgb(150, 152, 150); font-weight:400;">// Stage 1: check user authentication</span>
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (!<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.authService.isAuthenticated) {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.router.navigate([<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/auth/login&#x27;</span>]);
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.authService.logout();
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> validRoles = route.<span style="color:rgb(204, 153, 204); font-weight:400;">data</span>[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;authorities&#x27;</span>] || [];
+        <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> userData = <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.authService.userData;
+        
+        <span style="color:rgb(150, 152, 150); font-weight:400;">// Stage 2: Check user role</span>
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (validRoles != userData.userInfo.role) {
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.router.navigate([<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/&#x27;</span>]); 
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
+    }
+}</code></pre>
+<code>
+        <p><b>NOTA:</b> El código que se muestra arriba realiza la comparación con un único role, si queremos que una ruta sea accesible por varios roles tenemos que cambiar la linea:</p>
+        <code>if (validRoles != userData.userInfo.role)</code>
+
+        <p>por esta:</p>
+
+        <code>if (!validRoles.includes(userData.userInfo.role))</code>
+
+        <p>Y en el archivo <b>src/app/user/user-routing.module.ts</b> cambiaríamos:</p>
+        <code>authorities: 'ROLE_CUSTOMER'</code>
+
+        <p>por:</p>
+        <code>authorities: ['ROLE_CUSTOMER', 'ROLE_ADMIN']</code>
+    </code>
+        <p>Creamos un modulo de usuario para introducir una página con la que probaremos si estamos logeados o no:</p>
+        <code>ng generate module user --routing</code>
+
+        <p>Modificamos el archivo <b>src/app/app-routing.module.ts</b>:</p>
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">{
+    path: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;users&#x27;</span>,
+    loadChildren: () =&gt; <span style="color:rgb(181, 189, 104); font-weight:400;">import</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./user/user.module&#x27;</span>).<span style="color:rgb(181, 189, 104); font-weight:400;">then</span>(m =&gt; m.UserModule)
+}</code></pre>
+
+        <p>Generamos un componente userList que usaremos para probar si estamos logueados:</p>
+        <code>ng generate component user/userList</code>
+
+        <p>En el archivo <b>src/app/user/user-list/user-list.component.ts</b> tendremos el siguiente codigo:</p>
+
+        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Component</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">AuthService</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;src/app/auth/auth.service&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+    <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-user-list&#x27;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./user-list.component.html&#x27;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">styleUrls</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./user-list.component.css&#x27;</span>]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">UserListComponent</span> {
+    <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">
+        <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> authService: AuthService
+    </span>)
+    {}
+
+    <span class="hljs-title function_">ngOnInit</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>) {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">authService</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">userData</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">userInfo</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">role</span>);
+    }
+}
+</code></pre>
+
+    <p>Y en el archivo <b>src/app/user/user-list/user-list.component.html</b>:</p>
+    <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">&lt;<span style="color:rgb(204, 153, 204); font-weight:400;">p</span>&gt;Usuario: {{authService<span style="color:rgb(209, 217, 225); font-weight:400;">.userName</span>}}&lt;/<span style="color:rgb(204, 153, 204); font-weight:400;">p</span>&gt;
+&lt;<span style="color:rgb(204, 153, 204); font-weight:400;">p</span>&gt;Role: {{authService<span style="color:rgb(209, 217, 225); font-weight:400;">.userRole</span>}}&lt;/<span style="color:rgb(204, 153, 204); font-weight:400;">p</span>&gt;
+</code></pre>
+        
+
+
+        <p>En el archivo <b>src/app/user/user-routing.module.ts</b> añadimos el guard para indicar que usuario puede acceder a la ruta de <b>users</b>:</p>
+
+<pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">{
+    <span style="color:rgb(129, 162, 190); font-weight:400;">path:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;&#x27;</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">component:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">UserListComponent</span>,
+    <span style="color:rgb(129, 162, 190); font-weight:400;">canActivate:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">RoleBaseGuard</span>],
+    <span style="color:rgb(129, 162, 190); font-weight:400;">data:</span> {
+        <span style="color:rgb(129, 162, 190); font-weight:400;">authorities:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ROLE_CUSTOMER&#x27;</span>
+    }
+}</code></pre>
+
+        <img src="Jwt Authentication/7.png"/>
+
+        <p>Al intentar acceder al enlace del listado de usuarios como no estamos logueados se nos llevará al componente de login y una vez ahí al loguearnos veremos el token que se nos devuelve:</p>
+        <img src="Jwt Authentication/8.png"/>
+
+        <p>Una vez nos logueamos, al acceder al listado de usuario veremos el nombre y el rol del usuario</p>
+        <img src="Jwt Authentication/9.png"/>
+
+
+    </div>
+
+    <div class="t2">Tags</div>
+    <div class="cont">
+        <p>JWT | Token | Authentication | Bearer </p>
+    </div>
+
+</body>
+
+</html>
