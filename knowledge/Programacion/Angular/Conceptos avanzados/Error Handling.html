@@ -88,6 +88,40 @@
 
         </div>
 
+    <div class="t2">Excepciones en Promises</div>
+        <div class="cont">
+            <p>NOTA: esto todavía lo tengo bajo investigación</p>
+
+            <p>Cuando se lanza una excepción dentro de una promesa la excepción viene envuelta por otro objeto, lo que podemos hacer en estos casos es un unwrap de la excepción para poder manejarla:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">ErrorHandler</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;@angular/core&quot;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">ExcepcionDos</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;./excepcion-dos&quot;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">ExcepcionUno</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;./excepcion-uno&quot;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">MyErrorHandler</span> <span style="color:rgb(204, 153, 204); font-weight:400;">implements</span> <span class="hljs-title class_">ErrorHandler</span> {
+    <span class="hljs-title function_">handleError</span>(<span style="color:rgb(129, 162, 190); font-weight:400;">wrapperError</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">any</span>): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> error = wrapperError.<span style="color:rgb(209, 217, 225); font-weight:400;">rejection</span> ? wrapperError.<span style="color:rgb(209, 217, 225); font-weight:400;">rejection</span> : wrapperError;
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(error <span style="color:rgb(204, 153, 204); font-weight:400;">instanceof</span> <span class="hljs-title class_">ExcepcionUno</span>){
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Se ha lanzado ExcepcionUno&quot;</span>);
+        }
+        <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(error <span style="color:rgb(204, 153, 204); font-weight:400;">instanceof</span> <span class="hljs-title class_">ExcepcionDos</span>){
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Se ha lanzado ExcepcionDos&quot;</span>);
+        }
+    }
+
+}</code></pre>
+
+            <img src="Error Handling/2.png">
+
+            <p>En la promesa podemos capturar el error interno que se lanze y lanzar nuestra propia excepción:</p>
+            <code>.catch(() => {throw new ExcepcionUno("Error uno")})</code>
+
+            <img src="Error Handling/3.png">
+
+
+        </div>
+
     <div class="t2">Tags</div>
         <div class="cont">
         <p>Error Handling | Angular</p>
