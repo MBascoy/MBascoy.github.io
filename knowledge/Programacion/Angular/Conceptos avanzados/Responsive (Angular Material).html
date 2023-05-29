@@ -1,0 +1,77 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Responsive (Angular Material)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como ejecutar un código u otro según el tamaño de la ventana del navegador usando <b>angular material</b></p>
+        </div>
+
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>En angular material para hacer uso del responsive utilizamos <b>BreakpointObserver</b></p>
+
+            <pre>
+                <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Component</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {<span class="hljs-title class_">BreakpointObserver</span>, <span class="hljs-title class_">Breakpoints</span>} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/cdk/layout&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Subject</span>, takeUntil } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;rxjs&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-root&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./app.component.html&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">styleUrls</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./app.component.css&#x27;</span>]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">AppComponent</span> {
+  title = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ResponsiveExample&#x27;</span>;
+  destroyed = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title class_">Subject</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">void</span>&gt;();
+
+  <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">breakpointObserver: BreakpointObserver</span>)
+  {
+
+    breakpointObserver
+      .<span class="hljs-title function_">observe</span>([
+        <span class="hljs-title class_">Breakpoints</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">XSmall</span>,
+        <span class="hljs-title class_">Breakpoints</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">Small</span>,
+        <span class="hljs-title class_">Breakpoints</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">Medium</span>,
+        <span class="hljs-title class_">Breakpoints</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">Large</span>,
+        <span class="hljs-title class_">Breakpoints</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">XLarge</span>,
+      ])
+      .<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">takeUntil</span>(<span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">destroyed</span>))
+      .<span class="hljs-title function_">subscribe</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">result</span> =&gt;</span> {
+          <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (
+            result.<span style="color:rgb(209, 217, 225); font-weight:400;">breakpoints</span>[<span class="hljs-title class_">Breakpoints</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">XSmall</span>] || 
+            result.<span style="color:rgb(209, 217, 225); font-weight:400;">breakpoints</span>[<span class="hljs-title class_">Breakpoints</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">Medium</span>]
+          ) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;es xsmall o medium&quot;</span>);
+          }
+          <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(result.<span style="color:rgb(209, 217, 225); font-weight:400;">breakpoints</span>[<span class="hljs-title class_">Breakpoints</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">Large</span>]){
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;es large&quot;</span>);
+          }
+      });
+  }
+
+  <span class="hljs-title function_">ngOnDestroy</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>) {
+    <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">destroyed</span>.<span class="hljs-title function_">next</span>();
+    <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">destroyed</span>.<span class="hljs-title function_">complete</span>();
+  }
+}
+</code></pre>
+
+            <p>En la funcion <b>.observe()</b> indicamos todos los estados que queremos escuchar, y despues en las <b>condiciones if</b> indicamos que queremos ejecutar según el estado en el que nos encontremos.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Responsive | Angular</p>
+        </div>
+
+    </body>
+</html>
