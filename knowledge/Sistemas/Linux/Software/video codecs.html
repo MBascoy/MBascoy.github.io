@@ -1,0 +1,56 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">video codecs</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como instalar <b>codecs</b> de video en OpenSuse Tumbleweed para poder reproducir cualquier tipo de archivo</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+            <p>Primero añadimos el repositorio de packman para tumbleweed</p>
+            <code>zypper addrepo -f http://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/ packman</code>
+
+            <p><b>NOTA:</b> El repositorio de packman puede cambiar según la distribución que tengamos</p>
+
+            <p>Instalamos los siguiente paquetes:</p>
+            <code>zypper install ffmpeg-4 lame gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-ugly-orig-addon gstreamer-plugins-libav libavdevice57 vlc-codecs</code>
+
+            <p>Una vez instalados estos paquetes ya deberíamos de poder reproducir cualquier tipo de archivo de video (principlamente con VLC).</p>
+        </div>
+
+    <div class="t2">Listado paquetes</div>
+        <div class="cont">
+            <p>El listado de paquetes que instalamos es el siguiente (por si queremos buscarlos para otra distribución):</p>
+            <ul>
+                <li>ffmpeg-4</li>
+                <li>lame</li>
+                <li>gstreamer-plugins-bad</li>
+                <li>gstreamer-plugins-ugly</li>
+                <li>gstreamer-plugins-ugly-orig-addon</li>
+                <li>gstreamer-plugins-libav</li>
+                <li>libavdevice57</li>
+                <li>vlc-codecs</li>
+            </ul>
+
+        </div>
+
+        
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Video | codecs</p>
+        </div>
+
+    </body>
+</html>
