@@ -1,0 +1,56 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Soporte fuentes caracteres asiaticos</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Añadir las fuentes necesarias para poder visualizar los caracteres de los alfabetos asiaticos.</p>
+
+            <p>Podemos consultar en esta página de la wikipedia si tenemos soporte para los distintos idiomas:</p>
+
+            <a href="https://en.wikipedia.org/wiki/Help:Multilingual_support_%28East_Asian%29">Wikipedia check multilingual support</a>
+
+            <p>Al entrar en la página si no tenemos soporte para fuentes asiaticas veremos cuadrados en vez de los propios caracteres, como en la siguiente imagen:</p>
+            <img src="Soporte fuentes caracteres asiaticos/1.png"/>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+    <div class="cont">
+        <p>Para poder visualizar estos alfabetos instalamos los siguientes paquetes:</p>
+
+        <code># zypper in noto-fonts google-noto-sans-cjk-fonts</code>
+
+        <p>Una vez instalados estos paquetes ya deberíamos de poder ver la mayoria de caracteres (tenemos que reiniciar los programas abiertos)</p>
+
+        <p>Si queremos soporte para mas caracteres (sobre todo en el chino que tiene muchas variantes) podemos instalar las fuentes <b>HanaMinA</b> y <b>HanaMinB</b>.</p>
+
+        <p>Solo tenemos que <a href="Soporte fuentes caracteres asiaticos/HanaMin.zip">descargar este archivo</a> y descomprimirlo en la carpeta <b>~/.local/share/fonts</b>.</p>
+
+    </div>
+
+    <div class="t2">Enlaces</div>
+    <div class="cont">
+        <p>En estos enlaces podemos comprobar si funcionan las fuentes que tenemos instaladas con varios tipos de alfabetos:</p>
+
+        <p><a href="https://ctext.org/font-test-page">https://ctext.org/font-test-page</a></p>
+        <p><a href="https://pages.ucsd.edu/~dkjordan/chin/unitestuni.html">https://pages.ucsd.edu/~dkjordan/chin/unitestuni.html</a></p>
+        <p><a href="https://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_b/utf8test.htm">https://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_b/utf8test.htm</a></p>
+    </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Fuentes | cjk | glyph | ttf </p>
+        </div>
+
+    </body>
+</html>
