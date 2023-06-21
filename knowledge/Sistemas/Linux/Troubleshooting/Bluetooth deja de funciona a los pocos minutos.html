@@ -1,0 +1,85 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Bluetooth deja de funciona a los pocos minutos</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Al estar usando un gamepad a traves de bluetooth a los pocos minutos de estar usandolo deja de funcionar.</p>
+            <p>Una vez en este estado el gamepad se queda completamente bloqueado y ni siquiera desconectando y volviendo a conectar recupera la funcionalidad.</p>
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+
+            <p>El fallo se da en algunos gamepads por la funcionalidad de autosuspend.</p>
+
+            <p>Para solucionar este problema podemos desactivar el autosuspend de la siguiente manera</p>
+
+            <h2>De manera temporal</h2>
+            <p>Si queremos hacerlo de manera temporal o para arreglarlo en el momento que se nos ha quedado bloqueado lanzamos los siguientes comandos:</p>
+
+            <code>lsusb --tree</code>
+
+            <p>Este comando simplemente nos permitira saber cual es la ruta de nuestro dispositivo dentro de <b>/sys/bus/usb/devices</b></p>
+
+            <img src="Bluetooth deja de funciona a los pocos minutos/1.png"/>
+
+            <p>Nos fijamos en cual es nuestro dispositivo (<b>btusb</b> en este caso) y cogemos los numeros de los puertos que nos llevan hasta el, en mi caso el dispositivo es el <b>1-1.7</b> por lo tanto la ruta en la que tendre que trabajar será: /sys/bus/usb/devices/1-1.7</p>
+
+            <p>Tendremos que modificar dos configuraciones el control y el autosuspend, lo hacemos con los siguientes comandos:</p>
+
+            <code>echo on > /sys/bus/usb/devices/1-1.7/power/control</code>
+            <code>echo 0 > /sys/bus/usb/devices/1-1.7/power/autosuspend</code>
+
+            <p>Una vez hecho esto recargamos los modulos relativos al bluetooth:</p>
+            <code># modprobe -ra btusb btrtl btintel</code>
+            <code># modprobe -a btusb btrtl btintel</code>
+
+            <p>Una vez hecho esto el dispositivo ya estaría listo para conectarse de nuevo sin los problemas de desconexión</p>
+
+            <h2>Solución permanente</h2>
+
+            <p>Para hacer que la solucion sea permanente tenemos que crear un archivo en las reglas de <b>udev</b>, creamos el siguiente archivo:</p>
+            <code>/etc/udev/rules.d/10-bluetooth.rules</code>
+
+            <p>Y dentro introducimos el siguiente contenido:</p>
+
+            <pre><code>ACTION=="add" \
+  , ATTR{idProduct}=="0a2a" \
+  , ATTR{idVendor}=="8087" \
+  , ATTR{power/autosuspend}="0" \
+  , ATTR{power/control}="on"</code>
+            </pre>
+
+            <p>En la linea de <b>idProduct</b> y en la linea de <b>idVendor</b> tenemos que poner los identificadores de nuestro dispositivo <b>bluetooth</b>, para saber estos datos usamos el comando <b>lsusb</b>:</p>
+        
+            <img src="Bluetooth deja de funciona a los pocos minutos/2.png"/>
+
+            <p>Ese es nuestro dispositivo, y para mirar mas en concreto cual es cada identificador usamos el comando con la opción <b>-v</b> para ver mas información:</p>
+
+            <code>lsusb -v</code>
+
+            <img src="Bluetooth deja de funciona a los pocos minutos/3.png"/>
+
+            <p>Una vez tengamos el archivo con los cambios hechos, guardamos y reiniciamos el sistema y ya estaría listo.</p>
+
+            <p><b>NOTA:</b> Con mi gamepad de stadia se da un problema a mayores y es que cuando apago el mando manualmente (manteniendo pulsado el boton) despues, al intentar reconectar al momento, el gamepad no es detectado correctamente, para solucionar esto simplemente desde el gestor de dispositivos de bluetooth le damos a desconectar y el gamepad se autoreconecta y ya funciona todo correctamente de nuevo.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Bluetooth | autosuspend | Controllers </p>
+        </div>
+
+    </body>
+</html>
