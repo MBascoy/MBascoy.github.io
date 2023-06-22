@@ -56,9 +56,11 @@
             <pre><code>ACTION=="add" \
   , ATTR{idProduct}=="0a2a" \
   , ATTR{idVendor}=="8087" \
+  , ATTR{power/autosuspend_delay_ms}="-1" \
   , ATTR{power/autosuspend}="0" \
-  , ATTR{power/control}="on"</code>
-            </pre>
+  , ATTR{power/control}="on"</code></pre>
+
+            <p><b>NOTA:</b> la linea de <b>autosuspend_delay_ms</b> no sé si es necesaria tambien (me ha fallado una vez al no tenerla, de momento la dejo a ver si se vuelve a repetir el fallo incluso teniendo la linea)</p>
 
             <p>En la linea de <b>idProduct</b> y en la linea de <b>idVendor</b> tenemos que poner los identificadores de nuestro dispositivo <b>bluetooth</b>, para saber estos datos usamos el comando <b>lsusb</b>:</p>
         
