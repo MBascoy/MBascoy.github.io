@@ -1,0 +1,48 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Juegos de Feral no arrancan (dlopen)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Los juegos portados a linux por <b>Feral Interactive</b> (F1 2017, tomb raider, life is strange...etc) no se inician</p>
+
+        </div>
+
+    <div class="t2">Explicacion</div>
+        <div class="cont">
+
+        <p>Este fallo se debe porque hay una función de la librería glibc que a partir de la versión 2.44 ha cambiado de nombre y al intentar ejecutar dichos juegos no encuentra ese simbolo en el código.</p>
+        <p>Si ejecutamos steam desde la consola e intentamos arrancar un juego veremos el siguiente error:</p>
+
+        <code>symbol lookup error: /home/manuel/.local/share/Steam/steamapps/common/F1 2017/bin/F12017: undefined symbol: __libc_dlopen_mode, version GLIBC_PRIVATE</code>
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+        <p>Para solucionar este problema necesitamos la siguiente librería:</p>
+
+        <a href="Juegos de Feral no arrancan (dlopen)/liblibc_dlopen_mode.so">liblibc_dlopen_mode.so</a>
+
+        <p>Y en el juego que nos esta dando problemas colocamos ese archivo dentro de la carpeta <b>lib</b> en la carpeta del juego (o tambien justo donde esté el ejecutable):</p>
+        <img src="Juegos de Feral no arrancan (dlopen)/1.png">
+
+        <p>y declaramos el <b>LD_PRELOAD</b> con dicha librería</p>
+        <img src="Juegos de Feral no arrancan (dlopen)/2.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Steam | Feral | Juegos </p>
+        </div>
+
+    </body>
+</html>
