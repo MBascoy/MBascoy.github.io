@@ -270,11 +270,14 @@
 
     <div class="t2">Establecer campo invalido manualmente</div>
         <div class="cont">
-          <p>Si queremos controlar la validez de un campo de manera manual lo podemos hacer con la funcion <b>setErrors</b> del formcontrol del campo, para establecerlo como invalido sería asi:</p>
+          <p>Si queremos controlar la validez de un campo de manera manual lo podemos hacer con la funcion <b>setErrors</b> del formcontrol del campo, para establecerlo como <b>invalido</b> sería asi:</p>
           <code>this.name.setErrors({incorrect: true})</code>
 
-          <p>Y para establecerlo como valido sería asi:</p>
+          <p>Y para establecerlo como <b>valido</b> sería asi:</p>
           <code>this.name.setErrors(null)</code>
+
+          <p>En ocasiones tendremos que establecer el campo como <b>touched</b> (para que el campo aparezca en rojo), para eso lo hacemos de esta manera:</p>
+          <code>this.name.markAsTouched();</code>
 
         </div>
 
