@@ -1,0 +1,64 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Kdenlive mlt y codecs h264 (libx264)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como solucionar los problemas que se nos pueden dar end kdenlive con mlt y los codecs h264 (o la librería libx264).</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Nos podemos encontrar con varios problemas, el primero es que la aplicación de kdenlive se inicie correctamente, pero al intentar procesar un proyecto nos encontramos con el siguiente error:</p>
+            <img src="Kdenlive mlt y codecs h264 (libx264)/1.png">
+
+            <p>En este caso este error se da porque la librería <b>libmltavformat.so</b> no tiene los codecs necesarios, en este caso podemos compilar mlt a mano para obtener el so con los codecs necesarios y substituirlo en nuestra instalación en la siguiente página se muestran una seríe de scripts para facilitar el proceso de compilación manual:</p>
+
+            <a href="https://www.mltframework.org/docs/buildscripts/">MLT Build Scripts</a>
+
+            <p>En nuestro caso necesitaríamos el script <a href="https://github.com/mltframework/mlt-scripts/tree/master/build">build-melt.sh</a></p>
+
+            <p>Una vez generado el proyecto, dentro de la carpeta <b>melt/20230627/lib64/mlt-7/</b> tendremos todos los .so</p>
+
+            <p>Dejo por aqui el archivo <a href="Kdenlive mlt y codecs h264 (libx264)/libmltavformat.so"><b>libmltavformat.so</b></a> ya compilado para poder usarlo directamente (sin necesidad de tener que compilar todo el proyecto)</p>
+
+            <p>Este archivo tenemos que substituirlo en la carpeta de nuestro sistema: <b>/usr/lib64/mlt-7/</b></p>
+
+            <p>Otra librería que tambien podemos substituir es la <b>frei0r</b> dejo aqui tambien el so: <a href="Kdenlive mlt y codecs h264 (libx264)/libmltfrei0r.so">libmltfrei0r.so</a></p>
+
+            <p>Una vez substituidas las librerías reiniciamos kdenlive y ya nos debería de dejar procesar archivos con el codec h264 (libx264).</p>
+        </div>
+
+    <div class="t2">Variables de entorno no definidas</div>
+        <div class="cont">
+            <p>Otro problema que podemos tener es que al intentar arrancar kdenlive nos encontramos con un error como el siguiente:</p>
+            <img src="Kdenlive mlt y codecs h264 (libx264)/2.png">
+
+            <p>Este error se da porque no tenemos las variables de entorno de <b>mlt</b> definidas y mlt no es capaz de encontrar ni los modulos ni los drivers.</p>
+
+            <p>Para solucionar este problema solo tenemos que definir las siguientes variables de entorno en nuestro archivo <b>~/.profile</b>:</p>
+
+            <pre><code>export MLT_REPOSITORY="/lib64/mlt-7"
+export MLT_DATA="/usr/share/mlt-7"
+export PKG_CONFIG_PATH="/lib64/pkgconfig":$PKG_CONFIG_PATH</code></pre>
+
+            <p>Con estas variables declaradas en el .profile solo tenemos que reiniciar el equipo y kdenlive ya se abrirá correctamente.</p>
+
+        </div>
+        
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Kdenlive | libx264 | codecs | mlt</p>
+        </div>
+
+    </body>
+</html>
