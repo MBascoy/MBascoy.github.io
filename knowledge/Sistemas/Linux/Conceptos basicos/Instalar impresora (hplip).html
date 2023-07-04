@@ -1,0 +1,52 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Instalar impresora (hplip)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como instalar impresoras <b>HP</b> en Linux</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Primero tenemos que asegurarnos de que tenemos el servicio de <b>cups</b> ejecutandose:</p>
+            <code>ps -e | grep cups</code>
+
+            <p>Si no está ejecutandose podemos lanzarlo con:</p>
+            <code>systemctl start cups.service</code>
+
+            <p>Instalamos el paquete <b>hplip</b>:</p>
+            <code>zypper in hplip</code>
+
+            <h2>Configuración impresora</h2>
+
+            <p>Para configurar la impresora podemos hacerlo desde cups accediendo a la siguiente dirección desde el navegador:</p>
+            <code>http://127.0.0.1:631</code>
+
+            <p><b>NOTA:</b> Si nos pide usuario siempre será <b>root</b> y la contraseña que tengamos para dicho usuario</p>
+
+            <p><b>NOTA2:</b> he tenido problemas en el pasado de que no funcionaba la impresora al configurarla desde la interfaz web, el problema era porque al seleccionar el modelo aparecía dos veces el modelo de la impresora (uno arriba del todo de la lista) y otro en el orden de la lista, al seleccionar el segundo no funcionaba la impresora, tenía que elegir el primero</p>
+
+            <p>Otra opción para configurar la impresora es utilizar la herramiento del paquete de <b>hplip</b>, desde la consola de comandos lanzamos:</p>
+            <code>hp-setup</code>
+
+            <p>Y se nos abrirá un asistente para realizar la configuración de la impresora </p>
+            
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Impresoras | Linux | hplip</p>
+        </div>
+
+    </body>
+</html>
