@@ -1,0 +1,45 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Mantener colores entre pipes</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como hacer que los colores se mantengan en un terminal al utilizar pipes (|)</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Cuando lanzamos un comando en un terminal y nos devuelve una salida con códigos de colores si hacemos un pipe (para filtrar con grep por ejemplo) los colores se pierden.</p>
+
+            <p>Para evitar esto muchos comandos tienen la opción <b>--color=always</b>, si por ejemplo queremos filtrar dmesg usando grep podemos hacerlo tal que asi:</p>
+            <code>dmesg --color=always | grep device</code>
+            <img src="Mantener colores entre pipes/1.png">
+
+            <p>Lo mismo con el comando ls y el comando less, en este caso con less tambien podemos utilizar la opción -r para que haga una interpretación de los caracteres especiales:</p>
+
+            <code>ls -l --color=always | less -r</code>
+            <img src="Mantener colores entre pipes/2.png">
+
+            <p>Con otros comandos como el <b>scat</b> no hace falta usar dicha opción:</p>
+            <code>scat index.html | less -r</code>
+            <img src="Mantener colores entre pipes/3.png">
+
+            
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Bash | colors | pipe</p>
+        </div>
+
+    </body>
+</html>
