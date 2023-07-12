@@ -1,0 +1,59 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">thunderbird establecer lista de contactos (cuenta google)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como establecer nuestra libreta de contactos de la cuenta de google en thunderbird, de manera que está quede sincronizada (los cambios en thunderbird se verán reflejados en la cuenta de google).</p>
+
+            <p><a href="https://developers.google.com/people/carddav?hl=es-419#connecting_to_googles_carddav_server">Enlace Google CardDAV</a></p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Para sincronizar los contactos de nuestra cuenta de google con thunderbird lo hacemos a traves del protocolor <b>CardDAV</b>.</p>
+
+            <p>En thunderbird nos vamos a la libreta de contactos:</p>
+            <img src="thunderbird establecer lista de contactos (cuenta google)/1.png">
+
+            <p>Hacemos click en la flecha al lado de <b>Nueva libreta de direcciones</b> y despues en <b>Añadir libreta de direcciones CardDAV</b>:</p>
+            <img src="thunderbird establecer lista de contactos (cuenta google)/2.png">
+
+            <p>Se nos abríra una ventana emergente como la siguiente:</p>
+            <img src="thunderbird establecer lista de contactos (cuenta google)/3.png">
+
+            <p>En <b>nombre de usuario</b> podemos dejarlo vacío, no tiene utilidad en esta situación (despues se nos abrirá la interfaz de login de google que nos preguntará), y en la <b>URL</b> ponemos la siguiente dirección:</p>
+
+            <code>https://www.googleapis.com/.well-known/carddav</code>
+
+            <p>Una vez introducida la URL le damos a <b>continuar</b> y se nos abrirá la pantalla de login de google para iniciar sesión con nuestra cuenta.</p>
+
+            <p>Una vez hayamos iniciado sesión y dado el permiso para acceder a los contactos de google se importará la libreta de direcciones en nuestro thunderbird:</p>
+            <img src="thunderbird establecer lista de contactos (cuenta google)/4.png">
+
+            <p>En la lista de libretas de direcciones a mi me aparece como <b>Adress Book</b> y dentro todos mis contactos importados:</p>
+
+            <img src="thunderbird establecer lista de contactos (cuenta google)/5.png">
+
+            <p>A partir de este momento todos los cambios que hagamos en thunderbird sobre la libreta de direcciones se sincronizarán automáticamente con la cuenta de google y viceversa (la sincronización no es instantanea, a veces puede tardar unos 10 min...)</p>
+
+
+
+        </div>
+
+        
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Thunderbird | address | CardDAV</p>
+        </div>
+
+    </body>
+</html>

@@ -14,16 +14,34 @@
 
             <p>Instalación de drivers de la gráfica en el portatil G56JR</p>
 
+            <p><a href="https://en.opensuse.org/SDB:NVIDIA_SUSE_Prime">Documentación suse-prime</a></p>
+            <p><a href="https://github.com/openSUSE/SUSEPrime">Github suse-prime</a></p>
         </div>
 
     <div class="t2">Metodo</div>
         <div class="cont">
+            <p>Para hacer funcionar los drivers optimus en el G56JR seguimos los siguientes pasos:</p>
+            <ul>
+                <li>Instalamos los siguientes paquetes:</li>
+                <code># zypper in nvidia-glG05 x11-video-nvidiaG05</code>
+                <p><b>NOTA:</b> necesitamos los <b>G05</b> ya que los G06 no funcionan con la GTX760m</p>
+
+                <li>Nos aseguramos de <b>NO</b> tener el archivo /etc/X11/xorg.conf si lo tenemos lo eliminamos (ya que el propio prime-select se encarga de enlazar el que necesita)</li>
+                
+                <li>Instalamos los siguientes paquetes:</li>
+                <code># zypper in suse-prime bbswitch-kmp-default</code>
+
+                <li>Lanzamos el siguiente comando para establecer la tarjeta nvidia como activa:</li>
+                <code># prime-select boot nvidia</code>
+
+                <li>Reiniciamos y ya lo deberíamos de tener funcionando</li>
+            </ul>
             
         </div>
         
     <div class="t2">Tags</div>
         <div class="cont">
-        <p>Screenshot | editor</p>
+        <p>Optimus | editor</p>
         </div>
 
     </body>

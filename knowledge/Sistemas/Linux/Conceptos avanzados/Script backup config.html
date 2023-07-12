@@ -1,0 +1,31 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Script backup config</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Script para almacenar todas las configuraciones del sistema y asi poder restaurarlas.</p>
+
+        </div>
+
+    <div class="t2">Explicacion</div>
+        <div class="cont">
+            <code>for s in $(rpm -qaV | awk -F " " '{print $NF}' | grep /); do echo $s; done</code>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Script | Bash | config | rpm</p>
+        </div>
+
+    </body>
+</html>
