@@ -50,6 +50,18 @@
             <li><b>NgControl</b> - FormsModule</li>
             <li><b>MatFormFieldControl</b> - MatInputModule,</li>
           </ul>
+
+          <h3>MatDialogRef</h3>
+          <img src="NullInjectorError, No provider for CLASS/3.png">
+
+          <p>En el caso del <b>MatDialogRef</b> tenemos que añadir lo siguiente en <b>providers</b>:</p>
+          <pre><code>providers: [
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+]</code></pre>
+
+          <img src="NullInjectorError, No provider for CLASS/4.png">
+
         </div>
 
     <div class="t2">Tags</div>

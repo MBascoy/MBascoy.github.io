@@ -344,6 +344,11 @@ describe(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Test1Com
 
                 <p>Si queremos mockear una función que no devuelve nada (<b>void</b>) simplemente hacemos el spyOn con un returnValue vacio:</p>
                 <code>.and.returnValue()</code>
+
+                <h2>Modificar fecha para los tests</h2>
+                <p>Si queremos modificar la fecha para algun test que dependa de la hora actual podemos hacerlo asi:</p>
+                <pre><code>let today = moment("2023-04-02").toDate();
+jasmine.clock().mockDate(today);</code></pre>
           </div>
 
     <div class="t2">Tags</div>
