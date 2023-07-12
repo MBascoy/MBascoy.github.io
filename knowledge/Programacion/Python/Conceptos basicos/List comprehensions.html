@@ -17,7 +17,20 @@
 
     <div class="t2">Metodo</div>
         <div class="cont">
-          
+          <p>Las list comprehension nos permiten crear listas de manera dinamica, normalmente a traves de un objeto iterable.</p>
+
+          <p>La sintaxis para crear <b>list comprehension</b> es la siguiente:</p>
+
+          <code>[expr <b>for</b> element <b>in</b> iterable <b>if</b> condicion]</code>
+
+          <p>Un ejemplo sería el siguiente, para crear una lista de los numeros al cuadrado del 1 al 10</p>
+          <code>[i*i for i in range(1,10)]</code>
+          <p>resultado: <i>[1, 4, 9, 16, 25, 36, 49, 64, 81]</i></p>
+
+          <p>Otro ejemplo es el siguiente donde usamos un <b>if</b> para crear la lista con los elementos que contengan la letra "o":</p>
+          <pre><code>my_list = ["uno", "dos", "tres"]
+my_list = [i for i in list if i.find("o")>-1]</code></pre>
+            <p>resultado: <i>['uno', 'dos']</i></p>
         </div>
 
     <div class="t2">Tags</div>
