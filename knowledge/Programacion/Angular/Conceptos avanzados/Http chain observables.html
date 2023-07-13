@@ -1,0 +1,75 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Http chain observables</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como encadenar varias solicitudes http (observables), cuando unas dependen del resultado de otras.</p>
+
+          <a href="https://github.com/MBascoy/Angular-Examples/tree/main/HttpChain">Codigo de Ejemplo</a>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Para encadenar varios observables (de httpclient en este caso) utilizamos <b>switchMap</b> de la siguiente manera:</p>
+
+            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);">  ngOnInit() {
+    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.firstService.getInfo()
+    .pipe(
+      switchMap( data =&gt; <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.secondService.getInfo()),
+      switchMap( data =&gt; <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.thirdService.getInfo())
+    ).subscribe({ 
+      next: data =&gt; <span class="hljs-built_in" style="color: rgb(181, 189, 104);">console</span>.log(<span class="hljs-string" style="color: rgb(138, 190, 183);">"Respuesta final: "</span> + data.message),
+      error: error =&gt; <span class="hljs-built_in" style="color: rgb(181, 189, 104);">console</span>.log(error.status)
+    })
+
+    <span class="hljs-built_in" style="color: rgb(181, 189, 104);">console</span>.log(<span class="hljs-string" style="color: rgb(138, 190, 183);">"Ejecución previa a las solicitudes http"</span>)
+  }</pre>
+
+          <p>Al hacerlo de esta manera las solicitudes se ejecutarán por orden, para problarlo podemos hacerlo con mockoon, y hacemos que la primera solicitud tarde un par de segundos, normalmente al hacer esto las solicitudes 2 y 3 terminarían antes, pero en este caso al tener encadenadas las solicitudes con switchMap las solicitudes y su respuesta se ejecutan en el orden que hemos indicado.</p>
+          <p>Dentro del <b>switchMap</b> la función que se ejecute tiene que devolver un observable, en caso de que queramos hacer algún procesamiento adicional de los datos que vamos encadenando podemos hacerlo tal que asi:</p>
+
+          <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);">  ngOnInit() {
+    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.firstService.getInfo()
+    .pipe(
+      switchMap( data =&gt; <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.doSecondRequest(data)),
+      switchMap( data =&gt; <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.doThirdRequest(data))
+    ).subscribe({ 
+      next:data =&gt; <span class="hljs-built_in" style="color: rgb(181, 189, 104);">console</span>.log(<span class="hljs-string" style="color: rgb(138, 190, 183);">"Respuesta tercera solicitud: "</span> + data.message),
+      error: error =&gt; <span class="hljs-built_in" style="color: rgb(181, 189, 104);">console</span>.log(error.status)
+    })
+
+    <span class="hljs-built_in" style="color: rgb(181, 189, 104);">console</span>.log(<span class="hljs-string" style="color: rgb(138, 190, 183);">"Ejecución previa a las solicitudes http"</span>)
+  }
+
+  doSecondRequest(data: <span class="hljs-built_in" style="color: rgb(181, 189, 104);">any</span>) {
+    <span class="hljs-built_in" style="color: rgb(181, 189, 104);">console</span>.log(<span class="hljs-string" style="color: rgb(138, 190, 183);">"Respuesta primera solicitud: "</span> + data.message)
+    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">return</span> <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.secondService.getInfo()
+  }
+
+  
+  doThirdRequest(data: <span class="hljs-built_in" style="color: rgb(181, 189, 104);">any</span>) {
+    <span class="hljs-built_in" style="color: rgb(181, 189, 104);">console</span>.log(<span class="hljs-string" style="color: rgb(138, 190, 183);">"Respuesta segunda solicitud: "</span> + data.message)
+    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">return</span> <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.thirdService.getInfo()
+  }</pre>
+
+        </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Observable | Http | switchMap</p>
+        </div>
+
+    </body>
+</html>
