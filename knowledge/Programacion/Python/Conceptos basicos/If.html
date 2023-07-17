@@ -17,7 +17,42 @@
 
     <div class="t2">Metodo</div>
         <div class="cont">
-          
+          <p>La sintaxis es la siguiente:</p>
+          <pre><code><b>if</b> condicion:
+  codigo
+<b>elif</b> condicion:
+  codigo
+<b>else</b>:
+  codigo</code></pre>
+
+            <p>Por ejemplo:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">if</span> color==<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;rojo&quot;</span>:
+    printRed()
+<span style="color:rgb(204, 153, 204); font-weight:400;">elif</span> color==<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;verde&quot;</span>:
+    printGreen()
+<span style="color:rgb(204, 153, 204); font-weight:400;">else</span>:
+    printOther()</code></pre>
+
+            <p>Podemos encadenar varias condiciones con <b>and</b> o <b>or</b></p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">color=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;yellow&quot;</span>
+forma=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;triangulo&quot;</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">if</span> color==<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;red&quot;</span>:
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;rojo&quot;</span>)
+<span style="color:rgb(204, 153, 204); font-weight:400;">elif</span> color==<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;verde&quot;</span> or forma==<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;triangulo&quot;</span>:
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;verde&quot;</span>)</code></pre>
+
+            <h2>Pass</h2>
+            <p>Una sentencia que tiene python es <b>pass</b> que simplemente no hace nada, pero puede ser util para que el código sea mas legible en ciertos casos:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">if</span> color==<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;rojo&quot;</span>:
+    printRed()
+<span style="color:rgb(204, 153, 204); font-weight:400;">elif</span> color==<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;verde&quot;</span>:
+    printGreen()
+<span style="color:rgb(204, 153, 204); font-weight:400;">else</span>:
+    pass</code></pre>
+                
+            <p>De esta manera dejamos mas claro que en el caso de <b>else</b> no hacemos nada.</p>
         </div>
 
     <div class="t2">Tags</div>

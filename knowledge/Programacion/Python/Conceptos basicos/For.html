@@ -17,7 +17,59 @@
 
     <div class="t2">Metodo</div>
         <div class="cont">
+            <p>La sintanxis es la siguiente:</p>
+            <code><b>for</b> var <b>in</b> iterable: </code>
           
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">lista = [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;uno&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dos&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;tres&quot;</span>]
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">for</span> numero <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> lista:
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(numero)</code></pre>
+
+            <p>Si queremos podemos usar la sentencia <b>for</b> para iterar sobre un rango fijo de valores usando <b>range()</b>:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">for numero in <span style="color:rgb(181, 189, 104); font-weight:400;">range</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>):
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(numero)</code></pre>
+
+            <h2>while</h2>
+            <p>Tambien podemos usar la sentencia <b>while</b> para hacer bucles mientras se cummpla una cierta condicion:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">while</span> numero &gt; 0:
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(numero)
+    numero -= 1</code></pre>
+
+            <h2>continue y break</h2>
+            <p>Si queremos podemos interrumpir la ejecución de un bucle con las sentencias <b>continue</b> y <b>break</b>:</p>
+
+            <p><b>continue</b> nos permite saltar a la siguiente iteración del bucle:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">for</span> numero in <span style="color:rgb(181, 189, 104); font-weight:400;">range</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>)</span>:
+    if numero =</span>= <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">continue</span>
+    
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(numero)</code></pre>
+
+            <p>salida:</p>
+            <pre><code>0
+1
+2
+3
+4
+6
+7
+8
+9</code></pre>
+
+            <p><b>break</b> permite dar por terminado el bucle y seguir la ejecución con el siguiente código fuera del bucle:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">for</span> numero in <span style="color:rgb(181, 189, 104); font-weight:400;">range</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>)</span>:
+    if numero =</span>= <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(numero)</code></pre>
+
+            <p>salida:</p>
+            <pre><code>0
+1
+2
+3
+4</code></pre>
         </div>
 
     <div class="t2">Tags</div>
