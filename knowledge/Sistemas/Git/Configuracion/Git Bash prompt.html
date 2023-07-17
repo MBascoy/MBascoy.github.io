@@ -93,6 +93,20 @@ fi
 
             <p>Si queremos conseguir el mismo efecto en el <b>bash</b> de linux solo tenemos que colocar el siguiente código en el archivo <b>~/.bashrc</b>:</p>
 
+			<pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span class="hljs-title function_">parse_git_branch</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>) {
+     git branch <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">/dev/</span><span style="color:rgb(204, 153, 204); font-weight:400;">null</span> | sed -e <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/^[^*]/d&#x27;</span> -e <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/* \(.*\)/(\1)/&#x27;</span>
+}
+
+<span class="hljs-title function_">parse_git_log</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>) {
+        <span class="hljs-variable constant_">COMMIT_USER</span>=$(git log <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">/dev/</span><span style="color:rgb(204, 153, 204); font-weight:400;">null</span> | head -n <span style="color:rgb(249, 145, 87); font-weight:400;">4</span> | grep -v <span class="hljs-title class_">Merge</span> | tr <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;\n&#x27;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27; &#x27;</span> | awk -F <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[:&lt;]&quot;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{print $2}&#x27;</span>)
+
+        git log <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">/dev/</span><span style="color:rgb(204, 153, 204); font-weight:400;">null</span> | head -n <span style="color:rgb(249, 145, 87); font-weight:400;">4</span> | grep -v <span class="hljs-title class_">Merge</span> | tr <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;\n&#x27;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27; &#x27;</span> | awk -v env_var=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;$COMMIT_USER&quot;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{ printf &quot;\033[1;33m{&quot;env_var&quot;} \033[1;31m(&quot; $2 &quot;) \033[35m{&quot; $(NF-3) &quot;-&quot; $(NF-4) &quot;}\033[1;34m[&quot; $(NF-2) &quot;]&quot;}&#x27;</span>
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span class="hljs-title class_">PS1</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;╭─\e[45m\e[30m\u\e[1;32m@\h\e[40m \[\e[32m\]\w \e[1;34m\$(parse_git_branch)\[\e[00m\]\n|\$(parse_git_log)\n╰─&gt;\[\e[00m\] &quot;</span>
+</code></pre>
+
+		<p>Script antiguo:</p>
             <pre><code>parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
