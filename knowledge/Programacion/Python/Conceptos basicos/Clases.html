@@ -1,0 +1,58 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Clases</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como crear clases en python.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>La sintaxis para crear una clase es la siguiente:</p>
+          <pre><code><b>class</b> nombre_clase:
+  sentencia1
+  .
+  .
+  .
+  sentenciaN</code></pre>
+
+          <p>Si queremos crear una clase derivada de otra la sintaxis es la siguiente:</p>
+          <pre><code><b>class</b> clase_derivada (clase_base):
+  sentencia1
+  .
+  .
+  .
+  sentenciaN</code></pre>
+
+            <p>Un ejemplo sería el siguiente:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">hola</span>:
+  nombre=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;miclasecita&quot;</span>
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">obtenerNomber</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">self</span>):
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> self.nombre
+
+x = hola()
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(x.nombre)
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(x.obtenerNomber())</code></pre>
+
+            <h2>Atributos privados</h2>
+            <p>Si queremos declarar atributos privados en una clase tenemos que preceder el nombre del atributo de "<b>__</b>" (barra baja doble), por ejemplo:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">hola</span>:
+  <span style="color:rgb(204, 153, 204); font-weight:400;">__nombre=&quot;miclasecita&quot;</span></code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | class | clases</p>
+        </div>
+
+    </body>
+</html>

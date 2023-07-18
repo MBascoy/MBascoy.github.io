@@ -1,0 +1,40 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Excepciones</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como manjear excepciones en python.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para manejar execpciones en python usamos las palabras reservadas <b>try</b> y <b>except</b>, por ejemplo:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">try</span>:
+    <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>/<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">except</span> ZeroDivisionError:
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Division entre 0&quot;</span>)</code></pre>
+
+            <p>En el <b>except</b> indicamos la excepción que queremos manejar, la excepción mas genérica es <b>Exception</b>.</p>
+
+            <p>En caso de que queramos usar información de la excepción dentro del bloque de <b>except</b>, tenemos que hacerlo de la siguiente manera:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">try</span>:
+    <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>/<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">except</span> ZeroDivisionError <span style="color:rgb(204, 153, 204); font-weight:400;">as</span> mi_error:
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(mi_error.__class__.__name__,<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;:&#x27;</span>,mi_error)</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | exceptions</p>
+        </div>
+
+    </body>
+</html>
