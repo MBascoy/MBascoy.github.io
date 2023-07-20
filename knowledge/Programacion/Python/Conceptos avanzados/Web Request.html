@@ -1,0 +1,36 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Web Request</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como hacer solicitudes webs en python, ya sea para descargar una página o solicitar información a un endpoint.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para realizar solicitudes oslo tenemos que importar el modulo request y utilizarlo de la siguiente manera:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> requests
+
+response = requests.get(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;http://time.jsontest.com&quot;</span>)
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(response.text)</code></pre>
+
+            <p>La salida que genera el programa es la respuesta del endpoint:</p>
+            <img src="Web Request/1.png">
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | Web | request</p>
+        </div>
+
+    </body>
+</html>
