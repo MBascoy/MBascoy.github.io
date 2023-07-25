@@ -1,0 +1,43 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">VSCode configuracion de ejecucion</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Configuración de <b>VSCode</b> para lanzar un proyecto con <b>FastAPI</b> (usando uvicorn) y los tests con <b>pytest</b>.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">    {
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Pytest launch&quot;</span>,
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;type&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;python&quot;</span>,
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;request&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;launch&quot;</span>,
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;module&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;pytest&quot;</span>,
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cwd&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">${workspaceRoot}</span>/&quot;</span>,
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;args&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;tests&quot;</span>]
+    },
+    {
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;App Launch&quot;</span>,
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;type&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;python&quot;</span>,
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;request&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;launch&quot;</span>,
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;module&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;uvicorn&quot;</span>,
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cwd&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">${workspaceRoot}</span>/&quot;</span>,
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;args&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;main:app&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;--reload&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;--port&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;8000&quot;</span>]
+    },</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | type</p>
+        </div>
+
+    </body>
+</html>
