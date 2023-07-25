@@ -36,7 +36,23 @@
 
         </div>
 
-    <div class="t2">Instalacion</div>
+    <div class="t2">Instalacion Node Linux</div>
+        <div class="cont">
+
+          <p>Para instalar node en linux podemos usar <b>nvm</b> (de esta manera tambien podemos manejar de manera sencilla la versión de node que queramos utilizar).</p>
+          <a href="../../JavaScript - TypeScript/Conceptos desordenados/nvm instalacion y comandos.html">Instalación Node con nvm</a>
+
+          <p>Resumen:</p>
+          <ul>
+            <li>Instalamos nvm:</li>
+            <code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash</code>
+
+            <li>Instalamos la versión que queramos de node (la 16.14 es la mas recomendada para angular):</li>
+            <code>nvm install 16.14</code>
+          </ul>
+
+        </div>
+    <div class="t2">Instalacion Node Windows</div>
         <div class="cont">
           <h2>Cygwin</h2>
           <p>Si vamos a trabajar desde windows podemos descargarnos <b>Cygwin</b> que es un terminal unix que nos facilitara el trabajo a la hora de manejar ciertos comandos, podemos descargarlo desde aqui:</p>
@@ -66,12 +82,14 @@
           <p>Una vez instalado el <b>Node.js</b> podemos actualizar el <b>npm</b> a su ultima version con el siguiente comando:</p>
 
           <code>> npm install -g npm@latest</code>
+        </div>
 
-
+      <div class="t2">Instalacion Angular</div>
+        <div class="cont">
           <h2>Angular CLI</h2>
           <p>Para instalar el <b>Angular CLI</b> podemos hacerlo de la siguiente manera usando el <b>npm</b>:</p>
 
-          <code>npm install -g angular-cli</code>
+          <code>npm install -g @angular/cli</code>
 
           <h3>Errores</h3>
           <p>Si cuando instalamos <b>angular-cli</b> pueden saltarnos una serie de errores:</p>
