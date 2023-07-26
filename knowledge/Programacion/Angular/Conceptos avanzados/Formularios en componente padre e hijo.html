@@ -1,0 +1,152 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Formularios en componente padre e hijo</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como Implementar formularios teniendo un componente padre donde estará el manejo principal del formulario y varios componentes hijos donde tendremos implementadas las diversas partes de los inputs del formulario.</p>
+
+          <p><a href="https://github.com/MBascoy/Angular-Examples/tree/main/ReactiveFormsParentChild">Código de ejemplo</a></p>
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Antes de nada tenemos que asegurarnos de que tenemos importado el modulo <b>ReactiveFormsModule</b> en nuestro app.module.ts.</p>
+
+            <h2>Componente Padre</h2>
+
+            <p>En la clase del componente principal añadimos el siguietne código</p>
+            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);">  form = <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.fb.group({});
+
+  <span class="hljs-keyword" style="color: rgb(204, 153, 204);">constructor</span>(private fb: FormBuilder) {}
+
+  addChildForm(name: <span class="hljs-built_in" style="color: rgb(181, 189, 104);">string</span>, group: FormGroup) {
+    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.form.addControl(name, group);
+  }
+
+  onSubmit() {
+    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">let</span> data: Partial&lt;formData&gt;;
+    data = <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.form.value;
+
+    <span class="hljs-built_in" style="color: rgb(181, 189, 104);">console</span>.log(data.personal?.firstName)
+  }</pre> 
+
+            <p><b>addChildForm</b> es la función que recoje los FormGroup que emiten los componentes hijos y que se añadirán al formulario principal, para poder manejarlos desde el componente padre.</p>
+
+            <p>El componente a mayores mostará la información que se introduzca en los componentes hijos al hacer submit (con la función onSubmit()), para leer la información usamos un tipo <b>Partial</b> que tenemos que tener tipado con la información que vamos a recibir de los formularios de los hijos, en este caso la interfaz es <b>formData</b> y la declaramos de la siguiente manera (normalmente en un archivo ts a parte):</p>
+
+            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);"><span class="hljs-keyword" style="color: rgb(204, 153, 204);">interface</span> formData {
+    personal: {
+        firstName: <span class="hljs-built_in" style="color: rgb(181, 189, 104);">string</span>,
+        lastName: <span class="hljs-built_in" style="color: rgb(181, 189, 104);">string</span>
+    }
+    ,
+    contact: {
+        email: <span class="hljs-built_in" style="color: rgb(181, 189, 104);">string</span>
+    }
+} </pre>
+
+            <p>En el template añadimos el siguiente código:</p>
+
+            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);"><span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">form</span> [<span class="hljs-attr" style="color: rgb(129, 162, 190);">formGroup</span>]=<span class="hljs-string" style="color: rgb(138, 190, 183);">"form"</span> (<span class="hljs-attr" style="color: rgb(129, 162, 190);">ngSubmit</span>)=<span class="hljs-string" style="color: rgb(138, 190, 183);">"onSubmit()"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">app-name-form</span>
+    (<span class="hljs-attr" style="color: rgb(129, 162, 190);">formReady</span>)=<span class="hljs-string" style="color: rgb(138, 190, 183);">"addChildForm('personal', $event)"</span>
+  &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">app-name-form</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">app-contact-form</span>
+    (<span class="hljs-attr" style="color: rgb(129, 162, 190);">formReady</span>)=<span class="hljs-string" style="color: rgb(138, 190, 183);">"addChildForm('contact', $event)"</span>
+  &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">app-contact-form</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">button</span> <span class="hljs-attr" style="color: rgb(129, 162, 190);">type</span>=<span class="hljs-string" style="color: rgb(138, 190, 183);">"submit"</span> [<span class="hljs-attr" style="color: rgb(129, 162, 190);">disabled</span>]=<span class="hljs-string" style="color: rgb(138, 190, 183);">"form.invalid"</span>&gt;</span>Submit<span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">form</span>&gt;</span>
+</pre>
+
+              <p>Este código se carga de crear los componentes hijos en los que añadiremos las partes del formulario y asociar la función <b>addChildForm</b> con el emitter del hijo.</p>
+
+              <h2>Componentes Hijos</h2>
+
+              <p>A continuacion creamos dos componentes hijo, uno que tendrá la parte del formulario para introducir el nombre y el apellido y otro que tendra la parte del formulario para introducir la información de conctacto (el e-mail).</p>
+
+              <p>Componente <b>name-form.component.ts</b>:</p>
+
+              <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);">  @Output() formReady = <span class="hljs-keyword" style="color: rgb(204, 153, 204);">new</span> EventEmitter&lt;FormGroup&gt;();
+
+  form = <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.fb.group({
+    firstName: [<span class="hljs-string" style="color: rgb(138, 190, 183);">''</span>, [Validators.required]],
+    lastName: [<span class="hljs-string" style="color: rgb(138, 190, 183);">''</span>, [Validators.required]],
+  });
+
+  <span class="hljs-keyword" style="color: rgb(204, 153, 204);">constructor</span>(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.formReady.emit(<span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.form);
+  }</pre>
+
+              <p>Template <b>name-form.component.html</b>:</p>
+
+              <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);"><span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">h2</span>&gt;</span>Personal Data<span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span> [<span class="hljs-attr" style="color: rgb(129, 162, 190);">formGroup</span>]=<span class="hljs-string" style="color: rgb(138, 190, 183);">"form"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">label</span>&gt;</span>
+      Last Name
+      <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">input</span> <span class="hljs-attr" style="color: rgb(129, 162, 190);">formControlName</span>=<span class="hljs-string" style="color: rgb(138, 190, 183);">"firstName"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">label</span>&gt;</span>
+      First Name
+      <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">input</span> <span class="hljs-attr" style="color: rgb(129, 162, 190);">formControlName</span>=<span class="hljs-string" style="color: rgb(138, 190, 183);">"lastName"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span>&gt;</span></pre>
+
+
+              <p>Componente <b>contact-form.component.ts</b>:</p>
+
+              <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);">  @Output() formReady = <span class="hljs-keyword" style="color: rgb(204, 153, 204);">new</span> EventEmitter&lt;FormGroup&gt;();
+
+  form = <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.fb.group({
+    email: [<span class="hljs-string" style="color: rgb(138, 190, 183);">''</span>, [Validators.required, Validators.email]],
+  });
+
+  <span class="hljs-keyword" style="color: rgb(204, 153, 204);">constructor</span>(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.formReady.emit(<span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.form);
+  }</pre>
+
+              <p>Template <b>contact-form.component.html</b>:</p>
+
+              <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);"><span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">h2</span>&gt;</span>Contact<span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span> [<span class="hljs-attr" style="color: rgb(129, 162, 190);">formGroup</span>]=<span class="hljs-string" style="color: rgb(138, 190, 183);">"form"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">label</span>&gt;</span>
+      E-mail
+      <span class="hljs-tag">&lt;<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">input</span> <span class="hljs-attr" style="color: rgb(129, 162, 190);">type</span>=<span class="hljs-string" style="color: rgb(138, 190, 183);">"email"</span> <span class="hljs-attr" style="color: rgb(129, 162, 190);">formControlName</span>=<span class="hljs-string" style="color: rgb(138, 190, 183);">"email"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name" style="color: rgb(181, 189, 104); font-weight: 700;">div</span>&gt;</span></pre>
+
+                <p>Una vez tenemos todo al hacer submit deberíamos de ver en la consola el nombre que introduzcamos, si queremos acceder a los demas datos podemos hacerlo usando el objeto data (de tipo <b>Partial&lt;&gt;</b>) por ejemplo data.contact?.email</p>
+
+                <p>Como podemos ver en el ejemplo tambien podemos usar validaciones y hacer que el boton de <b>submit</b> solo se active cuando todos los campos cumplan con las validaciones indicadas</p>
+          </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Formularios</p>
+        </div>
+
+    </body>
+</html>
