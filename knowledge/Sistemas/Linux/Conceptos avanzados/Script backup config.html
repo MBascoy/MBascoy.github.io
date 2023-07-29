@@ -20,7 +20,7 @@
         <div class="cont">
           <ul>
             <li><a href="Script backup config/BackupConfig (NucXi7) 2023-07-29 16:42:43.tar.gz">NucXi7 - 29/07/2023</a></li>
-            <li>Intel NUC - 29/07/2023</li>
+            <li><a href="Script backup config/BackupConfig (linux-nuc) 2023-07-29 18:30:22.tar.gz">Intel NUC - 29/07/2023</a></li>
           </ul>
         </div>
 
@@ -49,8 +49,8 @@
 
     <div class="t2">Script</div>
         <div class="cont">
-<pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#!/bin/bash</span>
-BACKUP_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;BackupConfig <span style="color:rgb(249, 145, 87); font-weight:400;">$(date +<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;%F %X&quot;</span>)</span>&quot;</span>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#!/bin/bash</span>
+BACKUP_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;BackupConfig (<span style="color:rgb(249, 145, 87); font-weight:400;">$(hostname)</span>) <span style="color:rgb(249, 145, 87); font-weight:400;">$(date +<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;%F %X&quot;</span>)</span>&quot;</span>
 <span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>&quot;</span>
 
 ROOT_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/RootFolder&quot;</span>
@@ -220,7 +220,7 @@ log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Cr
 
 
 <span style="color:rgb(150, 152, 150); font-weight:400;">#Crear README</span>
-<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Backup creado el <span style="color:rgb(249, 145, 87); font-weight:400;">$(date +<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;%F %X&quot;</span>)</span>&quot;</span> &gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Backup creado el <span style="color:rgb(249, 145, 87); font-weight:400;">$(date +<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;%F %X&quot;</span>)</span> del equipo (<span style="color:rgb(249, 145, 87); font-weight:400;">$(hostname)</span>)&quot;</span> &gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
 <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
 <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
 <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Esta carpeta contiene un backup de los siguientes elementos:&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
