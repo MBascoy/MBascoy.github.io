@@ -16,9 +16,241 @@
 
         </div>
 
+    <div class="t2">Backups</div>
+        <div class="cont">
+          <ul>
+            <li><a href="Script backup config/BackupConfig (NucXi7) 2023-07-29 16:42:43.tar.gz">NucXi7 - 29/07/2023</a></li>
+            <li>Intel NUC - 29/07/2023</li>
+          </ul>
+        </div>
+
     <div class="t2">Explicacion</div>
         <div class="cont">
-            <code>for s in $(rpm -qaV | awk -F " " '{print $NF}' | grep /); do echo $s; done</code>
+            <ul>
+                <li>RPM list</li>
+                <li>RPM files not verified list and copies</li>
+                  <p>Cuando queramos comparar este archivo con uno nuevo podemos usar los siguiente comandos:</p>
+                  <code>rpm -qaV > newRpmList.txt</code>
+                  <code>diff rpmNotVerifiedFiles.txt newRpmList.txt --color</code>
+
+                <li>~/.profile</li>
+                <li>~/.bashrc</li>
+                <li>~/.config/kdeglobals</li>
+                <li>~/.config/kdedefaults/</li>
+                <li>dmesg</li>
+                <li>Listado de repositorios configurados (/etc/zypp/repos.d/)</li>
+                <li>/etc/X11</li>
+                <li>/var/log/Xorg.0.log</li>
+                <li>/usr/share/xsessions/</li>
+                <li>Listado de la carpeta /etc/alternatives (para poder ver enlaces como default-displaymanager y default-xsession.desktop)</li>
+                <li>PATH folders content</li>
+            </ul>
+        </div>
+
+    <div class="t2">Script</div>
+        <div class="cont">
+<pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#!/bin/bash</span>
+BACKUP_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;BackupConfig <span style="color:rgb(249, 145, 87); font-weight:400;">$(date +<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;%F %X&quot;</span>)</span>&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>&quot;</span>
+
+ROOT_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/RootFolder&quot;</span>
+USER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Usuario&quot;</span>
+
+USER_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$ROOT_FOLDER</span>/home/<span style="color:rgb(255, 204, 102); font-weight:400;">$USER</span>&quot;</span>
+USER_CONFIG_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USER_FOLDER</span>/config&quot;</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#START Function definition</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">log_OK_message</span></span>(){
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> -e <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;\e[32m<span style="color:rgb(255, 204, 102); font-weight:400;">$1</span>\e[0m&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">tee</span> -a <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/BU-log.txt&quot;</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">log_ERROR_message</span></span>(){
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> -e <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;\e[31m<span style="color:rgb(255, 204, 102); font-weight:400;">$1</span>\e[0m&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">tee</span> -a <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/BU-log.txt&quot;</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">log_WARN_message</span></span>(){
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> -e <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;\e[35m<span style="color:rgb(255, 204, 102); font-weight:400;">$1</span>\e[0m&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">tee</span> -a <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/BU-log.txt&quot;</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">rpm_backup</span></span>(){
+  RPM_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/RPM List&quot;</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$RPM_FOLDER</span>&quot;</span>
+
+  log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creando lista de paquetes RPM...&quot;</span>
+  rpm -qa &gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$RPM_FOLDER</span>/rpmList.txt&quot;</span>
+
+  log_WARN_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creando lista de paquets RPM no verificados, puede tardar un rato...&quot;</span>
+  rpm -qaV &gt; RpmNotVerified.tmp
+
+  RPM_NOT_VERIFIED_FILES=$(<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> RpmNotVerified.tmp | awk -F <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; &quot;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{print $NF}&#x27;</span> | grep /)
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> RpmNotVerified.tmp &gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$RPM_FOLDER</span>/rpmNotVerifiedFiles.txt&quot;</span>
+
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> FILE <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$RPM_NOT_VERIFIED_FILES</span>
+  <span style="color:rgb(204, 153, 204); font-weight:400;">do</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> [[ -f <span style="color:rgb(255, 204, 102); font-weight:400;">$FILE</span> ]]
+    <span style="color:rgb(204, 153, 204); font-weight:400;">then</span>
+      FILE_PATH=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$RPM_FOLDER</span>/<span style="color:rgb(249, 145, 87); font-weight:400;">$(dirname $FILE)</span>&quot;</span>
+      <span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$FILE_PATH</span>&quot;</span>
+      sudo <span style="color:rgb(181, 189, 104); font-weight:400;">cp</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$FILE</span>&quot;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$FILE_PATH</span>&quot;</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">elif</span> [[ -d <span style="color:rgb(255, 204, 102); font-weight:400;">$FILE</span> ]]
+    <span style="color:rgb(204, 153, 204); font-weight:400;">then</span>
+      log_WARN_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;La ruta <span style="color:rgb(255, 204, 102); font-weight:400;">$FILE</span> es un directorio, no se copia&quot;</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+      log_WARN_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;La ruta <span style="color:rgb(255, 204, 102); font-weight:400;">$FILE</span> no existe, no se copia&quot;</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">fi</span>
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">done</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">rm</span> RpmNotVerified.tmp
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">paths_backup</span></span>(){
+  paths_folder=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/paths&quot;</span>
+  <span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$paths_folder</span>&quot;</span>
+  <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> SINGLE_PATH <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> $(<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$PATH</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">tr</span> : <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;\n&quot;</span>); <span style="color:rgb(204, 153, 204); font-weight:400;">do</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ls</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$SINGLE_PATH</span> &gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$paths_folder</span>/<span style="color:rgb(249, 145, 87); font-weight:400;">$(echo $SINGLE_PATH | tr / _)</span>.txt&quot;</span>; <span style="color:rgb(204, 153, 204); font-weight:400;">done</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">environment_backup</span></span>(){
+  <span style="color:rgb(181, 189, 104); font-weight:400;">env</span> &gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/environment.txt&quot;</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">zypper_repos_backup</span></span>(){
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> [ -d <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/etc/zypp/repos.d/&quot;</span> ]
+  <span style="color:rgb(204, 153, 204); font-weight:400;">then</span>
+    ZYPPER_REPOS_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$ETC_FOLDER</span>/zypp&quot;</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$ZYPPER_REPOS_FOLDER</span>&quot;</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">cp</span> -r /etc/zypp/repos.d/ <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$ZYPPER_REPOS_FOLDER</span>&quot;</span>
+    log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado backup del listado de repositorios de zypper&quot;</span>;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+    log_ERROR_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;No se ha creado el backup del listado de repositorios de zypper&quot;</span>;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">fi</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">kdeglobals_backup</span></span>(){
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> [ -f <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$HOME</span>/.config/kdeglobals&quot;</span> ]
+  <span style="color:rgb(204, 153, 204); font-weight:400;">then</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USER_CONFIG_FOLDER</span>&quot;</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">cp</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$HOME</span>/.config/kdeglobals&quot;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USER_CONFIG_FOLDER</span>/&quot;</span>
+    log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado backup del archivo kdeglobals&quot;</span>;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+    log_ERROR_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;No se ha creado el backup del archivo kdeglobals&quot;</span>;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">fi</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">kdedefaults_backup</span></span>(){
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> [ -d <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$HOME</span>/.config/kdedefaults&quot;</span> ]
+  <span style="color:rgb(204, 153, 204); font-weight:400;">then</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USER_CONFIG_FOLDER</span>&quot;</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">cp</span> -r <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$HOME</span>/.config/kdedefaults&quot;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USER_CONFIG_FOLDER</span>/&quot;</span>
+    log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado backup del archivo kdedefaults&quot;</span>;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+    log_ERROR_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;No se ha creado el backup del archivo kdedefaults&quot;</span>;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">fi</span>
+}
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#END Function definition</span>
+
+log_ERROR_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;NOTA: En algun momento se podria pedir la contraseña de root para poder realizar el copiado de paquetes&quot;</span>;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Environment backup</span>
+environment_backup;
+log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado backup de variables de entorno&quot;</span>;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Backup rpm file list</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">if</span> [ -x $(<span style="color:rgb(181, 189, 104); font-weight:400;">which</span> rpm 2&gt; /dev/null) ]
+<span style="color:rgb(204, 153, 204); font-weight:400;">then</span>
+  rpm_backup;
+  log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado listado RPM&quot;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+  log_ERROR_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;NO se ha creado el listado RPM&quot;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">fi</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Backup paths content</span>
+paths_backup;
+log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado listado de Paths&quot;</span>;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Backup for dmesg</span>
+dmesg &gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/dmesg.txt&quot;</span>
+log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado backup dmesg&quot;</span>;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Backup profile files</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USER_FOLDER</span>&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">cp</span> ~/.profile <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USER_FOLDER</span>/profile&quot;</span>
+
+ETC_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$ROOT_FOLDER</span>/etc&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$ETC_FOLDER</span>&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">cp</span> /etc/profile <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$ETC_FOLDER</span>/profile&quot;</span>
+log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado backup archivos profile&quot;</span>;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Backup bashrc file</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">cp</span> ~/.bashrc <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USER_FOLDER</span>/bashrc&quot;</span>
+log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado backup archivo bashrc&quot;</span>;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Backup X11</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">cp</span> -r /etc/X11 <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$ETC_FOLDER</span>&quot;</span>
+log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado backup X11&quot;</span>;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Backup Xorg log</span>
+VAR_LOG_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$ROOT_FOLDER</span>/var/log&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$VAR_LOG_FOLDER</span>&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">cp</span> /var/log/Xorg.0.<span style="color:rgb(181, 189, 104); font-weight:400;">log</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$VAR_LOG_FOLDER</span>/&quot;</span>
+log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado backup Xorg log&quot;</span>;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Backup .config files</span>
+kdeglobals_backup;
+kdedefaults_backup;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Backup zypper repos</span>
+zypper_repos_backup;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Backup listado /etc/alternatives</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">ls</span> -la /etc/alternatives --color=always &gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/alternatives.txt&quot;</span>
+log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado backup /etc/alternatives&quot;</span>;
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Backup xsessions</span>
+USR_SHARE_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$ROOT_FOLDER</span>/usr/share/&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USR_SHARE_FOLDER</span>&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">cp</span> -r /usr/share/xsessions <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USR_SHARE_FOLDER</span>&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">chmod</span> +w <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USR_SHARE_FOLDER</span>/xsessions&quot;</span>
+log_OK_message <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Creado backup xsessions&quot;</span>;
+
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#Crear README</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Backup creado el <span style="color:rgb(249, 145, 87); font-weight:400;">$(date +<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;%F %X&quot;</span>)</span>&quot;</span> &gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Esta carpeta contiene un backup de los siguientes elementos:&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -BU-log que muestra el log de salida de cuando se creó este backup (si se muestra con &#x27;cat&#x27; se mostrarán en verde lo que ha ido bien y en rojo lo que ha ido mal) (Carpeta raiz)&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Contenido de la carpeta /etc/alternatives en el archivo alternatives.txt, el archivo mantiene el esquema de colores del shell, se pueden visualizar usando cat (Carpeta raiz)&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Listado de paquetes RPM instalados (Carpeta RPM List)&quot;</span>&gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Listado de paquetes RPM con fallos de verificación y una copia de dichos archivos con cambios (Carpeta RPM List)&quot;</span>&gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Log dmesg (Carpeta raiz)&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Archivo environment.txt con el contenido de las variables de entorno (Carpeta raiz)&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -La carpeta &#x27;paths&#x27; contiene archivos con el contenido que tienen todas las rutas declaradas en la variable de entorno PATH &quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;En la carpeta &#x27;RootFolder&#x27; se encuentran todos los archivos copiados manteniendo su ruta original en el sistema de archivos (teniendo como referencia de la raiz dicha carpeta RootFolder), los archivos que se guardan en esta carpeta son:&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Carpeta /etc/X11&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Carpeta /etc/zypp/repos.d&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Archivo /etc/profile&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Archivo /var/log/Xorg.0.log&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Carpeta /usr/share/xsessions/&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;La carpeta del usuario se identifica con /home/usuario (independientemente del nombre del usuario real), los archivos que contiene son (Hay archivos que son ocultos, pero en esta copia se ponen sin el punto inicial para que aparezcan visible):&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Archivo bashrc del usuario&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Archivo profile del usuario&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Archivo .config/kdeglobals del usuario&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;  -Archivo .config/kdedefaults del usuario&quot;</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$BACKUP_FOLDER</span>/README.txt&quot;</span>
+</code></pre>
         </div>
 
 
