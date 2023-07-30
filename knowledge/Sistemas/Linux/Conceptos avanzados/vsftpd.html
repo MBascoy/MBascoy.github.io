@@ -116,7 +116,7 @@ account required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuserlist</code></
                 <code>local_root=/srv/ftp-virt/user1/</code>
 
                 <li>En el archivo <b>/etc/vsftpd.conf</b> añadimos las siguientes configuraciones:</li>
-                <pre><code>local_umask=012
+                <pre><code>local_umask=002
 chroot_local_user=YES
 virtual_use_local_privs=YES
 guest_enable=YES
