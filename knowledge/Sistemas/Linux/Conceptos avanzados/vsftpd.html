@@ -1,0 +1,170 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">vsftpd</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como configurar el servidro <b>vsftpd</b></p>
+
+            <p>Para configurar el servidor lo haremos desde el archivo <b>/etc/vsftpd.conf</b></p>
+
+            <p>Si estamos usando <b>vsftpd</b> como servicio tendremos que reiniciarlo al realizar modificaciones con el comando:</p>
+            <code>systemctl restart vsftpd</code>
+        </div>
+
+    <div class="t2">Usuarios locales</div>
+        <div class="cont">
+            <p>Por defecto cuando instalamos el servidor deberíamos de tener acceso con los usuarios creados en el sistema pero solo en modo lectura, la siguiente opción debería de estar habilitada para usar los usuarios locales:</p>
+            <code>local_enable=YES</code>
+
+            <p>Para habilitar la escritura lo hacemos con la siguiente opción:</p>
+            <code>write_enable=YES</code>
+
+        </div>
+
+    <div class="t2">Usuario anonimo</div>
+        <div class="cont">
+            <p>Para poder acceder con el usuario anonímo debemos de tener configuradas las siguientes opciones:</p>
+
+            <code>anonymous_enable=YES</code>
+            <code>anon_upload_enable=YES</code>
+            <code>anon_mkdir_write_enable=YES</code>
+            <code>anon_other_write_enable=YES</code>
+
+            <p></p>
+        </div>
+
+    <div class="t2">chroot</div>
+        <div class="cont">
+            <p>Por defecto los usuarios locales no están enjaulados en sus carpetas personales, pueden moverse por todo el sistema de archivos, si queremos que no puedan salir de su carpeta personal podemos enjaularlos usando la siguiente configuracion:</p>
+            <code>chroot_local_user=YES</code>
+
+            <p>Los usuarios estarán limitados a su propia carpeta <b>home</b>, pero si queremos podemos usar la siguiente opción para forzar una carpeta distinta:</p>
+            <code>local_root=/srv/ftp</code>
+
+            <p><b>NOTA:</b> esta opción puede traernos problemas como veremos a continuacion.</p>
+
+            <p>El usuario anonimo (anonymous) a diferencia de los usuarios normales si que está enjaulado dentro de <b>/srv/ftp</b> por defecto.</p>
+
+            <h2>Troubleshooting</h2>
+            <p>A la hora de usar <b>chroot</b> se nos puede dar el siguiente error:</p>
+            <code>500 OOPS: vsftpd: refusing to run with writable root inside chroot()</code>
+
+            <p>Este error se da cuando tenemos un usuario enjaulado (aplicando chroot sobre una carpeta), y a su vez este usuario tiene permisos de escritura en dicha carpeta en la que está enjaulado, si queremos evitar este error podemos usar la siguiente configuracion (<b>NO RECOMENDABLE</b>):</p>
+            <code>allow_writeable_chroot=YES</code>
+
+            <p>Este metodo <b>NO ES RECOMENDABLE</b> ya que abre la puerta a ciertas vulnerabilidades de seguridad, <a href="https://unix.stackexchange.com/a/332571">como podemos leer aqui</a></p>
+
+            <p>La manera correcta para la utilización del <b>chroot</b> sería la de dejar la carpeta raíz sin permisos de escritura y crear una subcarpeta dentro de esta en la que si que tengamos permisos de escritura.</p>
+        </div>
+
+    <div class="t2">Usuario virtuales</div>
+        <div class="cont">
+            <p>Esto nos permitirá crear usuarios que no existen en el sistema local, pero que podemos usar exclusivamente para nuestro servidor FTP.</p>
+
+            <p>Necesitamos los siguientes paquetes:</p>
+            <ul>
+                <li>pam-userdb</li>
+                <code>zypper in pam-userdb</code>
+
+                <li>db_load</li>
+                <code>zypper in db48-utils</code>
+            </ul>
+
+            <p>A continuación seguimos los siguientes pasos:</p>
+
+            <ul>
+                <li>Creamos un usuario en el sistema (que será el que se mapeará con todos los usuarios virtuales):</li>
+                <code>useradd -d /srv/ftp-virt/ ftp-virt -s /sbin/nologin</code>
+                <p><b>NOTA:</b> Al crear el usuario nos saldrá en la pantalla de login, podemos ocultarlo modificando el archivo <b>/etc/sddm.conf</b>, con el siguiente contenido:</p>
+                <pre><code>[Users]
+HideUsers=ftp-virt</code></pre>
+
+                <li>Creamos una carpeta para nuestro usuario virtual <b>user1</b>:</li>
+                <code>mkdir -p /srv/ftp-virt/user1/my-uploads</code>
+
+                <li>Establecemos los permisos adecuados para las carpetas:</li>
+                <code>chown -R ftp-virt:ftp-virt /srv/ftp-virt/</code>
+                <code>chmod 555 /srv/ftp-virt/user1/</code>
+                <code>chmod 775 /srv/ftp-virt/user1/my-uploads</code>
+
+                <li>Creamos un nuevo archivo en <b>/etc/vsftpd/userlist</b> que incluirá el usuario y la contraseña, el formato es una linea usuario y la siguiente la contraseña, si queremos incluir mas de un usuario tendremos que ir incluyendo usuario/contraseña en lineas alternas:</li>
+                <pre><code>user1
+mypass123</code></pre>
+
+                <li>Generamos la base de datos con el siguiente comando:</li>
+                <code>db_load -T -t hash -f /etc/vsftpd/userlist /etc/vsftpd/userlist.db</code>
+
+                <li>Limitamos los permisos del archivo que se genera:</li>
+                <code>chmod 600 /etc/vsftpd/userlist.db</code>
+
+                <li>Editamos el archivo <b>/etc/pam.d/vsftpd</b>, comentamos todas las lineas y añadimos lo siguiente al final:</li>
+                <pre><code>auth required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuserlist
+account required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuserlist</code></pre>
+
+                <li>Creamos una carpeta para la configuración individual de cada usuario:</li>
+                <code>mkdir /etc/vsftpd/user_conf</code>
+
+                <li>Creamos el archivo <b>/etc/vsftpd/user_conf/user1</b> configuración para el <b>user1</b>, con el siguiente contenido:</li>
+                <code>local_root=/srv/ftp-virt/user1/</code>
+
+                <li>En el archivo <b>/etc/vsftpd.conf</b> añadimos las siguientes configuraciones:</li>
+                <pre><code>local_umask=012
+chroot_local_user=YES
+virtual_use_local_privs=YES
+guest_enable=YES
+guest_username=ftp-virt
+user_config_dir=/etc/vsftpd/user_conf/</code></pre>
+            </ul>
+
+
+            <p>Una vez hecho esto ya tendríamos nuestro usuario virtual <b>user1</b> creado y listo para ser utilizado, todo lo que se suba con ese usuario estará en la carpeta <b>/srv/ftp-virt/user1</b>.</p>
+
+            <p>Para crear nuevos usuarios podemos utilizar el siguiente script (podemos almacenarlo en /etc/vsftpd/ para usarlo cuando queramos), solo nos preguntará el nombre de usuario y la contraseña, y ya creará todas las configuraciones necesarias, el script es necesario ejecutarlo como <b>root</b>:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#!/bin/bash</span>
+FTP_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/srv/ftp-virt&quot;</span>
+USERLIST_FILE=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/etc/vsftpd/userlist&quot;</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Nombre usuario:&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">read</span> name
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Password:&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">read</span> pass
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$name</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USERLIST_FILE</span>&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$pass</span> &gt;&gt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USERLIST_FILE</span>&quot;</span>
+
+db_load -T -t <span style="color:rgb(181, 189, 104); font-weight:400;">hash</span> -f <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$USERLIST_FILE</span>&quot;</span> /etc/vsftpd/userlist.db
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">mkdir</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$FTP_FOLDER</span>/<span style="color:rgb(255, 204, 102); font-weight:400;">$name</span>/my-uploads&quot;</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">chown</span> -R ftp-virt:ftp-virt <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$FTP_FOLDER</span>/<span style="color:rgb(255, 204, 102); font-weight:400;">$name</span>&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">chmod</span> 555 <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$FTP_FOLDER</span>/<span style="color:rgb(255, 204, 102); font-weight:400;">$name</span>&quot;</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">chmod</span> 775 <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$FTP_FOLDER</span>/<span style="color:rgb(255, 204, 102); font-weight:400;">$name</span>/my-uploads&quot;</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;local_root=<span style="color:rgb(255, 204, 102); font-weight:400;">$FTP_FOLDER</span>/<span style="color:rgb(255, 204, 102); font-weight:400;">$name</span>&quot;</span> &gt; /etc/vsftpd/user_conf/<span style="color:rgb(255, 204, 102); font-weight:400;">$name</span></code></pre>
+
+            <p>Para borrar un usuario virtual tenemos que eliminarlo de los siguientes sitios:</p>
+            <ul>
+                <li>Carpeta <b>/srv/ftp-virt/usuario</b></li>
+                <li>Archivo <b>/etc/vsftpd/userlist</b> (borraremos en este archivo las lineas que correspondan al usuario)</li>
+                <li>Archivo <b>/etc/vsftpd/user_conf/usuario</b></li>
+            </ul>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Linux | ftp | config</p>
+        </div>
+
+    </body>
+</html>
