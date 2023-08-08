@@ -13,6 +13,8 @@
         <div class="cont">
           <p>Ejemplo de un CRUD en Flask.</p>
 
+          <p><a href="https://github.com/MBascoy/Python-Examples/tree/main/Flask-CRUD">Código de ejemplo</a> (El código de abajo es un único archivo, este ejemplo tiene una mejor distribución del código en distintos archivos)</p>
+
         </div>
 
     <div class="t2">Metodo</div>
@@ -34,7 +36,7 @@ db = SQLAlchemy(app)
     title = db.Column(db.String(<span style="color:rgb(249, 145, 87); font-weight:400;">255</span>), nullable=<span style="color:rgb(204, 153, 204); font-weight:400;">False</span>)
     description = db.Column(db.Text, nullable=<span style="color:rgb(204, 153, 204); font-weight:400;">True</span>)
 
-<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/tasks&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;GET&#x27;</span>]</span>)</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(249, 145, 87); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/tasks&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;GET&#x27;</span>]</span>)</span>
 <span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">get_tasks</span>():
     tasks = Task.query.<span style="color:rgb(181, 189, 104); font-weight:400;">all</span>()
     task_list = []
@@ -46,8 +48,8 @@ db = SQLAlchemy(app)
         })
     <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify(task_list)
 
-<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/tasks/&lt;int:id&gt;&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;GET&#x27;</span>]</span>)</span>
-<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">get_task</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">id</span></span>):
+<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(249, 145, 87); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/tasks/&lt;int:id&gt;&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;GET&#x27;</span>]</span>)</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">get_task</span>(<span style="color:rgb(249, 145, 87); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">id</span></span>):
     task = Task.query.get(<span style="color:rgb(181, 189, 104); font-weight:400;">id</span>)
     <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> task:
         <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify({
@@ -57,7 +59,7 @@ db = SQLAlchemy(app)
         })
     <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify({<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;message&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Task not found&#x27;</span>}), <span style="color:rgb(249, 145, 87); font-weight:400;">404</span>
 
-<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/tasks&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;POST&#x27;</span>]</span>)</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(249, 145, 87); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/tasks&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;POST&#x27;</span>]</span>)</span>
 <span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">create_task</span>():
     data = request.json
     title = data.get(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;title&#x27;</span>)
@@ -67,8 +69,8 @@ db = SQLAlchemy(app)
     db.session.commit()
     <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify({<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;message&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Task created successfully&#x27;</span>}), <span style="color:rgb(249, 145, 87); font-weight:400;">201</span>
 
-<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/tasks/&lt;int:id&gt;&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;PUT&#x27;</span>]</span>)</span>
-<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">update_task</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">id</span></span>):
+<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(249, 145, 87); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/tasks/&lt;int:id&gt;&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;PUT&#x27;</span>]</span>)</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">update_task</span>(<span style="color:rgb(249, 145, 87); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">id</span></span>):
     task = Task.query.get(<span style="color:rgb(181, 189, 104); font-weight:400;">id</span>)
     <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> <span style="color:rgb(204, 153, 204); font-weight:400;">not</span> task:
         <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify({<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;message&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Task not found&#x27;</span>}), <span style="color:rgb(249, 145, 87); font-weight:400;">404</span>
@@ -79,8 +81,8 @@ db = SQLAlchemy(app)
     db.session.commit()
     <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify({<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;message&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Task updated successfully&#x27;</span>})
 
-<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/tasks/&lt;int:id&gt;&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;DELETE&#x27;</span>]</span>)</span>
-<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">delete_task</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">id</span></span>):
+<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(249, 145, 87); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/tasks/&lt;int:id&gt;&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;DELETE&#x27;</span>]</span>)</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">delete_task</span>(<span style="color:rgb(249, 145, 87); font-weight:400;"><span style="color:rgb(181, 189, 104); font-weight:400;">id</span></span>):
     task = Task.query.get(<span style="color:rgb(181, 189, 104); font-weight:400;">id</span>)
     <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> <span style="color:rgb(204, 153, 204); font-weight:400;">not</span> task:
         <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify({<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;message&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Task not found&#x27;</span>}), <span style="color:rgb(249, 145, 87); font-weight:400;">404</span>
@@ -88,6 +90,21 @@ db = SQLAlchemy(app)
     db.session.delete(task)
     db.session.commit()
     <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify({<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;message&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Task deleted successfully&#x27;</span>})
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(249, 145, 87); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/tasks_filtered&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;GET&#x27;</span>]</span>)</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">get_task_filtered</span>():
+    title = request.args.get(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;title&quot;</span>)
+
+    tasks = Task.query.filter_by(title=title).<span style="color:rgb(181, 189, 104); font-weight:400;">all</span>()
+
+    tasks_list = []
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> task <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> tasks:
+        tasks_list.append({
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;id&#x27;</span>: task.<span style="color:rgb(181, 189, 104); font-weight:400;">id</span>,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;title&#x27;</span>: task.title,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;description&#x27;</span>: task.description
+        })
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify(tasks_list)
 
 <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> __name__ == <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;__main__&#x27;</span>:
     <span style="color:rgb(204, 153, 204); font-weight:400;">with</span> app.app_context():
