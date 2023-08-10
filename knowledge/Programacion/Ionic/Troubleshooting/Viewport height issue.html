@@ -1,0 +1,47 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Viewport height issue</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Creando una aplicación de ionic completamente desde 0, el template inicial no carga bien la página inicial, debido a que no es capaz de establecer bien el alto del viewport.</p>
+
+          <p>Las dos tabs tienen exactamente el mismo código, pero se puede ver una diferencia en el centrado del texto:</p>
+          <img src="Viewport height issue/1.png">
+
+          <p>El problema siempre se reproduce en la página que carga primero, si nos ponemos en la tab2 y hacemos actualizamos la página el problema se dará al reves...</p>
+
+          <p>El fallo se "resuelve" si redimensionamos la ventana del <b>navegador</b> (desde el pc) o si cambiamos la orientación de portrait a landscape y volvemos otra vez a portrait (desde un <b>dispositivo movil</b>).</p>
+
+          <p>Las versiones que estamos usando son:</p>
+          <img src="Viewport height issue/2.png">
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+            <p>Para solucionar este problema de manera permanente podemos introducir el siguiente código en el archivo <b>global.scss</b>:</p>
+
+            <pre><code>html.body {
+    height: 100vh;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}</code></pre>
+
+          
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Ionic | viewport</p>
+        </div>
+
+    </body>
+</html>
