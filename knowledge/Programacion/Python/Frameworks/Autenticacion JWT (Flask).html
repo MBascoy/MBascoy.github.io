@@ -1,0 +1,79 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Autenticacion JWT (Flask)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como utilizar autenticación JWT en flask.</p>
+
+          <p>Crear un endpoint <b>login</b> que devuelva un token de acceso</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Primero necesitamos instalar los siguientes paquetes:</p>
+            <code>pip install Flask Flask-JWT-Extended</code>
+
+            <p>El código que usaremos será el siguiente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">from</span> flask <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> Flask, request, jsonify
+<span style="color:rgb(204, 153, 204); font-weight:400;">from</span> flask_jwt_extended <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> JWTManager, create_access_token, jwt_required
+
+app = Flask(__name__)
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Configuración básica de JWT</span>
+app.config[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;JWT_SECRET_KEY&#x27;</span>] = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;super-secret&#x27;</span>  <span style="color:rgb(150, 152, 150); font-weight:400;"># Cambia esto por una clave segura en producción</span>
+JWTManager(app)
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Simulación de una base de datos de usuarios</span>
+users = {
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;user123&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;password123&quot;</span>
+}
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Endpoint de autenticación</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(249, 145, 87); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/login&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;POST&#x27;</span>]</span>)</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">login</span>():
+    data = request.get_json()
+
+    username = data.get(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;username&#x27;</span>)
+    password = data.get(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;password&#x27;</span>)
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> username <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> users <span style="color:rgb(204, 153, 204); font-weight:400;">and</span> users[username] == password:
+        access_token = create_access_token(identity=username)
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify({<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;access_token&#x27;</span>: access_token}), <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify({<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;message&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Credenciales inválidas&#x27;</span>}), <span style="color:rgb(249, 145, 87); font-weight:400;">401</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Endpoint protegido que requiere token JWT</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@app.route(<span style="color:rgb(249, 145, 87); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/protected&#x27;</span>, methods=[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;GET&#x27;</span>]</span>)</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">@jwt_required()</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">protected</span>():
+    current_user = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;current_user&quot;</span>  <span style="color:rgb(150, 152, 150); font-weight:400;"># El identity proporcionado por el token JWT</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> jsonify({<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;message&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">f&#x27;¡Hola, <span style="color:rgb(249, 145, 87); font-weight:400;">{current_user}</span>! Este es un endpoint protegido.&#x27;</span>})
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">if</span> __name__ == <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;__main__&#x27;</span>:
+    app.run(debug=<span style="color:rgb(204, 153, 204); font-weight:400;">True</span>)
+</code></pre>
+
+            <p>Una vez lanzada la aplicación podemos obtener un token de acceso desde postman:</p>
+            <img src="Autenticacion JWT (Flask)/1.png">
+
+            <p>O tambien usando <b>curl</b> asi:</p>
+            <code>curl -X POST http://localhost:5000/login -H 'Content-Type: application/json' -d '{"username": "user123", "password": "password123"}'</code>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | Flask | JWT Auth</p>
+        </div>
+
+    </body>
+</html>
