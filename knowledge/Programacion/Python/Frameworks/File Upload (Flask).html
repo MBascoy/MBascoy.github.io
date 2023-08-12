@@ -1,0 +1,41 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Ejemplo CRUD (Flask)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Ejemplo de como guardar archivos que se nos envían del frontend, en este caso recibimos un <b>formdata</b> que incluye un nombre y el archivo a guardar, guardaremos el archivo en una carpeta <b>"uploads"</b> y en la base de datos guardaremos el nombre que se nos pasa y a mayores el nombre del archivo de la imagen.</p>
+
+          <p>La parte del front podemos consultarla <a href="../../Angular/Escenarios/File Upload.html">AQUI</a>.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>El código podemos descargarlo <a href="https://github.com/MBascoy/Python-Examples/tree/main/Flask-UploadFiles">en este repositorio</a>.</p>
+
+            <p>Para poder ejecutar el proyecto primero necesitamos los siguientes paquetes:</p>
+            <code>pip install Flask Flask-SQLAlchemy flask-cors</code>
+
+
+            <p>Tenemos que tener en cuenta que la información se envía en un <b>form-data</b>, y no en un json, por lo tanto al leer los campos que se nos envían (nombre en este caso) tenemos hacerlo con <b>request.form</b> en vez de <b>request.json</b>, si usamos el metodo equivocado obtendremos un error <b>415</b> como el siguiente:</p>
+            <code>415 Unsupported Media Type</code>
+
+            <img src="File Upload (Flask)/1.png">
+            
+            <p>La función <b>send_from_directory</b> coge el directorio que le pasemos de manera relativa al archivo desde donde se esté ejecutando el código, NO desde la raiz, para eso tendríamos que usar alguna variable global que almacene la ruta de la raiz de programa y despues trabajar a partir de esa ruta (para tener rutas relativas a la raiz).</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | Flask | Files | Upload</p>
+        </div>
+
+    </body>
+</html>
