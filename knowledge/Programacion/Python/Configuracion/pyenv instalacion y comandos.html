@@ -1,0 +1,48 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">pyenv instalacion y comandos</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como instalar <b>pyenv</b> para instalar y manejar las versiones de python del sistema.</p>
+
+          <a href="https://github.com/pyenv/pyenv#installation">Página Github pyenv</a>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Antes de instalar pyenv tenemos que instalar los siguientes paquetes:</p>
+          <code>sudo apt-get install -y make build-essential libssl-dev zlib1g zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev liblzma-dev xz-utils tk-dev</code>
+
+          <p>Para descargar e instalar <b>pyenv</b> en linux lo hacemos con el siguiente comando:</p>
+          <code>curl https://pyenv.run | bash</code>
+
+          <p>Una vez instalado pyenv necesitamos cambiar la configuración de nuestro <b>bashrc</b> para añadir pyenv al path:</p>
+          <pre><code>echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc</code></pre>
+
+            <p>Una vez hecho esto ya podemos descargar nuevas versiones de python con el siguiente comando:</p>
+            <code>pyenv install 3.10.4</code>
+
+            <p>Para cambiar a una version lo hacemos con el siguiente comando:</p>
+            <code>pyenv global 3.10.4</code>
+
+            <p>Para obtener una lista de las versiones disponibles lo hacemos con el siguiente comando:</p>
+            <code>pyenv install -l</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | pyenv</p>
+        </div>
+
+    </body>
+</html>
