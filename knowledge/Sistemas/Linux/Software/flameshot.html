@@ -38,6 +38,17 @@
             <h2>Capturar pantalla completa</h2>
             <p>Una vez pulsamos la tecla <kbd>Prt Scr</kbd> ya podemos seleccionar una zona y utilizar las herramientas, pero si queremos simplemente hacer una captura de toda la pantalla lo hacemos pulsando directamente <kbd><kbd>Ctrl</kbd> + <kbd>s</kbd></kbd> para guardar en un archivo o <kbd><kbd>Ctrl</kbd> + <kbd>c</kbd></kbd> para guardar en el portapapeles.</p>
         </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+            <p>Si a la hora de tomar capturas tenemos un retardo muy grande tenemos que editar el siguiente archivo:</p>
+            <code>/usr/share/applications/org.flameshot.Flameshot.desktop</code>
+
+            <p>En la linea de <b>Exec</b> eliminamos el argumento <b>--delay 500</b> para eliminar el retardo de medio segundo</p>
+            <img src="flameshot/4.png">
+
+            <p><b>NOTA:</b> Aún así al usar una tecla como shortcut tendremos algún tipo de retardo (si lo comparamos con la ejecución directa del comando), pero aplicando este metodo el retardo es mucho menor.</p>
+        </div>
         
     <div class="t2">Tags</div>
         <div class="cont">
