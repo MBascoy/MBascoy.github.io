@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Cambiar idioma de Git</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Por defecto Git coge el idioma del sistema operativo, podemos cambiarlo de la siguiente manera.</p>
+
+        </div>
+
+    <div class="t2">Metodo Linux</div>
+        <div class="cont">
+            <p>Para cambiar el idioma modificamos la variable de entorno <b>LC_ALL</b>, pero solo para git</p>
+            <code>LC_ALL=en_GB git</code>
+
+            <p>Para evitar tener que poner la variable de entorno siempre delante del comando podemos incluir la siguiente linea en nuestro <b>.bash_rc</b>:</p>
+            <code>alias git='LC_ALL=en_GB git'</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | idioma</p>
+        </div>
+
+    </body>
+</html>
