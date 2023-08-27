@@ -1,0 +1,83 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Lanzar aplicacion (Web - Android)</h1>
+    
+    <div class="t2">Lanzar aplicación Web</div>
+        <div class="cont">
+          <h2>Linea de comandos</h2>
+          
+          <p>Para lanzar una aplicación de <b>ionic</b> lo hacemos con el siguiente comando:</p>
+          <code>ionic serve</code>
+
+          <h2>Extension ionic</h2>
+          <p>Para lanzar la aplicación web desde ionic lo hacemos con la opcion <b>Run > Web</b></p>
+          <img src="Lanzar aplicacion (Web - Android)/1.png">
+        </div>
+
+    <div class="t2">Generar/Ejecutar proyecto Android</div>
+        <div class="cont">
+          <p>Antes de nada tenemos que instalar <b>Android Studio</b> (recomendable hacerlo en <b>/usr/local/</b>, simplemente poner ahí la carpeta android-studio)</p>
+          <p>Para poder ejecutar nuestra aplicación en un dispositivo movil primero tenemos que generar el proyecto android.</p>
+
+          <p>Primero necesitamos instalar el siguiente paquete:</p>
+          <code>npm install @capacitor/android</code>
+
+          <p>A continuación lanzamos el siguiente comando para generar el proyecto android:</p>
+          <code>ionic capacitor add android</code>
+
+          <p>El siguiente comando genera una build de proyecto, (si queremos <a href="Depurar aplicacion.html">depurar el proyecto</a> tendremos que usar --configuration=development en vez de --prod)</p>
+          <code>ionic capacitor build android --prod</code>
+
+          <p>El siguiente comando copia los archivos generados por la build en el proyecto de android</p>
+          <code>ionic capacitor sync</code>
+
+          <p>Una vez llegados a este punto simplemente podemos abrir la carpeta <b>android</b> de nuestro proyecto con el <b>Android Studio</b> y ejecutar la aplicación en un emulador.</p>
+
+          <h2>Ejecución desde VSCode</h2>
+          <p>Para simplificar estos comandos podemos instalar la extensión de <b>Ionic</b> en el VSCode que nos permite hacer builds, live reload, lanzar el emulador y mas opciones desde la interfaz de VSCode</p>
+
+          <p>Necesitamos incluir las siguientes variables de entorno (en linux podemos meterlas en ~/.profile):</p>
+          <pre><code>export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"
+PATH="$PATH:$ANDROID_SDK_ROOT/tools"</code></pre>
+
+        <p>La manera mas simple de utilizar la extensión es marcar la opción de <b>Live reload</b> y en la sección Run elegir <b>Android</b>:</p>
+            
+            <img src="Lanzar aplicacion (Web - Android)/2.png">
+
+            <p>En la opción de <b>Android</b> podemos hacer click en los 3 puntos (...) para elegir en que emulador queremos lanzar la aplicación.</p>
+
+        <p><b>NOTA:</b> En ocasiones tenemos que darle dos veces a la opción de <b>Android</b> la primera vez se inicia el live server y el Android Studio para poder ejecutar la aplicación, aunque no es necesario usar el Android Studio, si volvemos a hacer click una segunda vez en la opción <b>Android</b> dentro de Run se abríra un emulador y se lanzará la aplicación en dicho emulador, evitandonos tener que usar Android Studio (la ventana que se abre de Android Studio podemos cerrarla)</p>
+
+        <h2>Troubleshooting</h2>
+
+        <img src="Lanzar aplicacion (Web - Android)/5.png">
+
+        <p>Si a la hora de lanzar la aplicación obtenemos un error relacionado con "capacitor" podemos lanzar el <b>build</b> y el <b>sync</b> desde la extensión de ionic:</p>
+
+        <img src="Lanzar aplicacion (Web - Android)/3.png">
+
+
+        <p>En la opción de <b>build</b> podemos hacer click en los 3 puntos (...) para seleccionar que tipo de build hacer, <b>production</b> o <b>development</b> (esta segunda nos sirve para depurar)</p>
+        <img src="Lanzar aplicacion (Web - Android)/4.png">
+
+
+
+        </div>
+
+    
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Ionic | Android | Web </p>
+        </div>
+
+    </body>
+</html>

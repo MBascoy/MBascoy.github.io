@@ -1,0 +1,78 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Depurar aplicacion</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como depurar la aplicación android desde <b>VSCode</b>, tanto app Web como app Android.</p>
+
+        </div>
+
+
+    <div class="t2">Depurar aplicación</div>
+        <div class="cont">
+            <h2>Depurar con chrome</h2>
+            <p>Aqui se explicará como depurar la aplicación cuando la ejecutamos en un dispositivo (emulador), y NO desde el navegador.</p>
+
+            <p>Una manera simple de depurar es usando chrome, una vez tenemos lanzado el emulador y nuestra aplicación podemos entrar en la siguiente dirección desde chrome:</p>
+            <code>chrome://inspect/#devices</code>
+
+            <p>Hacemos click en <b>inspect</b> en nuestro emulador en la lista de dispositivos que sale abajo</p>
+            <img src="Depurar aplicacion/1.png">
+            
+            <p>y desde ahí podremos ver la salida por consola de nuestra aplicación</p>
+            <img src="Depurar aplicacion/2.png">
+
+
+            <h2>Depurar con VSCode</h2>
+            <p>Una manera mas potente de depurar y que nos permite poner <b>breakpoints</b> es usando VSCode, tenemos que seguir los siguientes pasos:</p>
+
+            <ul>
+                <li>Instalamos la extensión <a href="https://marketplace.visualstudio.com/items?itemName=mpotthoff.vscode-android-webview-debug">Android WebView Debugging</a> en nuestro VSCode</li>
+                <li>En el archivo <b>.vscode/launch.js</b> añadimos la siguiente configuración:</li>
+                <pre><code>{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "android-webview",
+      "request": "attach",
+      "name": "Attach to Android WebView",
+      "webRoot": "${workspaceFolder}/www",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:/*": "${workspaceFolder}/*"
+      }
+    }
+  ]
+}</code></pre>
+                <li>En el apartado <b>Build</b> de la extensión de Ionic indicamos tipo <b>development</b>:</li>
+                <img src="Depurar aplicacion/3.png">
+
+                <li>Arrancamos la aplicación desde <b>Run > Android</b>: </li>
+                <img src="Depurar aplicacion/4.png">
+
+                <li>Desde el apartado de depuración de VSCode ejecutamos el target que hemos creado en el launch.json (Attach to Android WebView), y en las opciones que nos salen seleccionamos nuestro emulador y nuestra aplicación:</li>
+                <img src="Depurar aplicacion/5.png">
+
+                <p>Una vez hecho esto ya podemos poner breakpoints en nuestra aplicación y el depurador parará cuando se alcancen, permitiendonos revisar el estado de variables y expresiones:</p>
+                <img src="Depurar aplicacion/6.png">
+
+
+            </ul>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Ionic | Android | Depuracion </p>
+        </div>
+
+    </body>
+</html>
