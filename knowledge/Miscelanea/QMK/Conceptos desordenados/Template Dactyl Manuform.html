@@ -15,6 +15,10 @@
             <ul>
                 <li>QMK Firmware 0.16.9</li>
                 <li>commit: d9737349769a8bd2198733a81c1c74bd7db82c3a</li>
+
+                <b>NUEVO</b>
+                <li>QMK Firmware 1.1.2</li>
+                <li>commit: f07490bc092e365ba03dc685b3fc30ad0bf0b752</li>
             </ul>
             
             <p>Podemos usar dos comandos distintos para compilar y flashear el firmware (básicamente los dos hacen los mismo);</p>
@@ -73,850 +77,859 @@
     <div class="t2">Template</div>
         <div class="cont">
             <p>Este archivo debe de estar colocado en: <b>qmk_firmware/keyboards/handwired/dactyl_manuform/5x6/keymaps/Alfa-Omega/keymap.c</b></p>
-        
-        <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">#include QMK_KEYBOARD_H
-
-#define _KB <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>
-#define _NAV <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>
-#define _MOUSE <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>
-#define _NUMBERS <span style="color:rgb(249, 145, 87); font-weight:400;">3</span>
-#define _SYMBOLS <span style="color:rgb(249, 145, 87); font-weight:400;">4</span>
-#define _GAMEMOD <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>
-#define _MEDIA <span style="color:rgb(249, 145, 87); font-weight:400;">6</span>
-
-#define VAL             <span style="color:rgb(249, 145, 87); font-weight:400;">140</span>
-#define SOFT_RED        <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">255</span>, VAL
-#define SOFT_GREEN      <span style="color:rgb(249, 145, 87); font-weight:400;">85</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">255</span>, VAL
-#define SOFT_BLUE       <span style="color:rgb(249, 145, 87); font-weight:400;">170</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">255</span>, VAL
-#define SOFT_PURPLE     <span style="color:rgb(249, 145, 87); font-weight:400;">191</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">255</span>, VAL
-#define SOFT_YELLOW     <span style="color:rgb(249, 145, 87); font-weight:400;">43</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">255</span>, VAL
-#define SOFT_ORANGE     <span style="color:rgb(249, 145, 87); font-weight:400;">21</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">255</span>, VAL
-
-<span style="color:rgb(204, 153, 204); font-weight:400;">enum</span> custom_keycodes {
-    MVKBD = SAFE_RANGE,
-    MVNAV,
-    MVMOUSE,
-    NAVBACK,
-    NAVFRNT,
-    SHDESK,
-    ALTWIN,
-    ALTTABR,
-    ALTTABL,
-    CRTTAB,
-    RUNTER,
-    RUNGB,
-    RUNCOM,
-    SOKEY,
-    SELECT,
-    CLIPB,
-    COPY,
-    PASTE,
-    CUTK,
-    UNDO,
-    DELETE,
-    CLOSETAB,
-    NEWTAB,
-    INCOG,
-    ALTF4,
-    RTAB,
-    APP1,
-    APP2,
-    APP3,
-    APP4,
-    APP5,
-    APP6,
-    APP7,
-    APPFOLDER,
-    BRWBAR,
-    DEV_EXP,
-    DEV_SEAR,
-    DEV_QUIT,
-    DEV_TAB,
-    DEV_RUN,
-    DEV_DEBUG,
-    DEV_STOP,
-    DEV_OVER,
-    DEV_INTO,
-    DEV_OUT,
-    DEV_SNPT,
-    DEV_FNC,
-    S_LANGBRT,
-    S_RANGBRT,
-    S_LCURLYBRT,
-    S_RCURLYBRT,
-    S_LSQBRT,
-    S_RSQBRT,
-    S_LPAREN,
-    S_RPAREN,
-    S_LQMARK,
-    S_RQMARK,
-    S_SLSH,
-    S_EQL,
-    S_QUOT,
-    S_AT,
-    S_ASTRK,
-    S_DOLLAR,
-    S_PERC,
-    S_HASTG,
-    S_ACFL,
-    S_AMP,
-    S_EXCL,
-    S_NFEM,
-    S_BSLSH,
-    S_VGL,
-    S_PIPE,
-    MIAU
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case MVKBD:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            <span style="color:rgb(150, 152, 150); font-weight:400;">// when keycode is pressed</span>
-            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            <span style="color:rgb(150, 152, 150); font-weight:400;">// when keycode is released</span>
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case MVNAV:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>);
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case MVMOUSE:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            layer_move(_MOUSE);
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case NAVBACK:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LEFT));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case NAVFRNT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_RIGHT));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case SHDESK:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_D));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case ALTWIN:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LALT) SS_DELAY(<span style="color:rgb(249, 145, 87); font-weight:400;">20</span>) SS_TAP(X_TAB));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case ALTTABR:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_TAB));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case ALTTABL:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LSFT) SS_TAP(X_TAB));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case CRTTAB:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_T));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case RUNTER:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LALT) SS_DOWN(X_T));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case RUNGB:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LALT) SS_DOWN(X_B));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case RUNCOM:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_F2));
-            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case SOKEY:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
-            SEND_STRING(SS_DOWN(X_LGUI));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case SELECT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LSFT));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case CLIPB:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_V));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case COPY:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_C));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case PASTE:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_V));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case CUTK:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_X));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case UNDO:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_Z));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            SEND_STRING(SS_UP(X_LCTL) SS_UP(X_Z));
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DELETE:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_BSPC));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case CLOSETAB:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_W));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case NEWTAB:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_T));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case INCOG:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LSFT) SS_DOWN(X_N));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case ALTF4:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_F4));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case RTAB:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_TAB));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case APP1:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_1));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case APP2:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_2));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case APP3:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_3));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-
-    case APP4:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_4));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-
-    case APP5:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_5));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-
-    case APP6:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_6));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-
-    case APP7:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_7));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case APPFOLDER:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_E));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case BRWBAR:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_K));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-            layer_move(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_EXP:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LALT) SS_DOWN(X_L));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_SEAR:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LBRC));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_QUIT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_F4));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_TAB:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_TAB));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_RUN:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_F5));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_DEBUG:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_F5));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_STOP:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_F5));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_OVER:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_F10));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_INTO:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_F11));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_OUT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_F11));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_SNPT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_K) SS_TAP(X_X));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case DEV_FNC:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_F2));
-            SEND_STRING(SS_UP(X_LCTL));
-            SEND_STRING(SS_TAP(X_TAB) SS_TAP(X_TAB));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-
-        <span style="color:rgb(150, 152, 150); font-weight:400;">/*---------------SYMBOLS----------------*/</span>
-
-    case S_RANGBRT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_NUBS));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_LCURLYBRT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_QUOT));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_RCURLYBRT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_BSLS));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-   case S_LSQBRT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_LBRC));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_RSQBRT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_RBRC));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_LPAREN:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_8));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_RPAREN:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_9));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_LQMARK:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_EQL));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_RQMARK:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_MINS));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-
-    case S_SLSH:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_7));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_EQL:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_UP(X_RALT));
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_0));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_QUOT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_2));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_AT:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_2));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_ASTRK:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_RBRC));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_DOLLAR:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_4));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_PERC:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_5));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_HASTG:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_3));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_ACFL:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LBRC));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_AMP:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_6));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_EXCL:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_1));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_NFEM:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_GRV));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_BSLSH:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_GRV));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_VGL:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_4));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case S_PIPE:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(SS_DOWN(X_RALT) SS_DOWN(X_1));
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    case MIAU:
-        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (record-&gt;event.pressed) {
-            SEND_STRING(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Miau !!!&quot;</span>);
-        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
-            clear_keyboard();
-        }
-        <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
-
-    }
-  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
-};
-
-<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_KB] = LAYOUT_5x6(
-        MIAU,    APP4, APPFOLDER,  KC_COMM, KC_ESC,  KC_VOLD,                 KC_VOLU, APP3,   KC_DOT,  KC_DEL, TG(_GAMEMOD),    KC_PSCR,
-        SHDESK,  KC_Q, KC_W  ,   KC_E,     KC_R,    KC_T,                     KC_Y,    KC_U,   KC_I,    KC_O,   KC_P,    KC_QUOT,
-        KC_TAB,  KC_A, KC_S  ,   KC_D,     KC_F,    KC_G,                     KC_H,    KC_J,   KC_K,    KC_L,   KC_SLSH, KC_LCTL,
-        KC_LCTL, KC_Z, KC_X  ,   KC_C,     KC_V,    KC_B,                     KC_N,    KC_M,   S_EQL,   MVNAV,  KC_SCLN, TG(_MEDIA),
-                         KC_APP,  KC_LGUI,                                                      MVMOUSE, KC_EQL,
-                                         KC_LSFT, KC_BSPC,                     KC_SPC,  KC_ENT,
-                                         KC_LALT, KC_TAB,                     MO(_NUMBERS),  MO(_SYMBOLS),
-                                         KC_INS,  RUNCOM,                      MVMOUSE, KC_RALT
-    ),
-
-    [_NAV] = LAYOUT_5x6(
-        KC_NO,  KC_TRNS,   KC_TRNS,   BRWBAR,   KC_ESC,  KC_TRNS,                  KC_TRNS, KC_TRNS,    KC_NO,    KC_TRNS, TG(_GAMEMOD),  KC_PSCR,
-        SHDESK,   ALTF4,   CLOSETAB, ALTTABL, ALTTABR, NEWTAB,                    KC_NO,   KC_NO,    KC_UP,    KC_PGUP,   KC_NO,   KC_NO,
-        KC_TRNS,  ALTWIN,  RTAB,     KC_LCTL, KC_LSFT, KC_NO,                     KC_HOME, KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_END,  KC_NO,
-        KC_NO,    UNDO,    CUTK,     COPY,    PASTE,   CLIPB,                     INCOG,   KC_PGDN,  KC_NO,    KC_NO,     KC_NO,   TG(_MEDIA),
-                          KC_APP,  KC_LGUI,                                                             MVMOUSE,  KC_NO,
-                                            MVKBD,   KC_TRNS,                      KC_TRNS,       KC_TRNS,
-                                            KC_TRNS,   KC_TRNS,                    MO(_NUMBERS),  KC_TRNS,
-                                            KC_TRNS,   KC_TRNS,                    KC_TRNS,       KC_TRNS
-
-    ),
-
-    [_MOUSE] = LAYOUT_5x6(
-          RESET,  KC_TRNS, KC_TRNS,  BRWBAR,   KC_ESC,  KC_TRNS ,                  KC_TRNS,   KC_TRNS, KC_NO,   KC_NO,   TG(_GAMEMOD),  KC_PSCR,
-          SHDESK,  ALTF4,   CLOSETAB, ALTTABL, ALTTABR, NEWTAB,                    KC_BTN2,   KC_BTN1, KC_MS_U, KC_WH_U, KC_WH_R,   KC_NO,
-          ALTWIN, KC_ACL0, KC_ACL1,  KC_ACL2, KC_BTN1, KC_BTN2,                   KC_WBAK,   KC_MS_L, KC_MS_D, KC_MS_R, KC_WFWD, KC_TRNS,
-          KC_NO,  UNDO,    CUTK,     COPY,    PASTE,   CLIPB,                     KC_WH_L,     KC_WH_D, KC_NO,   MVNAV,   KC_NO,   TG(_MEDIA),
-                           KC_APP,  KC_LGUI,                                                           KC_NO,   KC_NO,
-                                             MVKBD,   KC_TRNS,                   KC_TRNS,   KC_TRNS,
-                                             KC_TRNS, KC_TRNS,                   KC_TRNS,   KC_TRNS,
-                                             KC_TRNS, KC_TRNS,                   KC_TRNS,   KC_TRNS
-    ),
-
-    [_NUMBERS] = LAYOUT_5x6(
-        KC_NO,   KC_NO,   KC_NO,   KC_COMM, KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_DOT, KC_NO,   KC_NO,   KC_NO,
-        KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_NO,   KC_7,    KC_8,    KC_9,   KC_NO,   KC_NO,
-        KC_NO,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_NO,                        KC_NO,   KC_4,    KC_5,    KC_6,   KC_NO,   KC_LCTL,
-        KC_NO,   KC_F9,  KC_F10,  KC_F11,  KC_F12,   KC_NO,                        KC_0,    KC_1,    KC_2,    KC_3,   KC_NO,   KC_NO,
-                          KC_NO,  KC_LGUI,                                                            KC_NO,   KC_NO,
-                                            MVKBD,     KC_TRNS,                        KC_TRNS,   KC_TRNS,
-                                            KC_TRNS,   KC_TRNS,                        KC_TRNS,   KC_TRNS,
-                                            KC_TRNS,   KC_TRNS,                        KC_TRNS,   KC_TRNS
-    ),
-
-    [_SYMBOLS] = LAYOUT_5x6(
-        KC_NO,   S_NFEM,    KC_GRV,   S_AT,        KC_NO,       KC_NO,             KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,   KC_NO,
-        KC_NO,   S_LQMARK,  S_RQMARK, KC_NUBS,     S_RANGBRT,   S_EQL,             KC_NO,   S_ACFL,  S_LPAREN, S_RPAREN, S_VGL,   KC_NO,
-        KC_NO,   KC_RBRC,   S_SLSH,   S_LCURLYBRT, S_RCURLYBRT, S_DOLLAR,          KC_BSLS, S_AMP,   S_QUOT,   KC_MINS,  S_BSLSH, KC_LCTL,
-        KC_NO,   KC_LBRC,   S_ASTRK,  S_LSQBRT,    S_RSQBRT,    S_PERC,            KC_NO,   S_HASTG, S_PIPE,   S_EXCL,   KC_NO,   KC_NO,
-                            KC_NO,    KC_LGUI,                                                                    KC_NO,   KC_NO,
-                                            MVKBD,   KC_TRNS,                      KC_TRNS,   KC_TRNS,
-                                            KC_TRNS,   KC_TRNS,                      KC_TRNS,   KC_TRNS,
-                                            KC_TRNS,   KC_TRNS,                      KC_TRNS,   KC_TRNS
-    ),
-
-    [_GAMEMOD] = LAYOUT_5x6(
-        KC_NO,   KC_ESC,  KC_1,    KC_2,    KC_3,     KC_4,                       KC_5,    KC_6,     KC_7,     KC_8,      KC_TRNS,   KC_PSCR,
-        KC_NO,   KC_NO,   KC_Q,    KC_W,    KC_E,     KC_R,                       KC_NO,   KC_NO,    KC_UP,    KC_PGUP,   KC_NO,   KC_NO,
-        KC_NO,   KC_LSFT, KC_A,    KC_S,    KC_D,     KC_F,                       KC_HOME, KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_END,  KC_NO,
-        KC_NO,   KC_LCTL, KC_Z,    KC_X,    KC_C,     KC_V,                       INCOG,   KC_PGDN,  KC_NO,    KC_NO,     KC_NO,   KC_NO,
-                          KC_NO,   KC_NO,                                                             MVMOUSE,  KC_NO,
-                                            KC_LSFT,    KC_SPC,                    KC_TRNS,       KC_TRNS,
-                                            KC_TRNS,   KC_TRNS,                    MO(_NUMBERS),  KC_TRNS,
-                                            KC_VOLD,   KC_VOLU,                    KC_TRNS,       KC_TRNS
-
-    ),
-
-    [_MEDIA] = LAYOUT_5x6(
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_VOLD,                        KC_VOLU,   KC_NO,      KC_NO,      KC_NO,    KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_MFFD,  KC_MRWD,  KC_NO,                        KC_NO,   RGB_HUI,    RGB_SAI,    RGB_VAI,  KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_MSTP, KC_MPRV,  KC_MNXT,  KC_NO,                        KC_NO,   RGB_HUD,    RGB_SAD,    RGB_VAD,  KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,                        KC_NO,   RGB_RMOD,   RGB_MOD,    KC_NO,    KC_NO,   KC_TRNS,
-                          KC_NO,   KC_NO,                                                              KC_NO,    KC_NO,
-                                            MVKBD,     KC_MPLY,                    KC_TRNS,   RGB_TOG,
-                                            KC_MSTP,   KC_MUTE,                    KC_TRNS,   KC_TRNS,
-                                            KC_TRNS,   KC_TRNS,                    KC_TRNS,   KC_TRNS
-    )
-};
-
-
-<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>, SOFT_BLUE}
-);
-
-<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM mouse_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>, SOFT_GREEN}
-);
-
-<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM symbols_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>, SOFT_PURPLE}
-);
-
-<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM numbers_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>, SOFT_YELLOW}
-);
-
-<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, SOFT_ORANGE},
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, SOFT_ORANGE}
-);
-
-<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM media_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">6</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, SOFT_RED}
-);
-
-<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t PROGMEM caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_RED},
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_GREEN},
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_BLUE},
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">3</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_GOLD},
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">4</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_PURPLE},
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_GOLD},
-    { <span style="color:rgb(249, 145, 87); font-weight:400;">6</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, HSV_PINK}
-);
-
-<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> rgblight_segment_t* <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    nav_layer,
-    mouse_layer,
-    symbols_layer,
-    numbers_layer,
-    media_layer,
-    game_layer,
-    caps_layer
-);
-
-void keyboard_post_init_user(void) {
-    rgblight_layers = my_rgb_layers;
-}
-
-bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">6</span>, led_state.caps_lock);
-    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>;
-}
-
-
-layer_state_t default_layer_state_set_kb(layer_state_t state) {
-    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, layer_state_cmp(state, _KB));
-    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> state;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, layer_state_cmp(state, _NAV));
-    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>, layer_state_cmp(state, _MOUSE));
-    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>, layer_state_cmp(state, _NUMBERS));
-    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">3</span>, layer_state_cmp(state, _SYMBOLS));
-
-    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>, layer_state_cmp(state, _MEDIA));
-    rgblight_set_layer_state(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>, layer_state_cmp(state, _GAMEMOD));
-    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> state;
-}
-</code></pre>
+
+            <!-- HTML generated using hilite.me --><div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #75715e">#include QMK_KEYBOARD_H</span>
+
+<span style="color: #75715e">#define _KB 0</span>
+<span style="color: #75715e">#define _NAV 1</span>
+<span style="color: #75715e">#define _MOUSE 2</span>
+<span style="color: #75715e">#define _NUMBERS 3</span>
+<span style="color: #75715e">#define _SYMBOLS 4</span>
+<span style="color: #75715e">#define _GAMEMOD 5</span>
+<span style="color: #75715e">#define _MEDIA 6</span>
+
+<span style="color: #75715e">#define VAL             140</span>
+<span style="color: #75715e">#define SOFT_RED        0, 255, VAL</span>
+<span style="color: #75715e">#define SOFT_GREEN      85, 255, VAL</span>
+<span style="color: #75715e">#define SOFT_BLUE       170, 255, VAL</span>
+<span style="color: #75715e">#define SOFT_PURPLE     191, 255, VAL</span>
+<span style="color: #75715e">#define SOFT_YELLOW     43, 255, VAL</span>
+<span style="color: #75715e">#define SOFT_ORANGE     21, 255, VAL</span>
+
+<span style="color: #66d9ef">enum</span> <span style="color: #f8f8f2">custom_keycodes</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">MVKBD</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SAFE_RANGE,</span>
+    <span style="color: #f8f8f2">MVNAV,</span>
+    <span style="color: #f8f8f2">MVMOUSE,</span>
+    <span style="color: #f8f8f2">NAVBACK,</span>
+    <span style="color: #f8f8f2">NAVFRNT,</span>
+    <span style="color: #f8f8f2">SHDESK,</span>
+    <span style="color: #f8f8f2">ALTWIN,</span>
+    <span style="color: #f8f8f2">DESKGRID,</span>
+    <span style="color: #f8f8f2">ALTTABR,</span>
+    <span style="color: #f8f8f2">ALTTABL,</span>
+    <span style="color: #f8f8f2">CRTTAB,</span>
+    <span style="color: #f8f8f2">RUNTER,</span>
+    <span style="color: #f8f8f2">RUNGB,</span>
+    <span style="color: #f8f8f2">RUNCOM,</span>
+    <span style="color: #f8f8f2">SOKEY,</span>
+    <span style="color: #f8f8f2">SELECT,</span>
+    <span style="color: #f8f8f2">CLIPB,</span>
+    <span style="color: #f8f8f2">COPY,</span>
+    <span style="color: #f8f8f2">PASTE,</span>
+    <span style="color: #f8f8f2">CUTK,</span>
+    <span style="color: #f8f8f2">UNDO,</span>
+    <span style="color: #f8f8f2">DELETE,</span>
+    <span style="color: #f8f8f2">CLOSETAB,</span>
+    <span style="color: #f8f8f2">NEWTAB,</span>
+    <span style="color: #f8f8f2">INCOG,</span>
+    <span style="color: #f8f8f2">ALTF4,</span>
+    <span style="color: #f8f8f2">RTAB,</span>
+    <span style="color: #f8f8f2">APP1,</span>
+    <span style="color: #f8f8f2">APP2,</span>
+    <span style="color: #f8f8f2">APP3,</span>
+    <span style="color: #f8f8f2">APP4,</span>
+    <span style="color: #f8f8f2">APP5,</span>
+    <span style="color: #f8f8f2">APP6,</span>
+    <span style="color: #f8f8f2">APP7,</span>
+    <span style="color: #f8f8f2">APPFOLDER,</span>
+    <span style="color: #f8f8f2">BRWBAR,</span>
+    <span style="color: #f8f8f2">DEV_EXP,</span>
+    <span style="color: #f8f8f2">DEV_SEAR,</span>
+    <span style="color: #f8f8f2">DEV_QUIT,</span>
+    <span style="color: #f8f8f2">DEV_TAB,</span>
+    <span style="color: #f8f8f2">DEV_RUN,</span>
+    <span style="color: #f8f8f2">DEV_DEBUG,</span>
+    <span style="color: #f8f8f2">DEV_STOP,</span>
+    <span style="color: #f8f8f2">DEV_OVER,</span>
+    <span style="color: #f8f8f2">DEV_INTO,</span>
+    <span style="color: #f8f8f2">DEV_OUT,</span>
+    <span style="color: #f8f8f2">DEV_SNPT,</span>
+    <span style="color: #f8f8f2">DEV_FNC,</span>
+    <span style="color: #f8f8f2">S_LANGBRT,</span>
+    <span style="color: #f8f8f2">S_RANGBRT,</span>
+    <span style="color: #f8f8f2">S_LCURLYBRT,</span>
+    <span style="color: #f8f8f2">S_RCURLYBRT,</span>
+    <span style="color: #f8f8f2">S_LSQBRT,</span>
+    <span style="color: #f8f8f2">S_RSQBRT,</span>
+    <span style="color: #f8f8f2">S_LPAREN,</span>
+    <span style="color: #f8f8f2">S_RPAREN,</span>
+    <span style="color: #f8f8f2">S_LQMARK,</span>
+    <span style="color: #f8f8f2">S_RQMARK,</span>
+    <span style="color: #f8f8f2">S_SLSH,</span>
+    <span style="color: #f8f8f2">S_EQL,</span>
+    <span style="color: #f8f8f2">S_QUOT,</span>
+    <span style="color: #f8f8f2">S_AT,</span>
+    <span style="color: #f8f8f2">S_ASTRK,</span>
+    <span style="color: #f8f8f2">S_DOLLAR,</span>
+    <span style="color: #f8f8f2">S_PERC,</span>
+    <span style="color: #f8f8f2">S_HASTG,</span>
+    <span style="color: #f8f8f2">S_ACFL,</span>
+    <span style="color: #f8f8f2">S_AMP,</span>
+    <span style="color: #f8f8f2">S_EXCL,</span>
+    <span style="color: #f8f8f2">S_NFEM,</span>
+    <span style="color: #f8f8f2">S_BSLSH,</span>
+    <span style="color: #f8f8f2">S_VGL,</span>
+    <span style="color: #f8f8f2">S_PIPE,</span>
+    <span style="color: #f8f8f2">MIAU</span>
+<span style="color: #f8f8f2">};</span>
+
+<span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">process_record_user</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">keycode,</span> <span style="color: #66d9ef">keyrecord_t</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">record)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">switch</span> <span style="color: #f8f8f2">(keycode)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">MVKBD</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #75715e">// when keycode is pressed</span>
+            <span style="color: #f8f8f2">layer_move(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">);</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #75715e">// when keycode is released</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">MVNAV</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">layer_move(</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">);</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">MVMOUSE</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">layer_move(_MOUSE);</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">NAVBACK</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LALT)</span> <span style="color: #f8f8f2">SS_TAP(X_LEFT));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">NAVFRNT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LALT)</span> <span style="color: #f8f8f2">SS_TAP(X_RIGHT));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">SHDESK</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI)</span> <span style="color: #f8f8f2">SS_TAP(X_D));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">ALTWIN</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LALT)</span> <span style="color: #f8f8f2">SS_DELAY(</span><span style="color: #ae81ff">20</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">SS_TAP(X_TAB));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DESKGRID</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI)</span> <span style="color: #f8f8f2">SS_TAP(X_F8));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">ALTTABR</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_TAP(X_TAB));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">ALTTABL</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_TAP(X_TAB));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">CRTTAB</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_T));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">RUNTER</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_LALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_T));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">RUNGB</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_LALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_B));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">RUNCOM</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_F2));</span>
+            <span style="color: #f8f8f2">layer_move(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">);</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">SOKEY</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">layer_move(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">);</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">SELECT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_LSFT));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">CLIPB</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI)</span> <span style="color: #f8f8f2">SS_DOWN(X_V));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">COPY</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_C));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">PASTE</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_V));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">CUTK</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_X));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">UNDO</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_Z));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_UP(X_LCTL)</span> <span style="color: #f8f8f2">SS_UP(X_Z));</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DELETE</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_BSPC));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+            <span style="color: #f8f8f2">layer_move(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">);</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">CLOSETAB</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_W));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">NEWTAB</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_T));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">INCOG</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_N));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">ALTF4</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_F4));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">RTAB</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_TAB));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">APP1</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI)</span> <span style="color: #f8f8f2">SS_DOWN(X_1));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">APP2</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI)</span> <span style="color: #f8f8f2">SS_DOWN(X_2));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">APP3</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI)</span> <span style="color: #f8f8f2">SS_DOWN(X_3));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">APP4</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI)</span> <span style="color: #f8f8f2">SS_DOWN(X_4));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">APP5</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI)</span> <span style="color: #f8f8f2">SS_DOWN(X_5));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">APP6</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI)</span> <span style="color: #f8f8f2">SS_DOWN(X_6));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">APP7</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI)</span> <span style="color: #f8f8f2">SS_DOWN(X_7));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">APPFOLDER</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LGUI)</span> <span style="color: #f8f8f2">SS_DOWN(X_E));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">BRWBAR</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_K));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+            <span style="color: #f8f8f2">layer_move(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">);</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_EXP</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_LALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_L));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_SEAR</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_LBRC));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_QUIT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_F4));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_TAB</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_TAP(X_TAB));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_RUN</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_DOWN(X_F5));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_DEBUG</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_F5));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_STOP</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_F5));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_OVER</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_F10));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_INTO</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_F11));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_OUT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_F11));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_SNPT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_TAP(X_K)</span> <span style="color: #f8f8f2">SS_TAP(X_X));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">DEV_FNC</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LCTL)</span> <span style="color: #f8f8f2">SS_TAP(X_F2));</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_UP(X_LCTL));</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_TAP(X_TAB)</span> <span style="color: #f8f8f2">SS_TAP(X_TAB));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+
+        <span style="color: #75715e">/*---------------SYMBOLS----------------*/</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_RANGBRT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_NUBS));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_LCURLYBRT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_RALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_QUOT));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_RCURLYBRT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_RALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_BSLS));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+   <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_LSQBRT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_RALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_LBRC));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_RSQBRT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_RALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_RBRC));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_LPAREN</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_8));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_RPAREN</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_9));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_LQMARK</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_EQL));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_RQMARK</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_MINS));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_SLSH</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_7));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_EQL</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_UP(X_RALT));</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_0));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_QUOT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_2));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_AT</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_RALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_2));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_ASTRK</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_RBRC));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_DOLLAR</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_4));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_PERC</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_5));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_HASTG</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_RALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_3));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_ACFL</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_LBRC));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_AMP</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_6));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_EXCL</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_1));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_NFEM</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_LSFT)</span> <span style="color: #f8f8f2">SS_DOWN(X_GRV));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_BSLSH</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_RALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_GRV));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_VGL</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_RALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_4));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">S_PIPE</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(SS_DOWN(X_RALT)</span> <span style="color: #f8f8f2">SS_DOWN(X_1));</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">MIAU</span>:
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(record</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">event.pressed)</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">SEND_STRING(</span><span style="color: #e6db74">&quot;Miau !!!&quot;</span><span style="color: #f8f8f2">);</span>
+        <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">clear_keyboard();</span>
+        <span style="color: #f8f8f2">}</span>
+        <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+
+    <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">true;</span>
+<span style="color: #f8f8f2">};</span>
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f8f8f2">keymaps[][MATRIX_ROWS][MATRIX_COLS]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">[_KB]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">LAYOUT_5x6(</span>
+        <span style="color: #f8f8f2">MIAU,</span>    <span style="color: #f8f8f2">APP4,</span> <span style="color: #f8f8f2">APPFOLDER,</span>  <span style="color: #f8f8f2">KC_COMM,</span> <span style="color: #f8f8f2">KC_ESC,</span>  <span style="color: #f8f8f2">KC_VOLD,</span>                 <span style="color: #f8f8f2">KC_VOLU,</span> <span style="color: #f8f8f2">APP3,</span>   <span style="color: #f8f8f2">KC_DOT,</span>  <span style="color: #f8f8f2">KC_DEL,</span> <span style="color: #f8f8f2">TG(_GAMEMOD),</span>    <span style="color: #f8f8f2">KC_PSCR,</span>
+        <span style="color: #f8f8f2">SHDESK,</span>  <span style="color: #f8f8f2">KC_Q,</span> <span style="color: #f8f8f2">KC_W</span>  <span style="color: #f8f8f2">,</span>   <span style="color: #f8f8f2">KC_E,</span>     <span style="color: #f8f8f2">KC_R,</span>    <span style="color: #f8f8f2">KC_T,</span>                     <span style="color: #f8f8f2">KC_Y,</span>    <span style="color: #f8f8f2">KC_U,</span>   <span style="color: #f8f8f2">KC_I,</span>    <span style="color: #f8f8f2">KC_O,</span>   <span style="color: #f8f8f2">KC_P,</span>    <span style="color: #f8f8f2">KC_QUOT,</span>
+        <span style="color: #f8f8f2">KC_TAB,</span>  <span style="color: #f8f8f2">KC_A,</span> <span style="color: #f8f8f2">KC_S</span>  <span style="color: #f8f8f2">,</span>   <span style="color: #f8f8f2">KC_D,</span>     <span style="color: #f8f8f2">KC_F,</span>    <span style="color: #f8f8f2">KC_G,</span>                     <span style="color: #f8f8f2">KC_H,</span>    <span style="color: #f8f8f2">KC_J,</span>   <span style="color: #f8f8f2">KC_K,</span>    <span style="color: #f8f8f2">KC_L,</span>   <span style="color: #f8f8f2">KC_SLSH,</span> <span style="color: #f8f8f2">KC_LCTL,</span>
+        <span style="color: #f8f8f2">KC_LCTL,</span> <span style="color: #f8f8f2">KC_Z,</span> <span style="color: #f8f8f2">KC_X</span>  <span style="color: #f8f8f2">,</span>   <span style="color: #f8f8f2">KC_C,</span>     <span style="color: #f8f8f2">KC_V,</span>    <span style="color: #f8f8f2">KC_B,</span>                     <span style="color: #f8f8f2">KC_N,</span>    <span style="color: #f8f8f2">KC_M,</span>   <span style="color: #f8f8f2">S_EQL,</span>   <span style="color: #f8f8f2">MVNAV,</span>  <span style="color: #f8f8f2">KC_SCLN,</span> <span style="color: #f8f8f2">TG(_MEDIA),</span>
+                         <span style="color: #f8f8f2">KC_APP,</span>  <span style="color: #f8f8f2">KC_LGUI,</span>                                                      <span style="color: #f8f8f2">MVMOUSE,</span> <span style="color: #f8f8f2">KC_EQL,</span>
+                                         <span style="color: #f8f8f2">KC_LSFT,</span> <span style="color: #f8f8f2">KC_BSPC,</span>                     <span style="color: #f8f8f2">KC_SPC,</span>  <span style="color: #f8f8f2">KC_ENT,</span>
+                                         <span style="color: #f8f8f2">KC_LALT,</span> <span style="color: #f8f8f2">KC_TAB,</span>                     <span style="color: #f8f8f2">MO(_NUMBERS),</span>  <span style="color: #f8f8f2">MO(_SYMBOLS),</span>
+                                         <span style="color: #f8f8f2">DESKGRID,</span>  <span style="color: #f8f8f2">RUNCOM,</span>                      <span style="color: #f8f8f2">MVMOUSE,</span> <span style="color: #f8f8f2">KC_RALT</span>
+    <span style="color: #f8f8f2">),</span>
+
+    <span style="color: #f8f8f2">[_NAV]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">LAYOUT_5x6(</span>
+        <span style="color: #f8f8f2">KC_NO,</span>  <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">BRWBAR,</span>   <span style="color: #f8f8f2">KC_ESC,</span>  <span style="color: #f8f8f2">KC_TRNS,</span>                  <span style="color: #f8f8f2">KC_TRNS,</span> <span style="color: #f8f8f2">KC_TRNS,</span>    <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_TRNS,</span> <span style="color: #f8f8f2">TG(_GAMEMOD),</span>  <span style="color: #f8f8f2">KC_PSCR,</span>
+        <span style="color: #f8f8f2">SHDESK,</span>   <span style="color: #f8f8f2">ALTF4,</span>   <span style="color: #f8f8f2">CLOSETAB,</span> <span style="color: #f8f8f2">ALTTABL,</span> <span style="color: #f8f8f2">ALTTABR,</span> <span style="color: #f8f8f2">NEWTAB,</span>                    <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_UP,</span>    <span style="color: #f8f8f2">KC_PGUP,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+        <span style="color: #f8f8f2">KC_TRNS,</span>  <span style="color: #f8f8f2">ALTWIN,</span>  <span style="color: #f8f8f2">RTAB,</span>     <span style="color: #f8f8f2">KC_LCTL,</span> <span style="color: #f8f8f2">KC_LSFT,</span> <span style="color: #f8f8f2">KC_NO,</span>                     <span style="color: #f8f8f2">KC_HOME,</span> <span style="color: #f8f8f2">KC_LEFT,</span>  <span style="color: #f8f8f2">KC_DOWN,</span>  <span style="color: #f8f8f2">KC_RIGHT,</span>  <span style="color: #f8f8f2">KC_END,</span>  <span style="color: #f8f8f2">KC_NO,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">UNDO,</span>    <span style="color: #f8f8f2">CUTK,</span>     <span style="color: #f8f8f2">COPY,</span>    <span style="color: #f8f8f2">PASTE,</span>   <span style="color: #f8f8f2">CLIPB,</span>                     <span style="color: #f8f8f2">INCOG,</span>   <span style="color: #f8f8f2">KC_PGDN,</span>  <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_NO,</span>     <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">TG(_MEDIA),</span>
+                          <span style="color: #f8f8f2">KC_APP,</span>  <span style="color: #f8f8f2">KC_LGUI,</span>                                                             <span style="color: #f8f8f2">MVMOUSE,</span>  <span style="color: #f8f8f2">KC_NO,</span>
+                                            <span style="color: #f8f8f2">MVKBD,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>                      <span style="color: #f8f8f2">KC_TRNS,</span>       <span style="color: #f8f8f2">KC_TRNS,</span>
+                                            <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>                    <span style="color: #f8f8f2">MO(_NUMBERS),</span>  <span style="color: #f8f8f2">KC_TRNS,</span>
+                                            <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>                    <span style="color: #f8f8f2">KC_TRNS,</span>       <span style="color: #f8f8f2">KC_TRNS</span>
+
+    <span style="color: #f8f8f2">),</span>
+
+    <span style="color: #f8f8f2">[_MOUSE]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">LAYOUT_5x6(</span>
+          <span style="color: #f8f8f2">QK_BOOT,</span>  <span style="color: #f8f8f2">KC_TRNS,</span> <span style="color: #f8f8f2">KC_TRNS,</span>  <span style="color: #f8f8f2">BRWBAR,</span>   <span style="color: #f8f8f2">KC_ESC,</span>  <span style="color: #f8f8f2">KC_TRNS</span> <span style="color: #f8f8f2">,</span>               <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span> <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">TG(_GAMEMOD),</span>  <span style="color: #f8f8f2">KC_PSCR,</span>
+          <span style="color: #f8f8f2">SHDESK,</span>  <span style="color: #f8f8f2">ALTF4,</span>   <span style="color: #f8f8f2">CLOSETAB,</span> <span style="color: #f8f8f2">ALTTABL,</span> <span style="color: #f8f8f2">ALTTABR,</span> <span style="color: #f8f8f2">NEWTAB,</span>                   <span style="color: #f8f8f2">KC_BTN2,</span>   <span style="color: #f8f8f2">KC_BTN1,</span> <span style="color: #f8f8f2">KC_MS_U,</span> <span style="color: #f8f8f2">KC_WH_U,</span> <span style="color: #f8f8f2">KC_WH_R,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+          <span style="color: #f8f8f2">ALTWIN,</span> <span style="color: #f8f8f2">KC_ACL0,</span> <span style="color: #f8f8f2">KC_ACL1,</span>  <span style="color: #f8f8f2">KC_ACL2,</span> <span style="color: #f8f8f2">KC_BTN1,</span> <span style="color: #f8f8f2">KC_BTN2,</span>                   <span style="color: #f8f8f2">KC_WBAK,</span>   <span style="color: #f8f8f2">KC_MS_L,</span> <span style="color: #f8f8f2">KC_MS_D,</span> <span style="color: #f8f8f2">KC_MS_R,</span> <span style="color: #f8f8f2">KC_WFWD,</span> <span style="color: #f8f8f2">KC_TRNS,</span>
+          <span style="color: #f8f8f2">KC_NO,</span>  <span style="color: #f8f8f2">UNDO,</span>    <span style="color: #f8f8f2">CUTK,</span>     <span style="color: #f8f8f2">COPY,</span>    <span style="color: #f8f8f2">PASTE,</span>   <span style="color: #f8f8f2">CLIPB,</span>                     <span style="color: #f8f8f2">KC_WH_L,</span>     <span style="color: #f8f8f2">KC_WH_D,</span> <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">MVNAV,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">TG(_MEDIA),</span>
+                           <span style="color: #f8f8f2">KC_APP,</span>  <span style="color: #f8f8f2">KC_LGUI,</span>                                                           <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+                                             <span style="color: #f8f8f2">MVKBD,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>                   <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>
+                                             <span style="color: #f8f8f2">KC_TRNS,</span> <span style="color: #f8f8f2">KC_TRNS,</span>                   <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>
+                                             <span style="color: #f8f8f2">KC_TRNS,</span> <span style="color: #f8f8f2">KC_TRNS,</span>                   <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS</span>
+    <span style="color: #f8f8f2">),</span>
+
+    <span style="color: #f8f8f2">[_NUMBERS]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">LAYOUT_5x6(</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_COMM,</span> <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>                        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_DOT,</span> <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_F1,</span>   <span style="color: #f8f8f2">KC_F2,</span>   <span style="color: #f8f8f2">KC_F3,</span>   <span style="color: #f8f8f2">KC_F4,</span>   <span style="color: #f8f8f2">KC_F5,</span>                        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_7,</span>    <span style="color: #f8f8f2">KC_8,</span>    <span style="color: #f8f8f2">KC_9,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_F5,</span>   <span style="color: #f8f8f2">KC_F6,</span>   <span style="color: #f8f8f2">KC_F7,</span>   <span style="color: #f8f8f2">KC_F8,</span>   <span style="color: #f8f8f2">KC_NO,</span>                        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_4,</span>    <span style="color: #f8f8f2">KC_5,</span>    <span style="color: #f8f8f2">KC_6,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_LCTL,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_F9,</span>  <span style="color: #f8f8f2">KC_F10,</span>  <span style="color: #f8f8f2">KC_F11,</span>  <span style="color: #f8f8f2">KC_F12,</span>   <span style="color: #f8f8f2">KC_NO,</span>                        <span style="color: #f8f8f2">KC_0,</span>    <span style="color: #f8f8f2">KC_1,</span>    <span style="color: #f8f8f2">KC_2,</span>    <span style="color: #f8f8f2">KC_3,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+                          <span style="color: #f8f8f2">KC_NO,</span>  <span style="color: #f8f8f2">KC_LGUI,</span>                                                            <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+                                            <span style="color: #f8f8f2">MVKBD,</span>     <span style="color: #f8f8f2">KC_TRNS,</span>                        <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>
+                                            <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>                        <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>
+                                            <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>                        <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS</span>
+    <span style="color: #f8f8f2">),</span>
+
+    <span style="color: #f8f8f2">[_SYMBOLS]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">LAYOUT_5x6(</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">S_NFEM,</span>    <span style="color: #f8f8f2">KC_GRV,</span>   <span style="color: #f8f8f2">S_AT,</span>        <span style="color: #f8f8f2">KC_NO,</span>       <span style="color: #f8f8f2">KC_NO,</span>             <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">S_LQMARK,</span>  <span style="color: #f8f8f2">S_RQMARK,</span> <span style="color: #f8f8f2">KC_NUBS,</span>     <span style="color: #f8f8f2">S_RANGBRT,</span>   <span style="color: #f8f8f2">S_EQL,</span>             <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">S_ACFL,</span>  <span style="color: #f8f8f2">S_LPAREN,</span> <span style="color: #f8f8f2">S_RPAREN,</span> <span style="color: #f8f8f2">S_VGL,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_RBRC,</span>   <span style="color: #f8f8f2">S_SLSH,</span>   <span style="color: #f8f8f2">S_LCURLYBRT,</span> <span style="color: #f8f8f2">S_RCURLYBRT,</span> <span style="color: #f8f8f2">S_DOLLAR,</span>          <span style="color: #f8f8f2">KC_BSLS,</span> <span style="color: #f8f8f2">S_AMP,</span>   <span style="color: #f8f8f2">S_QUOT,</span>   <span style="color: #f8f8f2">KC_MINS,</span>  <span style="color: #f8f8f2">S_BSLSH,</span> <span style="color: #f8f8f2">KC_LCTL,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_LBRC,</span>   <span style="color: #f8f8f2">S_ASTRK,</span>  <span style="color: #f8f8f2">S_LSQBRT,</span>    <span style="color: #f8f8f2">S_RSQBRT,</span>    <span style="color: #f8f8f2">S_PERC,</span>            <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">S_HASTG,</span> <span style="color: #f8f8f2">S_PIPE,</span>   <span style="color: #f8f8f2">S_EXCL,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+                            <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_LGUI,</span>                                                                    <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+                                            <span style="color: #f8f8f2">MVKBD,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>                      <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>
+                                            <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>                      <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>
+                                            <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>                      <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS</span>
+    <span style="color: #f8f8f2">),</span>
+
+    <span style="color: #f8f8f2">[_GAMEMOD]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">LAYOUT_5x6(</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_ESC,</span>  <span style="color: #f8f8f2">KC_1,</span>    <span style="color: #f8f8f2">KC_2,</span>    <span style="color: #f8f8f2">KC_3,</span>     <span style="color: #f8f8f2">KC_4,</span>                       <span style="color: #f8f8f2">KC_5,</span>    <span style="color: #f8f8f2">KC_6,</span>     <span style="color: #f8f8f2">KC_7,</span>     <span style="color: #f8f8f2">KC_8,</span>      <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_PSCR,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_Q,</span>    <span style="color: #f8f8f2">KC_W,</span>    <span style="color: #f8f8f2">KC_E,</span>     <span style="color: #f8f8f2">KC_R,</span>                       <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_UP,</span>    <span style="color: #f8f8f2">KC_PGUP,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_LSFT,</span> <span style="color: #f8f8f2">KC_A,</span>    <span style="color: #f8f8f2">KC_S,</span>    <span style="color: #f8f8f2">KC_D,</span>     <span style="color: #f8f8f2">KC_F,</span>                       <span style="color: #f8f8f2">KC_HOME,</span> <span style="color: #f8f8f2">KC_LEFT,</span>  <span style="color: #f8f8f2">KC_DOWN,</span>  <span style="color: #f8f8f2">KC_RIGHT,</span>  <span style="color: #f8f8f2">KC_END,</span>  <span style="color: #f8f8f2">KC_NO,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_LCTL,</span> <span style="color: #f8f8f2">KC_Z,</span>    <span style="color: #f8f8f2">KC_X,</span>    <span style="color: #f8f8f2">KC_C,</span>     <span style="color: #f8f8f2">KC_V,</span>                       <span style="color: #f8f8f2">INCOG,</span>   <span style="color: #f8f8f2">KC_PGDN,</span>  <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_NO,</span>     <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+                          <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>                                                             <span style="color: #f8f8f2">MVMOUSE,</span>  <span style="color: #f8f8f2">KC_NO,</span>
+                                            <span style="color: #f8f8f2">KC_LSFT,</span>    <span style="color: #f8f8f2">KC_SPC,</span>                    <span style="color: #f8f8f2">KC_TRNS,</span>       <span style="color: #f8f8f2">KC_TRNS,</span>
+                                            <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>                    <span style="color: #f8f8f2">MO(_NUMBERS),</span>  <span style="color: #f8f8f2">KC_TRNS,</span>
+                                            <span style="color: #f8f8f2">KC_VOLD,</span>   <span style="color: #f8f8f2">KC_VOLU,</span>                    <span style="color: #f8f8f2">KC_TRNS,</span>       <span style="color: #f8f8f2">KC_TRNS</span>
+
+    <span style="color: #f8f8f2">),</span>
+
+    <span style="color: #f8f8f2">[_MEDIA]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">LAYOUT_5x6(</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_VOLD,</span>                        <span style="color: #f8f8f2">KC_VOLU,</span>   <span style="color: #f8f8f2">KC_NO,</span>      <span style="color: #f8f8f2">KC_NO,</span>      <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_MFFD,</span>  <span style="color: #f8f8f2">KC_MRWD,</span>  <span style="color: #f8f8f2">KC_NO,</span>                        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">RGB_HUI,</span>    <span style="color: #f8f8f2">RGB_SAI,</span>    <span style="color: #f8f8f2">RGB_VAI,</span>  <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_MSTP,</span> <span style="color: #f8f8f2">KC_MPRV,</span>  <span style="color: #f8f8f2">KC_MNXT,</span>  <span style="color: #f8f8f2">KC_NO,</span>                        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">RGB_HUD,</span>    <span style="color: #f8f8f2">RGB_SAD,</span>    <span style="color: #f8f8f2">RGB_VAD,</span>  <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>
+        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_NO,</span>                        <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">RGB_RMOD,</span>   <span style="color: #f8f8f2">RGB_MOD,</span>    <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>
+                          <span style="color: #f8f8f2">KC_NO,</span>   <span style="color: #f8f8f2">KC_NO,</span>                                                              <span style="color: #f8f8f2">KC_NO,</span>    <span style="color: #f8f8f2">KC_NO,</span>
+                                            <span style="color: #f8f8f2">MVKBD,</span>     <span style="color: #f8f8f2">KC_MPLY,</span>                    <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">RGB_TOG,</span>
+                                            <span style="color: #f8f8f2">KC_MSTP,</span>   <span style="color: #f8f8f2">KC_MUTE,</span>                    <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>
+                                            <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS,</span>                    <span style="color: #f8f8f2">KC_TRNS,</span>   <span style="color: #f8f8f2">KC_TRNS</span>
+    <span style="color: #f8f8f2">)</span>
+<span style="color: #f8f8f2">};</span>
+
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">rgblight_segment_t</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f8f8f2">nav_layer[]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">RGBLIGHT_LAYER_SEGMENTS(</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">7</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">SOFT_BLUE}</span>
+<span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">rgblight_segment_t</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f8f8f2">mouse_layer[]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">RGBLIGHT_LAYER_SEGMENTS(</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">7</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">SOFT_GREEN}</span>
+<span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">rgblight_segment_t</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f8f8f2">symbols_layer[]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">RGBLIGHT_LAYER_SEGMENTS(</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">7</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">SOFT_PURPLE}</span>
+<span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">rgblight_segment_t</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f8f8f2">numbers_layer[]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">RGBLIGHT_LAYER_SEGMENTS(</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">7</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">SOFT_YELLOW}</span>
+<span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">rgblight_segment_t</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f8f8f2">game_layer[]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">RGBLIGHT_LAYER_SEGMENTS(</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">SOFT_ORANGE},</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">5</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">SOFT_ORANGE}</span>
+<span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">rgblight_segment_t</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f8f8f2">media_layer[]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">RGBLIGHT_LAYER_SEGMENTS(</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">6</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">SOFT_RED}</span>
+<span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">rgblight_segment_t</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f8f8f2">caps_layer[]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">RGBLIGHT_LAYER_SEGMENTS(</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">HSV_RED},</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">HSV_GREEN},</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">HSV_BLUE},</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">3</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">HSV_GOLD},</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">4</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">HSV_PURPLE},</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">5</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">HSV_GOLD},</span>
+    <span style="color: #f8f8f2">{</span> <span style="color: #ae81ff">6</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">HSV_PINK}</span>
+<span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">rgblight_segment_t</span><span style="color: #f92672">*</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f8f8f2">my_rgb_layers[]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">RGBLIGHT_LAYERS_LIST(</span>
+    <span style="color: #f8f8f2">nav_layer,</span>
+    <span style="color: #f8f8f2">mouse_layer,</span>
+    <span style="color: #f8f8f2">symbols_layer,</span>
+    <span style="color: #f8f8f2">numbers_layer,</span>
+    <span style="color: #f8f8f2">media_layer,</span>
+    <span style="color: #f8f8f2">game_layer,</span>
+    <span style="color: #f8f8f2">caps_layer</span>
+<span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">keyboard_post_init_user</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">rgblight_layers</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">my_rgb_layers;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">led_update_user</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">led_t</span> <span style="color: #f8f8f2">led_state)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">rgblight_set_layer_state(</span><span style="color: #ae81ff">6</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">led_state.caps_lock);</span>
+    <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">true;</span>
+<span style="color: #f8f8f2">}</span>
+
+
+<span style="color: #66d9ef">layer_state_t</span> <span style="color: #a6e22e">default_layer_state_set_kb</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">layer_state_t</span> <span style="color: #f8f8f2">state)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">rgblight_set_layer_state(</span><span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">layer_state_cmp(state,</span> <span style="color: #f8f8f2">_KB));</span>
+    <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">state;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">layer_state_t</span> <span style="color: #a6e22e">layer_state_set_user</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">layer_state_t</span> <span style="color: #f8f8f2">state)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">rgblight_set_layer_state(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">layer_state_cmp(state,</span> <span style="color: #f8f8f2">_NAV));</span>
+    <span style="color: #f8f8f2">rgblight_set_layer_state(</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">layer_state_cmp(state,</span> <span style="color: #f8f8f2">_MOUSE));</span>
+    <span style="color: #f8f8f2">rgblight_set_layer_state(</span><span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">layer_state_cmp(state,</span> <span style="color: #f8f8f2">_NUMBERS));</span>
+    <span style="color: #f8f8f2">rgblight_set_layer_state(</span><span style="color: #ae81ff">3</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">layer_state_cmp(state,</span> <span style="color: #f8f8f2">_SYMBOLS));</span>
+
+    <span style="color: #f8f8f2">rgblight_set_layer_state(</span><span style="color: #ae81ff">4</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">layer_state_cmp(state,</span> <span style="color: #f8f8f2">_MEDIA));</span>
+    <span style="color: #f8f8f2">rgblight_set_layer_state(</span><span style="color: #ae81ff">5</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">layer_state_cmp(state,</span> <span style="color: #f8f8f2">_GAMEMOD));</span>
+    <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">state;</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
         
         </div>
 
