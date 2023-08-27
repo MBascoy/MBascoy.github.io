@@ -40,6 +40,23 @@
             <code>sudo pam-auth-update</code>
         </div>
 
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+            <p>Al iniciar sesión con el lector de huellas nos podemos encontrar con una nueva pantalla pidiendo la contraseña para desbloquear el <b>keyring</b>:</p>
+            <img src="Lector de huellas (t480s)/1.jpg">
+
+            <p>Esta situación se da porque el <b>Keyring</b> solo se puede desbloquear usando la contraseña y no usando el lector de huellas, una manera de evitar que aparezca esta pantalla es quitando la contraseña del keyring, ejecutamos el siguiente comando:</p>
+            <code>seahorse</code>
+
+            <p>En la categoría de <b>Inicio de sesion</b> le damos a <b>cambiar contraseña</b>:</p>
+            <img src="Lector de huellas (t480s)/2.png">
+
+            <p>Introducimos la contraseña antigua (la que usamos para iniciar sesión) y cuando nos pregunte la contraseña nueva la dejamos en blanco (esto solo eliminará la contraseña del keyring, no la del usuario).</p>
+            <p><b>NOTA:</b> Con esto evitamos que aparezca el mensaje al iniciar sesión con la huella, pero tambien deja el almacen de claves desprotegido ya que no tiene una contraseña asociada</p>
+
+
+        </div>
+
     <div class="t2">Tags</div>
         <div class="cont">
         <p>Debian | fingerprint | sudo</p>
