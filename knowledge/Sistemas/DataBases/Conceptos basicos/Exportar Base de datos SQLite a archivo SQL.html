@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Exportar Base de datos SQLite a archivo SQL</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como generar un archivo <b>.sql</b> a partir de una base de datos <b>SQLite</b></p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+        <p>Abrimos nuestra base de datos con SQLite:</p>
+        <code>sqlite3 crud_example.db</code>
+
+        <p>Indicamos el archivo donde se guardará el <b>.sql</b>:</p>
+        <code>.output archivo_exportado.sql</code>
+
+        <p>Exportamos la base de datos:</p>
+        <code>.dump</code>
+
+        <p>Salimos del interprete de SQLite</p>
+        <code>.exit</code>
+
+        <p>Si queremos podemos exportar solo una tabla, para ello al hacer el <b>dump</b> lo haríamos indicando el nombre de la tabla:</p>
+        <code>.dump pedidos</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>SQLite | dump | export</p>
+        </div>
+
+    </body>
+</html>

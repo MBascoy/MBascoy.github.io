@@ -1,0 +1,46 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Comando Prettier</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como instalar el comando <b>prettier</b> para poder formatear varios archivos</p>
+
+          <p><a href="https://prettier.io/docs/en/">Documentación prettier</a></p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para instalar el comando lo hacemos asi:</p>
+          <code>npm install prettier</code>
+
+          <p>Una vez instalado podemos indicarle formatear todos los archivos del proyecto tal que así:</p>
+          <code>prettier --write .</code>
+
+          <p>Si queremos ser mas especificos con que archivos filtrar tenemos varias opciones</p>
+          <p>El siguiente comando formatea todos los archivos <b>.js</b> del proyecto</p>
+          <code>prettier --write "**/*.js"</code>
+
+          <p>Si queremos podemos formatear los archivos de una sola carpeta:</p>
+          <code>prettier --write src/features/clients/</code>
+
+          <p>Para formatear todos los archivos <b>.css</b>, <b>.js</b> y <b>.ts</b> dentro de la carpeta <b>src</b> y todas las carpetas anidadas:</p>
+          <code>prettier --write "src/**/*.{css,js,ts}"</code>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Prettier | format</p>
+        </div>
+
+    </body>
+</html>
