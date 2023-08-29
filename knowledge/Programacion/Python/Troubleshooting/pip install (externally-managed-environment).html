@@ -1,0 +1,41 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">pip install (externally-managed-environment)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Al intentar instalar algo con <b>pip</b> obtenemos el siguiente error:</p>
+
+          <code>error: externally-managed-environment</code>
+
+          <img src="pip install (externally-managed-environment)/1.png">
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>El error se da porque no estamos lanzando <b>pip</b> desde un entorno virtual de python (venv)</p>
+          <p>Si queremos poder lanzarlo de manera global tenemos que crear el siguiente archivo:</p>
+          <p><b>~/.config/pip/pip.conf</b></p>
+
+          <p>Y añadimos el siguiente contenido:</p>
+          <pre><code>[global]
+break-system-packages = true</code></pre>
+
+          <p>Una vez hecho esto nos dejará ejecutar pip sin necesidad de estar dentro de un entorno virtual.</p>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | pip</p>
+        </div>
+
+    </body>
+</html>
