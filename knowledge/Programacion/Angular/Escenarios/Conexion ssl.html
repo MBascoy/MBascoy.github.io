@@ -1,0 +1,63 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Conexion ssl</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Lanzar angular para que acepte conexiones via <b>https</b> usando conexiones cifradas con ssl.</p>
+
+        </div>
+
+        <div class="t2">Generar certificado y claves</div>
+            <div class="cont">
+              <p>Primero usaremos el comando <b>openssl</b> para generar un certificado (autofirmado), y la clave privada</p>
+
+              <p>Creamos un archivo <b>certificate.config</b> con el siguiente contenido:</p>
+              <pre><code>[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+x509_extensions = v3_req
+distinguished_name = dn
+
+[dn]
+C = US
+ST = AZ
+L = Phoenix
+O = My Organization
+OU = My Organization Unit
+emailAddress = email@domain.com
+CN = localhost
+
+[v3_req]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost</code></pre>
+
+                <p>Ejecutamos el siguiente comando:</p>
+                <code>openssl req -new -x509 -newkey rsa:2048 -sha256 -nodes -keyout localhost.key -days 3560 -out localhost.crt -config certificate.config</code>
+
+                <p>Esto no generará dos archivos, un archivo <b>localhost.key</b> y otro <b>localhost.crt</b> que usaremos para ejecutar nuestro proyecto de angular.</p>
+
+                <p>Una vez tenemos los archivos de la clave privada y el certificado generados, ejecutamos nuestro proyecto con el siguiente comando:</p>
+                <code>ng serve --host 0.0.0.0 --disable-host-check --ssl --ssl-key localhost.key --ssl-cert localhost.crt</code>
+
+                <p>Una vez lanzado este comando el servidor será accesible usando <b>https</b> aunque como hemos generado un certificado autofirmado se nos mostrará un mensaje de advertencia al entrar en la página.</p>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | https | ssl </p>
+        </div>
+
+    </body>
+</html>
