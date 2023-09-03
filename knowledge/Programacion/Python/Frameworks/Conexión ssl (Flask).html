@@ -1,0 +1,32 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Conexión ssl (Flask)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como hacer para que <b>flask</b> use una conexión segura (ssl).</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Para hacer que flask establezca conexiónes cifradas lo hacemos cambiando el app.run de la siguiente manera:</p>
+            <code>app.run(host="0.0.0.0", ssl_context='adhoc', debug=True)</code>
+
+            <p>Solo tenemos que añadir la parte de <b>ssl_context='adhoc'</b> y las conexiones se harán de manera cifrada.</p>
+            <p>La opción <b>host="0.0.0.0"</b> no tiene nada que ver en este caso, pero se utiliza para que se acepten las peticiones de cualquiera interfaz, si no indicamos esta opción solo se aceptan las conexiones locales (localhost)</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | Flask | SSL</p>
+        </div>
+
+    </body>
+</html>
