@@ -1,0 +1,40 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">vlc recording</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Grabar streamings (canales IPTV) con vlc desde la linea de comandos (sin necesidad de tener vlc abierto)</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>El siguiente comando nos permite grabar una retransmision:</p>
+            <code>cvlc -vvv ENLACE_RETRANSMISION --sout file/ts:MI_GRABACION.ts</code>
+        
+            <p>La retransmision se grabaría en la carpeta actual con el nombre MI_GRABACION.ts, la grabación es infinita hasta que nosotros paramos la ejecución del comando con <kbd>Cntrl</kbd> + <kbd>c</kbd></p>
+        
+            <h2>Grabación con temporizador</h2>
+
+            <p>Si queremos podemos usar el siguiente comando para grabar un rango de tiempo:</p>
+            <code>sleep 5; cvlc -vvv ENLACE_RETRANSMISION --sout file/ts:MI_GRABACION.ts & sleep 100; killall vlc</code>
+
+            <p>Este comando retrasa el inicio del comando de grabación el tiempo que indiquemos en el primer <b>sleep</b> (5 segundos en este caso), y termina la grabación despues del tiempo que hayamos indicado en el <b>segundo sleep</b> (100 segundos en este caso), el tiempo que indicamos en el segundo sleep cuenta desde que se ejecuta el comando de grabación (o sea que sería el tiempo efectivo de grabacion).</p>
+        </div>
+        
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>VLC | recording</p>
+        </div>
+
+    </body>
+</html>
