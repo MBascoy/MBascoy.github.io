@@ -1,0 +1,116 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Creacion EC2</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p><b>EC2</b> es un servicio que nos permite desplegar maquinas virtuales en las que tendremos control total del sistema.</p>
+        </div>
+
+
+      <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Desde la consola de AWS entramos en <b>EC2</b>, y nos vamos a <b>Instances</b> y click en <b>Launch Instance</b>:</p>
+          <img src="Creacion EC2/1.png">
+
+          <p>Para que la instancia de EC2 nos salga gratuita (con la prueba gratuita de 12 meses) la creamos con las siguientes opciones:</p>
+          <ul>
+            <li>Imagen, Amazon linux:</li>
+            <img src="Creacion EC2/2.png">
+
+            <li>Tipo de instancia, t2.micro:</li>
+            <img src="Creacion EC2/3.png">
+
+            <li>Almacenamiento, 8GB:</li>
+            <img src="Creacion EC2/4.png">
+
+          </ul>
+
+          <p>A mayores tenemos que configurar un <b>par de claves</b> para conectarnos a la instancia y <b>politicas de seguridad</b> para configurar las reglas de acceso de red para acceder a la maquina</p>
+
+          <p>En la seccion de <b>key pair</b> hacemos click en <b>Create new key pair</b>:</p>
+          <img src="Creacion EC2/5.png">
+
+          <p>En la ventana que se nos abre le damos un nombre al par de claves y le damos a generar claves (dejamos las demas opciones por defecto):</p>
+          <img src="Creacion EC2/6.png">
+
+          <p>Esto nos descargará un archivo <b>.pem</b> que usaremos despues para poder acceder a la instancia.</p>
+
+          <p>En la sección de <b>Network settings</b> le damos a crear nuevo <b>security group</b>, marcamos permitir ssh, y pemitir trafico http, tambien es importante fijarse en el nombre del <b>security group</b> que se va a crear para poder modificarlo mas tarde si queremos permitir mas puertos:</p>
+          <img src="Creacion EC2/7.png">
+
+          <p>Una vez tengamos todo listo le damos a <b>Launch instance</b> y la instancia se creará y ya estaŕa lista para que podamos acceder</p>
+
+        </div>
+
+    <div class="t2">Acceder a la instancia</div>
+        <div class="cont">
+          <h2>Mediante AWS console</h2>
+          <p>Desde la consola de AWS simplemente haciendo click en <b>connect</b>, podremos acceder a un terminal de la instancia:</p>
+          <img src="Creacion EC2/8.png">
+
+          <h2>Mediante ssh</h2>
+          <p>Si queremos acceder mediante <b>ssh</b> tendremos que utilizar el archivo <b>.pem</b> que nos descargamos a la hora de crear el par de claves al crear la instancia.</p>
+
+          <p>Para acceder a la instancia lo hacemos con el siguiente comando:</p>
+          <code>ssh -i Descargas/PythonAppServer.pem ec2-user@54.196.79.254</code>
+
+          <p>Con la opción <b>-i</b> indicamos el archivo <b>.pem</b>, y despues tenemos que indicar como usuario <b>ec2-user</b> @ y la ip de la instancia (la ip la obtenemos en la consola de AWS)</p>
+        </div>
+
+    <div class="t2">Modificar politica de seguridad</div>
+        <div class="cont">
+          <p>Si queremos acceder a otro puerto que no sea el 80 o el 22 tenemos que modificar la politica de seguridad que tenemos asociada a la instancia.</p>
+          <p>Para modificar la politica de seguridad vamos a <b>Security groups</b> en el menu de la izquierda:</p>
+          <img src="Creacion EC2/9.png">
+
+          <p>Seleccionamos la politica de seguridad que tenemos asociada a nuestra instancia:</p>
+          <img src="Creacion EC2/10.png">
+
+          <p>Le damos a <b>"Edit inboud rules"</b>:</p>
+          <img src="Creacion EC2/11.png">
+
+          <p>Indicamos el puerto y la ip de origin que queremos permitir (si queremos cualquiera ip es 0.0.0.0/0):</p>
+          <img src="Creacion EC2/12.png">
+
+          <p>Una vez guardada la politica de seguridad ya podríamos acceder al puerto que hayamos configurado.</p>
+
+
+        </div>
+
+    <div class="t2">Instalar paquetes en la instancia</div>
+        <div class="cont">
+          <p>Para instalar paquetes en el sistema de la instancia que hemos creado lo hacemos con <b>yum</b>:</p>
+          <code>sudo yum install git</code>
+
+          <p><b>git</b> es uno de los paquetes que no viene instalados por defecto...</p>
+        </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+          <p>En el caso de que no nos podamos conectar a una instancia despues de haber configurado la politica de seguridad tenemos que tener en cuenta algunas cosas como:</p>
+
+          <h2>Si estamos usando https para acceder</h2>
+          <p>Si tenemos un servidor web en el puerto 80 pero la dirección que estamos poniendo en el navegador es <b>https</b> el puerto que se está usando no es el 80 sera el 443...</p>
+
+          <h2>Estamos usando ssl y una conexion no cifrada como cliente</h2>
+          <p>Si estamos usando algun servicio (un backend) configurado para aceptar conexiones cifradas y estamos intentando conectarnos con un cliente que no usa ssl para cifrar la conexion nos puede dar error de conexion...</p>
+
+          <h2>El servicio está escuchando SOLO en la interfaz local</h2>
+          <p>Muchos servicios, como angular por ejemplo, escuchan por defecto solo en la interfaz local (localhost o 127.0.0.1), esto hace que las conexiones externas no sean aceptadas por el servicio, en este caso tenemos que cambiar la configuración del servicio que estemos lanzando para que acepte coneciones en la interfaz de red que tiene configurada la instancia o directamente en <b>0.0.0.0</b> que hace referencia a cualquiera interfaz de red</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AWS | EC2</p>
+        </div>
+
+    </body>
+</html>
