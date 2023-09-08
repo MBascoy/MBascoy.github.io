@@ -1,0 +1,207 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Instagram API</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar la API de instagram para obtener el feed de una cuenta.</p>
+
+            <p><a href="https://developers.facebook.com/docs/instagram-basic-display-api/getting-started">Documentación Oficial</a></p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <h2>Creación cuenta de desarrollador</h2>
+            <p>Primero tenemos que crear una cuenta de desarrollador de <b>Facebook</b>:</p>
+            <p><a href="https://www.facebook.com/login.php?next=https%3A%2F%2Fdevelopers.facebook.com%2Fapps">Facebook developer</a></p>
+            <img src="Instagram API/1.png">
+
+            <p>Una vez tenemos la cuenta nos logueamos y entramos en <b>Get started</b>:</p>
+            <img src="Instagram API/2.png">
+
+            <p>Ahora tenemos que configurar la cuenta de desarrollador, vamos siguiendo los pasos que se nos indican:</p>
+            <img src="Instagram API/3.png">
+
+            <p>Indicamos un movil para verificar la cuenta:</p>
+            <img src="Instagram API/4.png">
+
+            <p>Verificamos el correo:</p>
+            <img src="Instagram API/5.png">
+
+            <p>Indicamos que somos "Developers":</p>
+            <img src="Instagram API/6.png">
+
+
+            <h2>Crear App</h2>
+
+            <p>A continuación creamos una app desde el menu principal:</p>
+            <p><a href="https://developers.facebook.com/apps/">Menu principal</a></p>
+            <img src="Instagram API/7.png">
+
+            <p>Indicamos <b>Other</b> en la primera pantalla:</p>
+            <img src="Instagram API/8.png">
+
+            <p>Seleccionamos <b>None</b> en tipo de App:</p>
+            <img src="Instagram API/9.png">
+
+            <p>Le damos un nombre a la aplicación y hacemos click en <b>Create App</b>:</p>
+            <img src="Instagram API/10.png">
+
+            <p>A continuación nos aparecerá un dashboard con distintas opciones</p>
+            <p>Primero tenemos que configurar la App para añadir la plataforma web</p>
+            <p>Hacemos click en <b>App settings > Basic</b> y despues en <b>Add platform</b>:</p>
+            <img src="Instagram API/12.png">
+
+            <p>Indicamos plataforma web:</p>
+            <img src="Instagram API/13.png">
+
+            <p>Nos aparece un input para introducir la URL de nuestra web,pero para hacer la prueba en este caso solo tenemos que poner <b>http://localhost/</b></p>
+            <img src="Instagram API/14.png">
+
+            <p>Y hacemos click en <b>Save changes</b></p>
+
+            <p>Ahora nos vamos al <b>Dashboard</b> y hacemos click en <b>Set up</b> en la opción de <b>Instagram Basic Display</b></p>
+            <img src="Instagram API/11.png">
+
+            <p>Esto nos añadirá un nuevo producto en el menu de la izquierda, nos vamos a <b>Instagram Basic Display > Basic Display</b>:</p>
+            <img src="Instagram API/15.png">
+
+            <p>Hacemos click abajo en <b>Create New App</b>:</p>
+            <img src="Instagram API/16.png">
+
+            <p>Se nos pide un nombre, lo dejamos por defecto y hacemos click en <b>Create New App</b>:</p>
+            <img src="Instagram API/17.png">
+
+            <p>Una vez creada la App para <b>Instagram Basic Display</b>, tenemos que indicar las URLs (de redireccion, de desautorización y de borrado de datos), en este caso para hacer la prueba dejaremos todas como <b>https://localhost</b> (las direcciones tienen que ser <b>https</b>).</p>
+            <img src="Instagram API/18.png">
+
+            <p>La URL mas importante es <b>Valid OAuth Redirect URIs</b>, está será la URL a donde se nos redigirá despues de hacer login, está URL tendrá que ser una página donde nosotros vayamos a manejar el código de respuesta que se nos da para poder obtener el <b>access token</b>.</p>
+
+
+            <p>Para hacer la prueba y al estar en modo desarrollo, tenemos que añadir usuarios de testing, para ello nos vamos a <b>App Roles > Roles</b> y hacemos click en <b>Add Instagram Testers</b>:</p>
+            <img src="Instagram API/19.png">
+
+            <p>Indicamos un usuario de Instagram en la ventana que nos aparece:</p>
+            <img src="Instagram API/20.png">
+
+            <p><b>NOTA</b>: el usuario que utilicemos de instagram tiene que tener contenido subido para poder realizar las pruebas de obtener sus posts</p>
+
+            <p>Al añadir un usuario quedará con el estado pending:</p>
+            <img src="Instagram API/21.png">
+
+            <p>Necesitamos hacer login en instagram con el usuario que hemos añadido y aceptar la invitación:</p>
+
+            <p>Dentro del perfil hacemos click en <b>More > Settings</b>:</p>
+            <img src="Instagram API/22.png">
+
+            <p>Aqui hacemos click en <b>Apps and websites > Tester invites</b> y aceptamos la invitación:</p>
+            <img src="Instagram API/23.png">
+
+            <h2>Solicitudes a la API</h2>
+            <p>Una vez tenemos hechas todas las configuraciones ya podemos empezar el flujo para hacer consultas a la API, el flujo es el siguiente:</p>
+            <ul>
+                <li>Acceder a la URL de autenticación de instagram para obtener el <b>código</b> de autenticación</li>
+                <li>Usar el <b>código de autenticación</b> para obtener un <b>access token</b></li>
+                <ul>
+                    <li>(Opcional): obtener un access token de larga duración</li>
+                </ul>
+                <li>Hacer consultas a la <b>API</b> usando el <b>access token</b></li>
+            </ul>
+
+            <h2>Obtener Access Token</h2>
+
+            <p>Para obtener el access token tenemos que entrar en la siguiente URL:</p>
+            <code>https://api.instagram.com/oauth/authorize?client_id=<b>{app-id}</b>&redirect_uri=<b>{redirect-uri}</b>&scope=user_profile,user_media&response_type=code</code>
+
+            <p>Tenemos que cambiar los campos {app-id} que es el id de nuestra aplicación de instagram</p>
+            <p><b>NOTA</b>: No es lo mismo el id de aplicación de instagram que el id de la aplicación general</p>
+
+            <img src="Instagram API/24.png">
+
+
+            <p>Y el campo <b>{redirect-uri}</b> que es una de las URLs que hemos configurado en el campo <b>Valid OAuth Redirect URIs</b> en nuestro caso https://localhost/</p>
+
+            <p>En nuestro caso la URL queda así:</p>
+            <code>https://api.instagram.com/oauth/authorize?client_id=<b>265105329776698</b>&redirect_uri=<b>https://localhost/</b>&scope=user_profile,user_media&response_type=code</code>
+
+            <p>Al acceder a la URL se nos presenta una pantalla de login de instagram (si ya estamos logueados con una cuenta de instagram en nuestro navegador no aparecerá esta pantalla):</p>
+            <img src="Instagram API/25.png">
+
+            <p>Una vez nos logueamos nos preguntará si queremos dar acceso a la App a nuestro perfil, le damos a <b>allow</b>:</p>
+            <img src="Instagram API/26.png">
+
+            <p>Al darle a allow se nos redigirá a la <b>URL</b> que hemos indicado en el enlace, añadiendo el <b>código de authenticación</b> como parámetro en la URL</p>
+            <p>En nuestro caso la redireccion es a localhost, y al no tener ningun servidor escuchando peticiones simplemente la redirección da error, pero aún así podemos ver el código de authorización en la URL para poder utilizarlo:</p>
+
+            <p><b>NOTA</b>: el código al final tiene una pequeño fragment <b>#_</b> que no es parte del código en si.</p>
+            <img src="Instagram API/27.png">
+
+            <p>En un entorno real la URL a la que redirigimos se encargaría de coger el código que se le pasa por parámetro para utilizarlo en las siguientes solicitudes.</p>
+
+            <p>Una vez tenemos el código obtenemos el <b>access token</b> de la siguiente manera usando <b>curl</b>:</p>
+
+            <pre><code>curl -X POST \
+  https://api.instagram.com/oauth/access_token \
+  -F client_id={app-id} \
+  -F client_secret={app-secret} \
+  -F grant_type=authorization_code \
+  -F redirect_uri={redirect-uri} \
+  -F code={code}</code></pre>
+
+            <p>Cambiamos los valores <b>{app-id} {app-secret} {redirect-uri} {code}</b> el valor de {app-secret} lo obtenemos en la misma página que el {app-id}:</p>
+            <img src="Instagram API/28.png">
+            
+            <p>La respuesta que nos da incluye el <b>access_token</b> y el <b>user_id</b> que necesitaremos para consultar el feed (el user_id solo se usa en algunas peticiones):</p>
+            <img src="Instagram API/29.png">
+
+            <h2>Obtener Feed de la cuenta</h2>
+
+            <p>Ahora ya tenemos toda la información para consultar el feed de la cuenta, lo hacemos con la siguiente peticion:</p>
+
+            <code>curl -X GET 'https://graph.instagram.com/me/media?fields=caption,media_type,media_url&access_token=<b>{access-token}</b>'</code>
+
+            <p>Cambiamos <b>{access-token}</b> por el access token que hemos obtenido en el paso anterior</p>
+            <p>El parámetro <b>fields</b> podemos indicarle los parámetro que queremos que nos devuelva, están documentados en la <a href="https://developers.facebook.com/docs/instagram-basic-display-api/reference/media#:~:text=los%20campos%20predeterminados.-,Campos,de%20consulta%20para%20solicitar%20los%20campos%20siguientes%20de%20un%20archivo%20multimedia.,-Nombre%20del%20campo">Documentación de la API</a></p>
+
+            <p>La respuesta que nos da una vez formateada es la siguiente:</p>
+            <img src="Instagram API/30.png">
+
+            <p>En el campo <b>data</b> podemos ver que es un array y que tiene dos elementos que corresponden a los dos posts que hay en la cuenta, e incluye el texto de uno de los posts (el otro no tiene ningun texto asociado) y los links a las imagenes del post, la vista de la cuenta desde el navegador es la siguiente:</p>
+
+            <img src="Instagram API/31.png">
+
+
+            <h2>Obtener token de larga duración</h2>
+            <p>El access token que obtenemos con el metodo anterior dura solo 1 hora, si queremos obtener otro token tendremos que volver a iniciar sesión con el usuario.</p>
+
+            <p>Para evitar esto podemos intercambiar el token de corta duración por uno de <b>larga duración</b> (dura 60 días por defecto) ademas este token de larga duración permite ser refrescado.</p>
+
+            <p>Para obtener el token de larga duración lo hacemos con la siguiente peticion:</p>
+
+            <code>curl -X GET "https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=<b>{app-secret}</b>&access_token=<b>{access_token}</b>"</code>
+
+            <p>Cambiamos <b>{app-secret} y {access_token}</b> por los valores correspondientes, y esto nos devolverá un nuevo token que se usa igual que el token que estabamos usando hasta ahora, solo que tiene una duración mayor</p>
+
+            <h2>Refresh token</h2>
+            <p>El token de larga duración dura 60 días y a mayores podemos refrescarlo para que siga durando mas haya de esos 60 días, lo hacemos con la siguiente petición:</p>
+            <code>curl -X GET "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=<b>{long-lived-access-token}</b>"</code>
+
+            <p>Cambiamos <b>{long-lived-access-token}</b> por nuestro token de larga duración y la respuesta será un nuevo token que caducará a los 60 días desde el momento en el que hemos hecho la petición.</p>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Instagram | API</p>
+        </div>
+
+    </body>
+</html>
