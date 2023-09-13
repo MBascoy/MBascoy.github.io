@@ -1,0 +1,54 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Android fingerprint certificado</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como consultar el <b>Fingerprint</b> del certificado que se está usando para generar el <b>APK</b> de las aplicaciones</p>
+        </div>
+
+    <div class="t2">Consultar certificado debug de Android Studio</div>
+        <div class="cont">
+            <p>El <b>keystore</b> que utiliza Android Studio por defecto está almacenado en <b>~/.android/debug.keystore</b> los datos por defecto son:</p>
+            <ul>
+                <li><b>alias:</b> androiddebugkey</li>
+                <li><b>StorePass:</b> android</li>
+                <li><b>KeyPass:</b> android</li>
+            </ul>
+
+            <p>Para consultar el <b>fingerprint</b> usamos el siguiente comando:</p>
+            <code>keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android</code>
+          
+            <p>Este comando nos dará una salida como la siguiente:</p>
+            <img src="Android fingerprint certificado/1.png">
+        </div>
+
+    <div class="t2">Consultar certificado de un APK</div>
+        <div class="cont">
+            <p>Para consultar el certificado de una aplicación (APK) ya generada lo hacemos de la siguiente manera:</p>
+            <p>Primero descomprimimos el <b>APK</b> como si fuese un zip, podemos hacer click derecho, extraer aqui, o usar un comando como:</p>
+            <code>unzip app-debug.apk</code>
+
+            <p>Una vez hecho esto tendremos varios archivos y carpetas descomprimimos, el que nos interesa es el archivo <b>.RSA</b> que está dentro de la carpeta <b>META-INF</b>, en nuestro caso es <b>CERT.RSA</b> (aunque el nombre puede variar)</p>
+
+            <p>Ahora ejecutamos el siguiente comando sobre ese archivo:</p>
+            <code>keytool -printcert -file CERT.RSA</code>
+
+            <p>Esto nos generará una salida igual que el comando anterior, si esta APK ha sido generada con el mismo <b>keystore</b> que el que comprobamos en Android Studio el <b>fingerprint</b> será el mismo.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Android | certificate | fingerprint</p>
+        </div>
+
+    </body>
+</html>
