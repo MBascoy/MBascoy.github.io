@@ -1,0 +1,214 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">memsearch.sh</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Script para buscar valores en memoria de un proceso y modificarlos.</p>
+
+        </div>
+
+    <div class="t2">Script</div>
+        <div class="cont">
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#!/bin/bash</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">read</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Proceso: &quot;</span> proce
+<span style="color:rgb(181, 189, 104); font-weight:400;">read</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Valor: &quot;</span> valo
+&gt; gdb.txt
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;set logging on
+set pagination off&quot;</span> &gt; mem.tmp
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> /proc/<span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span>/maps | grep -v <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/&quot;</span> | awk -v v=<span style="color:rgb(255, 204, 102); font-weight:400;">$valo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{ print &quot;find 0x&quot; $1 &quot;, &quot; v}&#x27;</span> | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/-/ ,0x/g&#x27;</span> &gt;&gt; mem.tmp
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;quit
+y&quot;</span> &gt;&gt; mem.tmp
+
+gdb -p <span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span> &gt; /dev/null 2&gt;&amp;1 &lt; mem.tmp
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> `<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">wc</span> -l` coincidencias encontradas
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">while</span> [ <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(255, 204, 102); font-weight:400;">$com</span>&quot;</span> != f ]
+<span style="color:rgb(204, 153, 204); font-weight:400;">do</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">read</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;(p=imprimir; m=modificar; r=recursivo; b=buscar; f=fin) Comando: &quot;</span> com
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">case</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$com</span> <span style="color:rgb(204, 153, 204); font-weight:400;">in</span>
+
+  p)
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;set logging file gdbprint
+set logging on
+set pagination off&quot;</span> &gt; mem.tmp
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | awk <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{ print &quot;echo &quot; $1 &quot;\nprint *&quot; $1}&#x27;</span> &gt;&gt; mem.tmp
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;quit
+y&quot;</span> &gt;&gt; mem.tmp
+  &gt; gdbprint
+  
+  gdb -p <span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span> &gt; /dev/null 2&gt;&amp;1 &lt; mem.tmp
+  
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdbprint | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | awk -F <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;[$=]&#x27;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{print $1 &quot; =&quot; $3}&#x27;</span>
+  
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> `<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdbprint | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">wc</span> -l` direcciones imprimidas
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">rm</span> gdbprint
+  ;;
+
+
+  m)
+  <span style="color:rgb(181, 189, 104); font-weight:400;">read</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Valor: &quot;</span> valo
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | awk -v v=<span style="color:rgb(255, 204, 102); font-weight:400;">$valo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{ print &quot;set *&quot; $1 &quot;=&quot; v}&#x27;</span> &gt; mem.tmp
+  
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;quit
+y&quot;</span> &gt;&gt; mem.tmp
+
+  gdb -p <span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span> &gt; /dev/null 2&gt;&amp;1 &lt; mem.tmp
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Direcciones a modificar:&quot;</span>
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> `<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">wc</span> -l` direcciones modificadas a: <span style="color:rgb(255, 204, 102); font-weight:400;">$valo</span>
+  ;;
+  
+  r)
+  <span style="color:rgb(181, 189, 104); font-weight:400;">read</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Nuevo valor: &quot;</span> val2
+  
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;set logging on
+set pagination off&quot;</span> &gt; mem.tmp
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | awk <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{ print &quot;echo &quot; $1 &quot;\nprint *&quot; $1}&#x27;</span> &gt;&gt; mem.tmp
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;quit
+y&quot;</span> &gt;&gt; mem.tmp
+  &gt; gdb.txt
+  
+  gdb -p <span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span> &gt; /dev/null 2&gt;&amp;1 &lt; mem.tmp
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;= $val2$&quot;</span> | awk -F $ <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{print $1}&#x27;</span> &gt; gdb.tmp
+  <span style="color:rgb(181, 189, 104); font-weight:400;">mv</span> gdb.tmp gdb.txt
+  
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span>
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> `<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">wc</span> -l` coincidencias encontradas
+  ;;
+
+  b)
+  &gt; gdb.txt
+  <span style="color:rgb(181, 189, 104); font-weight:400;">read</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Valor: &quot;</span> valo
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;set logging on
+set pagination off&quot;</span> &gt; mem.tmp
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> /proc/<span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span>/maps | grep -v <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/&quot;</span> | awk -v v=<span style="color:rgb(255, 204, 102); font-weight:400;">$valo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{ print &quot;find 0x&quot; $1 &quot;, &quot; v}&#x27;</span> | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/-/ ,0x/g&#x27;</span> &gt;&gt; mem.tmp
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;quit
+y&quot;</span> &gt;&gt; mem.tmp
+
+  gdb -p <span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span> &gt; /dev/null 2&gt;&amp;1 &lt; mem.tmp
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> `<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">wc</span> -l` coincidencias encontradas
+;;
+
+
+  pd)
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;set logging file gdbprint
+set logging on
+set pagination off&quot;</span> &gt; mem.tmp
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | awk <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{ print &quot;echo &quot; $1 &quot;\nprint {double}&quot; $1}&#x27;</span> &gt;&gt; mem.tmp
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;quit
+y&quot;</span> &gt;&gt; mem.tmp
+  &gt; gdbprint
+  
+  gdb -p <span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span> &gt; /dev/null 2&gt;&amp;1 &lt; mem.tmp
+  
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdbprint | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | awk -F <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;[$=]&#x27;</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{print $1 &quot; =&quot; $3}&#x27;</span>
+  
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> `<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdbprint | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">wc</span> -l` direcciones imprimidas
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">rm</span> gdbprint
+  ;;
+
+
+  md)
+  <span style="color:rgb(181, 189, 104); font-weight:400;">read</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Valor: &quot;</span> valo
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | awk -v v=<span style="color:rgb(255, 204, 102); font-weight:400;">$valo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{ print &quot;set {double}&quot; $1 &quot;=(double)&quot; v}&#x27;</span> &gt; mem.tmp
+  
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;quit
+y&quot;</span> &gt;&gt; mem.tmp
+
+  gdb -p <span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span> &gt; /dev/null 2&gt;&amp;1 &lt; mem.tmp
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Direcciones a modificar:&quot;</span>
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> `<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">wc</span> -l` direcciones modificadas a: <span style="color:rgb(255, 204, 102); font-weight:400;">$valo</span>
+  ;;
+  
+  rd)
+  <span style="color:rgb(181, 189, 104); font-weight:400;">read</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Nuevo valor: &quot;</span> val2
+  
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;set logging on
+set pagination off&quot;</span> &gt; mem.tmp
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | awk <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{ print &quot;echo &quot; $1 &quot;\nprint {double}&quot; $1}&#x27;</span> &gt;&gt; mem.tmp
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;quit
+y&quot;</span> &gt;&gt; mem.tmp
+  &gt; gdb.txt
+  
+  gdb -p <span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span> &gt; /dev/null 2&gt;&amp;1 &lt; mem.tmp
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;= $val2$&quot;</span> | awk -F $ <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{print $1}&#x27;</span> &gt; gdb.tmp
+  <span style="color:rgb(181, 189, 104); font-weight:400;">mv</span> gdb.tmp gdb.txt
+  
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span>
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> `<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">wc</span> -l` coincidencias encontradas
+  ;;
+
+  bd)
+  &gt; gdb.txt
+  <span style="color:rgb(181, 189, 104); font-weight:400;">read</span> -p <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Valor: &quot;</span> valo
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;set logging on
+set pagination off&quot;</span> &gt; mem.tmp
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> /proc/<span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span>/maps | grep -v <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/&quot;</span> | awk -v v=<span style="color:rgb(255, 204, 102); font-weight:400;">$valo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{ print &quot;find 0x&quot; $1 &quot;, (double)&quot; v}&#x27;</span> | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/-/ ,0x/g&#x27;</span> &gt;&gt; mem.tmp
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;quit
+y&quot;</span> &gt;&gt; mem.tmp
+
+  gdb -p <span style="color:rgb(255, 204, 102); font-weight:400;">$proce</span> &gt; /dev/null 2&gt;&amp;1 &lt; mem.tmp
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> `<span style="color:rgb(181, 189, 104); font-weight:400;">cat</span> gdb.txt | sed <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/(gdb) //g&#x27;</span> | egrep <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;^0x&quot;</span> | <span style="color:rgb(181, 189, 104); font-weight:400;">wc</span> -l` coincidencias encontradas
+;;
+
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">esac</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">done</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">rm</span> gdb.txt
+<span style="color:rgb(181, 189, 104); font-weight:400;">rm</span> mem.tmp
+
+</code></pre>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Linux | memory | memsearch</p>
+        </div>
+
+    </body>
+</html>
