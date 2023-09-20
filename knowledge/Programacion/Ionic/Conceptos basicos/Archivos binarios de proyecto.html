@@ -1,0 +1,51 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Archivos binarios de proyecto</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Localización de los archivos binarios que se generan al compilar un proyecto.</p>
+          <p>Si tenemos problemas con un proyecto, podemos borrar estos archivos para dejar el proyecto limpio, recompilar todo y partir desde ahí</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Las carpetas en las que están los archivos generados son:</p>
+          <ul>
+            <li><b>.angular</b></li>
+            <li><b>node_modules</b></li>
+            <li><b>www</b></li>
+            <li><b>android/.gradle</b></li>
+            <li><b>android/capacitor-cordova-android-plugins</b></li>
+            <li><b>android/app/src/main/assets/public</b></li>
+            <li><b>android/app/build</b></li>
+          </ul>
+
+          <p>Si borramos estos archivos/carpetas el proyecto quedará limpio y podremos recrear todo con los comandos:</p>
+          <code>npm install</code>
+          <p>Genera el <b>node_modules</b></p>
+          
+          <code>npx ionic build && npx cap copy</code>
+          <p>General el <b>.angular</b>, <b>www</b> y el <b>android/app/src/main/assets/public</b></p>
+          
+          <code>npx cap sync</code>
+          <p>General el <b>android/capacitor-cordova-android-plugins</b></p>
+
+          <code>npx cap run android --target=emulator-5554  --external --no-sync</code>
+          <p>General el <b>android/app/build</b> y <b>android/.gradle</b></p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Ionic | Binarios </p>
+        </div>
+
+    </body>
+</html>

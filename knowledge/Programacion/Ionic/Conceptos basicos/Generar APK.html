@@ -1,0 +1,62 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Generar APK</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Generar una <b>APK</b> de un proyecto de <b>Ionic</b> para instalar en cualquier dispositivo.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Primero hacemos un <b>Build</b> y un <b>Sync</b> desde la extensión de <b>Ionic</b> en VSCode:</p>
+          <img src="Generar APK/1.png">
+
+          <p>Una vez hecho esto abrimos la carpeta <b>android</b> del proyecto en el <b>Android studio</b></p>
+          <p>Podemos usar la opción de <b>"Open in Android Studio"</b> de la extensión de Ionic:</p>
+          <img src="Generar APK/2.png">
+
+          <p>Una vez dentro de <b>Android Studio</b> (una vez finalice la ejecución de gradle) nos vamos a:</p>
+          <p><b>Build > Build bundle/APK > Build APK</b></p>
+          <img src="Generar APK/3.png">
+
+          <p>Una vez seleccionamos la opción veremos abajo a la derecha el proceso de generación de la APK:</p>
+          <img src="Generar APK/5.png">
+
+          <p>Una vez termina la ejecución podemos ver un mensaje abajo a la izquierda que nos permite abrir directamente la carpeta en donde se ha generado la APK:</p>
+          <img src="Generar APK/4.png">
+
+          <p>La carpeta donde se genera la APK es:</p>
+          <code>android/app/build/outputs/apk/dev/debug</code>
+
+
+        </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+          <p>Si tenemos activada la opción de <b>"Live Reload"</b> en la extensión de Ionic en el momento de generar la APK, nos dará problemas la APK al instalarla en un dispositivo, ya que la applicación queda configurada para conectarse al live server.</p>
+          <p>La aplicación se puede quedar atascada con el logo de inicio o mostrar una pantalla como la siguiente:</p>
+          <img src="Generar APK/7.png">
+
+          <p>Si en la carpeta <b>android/app/src/main/</b> vemos dos archivos <b>AndroidManifest.xml</b>, quiere decir que el "Live Reload" está activo y por lo tanto al generar la APK se  hará de manera incorrecta.</p>
+          <img src="Generar APK/6.png">
+
+          <p>Para evitar esto tenemos que <b>desmarcar</b> la opción de <b>"Live Reload"</b> y hacer un Run de la App en el emulador para que se restablezca el <b>AndroidManifest.xml</b> </p>
+          <img src="Generar APK/8.png">
+
+          <p>Tambien podemos hacerlo de manera manual reemplazando el archivo <b>AndroidManifest.xml</b> por el archivo <b>AndroidManifest.xml.orig</b>.</p>
+        </div>
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Ionic | APK </p>
+        </div>
+
+    </body>
+</html>
