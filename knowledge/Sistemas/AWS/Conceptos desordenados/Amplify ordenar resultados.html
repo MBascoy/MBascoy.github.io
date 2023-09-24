@@ -1,0 +1,556 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Amplify ordenar resultados</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como obtener los resultados de una API de amplify (AppSync/GraphQL) de manera ordenada (Ascendente o Descendente).</p>
+
+          <p>Usaremos <a href="../Escenarios/Proyecto Angular Amplify.html">ESTE EJEMPLO</a> como código base</p>
+        </div>
+
+
+      <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Pimero editamos el schema.graphql (<b>amplify/backend/api/todoapptest/schema.graphql</b>) añadiendo lo siguiente:</p>
+          <pre><code>type: String! @index(name: "todosByDate", queryField: "todosByDate", sortKeyFields: ["timestamp"])
+timestamp: String!</code></pre>
+
+          <img src="Amplify ordenar resultados/1.png">
+
+          <p>Hacemos un push de amplify:</p>
+          <code>amplify push</code>
+            
+          <p>Se nos preguntara si queremos actualizar la API de GraphQL y regenerar las consultas, le decimos que si.</p>
+          <img src="Amplify ordenar resultados/2.png">
+
+          <p>Esta operación puede tardar varios minutos, una vez terminado nos indica que el despliegue se ha realizado satisfactoriamente:</p>
+          <img src="Amplify ordenar resultados/3.png">
+
+          <p>Antes de poner hacer las consultas, tenemos que modificar la manera en la que guardamos los datos para añadir los campos <b>type</b> y <b>timestamp</b>:</p>
+          <img src="Amplify ordenar resultados/4.png">
+
+          <p>Ahora para hacer las consultas lo hacemos de la siguiente manera:</p>
+          <img src="Amplify ordenar resultados/5.png">
+
+          <p>Antes usabamos la funcion <b>ListTodos</b> de la API, pero ahora usamos <b>TodosByDate</b> que esta funcion se autogenera a partir del indice que hemos indicado en el schema. </p>
+
+          <p>La firma de la función es la siguiente:</p>
+          <img src="Amplify ordenar resultados/6.png">
+
+          <p>El primer parámetro es <b>type</b>, el segundo <b>timestamp</b>, el tercero <b>sortDirection</b>, el cuarto <b>filter</b> y el quinto <b>limit</b></p>
+          <p>Por eso hay algunos <b>undefined</b> por el medio, porque esos parámetros no nos interesa pasarles ningun valor.</p>
+          
+        </div>
+
+      <div class="t2">Cambios manuales</div>
+        <div class="cont">
+          <p>Los cambios que se realizan despues de hacer el <b>amplify push</b> son los siguientes:</p>
+
+          <h2>DynamoDB</h2>
+          <p>En DynamoDB se añade un <b>index</b> con los parámetros que hemos indicado en el schema:</p>
+          <img src="Amplify ordenar resultados/7.png">
+
+          <h2>AppSync</h2>
+          <p>En AppSync se modifica el schema, añadiendo el siguiente tipo:</p>
+          <img src="Amplify ordenar resultados/8.png">
+
+          <p>Y tambien en la query:</p>
+          <img src="Amplify ordenar resultados/9.png">
+
+          <p>El schema completo antes de hacer los cambios era el siguiente:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">CreateTodoInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">DeleteTodoInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID!</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">enum</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span> {
+	<span style="color:rgb(138, 190, 183); font-weight:400;">binary</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">binarySet</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">bool</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">list</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">map</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">number</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">numberSet</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">string</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">stringSet</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">_null</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelBooleanInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeExists:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeType:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelFloatInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeExists:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeType:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelIDInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">contains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notContains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">beginsWith:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeExists:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeType:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">size:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSizeInput</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelIntInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeExists:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeType:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSizeInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">enum</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSortDirection</span> {
+	<span style="color:rgb(138, 190, 183); font-weight:400;">ASC</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">DESC</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">contains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notContains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">String</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">beginsWith:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeExists:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeType:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">size:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSizeInput</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionBooleanInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionFloatInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">in:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notIn:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionIDInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">contains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notContains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">beginsWith:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">in:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notIn:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionIntInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">in:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notIn:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionStringInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">contains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notContains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">String</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">beginsWith:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">in:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">String</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notIn:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">String</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionIDInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">and:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">or:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">and:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">or:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">not:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">type</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConnection</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">items:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>]<span style="color:rgb(138, 190, 183); font-weight:400;">!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">nextToken:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoFilterInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelIDInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">and:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoFilterInput</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">or:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoFilterInput</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">not:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoFilterInput</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">type</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">createdAt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">AWSDateTime!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">updatedAt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">AWSDateTime!</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">UpdateTodoInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">type</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Mutation</span> {
+	<span style="color:rgb(138, 190, 183); font-weight:400;">createTodo(input:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">CreateTodoInput!</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">condition:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">updateTodo(input:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">UpdateTodoInput!</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">condition:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">deleteTodo(input:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">DeleteTodoInput!</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">condition:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">type</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Query</span> {
+	<span style="color:rgb(138, 190, 183); font-weight:400;">getTodo(id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID!):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">listTodos(filter:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoFilterInput</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">limit:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">nextToken:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConnection</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">type</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Subscription</span> {
+	<span style="color:rgb(138, 190, 183); font-weight:400;">onCreateTodo(filter:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+		<span style="color:rgb(138, 190, 183); font-weight:400;">@aws_subscribe(mutations:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;createTodo&quot;</span>]<span style="color:rgb(138, 190, 183); font-weight:400;">)</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">onUpdateTodo(filter:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+		<span style="color:rgb(138, 190, 183); font-weight:400;">@aws_subscribe(mutations:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;updateTodo&quot;</span>]<span style="color:rgb(138, 190, 183); font-weight:400;">)</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">onDeleteTodo(filter:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+		<span style="color:rgb(138, 190, 183); font-weight:400;">@aws_subscribe(mutations:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;deleteTodo&quot;</span>]<span style="color:rgb(138, 190, 183); font-weight:400;">)</span>
+}</code></pre>
+
+          <p>Y despues de hacer los cambios es el siguiente:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">CreateTodoInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">type:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">timestamp:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String!</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">DeleteTodoInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID!</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">enum</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span> {
+	<span style="color:rgb(138, 190, 183); font-weight:400;">binary</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">binarySet</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">bool</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">list</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">map</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">number</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">numberSet</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">string</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">stringSet</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">_null</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelBooleanInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeExists:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeType:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelFloatInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeExists:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeType:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelIDInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">contains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notContains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">beginsWith:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeExists:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeType:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">size:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSizeInput</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelIntInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeExists:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeType:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSizeInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">enum</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSortDirection</span> {
+	<span style="color:rgb(138, 190, 183); font-weight:400;">ASC</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">DESC</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">contains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notContains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">String</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">beginsWith:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeExists:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">attributeType:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelAttributeTypes</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">size:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSizeInput</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringKeyConditionInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">String</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">beginsWith:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionBooleanInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Boolean</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionFloatInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">in:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notIn:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Float</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionIDInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">contains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notContains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">beginsWith:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">in:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notIn:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ID</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionIntInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">in:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notIn:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionStringInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ne:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">eq:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">le:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">lt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">ge:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">gt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">contains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notContains:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">between:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">String</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">beginsWith:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">in:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">String</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">notIn:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">String</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionIDInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">type:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">timestamp:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">and:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">or:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput</span>]
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">type:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">timestamp:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">and:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">or:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">not:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">type</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConnection</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">items:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>]<span style="color:rgb(138, 190, 183); font-weight:400;">!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">nextToken:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoFilterInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelIDInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">type:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">timestamp:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringInput</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">and:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoFilterInput</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">or:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoFilterInput</span>]
+	<span style="color:rgb(129, 162, 190); font-weight:400;">not:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoFilterInput</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">type</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">type:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">timestamp:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">createdAt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">AWSDateTime!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">updatedAt:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">AWSDateTime!</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">input</span> <span style="color:rgb(138, 190, 183); font-weight:400;">UpdateTodoInput</span> {
+	<span style="color:rgb(129, 162, 190); font-weight:400;">id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID!</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">name:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">description:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">type:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(129, 162, 190); font-weight:400;">timestamp:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">type</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Mutation</span> {
+	<span style="color:rgb(138, 190, 183); font-weight:400;">createTodo(input:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">CreateTodoInput!</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">condition:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">updateTodo(input:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">UpdateTodoInput!</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">condition:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">deleteTodo(input:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">DeleteTodoInput!</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">condition:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConditionInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">type</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Query</span> {
+	<span style="color:rgb(138, 190, 183); font-weight:400;">getTodo(id:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ID!):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">listTodos(filter:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoFilterInput</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">limit:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">nextToken:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConnection</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">todosByDate(</span>
+		<span style="color:rgb(129, 162, 190); font-weight:400;">type:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String!</span>,
+		<span style="color:rgb(129, 162, 190); font-weight:400;">timestamp:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelStringKeyConditionInput</span>,
+		<span style="color:rgb(129, 162, 190); font-weight:400;">sortDirection:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSortDirection</span>,
+		<span style="color:rgb(129, 162, 190); font-weight:400;">filter:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoFilterInput</span>,
+		<span style="color:rgb(129, 162, 190); font-weight:400;">limit:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Int</span>,
+		<span style="color:rgb(129, 162, 190); font-weight:400;">nextToken:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">String</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelTodoConnection</span>
+}
+
+<span style="color:rgb(138, 190, 183); font-weight:400;">type</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Subscription</span> {
+	<span style="color:rgb(138, 190, 183); font-weight:400;">onCreateTodo(filter:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+		<span style="color:rgb(138, 190, 183); font-weight:400;">@aws_subscribe(mutations:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;createTodo&quot;</span>]<span style="color:rgb(138, 190, 183); font-weight:400;">)</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">onUpdateTodo(filter:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+		<span style="color:rgb(138, 190, 183); font-weight:400;">@aws_subscribe(mutations:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;updateTodo&quot;</span>]<span style="color:rgb(138, 190, 183); font-weight:400;">)</span>
+	<span style="color:rgb(138, 190, 183); font-weight:400;">onDeleteTodo(filter:</span> <span style="color:rgb(138, 190, 183); font-weight:400;">ModelSubscriptionTodoFilterInput):</span> <span style="color:rgb(138, 190, 183); font-weight:400;">Todo</span>
+		<span style="color:rgb(138, 190, 183); font-weight:400;">@aws_subscribe(mutations:</span> [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;deleteTodo&quot;</span>]<span style="color:rgb(138, 190, 183); font-weight:400;">)</span>
+}</code></pre>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AWS | Amplify | Ordenacion</p>
+        </div>
+
+    </body>
+</html>
