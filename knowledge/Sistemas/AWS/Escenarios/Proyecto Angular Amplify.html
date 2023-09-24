@@ -1,0 +1,167 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Proyecto Angular Amplify</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Crear un proyecto base usando <b>Angular, Amplify, Appsync y DynamoDB</b></p>
+
+          <p><a href="https://github.com/MBascoy/Angular-Examples/tree/main/AmplifyTodoApp">Código de Ejemplo</a></p>
+        </div>
+
+      <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Creamos un proyecto de angular con routing:</p>
+          <code>ng new TodoAppTest --routing</code>
+
+          <p>Una vez generado el proyecto creamos el archivo <b>src/polyfills.ts</b>, con el siguiente contenido:</p>
+          <pre><code>(window as any).global = window;
+(window as any).process = {
+  env: { DEBUG: undefined },
+};</code></pre>
+
+          <p>Editamos el archivo <b>angular.json</b> para incluir la linea <b>"src/polyfills.ts"</b> en el array de "polyfills":</p>
+          <img src="Proyecto Angular Amplify/1.png">
+
+          <p>Editamos el archivo <b>tsconfig.app.json</b> para incluir la linea <b>"src/polyfills.ts"</b> en el array de "files":</p>
+          <img src="Proyecto Angular Amplify/2.png">
+
+          <p>Iniciamos Amplify en el proyecto con el siguiente comando:</p>
+          <code>amplify init</code>
+
+          <p>Dejamos todas las opciones por defecto:</p>
+          <img src="Proyecto Angular Amplify/3.png">
+
+          <p>Cuando nos pregunte por metodo de autenticación elegimos <b>AWS access keys</b> e indicamos el access key de un usuario con permisos para amplify</p>
+          <p>Podemos consultar como hacer la creación del usuario <a href="../Conceptos desordenados/Configuracion inicial Amplify.html">AQUI</a></p>
+          <img src="Proyecto Angular Amplify/4.png">
+
+          <p>Una vez hecho esto se creará el proyecto de <b>Amplify</b> en <b>AWS</b>:</p>
+          <img src="Proyecto Angular Amplify/5.png">
+
+          <p>Si nos vamos a la <b>consola de AWS</b>, podremos ver el proyecto:</p>
+          <img src="Proyecto Angular Amplify/6.png">
+
+          <p>Ahora añadimos el modulo de <b>API</b> de amplify a nuestro proyecto:</p>
+          <code>amplify add api</code>
+
+          <p>Seleccionamos <b>GraphQL</b>:</p>
+          <img src="Proyecto Angular Amplify/7.png">
+
+          <p>Dejamos las demas opciones por defecto:</p>
+          <img src="Proyecto Angular Amplify/8.png">
+
+          <p>Seleccionamos el esquema para hacer una lista de tareas (TODO):</p>
+          <img src="Proyecto Angular Amplify/9.png">
+
+          <p>Cuando nos pregunte si queremos modificar el "schema" le decimos que si:</p>
+          <img src="Proyecto Angular Amplify/10.png">
+
+          <p>Y se nos abrirá el archivo <b>schema.graphql</b> para que lo editemos:</p>
+          <img src="Proyecto Angular Amplify/11.png">
+          <p>El archivo se encuentra en:</p>
+          <code>amplify/backend/api/todoapptest/schema.graphql</code>
+
+          <p>Aqui ahora podemos modificar los atributos que queramos, pero en este caso lo vamos a dejar asi tal cual.</p>
+
+          <p>Ahora hacemos un push para sincronizar todos los datos con amplify:</p>
+          <code>amplify push</code>
+
+          <p>Nos mostrará los recursos que se van a sincronizar y nos preguntará si estamos seguros:</p>
+          <img src="Proyecto Angular Amplify/12.png">
+
+          <p>Nos pregunta si queremos que genere el código de <b>GraphQL</b> para el schema que hay creado, le decimos que si:</p>
+          <img src="Proyecto Angular Amplify/13.png">
+
+          <p>Nos hará unas preguntas sobre como generar el código y en que archivos, dejamos todo por defecto:</p>
+          <img src="Proyecto Angular Amplify/14.png">
+
+          <p>Una vez termine nos dirá que se ha completado el despliegue:</p>
+          <img src="Proyecto Angular Amplify/15.png">
+
+          <p>Ahora ya tenemos todo el entorno de Amplify listo para ser utilizado e implementarlo en nuestra applicación.</p>
+
+        </div>
+
+    <div class="t2">Código Angular</div>
+        <div class="cont">
+          <p>Primero creamos un componente "Todo" que será el que utilice el servicio de Amplify para crear la "lista de tareas":</p>
+          <code>ng g c todo</code>
+
+          <p>Instalamos los siguientes paquetes:</p>
+          <code>npm install --save aws-amplify @aws-amplify/ui-angular @aws-amplify/api-graphql</code>
+
+          <p>Modificamos el archivo de rutas <b>app-routing.module.ts</b> para añadir el componente "todo" como componente por defecto:</p>
+          <img src="Proyecto Angular Amplify/16.png">
+
+          <p>Añadimos el siguiente código en el archivo <b>todo.component.html</b></p>
+
+          <pre>
+ <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> <span style="color:rgb(129, 162, 190); font-weight:400;">style</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text-align:center&quot;</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">input</span> <span style="color:rgb(129, 162, 190); font-weight:400;">type</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;text&quot;</span> #<span style="color:rgb(129, 162, 190); font-weight:400;">todoName</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">button</span> (<span style="color:rgb(129, 162, 190); font-weight:400;">click</span>)=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;createTodo(todoName)&quot;</span>&gt;</span>Create Todo<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">button</span>&gt;</span>
+  
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">div</span> *<span style="color:rgb(129, 162, 190); font-weight:400;">ngFor</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;let todo of allTodos&quot;</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">hr</span>&gt;</span>
+      <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span> Title: {{todo.name}}<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">p</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">div</span>&gt;</span></code></pre>
+
+
+          <p>Añadimos el siguiente código en el archivo <b>todo.component.ts</b></p>
+          <pre>
+ <code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-todo&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./todo.component.html&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">styleUrls</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./todo.component.scss&#x27;</span>]
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">TodoComponent</span> {
+  <span style="color:rgb(129, 162, 190); font-weight:400;">allTodos</span>:<span style="color:rgb(181, 189, 104); font-weight:400;">any</span> = [];
+
+  <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">private</span> api:APIService</span>) { }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> <span class="hljs-title function_">ngOnInit</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>) {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">listTodos</span>()
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> <span class="hljs-title function_">createTodo</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">todoName: <span style="color:rgb(181, 189, 104); font-weight:400;">any</span></span>){
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(todoName.<span style="color:rgb(209, 217, 225); font-weight:400;">value</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">length</span>){ 
+      <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> newTodo = {
+        <span style="color:rgb(129, 162, 190); font-weight:400;">name</span>: todoName.<span style="color:rgb(209, 217, 225); font-weight:400;">value</span>,
+        <span style="color:rgb(129, 162, 190); font-weight:400;">description</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;sample description&#x27;</span>
+      }
+      <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">api</span>.<span class="hljs-title class_">CreateTodo</span>(newTodo);   
+      todoName.<span style="color:rgb(209, 217, 225); font-weight:400;">value</span> = <span style="color:rgb(204, 153, 204); font-weight:400;">null</span>;
+      <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">listTodos</span>()
+    }
+    
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> <span class="hljs-title function_">listTodos</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>){
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> result = <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">api</span>.<span class="hljs-title class_">ListTodos</span>();
+    <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">allTodos</span> = result.<span style="color:rgb(209, 217, 225); font-weight:400;">items</span>;
+  }
+}</code></pre>
+
+          <p>Una vez tenemos todo, ya podemos utilizar nuestra aplicación, todos lo que vayamos añadiendo con la interfaz se muestra en la lista inferior:</p>
+          <img src="Proyecto Angular Amplify/17.png">
+
+          <p>Y si nos vamos a la sección de <b>DynamoDB</b> en la consola de AWS, podemos ver que toda la información está guardada ahí:</p>
+          <img src="Proyecto Angular Amplify/18.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AWS | Amplify | Angular</p>
+        </div>
+
+    </body>
+</html>

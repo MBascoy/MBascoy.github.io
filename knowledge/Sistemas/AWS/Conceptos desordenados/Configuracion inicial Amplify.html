@@ -1,0 +1,79 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Configuracion inicial Amplify</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Instalar y configurar el CLI de amplify.</p>
+        </div>
+
+
+      <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Para instalar el CLI de Amplify usamos el siguiente comando:</p>
+          <code>npm install -g @aws-amplify/cli</code>
+
+          <p>Una vez tenemos instalado el CLI lazamos el siguiente comando para crear y configurar un usuario para utilizar el CLI:</p>
+          <code>amplify configure</code>
+
+          <p>Primero nos pedirá que nos logueemos con una <b>cuenta de AWS</b> (nos abrirá el navegador para ello):</p>
+          <img src="Configuracion inicial Amplify/1.png">
+
+          <p>Una vez nos logueamos en el navegador <b>pulsamos enter</b> en la consola y nos pedirá en que region queremos trabajar:</p>
+          <img src="Configuracion inicial Amplify/2.png">
+
+          <p>A continuación nos abrirá un navegador para crear el usuario que vamos a usar en el CLI (si ya tenemos un usuario creado podemos saltarnos este paso):</p>
+          <img src="Configuracion inicial Amplify/3.png">
+
+          <p>Despues de indicar el nombre tenemos que asociar permisos al usuario para que pueda usar <b>Amplify</b></p>
+          <p>Le damos a <b>Attach policies directly</b> y le asignamos la politica <b>AdministratorAccess-Amplify</b>:</p>
+          <img src="Configuracion inicial Amplify/4.png">
+
+          <p>En la siguiente pantalla revisamos que todo esté bien y le damos a <b>Create User</b>:</p>
+          <img src="Configuracion inicial Amplify/5.png">
+          
+          <p>Una vez creado el usuario tenemos que generar una <b>access key</b></p>
+          <p>Entramos en el usuario que acabamos de crear:</p>
+          <img src="Configuracion inicial Amplify/6.png">
+
+          <p>Le damos a <b>create access key</b>:</p>
+          <img src="Configuracion inicial Amplify/7.png">
+
+          <p>En la siguiente pantalla seleccionamos <b>Command Line Interface (CLI)</b>:</p>
+          <p>NOTA: en verdad da igual que opción elijamos en esta pantalla solo nos da recomendaciones alternativas para no tener que usar un access key</p>
+          <img src="Configuracion inicial Amplify/8.png">
+
+          <p>En la siguiente pantalla "description tag" lo dejamos en blanco y le damos a <b>Create access key</b>:</p>
+          <img src="Configuracion inicial Amplify/9.png">
+
+          <p>Al finalizar se nos muestra el <b>Access key</b> y el <b>Secret Access key</b>, este ultimo solo lo podremos ver en este momento, si se nos olvida tendremos que crear una nueva <b>Access key</b>:</p>
+          <img src="Configuracion inicial Amplify/10.png">
+
+          <p>Una vez finalizado todo el proceso en el navegador volvemos a la consola donde lazamos el <b>amplify configure</b>, le damos a enter y nos pedirá el <b>Access key</b> y el <b>Secret Access key</b>:</p>
+          <img src="Configuracion inicial Amplify/11.png">
+
+          <p>Dejamos <b>default</b> como profile name y ya tendremos todo configurado:</p>
+          <img src="Configuracion inicial Amplify/12.png">
+
+        </div>
+
+      <div class="t2">Archivo de configuracion</div>
+        <div class="cont">
+          <p>La configuración del usuario que hemos configurado con amplify se almacena en el siguiente archivo:</p>
+          <code>~/.aws/credentials</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AWS | Amplify</p>
+        </div>
+
+    </body>
+</html>
