@@ -105,6 +105,12 @@
           <p>Modificamos el archivo de rutas <b>app-routing.module.ts</b> para añadir el componente "todo" como componente por defecto:</p>
           <img src="Proyecto Angular Amplify/16.png">
 
+          <p>Iniciamos amplify en el <b>main.ts</b>:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Amplify</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;aws-amplify&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> aws_exports <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;./aws-exports&#x27;</span>;
+
+<span class="hljs-title class_">Amplify</span>.<span class="hljs-title function_">configure</span>(aws_exports);</code></pre>
+
           <p>Añadimos el siguiente código en el archivo <b>todo.component.html</b></p>
 
           <pre>
@@ -159,6 +165,16 @@
 
           <p>Y si nos vamos a la sección de <b>DynamoDB</b> en la consola de AWS, podemos ver que toda la información está guardada ahí:</p>
           <img src="Proyecto Angular Amplify/18.png">
+
+        </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+          <p>Si obtenemos un error como el siguiente:</p>
+          <code>Error: export 'GRAPHQL_AUTH_MODE' (reexported as 'GRAPHQL_AUTH_MODE') was not found in './types' (possible exports: GraphQLAuthError)</code>
+          <img src="Proyecto Angular Amplify/19.png">
+
+          <p>Para solucionarlo borramos la carpeta <b>.angular</b> y volvemos a lanzar el comando <b>ng serve</b>, para que se reconstruya el proyecto de nuevo.</p>
 
         </div>
 
