@@ -13,16 +13,63 @@
         <div class="cont">
             <p>Al instalar el paquete de mockoon obtenemos ciertos fallos de dependencias que en teoria si que están instaladas.</p>
 
-            COMPLETAR !!!!
+            <img src="rpmrebuild extraer spec file/1.png">
+
+            <p>El error no hace referencia a ningún archivo concreto, solo menciona cosas como <b>libnotify</b> y <b>libuuid</b></p>
+
+            <p>Si hago una busqueda con <b>zypper</b> para <b>libuuid</b> veo que tengo paquetes instalados para dicha librería:</p>
+            <img src="rpmrebuild extraer spec file/2.png">
+
+            <p>Y lo mismo para <b>libnotify</b>:</p>
+            <img src="rpmrebuild extraer spec file/3.png">
+
+            <p>Haciendo prueba veo que al instalar el paquete <b>libnotify-tools</b> si que se cumple la dependencia, ahora ya no sale el error de <b>libnotify</b> al instalar el paquete de mockoon:</p>
+            <img src="rpmrebuild extraer spec file/4.png">
+
+            <p>Esto me lleva a la pregunta de: ¿en que se basa <b>rpm</b> para saber si se cumple una dependencia?</p>
 
         </div>
 
-    <div class="t2">Metodo</div>
+    <div class="t2">Extraer spec file de un .rpm</div>
         <div class="cont">
             <p>Para extraer (recrear en verdad) el <b>spec file</b> de un archivo rpm, usamos el siguiente comando: </p>
             <code>rpmrebuild -e -p PAQUETE</code>
 
             <p>Este comando nos abrirá el editor de texto (vim en mi caso), con el contenido del spec file, podemos modificarlo directamente y el comando regenerará el archivo <b>rpm</b> con los nuevos cambios</p>
+        </div>
+
+    <div class="t2">Escenario parte2</div>
+        <div class="cont">
+            <p>Quiero ver que contenido tiene el <b>spec file</b> del rpm de <b>libnotify-tools</b>, primero descargo el rpm con zypper:</p>
+            <code>zypper in --download-only libnotify-tools</code>
+
+            <img src="rpmrebuild extraer spec file/5.png">
+
+            <p>Ahora lanzamos el comando para que recree el spec file:</p>
+            <code>rpmrebuild -e -p libnotify-tools-0.8.2-1.4.x86_64.rpm</code>
+            <img src="rpmrebuild extraer spec file/6.png">
+
+            <p>En el archivo podemos ver una linea de <b>provides</b> que hace referencia exactamente a <b>libnotify</b>, esto lo usa rpm para saber que este paquete provee <b>libnotify</b></p>
+            <p>Si hacemos lo mismo con alguno de los paquetes de libuuid podemos ver lo siguiente:</p>
+            <img src="rpmrebuild extraer spec file/7.png">
+
+            <p>Como se puede ver ninguna linea provee <b>libuuid</b> la mas cercana es <b>libuuid1</b> pero el string no coincide exactamente, porque la dependencia no se cumple.</p>
+
+            <p>Para terminar extraemos el <b>spec file</b> del rpm de mockoon y vemos lo siguiente:</p>
+            <img src="rpmrebuild extraer spec file/8.png">
+
+            <p>Aqui podemos ver todas las dependencias del rpm incluidas las que nos fallan, ademas el comando <b>rpmrebuild</b> nos permite hacer una modificación en el spec y regenerar el archivo rpm, en este caso vamos a comentar la linea de <b>nss</b> y añadir un <b>or libuuid1</b></p>
+            <img src="rpmrebuild extraer spec file/9.png">
+
+            <p><b>NOTA:</b> al comentar la linea de nss perderemos cierta funcionalidad que nos da ese paquete, pero nos dejará instalar el rpm, cuando intentemos ejecutar una funcionalidad relacionada con ese paquete probablemente el programa de algun error relacionado con que no puede encontrar algun <b>.so</b></p>
+
+            <p>Guardamos el archivo (:wq) y nos preguntará si queremos continuar:</p>
+            <img src="rpmrebuild extraer spec file/10.png">
+
+            <p>Le decimos que si, y al finalizar el comando se nos muestra donde se ha generado el nuevo rpm:</p>
+            <img src="rpmrebuild extraer spec file/11.png">
+
+            <p>Ahora al intentar instalar el <b>nuevo rpm</b> que se ha generado podremos instalarlo sin problemas, ya que las dependencias que fallaban están resueltas (o directamente las hemos eliminado).</p>
 
         </div>
 
