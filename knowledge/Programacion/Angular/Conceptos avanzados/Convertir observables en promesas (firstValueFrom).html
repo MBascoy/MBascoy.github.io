@@ -1,0 +1,83 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Convertir observables en promesas (firstValueFrom)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como convertir un observable en una promesa para que se comporte de manera <b>sincrona</b>.</p>
+
+          <p><b>NOTA:</b> Es mas recomendable hacer uso de <a href="./Http chain observables.html">Chain Observables</a> en vez de convertir un observable en una promesa</p>
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Para este ejemplo tenemos un servicio como el siguiente (que devuelve un observable):</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span style="color:rgb(204, 153, 204); font-weight:400;">constructor</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">private</span> http:HttpClient) { }
+
+  getInfo(){
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.http.<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>&lt;messageRequest[]&gt;(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;http://127.0.0.1:8080/api/members&quot;</span>)
+  }</code></pre>
+
+            <p>El servicio lo usamos en este componente de la siguiente manera:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"> <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> httpView: HttpViewService </span>) {  
+  }
+
+  <span class="hljs-title function_">ngOnInit</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>) {
+    <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">httpView</span>.<span class="hljs-title function_">getInfo</span>().<span class="hljs-title function_">subscribe</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">data</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">messageObject</span> = data)
+  
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;TERMINADO !!!&quot;</span>)
+  }</code></pre>
+
+            <p>Al ejecutarlo lo que ocurre es que el observable (que se encarga de traer la información del endpoint de backend) termina su ejecución mas tarde que el console.log que hay justo despues.</p>
+
+            <p>De manera que la información que devuelve el observable se ve despues que la salida del propio console.log</p>
+            <img src="Convertir observables en promesas (firstValueFrom)/1.png">
+            
+            <p>Para evitar este comportamiento podemos convertir el <b>Observable</b> en una <b>Promesa</b> usando <b>firstValueFrom</b>, el código quedaría tal que así:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"> <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> httpView: HttpViewService </span>) {  
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> <span class="hljs-title function_">ngOnInit</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>) {
+    <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">messageObject</span> = <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title function_">firstValueFrom</span>(<span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">httpView</span>.<span class="hljs-title function_">getInfo</span>());  
+
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;TERMINADO !!!&quot;</span>)
+  }</code></pre>
+
+            <p>Y ahora al hacer la ejecución el console.log no se ejecutará hasta que la promesa termine</p>
+            <img src="Convertir observables en promesas (firstValueFrom)/2.png">
+
+            <p>Tenemos que tener en cuenta las siguientes partes del código que han cambiado, para hacer la llamada sincrona, <b>async</b>, <b>await</b>, <b>firstValueFrom</b>:</p>
+            <img src="Convertir observables en promesas (firstValueFrom)/3.png">
+
+        </div>
+
+
+    <div class="t2">Capturar errores en la promesa</div>
+        <div class="cont">
+          <p>Si necesitamos capturar los errores que se puedan producir en la promesa tenemos que hacerlo de la siguiente manera:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> <span class="hljs-title function_">ngOnInit</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>) {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title function_">firstValueFrom</span>(<span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">httpView</span>.<span class="hljs-title function_">getInfo</span>()).<span class="hljs-title function_">then</span>(
+      <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">data</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">messageObject</span> = data
+    ).<span class="hljs-title function_">catch</span>(
+      <span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(209, 217, 225); font-weight:400;">error</span>) =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Error&quot;</span>)
+    );
+
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;TERMINADO !!!&quot;</span>)
+  }</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Observable | Promise | firstValueFrom</p>
+        </div>
+
+    </body>
+</html>
