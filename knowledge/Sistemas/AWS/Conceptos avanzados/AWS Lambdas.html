@@ -19,9 +19,128 @@
 
       <div class="t2">Leer parámetros</div>
         <div class="cont">
-          <p></p>
+          <p>Para leer los parámetros que se le pasan a una <b>lambda</b> utilizamos el parámetro <b>event</b>.</p>
+
+          <p>Si hemos definido variables en el json de configuración simplemente podemos acceder a ellas asi:</p>
+          <code>event['nomber_variable']</code>
+
+          <p>Si estamos llamando a la Lambda utilizando una URL, podemos hacer con una solicitud post o get y por lo tanto pasarle parámetros en el <b>body del post</b> o <b>query parameters</b> en la URL.</p>
+
+          <p>Para obtener el body del post lo hacemos de la siguiente manera:</p>
+          <code>post_body = json.loads(event['body'])</code>
+
+          <p>Y para los <b>query parameters</b> lo hacemos asi:</p>
+          <code>query_parameters = event["queryStringParameters"]</code>
+
+          <p>Este es un ejemplo en el que se obtienen los dos tipos de parámetros:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">import json
+
+def <span style="color:rgb(181, 189, 104); font-weight:400;">lambda_handler</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">event</span>, context</span>):
+    post_body</span> = json.loads(<span style="color:rgb(204, 153, 204); font-weight:400;">event</span>[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;body&#x27;</span>])
+    query_parameters = <span style="color:rgb(204, 153, 204); font-weight:400;">event</span>[<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;queryStringParameters&quot;</span>]
+    
+    post_parameter = post_body[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;id&#x27;</span>]
+    
+    my_query_param = query_parameters[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;name&#x27;</span>]
+    
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> {
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;statusCode&#x27;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>,
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;body&#x27;</span>: json.dumps(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;id is: &#x27;</span> + post_parameter + <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27; and name is: &#x27;</span> + my_query_param)
+    }
+</code></pre>
+
+        <img src="AWS Lambdas/1.png">
         </div>
 
+    <div class="t2">Acceder a DynamoDB, Parameter Store y Http Requets</div>
+        <div class="cont">
+          <p>El siguiente ejemplo muestra como obtener los feeds de la API de Instagram, para ello obtiene el token para hacer la petición desde <b>Parameter Store</b>, hace la <b>petición http</b> con dicho token y despues los resultados los almacena en <b>DynamoDB</b>:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> boto3
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> os
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> time
+<span style="color:rgb(204, 153, 204); font-weight:400;">from</span> botocore.vendored <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> requests
+    
+url_instagram = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;https://graph.instagram.com/me/media&#x27;</span>
+url_refresh_token=<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;https://graph.instagram.com/refresh_access_token&#x27;</span>
+
+access_token = <span style="color:rgb(204, 153, 204); font-weight:400;">None</span>
+ssm = <span style="color:rgb(204, 153, 204); font-weight:400;">None</span>
+table_feed = <span style="color:rgb(204, 153, 204); font-weight:400;">None</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">lambda_handler</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">event, context</span>):
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">#Init Simple Systems Manager for access to Parameter Store</span>
+    init_ssm()
+
+    refresh_token()
+    
+    init_dynamo()
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> get_feeds()
+    
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">init_ssm</span>():
+    parameter_name = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/Backend/SocialNetworks/AccessToken/Instagram&#x27;</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">global</span> access_token
+    <span style="color:rgb(204, 153, 204); font-weight:400;">global</span> ssm
+    
+    ssm = boto3.client(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ssm&#x27;</span>)
+    parameter = ssm.get_parameter(Name=parameter_name, WithDecryption=<span style="color:rgb(204, 153, 204); font-weight:400;">True</span>)
+    access_token = parameter[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Parameter&#x27;</span>][<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Value&#x27;</span>]
+    
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">init_dynamo</span>():
+    <span style="color:rgb(204, 153, 204); font-weight:400;">global</span> table_feed
+    
+    dynamodb = boto3.resource(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;dynamodb&quot;</span>)
+    table_feed = dynamodb.Table(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;feedcontent3&quot;</span>)
+    
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">refresh_token</span>():
+    <span style="color:rgb(204, 153, 204); font-weight:400;">global</span> access_token
+    <span style="color:rgb(204, 153, 204); font-weight:400;">global</span> ssm
+    params_token = {
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;grant_type&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ig_refresh_token&#x27;</span>,
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;access_token&#x27;</span>: access_token
+    }
+    
+    response_token = requests.get(url_refresh_token, params=params_token)
+    
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> response_token.status_code == <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>:
+        new_token = response_token.json()
+    <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">raise</span> Exception(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Error: cannot refresh token&#x27;</span>)
+    
+    ssm.put_parameter(Name=<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;/Backend/SocialNetworks/AccessToken/Instagram&#x27;</span>, Value=new_token[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;access_token&#x27;</span>], Overwrite=<span style="color:rgb(204, 153, 204); font-weight:400;">True</span>)
+    
+    access_token = new_token[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;access_token&#x27;</span>]
+    
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">get_feeds</span>():
+    <span style="color:rgb(204, 153, 204); font-weight:400;">global</span> access_token
+    <span style="color:rgb(204, 153, 204); font-weight:400;">global</span> url_instagram
+    <span style="color:rgb(204, 153, 204); font-weight:400;">global</span> table_feed
+    params_feed = {
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;fields&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;id,caption,timestamp,media_url&#x27;</span>,
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;access_token&#x27;</span>: access_token
+    }
+    
+    response = requests.get(url_instagram, params=params_feed)
+    
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> response.status_code == <span style="color:rgb(249, 145, 87); font-weight:400;">200</span>:
+        data = response.json()
+    <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>:
+        <span style="color:rgb(204, 153, 204); font-weight:400;">raise</span> Exception(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Error: cannot get feeds from Instagram&#x27;</span>)
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> post <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> data[<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;data&quot;</span>]:
+        caption = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> post.get(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;caption&quot;</span>) != <span style="color:rgb(204, 153, 204); font-weight:400;">None</span>:
+            caption = post[<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;caption&quot;</span>];
+        
+        <span style="color:rgb(204, 153, 204); font-weight:400;">try</span>:
+            table_feed.put_item(Item={<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;PostId&quot;</span>: post[<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;id&quot;</span>], <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;caption&quot;</span>: caption, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;timestamp&quot;</span>: post[<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;timestamp&quot;</span>], <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mediaurl&quot;</span>: post[<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;media_url&quot;</span>], <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;tiempo&quot;</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">int</span>(time.time())}, ConditionExpression=<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;attribute_not_exists(PostId)&#x27;</span>)
+        <span style="color:rgb(204, 153, 204); font-weight:400;">except</span>:
+            <span style="color:rgb(204, 153, 204); font-weight:400;">continue</span>
+            
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> {<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;message&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Success getting feeds from Instagram&quot;</span>}</code></pre>
+        </div>
     <div class="t2">Tags</div>
         <div class="cont">
         <p>AWS | Lambdas</p>
