@@ -33,13 +33,11 @@
                 <li><b>android:host</b> es el nombre del dominio, <b>mbascoy.github.io</b> en mi caso</li>
                 <li><b>android:pathPrefix</b> (Opcional) es el nombre de la ruta por si no queremos usar solo el nombre del dominio base, tiene que incluir una barra al principio, por ejemplo <b>/openapp</b></li>
             </ul>
-
-
         </div>
 
     <div class="t2">Configuración github pages</div>
         <div class="cont">
-            <p>En el nuestro repositorio de github pages tenemos que añadir el archivo <b>_config.xml</b> en la raiz con el siguiente contenido:</p>
+            <p>En el nuestro repositorio de github pages tenemos que añadir el archivo <b>_config.yaml</b> en la raiz con el siguiente contenido:</p>
 
             <pre><code>theme: jekyll-theme-cayman
 
@@ -74,7 +72,51 @@ include: [".well-known"]</code></pre>
 
     <div class="t2">Código en ionic</div>
         <div class="cont">
-            <p>Si queremos tener mas control sobre cuando se abre la aplicación con un <b>App link</b> tenemos que incluir algunos cambios en el código de nuestra aplicación ionic.</p>
+            <p>Si queremos tener mas control cuando se abre la aplicación con un <b>App link</b> tenemos que incluir algunos cambios en el código de nuestra aplicación ionic.</p>
+
+            <p>Para esto tenemos que incluir un listener de <b>appUrlOpen</b></p>
+
+            <p>En nuestro app.component.ts ponemos el siguiente código:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Component</span>, <span class="hljs-title class_">NgZone</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/core&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">Router</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@angular/router&#x27;</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">App</span>, <span class="hljs-title class_">URLOpenListenerEvent</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;@capacitor/app&#x27;</span>;
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">@Component</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">selector</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app-root&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">templateUrl</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app.component.html&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">styleUrls</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;app.component.scss&#x27;</span>],
+})
+<span style="color:rgb(204, 153, 204); font-weight:400;">export</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">AppComponent</span> {
+  <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> router: Router,
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> zone: NgZone
+  </span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">initializeApp</span>();
+  }
+
+  <span class="hljs-title function_">initializeApp</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>) {
+    <span class="hljs-title class_">App</span>.<span class="hljs-title function_">addListener</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;appUrlOpen&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(209, 217, 225); font-weight:400;">event: URLOpenListenerEvent</span>) =&gt;</span> {
+      <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">zone</span>.<span class="hljs-title function_">run</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">() =&gt;</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> domain = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;mbascoy.github.io&#x27;</span>;
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> pathArray = event.<span style="color:rgb(209, 217, 225); font-weight:400;">url</span>.<span class="hljs-title function_">split</span>(domain);
+
+        <span style="color:rgb(150, 152, 150); font-weight:400;">// Get the last element with pop()</span>
+        <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> appPath = pathArray.<span class="hljs-title function_">pop</span>();
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (appPath) {
+          <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">router</span>.<span class="hljs-title function_">navigateByUrl</span>(appPath);
+
+        }
+      });
+    });
+  }
+}</code></pre>
+
+            <p>Ahora en el archivo de rutas <b>app-routing.module.ts</b> incluimos la siguiente ruta:</p>
+            <img src="App Link (Deeplink) y github pages/2.png">
+
+            <p>Ahora en el componente <b>tab1</b> podemos usar tanto <a href="../../Angular/Conceptos avanzados/Query parameters.html">Query parameters</a> como <a href="../../Angular/Conceptos avanzados/Path variables.html">Path variables</a> para obtener los parámetros de la URL y usarlos en nuestra applicación</p>
         </div>
 
     <div class="t2">Tags</div>
