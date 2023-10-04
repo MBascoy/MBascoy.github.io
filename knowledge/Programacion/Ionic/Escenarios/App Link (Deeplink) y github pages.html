@@ -1,0 +1,86 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">App Link (Deeplink) y github pages</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como configurar una aplicación para que se habrá por defecto al acceder a un enlace de un dominio concreto</p>
+        </div>
+
+    <div class="t2">Código en android</div>
+        <div class="cont">
+            <p>Partimos de un proyecto base de <b>Ionic</b> con el proyecto de <b>Android</b> ya generado.</p>
+
+            <p>En el archivo <b>AndroidManifest.xml</b> añadimos el siguiente código:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">intent-filter</span> <span style="color:rgb(129, 162, 190); font-weight:400;">android:autoVerify</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;true&quot;</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">action</span> <span style="color:rgb(129, 162, 190); font-weight:400;">android:name</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;android.intent.action.VIEW&quot;</span> /&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">category</span> <span style="color:rgb(129, 162, 190); font-weight:400;">android:name</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;android.intent.category.DEFAULT&quot;</span> /&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">category</span> <span style="color:rgb(129, 162, 190); font-weight:400;">android:name</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;android.intent.category.BROWSABLE&quot;</span> /&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">data</span> <span style="color:rgb(129, 162, 190); font-weight:400;">android:scheme</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">android:host</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mbascoy.github.io&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">intent-filter</span>&gt;</span></code></pre>
+
+            <p>Tenemos que modificar los siguientes atributos:</p>
+            <ul>
+                <li><b>android:scheme</b> es el nombre del esquema, usaremos <b>https</b></li>
+                <li><b>android:host</b> es el nombre del dominio, <b>mbascoy.github.io</b> en mi caso</li>
+                <li><b>android:pathPrefix</b> (Opcional) es el nombre de la ruta por si no queremos usar solo el nombre del dominio base, tiene que incluir una barra al principio, por ejemplo <b>/openapp</b></li>
+            </ul>
+
+
+        </div>
+
+    <div class="t2">Configuración github pages</div>
+        <div class="cont">
+            <p>En el nuestro repositorio de github pages tenemos que añadir el archivo <b>_config.xml</b> en la raiz con el siguiente contenido:</p>
+
+            <pre><code>theme: jekyll-theme-cayman
+
+include: [".well-known"]</code></pre>
+
+            <p>Ahora tenemos que verificar nuestra página de github pages, para ello tendremos que subir un archivo a nuestro github pages.</p>
+
+            <p>El archivo lo podemos generar desde <a href="https://developers.google.com/digital-asset-links/tools/generator">esta herramienta de google</a></p>
+
+            <p>Tenemos que indicar la siguiente información:</p>
+            <ul>
+                <li><b>Nombre de dominio</b>: mbascoy.github.io (el dominio de nuestro github pages)</li>
+                <li><b>App Package</b>: io.ionic.starter (se encuentra en el archivo build.gradle)</li>
+                <li><b>Fingerprint</b>: (es el hash sha256 que podemos consultar <a href="../Desordenados/Android fingerprint certificado.html">usando keytool</a>)</li>
+            </ul>
+
+            <p>Una vez introducimos los datos se genera el contenido que tenemos que introducir en el siguiente archivo:</p>
+            <code>https://mbascoy.github.io/.well-known/assetlinks.json</code>
+
+            <p>Con esto hecho nuestra App ya podrá verificar que ese dominio está asociado con nuestra App.</p>
+
+        </div>
+
+    <div class="t2">Testear App link</div>
+        <div class="cont">
+            <p>Nuestra App ya está lista para hacer uso de los App links, para probarlo no podemos abrir el navegador e ir directamente al dominio que hemos configurado, la navegación tiene que venir de un enlace que haya en una página o algún otro lado (como un chat de whatsapp)</p>
+
+            <p>Si queremos hacer una prueba rapida podemos entrar en la siguiente <a href="https://www.w3schools.com/css/tryit.asp?filename=trycss_link_advanced">página de w3school</a> (Desde el dispositivo donde tenemos nuestra App).</p>
+            <p>Cambiamos el enlace del boton para poner el dominio que hemos configurado, le damos a "Run" hacer efectivo el cambio de código y al pulsar el boton se abríra nuestra aplicación</p>
+            <img src="App Link (Deeplink) y github pages/1.png">
+        </div>
+
+    <div class="t2">Código en ionic</div>
+        <div class="cont">
+            <p>Si queremos tener mas control sobre cuando se abre la aplicación con un <b>App link</b> tenemos que incluir algunos cambios en el código de nuestra aplicación ionic.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Android | App Link | Deeplink</p>
+        </div>
+
+    </body>
+</html>
