@@ -1,0 +1,41 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Undefined reading digest</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Al ejecutar una aplicación con <b>Ionic</b> en el emulador obtenemos el siguiente error:</p>
+          <code>TypeError: Cannot read properties of undefined (reading 'digest')</code>
+
+          <img src="Undefined reading digest/1.png">
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+            <p>El error se da por el uso de esta funcion:</p>
+            <code>crypto.subtle.digest()</code>
+
+            <p>Cuando se ejecuta en un entorno inseguro (distinto de <b>https</b> o <b>localhost</b>) <b>crypto.subtle</b> es undefined, por eso se da el error</p>
+
+            <p>En este caso este error se da al tener activado el <b>Live reload</b> en la extensión de ionic, ya que esto hace que la aplicación de ionic se conecte con http://ip-host y como usa http como protoclo el objeto crypto.subtle se marca como <b>udefined</b></p>
+
+            <p>Para solucionar este problema solo tenemos que desactivar el <b>Live reload</b> y hacer build de la aplicación:</p>
+            <img src="Undefined reading digest/2.png">
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Ionic | crypto</p>
+        </div>
+
+    </body>
+</html>
