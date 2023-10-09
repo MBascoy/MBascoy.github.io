@@ -1,0 +1,82 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Curl</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Solicitudes Curl</p>
+
+        </div>
+
+    <div class="t2">GET</div>
+        <div class="cont">
+          
+          <p>Para hacer una solicitud <b>GET</b> enviando parámetros en la URL lo hacemos de la siguiente manera:</p>
+          <code>curl -X GET 'http://example.com/path?field1=valor&field2=valor2'</code>
+          
+        </div>
+        
+    <div class="t2">POST</div>
+        <div class="cont">
+            <p>Una solicitud <b>POST</b> la podemos enviar de distintas maneras:</p>
+
+            <h2>JSON</h2>
+            <p>Para envíar un json en el body de una solicitud POST lo hacemos así:</p>
+
+            <pre><code>curl -X POST http://example.com \
+-H 'Content-Type: application/json' \
+-d '{
+    "field1": "mi_valor",
+    "field2": "mi_valor2"
+}'</code></pre>
+
+            <p>Con este tipo de solicitud los datos se envían asi:</p>
+
+            <img src="Curl/2.png">
+
+            <h2>urlencode</h2>
+            <p>Otra manera de hacer una solicitud POST es con el tipo <b>x-www-form-urlencoded</b>:</p>
+            <pre><code>curl -X POST http://example.com \
+--data-urlencode "value1=mi_valor" \
+--data-urlencode "value2=nuevo_valor"</code></pre>
+            
+            <p>Con este tipo de solicitud los datos se envían asi:</p>
+            <img src="Curl/1.png">
+        </div>
+
+    <div class="t2">Autorización Bearer</div>
+        <div class="cont">
+            <p>Para enviar una solicitud <b>POST</b> (con contenido en formato JSON) con una autorización de tipo Bearer lo hacemos asi:</p>
+
+            <pre><code>curl -X POST http://example.com \
+-H 'Authorization: Bearer tokenexample12345Example12345Example' \
+-H 'Content-Type: application/json' \
+-d '{
+    "usuario": {
+        "nombre": pepe,
+        "coches": [
+            "renault",
+            "ferrari"
+        ]
+    }
+}'</code></pre>
+
+            <p>Con este tipo de solicitud los datos se envían asi:</p>
+            <img src="Curl/3.png">
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Curl</p>
+        </div>
+
+    </body>
+</html>
