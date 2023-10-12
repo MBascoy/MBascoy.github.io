@@ -1,0 +1,65 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Logitech G29 (new-lg4ff)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Instalación del driver <b>new-lg4ff</b> y como configurar el rango maximo de giro</p>
+
+            <a href="https://github.com/berarma/new-lg4ff">Repositorio new-lg4ff</a>
+
+        </div>
+
+    <div class="t2">Driver new-lg4ff</div>
+        <div class="cont">
+            <p>Para instalar el driver seguimos lo siguientes pasos:</p>
+
+            <ul>
+                <li>Descargamos el repositorio en <b>/usr/src/</b>:</li>
+                <code>$ cd /usr/src</code>
+                <code># git clone https://github.com/berarma/new-lg4ff.git</code>
+
+                <li>Instalamos <b>dkms</b>:</li>
+                <code># zypper in dkms</code>
+
+                <li>Instalamos el driver:</li>
+                <code># dkms install /usr/src/new-lg4ff</code>
+
+                <li>Actualizamos <b>initramfs</b>:</li>
+                <p>Este comando normalmente es:</p>
+                <code>update-initramfs -u</code>
+
+                <p>Pero en openSuSE es:</p>
+                <code># dracut -v -f</code>
+
+                <li>Reiniciamos el sistema y el driver ya estará instalado</li>
+            </ul>
+        </div>
+
+    <div class="t2">Configurar rango maximo de giro</div>
+        <div class="cont">
+            <p>Para configurar el rango maximo de giro lo hacemos con el siguiente comando:</p>
+            <code># echo 187 > /sys/bus/hid/drivers/logitech/{ID}/range</code>
+
+            <p>El parámetro del <b>echo</b> son los grados maximos de giro (187 en este caso), y el <b>{ID}</b> varía cada vez que se conecta el volante, simplemente podemos listar los archivos de la carpeta <b>logitech</b> y veremos cual es el id, tiene un formato como el siguiente: <b>0003:046D:C24F.0005</b></p>
+
+            <p><b>NOTA</b>: este comando hay que hacerlo como root, a veces no es suficiente usar <b>sudo</b>.</p>
+
+        </div>
+        
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>G29 | Drivers | ForceFeedback | FFB </p>
+        </div>
+
+    </body>
+</html>
