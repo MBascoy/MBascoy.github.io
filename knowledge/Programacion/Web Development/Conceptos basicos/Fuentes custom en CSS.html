@@ -55,6 +55,70 @@
 <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span></code></pre>
         </div>
 
+    <div class="t2">Incrustar google fonts</div>
+        <div class="cont">
+            <p>Podemos incrustar las fuentes usando directamente <b>Google fonts</b> sin necesidad de descargar un archivo de fuentes .ttf</p>
+
+            <p>Tenemos dos metodos, usando la etiqueta <b>link</b> en el head o usando <b>import</b> en el css </p>
+
+            <h2>Etiqueta link</h2>
+
+            <p>Para usar la etiqueta link solo tenemos que seleccionar la fuente que queramos y despues copiar el código que nos da dentro del <b>head</b> de nuestro código:</p>
+            <img src="Fuentes custom en CSS/1.png"/>
+
+            <p>Y en el css indicamos el font-family de la fuente:</p>
+
+            <img src="Fuentes custom en CSS/2.png"/>
+
+            <p>El ejemplo completo sería así:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;preconnect&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://fonts.googleapis.com&quot;</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;preconnect&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://fonts.gstatic.com&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">crossorigin</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">link</span> <span style="color:rgb(129, 162, 190); font-weight:400;">href</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://fonts.googleapis.com/css2?family=Roboto:wght@300&amp;display=swap&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">rel</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;stylesheet&quot;</span>&gt;</span>
+
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">style</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+            <span style="color:rgb(204, 153, 204); font-weight:400;">h1</span> {
+                <span style="color:rgb(129, 162, 190); font-weight:400;">font-family</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Roboto&#x27;</span>, sans-serif;
+            }
+        </span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">style</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span>Test working<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span></code></pre>
+
+            <h2>import en css</h2>
+            <p>Para usar la etiqueta import solo tenemos que seleccionar la opción de <b>@import</b> en la web de google fonts y meter el código en nuestro css</p>
+            <p><b>NOTA:</b> en la web aparece el código con la etiqueta <b>style</b> para incrustarlo directamente en el head, si queremos meterlo en nuestro css directamente tenemos que eliminar la etiqueta <b>style</b></p>
+
+            <img src="Fuentes custom en CSS/3.png"/>
+
+            <p>El código completo quedaría asi:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">style</span>&gt;</span><span style="color:rgb(209, 217, 225); font-weight:400;">
+            <span style="color:rgb(204, 153, 204); font-weight:400;">@import</span> url(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;https://fonts.googleapis.com/css2?family=Roboto:wght@300&amp;display=swap&#x27;</span>);
+
+            <span style="color:rgb(204, 153, 204); font-weight:400;">h1</span>{
+                <span style="color:rgb(129, 162, 190); font-weight:400;">font-family</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Roboto&#x27;</span>, sans-serif;
+            }
+        </span><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">style</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">head</span>&gt;</span>
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+        <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span>Test working<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">h1</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">body</span>&gt;</span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">html</span>&gt;</span>
+</code></pre>
+
+
+        </div>
 
     <div class="t2">Tags</div>
         <div class="cont">
