@@ -12,6 +12,8 @@
     <div class="t2">Descripcion</div>
         <div class="cont">
             <p>Como configurar una aplicación para que se habrá por defecto al acceder a un enlace de un dominio concreto</p>
+
+            <p><a href="https://developer.android.com/training/app-links/deep-linking">Documentación Android</a></p>
         </div>
 
     <div class="t2">Código en android</div>
@@ -118,6 +120,28 @@ include: [".well-known"]</code></pre>
             <img src="App Link (Deeplink) y github pages/2.png">
 
             <p>Ahora en el componente <b>tab1</b> podemos usar tanto <a href="../../Angular/Conceptos avanzados/Query parameters.html">Query parameters</a> como <a href="../../Angular/Conceptos avanzados/Path variables.html">Path variables</a> para obtener los parámetros de la URL y usarlos en nuestra applicación</p>
+        </div>
+
+    <div class="t2">Scheme custom</div>
+        <div class="cont">
+          <p>Si queremos podemos utilizar un <b>scheme</b> personalizado en vez de http o https.</p>
+
+          <p>Debemos de tener en cuenta las siguientes consideraciones al usar un scheme personalizado:</p>
+
+          <ul>
+            <li>El scheme no necesita ser validado como una página con http o https, por contra si hay dos Apps que utilicen el mismo scheme se mostrará un menú indicando que App queremos abrir</li>
+            <li>Cuando indicamos un scheme tambien tenemos que indicar un host, de manera que siempre tenemos que llamar a una URL tipo <b>miapp://mipagina</b>, la parte de <b>mipagina</b> tiene que estár definida en la aplicación no podemos simplemente asociar el scheme <b>miapp://</b> con cualquiera host a nuetra app, siempre tenemos que indicar algún host concreto.</li>
+            <li>El nombre del scheme debe de ir en minusculas.</li>
+            <li>En la documentación oficial dice que se pueden usar varios tipos de deeplinks mezclando https con un scheme personalizado, yo lo he probado y no funciona... o usas uno o el otro...</li>
+          </ul>
+
+          <p>El código del intent queda así:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">intent-filter</span>&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">action</span> <span style="color:rgb(129, 162, 190); font-weight:400;">android:name</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;android.intent.action.VIEW&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">category</span> <span style="color:rgb(129, 162, 190); font-weight:400;">android:name</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;android.intent.category.DEFAULT&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">category</span> <span style="color:rgb(129, 162, 190); font-weight:400;">android:name</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;android.intent.category.BROWSABLE&quot;</span> /&gt;</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;<span style="color:rgb(181, 189, 104); font-weight:700;">data</span> <span style="color:rgb(129, 162, 190); font-weight:400;">android:scheme</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;miapp&quot;</span> <span style="color:rgb(129, 162, 190); font-weight:400;">android:host</span>=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;mipagina&quot;</span> /&gt;</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;">&lt;/<span style="color:rgb(181, 189, 104); font-weight:700;">intent-filter</span>&gt;</span></code></pre>
         </div>
 
     <div class="t2">Tags</div>
