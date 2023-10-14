@@ -1,0 +1,86 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Proyecto base Node</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como crear un proyecto con <b>Node</b> y utilizar librerías.</p>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+
+            <p>Para crear un proyecto con Node y javascript no hay que hacer nada especial, basta con crear un archivo como <b>ejemplo.js</b> e introducir código en el:</p>
+            <code>console.log("Hola mundo")</code>
+
+            <p>Para ejecutarlo se haría con el comando:</p>
+            <code>node ejemplo.js</code>
+
+            <p>El problema viene cuando quieres usar paquetes externos, si queremos utilizar el paquete <b>uuid</b> podemos hacer lo siguiente:</p>
+
+            <code>npm install uuid</code>
+
+            <p>Esto nos creará un archivo <b>package.json</b> y una carpeta <b>node_modules</b> en la que se almacenará el paquete descargado.</p>
+
+            <p>Para utilizar el paquete en nuestro proyecto usaríamos el siguiente código en <b>ejemplo.js</b>:</p>
+
+            <pre><code>import {v4} from 'uuid'
+
+console.log(v4())</code></pre>
+
+            <p>Esto nos dará el siguiente error:</p>
+
+            <img src="Proyecto base Node/1.png">
+            <code>SyntaxError: Cannot use import statement outside a module</code>
+
+            <p>Para solucionarlo tenemos dos opciones, o modificar el nombre del fichero a: <b>ejemplo.mjs</b></p>
+
+            <p>O podemos añadir en el package.json la opción: <b>"type": "module"</b></p>
+            <img src="Proyecto base Node/2.png">
+
+            <p>Una vez hecho el cambio ya se ejecutará de manera correcta:</p>
+            <img src="Proyecto base Node/3.png">
+
+        </div>
+
+    <div class="t2">require vs import</div>
+        <div class="cont">
+            <p><a href="https://nodejs.org/api/modules.html">CommonJS Node reference</a></p>
+            <p><a href="https://nodejs.org/api/esm.html">ECMAScript Node reference</a></p>
+
+            <p>Node permite ejecutar el código como dos tipos de archivos, como <b>ES (ECMAScript)</b> o como <b>CommonJS</b></p>
+
+            <p>Por defecto se ejecuta como <b>CommonJS</b>, si queremos ejecutarlo como <b>modulo ES</b> tenemos que guardar el código con la extensión <b>.mjs</b> o añadir la opción <b>"type": "module"</b> en el package.json</p>
+
+            <p>Si usamos <b>CommonJS</b> tendremos que usar <b>require</b> para importar librerías, si usamos <b>ECMAScript</b> tendremos que usar <b>import</b></p>
+
+            <p>Los siguientes códigos son equivalentes:</p>
+
+            <p>CommonJS:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">uuid = <span style="color:rgb(181, 189, 104); font-weight:400;">require</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;uuid&#x27;</span>)
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(uuid.<span class="hljs-title function_">v4</span>())</code></pre>
+
+            <p>ECMAScript:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> {v4} <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;uuid&#x27;</span>
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">v4</span>())
+</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>JavaScript | Node | Generar proyecto</p>
+        </div>
+
+    </body>
+</html>
