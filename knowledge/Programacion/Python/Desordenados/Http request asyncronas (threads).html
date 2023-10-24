@@ -1,0 +1,74 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Http request asyncronas (threads)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como realizar peticiones <b>http asyncronas</b> sin tener que esperar a que termine una petición antes de lanzar otra usando <b>threads</b>.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>El siguiente código hace peticiones asyncronas a una lista de <b>URLs</b> usando un pequeño <b>delay</b> entre peticiones, ademas dentro del <b>thread</b> hay un bucle que hace que se envié cada peticion a una URL dos veces (estas peticiones son <b>sincronas</b> entre si):</p>
+
+          
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> requests
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> threading
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> time
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">def</span> <span class="hljs-title function_">make_request</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">url</span>):
+
+    headers = {<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Content-Type&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;application/json; charset=utf-8&quot;</span>}
+ 
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> i <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> <span style="color:rgb(181, 189, 104); font-weight:400;">range</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>):
+        data = {
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;id&quot;</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;name&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;nombre&quot;</span>
+        }
+
+        response = requests.post(url, headers=headers, json=data)
+        
+        <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">f&#x27;<span style="color:rgb(249, 145, 87); font-weight:400;">{url}</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">{response.status_code}</span>&#x27;</span>)
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;--- INICIO ---&quot;</span>)
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># List of URLs to make requests to</span>
+urls = [
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://www.example.com&quot;</span>,
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://www.google.com&quot;</span>,
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://www.wikipedia.org&quot;</span>,
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://www.python.org&quot;</span>
+]
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Create and start threads for each URL</span>
+threads = []
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">for</span> url <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> urls:
+    <span style="color:rgb(150, 152, 150); font-weight:400;">#Introducimos un pequeño delay entre creación de hilos</span>
+    time.sleep(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>)
+    
+    thread = threading.Thread(target=make_request, args=(url,))
+    thread.start()
+    threads.append(thread)
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Wait for all threads to finish</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">for</span> thread <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> threads:
+    thread.join()
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;HILOS TERMINADOS&quot;</span>)</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Python | Threads | Http</p>
+        </div>
+
+    </body>
+</html>
