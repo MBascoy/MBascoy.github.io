@@ -1,0 +1,94 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">XFCE</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Instalar y configurar XFCE.</p>  
+        </div>
+
+    <div class="t2">Instalacion</div>
+        <div class="cont">
+            <p>Para instalar el entorno de escritorio de <b>xfce</b> lo hacemos con el siguiente comando</p>
+            <code>apt-get install xfce4</code>
+
+            <p>A mayores podemos instalar el siguiente paquete para tener las extensiones que mas se suelen utilizar para xfce (gestor de energia, notificaciones...etc):</p>
+            <code>apt-get install xfce4-goodies</code>
+        </div>
+
+    <div class="t2">Themes</div>
+        <div class="cont">
+
+            <p>Los themes se instalan en las mismas carpetas que en gnome:</p>
+            <a href="../Conceptos desordenados/Instalar icons y themes.html">Themes Gnome</a>
+
+            <p>En <b>XFCE</b> podemos tener dos tipos de <b>themes</b> los de xfce/xfwm4 o los de GTK</p>
+
+            <a href="https://www.xfce-look.org/browse?cat=138&ord=rating">XFCE Look</a>
+
+            <p>Los de <b>xfce/xfwm4</b> se configuran desde <b>Configuracion > Gestor de Ventanas</b>:</p>
+            <img src="XFCE/2.png">
+
+            <p>Los de <b>GTK</b> se configurar desde <b>Configuracion > Apariencia</b>:</p>
+            <img src="XFCE/1.png">
+
+        </div>
+
+    <div class="t2">Archivo .profile</div>
+        <div class="cont">
+            <p>Por defecto en <b>XFCE</b> el archivo <b>.profile</b> de la carpeta personal no se lee.</p>
+            <p>Para hacer que se lea tenemos que crear el archivo <b>.xsessionrc</b> con el siguiente contenido:</p>
+            <pre><code>. /etc/profile
+. ~/.profile</code></pre>
+        </div>
+
+    <div class="t2">Configurar lightdm</div>
+        <div class="cont">
+            <p>Por defecto el display manager de <b>lightdm</b> no muestra un listado de usuario, tenemos que escribir manualmente el nombre del usuario para hacer login</p>
+
+            <p>Para modificar este comportamiento editamos el archivo <b>/etc/lightdm/lightdm.conf</b> y modificar la siguiente linea:</p>
+            <pre><code>[Seat:*]
+-
+-
+-
+greeter-hide-users=false
+            </code></pre>
+
+            <img src="XFCE/3.png">
+
+        </div>
+
+    <div class="t2">Configurar KDE Connect</div>
+        <div class="cont">
+            <p>Para utilizar kdeconnect podemos instalarlo con los siguientes comandos para tener integración con nautilus:</p>
+
+            <code>apt-get install kdeconnect</code>
+            <code>apt-get install nautilus-kdeconnect</code>
+
+            <p>Para ejecutar la aplicación y emparejar dispositivos lo hacemos con el siguiente comando</p>
+            <code>kdeconnect-app</code>
+
+            <p>Al tener un dispositivo emparejado desde el explorador de nautilus al hacer click derecho en un archivo nos debería de aparecer la opción de "Enviar a dispositivo"</p>
+        </div>
+
+    <div class="t2">Troubleshooting problemas de rendimiento</div>
+        <div class="cont">
+
+            <p>Al cambiar a XFCE tuve un pequeño problema de rendimiento (las apps tardaban 1 segundo mas de los normal en abrirse), en mi caso esto se debía al paquete de iconos que tenia instalado (<b>Papirus</b>), al cambiar de paquete de iconos los problemas desaparecieron.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+            <p>Debian | XFCE</p>
+        </div>
+
+    </body>
+</html>
