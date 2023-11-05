@@ -16,8 +16,43 @@
           <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-header-based-auth.html">Documentación AWS Signature V4</a>
         </div>
 
-      <div class="t2">Metodo</div>
+      <div class="t2">V4 Signature en K6</div>
         <div class="cont">
+          <p>En el programa de testing K6 no permite cargar librerías externas, por lo tanto hay que usar la siguiente librería que usa código javascript directamente para generar la firma:</p>
+
+          <a href="https://github.com/s0rc3r3r01/awsv4sign">s0rc3r3r01/awsv4sign</a>
+
+          <p>Un código de ejemplo es el siguiente:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">import awsv4sign <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;./awsv4sign.js&quot;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> <span class="hljs-variable constant_">awsCredentials</span> = {
+    accessKeyId: getCredentialsForIdentity.Credentials.AccessKeyId,
+    secretAccessKey: getCredentialsForIdentity.Credentials.SecretKey,
+    sessionToken: getCredentialsForIdentity.Credentials.SessionToken,
+};
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> <span class="hljs-variable constant_">payload</span> = <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{&quot;query&quot;:&quot;query MyQuery {listTodos {items {name}}}&quot;,&quot;variables&quot;:null}&#x27;</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// Firma de la petición a AppSync</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> <span class="hljs-variable constant_">wrappedReq</span> = awsv4sign.<span class="hljs-title function_ invoke__">v4Sign</span>(
+    {
+        <span style="color:rgb(129, 162, 190); font-weight:400;">hostname</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;example.com&#x27;</span>,
+        <span style="color:rgb(129, 162, 190); font-weight:400;">method</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;POST&quot;</span>,
+        <span style="color:rgb(129, 162, 190); font-weight:400;">params</span>: {
+            <span style="color:rgb(129, 162, 190); font-weight:400;">headers</span>: {
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Content-Type&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;application/json&quot;</span>,
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Host&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;example.com&#x27;</span>,
+                <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;X-Amz-Security-Token&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;token-example-123456789&quot;</span>
+            },
+        },
+        <span style="color:rgb(129, 162, 190); font-weight:400;">path</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;/graphql&quot;</span>,
+        <span style="color:rgb(129, 162, 190); font-weight:400;">query</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>,
+        <span style="color:rgb(129, 162, 190); font-weight:400;">service</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;appsync&quot;</span>,
+        <span style="color:rgb(129, 162, 190); font-weight:400;">payload</span>: payload,
+    },
+    awsCredentials,
+);</code></pre>
           
         </div>
 

@@ -13,11 +13,149 @@
         <div class="cont">
           <p>Como utilizar el conector <b>developer</b> del cognito <b>identity pool</b>.</p>
 
+          <p>El conector developer nos permite obtener credenciales para acceder a los recursos de AWS a traves de un identificador de cuenta único, esto nos permite utilizar nuestro propio sistema de autenticación como intermediario entre el usuario y AWS, o tambien podemos usarlo para utilizar APIs de redes sociales que no poseen un metodo de autenticación federado.</p>
         </div>
 
 
       <div class="t2">Metodo</div>
         <div class="cont"> 
+          <p>Lo primero que necesitamos es tener un usuario en AWS con el siguiente credencial:</p>
+          <code>AmazonCognitoDeveloperAuthenticatedIdentities</code>
+          <img src="Cognito IDP conector developer/2.png">
+
+          <p>A continuación tenemos que generar un 'access key' para poder acceder como ese usuario (en nuestro caso desde el aws cli y desde node):</p>
+          <img src="Cognito IDP conector developer/3.png">
+
+          <p>En <b>cognito</b> tenemos que tener creado nuestro <b>conector developer</b> (en este caso se llama TiktokIDP):</p>
+          <img src="Cognito IDP conector developer/4.png">
+
+          <h2>Obtener token desde AWS cli</h2>
+          <p>Primero configuramos el aws cli para que utilice el usuario que acabamos de crear:</p>
+          <code>aws configure</code>
+
+          <img src="Cognito IDP conector developer/5.png">
+
+          <p>Ahora solo tenemos que ejecutar el siguiente comando para obtener el access token de AWS:</p>
+
+          <pre><code>aws cognito-identity get-open-id-token-for-developer-identity \
+--identity-pool-id IDENTITY_POOL \
+--logins "CONECTOR_IDP=USUARIO"</code></pre>
+
+          <p>Cambiamos <b>IDENTITY_POOL</b>, <b>CONECTOR_IDP</b> y <b>USUARIO</b>, por los valores de nuestro proyecto, en nuestro caso <b>CONECTOR_IDP</b> sería TiktokIDP y <b>USUARIO</b> es cualquier string único que usaremos para identificar una cuenta, en el caso de que la cuenta no exista cognito la crea automaticamente y si ya existe nos devuelve los valores relacionados con dicha cuenta que hayamos indicado.</p>
+          
+          <img src="Cognito IDP conector developer/6.png">
+
+          <p>La solicitud nos devuelve un <b>IdentityId</b> y un <b>Token</b>, que se usarán para obtener un SESSION_TOKEN</p>
+
+          <p>Para obtener el SESSION_TOKEN lo hacemos con el siguiente comando:</p>
+
+          <pre><code>aws cognito-identity get-credentials-for-identity \
+--identity-id IDENTITY_ID \
+--logins "cognito-identity.amazonaws.com=TOKEN"</code></pre>
+
+          <p>Modificamos <b>IDENTITY_ID</b> y <b>TOKEN</b> con los valores que hemos obtenido en la solicitud anterior y la respuesta será algo como esto:</p>
+
+          <img src="Cognito IDP conector developer/7.png">
+
+          <p>Dependiendo de la manera en la que vayamos a solicitar los recursos de AWS con el TOKEN inicial puede ser suficiente, pero si vamos a realizar la consulta final vamos a necesitar el SessionToken que nos devuelve esta consulta.</p>
+
+
+          <h2>Obtener token con node</h2>
+          <p>Para hacer lo mismo desde node primero tenemos que instalar el siguiente paquete:</p>
+          <code>npm install @aws-sdk/client-cognito-identity</code>
+
+          <p>El código es:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">CognitoIdentityClient</span>, <span class="hljs-title class_">GetOpenIdTokenForDeveloperIdentityCommand</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;@aws-sdk/client-cognito-identity&quot;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> client = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title class_">CognitoIdentityClient</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">region</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;us-east-1&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">credentials</span>: {
+      <span style="color:rgb(129, 162, 190); font-weight:400;">accessKeyId</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;AKIAWC66EXGMUX5YO25J&#x27;</span>,
+      <span style="color:rgb(129, 162, 190); font-weight:400;">secretAccessKey</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;WjkIbNHvhFOku9wh1W3dfhdS3pQisvfwqR3ODxi8&#x27;</span>,
+    }
+});
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> input = {
+  <span class="hljs-title class_">IdentityPoolId</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;us-east-1:1c9ff06a-ec20-4a3f-ac59-e194a13fa067&#x27;</span>,
+  <span class="hljs-title class_">Logins</span>: {
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;TiktokIDP&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;mi-username&#x27;</span>,
+  },
+  <span class="hljs-title class_">TokenDuration</span>: <span style="color:rgb(249, 145, 87); font-weight:400;">86400</span>
+};
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> command = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title class_">GetOpenIdTokenForDeveloperIdentityCommand</span>(input);
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> response = <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> client.<span class="hljs-title function_">send</span>(command);
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;IdentityID: &#x27;</span> + response.<span style="color:rgb(209, 217, 225); font-weight:400;">IdentityId</span>)
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Token: &#x27;</span> + response.<span style="color:rgb(209, 217, 225); font-weight:400;">Token</span>)</code></pre>
+
+          <p>Tenemos que modificar: <b>region, accessKeyId, secretAccessKey, IdentityPoolId</b> y el objeto <b>Logins</b> para indicar el nombre del conector developer y la cuenta de la que queremos obtener el token.</p>
+
+          <p>En este caso solo obtenemos el <b>token</b> y no el <b>SessionToken</b>, si usamos por ejemplo la librería de Amplify no necesitamos el SessionToken.</p>
+
+          <h2>Obtener token a traves de una lambda con python</h2>
+
+          <p>Para obtener el token desde una lambda de AWS usando python lo hacemos asi:</p>
+
+          <p>Primero en la lambda tenemos que configurar el permiso <b>AmazonCognitoDeveloperAuthenticatedIdentities</b>:</p>
+          <img src="Cognito IDP conector developer/8.png">
+          <img src="Cognito IDP conector developer/9.png">
+
+          <p>Y el código que usamos en la lambda sería:</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(209, 217, 225); font-weight:400;">import boto3
+import json
+
+def <span style="color:rgb(181, 189, 104); font-weight:400;">lambda_handler</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">event</span>, context</span>):
+    <span style="color:rgb(181, 189, 104); font-weight:400;">init_cognito</span>()
+    
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(181, 189, 104); font-weight:400;">get_cognito_user</span>()
+
+def <span style="color:rgb(181, 189, 104); font-weight:400;">init_cognito</span>():
+    <span style="color:rgb(204, 153, 204); font-weight:400;">global</span> client</span>;
+    client = boto3.client(
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;cognito-identity&#x27;</span>
+    )
+    
+<span style="color:rgb(209, 217, 225); font-weight:400;">def <span style="color:rgb(181, 189, 104); font-weight:400;">get_cognito_user</span>():
+    
+    user</span> = client.get_open_id_token_for_developer_identity(
+        IdentityPoolId=<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;us-east-1:1c9ff06a-ec20-4a3f-ac59-e194a13fa067&#x27;</span>,
+        
+        Logins={
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;TiktokIDP&#x27;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;mi-user&#x27;</span>
+        },
+        TokenDuration=<span style="color:rgb(249, 145, 87); font-weight:400;">86400</span>
+    )
+    
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Token&#x27;</span> <span style="color:rgb(204, 153, 204); font-weight:400;">and</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;IdentityId&#x27;</span> <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> user:
+        aws_token = user[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Token&#x27;</span>]
+        identity_id = user[<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;IdentityId&#x27;</span>]
+    <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>:
+        <span style="color:rgb(209, 217, 225); font-weight:400;">raise <span style="color:rgb(181, 189, 104); font-weight:400;">Exception</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Error: cannot get user from Cognito IDP&#x27;</span></span>)
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span></span> {
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;access_token&#x27;</span>: aws_token,
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;identity_id&#x27;</span>: identity_id
+    }</code></pre>
+
+          <h2>Flujo para usar el conector developer con una API externa</h2>
+
+          <p>Si queremos utilizar el IDP con una API como la de tiktok por ejemplo (que no provee autenticación federada), podemos hacerlo con un flujo como el siguiente:</p>
+          <img src="Cognito IDP conector developer/1.jpeg">
+
+          <p>La explicación es la siguiente</p>
+          <ul>
+            <li>Obtenemos un token de acceso de tiktok</li>
+            <li>Enviamos ese token de acceso a una lambda de aws</li>
+            <li>La lambda validará el token contra tiktok</li>
+            <li>Si el token es correcto la lambda solicitará un token de acceso a AWS a traves del conector developer y usando un indentificador único de tiktok como nombre de cuenta</li>
+            <li>La lambda devuelve el token de AWS a la aplicación principal</li>
+            <li>La aplicación principal usará una librería como Amplify para utilizar ese token para poder acceder a los recursos de AWS</li>
+          </ul>
+
+          <p>De esta manera hemos conseguido autenticarnos usando Tiktok en nuestra aplicación a traves del conector developer de cognito a pesar de que Tiktok no tiene una opción de login federado.</p>
         </div>
 
     <div class="t2">Tags</div>
