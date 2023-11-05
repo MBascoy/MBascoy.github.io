@@ -1,0 +1,37 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Twitter API</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar la API de twitter para obtener el feed de una cuenta.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Para obtener el feed con el bearer token lo hacemos con la siguiente solicitud CURL:</p>
+
+            <pre><code>curl -X GET 'https://api.twitter.com/2/users/ID_CUENTA_TWTTER/tweets?tweet.fields=created_at,text,attachments,source' \
+-H "Authorization: Bearer MI_BEARER_TOKEN</code></pre>
+            
+            <p>Cambiamos <b>ID_CUENTA_TWITTER</b> por el id de la cuenta de la que queremos obtener el feed (el id podemos sacarlo con una web como esta: <a href="https://twiteridfinder.com/">https://twiteridfinder.com/</a>)</p>
+            <p>Y cambiamos <b>MI_BEARER_TOKEN</b> por el bearer token de la cuenta de desarrollador.</p>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Twitter | API</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,54 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Tiktok API</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar la API de Tiktok para obtener el feed de una cuenta.</p>
+
+            <p><a href="https://developers.tiktok.com/doc/login-kit-web/#:~:text=Initial%20redirect%20to%20TikTok%27s%20authorization%20page">Tiktok login inicial</a></p>
+
+            <p><a href="https://developers.tiktok.com/doc/oauth-user-access-token-management">Access token tiktok</a></p>
+
+            <p><a href="https://developers.tiktok.com/doc/tiktok-api-v2-video-list/">Get Feed Tiktok</a></p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Para obtener el token con el código de authorización lo hacemos con la siguiente solicitud CURL:</p>
+
+            <pre><code>curl --location --request POST 'https://open.tiktokapis.com/v2/oauth/token/' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--header 'Cache-Control: no-cache' \
+--data-urlencode 'client_key=CLIENT_KEY' \
+--data-urlencode 'client_secret=CLIENT_SECRET' \
+--data-urlencode 'code=MI_CODIGO' \
+--data-urlencode 'grant_type=authorization_code' \
+--data-urlencode 'redirect_uri=https://www.example.com/auth/'</code></pre>
+            
+            <p>Para obtener la lista de videos de la cuenta se hace con la siguiente solicitud CURL:</p>
+            <pre><code>curl -L -X POST 'https://open.tiktokapis.com/v2/video/list/?fields=cover_image_url,id,title' \
+-H 'Authorization: Bearer act.sYXWUPiqep5VPCqR8s9mPnMjr7a1R37qiV4zu60EZLrDSgJo9HWmagDHKtSn!4825' \
+-H 'Content-Type: application/json' \
+--data-raw '{
+    "max_count": 20,
+    "cursor":""
+}'</code></pre>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Tiktok | API</p>
+        </div>
+
+    </body>
+</html>
