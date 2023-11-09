@@ -1,0 +1,81 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Finder crear actions</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como crear <b>Quick Actions</b> para utilizar con los archivos en <b>Finder</b>.</p>
+
+            
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Usaremos <b>Automator</b> para crear las <b>Quick Actions</b>.</p>
+
+            <p>Seguimos los siguientes pasos:</p>
+            <ul>
+                <li>Abrimos <b>Automator</b> y seleccionamos <b>Quick Action</b>:</li>
+                <img src="Finder crear actions/1.png">
+
+                <li>En la parte superior "Workflow receives current" <b>files or folders</b> "in" <b>Finder</b>:</li>
+                <img src="Finder crear actions/2.png">
+
+                <li>En el menu de la izquierda buscamos "open finder" y arrastramos el action <b>Open Finder Items</b> a la zona de actions:</li>
+                <img src="Finder crear actions/3.png">
+
+                <li>Ahora en la seccion que aparece en "Open with" seleccionamos la aplicación con la que queremos abrir el archivo/carpeta seleccionado:</li>
+                <img src="Finder crear actions/4.png">
+
+                <p><b>NOTA:</b> La aplicación tiene que estar en la carpeta <b>"Applications"</b> si no no aparecerá ni siquiera en la opción de "Other"</p>
+
+                <li>Elegimos la App, en este caso usaré el VSCode:</li>
+                <img src="Finder crear actions/5.png">
+
+                <li>En la sección superior en <b>Image</b> podemos elegir un icono personalizado para la accion, en este caso elegiré el de VSCode:</li>
+                <img src="Finder crear actions/6.png">
+
+                <li>Y ahora solo tenemos que irnos a <b>File</b> > <b>Save</b></li>
+                <img src="Finder crear actions/7.png">
+
+                <p>El nombre que le demos al guardar será el nombre que aparecerá en la lista de acciones.</p>
+            </ul>
+
+            <p>Una vez hecho todo esto la accion ya aparecerá en Finder en el menú contextual de <b>Quick Actions</b>:</p>
+            <img src="Finder crear actions/8.png">
+
+            <p><b>NOTA:</b> Las Quick Actions se almacenan en <b>~/Library/Services/</b> si queremos borrarlas tendremos que hacerlo manualmente desde esa carpeta.</p>
+
+        </div>
+
+    <div class="t2">Actions con Shell Script</div>
+        <div class="cont">
+            <p>Si queremos podemos crear Actions que lancen un comando de consola.</p>
+            <p>En este caso crearé una Action que copie la ruta del archivo seleccionado.</p>
+
+            <p>El proceso es igual que el anterior, pero en vez de añadir la Action "Open Finder Items" añadiremos <b>Run Shell Script</b>:</p>
+            <img src="Finder crear actions/9.png">
+
+            <p>Ahora en la configuración de la Action cambiamos arriba a la derecha para indicar "Pass input" <b>as arguments</b>, y ponemos el siguiente código:</p>
+            <code>echo "$1" | tr '\n' '\0' | pbcopy</code>
+            <img src="Finder crear actions/10.png">
+
+            <p>Guardamos y ya tendremos la Quick Action disponible.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Mac OS | actions</p>
+        </div>
+
+    </body>
+</html>
