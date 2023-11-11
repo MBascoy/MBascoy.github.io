@@ -1,0 +1,96 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Delete identity pool identities</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Script para eliminar las identidades quey haya creadas en un identity pool.</p>
+        </div>
+
+      <div class="t2">Script</div>
+        <div class="cont">
+            <p>Tenemos que instalar el siguiente paquete:</p>
+            <code>npm install @aws-sdk/client-cognito-identity</code>
+            
+            <p>Tenemos que cambiar los valores:</p>
+            <ul>
+                <li>REGION</li>
+                <li>ACCESS_KEY</li>
+                <li>SECRET_KEY</li>
+                <li>IDENTITY_POOL_ID</li>
+            </ul>
+
+            <p>El usuario que estemos usando tiene que tener los siguientes permisos:</p>
+            <ul>
+                <li>cognito-identity:ListIdentities</li>
+                <li>cognito-identity:DeleteIdentities</li>
+            </ul>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> { <span class="hljs-title class_">CognitoIdentityClient</span>, <span class="hljs-title class_">ListIdentitiesCommand</span>, <span class="hljs-title class_">DeleteIdentitiesCommand</span> } <span style="color:rgb(204, 153, 204); font-weight:400;">from</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;@aws-sdk/client-cognito-identity&quot;</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> client = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title class_">CognitoIdentityClient</span>({
+  <span style="color:rgb(129, 162, 190); font-weight:400;">region</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;REGION&#x27;</span>,
+  <span style="color:rgb(129, 162, 190); font-weight:400;">credentials</span>: {
+      <span style="color:rgb(129, 162, 190); font-weight:400;">accessKeyId</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;ACCESS_KEY&#x27;</span>,
+      <span style="color:rgb(129, 162, 190); font-weight:400;">secretAccessKey</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;SECRET_KEY&#x27;</span>,
+    }
+});
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">//let nextToken = &quot;&quot;</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">function</span> <span class="hljs-title function_">sleep</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">ms</span>) {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title class_">Promise</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">resolve</span> =&gt;</span> <span style="color:rgb(181, 189, 104); font-weight:400;">setTimeout</span>(resolve, ms));
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">do</span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> input = {
+        <span class="hljs-title class_">IdentityPoolId</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;IDENTITY_POOL_ID&quot;</span>,
+        <span class="hljs-title class_">MaxResults</span>: <span class="hljs-title class_">Number</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">60</span>),
+        <span style="color:rgb(150, 152, 150); font-weight:400;">//NextToken: nextToken ?  nextToken:null,</span>
+    };
+    
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> command = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title class_">ListIdentitiesCommand</span>(input);
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> response = <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> client.<span class="hljs-title function_">send</span>(command);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//nextToken = response.NextToken;</span>
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> idList = []
+    response.<span style="color:rgb(209, 217, 225); font-weight:400;">Identities</span>.<span class="hljs-title function_">forEach</span>( <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">identitie</span> =&gt;</span> {
+        idList.<span class="hljs-title function_">push</span>(identitie.<span style="color:rgb(209, 217, 225); font-weight:400;">IdentityId</span>)
+    })
+        
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(idList[<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>]) <span style="color:rgb(150, 152, 150); font-weight:400;">//Solo para ver que hay progreso</span>
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> inputId = { 
+        <span class="hljs-title class_">IdentityIdsToDelete</span>: idList,
+    };
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> commandId = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title class_">DeleteIdentitiesCommand</span>(inputId);
+    <span style="color:rgb(204, 153, 204); font-weight:400;">try</span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> response = <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> client.<span class="hljs-title function_">send</span>(commandId);
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">catch</span>(err){
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;TOO MANY REQUESTS !!!!&quot;</span>)
+        
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title function_">sleep</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">100</span>);
+
+}
+<span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">true</span>)</code></pre>
+                    
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AWS | Identity pool</p>
+        </div>
+
+    </body>
+</html>
