@@ -1,0 +1,63 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">NetworkManager vs Wicked</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Cambiar entre <b>NetworkManager</b> y <b>Wicked</b> como servicios de gestion de red.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Para cambiar entre un gestor y otro lo hacemos con <b>systemctl</b>:</p>
+
+            <code>systemctl disable NetworkManager.service</code>
+
+            <code>systemctl enable wicked.service</code>
+
+            <p>O viceversa</p>
+        </div>
+
+
+    <div class="t2">Configuracion</div>
+        <div class="cont">
+            <p>En el caso de <b>wicked</b> las configuraciones se almacenan en:</p>
+            <code>/etc/sysconfig/network</code>
+
+            <p>En el caso de <b>NetworkManager</b> en:</p>
+            <code>/etc/NetworkManager/system-connections</code>
+        </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+            <p>En el caso de <b>NetworkManager</b> si no nos detecta ninguna interfaz podemos intentar añadirla manualmente, en caso de que aún así no funcione podemos añadir el siguiente fichero:</p>
+            <p>En la ruta <b>/etc/NetworkManager/conf.d/10-managed-devices.conf</b>:</p>
+
+            <pre><code>[main]
+plugins=ifupdown,keyfile
+
+[keyfile]
+unmanaged-devices=*,except:type:wifi,except:type:wwan,except:type:ethernet
+
+[ifupdown]
+managed=true</code></pre>
+
+            <p>Una vez añadido este archivo podemos intentar añadir de nuevo manualmente una interfaz ethernet.</p>
+
+        </div>
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Network | Manager</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,76 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Configurar VPN</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Instalar y utilizar openVPN.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Para instalar <b>openvpn3</b> podemos seguir las instrucciones de su web:</p>
+            <a href="https://community.openvpn.net/openvpn/wiki/OpenVPN3Linux?_gl=1*1d6eaxg*_ga*MTE4NDk2OTEzNy4xNjk5ODI3NjA5*_ga_SPGM8Y8Y79*MTY5OTgyNzYwOS4xLjEuMTY5OTgyNzYzNC4wLjAuMA..&_ga=2.160695869.1447683723.1699827611-1184969137.1699827609">OpenVPN3 Install</a>
+
+            <p>En resumen (para debian bullseye):</p>
+            <pre><code># mkdir -p /etc/apt/keyrings    ### This might not exist in all distributions
+# curl -sSfL https://packages.openvpn.net/packages-repo.gpg >/etc/apt/keyrings/openvpn.asc
+# echo "deb [signed-by=/etc/apt/keyrings/openvpn.asc] https://packages.openvpn.net/openvpn3/debian DISTRIBUTION main" >>/etc/apt/sources.list.d/openvpn3.list
+# echo "deb [signed-by=/etc/apt/keyrings/openvpn.asc] https://packages.openvpn.net/openvpn3/debian bookworm main" >>/etc/apt/sources.list.d/openvpn3.list
+# apt update
+# apt install openvpn3</code></pre>
+       
+        </div>
+
+    <div class="t2">Comandos basicos</div>
+        <div class="cont">
+            <p>Para conectarnos a una VPN usamos el siguiente comando:</p>
+            <code>openvpn3 session-start --config ARCHIVO_CONFIG_VPN.ovpn</code>
+
+            <p>Para ver las sesiones que tenemos activas:</p>
+            <code>openvpn3 sessions-list</code>
+
+            <p>Para cerrar una sesion abierta:</p>
+            <code>openvpn3 session-manage --session-path SESSION_PATH --disconnect</code>
+        </div>
+
+    <div class="t2">Integración con NetworkManager</div>
+        <div class="cont">
+            <p>Para integrar el uso de VPNs con Network manager instalamos los siguientes paquetes:</p>
+
+            <code>#apt-get install network-manager-openvpn network-manager-openvpn-gnome</code>
+        </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+            <p>Si tenemos problemas con una sesion podemos depurarla con el siguiente comando desde otra terminal:</p>
+            <code>openvpn3 log --log-level 6 --session-path SESSION_PATH</code>
+
+            <h2>Unsupported config directives</h2>
+            <p>Si obtenemos un error como el siguiente:</p>
+            <code>"option_error: sorry, unsupported options present in configuration: UNKNOWN/UNSUPPORTED OPTIONS"</code>
+            
+            <p>Podemos consultar el siguiente archivo para ver si estamos usando directivas de configuración que no están soportadas:</p>
+            <a href="https://support.openvpn.com/hc/article_attachments/17545051570587">Unsupported config directives</a>
+            <p>En el caso de que tengamos directivas no soportadas podemos obtar por borrarlas.</p>
+
+            <h2>NetworkManager en Debian</h2>
+            <p>En debian bullseye hay un error en el plugin network-manager-openvpn que impide integrar vpn cuando necesitan de un login de usuario.</p>
+            <a href="https://www.reddit.com/r/debian/comments/15a3c7f/openvpn_connection_works_in_cli_but_not_in_gui/">Reddit post</a>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Debian | vpn</p>
+        </div>
+
+    </body>
+</html>
