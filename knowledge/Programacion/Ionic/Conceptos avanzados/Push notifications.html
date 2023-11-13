@@ -1,0 +1,195 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Push notifications</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como utilizar <b>push notifications</b> en ionic con <b>firebase</b>.</p>
+
+          <p><a href="https://ionicframework.com/docs/native/push-notifications">Capacitor push notifications</a></p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Partimos de un proyecto base de ionic, primero tenemos que instalar el siguiente plugin de capacitor:</p>
+          <code>npm install @capacitor/push-notifications</code>
+          <code>npx cap sync</code>
+
+          <h2>Crear App Firebase</h2>
+          <p>Creamos un proyecto nuevo de <b>firebase</b>, una vez dentro del proyecto nos vamos a <b>messaging</b>:</p>
+          <img src="Push notifications/1.png">
+
+          <p>Añadimos una App de Android:</p>
+          <img src="Push notifications/2.png">
+
+          <p>Indicamos el nombre del paquete de nuestra App, se encuentra en el archivo build.gradle a nivel de app</p>
+          <img src="Push notifications/3.png">
+
+          <p>Lo indicamos en el proyecto de firebase:</p>
+          <img src="Push notifications/4.png">
+
+          <p>Nos descargamos el archivo <b>google-services.json</b></p>
+          <img src="Push notifications/5.png">
+
+          <p>y lo ponemos a la altura del build.gradle a nivel de app:</p>
+          <img src="Push notifications/6.png">
+
+          <p>El paso de agregar el SDK nos los podemos saltar, porque esto ya lo hace el plugin de ionic por nosotros.</p>
+          <img src="Push notifications/7.png">
+
+          <p>Una vez hecho esto ya podemos crear nuestra primera campaña para enviar notificaciones push:</p>
+          <img src="Push notifications/8.png">
+
+          <p>Pero antes vamos a configurar la aplicación de ionic para que se registre y pueda recibir las notificaiones.</p>
+
+          <h2>Configuración App Ionic</h2>
+
+          <p>Primero añadimos la configuración en el <b>AndroidManifest.xml</b> para indicar el icono que mostraran las notificaciones:</p>
+
+          <pre><code>&lt;meta-data
+    android:name="com.google.firebase.messaging.default_notification_icon" 
+    android:resource="@mipmap/ic_launcher_round"&gt;
+&lt;/meta-data&gt;</code></pre>
+
+          <p>Este código lo colocamos dentro de la etiqueta <b>application</b>:</p>
+          <img src="Push notifications/9.png">
+
+          <p><b>NOTA:</b> en las versiones mas recientes de Android el icono se muestra como silueta, por lo tanto no veremos la imagen en si, solo la silueta.</p>
+
+          <p>A continuación añadimos en el mismo sitio (archivo AndroidManifest.xml y dentro del tag applications) la configuración para añadir un canal por defecto para las notificaciones push:</p>
+
+          <pre><code>&lt;meta-data
+    android:name="com.google.firebase.messaging.default_notification_channel_id"
+    android:value="MY_CHANNEL_NAME"&gt;
+&lt;/meta-data&gt;</code></pre>
+
+          <img src="Push notifications/10.png">
+
+          <p><b>MY_CHANNEL_NAME</b> es el nombre del canal al que asignamos el canal por defecto</p>
+
+          <p>Este canal por defecto entra en funcionamiento en el caso de que en la notificación no se haya indicado ningun canal concreto.</p>
+
+          <p>En el archivo app.component.ts ponemos el siguiente código para añadir los listeners y solicitar permisos para recibir notificaciones.</p>
+
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span class="hljs-title function_">ngOnInit</span>(): <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">addListeners</span>()
+
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">registerNotifications</span>()
+
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getDeliveredNotifications</span>()
+  }
+
+  addListeners = <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> () =&gt; {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title class_">PushNotifications</span>.<span class="hljs-title function_">addListener</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;registration&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">token</span> =&gt;</span> {
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Registration token: &#x27;</span>, token.<span style="color:rgb(209, 217, 225); font-weight:400;">value</span>);
+    });
+  
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title class_">PushNotifications</span>.<span class="hljs-title function_">addListener</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;registrationError&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">err</span> =&gt;</span> {
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Registration error: &#x27;</span>, err.<span style="color:rgb(209, 217, 225); font-weight:400;">error</span>);
+    });
+  
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title class_">PushNotifications</span>.<span class="hljs-title function_">addListener</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;pushNotificationReceived&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">notification</span> =&gt;</span> {
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Push notification received: &#x27;</span>, notification);
+    });
+  
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title class_">PushNotifications</span>.<span class="hljs-title function_">addListener</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;pushNotificationActionPerformed&#x27;</span>, <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(209, 217, 225); font-weight:400;">notification</span> =&gt;</span> {
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;Push notification action performed&#x27;</span>, notification.<span style="color:rgb(209, 217, 225); font-weight:400;">actionId</span>, notification.<span style="color:rgb(209, 217, 225); font-weight:400;">inputValue</span>);
+    });
+  }
+  
+  registerNotifications = <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> () =&gt; {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">let</span> permStatus = <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title class_">PushNotifications</span>.<span class="hljs-title function_">checkPermissions</span>();
+  
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (permStatus.<span style="color:rgb(209, 217, 225); font-weight:400;">receive</span> === <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;prompt&#x27;</span>) {
+      permStatus = <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title class_">PushNotifications</span>.<span class="hljs-title function_">requestPermissions</span>();
+    }
+  
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (permStatus.<span style="color:rgb(209, 217, 225); font-weight:400;">receive</span> !== <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;granted&#x27;</span>) {
+      <span style="color:rgb(204, 153, 204); font-weight:400;">throw</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title class_">Error</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;User denied permissions!&#x27;</span>);
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title class_">PushNotifications</span>.<span class="hljs-title function_">createChannel</span>({<span style="color:rgb(129, 162, 190); font-weight:400;">id</span>:<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;MY_CHANNEL_NAME&quot;</span>,<span style="color:rgb(129, 162, 190); font-weight:400;">name</span>:<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;DEFAULT_CHANNEL&quot;</span>, <span style="color:rgb(129, 162, 190); font-weight:400;">importance</span>:<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>})
+  
+    <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title class_">PushNotifications</span>.<span class="hljs-title function_">register</span>();
+  }
+  
+  getDeliveredNotifications = <span style="color:rgb(204, 153, 204); font-weight:400;">async</span> () =&gt; {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">const</span> notificationList = <span style="color:rgb(204, 153, 204); font-weight:400;">await</span> <span class="hljs-title class_">PushNotifications</span>.<span class="hljs-title function_">getDeliveredNotifications</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;delivered notifications&#x27;</span>, notificationList);
+  }</code></pre>
+
+          <p>En la funcion <b>registerNotifications</b> al crear el canal tenemos que indicar el mismo nombre que indicamos al configurar el canal por defecto <b>MY_CHANNEL_NAME</b> en este caso, otro aspecto importante del canal es que podemos indicar el <b>importance</b> que tendrán las notificaciones de este canal, podemos consultar los diferentes <a href="https://ionicframework.com/docs/native/push-notifications#importance">tipos de importance en esta página</a>.</p>
+          
+          <p>En este punto ya podemos crear una campaña desde firebase para enviar notificaciones push.</p>
+
+          <h2>Crear campaña en firebase</h2>
+          <p>Desde la interfaz de firebase en el apartado <b>messaging</b> que configuramos previamente hacemos click en <b>Crear la primera campaña</b>:</p>
+          <img src="Push notifications/11.png">
+
+          <p>Seleccionamos <b>Mensajes de Firebase Notifications</b>:</p>
+          <img src="Push notifications/12.png">
+
+          <p>En la siguiente pantalla podemos crear una campaña para enviar notificaciones push pero tambien nos permite hacer pruebas.</p>
+          <p>Ponemos un titulo de mensaje y un mensaje y le damos a <b>Enviar mensaje de prueba</b>:</p>
+          <img src="Push notifications/13.png">
+
+          <p>Al enviar un mensaje de prueba se nos pedirá el token del dispositivo al que queremos mandar el mensaje, cuando creamos una campaña se manda a todos los dispositivos, pero en el modo de prueba tenemos que indicar a que dispositivo concreto.</p>
+          <p>El token del dispositivo lo podemos sacar de la salida de la consola de la App movil (en el código de arriba está puesto para que al registrarse se muestre el token):</p>
+          <img src="Push notifications/14.png">
+
+          <p>Introducimos el token en la interfaz y le damos a <b>Probar</b>:</p>
+          <img src="Push notifications/15.png">
+
+          <p>En este momento recibiremos la notificación push SOLO si tenemos la App cerrada:</p>
+          <img src="Push notifications/16.png">
+
+          <p>Si tenemos la App abierta la notificación la veremos por consola:</p>
+          <img src="Push notifications/17.png">
+
+          <p>Mas adelante muestro la configuración para que la notificación se muestre igualmente aunque la App esté abierta.</p>
+
+          <p>Una vez verificamos con la prueba que las notificaciones funcionan podemos terminar de crear la campaña:</p>
+
+          <p>En la siguiente sección podemos indicar que segmento recibirá la notificación (si tenemos google analytics activado podemos hacer filtros bastante concretos) en este caso simplemente se la mandaremos a todos los que tengan la App:</p>
+          <img src="Push notifications/18.png">
+
+          <p>Indicamos en que momento se enviará la notificación:</p>
+          <img src="Push notifications/19.png">
+
+          <p>En esta ultima sección podemos indicar un canal concreto al que queramos enviar la notificación, en este caso vamos a dejarlo vacio así la notificación será manejada por el canal por defecto que hemos configurado.</p>
+          <img src="Push notifications/20.png">
+
+          <p><b>NOTA:</b> por defecto el sonido viene "inhabilitado" pero por lo que yo he probado, aunque lo dejes así las notificaciones suenan igual.</p>
+
+        </div>
+        
+      <div class="t2">Mostrar notificaciones con la App abierta</div>
+        <div class="cont">
+          <p>Si queremos que las notificaciones se muestren cuando la App está abierta tenemos que realizar las siguientes configuraciones:</p>
+
+          <p>Archivo <b>capacitor.config.ts</b>:</p>
+
+          <pre><code>  plugins: {
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"],
+    },
+  }</code></pre>
+
+          <img src="Push notifications/21.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Ionic | Push notifications | Firebase </p>
+        </div>
+
+    </body>
+</html>
