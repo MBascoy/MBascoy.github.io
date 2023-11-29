@@ -1,0 +1,73 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Lazy-load modules</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como usar <b>Lazy-load modules</b> para evitar que se cargue toda la página al cargar la página inicial, y que se vaya cargando progresivamente a medida que navegadmos.</p>
+
+          <p><a href="https://angular.io/guide/lazy-loading-ngmodules#lazy-loading-feature-modules">Página referencia Lazy-loading</a></p>
+        </div>
+
+    <div class="t2">Explicación</div>
+        <div class="cont">
+            <p>Por defecto cuando creamos un proyecto de angular se utiliza un routing normal para los componentes, dentro del archivo <b>app-routing.module.ts</b> tenemos todas las rutas a los componentes a los que puede navegar nuetra aplicación, esto hace que tan pronto carguemos la página principal se carguen todos los componentes de la aplicación.</p>
+
+            <p>Ejemplo:</p>
+            <img src="Lazy-load modules/1.png">
+
+            <p>Para comprobar que todos los modulos se carga al abrir la página inicial podemos hacerlo con el inspector de chrome:</p>
+            <img src="Lazy-load modules/2.png">
+
+            <p>Al hacer click en el botón de "Menu" o "Users" podemos ver en la pestaña de <b>Network</b> que no se realiza ninguna petición, porque esos dos componentes ya están cargados.</p>
+
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont"> 
+            <p>Para hacer que los componentes se carguen progresivamente usaremos el <b>Lazy-load</b>.</p>
+
+            <p>Generamos un modulo que se cargará solo cuando se llame la ruta del mismo, y se cargarán todos los componentes que haya dentro de ese modulo.</p>
+            
+            <p>Lo hacemos con el siguiente comando:</p>
+            <code>ng generate module lazy1 --route lazy1 --module app.module</code>
+
+            <p>Este comando añadirá la ruta del modulo en el <b>app-routing.module.ts</b> y generará la carpeta del modulo con un componente principal y su propio archivo de routing</p>
+
+            <p>app-routing.module.ts:</p>
+            <img src="Lazy-load modules/3.png">
+
+            <p>Si queremos podemos añadir un componente a mayores dentro del nuevo modulo</p>
+
+            <code>ng generate component lazy1/lazy2</code>
+
+            <p>La lista de archivos con todo generado queda asi:</p>
+            <img src="Lazy-load modules/4.png">
+
+            <p>Dentro del archivo de rutas de lazy1 (lazy1-routing.module.ts) tenemos que configurar la ruta para el componente lazy2</p>
+            <img src="Lazy-load modules/5.png">
+
+            <p>Tanto el componente lazy1 como el componente lazy2 se cargarán (ambos), cuando se acceda a uno de los dos, ya que están dentro del mismo modulo y se hace un lazy-load de ese modulo</p>
+
+            <p>Podemos comprobarlo desde el inspector de chrome:</p>
+            <img src="Lazy-load modules/6.png">
+
+            <p>Solo se hace una petición cuando pulsamos en "Lazy1" o "Lazy2", Y solo la primera vez, una vez cargado el modulo ya no se hacen mas peticiones.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Lazy-load | Routing</p>
+        </div>
+
+    </body>
+</html>
