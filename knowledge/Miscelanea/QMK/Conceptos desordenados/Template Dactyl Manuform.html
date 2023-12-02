@@ -16,7 +16,7 @@
                 <li>QMK Firmware 0.16.9</li>
                 <li>commit: d9737349769a8bd2198733a81c1c74bd7db82c3a</li>
 
-                <b>NUEVO</b>
+                <b>NUEVO (no recomendable, mejor la 0.16.9)</b>
                 <li>QMK Firmware 1.1.2</li>
                 <li>commit: f07490bc092e365ba03dc685b3fc30ad0bf0b752</li>
             </ul>
@@ -24,7 +24,19 @@
             <p>Podemos usar dos comandos distintos para compilar y flashear el firmware (básicamente los dos hacen los mismo);</p>
             <ul>
                 <li>qmk flash -kb handwired/dactyl_manuform/5x6 -km Alfa-Omega</li>
+                <li>make handwired/dactyl_manuform/5x6:Alfa-Omega:flash</li>
             </ul>
+
+            <h2>Notas Compilación</h2>
+            <p>Al movernos a un commit antiguo podemos obtener un mensaje de submodulos de git no actualizados:</p>
+            <img src="Template Dactyl Manuform/1.png">
+
+            <p>La etiqueta <b>(nuevos commits)</b> al lado de los cambios indica que es un submodulo de git, en este caso podemos borrar dichas carpetas y despues hacer un <b>"git restore ."</b></p>
+            <p>Una vez hecho esto tendremos que lanzar el siguiente comando, para regenerar los submodulos:</p>
+            <code>make git-submodule</code>
+
+            <p>Una vez hecho esto al hacer "git status" deberíamos de tener el commit limpio sin ningún cambio.</p>
+            <p>A partir de aqui podemos guardar las configuraciones siguientes y hacer el flasheo del teclado.</p>
         </div>
 
     <div class="t2">dactyl_manuform/5x6/config.h</div>
