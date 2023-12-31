@@ -1,0 +1,38 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Config strict SSL</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como configurar npm para que no sea estricto con los certificados SSL</p>
+
+          <p>A veces al intentar instalar un paquete con npm podemos obtener un error como:</p>
+          <code>UNABLE_TO_GET_ISSUER_CERT_LOCALLY</code>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Para solucionar este problema tenemos que configurar npm para que no sea stricto con los certificados ssl:</p>
+
+          <code>npm config set strict-ssl false</code>
+
+          <p>y a mayores tenemos que usar la URL del repositorio con <b>http</b> en vez de https</p>
+
+          <p>Tanto la URL del repositorio como la configuración de strict-ssl la podemos cambiar en el archivo <b>.npmrc</b> (en la carpeta del usuario)</p>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>npm | SSL | strict</p>
+        </div>
+
+    </body>
+</html>
