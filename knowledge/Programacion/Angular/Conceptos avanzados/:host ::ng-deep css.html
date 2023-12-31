@@ -1,0 +1,62 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">:host ::ng-deep css</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como usar los selectores <b>:host</b> y <b>::ng-deep</b> para acceder al css de componentes en angular</p>
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <h2>:host</h2>
+            <p>El selector <b>:host</b> se utiliza para hacer referencia al propio componente en el que estamos, lo utilizamos asi:</p>
+
+            <pre>
+              <code>:host {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+</code>
+            </pre>
+
+            <p>De esta manera todos los estilo que pongamos se aplicaran directamente sobre la etiqueta de nuestro componente</p>
+
+            <h2>::ng-deep</h2>
+            <p>El selector <b>::ng-deep</b> se usa para acceder a selectores (clases) internas de un componente.</p>
+            <p>Normalmente tendremos que limitarlo a dentro de una etiqueta o clase concreta, si no se aplicará a lo largo de toda la aplicación, se usa asi:</p>
+
+            <pre><code>.scroll-viewport ::ng-deep .cdk-virtual-scroll-content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}</code></pre>
+
+            <p>En este caso estamos aplicando estilos a la clase <b>.cdk-virtual-scroll-content-wrapper</b> que está dentro de un componente con la clase <b>.scroll-viewport</b>, esta última clase es nuestra, pero la primera es interna a un componente al que no tenemos acceso </p>
+
+            <p>En este caso concreto el componente es el siguiente:</p>
+            <code>&lt;cdk-virtual-scroll-viewport itemSize="50" class="scroll-viewport"&gt;&lt;/cdk-virtual-scroll-viewport&gt;</pre></code>
+
+            <p>La clase <b>.cdk-virtual-scroll-content-wrapper</b> está dentro de dicho componente, para saber el nombre de esta clase solo podemos verlo al ejecutar la aplicación y acceder desde el inspector del navegador, así podremos usar <b>::ng-deep</b> para poder modificar las clases que hay dentro de componentes a los que no tenemos acceso directamente.</p>
+          </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | css | selectors</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,49 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Llamar a función de componente hijo</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Llamar a una función de un componente hijo directamente desde el componente padre.</p>
+
+          <p><b>NOTA:</b> Normalmente este no es recomendable, ya que haces que el padre sea dependiente del hijo</p>
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Los pasos son los siguientes:</p>
+            <ul>
+              <li>Declarar Viewchild en el componente padre</li>
+              <li>En el template del padre usar una anotación # para hacer referencia al componente hijo</li>
+              <li>Declarar una funcion en el componente hijo</li>
+              <li>Llamar a la función desde el componente padre</li>
+            </ul>
+
+            <p>En el componente hijo tendríamos el siguiente código:</p>
+            <img src="Llamar a función de componente hijo/1.png">
+
+            <p>En el template del componente padre tendremos el siguiente código:</p>
+            <img src="Llamar a función de componente hijo/2.png">
+
+            <p>Y en el componente del padre tendríamos el siguiente código:</p>
+            <img src="Llamar a función de componente hijo/3.png">
+
+            <p>En el componente padre usamos ViewChild para conseguir la referencia al componente hijo, Despues solo usamos esta referencia para llamar a la función del componente hijo.</p>
+          </div>
+
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | css | selectors</p>
+        </div>
+
+    </body>
+</html>
