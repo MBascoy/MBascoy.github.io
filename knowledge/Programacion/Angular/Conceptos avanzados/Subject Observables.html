@@ -1,0 +1,73 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Subject Observables</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Los observables de tipo <b>subject</b> los podemos utilizar como observables customizados para enviar la información que nosotros queramos</p>
+
+          <a href="https://angular.io/guide/rx-library#subject">Referencia Angular</a>
+
+          <a href="https://github.com/MBascoy/Angular-Examples/tree/main/SubjectExample">Ejemplo de código</a>
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+            <p>Para ejemplificar el uso de <b>subjects</b> usaremos un proyecto de ejemplo con lo siguiente:</p>
+
+            <ul>
+              <li>Un componente principal</li>
+              <li>Dos subcomponentes, uno se comunicará con el otro usando el subject</li>
+              <li>Un servicio, que manejará el subject</li>
+            </ul>
+
+            <p>En el servicio declaramos el subject y una función que enviará eventos a todos los que estén suscritos al observable que genera el subject:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> messageSubject = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title class_">Subject</span>&lt;<span style="color:rgb(181, 189, 104); font-weight:400;">string</span>&gt;();
+
+  messages$ = <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">messageSubject</span>.<span class="hljs-title function_">asObservable</span>();
+
+  <span class="hljs-title function_">sendMessage</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">message: <span style="color:rgb(181, 189, 104); font-weight:400;">string</span></span>){
+    <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">messageSubject</span>.<span class="hljs-title function_">next</span>(message)
+  }</code></pre>
+
+            <p>En uno de los subcomponentes nos suscribimos al subject:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span style="color:rgb(129, 162, 190); font-weight:400;">messageDisplay</span>: <span style="color:rgb(181, 189, 104); font-weight:400;">string</span> = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>
+  
+  <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> mySubjectService: MySubjectService
+  </span>)
+  {}
+
+  <span class="hljs-title function_">ngOnInit</span>(): <span style="color:rgb(181, 189, 104); font-weight:400;">void</span> {
+    <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">mySubjectService</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">messages$</span>.<span class="hljs-title function_">subscribe</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(209, 217, 225); font-weight:400;">message</span>) =&gt;</span> <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">messageDisplay</span> = message)
+  }</code></pre>
+
+            <p>Y en el otro subcomponente usamos la función del servicio para enviar un evento al observable del subject:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> mySubjectService: MySubjectService
+  </span>)
+  {}
+
+  <span class="hljs-title function_">sendMessage</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>){
+    <span class="hljs-variable language_">this</span>.<span style="color:rgb(209, 217, 225); font-weight:400;">mySubjectService</span>.<span class="hljs-title function_">sendMessage</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;holas&quot;</span>)
+  }</code></pre>
+
+            <p>En el segundo subcomponente tenemos un botón que llama a la función <b>sendMessage</b> del ts, y en el primer subcomponente en el template se muestra directamente el contenido de la variable <b>messageDisplay</b>.</p>
+
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | subject | observable</p>
+        </div>
+
+    </body>
+</html>

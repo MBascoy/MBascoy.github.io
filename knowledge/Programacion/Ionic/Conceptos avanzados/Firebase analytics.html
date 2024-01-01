@@ -1,0 +1,62 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Firebase analytics</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como utilizar <b>analytics</b> en ionic con <b>firebase</b>.</p>
+
+          <p><a href="https://github.com/capacitor-community/firebase-analytics">Capacitor firebase analytics</a></p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Partimos de un proyecto base de ionic, primero tenemos que instalar el siguiente plugin de capacitor:</p>
+          <code>npm install @capacitor-community/firebase-analytics</code>
+          <code>npx cap sync</code>
+
+          <p>Para enviar un eventos podemos usar simplemente la funcion <b>logEvent</b> asi:</p>
+          <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">await</span> FirebaseAnalytics.logEvent({
+  name: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Mi_evento_custom&quot;</span>,
+  <span style="color:rgb(204, 153, 204); font-weight:400;">params</span>: {}
+}).<span style="color:rgb(204, 153, 204); font-weight:400;">catch</span>(err =&gt; console.log(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ERROR LOG: &quot;</span>, err ));</code></pre>
+
+        </div>
+
+    <div class="t2">Funcionamiento eventos en modo normal y modo depuración</div>
+        <div class="cont">
+            <p>Los eventos que enviamos al analytics cuando estamos en modo depuración se hacen directamente desde la aplicación, podemos ver el trafico de red que se genera al enviar un eventos</p>
+
+            <p>Sin embargo cuando no estamos en modo depuración los eventos no se envían directamente desde la applicación, los eventos se envían al servicio de <b>Google Service</b> del propio telefono (mediante un API local) y despues es el propio servicio de google el que decide cuando enviar esos eventos de manera aislada a la applicación</p>
+
+            <p>Por lo tanto cuando enviamos eventos de manera normal no podemos capturarlos como trafico de red, ya que son gestionados por el Google service.</p>
+        </div>
+
+    <div class="t2">Depurar Analytics</div>
+        <div class="cont">
+          <p>Habilitar depuración:</p>
+          <code>adb shell setprop debug.firebase.analytics.app NOMBRE_PAQUETE</code>
+
+          <p>Para deshabilitar:</p>
+          <code>adb shell setprop debug.firebase.analytics.app .none.</code>
+
+          <p>Comandos para depurar el envío de eventos:</p>
+          <pre><code>adb shell setprop log.tag.FA VERBOSE
+adb shell setprop log.tag.FA-SVC VERBOSE
+adb logcat -v time -s FA FA-SVC</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Ionic | Analytics | Firebase </p>
+        </div>
+
+    </body>
+</html>
