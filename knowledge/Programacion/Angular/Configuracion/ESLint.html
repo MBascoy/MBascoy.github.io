@@ -1,0 +1,124 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">ESLint</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como configurar <b>ESLint</b> en un proyecto de angular</p>
+
+          <p>NOTA: <b>ES</b> es acrónimo de <b>EcmaScript</b> este linter solo es para código JavaScrip/TypeScript</p>
+        </div>
+
+    <div class="t2">Instalación paquetes</div>
+        <div class="cont">
+            <p>Partiendo de un proyecto base de Angular lanzamos el siguiente comando:</p>
+            <code>ng lint</code>
+
+            <p>Este comando normalmente lanzará el linter para hacer las comprobaciones, pero al partir de un proyecto nuevo nos preguntará si queremos instalar una serie de paquetes</p>
+
+            <p>En el <b>package.json</b> deberíamos de ver los siguientes paquetes (los relacionados con el eslint) en la lista:</p>
+
+            <img src="ESLint/1.png">
+
+            <p>En el archivo <b>angular.json</b>, deberíamos de ver la siguiente configuración:</p>
+            <img src="ESLint/2.png">
+
+        </div>
+
+    <div class="t2">Configuración</div>
+        <div class="cont">
+            <p>Añadimos la siguiente configuración en el archivo <b>.eslintrc.json</b>:</p>
+
+            <p>Esta es una configuración personalizada que incluye:</p>
+            <ul>
+                <li>Comprobación de la indentación</li>
+                <li>Comprobación de punto y coma al final</li>
+                <li>Comprobación de que las funciones tengan un tipo de dato explicito en su respuesta</li>
+            </ul>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">{
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;root&quot;</span>: true,
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;ignorePatterns&quot;</span>: [
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;projects/**/*&quot;</span>
+  ],
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;extends&quot;</span>:[],
+  <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;overrides&quot;</span>: [
+    {
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;files&quot;</span>: [
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;*.ts&quot;</span>,
+      ],
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;extends&quot;</span>: [
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;eslint:recommended&quot;</span>,
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;plugin:@typescript-eslint/recommended&quot;</span>,
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;plugin:@angular-eslint/recommended&quot;</span>,
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;plugin:@angular-eslint/template/process-inline-templates&quot;</span>
+      ],
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;rules&quot;</span>: {
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;semi&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;error&quot;</span>],
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;indent&quot;</span>: [<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;error&quot;</span>],
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;@typescript-eslint/explicit-module-boundary-types&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;error&quot;</span>,
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;@angular-eslint/directive-selector&quot;</span>: [
+          <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;error&quot;</span>,
+          {
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;type&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;attribute&quot;</span>,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;prefix&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;app&quot;</span>,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;style&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;camelCase&quot;</span>
+          }
+        ],
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;@angular-eslint/component-selector&quot;</span>: [
+          <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;error&quot;</span>,
+          {
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;type&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;element&quot;</span>,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;prefix&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;app&quot;</span>,
+            <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;style&quot;</span>: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;kebab-case&quot;</span>
+          }
+        ]
+      }
+    },
+    {
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;files&quot;</span>: [
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;*.html&quot;</span>
+      ],
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;extends&quot;</span>: [
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;plugin:@angular-eslint/template/recommended&quot;</span>,
+        <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;plugin:@angular-eslint/template/accessibility&quot;</span>
+      ],
+      <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;rules&quot;</span>: {}
+    }
+  ]
+}</code></pre>
+        </div>
+
+    <div class="t2">Ejecución y notas</div>
+        <div class="cont">
+        <p>Una vez tenemos todo ejecutado podemos ver los errores de dos maneras:</p>
+        
+        <p>Ejecutando el siguiente comando:</p>
+        <code>ng lint</code>
+
+        <p>Nos dará un listado de los archivos y en que linea tienen un fallo, si queremos tambien podemos lanzar el comando para que arregle todos los fallos posibles con la opción --fix:</p>
+        <code>ng lint --fix</code>
+
+        <p>El otro metodo es con el plugin <b>ESLint</b> para VSCode, este plugin nos marcará directamente los errores en rojo en el propio editor.</p>
+
+        <h2>Notas</h2>
+        <p>ESLint no usa el archivo <b>.editorconfig</b>, este es un archivo genérico de formato que pueden usar diversos programas, pero en este caso no, por lo tanto podemos tener información incongruente entre este archivo y el <b>.eslintrc.json</b>.</p>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>ESLint | configuracion</p>
+        </div>
+
+    </body>
+</html>
