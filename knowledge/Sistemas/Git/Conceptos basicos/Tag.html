@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Tag</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como utilizar git tag para aplicar una etiqueta sobre un commit.</p>
+            <p>En ocasiones esto se puede utilizar en una pipeline para disparar el proceso de despliegue</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+            <p>Para aplicar un tag al commit actual lo hacemos de la siguiente manera:</p>
+            <code>git tag -a v0.1.0 -m "Version 0.1.0"</code>
+
+            <p>Si queremos borrar el tag sería:</p>
+            <code>git tag -d v0.1.0</code>
+
+            <h2>Listar tags</h2>
+            <p>Para listar los tags creados lo hacemos con:</p>
+            <code>git tag</code>
+
+            <p>Tambien podemos hacer un <b>git log</b> y ver a que commits están asociados los tags:</p>
+
+            <img src="Tag/1.png">
+
+            <h2>Subir tag a repositorio</h2>
+            <p>Cuando subimos una rama a un repositorio remoto los tags no se suben, tenemos que hacerlo de manera explicita.</p>
+            <p>Lo haríamos de la siguiente manera:</p>
+            <code>git push origin v0.1.0</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Git | tag</p>
+        </div>
+
+    </body>
+</html>

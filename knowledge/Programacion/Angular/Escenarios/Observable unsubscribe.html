@@ -1,0 +1,119 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Observable unsubscribe</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Como manejar un array de observable para dessubscribirse cuando se destruye el componente.</p>
+
+        </div>
+
+        <div class="t2">Unsubscribe onDestroy</div>
+            <div class="cont">
+                <p>Los pasos son los siguientes:</p>
+                <ul>
+                    <li>Declaramos un array de tipo Subscription[]</li>
+                    <li>Llenamos el array con los observables</li>
+                    <li>Llamamos a onDestroy para dessubscribirse de todos los observables del array</li>
+                </ul>
+
+                <p>A continuación un ejemplo:</p>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">export <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">OptionsButtonsComponent</span> <span style="color:rgb(181, 189, 104); font-weight:400;">implements</span> <span style="color:rgb(181, 189, 104); font-weight:400;">OnInit</span> {
+  highlightHistory:boolean = <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+  highlightTemplates:boolean = <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>;
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> subscriptions: Subscription[] = [];
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">constructor</span>(
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> optionsMenuService: OptionsMenuService,
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> optionsButtonsService: OptionsButtonsService
+    ) {}
+
+  ngOnInit(): void {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.setSubscriptions();
+  }
+
+  setSubscriptions() {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.subscriptions = [
+      <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.optionsButtonsService.templatesHighlight$.subscribe(() =&gt;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.setHighlightTemplates(),
+      ),
+      <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.optionsButtonsService.historyHighlight$.subscribe(() =&gt;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.setHighlightHistory(),
+      ),
+      <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.optionsButtonsService.noneHighlight$.subscribe(() =&gt;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.setHighlightNone(),
+      )
+    ];
+  }
+
+  toggleTemplates() {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.optionsMenuService.toggleTemplatesSideNav();
+  }
+
+  toggleHistory() {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.optionsMenuService.toggleHistorySideNav();
+  }
+
+  setHighlightHistory(){
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.highlightHistory = <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.highlightTemplates = <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>
+  }
+
+  setHighlightTemplates(){
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.highlightTemplates = <span style="color:rgb(204, 153, 204); font-weight:400;">true</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.highlightHistory = <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>
+  }
+
+  setHighlightNone(){
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.highlightTemplates = <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.highlightHistory = <span style="color:rgb(204, 153, 204); font-weight:400;">false</span>
+  }
+
+  ngOnDestroy() {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">const</span> subscription of <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
+}</code></pre>
+            </div>
+
+        <div class="t2">Alternativa con DestroyRef</div>
+            <div class="cont">
+                <p>Podemos usar el servicio <b>DestroyRef</b> para programa el unsubscribe directamente en el momento en el que nos subscribimos:</p>
+
+                <p>En el construcitr inyectamos el servicio <b>DestroyRef</b>:</p>
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span class="hljs-title function_">constructor</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> destroyRef: DestroyRef,
+  </span>) { }</code></pre>
+
+                <p>Cuando nos subscribimos a un observable usamos un pipe de la siguiente manera:</p>
+                <code>.pipe(takeUntilDestroyed(this.destroyRef))</code>
+
+                <p>Un ejemplo completo del subscribe es el siguiente (en este caso es un observable sobre los cambios de un formGroup):</p>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.categoryFormGroup
+        .<span style="color:rgb(204, 153, 204); font-weight:400;">get</span>(family.id).valueChanges
+        .pipe(takeUntilDestroyed(<span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.destroyRef))
+        .subscribe((checkboxState) =&gt; {
+          <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.categoryPanel.setCategoriesFromFamilies(family.id, checkboxState);
+          <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.validateStep();
+        });</code></pre>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Observable | subscription </p>
+        </div>
+
+    </body>
+</html>
