@@ -1,0 +1,37 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Heap out of memory</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+          <p>Al ejecutar un proyecto podemos obtener el siguiente error:</p>
+
+          <code>FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory</code>
+
+          <img src="Heap out of memory/1.png">
+
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+            <p>Para solucionar el error antes de ejecutar el proyecto (ng serve or npm run start) tenemos que establecer la siguiente variable de entorno:</p>
+
+            <code>export NODE_OPTIONS="--max-old-space-size=8192"</code>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Heap | configuracion</p>
+        </div>
+
+    </body>
+</html>
