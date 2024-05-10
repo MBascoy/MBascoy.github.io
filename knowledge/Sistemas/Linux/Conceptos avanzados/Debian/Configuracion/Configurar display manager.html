@@ -31,6 +31,28 @@
 
         </div>
 
+    <div class="t2">Lightdm configurar desktop environment</div>
+        <div class="cont">
+            <p>Para seleccionar el <b>Desktop environment</b> que se va a lanzar (gnome, xfce, kde...etc) podemos hacerlo desde la propia interfaz grafica de <b>lightdm</b> arriba a la derecha:</p>
+            <img src="Configurar display manager/1.jpg">
+
+            <p>Si queremos hacer el cambio desde el archivo de configuración se hace en el siguiente archivo:</p>
+            <code>~/.dmrc</code>
+
+            <p>El contenido del archivo es el siguiente para <b>xfce</b>:</p>
+            <pre><code>[Desktop]
+Session=xfce</code></pre>
+
+            <p>Para <b>Gnome</b>:</p>
+            <pre><code>[Desktop]
+Session=gnome</code></pre>
+
+            <p>Para <b>Gnome classic</b>:</p>
+            <pre><code>[Desktop]
+Session=gnome-classic</code></pre>
+
+        </div>
+
     <div class="t2">Tags</div>
         <div class="cont">
         <p>Debian | display manager | gdm | lightdm</p>

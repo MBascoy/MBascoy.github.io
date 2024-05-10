@@ -1,0 +1,44 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Lightdm cambiar greeter</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Cambiar greeter de lightdm para cambiar la pantalla de login.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Para cambiar el greeter tenemos que cambiar la siguiente linea de configuración en el archivo <b>/etc/lightdm/lightdm.conf</b>:</p>
+
+            <code>greeter-session=lightdm-gtk-greeter</code>
+
+            <img src="Lightdm cambiar greeter/1.png">
+
+            <p>Algunos de los greeters que podemos indicar en la configuración son los siguienes</p>
+
+            <ul>
+                <li><b>lightdm-gtk-greeter</b> (viene por defecto)</li>
+                <li><b>ukui-greeter</b> (se instala con: apt-get install ukui-greeter)</li>
+                <li><b>slick-greeter</b> (se instala con: apt-get install slick-greeter)</li>
+                <li><b>arctica-greeter</b> (se instala con: apt-get install arctica-greeter)</li>
+            </ul>
+
+            <p><b>NOTA:</b> para usar el lector de huellas el que mejor funciona es el <b>gtk-greeter</b>, despues el <b>arctica</b> funciona bastante bien, y los otros funcionan fatal.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Debian | lightdm | greeter</p>
+        </div>
+
+    </body>
+</html>

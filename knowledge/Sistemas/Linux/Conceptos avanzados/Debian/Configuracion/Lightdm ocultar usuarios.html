@@ -1,0 +1,49 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Lightdm ocultar usuarios</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Ocultar usuarios del listado cuando vamos a hacer login.</p>
+
+          <img src="Lightdm ocultar usuarios/1.jpg">
+          <p>En este caso queremos ocultar el usuario <b>citrixlog</b></p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Para ocultar usuarios en el listado tenemos que hacer lo siguiente:</p>
+
+            <p>Nos vamos a la carpeta <b>/var/lib/AccountsService/users/</b> aqui dentro creamos un archivo con el nombre del usuario que queremos ocultar, <b>citrixlog</b> en nuestro caso, y añadimos dentro el siguiente contenido:</p>
+
+            <pre><code>[User]
+SystemAccount=true</code></pre>
+
+            <p>Podemos hacerlo directamente con este comando:</p>
+            <code>sudo bash -c "echo -e [User]\\\\nSystemAccount=true > /var/lib/AccountsService/users/citrixlog"</code>
+
+            <p>Una vez hecho esto el usuario ya no saldra en la lista al hacer login.</p>
+        </div>
+
+    <div class="t2">Aclaracion</div>
+        <div class="cont">
+            <p>En el archivo <b>/etc/lightdm/users.conf</b> tenemos la siguiente linea:</p>
+            <img src="Lightdm ocultar usuarios/2.png">
+            <p>Pero esta linea no tiene efecto a la hora de ocultar los usuarios.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Debian | lightdm</p>
+        </div>
+
+    </body>
+</html>

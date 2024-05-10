@@ -22,6 +22,7 @@
 
     <div class="t2">Metodo</div>
         <div class="cont">
+            <p>Estos son los pasos para usar con el display manager<b>gdm</b></p>
             <p>Añadimos el repositorio del que descargaremos <b>open-fprintd</b>:</p>
             <code>sudo wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2937db010da51096cd4277ff8d4c774ba6d18f90' -O /etc/apt/trusted.gpg.d/uunicorn.asc</code>
             <code>echo -e 'deb [signed-by=/etc/apt/trusted.gpg.d/uunicorn.asc] https://ppa.launchpadcontent.net/uunicorn/open-fprintd/ubuntu kinetic main\n#deb-src [signed-by=/etc/apt/trusted.gpg.d/uunicorn.asc] https://ppa.launchpadcontent.net/uunicorn/open-fprintd/ubuntu kinetic main' | sudo tee /etc/apt/sources.list.d/uunicorn-open-fprintd.list</code>
@@ -36,8 +37,39 @@
             <p>Ejecutamos el enroll para registrar una nueva huella, (tenemos que tocar el sensor de huellas varias veces para terminar el registro de huella):</p>
             <code>fprintd-enroll</code>
 
-            <p>Opcionalmente podemos habilitar el modulo <b>PAM</b> para que se nos exija la huella al hacer <b>sudo</b>>, si no lo activamos la huella funcionará solo en la pantalla de login:</p>
+            <p>Opcionalmente podemos habilitar el modulo <b>PAM</b> para que se nos exija la huella al hacer <b>sudo</b>, si no lo activamos la huella funcionará solo en la pantalla de login:</p>
             <code>sudo pam-auth-update</code>
+        </div>
+
+    <div class="t2">Xfce y lightdm</div>
+        <div class="cont">
+            <p>Si queremos usar el lector de huellas con <b>lightdm</b> a mayores de los pasos anteriores necesitamos hacer lo siguiente:</p>
+
+            <p>En el archivo <b>/etc/pam.d/common-auth</b>, añadimos la siguiente linea al principio del todo:</p>
+            <code>auth sufficient pam_fprintd.so</code>
+
+            <p>El archivo queda tal que asi:</p>
+            <img src="Lector de huellas (t480s)/3.png">
+
+            <p>Una vez hecho esto reiniciamos y ya se nos debería de dar la opción de introducir la contraseña o de acceder con el lector de huellas:</p>
+            <img src="Lector de huellas (t480s)/4.jpg">
+
+            <h3>Evitar lector de huellas con sudo</h3>
+            <p>Al hacer esta configuración tambien se nos pedirá usar el lector de huellas al usar el comando <b>sudo</b>, si queremos evitar esto lo podemos hacer de la siguiente manera:</p>
+
+            <p>Duplicamos el archivo <b>/etc/pam.d/common-auth</b> con el nombre <b>common-auth-nofingerprint</b> y en este nuevo archivo eliminamos la linea que habiamos puesto previamente (de manera que este nuevo archivo se queda exactamente igual que el common-auth antes de hacer el cambio)</p>
+            <p>O podemos comentar la linea simplemente:</p>
+            <code>#auth sufficient pam_fprintd.so</code>
+
+            <p>Ahora modificamos el archivo <b>/etc/pam.d/sudo</b> y modificamos la siguiente linea:</p>
+            <code>@include common-auth</code>
+
+            <p>Para indicar el nuevo archivo que hemos creado:</p>
+            <code>@include common-auth-nofingerprint</code>
+
+            <img src="Lector de huellas (t480s)/5.png">
+
+            <p>Una vez hecho esto ya solo tendriamos activo el lector de huellas en el <b>displaymanager</b> y no al usar el comando <b>sudo</b></p>
         </div>
 
     <div class="t2">Troubleshooting</div>
