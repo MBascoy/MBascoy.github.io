@@ -51,8 +51,13 @@
             <p>El archivo queda tal que asi:</p>
             <img src="Lector de huellas (t480s)/3.png">
 
+            <p>Si queremos podemos tambien indicar el numero <b>maximo de reintentos</b> o el <b>timeout</b> de la siguiente manera:</p>
+            <code>auth sufficient pam_fprintd.so max_tries=2 timeout=5</code>
+
             <p>Una vez hecho esto reiniciamos y ya se nos debería de dar la opción de introducir la contraseña o de acceder con el lector de huellas:</p>
             <img src="Lector de huellas (t480s)/4.jpg">
+
+            <p><b>NOTA:</b> con lightdm no se permite al mismo tiempo el login con el lector de huellas y contraseña, si en algun momento queremos introducir la contraseña en vez de la huella tendremos que esperar al timeout o llegar al numero maximo de reintentos del lector de huella.</p>
 
             <h3>Evitar lector de huellas con sudo</h3>
             <p>Al hacer esta configuración tambien se nos pedirá usar el lector de huellas al usar el comando <b>sudo</b>, si queremos evitar esto lo podemos hacer de la siguiente manera:</p>
