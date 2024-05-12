@@ -16,6 +16,80 @@
 
     <div class="t2">Metodo</div>
         <div class="cont">
+          <p>Tenemos que tener en cuenta que podemos tener dos situaciones a la hora de crear una URL.</p>
+          <ul>
+            <li>Crear la url entera (http://miejemplo.com/ejemplo/ejemplo2)</li>
+            <li>Crear solo el path (/ejemplo/ejemplo2)</li>
+          </ul>
+
+          <p>En algunos proyecto puede ser necesario crear solo el path, ya que el dominio se añade posteriormente con un interceptor.</p>
+
+          <h2>Generar path</h2>
+          <p>Para generar el path de manera segura tenemos que utilizar el paquete <b>url-join</b>, lo instalamos de la siguiente manera:</p>
+          <code>npm install url-join</code>
+
+          <p>Una vez instalado lo podemos utilizar de la siguiente manera:</p>
+
+          <code>import urlJoin from 'url-join';</code>
+<!-- HTML generated using hilite.me --><div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">const</span> <span style="color: #a6e22e">fullpath</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">urlJoin</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;/ejemplo/&#39;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&#39;/ejemplo2&#39;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #a6e22e">console</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">log</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">fullpath</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+
+          <p>Este código genera como salida:</p>
+          <code>/ejemplo/ejemplo2</code>
+          <p>A pesar de que hemos puesto una barra al final de "ejemplo" y una al principio de "ejemplo2", la función elimina la barra de más.</p>
+
+          <p>Tambien podemos indicar a mayores el dominio y parámetros si queremos:</p>
+          <code>urlJoin('http://www.google.com', 'a', '/b/cd', '?foo=123');</code>
+
+          <p>Aunque para añadir parámetros es mejor usar una <b>clase URL</b> o <b>HttpParams</b> como veremos a continuación.</p>
+          <p><b>Nota:</b> el uso del modulo <b>path</b> de node no es recomendado, porque en sistemas windows las barras son invertidas.</p>
+
+          <h2>Añadir parámetros</h2>
+          <p>Para añadir parámetros a una URL podemos hacerlo de dos maneras:</p>
+          <ul>
+            <li>Usando una clase URL</li>
+            <li>Usando HttpParams</li>
+          </ul>
+
+          <p>Usaremos una clase URL cuando queremos indicar la ruta entera (indicando el dominio):</p>
+
+          <!-- HTML generated using hilite.me --><div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">const</span> <span style="color: #a6e22e">fullpath</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">urlJoin</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;/ejemplo/&#39;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&#39;/ejemplo2&#39;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">const</span> <span style="color: #a6e22e">myUrl</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">URL</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">fullpath</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;http://midominio.com/&quot;</span><span style="color: #f8f8f2">)</span>
+
+<span style="color: #a6e22e">myUrl</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">searchParams</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">append</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;parametro1&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;valor1&quot;</span><span style="color: #f8f8f2">)</span>
+<span style="color: #a6e22e">myUrl</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">searchParams</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">append</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;parametro2&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;valor2&quot;</span><span style="color: #f8f8f2">)</span>
+
+<span style="color: #a6e22e">console</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">log</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">myUrl</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">toString</span><span style="color: #f8f8f2">())</span>
+</pre></div>
+
+          <p>Este código genera la siguiente salida:</p>
+          <code>http://midominio.com/ejemplo/ejemplo2?parametro1=valor1&ampparametro2=valor2</code>
+
+          <p>La URL se genera correctamente a pesar de que hay barras al final del dominio y al principio de los paths (no hay barras duplicadas).</p>
+
+          <p>La otra manera de añadir parámetros es usando <b>HttpParams</b>, normalmente esto lo usaremos cuando solo trabajamos con el path, y los params se pasará a la llamada GET que realicemos:</p>
+
+          <!-- HTML generated using hilite.me --><div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">const</span> <span style="color: #a6e22e">fullpath</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">urlJoin</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;/ejemplo/&#39;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&#39;/ejemplo2&#39;</span><span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">let</span> <span style="color: #a6e22e">params</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">HttpParams</span><span style="color: #f8f8f2">()</span>
+    
+<span style="color: #a6e22e">params</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">params</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">append</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;parametro1&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;valor1&quot;</span><span style="color: #f8f8f2">)</span>
+<span style="color: #a6e22e">params</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">params</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">append</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;parametro2&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;valor2&quot;</span><span style="color: #f8f8f2">)</span>
+
+<span style="color: #66d9ef">return</span> <span style="color: #66d9ef">this</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">get</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">string</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">fullpath</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">{</span><span style="color: #a6e22e">params</span><span style="color: #f8f8f2">})</span>
+</pre></div>
+
+          <p>El metodo <b>GET</b> llamará a la siguiente URL en este caso:</p>
+          <code>http://localhost:4200/ejemplo/ejemplo2?parametro1=valor1&ampparametro2=valor2</code>
+
+          <p>El HttpParams tambien lo podemos usar cuando usamos la clase <b>URL</b>, pero en ese caso como la propia clase nos permite añadir parámetros pues nos ahorramos el HttpParams, en ese caso solo tendríamos que pasar la URL a la llamada GET, ya que la propia URL incluiría los parametros.</p>
+
+          <p><b>NOTA:</b> hay que fijarse en que <b>params.append</b> se iguala a <b>params</b> ya que la función devuelve una nueva referencia con el nuevo valor actualizado y no lo actualiza en la referencia actual.</p>
+        </div>
+
+    <div class="t2">Metodo (Deprecated)</div>
+        <div class="cont">
           <p>Para generar URLs de manera seguro lo hacemos de la siguiente manera:</p>
 
           <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">  <span class="hljs-title function_">ngOnInit</span>(<span style="color:rgb(209, 217, 225); font-weight:400;"></span>){
