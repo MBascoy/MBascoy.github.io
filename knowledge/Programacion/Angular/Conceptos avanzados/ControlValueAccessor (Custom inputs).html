@@ -1,0 +1,79 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">ControlValueAccessor (Custom inputs)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como crear un <b>input</b> customizado que podamos reutilizar en distintos <b>formGroups</b>.</p>
+
+          <p>Cuando usando un input dentro de un formGroup tenemos que identificarlo con <b>formControlName</b>, para que un componente nos permita esto tenemos que hacer que implemente <b>ControlValueAccessor</b></p>
+        </div>
+
+      <div class="t2">Metodo</div>
+          <div class="cont">
+
+            <p>Para crear un componente que implemente <b>ControlValueAccessor</b>, tenemos que hacer lo siguiente:</p>
+
+            <ul>
+              <li>Añadir el "implements ControlValueAccessor" a la clase</li>
+              <li>Inyectar NgControl</li>
+              <li>Declarar los metodos necesarios para la interfaz (en este caso los podemos dejar vacios, ya que no queremos tratar los datos de ninguna manera)</li>
+            </ul>
+
+            <p>El componente debería de quedar así:</p>
+
+            <p>my-custom-input.component.ts</p>
+            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);"><span class="hljs-keyword" style="color: rgb(204, 153, 204);">export</span> <span class="hljs-keyword" style="color: rgb(204, 153, 204);">class</span> MyCustomInputComponent <span class="hljs-keyword" style="color: rgb(204, 153, 204);">implements</span> ControlValueAccessor {
+ 
+  <span class="hljs-keyword" style="color: rgb(204, 153, 204);">constructor</span>(
+    @Self() public ngControl: NgControl,
+  ){
+    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.ngControl.valueAccessor = <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>;
+  }
+
+  <span class="hljs-keyword" style="color: rgb(204, 153, 204);">get</span> control(): FormControl {
+    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">return</span> <span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.ngControl.control as FormControl;
+  }
+ 
+  writeValue(obj: <span class="hljs-built_in" style="color: rgb(181, 189, 104);">any</span>): <span class="hljs-built_in" style="color: rgb(181, 189, 104);">void</span> {
+  }
+  registerOnChange(fn: <span class="hljs-built_in" style="color: rgb(181, 189, 104);">any</span>): <span class="hljs-built_in" style="color: rgb(181, 189, 104);">void</span> {
+  }
+  registerOnTouched(fn: <span class="hljs-built_in" style="color: rgb(181, 189, 104);">any</span>): <span class="hljs-built_in" style="color: rgb(181, 189, 104);">void</span> {
+  }
+  setDisabledState?(isDisabled: <span class="hljs-built_in" style="color: rgb(181, 189, 104);">boolean</span>): <span class="hljs-built_in" style="color: rgb(181, 189, 104);">void</span> {
+  }
+
+}</pre>
+
+            <p>Y en la plantilla tenemos que usar el getter que hemos definido para acceder al <b>ngControl</b> ("control" en este caso) y asociarlo al input usando <b>[formControl]</b>, asi:</p>
+
+            <p>my-custom-input.component.html</p>
+            <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);">&lt;p&gt;my-custom-input works!&lt;<span class="hljs-regexp" style="color: rgb(138, 190, 183);">/p&gt;
+&lt;input
+    type="text"
+    [formControl]="control"
+ /</span>&gt;</pre>
+
+            <p>Una vez hecho esto el componente ya está listo para ser usando con un formGroup.</p>
+
+            <p>Para utilizarlo solo tenemos que ponerlo dentro del formGroup que queramos y asociarle un <b>formControlName</b>, tal que así:</p>
+
+            <img src="ControlValueAccessor (Custom inputs)/1.png">
+            
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | Forms | ControlValueAccessor | Custom | Input</p>
+        </div>
+
+    </body>
+</html>
