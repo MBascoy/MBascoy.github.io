@@ -1,0 +1,43 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Exportar tabla a excel</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como exportar el datasource de un matTable a un archivo excel.</p>
+
+          <p><a href="https://www.npmjs.com/package/xlsx">Pagina referencia XLSX</a></p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+          <p>Usaremos el paquete xlsx, primero lo instalamos con:</p>
+          <code>npm install xlsx</code>
+
+          <p>Lo importamos en el componente con el siguiente import:</p>
+          <code>import * as XLSX from 'xlsx';</code>
+
+          <p>Usamos un código como el siguiente para hacer la exportación:</p>
+
+          <pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(71, 73, 73); color: rgb(209, 217, 225);">    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">const</span> workSheet = XLSX.utils.json_to_sheet(<span class="hljs-keyword" style="color: rgb(204, 153, 204);">this</span>.dataSource.data);
+    <span class="hljs-keyword" style="color: rgb(204, 153, 204);">const</span> workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, <span class="hljs-string" style="color: rgb(138, 190, 183);">"mi_hoja"</span>);
+    XLSX.writeFile(workBook, <span class="hljs-string" style="color: rgb(138, 190, 183);">'mi_archivo.xlsx'</span>);</pre>
+
+          <p>Con este código exportaríamos la información de la tabla almacenada en <b>this.dataSource.data</b></p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Angular | URL |</p>
+        </div>
+
+    </body>
+</html>
