@@ -1,0 +1,76 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Simular hover en inspector</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Simular evento <b>:hover</b> o <b>mouseenter</b> en el inspector.</p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Tenemos dos maneras para simular que el ratón pasa por encima de un elemento:</p>
+            <ul>
+                <li>hover de css</li>
+                <li>eventos de JavaScript</li>
+            </ul>
+
+            <p>Normalmente solo funcionará uno de los dos metodos, dependiendo de si el elemento ha sido programado con css o con un evento de JavaScript</p>
+
+            <h2>Hover de css</h2>
+            <p>Una vez dentro del inspector seleccionamos el elemento en el código, abrimos el menu <b>:hov</b> y seleccionamos <b>:hover</b></p>
+
+            <img src="Simular hover en inspector/1.png">
+
+            <p>Tambien podemos probar a seleccionar otros eventos como <b>:focus</b> si vemos que :hover no funciona</p>
+
+            <h2>Eventos de JavaScript</h2>
+            <p>Para simular eventos del raton con JavaScript lo hacemos de la siguiente manera:</p>
+
+            <p>En el código hacemos click derecho sobre el elemento sobre el que queremos simular el raton, y hacemos click en <b>Copy</b> &gt; <b>Copy JS path</b></p>
+
+            <img src="Simular hover en inspector/2.png">
+
+            <p>Ahora esto lo pegamos en la propia consola del inspector (esto nos permitirá obtener el elemento a nivel JavaScript)</p>
+
+            <p>Y a mayores añadimos una de las siguientes lineas:</p>
+
+            <code>.dispatchEvent(new MouseEvent('mouseenter', { 'bubbles': true }));</code>
+
+            <code>.dispatchEvent(new MouseEvent('mouseover', { 'bubbles': true }));</code>
+
+            <code>.dispatchEvent(new MouseEvent('click', { 'bubbles': true }));</code>
+
+            <p>De manera que nos quedará una linea como la siguiente:</p>
+            <img src="Simular hover en inspector/3.png">
+
+            <p>Le damos a enter y el evento se lanzará para el elemento seleccionado.</p>
+
+            <p>El evento que necesitamos depende de como esté programado el elemento, lo mejor es ir probando (casi siempre es "mouseover" o "mouseenter")</p>
+
+            <p>En ocasiones al hacer el <b>Copy JS path</b> puede ser que se copie un selector demasiado genérico y no seleccione el elemento que queremos, en dichos casos podemos simplemente editar el elemento que queremos y asignarle una clase personalizada, y a continuación usar el <b>querySelector</b> para seleccionar esa clase única que tendra solo dicho elemento:</p>
+
+            <code>document.querySelector(".mi-clase-unica").dispatchEvent(new MouseEvent('mouseover', { 'bubbles': true }));</code>
+
+            <img src="Simular hover en inspector/4.png">
+
+            <h2>Notas</h2>
+            <p>Tanto para el <b>hover del css</b> como para los <b>eventos javascript</b> a veces puede ser que no funcionen porque lo estamos usando contra el elemento equivocado, es recomendable a veces coger algunas de las etiquetas que envuelven al propio elemento o incluso alguna de las etiquetas anidadas porque a veces es ahí donde está configurado el evento.</p>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>hover | inspector</p>
+        </div>
+
+    </body>
+</html>
