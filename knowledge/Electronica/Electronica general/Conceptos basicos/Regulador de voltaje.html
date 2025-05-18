@@ -1,0 +1,55 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Regulador de voltaje</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como conectar un <b>regulador de voltaje</b> usando <b>condensadores</b> para estabilizar el voltaje.</p>
+
+            <p><a href="Regulador de voltaje/voltage regulator.sim1">Circuito SimulIDE</a></p>
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            <p>Para montar el circuito necesitamos:</p>
+
+            <ul>
+                <li>Regulador L7805CV</li>
+                    <ul>
+                        <li>Voltaje de salida: 5V</li>
+                        <li>Voltaje de entrada: min-7V max-35V</li>
+                    </ul>
+                <li>Condensadores:</li>
+                <ul>
+                    <li>2 Electroliticos de <b>10uf</b></li>
+                    <li>2 Ceramicos de <b>0.1uf</b></li>
+                </ul>
+            </ul>
+
+            <img src="Regulador de voltaje/1.png">
+
+            <p>Al conectar dos condensadores, ceramico y electrolitico, en paralelo nos aseguramos de tener la corriente estabilizada tanto para cargas altas como para cargas digitales (como microcontroladores) que son sensibles a cambios rapidos.</p>
+
+            <p>Los condensadores colocados a la entrada son utiles si usamos fuentes de alimentación que no dan una corriente 100% estable y los condensadores a la salida son utiles si tenemos cargas variables o cargas digitales sensibles a cambios rapidos (como microcontroladores)</p>
+
+            <p>Imagen del circuito real:</p>
+            <img src="Regulador de voltaje/2.jpg">
+            
+            <p>El cable blanco es la salida del regulador de voltaje, el led de la derecha no está dentro del circuito del regulador, solo es un indicador para saber si hay alimentación en el circuito.</p>
+
+        </div>
+    
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Electronica | Voltaje | Regulador</p>
+        </div>
+    
+    </body>
+</html>
