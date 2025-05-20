@@ -1,0 +1,68 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Programacion AVR Atmega168pa</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como programar un microcontrolador <b>Atmega168pa</b> usando un programador <b>USBasp</b> y <b>avrdude</b>.</p>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Los pasos para programar el microcontrolador son los siguientes:</p>
+            <ul>
+                <li>Compilamos el código (generamos un archivo .elf)</li>
+                <li>Generamos un archivo .hex a partir de .elf</li>
+                <li>Flasheamos el microcontrolador con el archivo .hex</li>
+            </ul>
+
+            <p>Para compilar nuestro código en C usaremos el siguiente comando:</p>
+            <code>avr-gcc -mmcu=atmega168pa -Os -o led_blink.elf led_blink.c</code>
+
+            <p>Para generar el .hex usamos el siguiente comando:</p>
+            <code>avr-objcopy -O ihex -R .eeprom led_blink.elf led_blink.hex</code>
+
+            <p>Para flashear el microcontrolador usamos el siguiente comando:</p>
+            <code>avrdude -c usbasp -p m168pa -U flash:w:led_blink.hex:i</code>
+
+            <ul>
+                <li><b>-c</b> indica el programador que estamos usando</li>
+                <li><b>-p</b> indica el microcontrolador que vamos a programar</li>
+                <li><b>flash:w:led_blink.hex:i</b> la <b>w</b> indica escritura y la <b>i</b> indica que el hexadecimal se escribirá en formato <b>Intel Hex</b></li>
+            </ul>
+   
+        </div>
+    
+    <div class="t2">Conexiones</div>
+        <div class="cont">
+            <p>Las conexiones del programador al microcontrolador serán las siguientes (podemos usar el conector de 10 pines o el de 6 pines):</p>
+
+            <img src="Programacion AVR Atmega168pa/1.png">
+        
+            <p>Para comprobar que las conexiones están bien realizadas podemos ejecutar el siguiente comando:</p>
+            <code>avrdude -c usbasp -p m168pa -v</code>
+
+            <p>Deberíamos de obtener una salida como la siguiente:</p>
+            <img src="Programacion AVR Atmega168pa/2.png">
+        </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+            <p>Si tenemos un problema con la frecuencia de oscilación (si los delay tardan mas de lo que hemos programado), podemos intentar configurar los <b>fuses</b> del microcontrolador:</p>
+            <p><a href="../Troubleshooting/Atmega168pa frecuencia de oscilacion lenta.html">Atmega168pa frecuencia de oscilacion lenta</a></p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | atmega</p>
+        </div>
+    
+    </body>
+</html>

@@ -1,0 +1,44 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Atmega168pa frecuencia de oscilacion lenta</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Solucionar problema de frencuencia de oscilación lenta.</p>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Primero comprobamos el estado del fuse (CKDIV8):</p>
+            <code>avrdude -c usbasp -p m168pa -U lfuse:r:-:i</code>
+
+            <img src="Atmega168pa frecuencia de oscilacion lenta/1.png">
+
+            <p>Si este comando nos da un 62 quiere decir que el microcontrolador tiene activado el parametro (fuse) <b>CKDIV8</b> (normalmente está activado por defecto)</p>
+            <p>Al tener este parámetro activo la frecuencia de oscilación se está dividiendo por 8, por lo tanto la frecuencia en este casó sería de 1Mhz en vez de 8Mhz</p>
+
+            <p>Para configurar el microcontrolador para que no divida la frecuencia lo hacemos con el siguiente comando:</p>
+            <code>avrdude -c usbasp -p m168pa -U lfuse:w:0xe2:m</code>
+
+            <img src="Atmega168pa frecuencia de oscilacion lenta/2.png">
+
+            <p>Al lanzar este comando si volvemos a comprobar el estado del fuse deberíamos de ver lo siguiente:</p>
+
+            <img src="Atmega168pa frecuencia de oscilacion lenta/3.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | atmega</p>
+        </div>
+    
+    </body>
+</html>

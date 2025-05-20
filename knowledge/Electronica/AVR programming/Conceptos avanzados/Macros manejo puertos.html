@@ -1,0 +1,33 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Macros manejo puertos</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Macros para manejar los puertos del microcontrolador.</p>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Podemos guardar el siguiente contenido como "avr_macros.h" e importarlo así para utilizarlo en cualquier proyecto</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span class="hljs-meta prompt_">#</span><span style="color:rgb(209, 217, 225); font-weight:400;">define setBit(sfr, bit)     (_SFR_BYTE(sfr) |= (1 &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">bit))</span></span>
+<span class="hljs-meta prompt_">#</span><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">define clearBit(sfr, bit</span>)   (_SFR_BYTE(sfr) &amp;= ~(1 &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">bit))</span></span>
+<span class="hljs-meta prompt_">#</span><span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(138, 190, 183); font-weight:400;">define toggleBit(sfr, bit</span>)  (_SFR_BYTE(sfr) ^= (1 &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">bit))</span></span></code></pre>
+   
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | macros</p>
+        </div>
+    
+    </body>
+</html>

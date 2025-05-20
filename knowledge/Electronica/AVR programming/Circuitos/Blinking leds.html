@@ -1,0 +1,68 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Blinking led</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Circuito con 3 led parpadeantes como salidas y un botón como entrada para pausar la secuencia de encendido de los leds.</p>
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            <p><a href="Blinking led/blinking_leds.sim1">Blinking leds SimulIDE</a></p>
+
+            <img src="Blinking leds/1.png">
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> F_CPU 8000000UL</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Configura PB0 PB1 PB2 como salida</span>
+    DDRB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB0);
+    DDRB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB1);
+    DDRB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB2);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Configura PD2 como entrada</span>
+    DDRD &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PD2);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Configura PD2 con resistencia pull-up interna</span>
+    PORTD |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PD2);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Definimos array de puertos</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> portArray[] = {PB0, PB1, PB2};
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+        <span style="color:rgb(150, 152, 150); font-weight:400;">// Iteramos por los 3 puertos</span>
+        <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> i=<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; <span style="color:rgb(181, 189, 104); font-weight:400;">sizeof</span>(portArray); i++){
+            PORTB ^= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; portArray[i]);  <span style="color:rgb(150, 152, 150); font-weight:400;">// Hacemos toggle del led</span>
+
+            _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">500</span>);
+
+            <span style="color:rgb(150, 152, 150); font-weight:400;">// Si pulsamos el boton hacemos que se pare la secuencia hasta que soltemos.</span>
+            <span style="color:rgb(150, 152, 150); font-weight:400;">// La negacion de la condicion es porque tenemos configurado el puerto con resistencia pull-up y la condicion se invierte</span>
+            <span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(!(PIND &amp; (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PD2))){
+                _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">200</span>);
+            }
+        }
+
+    }
+}</code></pre>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | blinking | leds</p>
+        </div>
+    
+    </body>
+</html>
