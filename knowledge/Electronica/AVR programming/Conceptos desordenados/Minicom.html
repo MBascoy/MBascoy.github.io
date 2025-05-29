@@ -1,0 +1,41 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Minicom</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Explicación de como usar <b>minicom</b>, un programa para realizar comunicaciónes a traves de la linea serie:</p>
+            
+        </div>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+            <p>Para usar minicom de la manera mas simple podemos hacerlo con el comando:</p>
+            <code>minicom -D /dev/ttyUSB0 -b 9600</code>
+
+            <p>Si queremos podemos incluir la opción <b>-w</b> para que haga saltos de linea y la opción <b>-H</b> que es para que muestre la información recibida en hexadecimal (muy util para depurar):</p>
+            <code>minicom -D /dev/ttyUSB0 -b 9600 -w -H</code>
+        </div>
+        
+        <div class="t2">Permiso denegado al abrir el dispositivo</div>
+            <div class="cont">
+            <p>Si no tenemos permisos para acceder al dispositivo podemos darle permisos:</p>
+            <code>sudo chmod 666 /dev/ttyUSB0</code>
+
+            <p>(los permisos se perderan al reiniciar el sistema)</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | minicom</p>
+        </div>
+    
+    </body>
+</html>

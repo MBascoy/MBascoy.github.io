@@ -1,0 +1,40 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Comunicacion serie incorrecta</h1>
+    
+    <div class="t2">Problema</div>
+        <div class="cont">
+            <p>Al establecer una comunicación serie con el ordenador y enviar caracteres se procesan los caracteres de manera incorrecta, ya sea los caracteres enviados al microcontrolador o los recibidos desde el microcontrolador:</p>
+            <img src="Comunicacion serie incorrecta/1.png">
+        </div>
+
+    <div class="t2">Solucion</div>
+        <div class="cont">
+            <p>Si obtenemos este comportamiento lo primero es verificar que la <b>frecuencia de oscilación</b> y los <b>bauidos</b> están configurados de manera correcta.</p>
+
+            <p>Si todo está correcto podemos activar el modo <b>U2X (Double Transmission Speed)</b>, en verdad no es doble velocidad de transmision, sino mas bien doble velocidad de muestreo.</p>
+            <p>Al activar esta configuración el margen de error será menor en las comunicaciones serie.</p>
+
+            <p>Para activar este modo lo hacemos activando un bit en uno de los registros del microcontrolador, usando la siguiente linea de código:</p>
+
+            <code>UCSR0A |= (1 << U2X0);</code>
+
+            <p><b>NOTA:</b> por lo que he podido probar este bit tenemos que activarlo antes de activar la transmision/recepción UART, si no se produce un comportamiento raro</p>
+            <img src="Comunicacion serie incorrecta/2.png">
+            
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | serial comunication</p>
+        </div>
+    
+    </body>
+</html>
