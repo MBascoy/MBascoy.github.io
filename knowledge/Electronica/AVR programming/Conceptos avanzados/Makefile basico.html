@@ -1,0 +1,53 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Makefile basico</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Makefile básico para crear el archivo .elf .hex y para flashear al microcontrolador.</p>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">MCU   = atmega168pa
+F_CPU = 1000000UL
+BAUD  = 9600UL
+
+PROGRAMMER = usbtiny
+
+CC = avr-gcc
+OBJCOPY = avr-objcopy
+AVRDUDE = avrdude
+
+CODE_FILES = led_blink.c
+
+TARGET = led_blink
+
+
+<span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.hex: <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.elf
+	<span style="color:rgb(255, 204, 102); font-weight:400;">$(OBJCOPY)</span> -O ihex -R .eeprom <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.elf <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.hex
+
+<span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.elf: <span style="color:rgb(255, 204, 102); font-weight:400;">$(CODE_FILES)</span>
+	<span style="color:rgb(255, 204, 102); font-weight:400;">$(CC)</span> -mmcu=<span style="color:rgb(255, 204, 102); font-weight:400;">$(MCU)</span> -Os -o <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.elf <span style="color:rgb(255, 204, 102); font-weight:400;">$(CODE_FILES)</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:700;">flash: <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.hex</span>
+	<span style="color:rgb(255, 204, 102); font-weight:400;">$(AVRDUDE)</span> -c <span style="color:rgb(255, 204, 102); font-weight:400;">$(PROGRAMMER)</span> -p <span style="color:rgb(255, 204, 102); font-weight:400;">$(MCU)</span> -U flash:w:<span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.hex:i
+
+</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | makefile</p>
+        </div>
+    
+    </body>
+</html>
