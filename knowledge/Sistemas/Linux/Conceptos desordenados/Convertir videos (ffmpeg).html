@@ -1,0 +1,37 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Convertir videos (ffmpeg)</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Convertir un video usando los siguientes codecs:</p>
+            <ul>
+                <li>Audio: AAC</li>
+                <li>Video: H.264</li>
+            </ul>
+
+            <code>ffmpeg -i input.mp4 -vcodec libx264 -acodec aac output.mp4</code>
+
+            <p>Esto es bastante util cuando tienes videos con <b>HEVC</b>(H.265) y los quieres convertir a <b>H.264</b>, el HEVC da problemas en los navegadores</p>
+
+            <p>Si queremos consultar los codecs de un archivo de video podemos usar:</p>
+
+            <code>mediainfo video.mp4</code>
+        </div>
+        
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>FFMPEG | video | h264 | codecs </p>
+        </div>
+
+    </body>
+</html>
