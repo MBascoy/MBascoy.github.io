@@ -1,0 +1,68 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Analog Digital Converter</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Usando el convertidor Analogico-Digital del microcontrolador Atmega168pa.</p>
+
+            <p>Ejemplo usando un sensor LDR (Light Dependent Resistor)</p>
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            
+            <p><a href="Analog Digital Converter/ADC.sim1">Analog Digital Converter SimulIDE</a></p>
+
+            <img src="Analog Digital Converter/1.png">
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> ledValue;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> adcValue;
+
+  ADMUX |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; REFS0);                  <span style="color:rgb(150, 152, 150); font-weight:400;">/* reference voltage on AVCC */</span>
+  ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADPS2);                   <span style="color:rgb(150, 152, 150); font-weight:400;">/* ADC clock prescaler /16 */</span>
+  ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADEN);
+
+  DDRB = <span style="color:rgb(249, 145, 87); font-weight:400;">0xff</span>;
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADSC);                     <span style="color:rgb(150, 152, 150); font-weight:400;">/* start ADC conversion */</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">loop_until_bit_is_clear</span>(ADCSRA, ADSC);          <span style="color:rgb(150, 152, 150); font-weight:400;">/* wait until done */</span>
+    adcValue = ADC;                                     <span style="color:rgb(150, 152, 150); font-weight:400;">/* read ADC in */</span>
+                        
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/* Have 10 bits, want 3 (eight LEDs after all) */</span>
+    ledValue = (adcValue &gt;&gt; <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>);
+                                   
+    <span style="color:rgb(150, 152, 150); font-weight:400;">/* Light up all LEDs up to ledValue */</span>
+    PORTB = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt;= ledValue; i++) {
+      PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; i);
+    }
+    _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">50</span>);
+  }                                                  <span style="color:rgb(150, 152, 150); font-weight:400;">/* End event loop */</span>
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;                            <span style="color:rgb(150, 152, 150); font-weight:400;">/* This line is never reached */</span>
+}</code></pre>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | ADC | LDR</p>
+        </div>
+    
+    </body>
+</html>
