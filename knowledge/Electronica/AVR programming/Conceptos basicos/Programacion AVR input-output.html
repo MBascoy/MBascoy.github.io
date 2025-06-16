@@ -1,0 +1,84 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Programacion AVR input-output</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Configurar y utilizar puertos del microcontrolador como entrada o salida.</p>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>En el caso del <b>Atmega168pa</b> tenemos 3 registros de puertos distintos B, C y D referentes a los puertos:</p>
+
+            <ul>
+                <li>PB0-7</li>
+                <li>PC0-6 (El registro C solo tiene 7 puertos)</li>
+                <li>PD0-7</li>
+            </ul>
+
+            <img src="Programacion AVR input-output/1.png">
+
+            <p>Todos los registros que se ven a continuación son registros de <b>8 bits</b> y funcionan como una máscara, de modo que por ejemplo <b>00000110</b> hace referencia al puerto 1 y 2.</p>
+            <p>Si leemos PORTB y vemos <b>00000001</b> quiere decir que el puerto 0 (si está configurado como output) tiene la salida activa</p>
+        </div>
+    
+    <div class="t2">Configurar puertos</div>
+        <div class="cont">
+            <p>Para configurar puertos lo hacemos con <b>DDRB</b> (Data Direction Register) en el caso del registro B.</p>
+            <p>Para los registros C y D sería DDRC y DDRD respectivamente</p>
+
+            <p>Por defecto todos los puertos están configurados como entrada (todos los bits a 0), si queremos poner el puerto 2 como salida por ejemplo lo haríamos con:</p>
+            <code>DDRB = 0b00000100</code>
+
+        </div>
+
+    <div class="t2">Activar salida en puertos</div>
+        <div class="cont">
+            <p>Una vez configurado un puerto como output para activar la salida (poner voltaje en alto en dicho puerto) lo hacemos con <b>PORTB</b></p>
+            <p>Para los registros C y D sería PORTC y PORTD respectivamente</p>
+
+            <p>Para poner el puerto 2 y 3 del registro B como activos los haríamos con:</p>
+            <code>PORTB = 0b00001100</code>
+
+
+        </div>
+
+    <div class="t2">Leer entrada en puertos</div>
+        <div class="cont">
+            <p>Al configurar un puerto como entrada podemos leer dicha entrada con <b>PINB</b></p>
+            <p>Al leer dicho registro un 1 indica entrada activa y 0 entrada no activa</p>
+
+            <p>Para los registros C y D sería PINC y PIND respectivamente</p>
+
+            <p>Si queremos consultar si el puerto 0 está con entrada activa:</p>
+            <code>if(PINB & 0b00000001)</code>
+
+
+            <h3>Configurar pull-up resistor</h3>
+            <p>Al configurar un puerto como entrada podemos usar <b>PORTB</b> (Para los registros C y D sería PORTC y PORTD respectivamente) para configurar <b>pull-up resistor</b> para cada uno de los puertos.</p>
+
+            <p>Para configurar el puerto 0 del registro B con pull-up resistor lo haríamos así:</p>
+            <code>PORTB = 0b00000001;</code>
+
+            <p>Hay que tener en cuenta que al configurar un <b>pull-up resistor</b> la entrada se invierte (de hecho la conexion fisica de un puerto con pull-up resistor configurado se hace a tierra y no a positivo) y al leer PINB un 0 indica entrada activa y 1 entrada no activa.</p>
+            
+            <p>Si queremos consultar si el puerto 0 está con entrada activa:</p>
+            <code>if(!(PINB & 0b00000001))</code>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | IO</p>
+        </div>
+    
+    </body>
+</html>
