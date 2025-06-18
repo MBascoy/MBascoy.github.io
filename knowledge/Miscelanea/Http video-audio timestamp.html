@@ -1,0 +1,44 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Http video-audio timestamp</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como añadir una referencia de tiempo en un archivo de video o audio al reproducirse en el navegador.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Si tenemos un enlace a un archivo de video o audio que es reproducido directamente en el navegador podemos añadir una marca de tiempo para que el reproductor empiece directamente donde nosotros queramos.</p>
+
+            <p>Lo hacemos usando fragments usando la opción <b>#t=segundos</b></p>
+
+            <code>http://example.com/audio.mp3#t=20</code>
+
+            <p>De este modo hacemos que el audio o video empiece en el segundo 20.</p>
+
+            <img src="Http video-audio timestamp/1.png">
+
+            <p>Podemos indicar tanto el inicio como el fin:</p>
+            <ul>
+                <li><b>#t=38,55</b> se reproduce desde el 38 hasta el 55</li>
+                <li><b>#t=,45</b> se reproduce desde el inicio hasta el 45</li>
+            </ul>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Web | fragment | timestamp </p>
+        </div>
+
+    </body>
+</html>
