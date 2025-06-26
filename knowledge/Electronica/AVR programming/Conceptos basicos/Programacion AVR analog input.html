@@ -42,7 +42,23 @@ loop_until_bit_is_clear(ADCSRA, ADSC);</code></pre>
                 <li>Por defecto el puerto que se lee es el <b>ADC0</b></li>
             </ul>
 
+        </div>
+    
+    <div class="t2">Seleccionar puerto para el ADC</div>
+        <div class="cont">
+            <p>El convertidor analógico-digital a pesar de tener varios puertos disponibles <b>solo puede usar uno a la vez</b> (si queremos obtener la entrada analógica en varios puertos tenemos que hacer multiplexación).</p>
+            <p>Para cambiar el puerto sobre el que se obtienen las lecturas se hace a traves de los 4 bits menos significativos del registro <b>ADMUX</b>, en este caso no es una mascara, sino que es el numero del puerto en sí (ya que solo puede ser uno el puerto activo para el ADC).</p>
 
+            <img src="Programacion AVR analog input/2.png">
+
+            <p>Para indicar el puerto podemos hacer un <b>OR</b> con el número del puerto (o macro del puerto) pero <b>tenemos que dejar los 4 bits más significativos sin cambiar</b>.</p>
+
+            <p>Para activar el puerto PC3 del microcontrolador como puerto para el ADC lo haríamos tal que así:</p>
+
+            <code>ADMUX = (0xf0 & ADMUX) | PC3;</code>
+
+            <p>Esta operación nos permite mantener los 4 bits más significativos sin alterar y dejar a 0 los 4 menos significativos, para poder hacer un OR del puerto que queramos y que no intefiera con alguna valor previo.</p>
+            <p>Al hacer un OR con el puerto 3 "00000011" solo se cambian los bits menos significativos con el valor binario "3"</p>
         </div>
 
     <div class="t2">Tags</div>
