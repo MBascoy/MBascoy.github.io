@@ -1,0 +1,112 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Programacion AVR hardware interrupts</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Configurar y utilizar las interrupciones de hardware para detectar entradas y realizar acciones en consecuencia.</p>
+
+            <p>En el Atmega168pa tenemos dos puertos especificos para los hardware interrupts:</p>
+            <ul>
+                <li>INT0</li>
+                <li>INT1</li>
+            </ul>
+
+            <p>Y a mayores todos los registros de puertos (B, C y D) tienen sus propios interrupts, <b>PinChange Interrupt</b>, pero en este caso es un interrupt por cada registro, por lo que una vez disparado el interrupt tendremos que comprobar el puerto exacto que ha generado esa interrupción</p>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Para utilizar los interrupts con los puertos especificos (INT0 e INT1) tenemos que realizar los siguientes pasos:</p>
+
+            <ul>
+                <li>Primero ponemos el puerto como activo para la interrupción modificando el registro <b>EIMSK</b>, para activar INT0 lo hacemos así:</li>
+                <code>EIMSK |= (1 << INT0);</code>
+
+                <li>Despues indicamos cuando se debe de producir la interrupción modificando el registro <b>EICRA</b>, para lanzar la interrupción tanto al pulsar como al soltar lo hacemos así:</li>
+                <code>EICRA |= (1 << ISC00);</code>
+
+                <p>En el datasheet tenemos todas las configuraciones disponibles para ambos puertos según el comportamiento que queramos:</p>
+                <img src="Programacion AVR hardware interrupts/1.png">
+
+                <img src="Programacion AVR hardware interrupts/2.png">
+
+                <p>Tenemos que tener en cuenta que si tenemos configurado los puertos con <b>pull-up resistor</b> las entradas estarán invertidas por lo tanto cuando en la tabla se indica "rising" quiere decir soltando en vez de pulsando y viceversa con "falling"</p>
+
+                <li>Por ultimo tenemos que definir la funcion <b>ISR()</b>, en esta función estará el código que se lanzará al producirse la interrupción,  para saber a que puerto hace referencia la función que estamos definiendo lo indicamos con un parámetro concreto, para definir la función que ejecutará INT0 lo hacemos así:</li>
+
+                <code>ISR(INT0_vect) {}</code>
+
+                <p>Podemos definir otra función ISR a mayores para usar con INT1 de manera simultanea usando <b>INT1_vect</b> como argumento (a mayores de realizar los pasos previos para activar INT1), en verdad ISR() no es una función sino un macro...</p>
+
+                <li>Y por ultimo solo tenemos que activar las interrupciones de manera global, lo hacemos llamando a la siguiente función:</li>
+                <code>sei();</code>
+            </ul>
+
+        </div>
+
+    <div class="t2">PinChange Interrupt</div>
+        <div class="cont">
+            <p>Para activar las interrupciones en los registros de los puertos estandar (B, C y D) lo hacemos de la siguiente manera:</p>
+
+            <p><b>NOTA:</b> en estos puertos no se puede indicar cual es el evento que genera la interrupción (ya sea al pulsar, soltar...etc) como con INT0 e INT1, en estos puertos siempre se genera una interrupción al haber un cambio en la entrada, ya sea soltar y pulsar.</p>
+
+            <ul>
+                <li>Primero activamos el registro que queramos para las interrupciones, usando el registro <b>PCICR</b>, en el caso del registro C sería así:</li>
+                <code>PCICR |= (1 << PCIE1);</code>
+                <p>Sería <b>PCIE0</b> para el registro B, y <b>PCIE2</b> para el registro D</p>
+
+                <li>Marcamos como activo para interrupciones el puerto en el que se producirán las interrupciones, para hacerlo en PC3 sería:</li>
+                <code>PCMSK1 |= (1 << PCINT11);</code>
+                <p>El registro a modificar depende del registro de puerto que estemos usando, <b>PCMSK0</b> para el registro B, <b>PCMSK1</b> para el registro C, <b>PCMSK2</b> para el registro D</p>
+
+                <li>Definimos la funcion ISR(), para el registro que hemos activado, para el registro C sería:</li>
+                <code>ISR(PCINT1_vect) {}</code>
+                <p>El argumento depende del registro del puerto, sería <b>PCINT0_vect</b> para el registro B, y <b>PCINT2_vect</b> para el registro D.</p>
+
+                <p>Dentro del código de la función ISR deberíamos de comprobar cual es el puerto que genera la interrupción, ya que podemos tener varios puertos activos en un solo registro de puertos.</p>
+
+                <li>Y por ultimo activamos las interrupciones de manera global:</li>
+                <code>sei();</code>
+            </ul>
+        </div>
+
+    <div class="t2">Evitar rebote de interrupciones</div>
+        <div class="cont">
+            <p>Cuando se genera una interrupción y se ejecuta la funcion ISR(), en ese momento si se produce una nueva interrupción no se interrumpe la propia llamada a ISR(), si no que una vez acaba la ejecución de la ISR() actual se lanza esta nueva excepción que se ha producido durante la ejecución de la excepción.</p>
+
+            <p>Solo se almacena una interrupción que se haya producido, si se producen 5 interrupciones NO se ejecutará ISR() 5 veces.</p>
+
+            <p>El problema que tenemos a veces es que si tenemos un botón conectado a un puerto para que genere una interrupción este puede generar un pequeño rebote al ser pulsado y hacer que una interrupción se ejecute varias veces, para evitar esto podemos incluir un pequeño delay en la función ISR() y al final de la función incluir el siguiente código para limpiar posibles interrupciónes que se hayan producido durante la ejecución de la propia ISR():</p>
+
+            <p>Para <b>INT0</b></p>
+            <code>EIFR |= (1 << INTF0);</code>
+
+            <p>Para <b>INT1</b></p>
+            <code>EIFR |= (1 << INTF1);</code>
+
+            <p>Para <b>Registro B</b></p>
+            <code>PCIFR |= (1 << PCIF0);</code>
+
+            <p>Para <b>Registro C</b></p>
+            <code>PCIFR |= (1 << PCIF1);</code>
+
+            <p>Para <b>Registro D</b></p>
+            <code>PCIFR |= (1 << PCIF2);</code>
+            
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | hardware interrupts</p>
+        </div>
+    
+    </body>
+</html>
