@@ -75,6 +75,45 @@
 
         </div>
 
+    <div class="t2">Macros de puertos</div>
+        <div class="cont">
+            <p>En vez de usar la notación binaria podemos usar los macros referentes a los distintos puertos <b>(PB0-7, PC0-6, PD0-7)</b> y operaciones a nivel de bits para establecer los valores.</p>
+
+            <p>Por ejemplo para activar la salida en PB2 lo haríamos así:</p>
+            <code>PORTB = (1 << PB2);</code>
+
+            <p>Si queremos hacerlo manteniendo las demas salidas en su estado lo haríamos así:</p>
+            <code>PORTB |= (1 << PB2);</code>
+
+            <p>Si queremos configurar dos puertos como salida podemos hacerlo así:</p>
+            <code>DDRC = (1 << PC1) & (1 << PC3);</code>
+            
+
+
+        </div>
+
+    <div class="t2">Funciones para comprobar estado de puertos</div>
+        <div class="cont">
+            <p>Tenemos dos funciones para comprobar si un bit está activo o no:</p>
+            <ul>
+                <li><b>bit_is_set()</b></li>
+                <li><b>bit_is_clear()</b></li>
+            </ul>
+
+            <p>Para comprobar si el puerto 0 del registro B está con la <b>entrada activada</b> en vez de hacerlo así:</p>
+            <code>if(PINB & (1 << PB0))</code>
+
+            <p>Lo haríamos así:</p>
+            <code>bit_is_set(PINB, PB0)</code>
+
+
+            <p>Para comprobar si el puerto 0 del registro B está con la <b>entrada desactivada</b> en vez de hacerlo así:</p>
+            <code>if(!(PINB & (1 << PB0)))</code>
+
+            <p>Lo haríamos así:</p>
+            <code>bit_is_clear(PINB, PB0)</code>
+        </div>
+
     <div class="t2">Tags</div>
         <div class="cont">
         <p>AVR | microcontrolador | IO</p>
