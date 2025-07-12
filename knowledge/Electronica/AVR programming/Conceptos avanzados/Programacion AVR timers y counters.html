@@ -1,0 +1,156 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Programacion AVR timers y counters</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como utilizar los timers internos de un microcontrolador AVR.</p>
+
+            <p>En el Atmega168pa tenemos 3 timers:</p>
+
+            <ul>
+                <li><b>Timer0</b> de 8 bits (puede contar hasta 255)</li>
+                <li><b>Timer1</b> de 16 bits (puede contar hasta 65.535)</li>
+                <li><b>Timer2</b> de 8 bits (puede contar hasta 255)</li>
+            </ul>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Para configurar los timers usamos los siguientes registros:</p>
+   
+            <ul>
+                <li><b>Timer0</b> TCCR0A y TCCR0B</li>
+                <li><b>Timer1</b> TCCR1A, TCCR1B y TCCR1C</li>
+                <li><b>Timer2</b> TCCR2A y TCCR2B</li>
+            </ul>
+
+            <p>Cada uno de los timers tiene dos modos de funcionamiento:</p>
+            <ul>
+                <li>Modo Normal</li>
+                <li>Modo CTC (Clear Time on Compare)</li>
+            </ul>
+
+            <p>En el <b>modo normal</b> el temporizador solo va contando <b>ticks</b> (cada uno de los ciclos de reloj dividido por el prescaler configurado), y podemos consultar el tiempo transcurrido desde que lo hemos iniciado, el contador va aumentando hasta que desborda (ya sea el timer de 255 o de 65535).</p>
+
+            <p>En el <b>modo CTC</b> indicamos un valor con el que el timer se va comparando, cuando se alcanza dicho valor se ejecuta una acción, ya sea una interrupción o una activación de una salida, al alcanzar el valor de comparación el contador se reinicia y sigue contando hasta llegar de nuevo al valor de comparación.</p>
+
+            <p>Los pasos generales para usar un timer son los siguientes:</p>
+            
+            <ul>
+                <li>Configurar el modo de funcionamiento (<b>normal</b> o <b>CTC</b>) (por defecto está activado el modo normal)</li>
+                <li>Establecer el preescaler</li>
+                <li>Establecer un valor de comparación (en el modo CTC)</li>
+                <li>Leer el valor transcurrido (en el modo normal), configurar una interrupción o una activación de un puerto (en el modo CTC)</li>
+            </ul>
+        </div>
+
+    <div class="t2">Usar timer en modo normal</div>
+        <div class="cont">
+
+            <p>Para usar el modo normal (es el modo que viene activado por defecto) lo único que tenemos que hacer es establecer el preescaler.</p>
+
+            <p>Para establecer el preescaler a 64 en el <b>timer1</b> lo haríamos así:</p>
+            <code>TCCR1B |= (1 << CS11) | (1 << CS10);</code>
+
+            <p>Configuraciones para los distintos preescalers:</p>
+            <img src="Programacion AVR timers y counters/1.png">
+
+            <p>El preescaler determinará en cuanto se divide la frecuencía principal para calcular cada <b>tick</b>, si ponemos el preescaler en 64 y la frecuencia es de 1 Mhz, cada tick serán 64 microsegundos (1Mhz equivale a 1 microsegundo por ciclo, si el prescaler es de 64 hay que multiplicarlo por 64 para obtener el tiempo de un tick).</p>
+
+            <p>Tenemos que tener en cuenta que el <b>timer0</b> y el <b>timer2</b> solo cuentan hasta <b>255</b> y el <b>timer1</b> hasta <b>65535</b>. Esto es importante porque si ponemos un preescaler muy pequeño el contador desbordará muy rapido, por ejemplo con un preescaler de 64 y una frecuencia de 1Mhz y usando el timer1 el contador desbordaría en apenas 4 segundos.</p>
+
+            <p>Una vez configurado el preescaler solo tenemos que leer el valor <b>TCNTn</b> para saber el número de ticks que han transcurrido.</p>
+
+            <ul>
+                <li>TCNT0 - timer0</li> 
+                <li>TCNT1 - timer1</li> 
+                <li>TCNT2 - timer2</li> 
+            </ul>
+
+            <p>Una vez leido el numero de ticks hay que tener en cuenta el preescaler configurado y la frecuencia del microcontrolador para hacer el calculo del tiempo que ha transcurrido.</p>
+
+            <p>Para reiniciar el contador y volver a contar desde 0 simplemente establecemos el contador a 0.</p>
+
+            <code>TCNT1 = 0;</code>
+
+        </div>
+
+    <div class="t2">Usar timer en modo CTC</div>
+        <div class="cont">
+            <p>Para usar el modo CTC tenemos que:</p>
+            
+            <ul>
+                <li>Activar el modo CTC</li>
+                <li>Configurar el preescaler (Se hace exactamente igual que en el modo normal</li>
+                <li>Establecer el valor de comparación</li>
+                <li>Configurar la acción a realizar (lanzar interrupción o activar puerto)</li>
+            </ul>
+
+            <h2>Activar CTC</h2>
+            <p>Para activar el modo CTC se hace de manera diferente según el timer:</p>
+
+            <p>Timer0:</p>
+            <code>TCCR0A |= (1 << WGM01);</code>
+
+            <p>Timer1:</p>
+            <code>TCCR1B |= (1 << WGM12);</code>
+
+            <p>Timer2:</p>
+            <code>TCCR2A |= (1 << WGM21);</code>
+
+            <h2>Establecer valor de comparación</h2>
+            <p>En el modo CTC podemos usar los siguientes registros para establecer el comparador.</p>
+
+            <ul>
+                <li>Timer0 - OCR0A</li>
+                <li>Timer1 - OCR1A</li>
+                <li>Timer2 - OCR2A</li>
+            </ul>
+
+            <p>Cada vez que el contador llegue al comparador que hayamos establecido se disparará la acción que hayamos configurado (se explica en el siguiente paso) y se reinicia a 0 volviendo a contar de nuevo hasta el comparador.</p>
+
+            <p>Recordar que el numero que se establece en el comparador es el numero de <b>ticks</b> que va contando el timer, para saber cada cuanto tiempo se ejecuta la acción tendremos que hacer el calculo con la frecuencia y el preescaler.</p>
+
+            <h2>Configurar acción</h2>
+
+            <h3>Lanzar interrupción</h3>
+
+            <p>Si queremos lanzar una interrupción cada vez que se alcance el valor de comparador lo configuraríamos así (para el Timer1):</p>
+
+            <code>TIMSK1 |= (1 << OCIE1A);</code>
+
+            <p>Y definiríamos la <b>ISR()</b> así:</p>
+            <code>ISR(TIMER1_COMPA_vect) {}</code>
+
+            <h3>Activar salida</h3>
+            <p>Cada uno de los timers tiene dos pines asociados sobre los que puede modificar una salida, son los siguientes:</p>
+            <img src="Programacion AVR timers y counters/2.png">
+
+            <p>Antes de nada tenemos que asegurarnos de que el registro <b>DDR</b> de los puertos que vayamos a usar están configurados como salida, en el siguiente ejemplo usamos PB1 por lo tanto sería así:</p>
+            <code>DDRB |= (1 << PB1);</code>
+
+            <p>Para activar la salida <b>OC1A</b> (PB1) del timer1 de manera que se haga un <b>toggle</b> del pin cada vez que se alcance el comparador se haría así:</p>
+            <code>TCCR1A |= (1 << COM1A0);</code>
+
+            <p>Las acciones que podemos establecer están en el datasheet, son las siguientes:</p>
+
+            <img src="Programacion AVR timers y counters/3.png">
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | timers | counters</p>
+        </div>
+    
+    </body>
+</html>

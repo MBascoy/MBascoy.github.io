@@ -40,7 +40,7 @@
 
                 <p>Tenemos que tener en cuenta que si tenemos configurado los puertos con <b>pull-up resistor</b> las entradas estarán invertidas por lo tanto cuando en la tabla se indica "rising" quiere decir soltando en vez de pulsando y viceversa con "falling"</p>
 
-                <li>Por ultimo tenemos que definir la funcion <b>ISR()</b>, en esta función estará el código que se lanzará al producirse la interrupción,  para saber a que puerto hace referencia la función que estamos definiendo lo indicamos con un parámetro concreto, para definir la función que ejecutará INT0 lo hacemos así:</li>
+                <li>Por ultimo tenemos que definir la funcion <b>ISR()</b>, en esta función estará el código que se lanzará al producirse la interrupción (<b>Interrupt Service Routine</b>), para saber a que puerto hace referencia la función que estamos definiendo lo indicamos con un parámetro concreto, para definir la función que ejecutará INT0 lo hacemos así:</li>
 
                 <code>ISR(INT0_vect) {}</code>
 
