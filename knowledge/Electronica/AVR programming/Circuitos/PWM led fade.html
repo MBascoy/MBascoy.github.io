@@ -1,0 +1,66 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">PWM led fade</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Circuito con un led que se iluminará poco a poco y se apagará poco a poco usando una señal PWM.</p>
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">inline</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">initTimer</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+  TCCR1A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM10) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM12);
+  TCCR1B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS11);
+  TCCR1A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; COM1A1);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> brightness = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+  <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> direction;
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">initTimer</span>();
+
+  DDRB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB1);
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (brightness == <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>) {
+      direction = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (brightness == <span style="color:rgb(249, 145, 87); font-weight:400;">255</span>) {
+      direction = <span style="color:rgb(249, 145, 87); font-weight:400;">-1</span>;
+    }
+
+    brightness += direction;
+    OCR1A = brightness;
+
+    _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+
+  }
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}</code></pre>
+
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | PWM | fade out | fade in</p>
+        </div>
+    
+    </body>
+</html>

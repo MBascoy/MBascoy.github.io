@@ -1,0 +1,59 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Programacion AVR PWM</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como generar señales <b>PWM</b> (Pulse Width Modulation) con un microcontrolador AVR.</p>
+
+            <p>El modo PWM nos permite generar señales cuadradas usando el microcontrolador, esto nos puede servir para controlar el comportamiento de ciertos componentes, como controlar el brillo de un led o la velocidad de un motor.</p>
+
+            <p>El funcionamiento es muy parecido al modo CTC, solo que cuando se llega al valor de comparación y se cambia el estado de la salida de un pin en vez de reiniciarse el contador en ese momento el contador sigue contando hasta el valor maximo (255), cuando el contador se reinicia el pin vuelve al estado inicial según el modo configurado (desactivado en <b>non-inverted</b>, activado en <b>inverted</b>)</p>
+            
+            <p>De esta manera el modo PWM cuenta siempre de <b>0</b> a <b>255</b> y cuando llega al valor de comparación cambia el estado del pin, si por ejemplo ponemos el valor de comparación en 25 esto hará que la señal esté activa un 10% del tiempo (si tenemos un led conectado alumbrará al 10% de su capacidad).</p>
+
+            <p>En el <b>Atmega168pa</b> tenemos dos pines por cada uno de los timers (6 pines en total) que nos permiten generar señales PWM:</p>
+            <img src="Programacion AVR PWM/1.png">
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Para utilizar el modo PWM (Fast PWM) necesitamos lo siguiente:</p>
+
+            <ul>
+                <li>Configurar el modo Fast PWM para el timer que vayamos a usar, para el <b>Timer1</b> sería:</li>
+                <code>TCCR1A |= (1 << WGM10) | (1 << WGM12);</code>
+
+                <li>Establecer el preescaler, para un preescaler de 8 en el Timer1 sería:</li>
+                <code>TCCR1B |= (1 << CS11);</code>
+
+                <p>El valor del preescaler es muy importante ya que determinará cuanto de rapido oscilará la señal, para controlar el brillo de un led por ejemplo necesitaremos una oscilación bastante rapida si no queremos verlo parpadear.</p>
+
+                <li>Establecer el pin que vayamos a utilizar, para usar <b>OC1A</b> del Timer1 en <b>non-inverted</b> mode sería</li>
+                <code>TCCR1A |= (1 << COM1A1);</code>
+
+                <p>Podemos consultar en el datasheet todos los demas puertos y como activar el modo <b>non-inverted</b> o <b>inverted</b>, la única diferencia entre estos dos modos es como se inicia el pin, desactivado o activado.</p>
+
+                <li>Establecer el valor de comparación, para el <b>Timer1</b> en el pin <b>OC1A</b> el registro es <b>OCR1A</b> (los otros 5 pines tienen cada uno su propio registro de comparación), para generar una señal con un 50% del valor total sería:</li>
+
+                <code>OCR1A = 127;</code>
+
+                <p>Una vez hechas todas estás configuraciones se generará una señal constante en el pin <b>OC1A</b> al 50%, si tenemos conectado un led en este pin veremos como alumbra a la mitad en comparación con una señal de salida continua.</p>
+                
+            </ul>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | PWM</p>
+        </div>
+    
+    </body>
+</html>
