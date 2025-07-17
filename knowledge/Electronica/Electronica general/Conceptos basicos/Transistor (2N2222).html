@@ -1,0 +1,92 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Transistor (2N2222)</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como utilizar un transistor (2N2222) como <b>switch</b> y como <b>amplificador</b>.</p>
+
+            <p><a href="Transistor (2N2222)/P2N2222A-D.PDF">Datasheet 2N2222</a></p>
+        </div>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+            <p>Un transistor 2N2222 es un componente con 3 pines: <b>colector, base y emisor</b>. </p>
+            <img src="Transistor (2N2222)/1.png">
+
+            <p>La manera de funcionar es la siguiente, al aplicar una corriente en la base el transistor permite el paso de corriente desde el colector al emisor, normalmente se coloca una carga entre positivo y el colector y el emisor se conecta a tierra, de esta manera al aplicar una corriente en la base controlamos la corriente que pasa por la carga.</p>
+
+            <p>Una caracteristica importante es que la intensidad que pasa por el colector es la intensidad que pasa por la base multiplicada por el coeficiente de ganancia (<b>Beta</b>), esto nos permite hacer que pequeñas señales si amplifiquen.</p>
+            
+            <p>El transistor 2N2222 es un transistor <b>NPN</b> esto significa que la base tiene alimentación <b>positiva (+)</b>, el otro tipo de transistor es <b>PNP</b> y la base tiene alimentación <b>negativa (-)</b></p>
+        </div>
+
+    <div class="t2">Transistor como amplificador</div>
+        <div class="cont">
+            <p>Valores a tener en cuenta:</p>
+            <ul>
+                <li>Beta: <b>consultar la tabla del datasheet</b></li>
+                <li>Voltaje entre Base/Emisor: <b>0.7V</b></li>
+            </ul>
+
+            <p>Para usar el transistor como un amplificador aplicaremos una pequeña intensidad en la base y esta intensidad se vera multiplicada en el colector.</p>
+
+            <p>Por ejemplo si queremos iluminar un led usando un transistor necesitaremos unos <b>20ma</b> en el colector, entonces necesitamos <b>mirar el datasheet</b> para saber cual es la ganancia del transistor cuando queremos una intensisad de 20ma:</p>
+
+            <img src="Transistor (2N2222)/2.png">
+
+            <p>En la grafica tenemos que tener en cuenta tanto el <b>voltaje</b> como la <b>temperatura</b> en la que estamos operando, en nuestro caso <b>25ºC y 5V</b>, si miramos la gráfica vemos que la ganancia (<b>Beta</b> / hfe) es de <b>200</b>, por lo tanto la intensidad aplicada en la base debería de ser <b>0.0001A</b> (20ma entre 200), para calcular la resistencia que tenemos que colocar en la base tenemos que tener en cuenta que la caida de tensión entre la base y el emisor en un transitor BJT es de <b>0.7V</b>, por lo tanto como nuestro VCC es de 5V el voltaje que caerá en la resistencia será de <b>4.3V</b>, 4.3/0.0001, lo que nos da una resistencia de <b>43K Ohms</b>.</p>
+
+            <p>Esto nos daría una intensidad de 20ma en el colector, justo lo que necesitamos:</p>
+
+            <img src="Transistor (2N2222)/3.png">
+
+            <p>En el circuito tal y como está plasmado no tiene sentido hacerlo así, para iluminar un led podemos conectar una resistencia al led directamente (solo es para ejemplificar el uso del transistor), pero en otros casos como por ejemplo la salida de un microcontrolador podemos estar limitados a la cantidad de intensidad que podemos usar (por ejemplo 10ma), en casos como esos usaremos un transistor para aplicarlo de esta manera y conseguir una intensidad mayor, tenemos que tener en cuenta la <b>cantidad maxima de intensidad</b> que puede soportar el transistor en el colector, en el caso del 2N2222 son unos <b>600ma</b>.</p>
+
+
+        </div>
+    
+    <div class="t2">Transistor como switch</div>
+        <div class="cont">
+            <p>Valores a tener en cuenta:</p>
+            <ul>
+                <li>Beta: <b>10</b></li>
+                <li>Voltaje entre Colector/Emisor: <b>0.2V</b></li>
+                <li>Voltaje entre Base/Emisor: <b>0.7V</b></li>
+            </ul>
+
+            <p>Para usar el transistor como un switch es igual que como un amplificador, pero en este caso haremos los calculos con una <b>Beta</b> de <b>10</b> (Es un valor típico para este escenario), este valor nos asegurará la intensidad suficiente en el colector para que podamos tenerlo en cuenta como si fuese un switch, en este caso lo que haremos será controlar la corriente en el colector usando <b>una resistencia a mayores</b>.</p>
+
+            <p>Vamos a replicar el mismo circuito de antes, queremos alimentar un led con <b>20ma</b>, teniendo en cuenta la <b>Beta</b> de <b>10</b> y que el voltaje en la resistencia de la base será de <b>4.3V</b> (5V en VCC y caen 0.7 entre Base y Emisor del transistor), la resistencia de la base debería de ser de <b>2150 Ohms</b>.</p>
+
+            <p><b>NOTA:</b> Obviamente esto no nos proporcionará 20ma en el colector si no muchísimo mas, pero de esta manera nos aseguramos de tener la suficiente intensidad en el colector para poder tratarlo como si fuese un switch sin más.</p>
+
+            <p>Ahora necesitamos hacer el calculo de la <b>resistencia</b> que acompañará al led conectado al colector, para hacer este calculo necesitamos saber el voltaje que cae en el led (<b>2.4V</b>) y el voltaje que cae en el transistor, entre el colector y el emisor, para estos casos el valor es de unos <b>0.2V</b>, ya que el transistor está actuando completamente saturado, como podemos ver en la gráfica del datasheet:</p>
+
+            <img src="Transistor (2N2222)/4.png">
+
+            <p><b>NOTA:</b> Normalmente tomaremos el valor máximo de saturación para tener en cuenta la caida que se produce entre el <b>colector</b> y el <b>emisor</b> (esos <b>0.2V</b>), aunque es cierto que en este caso concreto al tener una corriente tan pequeña la caida de voltaje será menor, en referencia con la gráfica... pero siempre podemos tener esos 0.2V de referencia ya que normalmente al usar un transistor como switch es porque queremos manejar corrientes mas altas.</p>
+
+            <p>Esto nos deja con que caerán <b>2.4V</b> en la resistencia (5V de VCC menos (2,4V + 0.2V)), por lo tanto si queremos 20ma en el led tendremos que usar una resistencia de <b>120 Ohms</b> (2.4 / 0.02), este calculo lo hacemos sin tener en cuenta ninguno de los calculos que hemos hecho para la base del transistor, ya que nuestro objetivo es tratar al transistor como un switch.</p>
+
+
+            <img src="Transistor (2N2222)/5.png">
+
+            <p><b>NOTA:</b> Aunque estemos usando el transistor como un switch tenemos que tener en cuenta las limitaciones del transistor, la intensidad máxima que soporta un transistor 2N2222 en el <b>colector</b> es de <b>600ma</b> nunca debemos de superar esa intensidad al manejar cargas con el transistor.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Electronica | Transistor | switch | amplificador</p>
+        </div>
+    
+    </body>
+</html>
