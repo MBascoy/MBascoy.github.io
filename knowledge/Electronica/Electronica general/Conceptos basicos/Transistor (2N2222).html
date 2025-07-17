@@ -72,7 +72,8 @@
 
             <img src="Transistor (2N2222)/4.png">
 
-            <p><b>NOTA:</b> Normalmente tomaremos el valor máximo de saturación para tener en cuenta la caida que se produce entre el <b>colector</b> y el <b>emisor</b> (esos <b>0.2V</b>), aunque es cierto que en este caso concreto al tener una corriente tan pequeña la caida de voltaje será menor, en referencia con la gráfica... pero siempre podemos tener esos 0.2V de referencia ya que normalmente al usar un transistor como switch es porque queremos manejar corrientes mas altas.</p>
+            <p><b>NOTA:</b> Este valor puede considerarse </p>
+            <p><b>NOTA:</b> Normalmente tomaremos el valor máximo de saturación para tener en cuenta la caida que se produce entre el <b>colector</b> y el <b>emisor</b> (esos <b>0.2V</b>), aunque es cierto que en este caso concreto al tener una corriente tan pequeña la caida de voltaje será menor, en referencia con la gráfica... pero siempre podemos tener esos 0.2V de referencia ya que normalmente al usar un transistor como switch es porque queremos manejar corrientes mas altas. En la grafica podemos ver segun la Beta de 10 (Ic/Ib = 10) obtendremos el valor en base a la intensidad del colector, en nuestro caso sería el valor de 20ma, la linea marca unos 0.04V (muy dificil de ver...), por lo tanto suele ser un valor despreciable y por lo general es mejor coger siempre 0.2V como referencia, o directamente descartar este valor en el calculo...</p>
 
             <p>Esto nos deja con que caerán <b>2.4V</b> en la resistencia (5V de VCC menos (2,4V + 0.2V)), por lo tanto si queremos 20ma en el led tendremos que usar una resistencia de <b>120 Ohms</b> (2.4 / 0.02), este calculo lo hacemos sin tener en cuenta ninguno de los calculos que hemos hecho para la base del transistor, ya que nuestro objetivo es tratar al transistor como un switch.</p>
 
