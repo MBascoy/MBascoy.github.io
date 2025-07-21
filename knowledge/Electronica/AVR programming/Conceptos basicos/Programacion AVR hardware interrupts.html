@@ -27,6 +27,8 @@
             <p>Para utilizar los interrupts con los puertos especificos (INT0 e INT1) tenemos que realizar los siguientes pasos:</p>
 
             <ul>
+                <li>Tenemos que añadir el siguiente include:</li>
+                <code>#include &lt;avr/interrupt.h&gt;</code>
                 <li>Primero ponemos el puerto como activo para la interrupción modificando el registro <b>EIMSK</b>, para activar INT0 lo hacemos así:</li>
                 <code>EIMSK |= (1 << INT0);</code>
 

@@ -19,6 +19,8 @@
             
             <p>De esta manera el modo PWM cuenta siempre de <b>0</b> a <b>255</b> y cuando llega al valor de comparación cambia el estado del pin, si por ejemplo ponemos el valor de comparación en 25 esto hará que la señal esté activa un 10% del tiempo (si tenemos un led conectado alumbrará al 10% de su capacidad).</p>
 
+            <p><b>NOTA:</b> en el <b>Timer1</b> podemos activar el <b>modo 14 (WGM13, WGM12 y WGM11)</b>, que es Fast PWM, pero en vez de contar hasta 255 cuenta hasta el valor de <b>ICR1</b> (el máximo valor de ICR1 es <b>65535</b>),</p>
+
             <p>En el <b>Atmega168pa</b> tenemos dos pines por cada uno de los timers (6 pines en total) que nos permiten generar señales PWM:</p>
             <img src="Programacion AVR PWM/1.png">
         </div>
