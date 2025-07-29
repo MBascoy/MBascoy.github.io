@@ -1,0 +1,77 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Generador numeros aleatorios</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como generar números (pseudo)-aleatorios en microcontroladores AVR.</p>
+
+            <p>Usaremos el timer1 del microcontrolador para que cuente entre 0 y 65535, cuando se produzca una entrada del usuario obtendremos el valor del timer1 para conseguir el numero pseudo-aleatorio, y hacemos los calculos (módulo y sumar), para que el valor esté entre el rango que quiera el usuario.</p>
+
+            <p>En este ejemplo el numero resultante se muestra en binario usando leds.</p>
+
+            <p><b>IMPORTANTE:</b> es imprescindible que la función <b>get_random()</b> sea llamada en base a una entrada del usuario, si se llama de manera automátizada desde el código se perderá entropia y los numeros podrían ser mas predecibles.</p>
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            <p><a href="Generador numeros aleatorios/random_number.sim1">Circuito SimulIDE</a></p>
+
+            <img src="Generador numeros aleatorios/1.png">
+        </div>
+
+    <div class="t2">Código</div>
+        <div class="cont">
+           
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/interrupt.h&gt;</span></span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">timer1_init</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    TCCR1B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM12); <span style="color:rgb(150, 152, 150); font-weight:400;">// Modo CTC</span>
+    TCCR1B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS10); <span style="color:rgb(150, 152, 150); font-weight:400;">// Sin preescaler</span>
+    OCR1A = <span style="color:rgb(249, 145, 87); font-weight:400;">65535</span>;
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">get_random</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> a, <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> b)</span></span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numberDiff = b - a + <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> (TCNT1 % numberDiff) + a; <span style="color:rgb(150, 152, 150); font-weight:400;">//Usamos el timer1 para obtener un valor y hacemos los calculos para que esté en el rango que se ha indicado</span>
+}
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(INT0_vect) {
+    PORTB = <span style="color:rgb(181, 189, 104); font-weight:400;">get_random</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">16</span>);
+    _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">500</span>);
+    
+    EIFR |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; INTF0); <span style="color:rgb(150, 152, 150); font-weight:400;">//eliminamos posibles interrupciones generadas durante el ISR</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    DDRB = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">//Todos los puertos del registro B como salida</span>
+    PORTD |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PD2); <span style="color:rgb(150, 152, 150); font-weight:400;">// pull-up resistor en PD2</span>
+
+    EIMSK |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; INT0); <span style="color:rgb(150, 152, 150); font-weight:400;">//Activamos INT0 para interrupciones</span>
+    EICRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ISC00); <span style="color:rgb(150, 152, 150); font-weight:400;">//Generamos interrupción cuando haya un cambio en el puerto</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">sei</span>(); <span style="color:rgb(150, 152, 150); font-weight:400;">//Activamos interrupciones globalmente</span>
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">timer1_init</span>(); <span style="color:rgb(150, 152, 150); font-weight:400;">// Inicializar Timer1</span>
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+        PORTB = <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">//Apagamos leds</span>
+    }
+}</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | Random</p>
+        </div>
+    
+    </body>
+</html>

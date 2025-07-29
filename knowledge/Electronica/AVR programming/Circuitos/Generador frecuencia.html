@@ -1,0 +1,67 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Generador frecuencia</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Generador de frecuencia cuadrada.</p>
+
+            <p>Usaremos el Timer1 para generar la frecuencia a traves del pin PB1(OC1A)</p>
+
+            <p>En este ejemplo generamos una frecuencia de <b>440Hz</b></p>
+            
+            <p>Para calcular el <b>OCR1A</b> lo hacemos con:</p> 
+            <code>(CPU_CLOCK / PREESCALER) / FRECUENCIA_FINAL / 2</code>
+            
+            <p>En este caso seria <b>(1000000 / 8) / 440 / 2</b>, que nos da aproximadamente <b>142</b></p>
+
+            <p> (Cuando queremos generar frecuencias muy especificas es muy dificil que el calculo final sea 100% exacto, y para el comparador necesitamos un numero entero, por eso simplemente redondeamos y listo).</p>
+            
+            <p>La división entre 2 al final es porque el timer hace un toggle del pin, por lo tanto para que haga la frecuencia completa tiene que activar y desactivar la salida por lo tanto para alcanzar la frecuencia que queremos tenemos que hacer que sea el doble de rapido, por eso se divide entre 2.</p>
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            <p>Podemos usar la señal cuadrada generada para enviarla a un altavoz y así escucharla, en este caso a traves de PB1(OC1A).</p>
+
+            <p>El condensador conectado al altavoz actua como un acoplador, haciendo que el altavoz perciba el cambio de frecuencia de manera mas amortiguada.</p>
+
+            <img src="Generador frecuencia/1.png">
+        </div>
+
+    <div class="t2">Código</div>
+        <div class="cont">
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">timer1_init</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    TCCR1B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM12); <span style="color:rgb(150, 152, 150); font-weight:400;">// Modo CTC</span>
+    TCCR1B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS11); <span style="color:rgb(150, 152, 150); font-weight:400;">// Prescaler 8</span>
+    TCCR1A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; COM1A0); <span style="color:rgb(150, 152, 150); font-weight:400;">// Pin toggle en PB1</span>
+
+    OCR1A = <span style="color:rgb(249, 145, 87); font-weight:400;">142</span>;
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    DDRB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB1); <span style="color:rgb(150, 152, 150); font-weight:400;">// PB1 como salida</span>
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">timer1_init</span>();     <span style="color:rgb(150, 152, 150); font-weight:400;">// Inicializar Timer1</span>
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+    }
+}</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | PWM | Generador | frecuencia</p>
+        </div>
+    
+    </body>
+</html>

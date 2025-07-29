@@ -85,11 +85,12 @@
             <p>Si queremos hacerlo manteniendo las demas salidas en su estado lo haríamos así:</p>
             <code>PORTB |= (1 << PB2);</code>
 
+            <p>Si queremos desactivar la salida en PB2 manteniendo las demas salidas en su estado lo haríamos así:</p>
+            <code>PORTB &= ~(1 << PB2);</code>
+
             <p>Si queremos configurar dos puertos como salida podemos hacerlo así:</p>
             <code>DDRC = (1 << PC1) & (1 << PC3);</code>
             
-
-
         </div>
 
     <div class="t2">Funciones para comprobar estado de puertos</div>
@@ -104,14 +105,14 @@
             <code>if(PINB & (1 << PB0))</code>
 
             <p>Lo haríamos así:</p>
-            <code>bit_is_set(PINB, PB0)</code>
+            <code>if(bit_is_set(PINB, PB0))</code>
 
 
             <p>Para comprobar si el puerto 0 del registro B está con la <b>entrada desactivada</b> en vez de hacerlo así:</p>
             <code>if(!(PINB & (1 << PB0)))</code>
 
             <p>Lo haríamos así:</p>
-            <code>bit_is_clear(PINB, PB0)</code>
+            <code>if(bit_is_clear(PINB, PB0))</code>
         </div>
 
     <div class="t2">Tags</div>
