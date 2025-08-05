@@ -17,30 +17,44 @@
     <div class="t2">Descripcion</div>
         <div class="cont">
 
-            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">MCU   = atmega168pa
-F_CPU = 1000000UL
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(150, 152, 150); font-weight:400;"># Configuración principal</span>
+MCU   = atmega168pa
+F_CPU = 8000000UL
 BAUD  = 9600UL
 
-PROGRAMMER = usbtiny
+PROGRAMMER = usbasp
 
 CC = avr-gcc
 OBJCOPY = avr-objcopy
 AVRDUDE = avrdude
-CCFLAGS = -DF_CPU=<span style="color:rgb(255, 204, 102); font-weight:400;">$(F_CPU)</span> -DBAUD=<span style="color:rgb(255, 204, 102); font-weight:400;">$(BAUD)</span>
 
-CODE_FILES = led_blink.c
+CFLAGS = -mmcu=<span style="color:rgb(255, 204, 102); font-weight:400;">$(MCU)</span> -DF_CPU=<span style="color:rgb(255, 204, 102); font-weight:400;">$(F_CPU)</span> -DBAUD=<span style="color:rgb(255, 204, 102); font-weight:400;">$(BAUD)</span> -Os -Wall
+LDFLAGS = -mmcu=<span style="color:rgb(255, 204, 102); font-weight:400;">$(MCU)</span>
 
-TARGET = led_blink
+SRC = watch.c lcd.c i2c.c font.c
+OBJ = $(SRC:.c=.o)
 
+TARGET = watch
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Reglas de compilación</span>
+<span style="color:rgb(181, 189, 104); font-weight:700;">all: <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.hex</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:700;">%.o: %.c</span>
+	<span style="color:rgb(255, 204, 102); font-weight:400;">$(CC)</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$(CFLAGS)</span> -c <span style="color:rgb(255, 204, 102); font-weight:400;">$&lt;</span> -o <span style="color:rgb(255, 204, 102); font-weight:400;">$@</span>
+
+<span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.elf: <span style="color:rgb(255, 204, 102); font-weight:400;">$(OBJ)</span>
+	<span style="color:rgb(255, 204, 102); font-weight:400;">$(CC)</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$(LDFLAGS)</span> -o <span style="color:rgb(255, 204, 102); font-weight:400;">$@</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$^</span>
 
 <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.hex: <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.elf
-	<span style="color:rgb(255, 204, 102); font-weight:400;">$(OBJCOPY)</span> -O ihex -R .eeprom <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.elf <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.hex
+	<span style="color:rgb(255, 204, 102); font-weight:400;">$(OBJCOPY)</span> -O ihex -R .eeprom <span style="color:rgb(255, 204, 102); font-weight:400;">$&lt;</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$@</span>
 
-<span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.elf: <span style="color:rgb(255, 204, 102); font-weight:400;">$(CODE_FILES)</span>
-	<span style="color:rgb(255, 204, 102); font-weight:400;">$(CC)</span> <span style="color:rgb(255, 204, 102); font-weight:400;">$(CCFLAGS)</span> -mmcu=<span style="color:rgb(255, 204, 102); font-weight:400;">$(MCU)</span> -Os -o <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.elf <span style="color:rgb(255, 204, 102); font-weight:400;">$(CODE_FILES)</span>
-
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Flasheo al microcontrolador</span>
 <span style="color:rgb(181, 189, 104); font-weight:700;">flash: <span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.hex</span>
-	<span style="color:rgb(255, 204, 102); font-weight:400;">$(AVRDUDE)</span> -c <span style="color:rgb(255, 204, 102); font-weight:400;">$(PROGRAMMER)</span> -p <span style="color:rgb(255, 204, 102); font-weight:400;">$(MCU)</span> -U flash:w:<span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.hex:i</code></pre>
+	<span style="color:rgb(255, 204, 102); font-weight:400;">$(AVRDUDE)</span> -c <span style="color:rgb(255, 204, 102); font-weight:400;">$(PROGRAMMER)</span> -p <span style="color:rgb(255, 204, 102); font-weight:400;">$(MCU)</span> -U flash:w:<span style="color:rgb(255, 204, 102); font-weight:400;">$(TARGET)</span>.hex:i
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Limpieza</span>
+<span style="color:rgb(181, 189, 104); font-weight:700;">clean:</span>
+	rm -f *.o *.elf *.hex</code></pre>
         </div>
 
     <div class="t2">Tags</div>
