@@ -1,0 +1,51 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Modificar Fuses</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Los <b>fuses</b> son configuraciones internas de un microcontrolador AVR</p>
+            
+            <p>Aqui explicamos como consultar y modificar los fuses de un microcontrolador.</p>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Un microcontrolador AVR tiene 3 fuses: <b>lfuse</b>, <b>hfuse</b>y <b>efuse</b></p>
+
+            <p>Cada fuse tiene una serie de configuraciones disponibles, en la siguiente web podemos calcular cual sería el valor a grabar en el fuse según las configuraciones que queramos:</p>
+            <a href="https://www.engbedded.com/fusecalc/">https://www.engbedded.com/fusecalc/</a>
+
+            <h2>Consultar fuses</h2>
+            <p>Si queremos ver el estado de los 3 fuses lo hacemos con el siguiente comando:</p>
+            <code>avrdude -c usbasp -p m168pa -U lfuse:r:-:h -U hfuse:r:-:h -U efuse:r:-:h</code>
+
+            <p>Si queremos ver solo el estado de lfuse por ejemplo, lo haríamos con el comando:</p>
+            <code>avrdude -c usbasp -p m168pa -U lfuse:r:-:h</code>
+
+            <h2>Modificar fuses</h2>
+
+            <p>Si por ejemplo queremos desactivar el divisor entre 8 de la frecuencia del reloj lo haríamos con el siguiente comando:</p>
+            <code>avrdude -c usbasp -p m168pa -U lfuse:w:0xe2:m</code>
+
+            <p>El bit <b>0xe2</b> indica que se desactivará la configuración <b>CKDIV8</b>, el valor a grabar depende de las otras configuraciones del fuse, ya que se aplica como una mascara de bits (consultar la web de calculadora de fuses).</p>
+
+            <p>Para volver a activar el <b>CKDIV8</b> y dejar la configuración por defecto sería:</p>
+            <code>avrdude -c usbasp -p m168pa -U lfuse:w:0x62:m</code>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | fuses</p>
+        </div>
+    
+    </body>
+</html>

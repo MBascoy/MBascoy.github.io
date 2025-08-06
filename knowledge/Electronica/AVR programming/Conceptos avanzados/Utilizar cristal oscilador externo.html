@@ -1,0 +1,48 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Utilizar cristal oscilador externo</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Configurar un microcontrolador AVR para que utilice un cristal externo en vez del oscilador interno.</p>
+            <p>El usar un cristal externo nos da una fuente de reloj mucho mas precisa y estable</p>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Para conectar el <b>cristal oscilador</b> lo hacemos a los pines <b>XTAL1</b> y <b>XTAL2</b> del microcontrolador y a su vez tendremos que usar dos condensadores cerámicos de <b>22pf</b> el circuito final es así:</p>
+
+            <img src="Utilizar cristal oscilador externo/1.png">
+               
+            <h2>Configurar Fuses</h2>
+
+            <p>Para hacer funcionar el cristal externo tendremos que reconfigurar el "<b>lfuse</b>" del microcontrolador.</p>
+
+            <p><b>NOTA:</b> una vez se haga el cambio para usar el cristal externo es necesario que el cristal esté conectado al microcontrolador, si no el microcontrolador no funcionará ya que no tendrá ninguna señal de reloj, <b>INCLUSO para reprogramar el microcontrolador es necesario tener conectado el cristal</b>.</p>
+
+            <p>Para configurar el <b>lfuse</b> para que funcione con el cristal externo lo haremos con:</p>
+
+            <code>avrdude -c usbasp -p m168pa -U lfuse:w:0x7F:m</code>
+
+            <p>Como se ha mencionado antes para usar el microcontrolador a partir de este momento <b>es necesario tener conectado el cristal oscilador</b>, por lo tanto incluso aunque queramos volver a la configuración para usar el oscilador interno necesitamos del cristal, <b>si no tenemos un cristal oscilador para conectar al microcontrolador este quedará inservible</b> ya que no tendrá ninguna señal de reloj e incluso se imposibilita el reprogramar los fuses.</p>
+
+            <p>Si queremos volver a la configuración por defecto para que vuelva a usar el <b>oscilador interno</b> lo haríamos con:</p>
+
+            <code>avrdude -c usbasp -p m168pa -U lfuse:w:0x62:m</code>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | oscilador</p>
+        </div>
+    
+    </body>
+</html>
