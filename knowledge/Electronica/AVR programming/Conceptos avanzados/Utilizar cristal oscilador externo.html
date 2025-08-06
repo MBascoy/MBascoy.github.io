@@ -31,12 +31,19 @@
 
             <code>avrdude -c usbasp -p m168pa -U lfuse:w:0x7F:m</code>
 
+            <p><b>NOTA:</b> si queremos desactivar el divisor entre 8 (CKDIV8), para usar toda la velocidad del cristal, el bit a guardar sería <b>0xFF</b></p>
+
             <p>Como se ha mencionado antes para usar el microcontrolador a partir de este momento <b>es necesario tener conectado el cristal oscilador</b>, por lo tanto incluso aunque queramos volver a la configuración para usar el oscilador interno necesitamos del cristal, <b>si no tenemos un cristal oscilador para conectar al microcontrolador este quedará inservible</b> ya que no tendrá ninguna señal de reloj e incluso se imposibilita el reprogramar los fuses.</p>
 
             <p>Si queremos volver a la configuración por defecto para que vuelva a usar el <b>oscilador interno</b> lo haríamos con:</p>
 
             <code>avrdude -c usbasp -p m168pa -U lfuse:w:0x62:m</code>
 
+
+            <h2>Calibración</h2>
+            <p>El <b>oscilador interno </b> es muy impreciso, se puede atrasar <b>varios minutos por día</b>, al usar un <b>cristal externo</b> nos da mucha mas precisión y estabilidad, pero aún así puede atrasarse <b>unos segundos por día</b>.</p>
+
+            <p>Si queremos usar el microcontrolador como un reloj tendremos que hacer alguna pequeña calibración a la hora de contar los segundos, ya sea añadir un pequeño retraso o un pequeño adelanto, esto podremos hacerlo siempre que observemos que la variación es constante en el tiempo, podemos compararlo con otro reloj para saber si nuestro cristal oscila mas rapido o mas lento de lo que debería.</p>
         </div>
 
     <div class="t2">Tags</div>
