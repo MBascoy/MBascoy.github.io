@@ -20,6 +20,8 @@
                 <li><b>Timer1</b> de 16 bits (puede contar hasta 65.535)</li>
                 <li><b>Timer2</b> de 8 bits (puede contar hasta 255)</li>
             </ul>
+
+            <p><b>NOTA:</b> La variable <b>F_CPU</b> no tiene ningún efecto sobre los timers, los timers solo van contando en base a la frecuencia real del reloj y el prescaler configurado, la variable F_CPU es usada en funciones como _delay_ms para hacer el calculo del retardo.</p>
         </div>
 
     <div class="t2">Descripcion</div>
