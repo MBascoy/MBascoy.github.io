@@ -1,0 +1,90 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Pantalla OLED ssd1306</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como utilizar una pantalla <b>ssd1306</b> con un microcontrolador <b>Atmega168pa</b></p>
+
+            <p>Usaremos la siguiente librería: <a href="https://github.com/Sylaina/oled-display">https://github.com/Sylaina/oled-display</a></p>
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>Del repositorio necesitamos los siguientes archivos:</p>
+            <ul>
+                <li>lcd.c</li>
+                <li>lcd.h</li>
+                <li>i2c.c</li>
+                <li>i2c.h</li>
+                <li>font.c</li>
+                <li>font.h</li>
+            </ul>
+
+            <p>Dentro del archivo <b>lcd.h</b> tenemos que configurar las siguientes constantes:</p>
+
+            <img src="Pantalla OLED ssd1306/2.png">
+
+            <p>Principalmente sería, indicar el <b>protocolo</b>, el <b>tipo de pantalla</b> y el <b>modo de la pantalla</b>.</p>
+
+            <p>En nuestro caso solo tenemos que cambiar el <b>tipo de pantalla</b> para indicar <b>SSD1306</b> en vez de SH1106, el protoclor está bien el <b>I2C</b> y el modo está bien el <b>TEXTMODE</b></p>
+
+            <p><b>NOTA:</b> Con el microcontrolador Atmega168pa no podemos usar el <b>GRAPHICMODE</b> ya que solo tiene 1KB de RAM y la librería requiere de 1026 bytes (mas lo que use el programa), por lo tanto la memoria es insuficiente.</p>
+
+        </div>
+
+    <div class="t2">Ejemplo básico</div>
+        <div class="cont">
+            <p>Para utilizar la pantalla y escribir algunos caracteres lo hacemos así:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(255, 204, 102); font-weight:400;">#include</span> &quot;lcd<span style="color:rgb(209, 217, 225); font-weight:400;">.h</span>&quot;
+
+int <span style="color:rgb(204, 153, 204); font-weight:400;">main</span>(void){
+  <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_init</span>(LCD_DISP_ON);
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_puts</span>(&quot;Hello World&quot;);
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_gotoxy</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>);
+  <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_charMode</span>(DOUBLESIZE);
+  <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_puts</span>(&quot;GRANDE&quot;);
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">while</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>){}
+
+  return <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}</code></pre>
+
+            <p>El resultado se ve así:</p>
+            <img src="Pantalla OLED ssd1306/3.jpg">
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            <p>Para conectar la pantalla ssd1306 tenemos que hacer las siguientes conexiones:</p>
+
+            <ul>
+                <li><b>SDA</b> del microcontrolador (<b>PC4</b>) al <b>SDA</b> de la pantalla</li>
+                <li><b>SCL</b> del microcontrolador (<b>PC5</b>) al <b>SCL</b> de la pantalla</li>
+                <li>Resistencia pullup <b>10Kohm</b> a la linea SDA</li>
+                <li>Resistencia pullup <b>10Kohm</b> a la linea SCL</li>
+            </ul>
+
+            <p>El circuito es tal que así:</p>
+
+            <img src="Pantalla OLED ssd1306/1.png">
+            
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | OLED screen | ssd1306</p>
+        </div>
+    
+    </body>
+</html>
