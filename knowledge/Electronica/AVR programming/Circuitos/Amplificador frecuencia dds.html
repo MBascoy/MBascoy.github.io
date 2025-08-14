@@ -1,0 +1,32 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Amplificador frecuencia dds</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Circuito para amplificar una señal dds.</p>
+
+            <p>Si queremos amplificar una señal <b>dds (Direct Digital Synthesis)</b>, podemos hacerlo de igual manera que con una señal cuadrada usando un <b>transistor</b>, pero en este caso tendremos que usar un condensador <b>cerámico (100 nf)</b> para generar un <b>low pass filter</b> y hacer así que el altavoz obtenga la onda generada y no las señales individuales que usamos para generar la onda.</p>
+            
+            <p>Si no ponemos el condensador cerámico el altavoz emitirá un sonido estridente coincidiendo con las señales que hemos generado usando el PWM, esto no ocurre al conectar el altavoz directamente al microcontrolador porque la intensidad de salida es muy baja, pero al conectar el transistor el altavoz recibe una intensidad mucho mas alta permitiendole reaccionar a cada señal individual que hemos generado, lo que generará ese sonido estridente en vez de la onda que queremos generar usando dds.</p>
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            <img src="Amplificador frecuencia dds/1.png">
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | PWM | dds | Amplificador</p>
+        </div>
+    
+    </body>
+</html>
