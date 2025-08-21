@@ -1,0 +1,156 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Programacion AVR analog input (ADC)</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Configurar y utilizar los puertos de entrada analógica del microcontrolador.</p>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>En el caso del <b>Atmega168pa</b> tenemos 6 puertos que nos permiten hacer conversión analógico-digital:</p>
+
+            <img src="Programacion AVR analog input (ADC)/1.png">
+
+            <p><a href="../Circuitos/Analog Digital Converter.html">Código de ejemplo ADC</a></p>
+
+            <p>Para utilizar el ADC (Analog Digital Converter) tenemos que realizar lo siguiente:</p>
+
+            <ul>
+                <li>Alimentar el puerto <b>AVCC</b></li>
+                <li>Conectar el voltaje de referencia en <b>AREF</b>, podemos evitar esto usando la siguiente configuración, para usar el mismo voltaje que en <b>AVCC</b>:</li>
+                <code>ADMUX |= (1 << REFS0);</code>
+
+                <li>Configuramos el prescaler</li>
+                <p>Para obtener una alta resolución del ADC tendremos que configurar el prescaler de manera que la frecuencia resultante (Frecuencia de reloj / prescaler) sea de entre <b>50Khz</b> y <b>200Khz</b>, (con un reloj de 8Mhz y un prescaler de 64 serían 125Khz por ejemplo), si queremos podemos establecer un valor por encima de 200Khz pero a cambio de perder resolución en el valor final que obtenemos del ADC.</p>
+
+                <p>El conversor ADC tarda unos 13 "ciclos ADC" en obtener una lectura, si tenemos un reloj de 8Mhz con un prescaler de 64 (ADC a 125Khz) el ADC tardaría unos <b>100 microsegundos</b> en leer el valor.</p>
+
+                <p>Para establecer un prescaler de 64 sería:</p>
+                <code>ADCSRA |= (1 << ADPS1) | (1 << ADPS2);</code>
+
+                <img src="Programacion AVR analog input (ADC)/3.png">
+            
+                <li>Activamos el ADC</li>
+                <code>ADCSRA |= (1 << ADEN);</code>
+
+                <li>Iniciamos la conversión Analógica-Digital para poder leer el valor en ese instante, tenemos que esperar hasta que el bit ADSC esté a 0</li>
+                <pre><code>ADCSRA |= (1 << ADSC);
+loop_until_bit_is_clear(ADCSRA, ADSC);</code></pre>
+                <li>El valor leido está almacenado en <b>ADC</b> es un valor de 10 bits</li>
+                <li>Por defecto el puerto que se lee es el <b>ADC0</b></li>
+            </ul>
+
+        </div>
+    
+    <div class="t2">Seleccionar puerto para el ADC</div>
+        <div class="cont">
+            <p>El convertidor analógico-digital a pesar de tener varios puertos disponibles <b>solo puede usar uno a la vez</b> (si queremos obtener la entrada analógica en varios puertos tenemos que hacer multiplexación).</p>
+            <p>Para cambiar el puerto sobre el que se obtienen las lecturas se hace a traves de los 4 bits menos significativos del registro <b>ADMUX</b>, en este caso no es una mascara, sino que es el numero del puerto en sí (ya que solo puede ser uno el puerto activo para el ADC).</p>
+
+            <img src="Programacion AVR analog input (ADC)/2.png">
+
+            <p>Para indicar el puerto podemos hacer un <b>OR</b> con el número del puerto (o macro del puerto) pero <b>tenemos que dejar los 4 bits más significativos sin cambiar</b>.</p>
+
+            <p>Para activar el puerto PC3 del microcontrolador como puerto para el ADC lo haríamos tal que así:</p>
+
+            <code>ADMUX = (0xf0 & ADMUX) | PC3;</code>
+
+            <p>Esta operación nos permite mantener los 4 bits más significativos sin alterar y dejar a 0 los 4 menos significativos, para poder hacer un OR del puerto que queramos y que no intefiera con alguna valor previo.</p>
+            <p>Al hacer un OR con el puerto 3 "00000011" solo se cambian los bits menos significativos con el valor binario "3"</p>
+        </div>
+
+        <div class="t2">Divisor de voltaje</div>
+            <div class="cont">
+                <p>Al añadir la resistencia para realizar el divisor de voltaje en el circuito tenemos que tener en cuenta cual es el rango de valores en los que se mueve nuestro sensor.</p>
+
+                <p>Si por ejemplo tenemos un sensor que en su rango minimo nos da una resistencia de <b>10K Ohm</b> y la resistencia que usamos para el divisor de voltaje es de <b>10K Ohm</b> en este caso la lectura más baja que nos dará el ADC será de <b>512</b> (ya que tenemos 10K Ohm en las dos partes del divisor el votaje será la mitad), en este caso tendríamos que considerar usar una resistencia mas grande para el divisor de voltaje para poder obtener un rango de lectura mayor.</p>
+            </div>
+
+        <div class="t2">Modo Free-Run e Interrupciones</div>
+            <div class="cont">
+
+                <h2>Modo Free-Run</h2>
+                <p>Por defecto el conversor ADC trabaja en modo <b>Single-shot</b>, nosotros iniciamos el momento en el que hacer una lectura, otro de los modos de funcionamiento es el <b>free-run</b>, en este modo el conversor ADC está constantemente haciendo lecturas, nosotros solo tenemos que leer el valor <b>ADC</b> para obtener la ultima actualización.</p>
+
+                <p>Para usar el modo <b>free-run</b> solo tenemos que activar el auto-trigger del ADC (el modo free-run es el modo por defecto del auto-trigger):</p>
+                <code>ADCSRA |= (1 << ADATE);</code>
+
+                <p>A pesar de que no tenemos que indicar cuando queremos hacer cada lectura si que tenemos que indicar una primera lectura para que el modo free-run empiece a hacer lecturas constantes:</p>
+                <code>ADCSRA |= (1 << ADSC);</code>
+                
+                <h2>Interrupciones con lecturas del ADC</h2>
+                <p>Podemos hacer que se genere una interrupción cada vez que se complete una lectura del ADC, activamos la interrupciones del ADC:</p>
+                <code>ADCSRA |= (1 << ADIE);</code>
+
+                <p>Y activamos las interrupciones globales:</p>
+                <code>sei();</code>
+
+                <p>Definimos la ISR() que se ejecutará al lanzarse la interrupción:</p>
+                <code>ISR(ADC_vect) {}</code>
+
+                <p>A continuación se muestra un código de ejemplo que usa el modo <b>free-run</b> y las <b>interrupciones</b> al completarse cada lectura del ADC:</p>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/power.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/interrupt.h&gt;</span></span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> ledValue;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> adcValue;
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ADC_init</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    ADMUX |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; REFS0);
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADPS0) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADPS1);
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADEN);
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADIE); <span style="color:rgb(150, 152, 150); font-weight:400;">// Activamos interrupciones para el ADC</span>
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADATE); <span style="color:rgb(150, 152, 150); font-weight:400;">// Activamos auto trigger del ADC (Por defecto el modo es el free-run)</span>
+
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADSC); <span style="color:rgb(150, 152, 150); font-weight:400;">// Iniciamos la primera conversión (a partir de aqui el free-run se ejecutara de manera automatica)</span>
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">sei</span>();
+}
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(ADC_vect) {
+    adcValue = ADC; <span style="color:rgb(150, 152, 150); font-weight:400;">// Leemos el valor del ADC</span>
+
+    ledValue = (adcValue &gt;&gt; <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>);
+
+    PORTB = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt;= ledValue; i++) {
+      PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; i);
+    }
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Clear the interrupt flag to allow next conversion</span>
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADIF);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">clock_prescale_set</span>(clock_div_1);
+
+    DDRB = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">//Todos los puertos del registro B como salida</span>
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">ADC_init</span>();
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+
+    }
+}
+</code></pre>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | Analog</p>
+        </div>
+    
+    </body>
+</html>
