@@ -1,0 +1,141 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Monitorear nivel bateria</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como comprobar el nivel de la batería que estamos usando para alimentar el microcontrolador.</p>
+        </div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Para comprobar el estado de la batería lo hacemos leyendo el voltaje de la batería usando el <b>ADC</b>.</p>
+
+            <p>Para leer el votaje de la batería que alimenta el propio microcontrolador lo hacemos usando el voltaje de referencia interno del microcontrolador de <b>1.1v</b></p>
+
+            <p>Primero iniciamos el ADC para que lea el voltaje de <b>AVCC en relación al voltaje interno</b>:</p>
+
+            <pre><code>ADMUX |= (1 << REFS0) | (1 << MUX3) | (1 << MUX2) | (1 << MUX1); // Leemos el valor de AVCC en referencia al voltaje interno de 1.1v
+ADCSRA |= (1 << ADPS1) | (1 << ADPS2); // Configuramos prescaler
+ADCSRA |= (1 << ADEN); // Activamos el ADC</code></pre>
+
+            <p>Ahora solo tenemos que hacer una lectura del ADC como siempre:</p>
+            <pre><code>ADCSRA |= (1 << ADSC);
+loop_until_bit_is_clear(ADCSRA, ADSC);</code></pre>
+
+            <p>Ahora tenemos que interpretar el valor del ADC para saber el porcentaje exacto de la batería.</p>
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            <p>Conectamos Vcc al <b>AVCC</b> y <b>AREF</b> lo conectamos a tierra usando un condensador de 100nf.</p>
+
+            <p>Los leds del esquema se usan para mostrar el voltaje en valor binario.</p>
+
+            <img src="Monitorear nivel bateria/1.png">
+        </div>
+
+    <div class="t2">Calcular porcentaje de la batería</div>
+        <div class="cont">
+            <p>Cuando hacemos una lectura del ADC usando el voltaje de referencia interno (1.1v), el valor que devuelve el ADC será de <b>1023</b> si el voltaje que tenemos en <b>AVCC es de 1.1V</b>, a partir de aquí el valor del ADC disminuye a medida que el voltaje aumenta, si obtenemos una lectura de 512 el voltaje será de 2.2v, si obtenemos una lectura de 256 el voltaje será de 4.4v, de este modo podemos saber que valores del ADC corresponden con los valores de voltajes leidos en AVCC (el voltaje de nuestra batería).</p>
+
+            <p>Calculo de valor del ADC para un voltaje:</p>
+            <code>1023/ (voltaje / 1.1)</code>
+
+            <p>Si por ejemplo tenemos un voltaje de 5v, lo dividimos entre 1.1v y despues dividimos 1023 entre el resultado anterior, en este caso haríamos 1023/(5/1.1), lo que nos da unos 225.</p>
+
+            <p>A la hora de calcular el porcentaje que le queda a nuestra batería necesitamos los siguientes valores:</p>
+
+            <ul>
+                <li>Voltaje en capacidad máxima</li>
+                <li>Voltaje en capacidad mínima</li>
+            </ul>
+
+            <p>Por ejemplo para una pila AA el voltaje máximo es de 1.6v y el minimo es de 1.1v, para alimentar el microcontrolador usamos dos pilas AA, lo que nos deja un <b>voltaje máximo de 3.2v</b> y un <b>voltaje minimo de 2.2v</b>, ahora necesitamos saber a que valores del ADC corresponden esos voltajes, el voltaje máximo sería (1023/(3.2/1.1)) que es 351 y para el voltaje mínimo sería (1023/(2.2/1.1)) que es 511.</p>
+
+            <p>Por lo tanto con estos valores sabremos que al leer 351 la batería está al máximo de su capacidad y al leer 511 está al mínimo.</p>
+
+            <p>Para transformarlo a porcentaje (%) lo hacemos con la siguiente formula</p>
+
+            <code>(ADC_MAXIMO - VALOR_ADC) * 100 / DIFERENCIA_MAX-MIN;</code>
+
+            <p>En el ejemplo de las dos pilas AA si estamos leyendo un valor de 420 el cálculo sería, <b>((511 - 420) * 100) / 160</b>, el 160 es la diferencia entre 511 y 351, en este caso nos daría un valor de 56% </p>
+
+            <h2>Evitar fluctuación de voltaje</h2>
+            <p>Al hacer varias lecturas del voltaje a veces puede ir fluctuando entre varios valores, esto producirá que el porcentaje de nuestra batería a veces lo leamos como 82 por ejemplo y a los pocos segundos como 83, para evitar esto podemos usar una variable que solo muestre el valor mas bajo que se haya leido:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> min_battery = <span style="color:rgb(249, 145, 87); font-weight:400;">100</span>;
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int8_t</span> <span style="color:rgb(181, 189, 104); font-weight:400;">get_battery</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+  ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADSC);
+  <span style="color:rgb(181, 189, 104); font-weight:400;">loop_until_bit_is_clear</span>(ADCSRA, ADSC);
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> battery_level = (ADC_MAX_VALUE - ADC) * <span style="color:rgb(249, 145, 87); font-weight:400;">100</span> / ADC_DIFF_MAX_MIN;
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(battery_level &lt; min_battery){
+    min_battery = battery_level;
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> min_battery;
+}</code></pre>
+
+        </div>
+
+    <div class="t2">Código de ejemplo</div>
+        <div class="cont">
+            <p>Leemos el nivel de la batería y lo mostramos como valor binario en 8 leds.</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/power.h&gt;</span></span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> ADC_MAX_VALUE 511</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> ADC_DIFF_MAX_MIN 160</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> min_battery = <span style="color:rgb(249, 145, 87); font-weight:400;">100</span>;
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">adc_init</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+    ADMUX |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; REFS0) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; MUX3) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; MUX2) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; MUX1);
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADPS1) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADPS2);
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADEN);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int8_t</span> <span style="color:rgb(181, 189, 104); font-weight:400;">get_battery</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+  ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADSC);
+  <span style="color:rgb(181, 189, 104); font-weight:400;">loop_until_bit_is_clear</span>(ADCSRA, ADSC);
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> battery_level = (ADC_MAX_VALUE - ADC) * <span style="color:rgb(249, 145, 87); font-weight:400;">100</span> / ADC_DIFF_MAX_MIN;
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(battery_level &lt; min_battery){
+    min_battery = battery_level;
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> min_battery;
+}
+
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+  <span style="color:rgb(181, 189, 104); font-weight:400;">clock_prescale_set</span>(clock_div_1);
+
+  DDRB = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>;
+  
+  <span style="color:rgb(181, 189, 104); font-weight:400;">adc_init</span>();
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+      PORTB = <span style="color:rgb(181, 189, 104); font-weight:400;">get_battery</span>();
+    }
+}</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | batería</p>
+        </div>
+    
+    </body>
+</html>

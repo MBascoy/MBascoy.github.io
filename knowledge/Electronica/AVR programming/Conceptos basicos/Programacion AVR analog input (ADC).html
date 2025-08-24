@@ -28,6 +28,7 @@
                 <li>Alimentar el puerto <b>AVCC</b></li>
                 <li>Conectar el voltaje de referencia en <b>AREF</b>, podemos evitar esto usando la siguiente configuración, para usar el mismo voltaje que en <b>AVCC</b>:</li>
                 <code>ADMUX |= (1 << REFS0);</code>
+                <p><b>NOTA:</b> el datasheet del atmega168pa nos recomienda conectar AREF a tierra con un condensador (se recomienda 10nf o 100nf) para estabilizar el voltaje.</p>
 
                 <li>Configuramos el prescaler</li>
                 <p>Para obtener una alta resolución del ADC tendremos que configurar el prescaler de manera que la frecuencia resultante (Frecuencia de reloj / prescaler) sea de entre <b>50Khz</b> y <b>200Khz</b>, (con un reloj de 8Mhz y un prescaler de 64 serían 125Khz por ejemplo), si queremos podemos establecer un valor por encima de 200Khz pero a cambio de perder resolución en el valor final que obtenemos del ADC.</p>
