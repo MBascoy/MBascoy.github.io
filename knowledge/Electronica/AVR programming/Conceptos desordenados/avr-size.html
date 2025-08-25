@@ -1,0 +1,40 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">avr-size</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Consultar peso de un programa tanto en memoria no volatil (flash) como en memoria volatil (RAM) con <b>avr-size</b>.</p>
+        </div>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+            <p>El avr-size lo usamos así:</p>
+            <code>avr-size -C --mcu=atmega168p file.elf</code>
+
+            <p><b>-C</b> indica el formato en el que se muestra la información y <b>--mcu</b> solo se usa para mostrar el porcentaje de ocupación (Si se pone un microcontrolador que no esté listado simplemente no se muestra el porcentaje).</p>
+
+            <p>Al ejecutar el comando veremos 2 valores:</p>
+
+            <ul>
+                <li><b>Program:</b> cuanto ocupa el programa en la memoria flash.</li>
+                <li><b>Data:</b> cuanto ocupan el programa al estar en ejecución en la memoria RAM.</li>
+            </ul>
+
+            <img src="avr-size/1.png">
+        </div>
+        
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | AVR-size</p>
+        </div>
+    
+    </body>
+</html>
