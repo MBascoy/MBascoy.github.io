@@ -1,0 +1,174 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Rotary encoder</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como utilizar un <b>rotary encoder</b> con un microcontrolador AVR.</p>
+
+            <p>En este caso usaremos un <b>SIQ-02FVS3</b> que está integrado en una pantalla <b>ssd1306</b></p>
+
+            <a href="Rotary encoder/Rotary encoder.pdf">SIQ-02FVS3 datasheet</a>
+
+            <img src="Rotary encoder/1.png">
+        </div>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+            <p>El encoder que estamos usando tiene 4 puertos, uno para tierra, dos para la rotación del encoder y otro para la pulsación de la rueda.</p>
+
+            <p>En nuestro caso conectamos los puertos de rotación <b>(A y B)</b> al los pines <b>PB2</b> y <b>PB3</b> y el puerto de pulsación al puerto <b>PB1</b>.</p>
+
+            <p>Para detectar los cambios en el encoder usaremos las <b>interrupciones</b> del microcontrolador, activamos las interrupciones para los puertos que usaremos:</p>
+
+            <pre><code>PCICR |= (1 << PCIE0);
+PCMSK0 |= (1 << PCINT1) | (1 << PCINT2) | (1 << PCINT3);
+sei();</code></pre>
+
+            <p>Ahora para detectar la rotación tenemos que tener en cuenta como funciona el encoder, al girar la rueda del encoder se genera una señal como la siguiente en los puertos A y B:</p>
+
+            <img src="Rotary encoder/2.png">
+
+            <p>Al girar por ejemplo en el sentido de las agujas del reloj primero se genera una señal en A y despues en B, como podemos observar hay un momento en el que ambas señales están solapadas, usaremos esto para detectar en que sentido está girando el encoder.</p>
+
+            <p>Lo que hacemos es detectar que señal se produce primero, A o B, y despues cuando están solapadas decidimos en que sentido está girando el encoder basándonos en la primera señal que obtuvimos.</p>
+
+            <p>El código que usamos en la función <b>ISR()</b> es el siguiente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> up_value = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> down_value = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> push_value = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> active_before = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(PCINT0_vect) {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINB, PB2) &amp;&amp; <span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_set</span>(PINB, PB3)){
+    active_before = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+  }
+  <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_set</span>(PINB, PB2) &amp;&amp; <span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINB, PB3)){
+    active_before = <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>;
+  }
+  <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINB, PB2) &amp;&amp; <span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINB, PB3)){
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(active_before == <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>)
+      up_value++;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(active_before == <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>)
+      down_value++;
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINB, PB1)){
+    push_value++;
+  }
+}</code></pre>
+
+            <p>En este código <b>active_before</b> lo usamos para almacenar que señal se ha producido primero, 1 para A y 2 para B.</p>
+
+            <p>En las últimas líneas se hace la comprobación del puerto <b>push</b> del encoder (<b>PB1</b> en el microcontrolador), para saber si se ha pulsado la rueda, en este caso solo es un contador ya que por las pruebas que he hecho así funciona bien, pero puede ser que en algún caso se den casos de rebote al pulsar la rueda, en ese caso tendríamos que usar alguna técnica para <a href="../Conceptos basicos/Programacion AVR hardware interrupts.html#:~:text=Evitar%20rebote%20de%20interrupciones">evitar el rebote</a>.</p>
+        </div>
+
+
+    <div class="t2">Ejemplo completo con pantalla</div>
+        <div class="cont">
+            <p>El siguiente código muestra el ejemplo completo para usar con la pantalla <b>ssd1306</b>:</p>
+
+            <p><b>NOTA:</b> es importante no poner el código que pinta la pantalla dentro de la <b>ISR()</b>, ya que pintar la pantalla es bastante lento y esto puede generar que al girar muy rapido el encoder no se lean correctamente todas las entradas por la latencia generada al pintar la pantalla.</p>
+
+            <img src="Rotary encoder/3.jpg">
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/power.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/interrupt.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;lcd.h&quot;</span></span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> NUMBER_DIGITS 2</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> up_value = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> down_value = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> push_value = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> active_before = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">print_number</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> number, <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> digits)</span></span>{
+  <span style="color:rgb(204, 153, 204); font-weight:400;">char</span> number_string[<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>] = {<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>};
+  <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = digits;
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(number &gt; <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>){
+    number_string[i<span style="color:rgb(249, 145, 87); font-weight:400;">-1</span>] = number%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+    number = number / <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+    i--;
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(i=<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i&lt;digits; i++){
+    <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_putc</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">48</span> + number_string[i]);
+  }
+}
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(PCINT0_vect) {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINB, PB2) &amp;&amp; <span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_set</span>(PINB, PB3)){
+    active_before = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+  }
+  <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_set</span>(PINB, PB2) &amp;&amp; <span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINB, PB3)){
+    active_before = <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>;
+  }
+  <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINB, PB2) &amp;&amp; <span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINB, PB3)){
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(active_before == <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>)
+      up_value++;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(active_before == <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>)
+      down_value++;
+  }
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINB, PB1)){
+    push_value++;
+  }
+}
+
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">init_interrupts</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+  PCICR |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PCIE0);
+  PCMSK0 |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PCINT1) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PCINT2) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PCINT3);
+  <span style="color:rgb(181, 189, 104); font-weight:400;">sei</span>();
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span></span>{
+  <span style="color:rgb(181, 189, 104); font-weight:400;">clock_prescale_set</span>(clock_div_1);
+
+  PORTB = <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000111</span>;
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_init</span>(LCD_DISP_ON);
+  <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_puts</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Rotary test&quot;</span>);
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">init_interrupts</span>();
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>){
+    <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_gotoxy</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">3</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_puts</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;UP:&quot;</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print_number</span>(up_value, NUMBER_DIGITS);
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_gotoxy</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_puts</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;DOWN:&quot;</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print_number</span>(down_value, NUMBER_DIGITS);
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_gotoxy</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">lcd_puts</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;PUSH:&quot;</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print_number</span>(push_value, NUMBER_DIGITS);
+
+    _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">16</span>);
+  }
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}
+</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | Rotary</p>
+        </div>
+    
+    </body>
+</html>

@@ -86,7 +86,7 @@
 
             <p>Solo se almacena una interrupción que se haya producido, si se producen 5 interrupciones NO se ejecutará ISR() 5 veces.</p>
 
-            <p>El problema que tenemos a veces es que si tenemos un botón conectado a un puerto para que genere una interrupción este puede generar un pequeño rebote al ser pulsado y hacer que una interrupción se ejecute varias veces, para evitar esto podemos incluir un pequeño delay en la función ISR() y al final de la función incluir el siguiente código para limpiar posibles interrupciónes que se hayan producido durante la ejecución de la propia ISR():</p>
+            <p>El problema que tenemos a veces es que si tenemos un botón conectado a un puerto para que genere una interrupción este puede generar un pequeño rebote al ser pulsado y hacer que una interrupción se ejecute varias veces, para evitar esto podemos incluir un pequeño <b>delay en la función ISR()</b> y al final de la función incluir el siguiente código para limpiar posibles interrupciónes que se hayan producido durante la ejecución de la propia ISR():</p>
 
             <p>Para <b>INT0</b></p>
             <code>EIFR |= (1 << INTF0);</code>
