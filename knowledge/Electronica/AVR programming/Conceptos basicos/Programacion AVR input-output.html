@@ -54,7 +54,9 @@
     <div class="t2">Leer entrada en puertos</div>
         <div class="cont">
             <p>Al configurar un puerto como entrada podemos leer dicha entrada con <b>PINB</b></p>
-            <p>Al leer dicho registro un 1 indica entrada activa y 0 entrada no activa</p>
+            <p>Al leer dicho registro un <b>1</b> indica entrada activa y <b>0</b> entrada no activa</p>
+
+            <p><b>NOTA:</b> El microcontrolador detecta como entrada activa todo voltaje mayor a <b>VCC/2</b> y entrada no activa todo voltaje menor a VCC/2. (Por ejemplo si alimentamos el microcontrolador con 5V, todo valor superior a 2,5V será entrada activa y todo valor inferior a 2,5V será entrada no activa.</p>
 
             <p>Para los registros C y D sería PINC y PIND respectivamente</p>
 
