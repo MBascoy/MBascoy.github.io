@@ -1,0 +1,135 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Diodos IR</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como utilizar diodos IR (receptor y emisor) como un sensor.</p>
+
+            <img src="Diodos IR/2.jpg">
+
+            <p>Se pueden utilizar de dos maneras:</p>
+            <ul>
+                <li><b>En paralelo</b>: para detectar a que distancia está un objeto.</li>
+                <li><b>Enfrentados entre ellos</b>: para detectar si algún objeto pasa por el medio.</li>
+            </ul>
+
+            <p>Si los vamos a usar en <b>paralelo</b> se pueden comprar algunos sensores con el emisor y el receptor ya montados en una carcasa:</p>
+
+            <ul>
+                <li><b>TCRT5000:</b></li>
+                <img src="Diodos IR/3.png">
+
+                <li><b>ITR9909:</b></li>
+                <img src="Diodos IR/4.png">
+
+                <li><b>RPR220:</b></li>
+                <img src="Diodos IR/5.png">
+
+            </ul>
+        </div>
+
+    <div class="t2">Circuito básico</div>
+        <div class="cont">
+            <p>El circuito más típico es el siguiente, usando un transistor para amplificar la señal del receptor IR.</p>
+            <img src="Diodos IR/1.png">
+
+            <p>El circuito tiene 3 partes:</p>
+            
+            <ul>
+                <li>La parte de la izquierda con el diodo <b>emisor</b> de IR, esta parte no tiene porque estar montada en este circuito en sí, solo se encarga de emitir luz infrarroja, podemos ponerla en un circuito a parte. </li>
+                <li>La parte del centro que es donde está el diodo <b>receptor</b> de IR, y se encarga de activar el transistor cuando el diodo recibe luz infrarroja.</li>
+                <li>La parte de la derecha que simplemente es un led que se alumbra cuando el transistor se activa.</li>
+            </ul>
+
+            <p>El diodo receptor IR funciona de manera que al recibir luz infrarroja varía su resistencia. Si no hay luz IR el transistor no se activa, porque el voltaje que hay en el divisor (la resistencia de 10K) necesitamos que sea igual al voltaje que caerá entre la base y el emisor de transistor más el voltaje del led (0,7v del transistor + 2,6v del led), en una situación normal el diodo receptor de IR recibe una poca luz infrarroja del ambiente (del sol mayormente si estamos de día), esto hace que el receptor de IR tenga una resistencia de unos 500k ohm (aproximadamente), por lo tanto la mayor parte del voltaje caerá en el receptor de IR y una pequeña parte en la resistencia de 10K, el voltaje no es suficiente como para activar el transistor, cuando el receptor de IR recibe más luz infrarroja la resistencia de este baja y el voltaje que cae en la resistencia de 10K aumenta, haciendo que el transistor se active.</p>
+
+            <p>El diodo receptor IR se coloca en el circuito de manera inversa (<b>catodo a positivo y anodo a negativo</b>), si se coloca al reves funciona igualmente pero es menos sensible.</p>
+
+            <p>La resistencia de <b>10K ohm</b> afecta a cuanto de sensible será el circuito a la hora de activar el transistor, si ponemos una resistencia de <b>100k ohm</b> necesitarémos menos luz infrarroja para que se encienda el led.</p>
+
+            <p>Si cambiamos la resistencia de 10K ohm y el diodo receptor de IR de posición entre ellos (resistencia arriba y diodo abajo), el circuito funciona al reves, el led se queda encendido y se apaga cuando el diodo receptor de IR recibe luz infrarroja.</p>
+
+            <p>Si ponemos el diodo receptor de IR en serie con una resistencia y un led, esto funcionaría, pero no exactamente como en este circuito, aquí el led se quedaría un poco encendido constantemente y al recibir el diodo IR mas luz infrarroja el led brillaría más, a diferencia del circuito con el transistor, donde el led está siempre apagado y se va encendiendo a medida que aumenta la luz infraroja.</p>
+
+            <p><b>NOTA:</b> la luz solar tiene mucha radiación infrarroja, si el diodo receptor de IR está expuesto al sol puede no funcionar como esperamos ya que el ambiente está saturado con luz IR.</p>
+        </div>
+
+    <div class="t2">Circuito con microcontrolador</div>
+        <div class="cont">
+            <h2>Usando ADC</h2>
+            <p>El circuito es prácticamente el mismo que el anterior, pero en este caso la salida del divisor de voltaje la conectamos al puerto <b>ADC0</b> del microcontrolador y el led lo conectamos a la salida <b>PB1</b>, el led en este caso lo iluminaremos por completo (no gradualmente como antes), cuando la lectura del ADC pase cierto valor, 300 en este caso.</p>
+
+            <p>El circuito sería tal que así:</p>
+            <img src="Diodos IR/6.png">
+
+            <p>Y el código sería el siguiente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">ADC_init</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    ADMUX |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; REFS0);
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADPS0) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADPS1);
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADEN);
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADATE); <span style="color:rgb(150, 152, 150); font-weight:400;">// Activamos auto trigger del ADC (Por defecto el modo es el free-run)</span>
+
+    ADCSRA |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; ADSC); <span style="color:rgb(150, 152, 150); font-weight:400;">// Iniciamos la primera conversión (a partir de aqui el free-run se ejecutara de manera automatica)</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    DDRB = (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB1);
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">ADC_init</span>();
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(ADC &gt; <span style="color:rgb(249, 145, 87); font-weight:400;">300</span>){
+          PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB1);
+      }
+      <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>{
+          PORTB = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+      }
+    }
+}
+</code></pre>
+            
+            <h2>Usando Entrada digital</h2>
+            <p>No deberíamos de usar un dispositivo que genera una señal analógica en una entrada digital, pero podemos hacerlo siempre y cuando tengamos un circuito que genere unas grandes diferencias en las lecturas analógicas, para que la entrada digital lea 1 el valor de la señal analógica tiene que ser mayor que VCC/2 (la mitad de la corriente de alimentación del microcontrolador). Esto se puede dar por ejemplo si enfrentamos el diodo receptor y el emisor para detectar objetos que pasen por el medio, ya que cuando un objeto se cruza entre los dos diodos bloquea la señal completamente y la lectura será cercana a 0 y, cuando no se bloquea la señal, la lectura será cercana al máximo (1023 para la lectura analógica), si llevamos esta situación a las lecturas que haría el ADC leería 0 cuando el valor del ADC sea menor de 512 y 1 cuando sea mayor, por lo tanto este escenario es igual que usar el ADC pero de manera mas simplificada.</p>
+
+            <p>En este caso conectamos el divisor de voltaje a la entrada <b>PB2</b></p>
+
+            <p>El circuito sería tal que así:</p>
+
+            <img src="Diodos IR/7.png">
+
+            <p>Y el código sería el siguiente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+
+    DDRB = (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB1); <span style="color:rgb(150, 152, 150); font-weight:400;">//PB1 como salida</span>
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_set</span>(PINB, PB2))
+        PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB1);
+      <span style="color:rgb(204, 153, 204); font-weight:400;">else</span>
+          PORTB = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    }
+}
+</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | Diodo | IR | Infrarrojo</p>
+        </div>
+    
+    </body>
+</html>
