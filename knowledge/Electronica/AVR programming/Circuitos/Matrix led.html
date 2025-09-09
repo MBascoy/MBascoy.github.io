@@ -1,0 +1,322 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Matrix led</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como utilizar una matriz de leds.</p>
+
+            <p>En este caso usaremos el componente 1088AS que es una matriz de leds de 8x8 (64 leds).</p>
+
+            <img src="Matrix led/1.jpg">
+
+            <p>El esquema de conexiones de este modulo es el siguiente:</p>
+
+            <img src="Matrix led/2.png">
+
+            <p><b>NOTA:</b> para identificar el <b>pin 1</b>, miramos el modulo con los leds hacia arriba y las letras del lateral (1088AS) hacia abajo, el pin 1 es el que está abajo a la izquierda.</p>
+            <img src="Matrix led/3.png">
+
+            <h2>POV (Persistence Of Vision)</h2>
+            <p>En una matriz de leds todos los leds están en paralelo, esto genera que al querer encender mas de un led en filas y columnas distintas se enciendan otros leds que no queremos.</p>
+
+            <p>Si por ejemplo queremos encender dos leds simultaneamente que están en una fila y columna distintas, por ejemplo el led (1,2) y el led (3,3), lo que ocurrirá es que se encenderán dos leds a mayores el (1,3) y el (3,2). </p>
+
+            <p>Para evitar este comportamiento lo que se hace es aprovecharse de una caracteristica del ojo humano que es el POV, la retina mantiene por un periodo de tiempo la luz que recibe (unos 15 milisegundos), y esto nos permite crear el efecto de que hay un led encendido aún cuando en realidad lo estamos encendiendo y apagando a mucha velocidad.</p>
+
+            <p>Lo que se hace normalmente para aprovechar este efecto y evitar que se enciendan leds que no queremos es ir <b>encendiendo los leds por filas</b>, de manera que vamos avanzando cada X microsegundos a la siguiente fila de una en una y encendemos todos los leds que queremos para generar la imagen deseada, esto al final para el ojo humano resulta en una imagen fija, a pesar de que en realidad los leds estén parpadeando a una velocidad muy alta, de hecho normalmente este efecto es captado por las camaras, dependiendo de la velocidad de obturación que tengan configurada, por eso en ocasiones en algunos dispositivos se ven las indicaciones led que tengan que parpadean de manera extraña al grabarlos en video.</p>
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+          <p>El circuito consisten en conectar los puertos del <b>registro B</b> (los 8 puertos) al anodo de los leds de la matriz mediante una resistencia y los puertos del <b>registro D</b> (los 8 puertos) al catodo de los leds de la matriz. (El registro C solo tiene 7 puertos, por eso no lo usamos en este caso para simplificar el circuito)</p>
+
+          <img src="Matrix led/4.png">
+
+          <p>El circuito es simple, pero tiene muchos cables por lo que se puede hacer un poco lioso.</p>
+
+          <img src="Matrix led/5.jpg">
+        </div>
+
+    <div class="t2">Código</div>
+        <div class="cont">
+            <p>El código más simple para hacer uso de la matriz de leds con el efecto POV es el siguiente:</p>
+
+            <p><b>NOTA:</b> en el array de caracteres se pueden intuir los caracteres dibujados con unos, pero hay que tener en cuenta que están invertidos horizontalmente, ya que el bit menos significativo (el que está a la derecha), hace referencia al led que está mas a la izquierda en la matriz de leds.</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> characters[][<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>] =
+{
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00011000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01100110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>
+  },
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>
+  }
+};
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+
+    DDRB = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">//Todos los puertos como salidas</span>
+    DDRD = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> count = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+      PORTB = <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">//Apagamos todos los leds para evitar efecto de iluminacion fantasma en algunos leds</span>
+      PORTD = <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>;
+
+      PORTD = ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; count);
+      PORTB = characters[<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>][count];
+      _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>);
+
+      count++;
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(count &gt;= <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>)
+        count=<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    }
+}</code></pre>
+
+            <p>El código va encendiendo los leds fila por fila para generar el efecto POV y al hacerlo fila por fila evita que se enciendan leds que no queremos que se enciendan</p>
+            <p>Un detalle a tener en cuenta es que al principio de cada iteracción del bucle se apagan todos los leds, si no hacemos esto se genera un pequeño <b>efecto ghosting</b> en los leds, ya que al pasar a la siguiente linea se mantendrían encendidas las columnas de la fila previa en la nueva fila, esto ocurre solo por un ciclo de reloj (aproximadamente 1 microsegundo), pero es suficiente para generar ese efecto de leds minimamente encendidos.</p>
+
+            <p>Una manera mas óptima de manejar la matriz de leds es usando uno de los timers del microcontrolador para generar el efecto POV y después seleccionar en el bucle principal que queremos mostrar:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/interrupt.h&gt;</span></span>
+
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> characters[][<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>] =
+{
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00011000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01100110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>
+  },
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>
+  }
+};
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> characterSelected = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> count = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(TIMER0_COMPA_vect) {
+      PORTB = <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">//Apagamos todos los leds para evitar efecto de iluminacion fantasma en algunos leds</span>
+      PORTD = <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>;
+
+      PORTD = ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; count);
+      PORTB = characters[characterSelected][count];
+
+      count++;
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(count &gt;= <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>)
+        count=<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}
+
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer0</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+  TCCR0A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM01);
+  TCCR0B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS02); <span style="color:rgb(150, 152, 150); font-weight:400;">// Prescaler de 256</span>
+  TIMSK0 |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; OCIE0A);
+  OCR0A = <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">// Interrupción cada 512 microsegundos</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">sei</span>();
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+
+    DDRB = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">//Todos los puertos como salidas</span>
+    DDRD = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>;
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer0</span>();
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+
+      characterSelected = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+      _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">1000</span>);
+
+      characterSelected = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+      _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">1000</span>);
+
+    }
+}
+</code></pre>
+
+            <p><b>NOTA:</b> Aunque pongamos un delay de 1000ms en el bucle principal el delay será algo mayor de esos 1000ms, porque en este escenario estamos lanzando muchas interrupciones (1 cada 512 microsegundos), por lo tanto el delay será interrunpido muchas veces haciendo que tarde más de lo que indicamos.</p>
+
+            <h2>Animación de desplazamiento</h2>
+
+            <p>En el ejemplo se muestran 4 caracteres (espacio, A, B y C), para usar todos los caracteres se puede usar el siguiente <a href="Matrix led/characters.h">archivo de cabecera characters.h</a></p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/interrupt.h&gt;</span></span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> DISPLAY_COLUMNS 8</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> DISPLAY_ROWS 8</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> SLIDE_SPEED_DELAY 60</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> CHAR_LIST_SIZE 4</span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> SPACE 0</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> A 1</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> B 2</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> C 3</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> characters[][<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>] =
+{
+  <span style="color:rgb(150, 152, 150); font-weight:400;">//Space</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// A</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00011000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01100110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// B</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// C</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  }
+};
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> display[<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>];
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> count = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(TIMER0_COMPA_vect) {
+      PORTB = <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">//Apagamos todos los leds para evitar efecto de iluminacion fantasma en algunos leds</span>
+      PORTD = <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>;
+
+      PORTD = ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; count);
+      PORTB = display[count];
+
+      count++;
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(count &gt;= <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>)
+        count=<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}
+
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer0</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+  TCCR0A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM01);
+  TCCR0B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS02); <span style="color:rgb(150, 152, 150); font-weight:400;">// Prescaler de 256</span>
+  TIMSK0 |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; OCIE0A);
+  OCR0A = <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">// Interrupción cada 512 microsegundos</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">sei</span>();
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">print_slide_characters</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> *char_list)</span></span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> current_column = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> current_char = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(current_char &lt; CHAR_LIST_SIZE){
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; DISPLAY_ROWS; i++){
+        display[i] = (display[i] &gt;&gt; <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>); <span style="color:rgb(150, 152, 150); font-weight:400;">// slide pixels</span>
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> character_id = char_list[current_char];
+        display[i] |= ((characters[character_id][i] &gt;&gt; current_column) &amp; <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000001</span>) &lt;&lt; <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">// Feed last column with new char (&lt;&lt;7 to put LSB as MSB)</span>
+      }
+
+      current_column++;
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(current_column == DISPLAY_COLUMNS - <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>){
+        current_column = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        current_char++;
+      }
+
+      _delay_ms(SLIDE_SPEED_DELAY);
+    }
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+
+    DDRB = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">//Todos los puertos como salidas</span>
+    DDRD = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>;
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer0</span>();
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> char_list[CHAR_LIST_SIZE] = {SPACE, A, B, C};
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+
+      <span style="color:rgb(181, 189, 104); font-weight:400;">print_slide_characters</span>(char_list);
+
+    }
+}</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | led | matrix | pov</p>
+        </div>
+    
+    </body>
+</html>
