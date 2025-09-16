@@ -1,0 +1,182 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Audio playback</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como reproducir audio usando la memoria interna de un microcontrolador AVR.</p>
+
+            <p><b>NOTA:</b> La memoria de un ATMEGA168PA es de 16KB esto nos permite reproducir un total de <b>1,5 segundos</b> de un archivo wave con una tasa de 8.000 samples por segundo, en el caso de que necesitemos mas tiempo de audio tendriamos que usar algún modulo de memoria o utilizar algún algoritmo de compresion de audio como el <b>DPCM</b>.</p>
+        </div>
+
+    <div class="t2">Creación del audio</div>
+        <div class="cont">
+            <p>Primero necesitamos crear un archivo de cabecera (.h) que contendrá todos los samples de nuestro audio.</p>
+            
+            <p>El archivo de audio que necesitamos tiene que tener las siguientes caracteristicas:</p>
+            <ul>
+                <li>Formato <b>.wav</b></li>
+                <li><b>Mono</b> (1 solo canal)</li>
+                <li>8000 samples por segundo (<b>8000hz</b>)</li>
+                <li>Samples codificados como <b>8 bits unsigned</b></li>
+            </ul>
+
+            <p>Para comprobar las caracteristicas de un archivo podemos usar el comando <b>soxi</b> del paquete sox:</p>
+            <code>soxi audio.wav</code>
+
+            <p>La salida es algo como esto:</p>
+            <img src="Audio playback/1.png">
+
+            <p>Si nuestro audio no tiene los parametros correctos, podemos convertirlo usando <b>Audacity</b>, solo tenemos que re-exportar el audio asi:</p>
+            <img src="Audio playback/2.png">
+
+            <p>Una vez tenemos el audio con los parámetros necesarios generamos el archivo de cabecera con los samples, usando el siguiente script de python:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">import wave
+import sys
+
+def <span style="color:rgb(181, 189, 104); font-weight:400;">getWaveData</span>(waveFile):
+    try:
+        w = wave.<span style="color:rgb(181, 189, 104); font-weight:400;">Wave_read</span>(waveFile)
+        data = []
+        for i in <span style="color:rgb(181, 189, 104); font-weight:400;">range</span>(w.<span style="color:rgb(181, 189, 104); font-weight:400;">getnframes</span>()):
+            data.<span style="color:rgb(181, 189, 104); font-weight:400;">append</span>(int.<span style="color:rgb(181, 189, 104); font-weight:400;">from_bytes</span>(w.<span style="color:rgb(181, 189, 104); font-weight:400;">readframes</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>)))
+        <span style="color:rgb(181, 189, 104); font-weight:400;">return</span>(data)
+
+    except FileNotFoundError:
+        <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;No existe el archivo indicado&quot;</span>)
+        <span style="color:rgb(181, 189, 104); font-weight:400;">exit</span>()
+
+def <span style="color:rgb(181, 189, 104); font-weight:400;">createHeader</span>(filename, waveData):
+    outfile = <span style="color:rgb(181, 189, 104); font-weight:400;">open</span>(filename[:-<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>] + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;.h&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;w&quot;</span>)
+
+    outfile.<span style="color:rgb(181, 189, 104); font-weight:400;">write</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;const uint8_t wave_audio[] PROGMEM = {\n&#x27;</span>)
+    for sample in waveData:
+        outfile.<span style="color:rgb(181, 189, 104); font-weight:400;">write</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;  {:d},\n&#x27;</span>.<span style="color:rgb(181, 189, 104); font-weight:400;">format</span>(sample))
+    outfile.<span style="color:rgb(181, 189, 104); font-weight:400;">write</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;};\n&#x27;</span>)
+    outfile.<span style="color:rgb(181, 189, 104); font-weight:400;">close</span>()
+
+
+if __name__ == <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;__main__&quot;</span>:
+
+    if <span style="color:rgb(181, 189, 104); font-weight:400;">len</span>(sys.argv) == <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>:
+        <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;\nERROR: indica un archivo, eg: python &quot;</span> + sys.argv[<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>] + <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; audio.wav\n&quot;</span>)
+        <span style="color:rgb(181, 189, 104); font-weight:400;">exit</span>()
+
+    filename = sys.argv[<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>]
+    waveData = <span style="color:rgb(181, 189, 104); font-weight:400;">getWaveData</span>(filename)
+    <span style="color:rgb(181, 189, 104); font-weight:400;">createHeader</span>(filename, waveData)
+</code></pre>
+
+            <p>Para ejecutar el script solo tenemos que pasarle el archivo .wav como primer argumento:</p>
+            <code>python WaveToArray.py hola.wav</code>
+
+            <p>El script nos generará un archivo .h como el siguiente:</p>
+
+            <code>
+                <pre>const uint8_t wave_audio[] PROGMEM = {
+  130,
+  122,
+  116,
+  111,
+  107,
+  101,
+  97,
+  94,
+  94,
+  99,
+  114,
+  132,
+  154,
+  168,
+  173,
+  166,
+  150,
+  133,
+  120,
+  ...
+  ...
+  ...
+  (Samples omitidos por brevedad)
+}</pre>
+            </code>
+
+            <p><b>Cada linea es un sample</b> del audio, y ocupa 1 byte, por lo tanto el numero de lineas que tenga el array es el tamaño del audio en memoria, (para el atmega168pa no debería de ser mayor de 16.000 lineas (16KB))</p>
+        </div>
+
+    <div class="t2">Reproducción de audio en el microcontrolador</div>
+        <div class="cont">
+            <p>El código que usaremos en el microcontrolador para reproducir nuestro audio es el siguiente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/power.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/pgmspace.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/interrupt.h&gt;</span></span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;hola.h&quot;</span></span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> sample = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(TIMER2_COMPA_vect) {
+  sample++;
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(sample &gt; <span style="color:rgb(181, 189, 104); font-weight:400;">sizeof</span>(wave_audio))
+    sample = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+  OCR0A = <span style="color:rgb(181, 189, 104); font-weight:400;">pgm_read_byte</span>(&amp;(wave_audio[sample]));
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">initTimer0</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+  TCCR0A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; COM0A1); <span style="color:rgb(150, 152, 150); font-weight:400;">// PWM output on PD6 (OC0A)</span>
+  TCCR0A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM00); <span style="color:rgb(150, 152, 150); font-weight:400;">// Fast PWM mode</span>
+  TCCR0A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM01);
+
+  TCCR0B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS00); <span style="color:rgb(150, 152, 150); font-weight:400;">// Clock with /1 prescaler</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">initTimer2</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+  TCCR2A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM21); <span style="color:rgb(150, 152, 150); font-weight:400;">// modo CTC</span>
+  TIMSK2 |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; OCIE2A);
+  TCCR2B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS21); <span style="color:rgb(150, 152, 150); font-weight:400;">// Clock with /8 prescaler</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">sei</span>();
+
+  OCR2A = <span style="color:rgb(249, 145, 87); font-weight:400;">125</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">// pasar al siguiente sample cada 125 microsegundos (8000 hz)</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">clock_prescale_set</span>(clock_div_1); <span style="color:rgb(150, 152, 150); font-weight:400;">//CPU clock 8 MHz</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">initTimer0</span>();
+  <span style="color:rgb(181, 189, 104); font-weight:400;">initTimer2</span>();
+
+  DDRD |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PD6); <span style="color:rgb(150, 152, 150); font-weight:400;">// PD6 como salida</span>
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {}
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}</code></pre>
+
+            <p>Como se puede ver hemos hecho el <b>#include</b> del archivo de cabecera que hemos generado previamente, <b>"hola.h"</b> en este caso.</p>
+
+            <p>El programa usa los timers 0 y 2 para reproducir el sonido, el timer 0 está configurado para generar señales pwm con los samples que hay almacenados en nuestro array de samples, y el timer 2 se encarga de ir actualizando el sample que reproduce el timer 0 usando la velocidad de sampleado de nuestro archivo de audio, en este caso cada 125 microsegundos (8000 hz).</p>
+
+            <p>Por lo tanto el timer 0 se encarga de reproducir el sample y el timer 2 se encarga de ir avanzando en el archivo de audio acorde con la velocidad de sampleado del audio (8000hz en nuestro caso).</p>
+            
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | Audio</p>
+        </div>
+    
+    </body>
+</html>
