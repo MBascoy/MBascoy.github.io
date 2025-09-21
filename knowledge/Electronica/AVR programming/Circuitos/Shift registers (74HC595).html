@@ -1,0 +1,198 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Shift registers (74HC595)</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como usar modulos shift registers (74HC595) para aumentar el numero de puertos de salida.</p>
+
+            <p>El modulo 74HC595 nos permite usar una señal serie para convertirla en salidas digitales.</p>
+
+            <p>Usamos principalmente 3 pines del 74HC595 para controlarlo.</p>
+
+            <ul>
+                <li>Data: para indicar si enviamos un 0 o un 1</li>
+                <li>Clock: cada vez que mandamos un pulso en este pin es un bit que lee el modulo.</li>
+                <li>Latch: muestra el byte almacenado internamente al recibir un pulso en este bit.</li>
+                <li>Reset (opcional): nos permite poner a 0 todos los bits del modulo, no es necesario ya que podemos enviar nuevos bits y estos se sobreescribiran</li>
+            </ul>
+
+            <p>Por lo tanto el funcionamiento es, usamos <b>Data</b> para decidir que bits enviar, despues con <b>Clock</b> vamos enviando los bits que queremos (cambiando Data si fuese necesario), y por ultimo <b>Latch</b> para mostrar el resultado, en modulos como el <b>74HC164</b> no hay latch y los resultados se muestran inmediatamente según se van enviando con clock.</p>
+        </div>
+
+    <div class="t2">Circuito manual</div>
+        <div class="cont">
+            <p>El modulo <b>74HC595</b> no se usa de forma manual, pero está bien como ejemplo practico para aprender como funciona.</p>
+
+            <p>Para usar el modulo manualmente el circuito es el siguiente:</p>
+
+            <img src="Shift registers (74HC595)/1.png">
+            
+            <p>Las conexiones que tenemos con el modulo son las siguientes:</p>
+                
+            <p>Conexiones a positivo:</p>
+                <ul>
+                    <li><b>Clock</b> (SHC)</li>
+                    <li><b>Latch</b> (STC)</li>
+                    <li><b>Data</b> (DS)</li>
+                </ul>
+                
+            <p>Conexiones a tierra:</p>
+                <ul>
+                    <li><b>Output Enalbe</b> (OE), que simplemente mantiene las salidas activas</li>
+                    <li><b>Reset</b> (MR), que resetea el byte interno, si queremos usar el pin tenemos que poner una resistencia pull-up y despues un botón a tierra para cuando queramos activar el reseteo, si no queremos hacer uso de este pin simplemente lo conectamos a positivo y quedará desactivado.</li>
+                </ul>
+
+            <p><b>NOTA:</b> todos los pulsadores/botones que tenemos conectados tienen que tener una resistencia pull up/down (según el pin funcione con positivo o negativo), para que funcionen correctamente, ya que un botón no pulsado básicamente es un cable al aire que puede actuar como una antena y dar una entrada indefinida.</p>
+        </div>
+
+    <div class="t2">Circuito con microcontrolador</div>
+        <div class="cont">
+            <p>Al usar un modulo 74HC595 con un microcontrolador nos permite aumentar el numero de salidas del microcontrolador, para manejar el modulo solo necesitamos 3 pines del microcontrolador y cada modulo 74HC595 se puede conectar en cascada a otro modulo 74HC595 a traves del <b>pin Q7'</b> al <b>pin DS</b> del siguiente modulo.</p>
+
+            <p>En el siguiente ejemplo se muestra como con solo <b>3 pines</b> del microcontrolador podemos controlar 3 led matrix que requieren de <b>32 pines</b> para hacerlas funcionar (24 pines para las columnas y 8 para las filas), usamos 4 modulos 74HC595 conectados en cascada, 3 para controlar las columnas de las matrices y 1 para controlar las filas:</p>
+
+            <img src="Shift registers (74HC595)/2.png">
+
+            <p>Los shift registers en este circuito funcionan de la siguiente manera: envíamos 4 bytes a traves del SPI, 1 byte por cada modulo, el primer byte será el que corresponda al último modulo (el que controla las filas), ya que los bits van pasando de modulo en modulo según se envían, por lo tanto el primer byte se quedará en el último modulo y el último byte se quedará en el primer módulo.</p>
+
+            <p>El código para hacer funcionar las 3 matrices con desplazamiento de caracteres es el siguiente:</p>
+
+            <p><b>NOTA:</b> si queremos adaptar el código a nuestro circuito solo tenemos que cambiar <b>NUMBER_OF_DISPLAYS</b> para indicar el numero de matrices que tenemos.</p>
+
+            <p><b>NOTA2:</b> el archivo de cabecera <b>characters.h</b> está en la página de <a href="Matrix led.html">Matrix led</a></p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/interrupt.h&gt;</span></span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;characters.h&quot;</span></span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> LATCH_PIN PB2  <span style="color:rgb(150, 152, 150); font-weight:400;">// ST_CP</span></span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> DISPLAY_COLUMNS 8</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> DISPLAY_ROWS 8</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> CHAR_COLUMNS 8</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> NUMBER_OF_DISPLAYS 3</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> SLIDE_SPEED_DELAY 60</span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> SPACE 0</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> A 1</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> B 2</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> C 3</span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> display[NUMBER_OF_DISPLAYS][DISPLAY_ROWS];
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> count = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_init</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Configurar MOSI, SCK y LATCH como salida</span>
+    DDRB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB3) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB5) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; LATCH_PIN);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Configurar SPI como Master</span>
+    SPCR = (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; SPE) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; MSTR);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_send</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> data)</span> </span>{
+    SPDR = data;                     <span style="color:rgb(150, 152, 150); font-weight:400;">// Cargar dato en el registro de SPI</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (!(SPSR &amp; (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; SPIF)));   <span style="color:rgb(150, 152, 150); font-weight:400;">// Esperar que termine la transmisión</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">latch</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Pulso en LATCH para actualizar salidas</span>
+    PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; LATCH_PIN);
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//_delay_us(1); // Opcional? descomentar en caso de que el latch no funcione</span>
+    PORTB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; LATCH_PIN);
+}
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(TIMER0_COMPA_vect) {
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_send</span>(~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; count));
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">int8_t</span> i = NUMBER_OF_DISPLAYS<span style="color:rgb(249, 145, 87); font-weight:400;">-1</span>; i &gt;= <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i--)
+      <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_send</span>(display[i][count]);
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">latch</span>(),
+
+    count++;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(count &gt;= DISPLAY_COLUMNS)
+        count=<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}
+
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer0</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+  TCCR0A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM01);
+  TCCR0B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS02); <span style="color:rgb(150, 152, 150); font-weight:400;">// Prescaler de 256</span>
+  TIMSK0 |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; OCIE0A);
+  OCR0A = <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">// Interrupción cada 512 microsegundos</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">sei</span>();
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">print_slide_characters</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> *char_list, <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> char_list_size)</span></span>{
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> current_char_column = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> current_char = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(current_char &lt; char_list_size){
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; DISPLAY_ROWS; i++){
+        <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> j = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; j &lt; NUMBER_OF_DISPLAYS - <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>; j++){
+            display[j][i] = (display[j][i] &gt;&gt; <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>); <span style="color:rgb(150, 152, 150); font-weight:400;">// slide pixels</span>
+
+            display[j][i] |= (display[j+<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>][i] &amp; <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000001</span>) &lt;&lt; (DISPLAY_COLUMNS - <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>);
+        }
+
+        display[NUMBER_OF_DISPLAYS<span style="color:rgb(249, 145, 87); font-weight:400;">-1</span>][i] = (display[NUMBER_OF_DISPLAYS<span style="color:rgb(249, 145, 87); font-weight:400;">-1</span>][i] &gt;&gt; <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>); <span style="color:rgb(150, 152, 150); font-weight:400;">// slide pixels</span>
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> character_id = char_list[current_char];
+        display[NUMBER_OF_DISPLAYS<span style="color:rgb(249, 145, 87); font-weight:400;">-1</span>][i] |= ((characters[character_id][i] &gt;&gt; current_char_column) &amp; <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000001</span>) &lt;&lt; (CHAR_COLUMNS - <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>); <span style="color:rgb(150, 152, 150); font-weight:400;">// Feed last column with new char (&lt;&lt;7 to put LSB as MSB)</span>
+      }
+
+      current_char_column++;
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(current_char_column == CHAR_COLUMNS){
+        current_char_column = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        current_char++;
+      }
+
+      _delay_ms(SLIDE_SPEED_DELAY);
+    }
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_init</span>();
+
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer0</span>();
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> char_list[] = {A,B,C, SPACE, SPACE, SPACE};
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> char_list_size = <span style="color:rgb(181, 189, 104); font-weight:400;">sizeof</span>(char_list);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+
+      <span style="color:rgb(181, 189, 104); font-weight:400;">print_slide_characters</span>(char_list, char_list_size);
+
+    }
+}
+</code></pre>
+
+            <p>En este ejemplo en concreto tenemos que tener en cuenta que estamos manejando muchas salidas (32 salidas) y a mayores estamos haciendo multiplexación de las filas para conseguir un efecto POV (Persistence Of Vision) y que así podamos iluminar todos los leds que necesitamos para crear los caracteres (En total estamos manejando 192 leds), por lo tanto podemos llegar al punto de saturar el microcontrolador con demasiadas interrupciones y hacer que el desplazamiento lateral no avance como nosotros queremos.</p>
+
+            <p>En este caso las interrupciones para iluminar cada fila se producen cada 512 microsegundos, y el prescaler del SPI está en /4 (por defecto), por lo tanto cada bit se envía cada 4 ciclos de reloj (4 microsegundos con la frecuencia a 1Mhz), por lo tanto para enviar toda la información de una fila se tardan, 128 microsegundos (<b>32 microsegundos</b> por byte * <b>4 bytes</b>, uno por cada modulo 74HC595), en este escenario con estos datos funciona bien, pero si cambiamos por ejemplo el tiempo de actualización de cada fila a 256 microsegundos ya veremos que el desplazamiento es bastante mas lento, esto se produce porque el SPI no tiene tiempo a enviar todos los datos y apenas terminar de enviar los datos ya se produce una nueva interrupción para actualizar una nueva fila, haciendo que el bucle principal, que es el que genera el desplazamiento, apenas tenga tiempo para ser ejecutado.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | shift register | 74HC595</p>
+        </div>
+    
+    </body>
+</html>
