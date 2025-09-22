@@ -13,18 +13,24 @@
         <div class="cont">
             <p>Como usar modulos shift registers (74HC595) para aumentar el numero de puertos de salida.</p>
 
+            <a href="Shift registers (74HC595)/sn74hc595.pdf">Datasheet 74HC595</a>
+
+            <p>Pines 74HC595:</p>
+
+            <img src="Shift registers (74HC595)/3.png">
+
             <p>El modulo 74HC595 nos permite usar una señal serie para convertirla en salidas digitales.</p>
 
             <p>Usamos principalmente 3 pines del 74HC595 para controlarlo.</p>
 
             <ul>
-                <li>Data: para indicar si enviamos un 0 o un 1</li>
-                <li>Clock: cada vez que mandamos un pulso en este pin es un bit que lee el modulo.</li>
-                <li>Latch: muestra el byte almacenado internamente al recibir un pulso en este bit.</li>
-                <li>Reset (opcional): nos permite poner a 0 todos los bits del modulo, no es necesario ya que podemos enviar nuevos bits y estos se sobreescribiran</li>
+                <li>Data (<b>SER</b>): para indicar si enviamos un 0 o un 1.</li>
+                <li>Clock (<b>SRCLK</b>): cada vez que mandamos un pulso en este pin es un bit que lee el modulo.</li>
+                <li>Latch (<b>RCLK</b>): muestra el byte almacenado internamente al recibir un pulso en este bit.</li>
+                <li>Reset (<b>SRCLR</b>) (opcional): nos permite poner a 0 todos los bits del modulo, no es necesario ya que podemos enviar nuevos bits y estos se sobreescribiran.</li>
             </ul>
 
-            <p>Por lo tanto el funcionamiento es, usamos <b>Data</b> para decidir que bits enviar, despues con <b>Clock</b> vamos enviando los bits que queremos (cambiando Data si fuese necesario), y por ultimo <b>Latch</b> para mostrar el resultado, en modulos como el <b>74HC164</b> no hay latch y los resultados se muestran inmediatamente según se van enviando con clock.</p>
+            <p>Por lo tanto el funcionamiento es, usamos <b>Data</b> para decidir si enviamos 0 o 1, despues con <b>Clock</b> vamos enviando los bits que queremos (cambiando Data si fuese necesario), y por ultimo <b>Latch</b> para mostrar el resultado, en modulos como el <b>74HC164</b> no hay latch y los resultados se muestran inmediatamente según se van enviando con clock.</p>
         </div>
 
     <div class="t2">Circuito manual</div>
