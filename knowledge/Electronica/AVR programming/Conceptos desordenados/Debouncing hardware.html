@@ -1,0 +1,69 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Debouncing hardware</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como evitar el rebote de interruptores directamente en el hardware.</p>
+
+            <p>Usaremos lo que se llama un <b>filtro RC</b>, que consiste de una resistencia (R) y un condensador (C)</p>
+        </div>
+
+    <div class="t2">Descripción</div>
+        <div class="cont">
+            <p>Podemos tener dos situaciones:</p>
+
+            <ul>
+                <li>Pulsador que pone una <b>entrada a 1</b> (la entrada necesita un <b>pull-down</b> resistor)</li>
+                <li>Pulsador que pone una <b>entrada a 0</b> (la entrada necesita un <b>pull-up</b> resistor)</li>
+            </ul>
+
+            <h2>Pulsador a positivo</h2>
+            <p>En este circuito el condensador está <b>descargado</b> cuando el pulsador está en reposo.</p>
+            <img src="Debouncing hardware/1.png">
+            
+            <h2>Pulsador a tierra</h2>
+            <p>En este circuito el condensador está <b>cargado</b> cuando el pulsador está en reposo.</p>
+            <img src="Debouncing hardware/2.png">
+
+            <p>En un circuito normal solo tendríamos el <b>pulsador</b> y la <b>resistencia</b> (ya sea pull-up o pull-down), en este circuito a mayores tenemos un <b>condensador</b> (en este caso de 4.7uF) y una <b>resistencia</b> a mayores (en este caso de 425 Ohm).</p>
+
+            <p>El funcionamiento del circuito consiste en que el condensador se irá cargando o descargando y esto generará una señal mas estabilizada, la resistencia de 425 Ohm es la que controla con que velocidad se cargará o descargará el condensador al activar el pulsador.</p>
+        </div>
+    
+    <div class="t2">Calculo de resistencia y condensador</div>
+        <div class="cont">
+            <p>La formula base para hacer los calculos es:</p>
+            <code>Debounce_time = 5 x Resistencia x Capacitancia</code>
+
+            <p><b>NOTA:</b> el 5 es una constante que nos permite hacer mas grande el tiempo de antirebote para asegurarnos de que el condensador lo absorve.</p>
+
+            <p>Elección de parámetros:</p>
+
+            <ul>
+                <li>Condensador con una capacitancia baja (<b>4.7uF</b> o <b>10uF</b>). Si cogemos un condensador con mucha capacitancia puede ser que no se detecten ciertas activaciones del pulsador si lo pulsamos repetidas veces muy rapido.</li>
+                <li>Tiempo debounce, este es el tiempo que usaremos para amortiguar los rebotes del pulsador, normalmente entre <b>10 ms</b> y <b>20 ms</b> suele ser un buen valor.</li>
+            </ul>
+            
+            <p>Ahora podemos usar la formula para calcular directamete el valor de la resistencia que trabajará con el condensador.</p>
+            <code>Resistencia = Debounce_time / (5 x Capacitancia)</code>
+
+            <p>Si cogemos un condensador de 4.7uF y un tiempo de debounce de 10 ms, el calculo sería: <b>10 / 5 * 0.0047</b> lo que nos daría unos <b>425 Ohm</b>.</p>
+
+            <p><b>NOTA:</b> Al hacer el calculo tanto la capacitancia como el tiempo tienen que estar en la misma medida, como tenemos el tiempo en <b>milisegundos</b> pues pasamos los microfaradios a <b>milifaradios</b> (dividimos entre 1.000), también podemos hacerlo al reves y pasar los milisegundos a microsegundos.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | debounce switch | capacitor</p>
+        </div>
+    
+    </body>
+</html>
