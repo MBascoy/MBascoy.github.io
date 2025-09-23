@@ -1,0 +1,299 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Kicad basico</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como usar <b>Kicad</b> para crear placas PCB</p>
+            
+            <p>Para diseñar una PCB los pasos básicos son:</p>
+
+            <ul>
+                <li>Diseñar esquema:</li>
+                <ul>
+                    <li>Colocar componentes</li>
+                    <li>Establecer huella de cada componente</li>
+                    <li>Realizar conexiones</li>
+                    <li>Crear etiquetas globales (Opcional)</li>
+                </ul>
+                <li>Diseñar PCB</li>
+                <ul>
+                    <li>Colocar footprints</li>
+                    <li>Establecer bordes de la placa</li>
+                    <li>Dibujar pistas de cobre</li>
+                    <li>Rellenado de cobre (Opcional)</li>
+                    <li>Dibujar texto en la placa (Opcional)</li>
+                </ul>
+            </ul>
+        </div>
+
+    <div class="t2">Diseño del esquema</div>
+        <div class="cont">
+            <p>Una vez creado el proyecto lo primero que tenemos que hacer es diseñar el esquema, abrimos el editor de esquema.</p>
+            
+            <img src="Kicad basico/1.png">
+
+            <h2>Colocación de componentes</h2>
+            <p>Una vez en el editor de esquema colocamos los componentes que necesitamos, lo hacemos con la siguiente opción:</p>
+
+            <img src="Kicad basico/2.png">
+
+            <p>Una vez seleccionada esa opción se abre la librería de componentes:</p>
+            <img src="Kicad basico/3.png">
+
+            <p>Los componentes están organizados por categorías, pero hay miles de ellos por lo general es mejor buscarlos en la barra superior:</p>
+            <img src="Kicad basico/4.png">
+
+            <p>En este caso voy a colocar los siguientes elementos:</p>
+
+            <ul>
+                <li>3 diodos led</li>
+                <li>2 pulsadores</li>
+                <li>1 conector para bateria</li>
+                <li>4 mounting holes</li>
+            </ul>
+
+            <p>Los <b>mounting holes</b> no son parte en realidad del esquema electrico, solo son agujeros que se pondrán en la PCB para poder atornillarla a algún sitio, pero necesitamos ponerlos para añadirlos posteriormente a nuestro PCB:</p>
+
+            <img src="Kicad basico/5.png">
+
+            <p>Una vez puestos todos los elementos en nuestro esquema queda tal que así:</p>
+
+            <img src="Kicad basico/6.png">
+
+            <h2>Establecer footprints (huellas de componentes)</h2>
+            <p>El siguiente paso es establecer los <b>footprints</b> de cada componente, los footprints son las conexiones que irán finalmente en el PCB y que servirán para soldar dicho componente en la PCB.</p>
+
+            <p>Hacemos doble click sobre un componente (O click derecho &gt; propiedades) y hacemos click en la fila de <b>Huella</b> y despues en las <b>3 barritas verticales</b> para abrir la biblioteca de footprints:</p>
+
+            <img src="Kicad basico/7.png">
+
+            <p>Se nos abrirá la biblioteca de footprints, al igual que la biblioteca de componentes hay miles de footprints para los distintos componentes, las dos opciones de filtrado automático que nos ofrece la interfaz son de mucha ayuda para buscar el footprint que necesitamos:</p>
+            <img src="Kicad basico/8.png">
+
+            <p>Para los leds por ejemplo voy a buscar un footprint para leds de 5.0mm, al seleccionar el footprint podremos ver en la ventana de la derecha el footprint en si:</p>
+            <img src="Kicad basico/9.png">
+
+            <p>Incluso si intereactuamos con el ratón sobre la vetana de la derecha podemos usar la regla de medición para medir la distancia entre pines para asegurarnos de que se adapta a nuestro componente:</p>
+            <img src="Kicad basico/10.png">
+
+            <p>Repetimos el mismo proceso para los demas componentes, buscando el footprint que más encaje con el componente real que vayamos a soldar al PCB.</p>
+
+            <p>En el caso de la batería por ejemplo al buscar por "battery" solo me salen footprints relacionados con soportes para pilas, en este caso lo que necesito es un connector "jst" así que lo busco:</p>
+
+            <img src="Kicad basico/11.png">
+
+            <p>Como se puede ver en esa imagen en algunos componentes no se nos dan algunas opciones de filtrado automático, incluso algunas veces el filtrado automático nos puede jugar una mala pasada, si no encontramos un footprint a veces vale la pena quitar el filtrado automático e intentar buscar manualmente.</p>
+
+            <p>En el caso del <b>mounting hole</b> tenemos varias opciones de diametro e incluso variantes "pad" que incluyen un reborde de cobre, en nuestro caso solo queremos un agujero sin más. El caso del mounting hole es un poco especial y una vez lo vayamos a colocar en la PCB podríamos incluso modificar su tamaño desde las propiedades del propio footprint.</p>
+
+
+            <h2>Realizar conexiones</h2>
+
+            <p>Ahora vamos a realizar las conexiones entre los distintos componentes, usamos esta herramienta:</p>
+
+            <img src="Kicad basico/13.png">
+
+            <p>Hemos realizado las conexiones tal que así:</p>
+            <img src="Kicad basico/14.png">
+
+            <p>Nos faltan las conexiones a tierra, pero en vez de conectarlas directamente al negativo de la batería vamos a usar una <b>etiqueta global</b>, en este caso no sería necesario ya que es un diagrama muy simple, pero es una buena herramienta cuando tenemos muchos cables y queremos evitar que el diagrama quede con muchas líneas cruzadas.</p>
+
+            <p>Además las <b>etiquetas globales</b> nos permitirán despues anclar un rellenado de cobre a dicha etiqueta, suele hacerse con "tierra" por ejemplo.</p>
+
+            <p>Para crear una <b>etiqueta global</b> lo hacemos asi:</p>
+            <img src="Kicad basico/15.png">
+
+            <p>Le damos un nombre y le damos a aceptar:</p>
+            <img src="Kicad basico/16.png">
+
+            <p>Colocamos la etiqueta en el esquema y la conectamos con uno de los componentes:</p>
+            <img src="Kicad basico/17.png">
+
+            <p>Ahora podemos crear más etiquetas con el mismo nombre y conectarlas a los distintos sitios donde necesitemos una toma de tierra, los nombres de las etiquetas son únicos por lo tanto cada vez que creemos la etiqueta "gnd" hacen referencia todas a la misma:</p>
+            <img src="Kicad basico/18.png">
+
+
+            <p>Ya hemos <b>colocado los componentes</b>, hemos <b>asignado un footprint a cada componente</b> y hemos <b>realizado todas las conexiones</b> con todo esto ya tenemos nuestro esquema listo, ahora pasamos a diseñar el PCB.</p>
+        </div>
+
+
+    <div class="t2">Diseñar PCB</div>
+        <div class="cont">
+            <p>Desde la propia pantalla del <b>editor de esquema</b> podemos pasar a la pantalla del <b>editor de placas</b> para diseñar nuestra PCB:</p>
+            <img src="Kicad basico/19.png">
+
+            <p>En la pantalla del <b>editor de placas</b> una de las opciones que podemos configurar es el <b>espaciado</b>, esta opción hará que haya cierto magnetismo a la hora de colocar componentes según el espaciado que hayamos indicado (2.54 mm suele estar bien), si queremos desactivar temporalmente el comportamiento de magnetismo podemos mantener pulsado <b>Ctrl + Shift</b>.</p>
+            <img src="Kicad basico/20.png">
+
+            <p>A la derecha tenemos listadas todas las capas de nuestro PCB:</p>
+            <img src="Kicad basico/21.png">
+
+            <p>Las capas que usaremos nosotros son:</p>
+
+            <ul>
+                <li><b>F.Cu</b>: Capa frontal de cobre, donde irán las conexiones que añadamos</li>
+                <li><b>B.Cu</b>: Capa trasera de cobre, donde irán las conexiones que añadamos</li>
+                <li><b>F.Silkscreen</b>: Capa frontal de anotaciones, donde irán los texto que queramos añadir</li>
+                <li><b>B.Silkscreen</b>: Capa trasera de anotaciones, donde irán los texto que queramos añadir</li>
+                <li><b>Edge.Cuts</b>: Limites de los bordes de nuestra PCB, en esta capa definiremos la forma en si de la placa</li>
+            </ul>
+
+            <h2>Colocar footprints</h2>
+            <p>Lo primero para empezar a diseñar nuestro PCB es actualizar toda la información desde nuestro esquema, para eso usamos la siguiente opción:</p>
+            <img src="Kicad basico/22.png">
+
+            <p>Se nos abrirá la siguiente ventana de información:</p>
+            <img src="Kicad basico/23.png">
+
+            <p>En este caso está todo correcto, pero si tenemos algún fallo en nuestro esquema se nos indicará aqui, un fallo habitual es que tengamos algún componente en el esquema que no tenga asignado un footprint, en caso de que tengamos algún error simplemente cerramos la ventana, vamos al esquema y arreglamos lo que nos falte, cuando tengamos todo OK volvemos a esta opción y hacemos click en <b>Actualizar placa</b></p>
+
+            <p>Se nos cargarán todos nuestros componentes en el editor de placas:</p>
+            <img src="Kicad basico/24.png">
+
+            <p>Ahora simplemente acomodamos los componentes para que estén mas o menos como queramos que queden en la PCB, solo es hacer una colocación inicial podemos ir moviendolos mas adelante si necesitamos.</p>
+
+            <img src="Kicad basico/25.png">
+            
+            <p>Como se puede ver hay unas lineas azules que conectan los componentes, esto son las conexiones que nosotros ya hemos hecho en el esquema, y por lo tanto el editor de placas ya sabe como tienen que estár conectados los diferentes pines de los diferentes componentes, estás líneas nos ayudarán cuando hagamos el trazado de las pistas de cobre para conectar los distintos componentes.</p>
+
+            <h2>Establecer bordes de la placa</h2>
+            <p>A continuación vamos a crear el contorno de la placa en sí, primero seleccionamos la capa <b>Edge.Cuts</b>:</p>
+            <img src="Kicad basico/26.png">
+
+            <p>Y ahora podemos trazar el contorno de nuestra placa usando estás herramientas:</p>
+            <img src="Kicad basico/27.png">
+
+            <p>En este caso voy a hacer simplemente una placa con forma rectangular, pero se puede hacer con la forma que uno quiera:</p>
+            <img src="Kicad basico/28.png">
+
+            <p>Quiero que tenga las esquinas redondeadas, así que elijo la <b>herramienta de selección</b>, selecciono el cuadrado y le doy <b>click derecho</b>, voy a <b>Modificación de forma</b> y le doy a <b>Redondear líneas</b>, y marco un radio de <b>5mm</b></p>
+            <img src="Kicad basico/29.png">
+
+            <p>Ahora mi placa tiene esquinas redondeadas:</p>
+            <img src="Kicad basico/30.png">
+
+            <p>Si queremos podemos usar el <b>visor 3D</b> para ver como está quedando nuestra placa con una visión mas realista:</p>
+            <img src="Kicad basico/31.png">
+
+            <p>Si queremos podemos incluso ver o ocultar los componentes encima de la placa:</p>
+            <img src="Kicad basico/32.png">
+
+            <h2>Dibujar pistas de cobre</h2>
+
+            <p>Ahora dibujaremos las pistas de cobre que conectarán nuestros componentes, lo hacemos con esta herramienta:</p>
+            <img src="Kicad basico/33.png">
+
+            <p>En este ejemplo las conexiones son muy sencillas y podríamos hacerlo en una sola capa, pero para mostrar como saltar entre capas voy a cambiar los switches de posición entre ellos, así las conexiones entre los diodos estarán cruzadas y usaremos la <b>capa frontal</b> y la <b>capa trasera</b> de cobre para dibujar las pistas y evitar que se toquen entre ellas</p>
+
+            <p>Seleccionamos la <b>capa frontal de cobre</b>:</p>
+            <img src="Kicad basico/34.png">
+
+            <p>Y vamos dibujando las pistas:</p>
+            <img src="Kicad basico/35.png">
+
+            <p>Hemos conectado los dos switches a la batería y el switch de abajo a sus dos leds, como podemos observar varias líneas azules han desaparecido ya que hemos hecho las conexiones (Las líneas rojas son las pistas que hemos trazado en la capa frontal), ahora tenemos que conectar el switch superior al led inferior, como podemos ver la línea azul corta las pistas que ya hemos trazado en la capa frontal, en este caso podríamos dar un rodeo por encima y conectarlo igualmente usando la capa frontal, pero vamos a hacer un cambio de capas para mostrar como evitar que dos pistas se toquen.</p>
+
+            <h3>Cambio entre capas con vía pasante</h3>
+
+            <p>Seguimos trazando líneas como hasta ahora usando la capa frontal, cuando estemos con la pista cerca de las otras con las que se va a tocar hacemos click derecho y seleccionamos <b>Situar vía pasante</b>, ahora hacemos click izquierdo para situar la vía pasante donde queramos:</p>
+            <img src="Kicad basico/36.png">
+
+            <p>Y automáticamente la interfaz comienza a trazar en la <b>capa trasera de cobre</b> (podemos ver que la linea roja se vuelve azul), ahora podemos pasar a traves de la líneas rojas, ya que estas están en la capa frontal:</p>
+            <img src="Kicad basico/37.png">
+
+            <p>Si queremos también podemos trazar pistas directamente en la capa trasera, solo tenemos que seleccionar <b>B.Cu</b> en la lista de capas y empezar a trazar pistas:</p>
+            <img src="Kicad basico/38.png">
+
+            <p>El resultado final es el siguiente:</p>
+            <img src="Kicad basico/39.png">
+
+            <p>Si nos vamos al <b>visor 3D</b> podemos ver las pistas que hemos trazado, tanto en la parte delantera como en la trasera:</p>
+            <img src="Kicad basico/40.png">
+            <img src="Kicad basico/41.png">
+
+            <p>Incluso se puede apreciar como la vía pasante pasa de la parte delantera a la trasera.</p>
+
+            <h2>Rellenado de cobre</h2>
+
+            <p>Para que nuestran pistas queden mas vistosas visualmente podemos hacer un rellenado de cobre de toda la placa, para ello usamos la siguiente herramienta:</p>
+            <img src="Kicad basico/42.png">
+
+            <p>Al utilizar esta herramienta se nos preguntará si queremos asignar el rellenado a alguna red, esto hace referencia a la <b>etiqueta global</b> que creamos en nuestro esquema "gnd" en nuestro caso, si queremos podemos seleccionarla aquí y todo el rellenado de cobre estará conectado a todos esos pines que se conectaron a dicha etiqueta, en este caso no lo voy a conectar a ninguna red, por lo tanto se quedará como una isla de cobre aislada:</p>
+            <img src="Kicad basico/43.png">
+
+            <p>Tenemos que hacerlo tanto en la capa delantera como en la trasera, primero seleccionamos la capa delantera <b>F.Cu</b>, y trazamos un rectangulo que abarque toda nuestra placa:</p>
+            <img src="Kicad basico/44.png">
+
+            <p>Y hacemos lo mismo con <b>B.Cu</b>, literalmente podemos solapar los puntos que hemos usado de la capa frontal, no hay problema con eso.</p>
+
+            <p>Ahora nos vamos a <b>Editar</b> &gt; <b>Rellenar todas las zonas</b>:</p>
+            <img src="Kicad basico/45.png">
+
+            <p>Veremos como se genera un rellenado de toda nuestra placa:</p>
+            <img src="Kicad basico/46.png">
+
+            <p>Si nos vamos al <b>visor 3D</b>, veremos como las pistas que hemos tazado ahora tienen una apariencia distinta, ya que todo el resto de la placa ha sido rellenado con cobre y las pistas quedan con un perfilado:</p>
+            <img src="Kicad basico/47.png">
+
+            <p>Este rellenado de cobre como no lo hemos asignado a ninguna red no tienen ningún funcionamiento a nivel eléctrico, es algo simplemente estético.</p>
+
+
+            <h2>Dibujar texto en la placa</h2>
+
+            <p>Si queremos dibujar algún texto en la placa solo tenemos que hacerlo en la capa correspondiente, <b>F.Silkscreen</b> o <b>B.Silkscreen</b>, vamos a poner un texto simple "proyecto basico" en la parte inferior de la PCB, seleccionamos la capa <b>F.Silkscreen</b> y usamos la siguiente herramienta:</p>
+            <img src="Kicad basico/48.png">
+
+            <p>Se nos abrirá una ventana en la que podemos indicar el texto y las características de este:</p>
+            <img src="Kicad basico/49.png">
+
+            <p>Lo colocamos en cualquier sitio dentro de la placa:</p>
+            <img src="Kicad basico/50.png">
+
+            <p>Y el texto ya será visible en la PCB:</p>
+            <img src="Kicad basico/51.png">
+
+            <p>Si queremos ocultar el texto de alguno de los componentes podemos hacerlo en el menu de propiedades de cada componente (doble click sobre el componente o click derecho &gt; propiedades)</p>
+            <img src="Kicad basico/52.png">
+
+            <p>Y el texto ya no se dibujará en la placa:</p>
+            <img src="Kicad basico/53.png">
+
+
+            <h2>Dibujar texto en el cobre</h2>
+            <p>Al estár usando un rellenado de cobre para la placa una de las opciones que tenemos es la de escribir texto en la placa con cobre, en vez de seleccionar la capa <b>F.Silkscreen</b> seleccionamos la capa <b>F.Cu</b> al escribir el texto:</p>
+            <img src="Kicad basico/54.png">
+
+            <p>Colocamos el texto en la placa y volvemos a hacer el rellenado: <b>Editar</b> &gt; <b>Rellenar todas las zonas</b></p>
+
+            <p>El resultado es el siguiente:</p>
+            <img src="Kicad basico/55.png">
+
+            <p>El rellenado se hace de manera que el texto queda escrito en el propio cobre.</p>
+
+            <h2>Usar la herramienta de medida</h2>
+            <p>Una herramienta muy util es la <b>herramienta de medida</b>, la podemos seleccionar desde <b>Inspeccionar</b> &gt; <b>Herramienta de medida</b>.</p>
+            <img src="Kicad basico/56.png">
+
+
+            <p>Esta herramienta nos permite confirmar si las dimensiones de nuestra placa son correctas, ya sea el espacio entre pines, tamaño de componentes o lo que sea.</p>
+            <img src="Kicad basico/57.png">
+
+            <p>Esta herramienta está asociada al <b>espaciado de la interfaz</b>, por lo tanto si tenemos configurado el espaciado en 2,54mm, la regla irá saltando en intervalos de 2,54mm, si queremos hacer mediciones mas precisas sin tener que estar cambiando el espaciado podemos simplemente mantener pulsado <b>Ctrl + Shift</b>.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | kicad</p>
+        </div>
+    
+    </body>
+</html>
