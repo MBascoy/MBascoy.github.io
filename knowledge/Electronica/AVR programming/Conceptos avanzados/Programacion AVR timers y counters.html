@@ -53,6 +53,51 @@
                 <li>Leer el valor transcurrido (en el modo normal), configurar una interrupción o una activación de un puerto (en el modo CTC)</li>
             </ul>
         </div>
+        
+        <div class="t2">Iniciaiones de ejemplo de todos los timers</div>
+            <div class="cont">
+            <ul>
+                <li><b>Timer 0</b>:</li>
+                <pre><code>void init_timer0(){
+  TCCR0A |= (1 &lt;&lt; WGM01); // Modo CTC
+  TCCR0B |= (1 &lt;&lt; CS02); // Prescaler de 256
+
+  TIMSK0 |= (1 &lt;&lt; OCIE0A); // Habilitar interrupción por OCR0A
+
+  OCR0A = 2;
+  
+  sei();
+
+}</code></pre>
+                <code>ISR(TIMER0_COMPA_vect) {}</code>
+
+                <li><b>Timer 1</b>:</li>
+                <pre><code>void init_timer1() {
+    TCCR1B |= (1 &lt;&lt; WGM12); // Modo CTC
+    TCCR1B |= (1 &lt;&lt; CS12) | (1 &lt;&lt; CS10); // Prescaler 1024
+
+    TIMSK1 |= (1 &lt;&lt; OCIE1A); // Habilitar interrupción por OCR1A
+
+    OCR1A = 976;
+
+    sei();
+}</code></pre>
+                <code>ISR(TIMER1_COMPA_vect) {}</code>
+
+                <li><b>Timer 2</b>:</li>
+                <pre><code>void init_timer2(){
+  TCCR2A |= (1 &lt;&lt; WGM21); // modo CTC
+  TCCR2B |= (1 &lt;&lt; CS22) | (1 &lt;&lt; CS21) | (1 &lt;&lt; CS20); // Clock with /1024 prescaler
+
+  TIMSK2 |= (1 &lt;&lt; OCIE2A); // Habilitar interrupción por OCR2A
+
+  OCR2A = 255;
+
+  sei();
+}</code></pre>
+                <code>ISR(TIMER2_COMPA_vect) {}</code>
+            </ul>
+        </div>
 
     <div class="t2">Usar timer en modo normal</div>
         <div class="cont">
