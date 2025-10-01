@@ -63,7 +63,16 @@
         <div class="cont">
             <p>Al usar un modulo 74HC595 con un microcontrolador nos permite aumentar el numero de salidas del microcontrolador, para manejar el modulo solo necesitamos 3 pines del microcontrolador y cada modulo 74HC595 se puede conectar en cascada a otro modulo 74HC595 a traves del <b>pin Q7'</b> al <b>pin DS</b> del siguiente modulo.</p>
 
-            <p>En el siguiente ejemplo se muestra como con solo <b>3 pines</b> del microcontrolador podemos controlar 3 led matrix que requieren de <b>32 pines</b> para hacerlas funcionar (24 pines para las columnas y 8 para las filas), usamos 4 modulos 74HC595 conectados en cascada, 3 para controlar las columnas de las matrices y 1 para controlar las filas:</p>
+            <p>En el siguiente ejemplo se muestra como con solo <b>3 pines</b> del microcontrolador podemos controlar 3 led matrix que requieren de <b>32 pines</b> para hacerlas funcionar (24 pines para las columnas y 8 para las filas).</p>
+
+            <p>Los pines del microcontrolador son los siguientes:</p>
+            <ul>
+                <li><b>PB5</b> (SCK) - SRCLK</li>
+                <li><b>PB3</b> (MOSI) - SER</li>
+                <li><b>PB2</b> (LATCH) - RCLK</li>
+            </ul>
+                
+            <p>Usamos 4 modulos 74HC595 conectados en cascada, 3 para controlar las columnas de las matrices y 1 para controlar las filas:</p>
 
             <img src="Shift registers (74HC595)/2.png">
 
