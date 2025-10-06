@@ -1,0 +1,139 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">7 segment display</h1>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como manejar un pantalla de 7 segmentos con varios digitos.</p>
+
+            <p>El modulo que uso es el <b>5641BS</b>, las conexiones son las siguientes:</p>
+            <img src="7 segment display/2.png">
+
+            <p>Este modulo tiene las conexiones hechas con <b>Ánodo común</b>, hay otra versión con <b>Cátodo común</b> la 5641AS, en este las conexiones son las siguientes:</p>
+            <img src="7 segment display/3.png">
+
+            <p>Los segmentos asociados con cada pin son los siguientes:</p>
+            <img src="7 segment display/4.png">
+
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            <p>El circuito en el simulador es el siguiente:</p>
+
+            <img src="7 segment display/1.png">
+
+            <p></p>
+        </div>
+
+
+    <div class="t2">Código</div>
+        <div class="cont">
+
+            <p>Para hacer funcionar los 4 números de la pantalla tenemos que hacer multiplexación entre ellos, al igual que en una matriz de leds</p>
+
+            <p>La lista de numeros es la siguiente, del 0 al 9 (1 indica segmento iluminado):</p>
+
+            <pre><code>volatile uint8_t numbers[] = {
+  0b00111111,
+  0b00000110,
+  0b01011011,
+  0b01001111,
+  0b01100110,
+  0b01101101,
+  0b01111101,
+  0b00000111,
+  0b01111111,
+  0b01101111,
+};</code></pre>
+
+            <p><b>NOTA:</b> El bit mas significativo es para el <b>punto (.)</b>, este bit lo activamos en la posición que queramos despues de asignar los dígito, en el siguiente ejemplo se activa en el tercer dígito.</p>
+
+            <p>En este caso tenemos un ejemplo que solo va incrementando un numero y lo muestra en la pantalla, tenemos que tener en cuenta que el módulo que uso es de <b>Ánodo común</b>, por lo tanto para encender los segmentos usamos negativo (pin a 0) y el dígito que vamos a iluminar es controlado con positivo (pin a 1).</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/interrupt.h&gt;</span></span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> numbers[] = {
+  <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111111</span>,
+  <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000110</span>,
+  <span style="color:rgb(249, 145, 87); font-weight:400;">0b01011011</span>,
+  <span style="color:rgb(249, 145, 87); font-weight:400;">0b01001111</span>,
+  <span style="color:rgb(249, 145, 87); font-weight:400;">0b01100110</span>,
+  <span style="color:rgb(249, 145, 87); font-weight:400;">0b01101101</span>,
+  <span style="color:rgb(249, 145, 87); font-weight:400;">0b01111101</span>,
+  <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000111</span>,
+  <span style="color:rgb(249, 145, 87); font-weight:400;">0b01111111</span>,
+  <span style="color:rgb(249, 145, 87); font-weight:400;">0b01101111</span>,
+};
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> display[<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>] = {<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>};
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> count = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> display_iteration = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(TIMER0_COMPA_vect) {
+      PORTD = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">//Apagamos todos los leds para evitar efecto de iluminacion fantasma en algunos leds</span>
+
+      PORTC = (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; display_iteration);
+      PORTD = display[display_iteration];
+
+      display_iteration++;
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(display_iteration == <span style="color:rgb(249, 145, 87); font-weight:400;">4</span>)
+        display_iteration = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer0</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+  TCCR0A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM01);
+  TCCR0B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS02); <span style="color:rgb(150, 152, 150); font-weight:400;">// Prescaler de 256</span>
+  TIMSK0 |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; OCIE0A);
+  OCR0A = <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">// Interrupción cada 512 microsegundos</span>
+
+  <span style="color:rgb(181, 189, 104); font-weight:400;">sei</span>();
+}
+
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer0</span>();
+
+    DDRC = <span style="color:rgb(249, 145, 87); font-weight:400;">0b00001111</span>;
+    PORTC = <span style="color:rgb(249, 145, 87); font-weight:400;">0b00001111</span>;
+    DDRD = <span style="color:rgb(249, 145, 87); font-weight:400;">0b11111111</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>){
+      _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>);
+
+      <span style="color:rgb(150, 152, 150); font-weight:400;">//Asociamos cada digito con el numero que le corresponde, el byte se invierte (~), ya que estamos usando Anodo comun.</span>
+      display[<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>] = ~numbers[(count / <span style="color:rgb(249, 145, 87); font-weight:400;">1000</span>)%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>];
+      display[<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>] = ~numbers[(count / <span style="color:rgb(249, 145, 87); font-weight:400;">100</span>)%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>];
+      display[<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>] = ~numbers[(count / <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>)%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>];
+      display[<span style="color:rgb(249, 145, 87); font-weight:400;">3</span>] = ~numbers[count%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>];
+
+      display[<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>] &amp;= <span style="color:rgb(249, 145, 87); font-weight:400;">0b01111111</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">//Ponemos el punto en el tercer digito.</span>
+
+      count++;
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(count == <span style="color:rgb(249, 145, 87); font-weight:400;">9999</span>)
+        count = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    }
+}
+</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | 7 segment</p>
+        </div>
+    
+    </body>
+</html>
