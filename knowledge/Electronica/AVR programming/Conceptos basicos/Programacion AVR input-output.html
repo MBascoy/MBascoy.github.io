@@ -24,6 +24,9 @@
                 <li>PD0-7</li>
             </ul>
 
+            <p><b>NOTA:</b> Por defecto el puerto <b>PC6</b> no se puede utilizar, ya que se usa exclusivamente para RESET, para poder utilizar el puerto <b>PC6</b> tenemos que deshabilitar RESET en los fuses del microcontrolador (RSTDISBL).</p>
+            <p><b>NOTA2:</b> Si deshabilitamos el pin RESET no podremos volver a reprogramar el microcontrolador, CUIDADO CON ESTO !!!</p>
+
             <img src="Programacion AVR input-output/1.png">
 
             <p>Todos los registros que se ven a continuación son registros de <b>8 bits</b> y funcionan como una máscara, de modo que por ejemplo <b>00000110</b> hace referencia al puerto 1 y 2.</p>
