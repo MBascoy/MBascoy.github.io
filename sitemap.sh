@@ -1,31 +1,13 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# url configuration
-URL="https://mbascoy.github.io/"
+SITEMAP_FILE="sitemap.xml"
 
-# values: always hourly daily weekly monthly yearly never
-FREQ="monthly"
+WEBSITE="https://mbascoy.github.io/"
+WEBSITE_FOLDER="./knowledge"
 
-# begin new sitemap
-exec 1> sitemap.xml
+echo '<?xml version="1.0" encoding="UTF-8"?>' > $SITEMAP_FILE
+echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' >> $SITEMAP_FILE
 
-# print head
-echo '<?xml version="1.0" encoding="UTF-8"?>'
-echo '<!-- generator="Milkys Sitemap Generator, https://github.com/mcmilk/sitemap-generator" -->'
-echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'
+find $WEBSITE_FOLDER -type f -not -path "./.git/*" -printf "%TY-%Tm-%Td**%p\n" | awk -F "**" -v website=$WEBSITE '{ printf "\t<url>\n\t\t<loc>%s%s</loc>\n\t\t<lastmod>%s</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t</url>\n", website, substr($2,3), $1 }' >> $SITEMAP_FILE
 
-# print urls
-IFS=$'\r\n' GLOBIGNORE='*' command eval "OPTIONS=($(cat $0.options))"
-find . -type f "${OPTIONS[@]}" -printf "%TY-%Tm-%Td%p\n" | \
-while read -r line; do
-  DATE=${line:0:10}
-  FILE=${line:12}
-  echo "<url>"
-  echo " <loc>${URL}${FILE}</loc>"
-  echo " <lastmod>$DATE</lastmod>"
-  echo " <changefreq>$FREQ</changefreq>"
-  echo "</url>"
-done
-
-# print foot
-echo "</urlset>"
+echo "</urlset>" >> $SITEMAP_FILE
