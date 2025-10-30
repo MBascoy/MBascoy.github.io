@@ -1,0 +1,466 @@
+ 
+ 
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Clock Controller</h1>
+    
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p><b>Controlador AVR</b> para reloj hecho con <b>led matrix de 8x8</b></p>
+
+            <img src="Clock Controller/2.jpg">
+
+            <p>El circuito del controlador en Kicad es el siguiente: <a href="../../Kicad/Proyectos/Clock Controller.html">Clock controller</a></p>
+            <p>El circuito del led matrix en Kicad es el siguiente: <a href="../../Kicad/Proyectos/Led Matrix 74HC595.html">Led Matrix 74HC595</a></p>
+        </div>
+
+    <div class="t2">Codigo</div>
+        <div class="cont">
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/power.h&gt;</span></span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/interrupt.h&gt;</span></span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;digits.h&quot;</span></span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> LATCH_PIN PB2  <span style="color:rgb(150, 152, 150); font-weight:400;">// ST_CP</span></span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> DISPLAY_COLUMNS 8</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> DISPLAY_ROWS 8</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> CHAR_COLUMNS 8</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> NUMBER_OF_DISPLAYS 1</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> SLIDE_SPEED_DELAY 60</span>
+
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> TIME_CALIBRATION -4</span>
+
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> time_counter = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> time2_counter = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> display[NUMBER_OF_DISPLAYS][DISPLAY_ROWS];
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> hour_1;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> hour_2;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> hour_1;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> min_1;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> min_2;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> min_1_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> min_2_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> hour_1_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> hour_2_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> animation_counter = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> display_hour_1[DISPLAY_ROWS];
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> display_hour_2[DISPLAY_ROWS];
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> display_min_1[DISPLAY_ROWS];
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> display_min_2[DISPLAY_ROWS];
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> display_seconds[DISPLAY_ROWS];
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> seconds=<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> minutes = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> hours = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> count = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_init</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Configurar MOSI, SCK y LATCH como salida</span>
+    DDRB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB3) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB5) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; LATCH_PIN);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Configurar SPI como Master</span>
+    SPCR = (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; SPE) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; MSTR);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_send</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> data)</span> </span>{
+    SPDR = data;                     <span style="color:rgb(150, 152, 150); font-weight:400;">// Cargar dato en el registro de SPI</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (!(SPSR &amp; (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; SPIF)));   <span style="color:rgb(150, 152, 150); font-weight:400;">// Esperar que termine la transmisión</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">latch</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Pulso en LATCH para actualizar salidas</span>
+    PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; LATCH_PIN);
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//_delay_us(1); // Opcional? descomentar en caso de que el latch no funcione</span>
+    PORTB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; LATCH_PIN);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">increase_seconds</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+
+  display_seconds[seconds/DISPLAY_ROWS] |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; (seconds%<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>));
+  seconds++;
+
+}
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(TIMER0_COMPA_vect) {
+
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_send</span>(display_hour_1[count]);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_send</span>(display_hour_2[count]);
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_send</span>(display_min_1[count]);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_send</span>(display_min_2[count]);
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_send</span>(display_seconds[count]);
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_send</span>(~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; count));
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">latch</span>();
+
+    count++;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(count &gt;= DISPLAY_ROWS)
+        count=<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(TIMER1_COMPA_vect) {
+    time_counter += <span style="color:rgb(249, 145, 87); font-weight:400;">64</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(time_counter &gt;= <span style="color:rgb(249, 145, 87); font-weight:400;">1000</span>){
+      time_counter -= <span style="color:rgb(249, 145, 87); font-weight:400;">1000</span>;
+      <span style="color:rgb(181, 189, 104); font-weight:400;">increase_seconds</span>();
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(seconds &gt;= <span style="color:rgb(249, 145, 87); font-weight:400;">60</span>){
+        seconds = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>; i++)
+          display_seconds[i] = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+        minutes++;
+
+        min_2 = minutes%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+        min_1 = (minutes/<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>)%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+
+        min_2_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(minutes%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span> == <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>)
+          min_1_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+
+      }
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(minutes &gt;= <span style="color:rgb(249, 145, 87); font-weight:400;">60</span>){
+        minutes = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        min_2 = minutes%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+        min_1 = (minutes/<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>)%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+
+        hours++;
+
+        hour_2 = hours%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+        hour_1 = (hours/<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>)%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+
+        hour_2_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(hours%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span> == <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>)
+          hour_1_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+      }
+
+      <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(hours &gt;= <span style="color:rgb(249, 145, 87); font-weight:400;">24</span>){
+        hour_2 = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+        hour_1 = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+        hours = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+        hour_1_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>;
+      }
+    }
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">update_animation</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> *display, <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> number)</span></span>{
+  <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">7</span>; i++)
+    display[i] = display[i+<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>];
+
+  display[<span style="color:rgb(249, 145, 87); font-weight:400;">7</span>] = digits[number][animation_counter];
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">disable_animations</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+  hour_1_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+  hour_2_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+  min_1_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+  min_2_animation = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+}
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(TIMER2_COMPA_vect) {
+
+  time2_counter++;
+
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(time2_counter &gt;= <span style="color:rgb(249, 145, 87); font-weight:400;">3</span>){
+    time2_counter = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(min_2_animation){
+      <span style="color:rgb(181, 189, 104); font-weight:400;">update_animation</span>(display_min_2, min_2);
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(min_1_animation){
+      <span style="color:rgb(181, 189, 104); font-weight:400;">update_animation</span>(display_min_1, min_1);
+    }
+
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(hour_2_animation){
+      <span style="color:rgb(181, 189, 104); font-weight:400;">update_animation</span>(display_hour_2, hour_2);
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(hour_1_animation){
+      <span style="color:rgb(181, 189, 104); font-weight:400;">update_animation</span>(display_hour_1, hour_1);
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(min_1_animation || min_2_animation){
+      animation_counter++;
+    }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(animation_counter == <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>){
+      animation_counter = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+      <span style="color:rgb(181, 189, 104); font-weight:400;">disable_animations</span>();
+    }
+  }
+}
+
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer0</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+  TCCR0A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM01);
+  TCCR0B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS02); <span style="color:rgb(150, 152, 150); font-weight:400;">// Prescaler de 256</span>
+
+  TIMSK0 |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; OCIE0A);
+
+  OCR0A = <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">// Interrupción cada 512 microsegundos</span>
+
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer1</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    TCCR1B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM12);                <span style="color:rgb(150, 152, 150); font-weight:400;">// Modo CTC</span>
+    OCR1A = <span style="color:rgb(249, 145, 87); font-weight:400;">64000</span> + TIME_CALIBRATION;
+    TCCR1B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS11);   <span style="color:rgb(150, 152, 150); font-weight:400;">// Prescaler 8</span>
+    TIMSK1 |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; OCIE1A); <span style="color:rgb(150, 152, 150); font-weight:400;">// Habilitar interrupción por OCR1A</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer2</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+  TCCR2A |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; WGM21); <span style="color:rgb(150, 152, 150); font-weight:400;">// modo CTC</span>
+  TCCR2B |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS22) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS21) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; CS20); <span style="color:rgb(150, 152, 150); font-weight:400;">// Clock with /1024 prescaler</span>
+
+  TIMSK2 |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; OCIE2A); <span style="color:rgb(150, 152, 150); font-weight:400;">// Habilitar interrupción por OCR2A</span>
+
+  OCR2A = <span style="color:rgb(249, 145, 87); font-weight:400;">250</span>;
+
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">set_zero_time</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> *display)</span></span>{
+  <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>; i++)
+      display[i] = digits[<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>][i];
+}
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">ISR</span>(PCINT1_vect) {
+  <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINC, PC0)){
+    seconds = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+    time_counter = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>; i++)
+      display_seconds[i] = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    TCNT1 = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+  }
+  <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINC, PC1)){
+    minutes++;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(minutes &gt;= <span style="color:rgb(249, 145, 87); font-weight:400;">60</span>)
+      minutes = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    min_2 = minutes%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+    min_1 = (minutes/<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>)%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>; i++){
+      display_min_1[i] = digits[min_1][i];
+      display_min_2[i] = digits[min_2][i];
+    }
+
+  }
+  <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(<span style="color:rgb(181, 189, 104); font-weight:400;">bit_is_clear</span>(PINC, PC2)){
+    hours++;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(hours &gt;= <span style="color:rgb(249, 145, 87); font-weight:400;">24</span>)
+      hours = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    hour_2 = hours%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+    hour_1 = (hours/<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>)%<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>; i++){
+      display_hour_1[i] = digits[hour_1][i];
+      display_hour_2[i] = digits[hour_2][i];
+    }
+
+  }
+
+  _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>);
+  PCIFR |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PCIF1);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">init_button_interrupts</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+  PCICR |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PCIE1);
+
+  PCMSK1 |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PCINT8) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PCINT9) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PCINT10);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">clock_prescale_set</span>(clock_div_1);
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_init</span>();
+
+    PORTC = <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000111</span>;
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer0</span>();
+    <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer1</span>();
+    <span style="color:rgb(181, 189, 104); font-weight:400;">init_timer2</span>();
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">init_button_interrupts</span>();
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">sei</span>();
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">set_zero_time</span>(display_min_1);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">set_zero_time</span>(display_min_2);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">set_zero_time</span>(display_hour_1);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">set_zero_time</span>(display_hour_2);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+
+    }
+}
+</code></pre>
+
+            <p><b>digits.h</b> file:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(150, 152, 150); font-weight:400;">/* digits_h_inverted.h - 0..9, cada número 8 bytes, LSB = columna izquierda */</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;stdint.h&gt;</span></span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">volatile</span> <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> digits[][<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>] =
+{
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// 0</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01100010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01010010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01001010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// 1</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00010000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00011000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00010100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00010000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00010000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00010000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// 2</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00110000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00001000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// 3</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// 4</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00100000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00110000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00101000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00100100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00100000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00100000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// 5</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// 6</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// 7</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01111110</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00100000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00010000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00001000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00001000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00001000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// 8</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+  <span style="color:rgb(150, 152, 150); font-weight:400;">// 9</span>
+  {
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000000</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b01000010</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00111100</span>,
+    <span style="color:rgb(249, 145, 87); font-weight:400;">0b00000000</span>,
+  },
+};
+</code></pre>
+        </div>
+
+    
+    <div class="t2">Circuito simulador</div>
+        <div class="cont">
+            <p>Circuito simulIDE: <a href="Clock Controller/Clock 74HC595.sim1.tar.gz">Clock controller</a></p>
+
+            <img src="Clock Controller/1.png">
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | microcontrolador | clock | controller | led matrix</p>
+        </div>
+    
+    </body>
+</html>
