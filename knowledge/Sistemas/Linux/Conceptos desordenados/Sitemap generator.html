@@ -1,0 +1,60 @@
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Sitemap generator</h1>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Script para generar un archivo sitemap de manera local.</p>
+        </div>
+
+    <div class="t2">Script</div>
+        <div class="cont">
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#!/bin/bash</span>
+
+SITEMAP_FILE=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;sitemap.xml&quot;</span>
+
+WEBSITE=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;https://mbascoy.pages.dev/&quot;</span>
+WEBSITE_FOLDER=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x27;</span> &gt; <span style="color:rgb(255, 204, 102); font-weight:400;">$SITEMAP_FILE</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot; xmlns:xhtml=&quot;http://www.w3.org/1999/xhtml&quot;&gt;&#x27;</span> &gt;&gt; <span style="color:rgb(255, 204, 102); font-weight:400;">$SITEMAP_FILE</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">#find command to find all files inside WEBSITE_FOLDER, ignoring some folders and files, after that it pipes to awk command to generate the xml structure with all the files found.</span>
+find <span style="color:rgb(255, 204, 102); font-weight:400;">$WEBSITE_FOLDER</span> \
+-<span style="color:rgb(181, 189, 104); font-weight:400;">type</span> f \
+-not -path <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;./.git/*&quot;</span> \
+-not -name <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;google8ad719b3a8ef55f1.html&quot;</span> \
+-not -name <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;sitemap.sh&quot;</span> \
+-not -name <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;sitemap.xml&quot;</span> \
+-not -name <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;robots.txt&quot;</span> \
+-<span style="color:rgb(181, 189, 104); font-weight:400;">printf</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;%TY-%Tm-%Td**%p\n&quot;</span> | \
+awk -F <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;**&quot;</span> \
+-v website=<span style="color:rgb(255, 204, 102); font-weight:400;">$WEBSITE</span> \
+<span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;{ printf &quot;\
+\t&lt;url&gt;\n\
+\t\t&lt;loc&gt;%s%s&lt;/loc&gt;\n\
+\t\t&lt;lastmod&gt;%s&lt;/lastmod&gt;\n\
+\t\t&lt;changefreq&gt;monthly&lt;/changefreq&gt;\n\
+\t&lt;/url&gt;\n\
+&quot;, website, substr($2,3), $1 }&#x27;</span> &gt;&gt; <span style="color:rgb(255, 204, 102); font-weight:400;">$SITEMAP_FILE</span>
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&lt;/urlset&gt;&quot;</span> &gt;&gt; <span style="color:rgb(255, 204, 102); font-weight:400;">$SITEMAP_FILE</span>
+</code></pre>
+        </div>
+        
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Bash | Sitemap</p>
+        </div>
+
+    </body>
+</html>
