@@ -70,7 +70,15 @@ img{
     max-width:90%;
 }
 
-
+.breadcrumb{
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #ccc;
+    border: 5px;
+    border-style: solid;
+    border-color: #ddd;
+    width: fit-content;
+}
 
 .t1{
     text-align: center;
