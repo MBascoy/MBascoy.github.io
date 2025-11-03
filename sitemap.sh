@@ -2,7 +2,7 @@
 
 SITEMAP_FILE="sitemap.xml"
 
-WEBSITE="https://mbascoy.pages.dev/"
+WEBSITE="https://mbascoy.dev/"
 WEBSITE_FOLDER=""
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' > $SITEMAP_FILE
