@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mbascoy.pages.dev/sitemap.xml
+Sitemap: https://mbascoy.dev/sitemap.xml
