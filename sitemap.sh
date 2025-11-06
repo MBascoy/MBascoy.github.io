@@ -25,6 +25,7 @@ awk -F "**" \
 \t\t<lastmod>%s</lastmod>\n\
 \t\t<changefreq>monthly</changefreq>\n\
 \t</url>\n\
-", website, substr($2,3), $1 }' >> $SITEMAP_FILE
+", website, substr($2,3), $1 }' | \
+sed -r 's/\#+/%23/g' >> $SITEMAP_FILE
 
 echo "</urlset>" >> $SITEMAP_FILE
