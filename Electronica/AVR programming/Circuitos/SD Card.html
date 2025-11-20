@@ -1,0 +1,185 @@
+ 
+ 
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>AVR programming: SD Card</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">SD Card</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">AVR programming</a> / 
+		SD Card
+	</div>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como leer una tarjeta SD usando un microcontrolador AVR.</p>
+
+            <p><a href="SD Card/SD Card ChatGPT.pdf">Explicacion ChatGPT</a></p>
+        </div>
+
+    <div class="t2">Codigo</div>
+        <div class="cont">
+
+            <p>Ejemplo básico para leer el primer bloque de una tarjeta SD (512 bytes) y hacer que el primer byte se ponga en PORTD para visualizarlo a traves de LEDs.</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/power.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;stdint.h&gt;</span></span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// =======================</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">// SPI</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">// =======================</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">spi_init</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    DDRB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB3) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB5) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2); <span style="color:rgb(150, 152, 150); font-weight:400;">// MOSI, SCK, SS</span>
+    DDRB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB4); <span style="color:rgb(150, 152, 150); font-weight:400;">// MISO</span>
+
+    SPCR = (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;SPE) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;MSTR) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;SPR1) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;SPR0); <span style="color:rgb(150, 152, 150); font-weight:400;">// clk = F/128</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> data)</span> </span>{
+    SPDR = data;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (!(SPSR &amp; (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;SPIF)));
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> SPDR;
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">spi_set_fast</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// SPI = F_CPU / 2  (SPI2X = 1)</span>
+    SPSR |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;SPI2X);
+    SPCR &amp;= ~((<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;SPR1) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;SPR0));  <span style="color:rgb(150, 152, 150); font-weight:400;">// SPR1=SPR0=0 → F/4</span>
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Con SPI2X esto da F/2 → 8 MHz si tu AVR va a 16 MHz</span>
+}
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// =======================</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">// SD Card (modo SPI)</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">// =======================</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> <span style="color:rgb(181, 189, 104); font-weight:400;">sd_cmd</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> cmd, <span style="color:rgb(204, 153, 204); font-weight:400;">uint32_t</span> arg, <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> crc)</span> </span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0x40</span> | cmd);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(arg &gt;&gt; <span style="color:rgb(249, 145, 87); font-weight:400;">24</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(arg &gt;&gt; <span style="color:rgb(249, 145, 87); font-weight:400;">16</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(arg &gt;&gt; <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(arg);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(crc);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> r;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>; i++) {
+        r = <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (!(r &amp; <span style="color:rgb(249, 145, 87); font-weight:400;">0x80</span>)) <span style="color:rgb(204, 153, 204); font-weight:400;">break</span>;
+    }
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> r;
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">sd_init</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// SD requiere &gt;74 pulsos de reloj con CS alto</span>
+    PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2);
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> i=<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i&lt;<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>; i++) <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// CMD0</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> r;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">do</span> {
+        PORTB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2);
+        r = <span style="color:rgb(181, 189, 104); font-weight:400;">sd_cmd</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x95</span>);
+        PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2);
+    } <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (r != <span style="color:rgb(249, 145, 87); font-weight:400;">0x01</span>);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// CMD8</span>
+    PORTB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">sd_cmd</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x000001AA</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x87</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// ACMD41</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">do</span> {
+        PORTB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2);
+        <span style="color:rgb(181, 189, 104); font-weight:400;">sd_cmd</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">55</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x65</span>);
+        r = <span style="color:rgb(181, 189, 104); font-weight:400;">sd_cmd</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">41</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x40000000</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x77</span>);
+        PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2);
+    } <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (r != <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// CMD58 (descartar OCR)</span>
+    PORTB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">sd_cmd</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">58</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> <span style="color:rgb(181, 189, 104); font-weight:400;">sd_read_sector</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">uint32_t</span> lba, <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> *buf)</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> r;
+
+    PORTB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2);
+    r = <span style="color:rgb(181, 189, 104); font-weight:400;">sd_cmd</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">17</span>, lba, <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (r != <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>) { PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2); <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>; }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> token;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">do</span> {
+        token = <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    } <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (token == <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (token != <span style="color:rgb(249, 145, 87); font-weight:400;">0xFE</span>) { PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2); <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>; }
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> i=<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i&lt;<span style="color:rgb(249, 145, 87); font-weight:400;">512</span>; i++)
+        buf[i] = <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_transfer</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>);
+
+    PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>&lt;&lt;PB2);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// =======================</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">// Main</span>
+<span style="color:rgb(150, 152, 150); font-weight:400;">// =======================</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">clock_prescale_set</span>(clock_div_1); <span style="color:rgb(150, 152, 150); font-weight:400;">//CPU clock 8 MHz</span>
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> sector[<span style="color:rgb(249, 145, 87); font-weight:400;">512</span>];
+
+    DDRD = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">// LEDs en PORTD</span>
+    PORTD = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>;
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_init</span>();
+    <span style="color:rgb(181, 189, 104); font-weight:400;">spi_set_fast</span>();
+
+    _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">50</span>);
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">sd_init</span>();
+
+    PORTD = <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> err;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>){
+        err = <span style="color:rgb(181, 189, 104); font-weight:400;">sd_read_sector</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>, sector);
+
+        <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> (err == <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>) {
+            PORTD = sector[<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>];
+        } <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> {
+            PORTD = <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">// señal de error</span>
+        }
+
+    }
+}
+</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | Diodo | SD Card</p>
+        </div>
+    
+    </body>
+</html>
