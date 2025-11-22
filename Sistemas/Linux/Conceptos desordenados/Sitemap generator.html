@@ -53,10 +53,10 @@ awk -F <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;**&quot;</
 \t\t&lt;lastmod&gt;%s&lt;/lastmod&gt;\n\
 \t\t&lt;changefreq&gt;monthly&lt;/changefreq&gt;\n\
 \t&lt;/url&gt;\n\
-&quot;, website, substr($2,3), $1 }&#x27;</span> &gt;&gt; <span style="color:rgb(255, 204, 102); font-weight:400;">$SITEMAP_FILE</span>
+&quot;, website, substr($2,3), $1 }&#x27;</span> | \
+sed -r <span style="color:rgb(138, 190, 183); font-weight:400;">&#x27;s/\#+/%23/g&#x27;</span> &gt;&gt; <span style="color:rgb(255, 204, 102); font-weight:400;">$SITEMAP_FILE</span>
 
-<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&lt;/urlset&gt;&quot;</span> &gt;&gt; <span style="color:rgb(255, 204, 102); font-weight:400;">$SITEMAP_FILE</span>
-</code></pre>
+<span style="color:rgb(181, 189, 104); font-weight:400;">echo</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&lt;/urlset&gt;&quot;</span> &gt;&gt; <span style="color:rgb(255, 204, 102); font-weight:400;">$SITEMAP_FILE</span></code></pre>
         </div>
         
     <div class="t2">Tags</div>

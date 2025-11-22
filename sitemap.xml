@@ -322,7 +322,7 @@
 	</url>
 	<url>
 		<loc>https://mbascoy.dev/Electronica/AVR programming/Circuitos/Diodos IR.html</loc>
-		<lastmod>2025-11-04</lastmod>
+		<lastmod>2025-11-20</lastmod>
 		<changefreq>monthly</changefreq>
 	</url>
 	<url>
@@ -353,6 +353,31 @@
 	<url>
 		<loc>https://mbascoy.dev/Electronica/AVR programming/Circuitos/Shift registers (74HC595).html</loc>
 		<lastmod>2025-11-04</lastmod>
+		<changefreq>monthly</changefreq>
+	</url>
+	<url>
+		<loc>https://mbascoy.dev/Electronica/AVR programming/Circuitos/SD Card.html</loc>
+		<lastmod>2025-11-22</lastmod>
+		<changefreq>monthly</changefreq>
+	</url>
+	<url>
+		<loc>https://mbascoy.dev/Electronica/AVR programming/Circuitos/SD Card/SD Card ChatGPT.pdf</loc>
+		<lastmod>2025-11-20</lastmod>
+		<changefreq>monthly</changefreq>
+	</url>
+	<url>
+		<loc>https://mbascoy.dev/Electronica/AVR programming/Circuitos/SD Card/1.png</loc>
+		<lastmod>2025-11-22</lastmod>
+		<changefreq>monthly</changefreq>
+	</url>
+	<url>
+		<loc>https://mbascoy.dev/Electronica/AVR programming/Circuitos/SD Card/2.png</loc>
+		<lastmod>2025-11-22</lastmod>
+		<changefreq>monthly</changefreq>
+	</url>
+	<url>
+		<loc>https://mbascoy.dev/Electronica/AVR programming/Circuitos/SD Card/3.png</loc>
+		<lastmod>2025-11-22</lastmod>
 		<changefreq>monthly</changefreq>
 	</url>
 	<url>
@@ -657,7 +682,7 @@
 	</url>
 	<url>
 		<loc>https://mbascoy.dev/Electronica/AVR programming/index.html</loc>
-		<lastmod>2025-11-04</lastmod>
+		<lastmod>2025-11-20</lastmod>
 		<changefreq>monthly</changefreq>
 	</url>
 	<url>
@@ -1752,7 +1777,7 @@
 	</url>
 	<url>
 		<loc>https://mbascoy.dev/Miscelanea/HOJA DE RUTA.html</loc>
-		<lastmod>2025-11-04</lastmod>
+		<lastmod>2025-11-18</lastmod>
 		<changefreq>monthly</changefreq>
 	</url>
 	<url>
@@ -9702,7 +9727,7 @@
 	</url>
 	<url>
 		<loc>https://mbascoy.dev/Sistemas/Linux/Conceptos desordenados/Sitemap generator.html</loc>
-		<lastmod>2025-11-05</lastmod>
+		<lastmod>2025-11-22</lastmod>
 		<changefreq>monthly</changefreq>
 	</url>
 	<url>
@@ -10867,7 +10892,7 @@
 	</url>
 	<url>
 		<loc>https://mbascoy.dev/index.html</loc>
-		<lastmod>2025-11-04</lastmod>
+		<lastmod>2025-11-06</lastmod>
 		<changefreq>monthly</changefreq>
 	</url>
 </urlset>
