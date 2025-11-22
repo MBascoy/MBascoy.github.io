@@ -24,10 +24,61 @@
             <p><a href="SD Card/SD Card ChatGPT.pdf">Explicacion ChatGPT</a></p>
         </div>
 
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Las tarjetas SD funcionan con <b>3.3V</b> (Tanto para alimentación como para los voltajes lógicos), para evitar tener que usar exactamente 3.3V para el microcontrolador podemos usar un modulo especifico para leer la tarjeta SD que ya hace la conversión a 3.3V.</p>
+
+            <p>El siguiente circuito es para <b>MicroSD</b> pero tambien hay variantes para SD normales:</p>
+
+            <img src="SD Card/2.png">
+
+            <p>Este circuito usa dos ICs para realizar la conversión del voltaje, uno es un <b>1117-3.3</b> que convierte voltajes maximos de 5V a voltajes de 3.3V para la alimentación.</p>
+            <p>El otro IC es un <b>SN74HC125</b> que actua como buffer para las señales lógicas, pero en este caso se usa para hacer el cambio de 5V a 3.3V de las señales de comunicación entre la SD y el microcontrolador.</p>
+
+            <p>Ademas este circuito ya expone los pines de la tarjeta MicroSD que necesitamos: VCC, GND, MOSI, MISO, SCK y CS</p>
+
+            <p>La disposición de pines en tarjetas SD y MicroSD es el siguiente:</p>
+
+            <img src="SD Card/3.png">
+
+            <p><b>NOTA:</b> VSS es GND.</p>
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            <p>El circuito para conectar el <b>lector de tarjetas</b> y los leds para visualizar el byte es el siguiente:</p>
+            <img src="SD Card/1.png">
+        </div>
+
+    <div class="t2">Escribir tarjeta SD</div>
+        <div class="cont">
+            <p>En nuestro caso no estamos usando ningun sistema de archivos para almacenar información en la tarjeta SD (Aunque existen alternativas para manejar un sistema FAT con un microcontrolador AVR), así que en nuestro caso escribiremos los dato en crudo (RAW), en la tarjeta.</p>
+
+            <p>Para escribir (o leer) datos en la tarjeta usaremos <b>dd</b>, para escribir los datos de un archivo usaremos el comando asi:</p>
+
+            <code>dd if=hola.wav of=/dev/sdc</code>
+
+            <p>Podemos usar <b>dmesg</b> para saber cual es la ruta de dispositivo de nuestra tarjeta SD (si la acabamos de conectar el dispositivo saldrá justo en los mensajes finales de dmesg).</p>
+
+            <p>Si queremos leer el contenido de la SD lo hacemos así:</p>
+            <code>dd if=/dev/sdc of=miSD.dat</code>
+
+            <p>Una vez generado el archivo <b>miSD.dat</b> podemos leerlo con un editor hexadecimal, como <b>okteta</b>, para leer byte por byte el contenido.</p>
+
+        </div>
+
+    <div class="t2">Limitaciones</div>
+        <div class="cont">
+            <p>La lectura de la tarjeta SD es lenta, usando el SPI a máxima velocidad el tiempo de lectura es de <b>1 ms</b>.</p>
+            <p>Si vamos a almacenar datos que no sean sensibles a la velocidad no tendremos problema y el uso de la SD es una buena solución.</p>
+            <p>Pero si vamos a querer leer datos de audio por ejemplo tendremos esa limitación de 1ms en la lectura, por lo tanto el audio se escuchará con microcortes cada vez que necesitemos leer la tarjeta SD para obtener nuevos samples.</p>
+            <p>EG: con un microcontrolador Atmega168pa a 8Mhz, con un audio con 8.000 samples por segundo, nos deja que cada sample tarda 125 microsegundos, y cada lectura a la tarjeta SD leemos un bloque de 512 bytes (512 samples), por lo tanto esto nos deja que cada 64 milisegundos tenemos que hacer una lectura a la tarjeta SD y esperar 1 milisegundo a que se complete la lectura, durante este tiempo estamos perdiendo samples de reproducción (8 samples), esto hace que cada 64 milisegundos haya pequeñas distorsiones en el audio. El audio es perfectamente audible y reconocible (incluso probandolo con canciones), pero ese pequeño retraso de 1 ms hace que la calidad general baje, es algo usable, pero no para una calidad 100% nitida.</p>
+        </div>
+
     <div class="t2">Codigo</div>
         <div class="cont">
 
-            <p>Ejemplo básico para leer el primer bloque de una tarjeta SD (512 bytes) y hacer que el primer byte se ponga en PORTD para visualizarlo a traves de LEDs.</p>
+            <p>Ejemplo básico para leer el primer bloque de una tarjeta SD (<b>512 bytes</b>) y hacer que el primer byte se ponga en PORTD para visualizarlo a traves de LEDs.</p>
             <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
 <span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
 <span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/power.h&gt;</span></span>
