@@ -10,7 +10,7 @@ echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="h
 
 #find command to find all files inside WEBSITE_FOLDER, ignoring some folders and files, after that it pipes to awk command to generate the xml structure with all the files found.
 find $WEBSITE_FOLDER \
--type f \
+-name "*.html" \
 -not -path "./.git/*" \
 -not -name "google8ad719b3a8ef55f1.html" \
 -not -name "sitemap.sh" \
