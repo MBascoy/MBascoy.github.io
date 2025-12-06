@@ -34,10 +34,29 @@
         
         <div class="t2">Permiso denegado al abrir el dispositivo</div>
             <div class="cont">
+            
+            <h2>Solución temporal</h2>
             <p>Si no tenemos permisos para acceder al dispositivo podemos darle permisos:</p>
             <code>sudo chmod 666 /dev/ttyUSB0</code>
 
             <p>(los permisos se perderan al reiniciar el sistema)</p>
+
+            <h2>Solución permanente</h2>
+            <p>Para aplicar una solución permanente podemos crear una regla de <b>udev</b> para que cada vez que se conecte el dispositivo se apliquen los permisos que le indiquemos.</p>
+
+            <p>Primero necesitamos saber el <b>idVendor</b> y el <b>idProduct</b> del dispositivo, conectamos el cable FTDI y ejecutamos <b>dmesg</b>, deberíamos de ver los datos del dispositivo en la salida:</p>
+
+            <img src="Minicom/1.png">
+
+            <p>Despues creamos el siguiente archivo <b>/etc/udev/rules.d/99-ftdi.rules</b></p>
+            <code>sudo vim /etc/udev/rules.d/99-ftdi.rules</code>
+
+            <p>Y añadimos la siguiente linea en el archivo (cambiando el idVendor e idProduct)</p>
+            <code>SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE="0666"</code>
+
+            <p>Ahora recargamos las reglas con los siguientes 2 comandos:</p>
+            <code>sudo udevadm control --reload-rules</code>
+            <code>sudo udevadm trigger</code>
         </div>
 
     <div class="t2">Tags</div>
