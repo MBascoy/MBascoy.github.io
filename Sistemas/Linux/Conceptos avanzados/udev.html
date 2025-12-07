@@ -1,0 +1,73 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>Linux: udev</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">udev</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">Linux</a> / 
+		udev
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+          <p>Como crear reglas <b>udev</b> para conceder acceso a dispositivos.</p>
+          
+          <p>Necesitamos crear una regla udev siempre que tengamos algún dispositivo (gamepad, adaptador usb...etc), al que queremos tener acceso y no lo tenemos por defecto.</p>
+        </div>
+
+    <div class="t2">Crear reglas</div>
+        <div class="cont">
+            <p>Para crear una nueva regla primero tenemos que crear un archivo en una de las siguientes carpetas:</p>
+            <code>/etc/udev/rules.d/</code>
+            <code>/usr/lib/udev/rules.d/</code>
+
+            <p>El nombre del archivo en el que incluyamos las reglas tiene el siguiente formato:</p>
+            <code>numero-nombre.rules</code>
+            <p>Por ejemplo:</p>
+            <code>60-ftdi.rules</code>
+
+            <p>Dentro del archivo tendremos que incluir la regla udev, en esta regla tendremos que incluir:</p>
+            <ul>
+                <li><b>SUBSYSTEM</b> al que afecta la regla</li>
+                <li><b>idVendor</b> del dispositivo</li>
+                <li><b>idProduct</b> del dispositivo</li>
+                <li><b>MODE</b> para indicar los permisos que queramos darle al dispositivo</li>
+                <li><b>GROUP</b> para indicar a que grupo asignar el dispositivo</li>
+            </ul>
+
+            <p>Para saber el <b>idVendor</b> y el <b>idProduct</b> lo podemos mirar usando <b>dmesg</b> despues de conectar el dispositivo:</p>
+            <img src="udev/1.png">
+
+            <p>Para tener acceso al dispositivo normalmente se da un permiso (MODE) de "0660" y se indica un GROUP en el que esté el usuario, también podemos indicar permisos "0666" pero eso dará permiso a todos los usuarios, lo cual no suele ser recomendable a nivel de seguridad.</p>
+
+            <p>Unos ejemplos de reglas de udev son las siguientes:</p>
+            <code>SUBSYSTEMS=="usb", ATTRS{idVendor}=="045e", MODE="0660", GROUP="my_group"</code>
+            <code>SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE="0660", GROUP="dialout", TAG+="uaccess"</code>
+        </div>
+
+    <div class="t2">Permiso uaccess</div>
+        <div class="cont">
+            <p>En vez de indicar una máscara de permisos con MODE podemos indicar la opción <b>TAG+="uaccess"</b> y esto dará acceso al usuario local que esté logueado en el sistema.</p>
+
+            <p>Las reglas que tengan el <b>tag uaccess</b> tienen que estar colocadas <b>antes</b> de la siguiente regla:</p>
+            <code>73-seat-late.rules</code>
+
+            <p><b>IMPORTANTE:</b> Si no están colocadas antes de esta regla (simplemente con darles un número menos que 73 al principio del nombre ya basta), el <b>tag uaccess</b> no funcionará.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>udev | dev</p>
+        </div>
+
+    </body>
+</html>
