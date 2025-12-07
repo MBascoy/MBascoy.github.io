@@ -57,6 +57,10 @@
             <p>Ahora recargamos las reglas con los siguientes 2 comandos:</p>
             <code>sudo udevadm control --reload-rules</code>
             <code>sudo udevadm trigger</code>
+
+            <h3>Alternativa añadir usuario a dialout</h3>
+            <p>Otra opción, normalmente mas segura que dar permisos 666, es la de añadir nuestro usuario al grupo <b>dialout</b>, lo hacemos con el siguiente comando:</p>
+            <code>sudo usermod -aG dialout nuestro_usuario</code>
         </div>
 
     <div class="t2">Tags</div>
