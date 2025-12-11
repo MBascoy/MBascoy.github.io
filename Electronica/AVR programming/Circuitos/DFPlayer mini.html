@@ -1,0 +1,173 @@
+ 
+ 
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>AVR programming: DFPlayer mini</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">DFPlayer mini</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">AVR programming</a> / 
+		DFPlayer mini
+	</div> 
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como usar el modulo <b>DFPlayer mini</b> para reproducir sonidos en <b>MP3</b>.</p>
+
+            <p>Usaremos un microcontrolador <b>Atmega168pa</b> para controlar el modulo DFPlayer mini</p>
+
+            <p>El layout de pines del DFPlayer es el siguiente:</p>
+            <img src="DFPlayer mini/1.png">
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+            <p>El <b>DFPlayer mini</b> se alimenta con 5v, pero los voltajes lógicos para la comunicación a traves de UART son a 3.3v, por eso conectamos la resistencia de 1K ohm en serie.</p>
+            <p>El circuito es el siguiente:</p>
+           
+            <img src="DFPlayer mini/2.png">
+
+            <p>La potencia maxima que soporta el DFPlayer mini para el altavoz es de <b>3W</b>, en este caso yo estoy usando un altavoz de 3W y 4 Ohm.</p>
+        </div>
+
+    <div class="t2">Explicacion</div>
+        <div class="cont">
+            <p>Para reproducir archivos de audio tenemos seguir estos pasos con la tarjeta <b>microSD</b> que vayamos a usar en el modulo:</p>
+            <ul>
+                <li>Formatear como <b>FAT16</b> o <b>FAT32</b>: en Linux usaremos el comando:</li>
+                <code># mkfs.fat -F 32 /dev/sdX</code>
+                <li>Añadir archivos de audio (mp3) en la carpeta raíz de la tarjeta, con el siguiente formato de nombre:</li>
+                <ul>
+                    <li>0001.mp3</li>
+                    <li>0002.mp3</li>
+                    <li>0003.mp3</li>
+                    <li>...etc</li>
+                </ul>
+            </ul>
+
+            <p><b>NOTA:</b> el formato de nombre no es extrictamente necesario, pero es más facil para identificar los distintos archivos de audio, al usar comandos para reproducir los distintos archivos se hace por numero, el modulo DFPlayer reproducirá los archivos según el orden alfabético.</p>
+        </div>    
+
+    <div class="t2">Codigo</div>
+        <div class="cont">
+            <p>El código para reproducir el primer archivo es el siguiente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/power.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/setbaud.h&gt;</span></span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// Comandos de alto nivel para el DFPlayer</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> DFPLAYER_PLAY_TRACK     0x03</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> DFPLAYER_SET_VOLUME     0x06</span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">define</span> DFPLAYER_INIT           0x0C <span style="color:rgb(150, 152, 150); font-weight:400;">// Initialize (reset)</span></span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// Array que contendrá los 10 bytes del paquete de comando.</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">unsigned</span> <span style="color:rgb(204, 153, 204); font-weight:400;">char</span> dfplayer_command[<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>] = {<span style="color:rgb(249, 145, 87); font-weight:400;">0x7E</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0xFF</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x06</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">0xEF</span>};
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// Función para inicializar el UART</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">uart_init</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Configurar la velocidad de baudios</span>
+    UBRR0H = UBRRH_VALUE;
+    UBRR0L = UBRRL_VALUE;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Habilitar el transmisor (TXEN0) y el receptor (RXEN0)</span>
+    UCSR0B = (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; TXEN0) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; RXEN0);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Formato: 8 bits de datos, sin paridad, 1 bit de parada</span>
+    UCSR0C = (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; UCSZ01) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; UCSZ00); <span style="color:rgb(150, 152, 150); font-weight:400;">// 8-bit data</span>
+}
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// Función para enviar un byte a través del UART</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">uart_transmit</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">unsigned</span> <span style="color:rgb(204, 153, 204); font-weight:400;">char</span> data)</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Esperar a que el buffer de transmisión esté vacío (UDRE0 = 1)</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (!(UCSR0A &amp; (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; UDRE0)));
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Poner los datos en el buffer y enviarlos</span>
+    UDR0 = data;
+}
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// Función para calcular e insertar el Checksum</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">dfplayer_calculate_checksum</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Usar uint16_t (o unsigned short) para garantizar 16 bits</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> sum = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Sumar Bytes 2 a 7 (índices 1 a 6)</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>; i &lt;= <span style="color:rgb(249, 145, 87); font-weight:400;">6</span>; i++) {
+        <span style="color:rgb(150, 152, 150); font-weight:400;">// Al sumar, los bytes se promueven a int, pero la variable sum es segura.</span>
+        sum += dfplayer_command[i];
+    }
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Checksum = 0x10000 - sum</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> checksum = <span style="color:rgb(249, 145, 87); font-weight:400;">0x10000</span> - sum; <span style="color:rgb(150, 152, 150); font-weight:400;">// La resta en complemento a dos es más simple</span>
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Insertar el Checksum en los bytes 8 y 9</span>
+    dfplayer_command[<span style="color:rgb(249, 145, 87); font-weight:400;">7</span>] = (<span style="color:rgb(204, 153, 204); font-weight:400;">unsigned</span> <span style="color:rgb(204, 153, 204); font-weight:400;">char</span>)(checksum &gt;&gt; <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>); <span style="color:rgb(150, 152, 150); font-weight:400;">// Byte Alto</span>
+    dfplayer_command[<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>] = (<span style="color:rgb(204, 153, 204); font-weight:400;">unsigned</span> <span style="color:rgb(204, 153, 204); font-weight:400;">char</span>)checksum;        <span style="color:rgb(150, 152, 150); font-weight:400;">// Byte Bajo</span>
+}
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// Función para enviar el paquete de 10 bytes</span>
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">dfplayer_send_command</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">unsigned</span> <span style="color:rgb(204, 153, 204); font-weight:400;">char</span> command, <span style="color:rgb(204, 153, 204); font-weight:400;">unsigned</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> param)</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// 1. Cargar los bytes específicos del comando</span>
+    dfplayer_command[<span style="color:rgb(249, 145, 87); font-weight:400;">3</span>] = command;       <span style="color:rgb(150, 152, 150); font-weight:400;">// Código del comando</span>
+    dfplayer_command[<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>] = (<span style="color:rgb(204, 153, 204); font-weight:400;">unsigned</span> <span style="color:rgb(204, 153, 204); font-weight:400;">char</span>)(param &gt;&gt; <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>); <span style="color:rgb(150, 152, 150); font-weight:400;">// Parámetro Alto</span>
+    dfplayer_command[<span style="color:rgb(249, 145, 87); font-weight:400;">6</span>] = (<span style="color:rgb(204, 153, 204); font-weight:400;">unsigned</span> <span style="color:rgb(204, 153, 204); font-weight:400;">char</span>)param;        <span style="color:rgb(150, 152, 150); font-weight:400;">// Parámetro Bajo</span>
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// 2. Calcular e insertar el Checksum</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">dfplayer_calculate_checksum</span>();
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// 3. Transmitir los 10 bytes del paquete</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span> (<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i &lt; <span style="color:rgb(249, 145, 87); font-weight:400;">10</span>; i++) {
+        <span style="color:rgb(181, 189, 104); font-weight:400;">uart_transmit</span>(dfplayer_command[i]);
+    }
+    _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">50</span>); <span style="color:rgb(150, 152, 150); font-weight:400;">// Pequeña espera para que el módulo procese el comando</span>
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">dfplayer_play_track</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">unsigned</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> track_number)</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// track_number: 1 a 255 (para archivos 0001.mp3 a 0255.mp3 en la carpeta /mp3/)</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">dfplayer_send_command</span>(DFPLAYER_PLAY_TRACK, track_number);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">dfplayer_set_volume</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">unsigned</span> <span style="color:rgb(204, 153, 204); font-weight:400;">char</span> volume)</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Enviar el comando 0x06 con el valor del volumen</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">dfplayer_send_command</span>(DFPLAYER_SET_VOLUME, (<span style="color:rgb(204, 153, 204); font-weight:400;">unsigned</span> <span style="color:rgb(204, 153, 204); font-weight:400;">int</span>)volume);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">clock_prescale_set</span>(clock_div_1);
+    <span style="color:rgb(181, 189, 104); font-weight:400;">uart_init</span>();
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// 2. Enviar comandos de inicialización y configuración</span>
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Reiniciar/Inicializar el módulo</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">dfplayer_send_command</span>(DFPLAYER_INIT, <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>);
+    _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">1000</span>); <span style="color:rgb(150, 152, 150); font-weight:400;">// Esperar que el reset termine</span>
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Poner volumen a 20 (de 0 a 30)</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">dfplayer_set_volume</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">30</span>);
+    _delay_ms(<span style="color:rgb(249, 145, 87); font-weight:400;">50</span>);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// 3. Reproducir el archivo 0001.mp3 de la carpeta /mp3/</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">dfplayer_play_track</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>);
+
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span> (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+    }
+}
+</code></pre>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | Musica | DFPlayer mini | MP3</p>
+        </div>
+    
+    </body>
+</html>
