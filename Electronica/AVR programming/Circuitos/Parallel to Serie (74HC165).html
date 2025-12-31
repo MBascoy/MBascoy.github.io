@@ -1,0 +1,162 @@
+ 
+ 
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>AVR programming: Parallel to Serie (74HC165)</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+    
+    <h1 class="t1">Parallel to Serie (74HC165)</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">AVR programming</a> / 
+		Parallel to Serie (74HC165)
+	</div>
+    
+    <div class="t2">Contenido</div>
+        <div class="cont">
+            <p>Como usar modulos Parallel to Serie (74HC165) para aumentar el numero de puertos de entrada.</p>
+
+            <a href="Parallel to Serie (74HC165)/sn74hc165.pdf">Datasheet 74HC165</a>
+
+            <p>Pines 74HC165:</p>
+
+            <img src="Parallel to Serie (74HC165)/1.png">
+
+            <p>El modulo 74HC165 nos permite convertir multiples entradas (en paralelo) en una señal en serie.</p>
+
+            <p>Usamos principalmente 3 pines del 74HC165 para controlarlo.</p>
+
+            <ul>
+                <li>Data output (<b>QH</b>): pin por el que se envia la información serie hacia el microcontrolador.</li>
+                <li>Clock (<b>CLK</b>): cada vez que mandamos un pulso en este pin es un bit que avanza el modulo.</li>
+                <li>Latch (<b>SH/LD</b>): Crea un snapshot del estado de las entradas en ese momento (por defecto en high, se pone a low para hacer el snapshot).</li>
+                <li>Clock-inhibit  (<b>CLK INH</b>): Este pin nos permite desactivar los pulsos de reloj, por defecto lo dejaremos siempre activado (en low).</li>
+            </ul>
+
+            <p>Por lo tanto el funcionamiento es: usamos <b>Latch</b> para generar un snapshot de las entradas conectadas a los pines (<b>A-H</b>), generamos una señal de reloj <b>Clock</b> para hacer que el modulo envíe los bits del snapshot a traves del pin <b>QH</b>, recibimos esa información en el microcontrolador usando el protocolo <b>SPI</b>.</p>
+        </div>
+
+    <div class="t2">Circuito</div>
+        <div class="cont">
+
+            <img src="Parallel to Serie (74HC165)/2.png">
+            
+            <p><b>NOTA:</b> En las entradas conectadas al modulo <b>74HC165</b> ponemos una resistencia de <b>10K ohm</b> como <b>pull-down</b>.</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_Init</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    DDRB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB5) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB3) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB2);
+    DDRB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB4);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Habilita SPI, Modo Maestro, Velocidad fck/16</span>
+    SPCR = (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; SPE) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; MSTR) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; SPR0);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> <span style="color:rgb(181, 189, 104); font-weight:400;">read_74HC165</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span> data;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Pulso en PL para cargar los datos paralelos</span>
+    PORTB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB2);
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//_delay_us(1); // Opcional? descomentar en caso de que el latch no funcione</span>
+    PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB2);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Iniciar transmisión SPI (enviamos dummy data para recibir)</span>
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// En este caso lo único que necesitamos aquí es generar los pulsos de reloj para recibir la informacion.</span>
+    SPDR = <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Esperar a que termine la transferencia</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(!(SPSR &amp; (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; SPIF)));
+
+    data = SPDR;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> data;
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_Init</span>();
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//PC0 y PC1 como salidas para los leds</span>
+    DDRC |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PC0) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PC1);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+        PORTC = <span style="color:rgb(181, 189, 104); font-weight:400;">read_74HC165</span>();
+    }
+}
+</code></pre>
+        </div>
+
+    <div class="t2">Modulos en cascada</div>
+        <div class="cont">
+            <p>Si queremos podemos conectar varios modulos <b>74HC165</b> en cascada, de manera que la información de uno pasa a traves del otro, solo tenemos que conectar la salida <b>Q7</b> de un modulo a la entrada <b>DS</b> del otro, la salida (Q7) del último módulo irá conectada al microcontrolador, de esta manera podemos leer 16 entradas en vez de 8, a la hora de hacer la lectura a traves del SPI tendremos que leer 2 bytes en lugar de 1 para leer los dos módulos.</p>
+
+            <img src="Parallel to Serie (74HC165)/3.png">
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;avr/io.h&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;util/delay.h&gt;</span></span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_Init</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    DDRB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB5) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB3) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB2);
+    DDRB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB4);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Habilita SPI, Modo Maestro, Velocidad fck/16</span>
+    SPCR = (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; SPE) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; MSTR) | (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; SPR0);
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> <span style="color:rgb(181, 189, 104); font-weight:400;">read_74HC165</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> data;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Pulso en PL para cargar los datos paralelos</span>
+    PORTB &amp;= ~(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB2);
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//_delay_us(1); // Opcional? descomentar en caso de que el latch no funcione</span>
+    PORTB |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PB2);
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Iniciar transmisión SPI (enviamos dummy data para recibir)</span>
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// En este caso lo único que necesitamos aquí es generar los pulsos de reloj para recibir la informacion.</span>
+    SPDR = <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Esperar a que termine la transferencia</span>
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(!(SPSR &amp; (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; SPIF)));
+
+    data = SPDR;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Leemos el segundo byte</span>
+    SPDR = <span style="color:rgb(249, 145, 87); font-weight:400;">0x00</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(!(SPSR &amp; (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; SPIF)));
+    data = data | (<span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span>)SPDR &lt;&lt; <span style="color:rgb(249, 145, 87); font-weight:400;">8</span>;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> data;
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">void</span>)</span> </span>{
+    <span style="color:rgb(181, 189, 104); font-weight:400;">SPI_Init</span>();
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//PC0 y PC1 como salidas para los leds</span>
+    DDRC |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PC0);
+    DDRD |= (<span style="color:rgb(249, 145, 87); font-weight:400;">1</span> &lt;&lt; PD0);
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">uint16_t</span> inputs_status;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">while</span>(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>) {
+        inputs_status = <span style="color:rgb(181, 189, 104); font-weight:400;">read_74HC165</span>();
+        PORTC = (<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span>) inputs_status;
+        PORTD = (<span style="color:rgb(204, 153, 204); font-weight:400;">uint8_t</span>) (inputs_status&gt;&gt;<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>);
+    }
+}
+</code></pre>
+        </div>
+  
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>AVR | Parallel | Serie | 74HC165</p>
+        </div>
+    
+    </body>
+</html>
