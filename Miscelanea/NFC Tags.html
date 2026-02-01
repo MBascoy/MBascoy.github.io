@@ -1,0 +1,119 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>MBascoy.dev: NFC Tags</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">NFC Tags</h1>
+	<div class="breadcrumb">
+		<a href="../index.html">Mbascoy.dev</a> / 
+		NFC Tags
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar <b>NFC Tags</b> usando un smartphone Android con NFC.</p>
+
+            <p>Las tags que usaremos: <b>Mifare Classic 1k</b> (13,56Mhz ISO 14443)</p>
+
+            <p>App: <b>MIFARE Classic Tool</b> - <a href="https://play.google.com/store/apps/details?id=de.syss.MifareClassicTool">Google Play</a></p>
+
+            <p>Los tags Mifare Classic 1k los podemos comprar en Aliexpress en varios formatos: etiquetas, tarjetas, llaveros...</p>
+
+            <p><b>NOTA:</b> Hay ciertos productos que están bajo el nombre <b>M1 S50 F08</b> estos tags son los mismos que Mifare Classic 1k</p>
+            <img src="NFC Tags/14.png">
+            <img src="NFC Tags/15.png">
+            <img src="NFC Tags/16.png">
+        </div>
+
+    <div class="t2">Consultar tag info</div>
+        <div class="cont">
+            <p>Primero vamos a consultar la información del tag que tengamos, para verificar que es exactamente un <b>Mifare Classic 1k</b></p>
+
+            <p>Nos vamos a <b>Herramientas</b> &gt; <b>Mostrar información de la etiqueta</b></p>
+            <img src="NFC Tags/5.png">
+
+            <p>Acercamos el tag al NFC del smartphone y se mostrará la información del tag:</p>
+            <img src="NFC Tags/6.png">
+
+        </div>
+
+    <div class="t2">Leer Tags</div>
+        <div class="cont">
+            <p>Para leer el contenido de una tag entramos en <b>"LEER ETIQUETA"</b></p>
+
+            <img src="NFC Tags/1.png">
+
+            <p>Una vez dentro, <b>acercamos el tag</b> al smartphone, nos saldrá un mensaje indicando el UID del tag</p>
+            <img src="NFC Tags/2.png">
+
+            <p>Le damos a <b>"COMENZAR MAPEO Y LEER ETIQUETA"</b></p>
+
+            <p><b>NOTA:</b> En este paso es importante <b>MANTENER el tag pegado al smartphone</b>, no vale con que se escanee y despues separarlo, hay que mantenerlo pegado todo el tiempo.</p>
+            <img src="NFC Tags/3.png">
+
+            <p>Una vez finalizado el proceso nos mostrará un resumen del contenido leido:</p>
+            <img src="NFC Tags/4.png">
+
+            <p>Una vez leido el contenido, podemos pulsar en los 3 puntos arriba a la derecha para guardar la información para usarla posteriormente.</p>
+
+            <p>Las lecturas que hayamos guardado las podemos editar desde <b>"EDITAR/ANALIZAR DUMPEO"</b></p>
+            <img src="NFC Tags/7.png">
+
+        </div>
+
+    <div class="t2">Escribir Tags</div>
+        <div class="cont">
+            <p>Una vez hayamos leido y guardado el contenido de un tag podemos editarlo y escribirlo en un nuevo tag (o el mismo si solo queremos editar el tag)</p>
+
+            <p>Nos vamos a <b>"ESCRIBIR ETIQUETA"</b> y despues seleccionamos <b>Write Dump (Clone)</b></p>
+            <img src="NFC Tags/8.png">
+
+            <p>Le damos a <b>"SELECCIONAR DUMPEO"</b>, y seleccionamos el archivo <b>.mct</b> que queramos escribir en el tag</p>
+
+            <p>Despues nos saldrá una lista de los sectores que queremos grabar, normalmente seleccionaremos todos y le damos a <b>ACEPTAR</b>:</p>
+
+            <p><b>NOTA:</b> En este momento (antes de pulsar ACEPTAR), tenemos que mantener el tag pegado el smartphone, debemos mantenerlo pegado todo el rato hasta que se complete la escritura.</p>
+            <img src="NFC Tags/9.png">
+
+            <p>En la siguiente pantalla solo tenemos que pulsar <b>"COMENZAR MAPEO Y ESCRIBIR DUMPEO"</b>, (en este momento debemos de seguir manteniendo el tag pegado al smartphone)</p>
+            <img src="NFC Tags/10.png">
+
+            <p>Una vez finalizada la escritura se mostrará un mensaje indicando que los datos se han guardado exitosamente:</p>
+            <img src="NFC Tags/11.png">
+
+        </div>
+
+    <div class="t2">Modificar UID (Escribir Sector 0)</div>
+        <div class="cont">
+            <p>Modificar el UID de una tag <b>Mifare Classic 1k</b> es un proceso un poco más complejo, ya que el UID se encuentra en el Sector 0, y este sector tiene protecciones especiales.</p>
+
+            <p>Necesitamos un tag (el tag físico) que permita realizar la escritura en el Sector 0, En Aliexpress podemos encontrar etiquetas llamadas <b>"Magic tag Gen 2"</b> que permiten realizar esta modificación, tambien se pueden encontrar con el nombre <b>CUID</b> (Changeable UID).</p>
+
+            <p>En la App para modificar el UID lo hacemos desde <b>ESCRIBIR ETIQUETA</b> &gt; <b>Clone UID</b>, si nuestro tag no permite realizar modificaciones del UID obtendremos un error como el siguiente:</p>
+            <img src="NFC Tags/12.png">
+
+        </div>
+
+    <div class="t2">Troubleshooting</div>
+        <div class="cont">
+            <h3>Error: No hay una etiqueta MIFARE Classic</h3>
+            <img src="NFC Tags/13.png">
+
+            <p>Si obtenemos este error al leer o al escribir un tag normalmente es porque el tag no está cerca del NFC del smartphone, al leer o escribir un tag es importante que debemos <b>mantener el tag completamente pegado al NFC</b> del smartphone durante todo el rato.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+            <p>NFC | Mifare | RFID </p>
+        </div>
+
+    </body>
+</html>
