@@ -118,6 +118,26 @@
             <p>En la App para modificar el UID lo hacemos desde <b>ESCRIBIR ETIQUETA</b> &gt; <b>Clone UID</b>, si nuestro tag no permite realizar modificaciones del UID obtendremos un error como el siguiente:</p>
             <img src="NFC Tags/12.png">
 
+            <p>Cuando tenemos un tag <b>Gen 2</b> que permite escribir en el sector 0 la salida es la siguiente:</p>
+            <img src="NFC Tags/21.png">
+
+            <p><b>NOTA:</b> los tags "Magic tag Gen 2" no permiten modificar el sexto byte del sector 0, este byte marca el tipo de tarjeta, aunque no podamos modificar este byte no quiere decir que la clonación no vaya a funcionar, aunque puede ser que no funcione, tendremos que probar con el lector original para asegurarnos.</p>
+
+            <h3>Tags con UID de 7 bytes</h3>
+
+            <p>Hay tags que tienen un UID de 7 bytes, si intentamos clonar estos tags aunque tengamos un <b>"Magic tag Gen 2"</b> no funcionará, porque el funcionamiento interno de estas tarjetas es un poco distinto, si queremos clonar estas tarjetas necesitaremos tags con UID de 7 bytes normalmente se llaman <b>Magic tag 7 bytes gen3</b> (son algo más dificiles de encontrar que las GEN2), y no las podremos escribir usando el NFC de un smartphone, necesitaremos un lector específico como el <b>ACR122U-A9</b>:</p>
+            <img src="NFC Tags/22.png">
+
+            <h3>Diferenciar tags de 4 bytes y tags de 7 bytes</h3>
+
+            <p>Normalmente al leer un tag si nos vamos a <b>Herramientas</b> &gt; <b>Mostrar información de la etiqueta</b> nos indica que tipo de UID tiene el tag:</p>
+            <img src="NFC Tags/23.png">
+
+            <p>Pero un truco que tambien podemos utilizar es verificar si el 5 byte del bloque 0 es el byte de verificación, en los tags con UID de 4 bytes este byte es una operación <b>XOR</b> de los 4 bytes anteriores, los tags con UID de 7 bytes no tienen el byte de verificación almacenado (en verdad lo calculan al vuelo durante la comunicación con el lector):</p>
+
+            <p>En este ejemplo nuestro UID es <b>2B08C871</b>, si hacemos una operación XOR de estos 4 bytes obtendremos <b>9A</b> que es el quinto byte, de este modo sabremos que este tag es un tag con UID de 4 bytes:</p>
+            <img src="NFC Tags/24.png">
+
         </div>
 
     <div class="t2">Troubleshooting</div>
