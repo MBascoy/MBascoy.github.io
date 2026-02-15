@@ -31,10 +31,12 @@
 
     <div class="t2">Circuito</div>
         <div class="cont">
-            <p>El <b>DFPlayer mini</b> se alimenta con 5v, pero los voltajes lógicos para la comunicación a traves de UART son a 3.3v, por eso conectamos la resistencia de 1K ohm en serie.</p>
+            <p>El <b>DFPlayer mini</b> se alimenta con <b>5v</b>, pero los voltajes lógicos para la comunicación a traves de UART son a 3.3v, por eso conectamos la resistencia de <b>1K ohm</b> en serie.</p>
             <p>El circuito es el siguiente:</p>
            
             <img src="DFPlayer mini/2.png">
+
+            <p>Entre positivo y negativo debemos de colocar un <b>condensador electrolítico de 470uf</b>, este condensador evita que se filtre ruido de la alimentación en el amplificador del circuito, si no ponemos este condensador es probable que cuando el altavoz esté en reposo (sin reproducir sonido) se escuche un pequeño zumbido.</p>
 
             <p>La potencia maxima que soporta el DFPlayer mini para el altavoz es de <b>3W</b>, en este caso yo estoy usando un altavoz de 3W y 4 Ohm.</p>
         </div>
