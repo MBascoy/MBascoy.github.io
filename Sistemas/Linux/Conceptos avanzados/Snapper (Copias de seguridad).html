@@ -1,0 +1,88 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>Linux: Snapper (Copias de seguridad)</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Snapper (Copias de seguridad)</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">Linux</a> / 
+		Snapper (Copias de seguridad)
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar <b>Snapper</b> para crear snapshots del sistema de archivos.</p>
+
+            <p><a href="http://snapper.io/">Pagina snapper</a></p>
+
+            <p><b>NOTA:</b> Para poder usar <b>Snapper</b> necesitamos que nuestro sistema de archivos sea <b>btrfs</b>.</p>
+
+            <p>Snapper por defecto (en OpenSUSE) no hace snapshots de la carpeta <b>home</b>, si queremos podemos añadirla en la configuración, pero no suele ser recomendado para evitar snapshots muy pesados, ademas de que snapper está pensado para restablecer configuraciones o instalaciones, si restauramos un snapshot antiguo, y tenemos la carpeta home configurada, también se restaurará nuestros archivos personales (pudiendo perder archivos).</p>
+        </div>
+
+    <div class="t2">Explicacion</div>
+        <div class="cont">
+            <p>En <b>OpenSUSE</b> ya viene todo listo para usar snapper, en otras distribuciones se puede instalar pero no tienen tanta integración por defecto como OpenSUSE, ya que snapper fue creado por OpenSUSE.</p>
+
+            <p>Si queremos podemos usar snapper en <a href="https://software.opensuse.org/download/package?project=filesystems:snapper&package=snapper">otras distros</a>.</p>
+
+            <p>La manera en la que funciona snapper es la siguiente, cada vez que usamos <b>zypper</b> o <b>yast</b> para instalar nuevos paquetes, snapper crea dos nuevos snapshots el <b>pre</b> antes de hacer la instalación y el <b>post</b> justo despues de terminar la instalación, de esta manera si al instalar un paquete tenemos algún problema podemos deshacer justo los cambios que ha probocado dicha instalación y nada mas.</p>
+
+            <p>De todos modos si queremos tambien podemos hacer snapshots individuales (<b>snapshot single</b>) de manera manual en cualquier momento, sin necesidad de que sea en el momento de hacer uso de zypper o yast.</p>
+
+            <h2>Comandos</h2>
+            <ul>
+                <li><b>Listar</b> snapshots:</li>
+                <code># snapper list</code>
+                <p>El listado nos muestra todos los snapshots y que pre/post están enlazados.</p>
+                <img src="Snapper (Copias de seguridad)/1.png">
+
+                <li><b>Consultar cambios</b> entre dos snapshots (Generalmente se hace con un pre y un post):</li>
+                <code># snapper status 396..397</code>
+
+                <li><b>Deshacer cambios</b> de un par pre/post de snapshots:</li>
+                <code># snapper undochange 396..397</code>
+
+                <li><b>Restaurar</b> un snapshot concreto:</li>
+                <code># snapper restore 396</code>
+                <p><b>NOTA:</b> en OpenSUSE podemos usar el rollback una vez cargado un snapshot como se indica en la sección mas abajo.</p>
+
+                <li><b>Crear</b> un snapshot single:</li>
+                <code># snapper create --description "Mi bonito snapshot"</code>
+
+                <li>Crear snapshots pre/post:</li>
+                <code>PRE_ID=$(sudo snapper create --type pre --print-number --description "Antes de mi cambio manual")</code>
+                <p>Aquí haríamos los cambios que necesitemos en el sistema (instalar paquetes, cambiar configuraciones...etc)</p>
+                <code># snapper create --type post --pre-number $PRE_ID --description "Después de mi cambio manual"</code>
+            </ul>
+
+            <h2>Caracteristicas OpenSUSE</h2>
+            <p>OpenSUSE tiene una serie de caracteristicas por defecto al usar snapper (en otras distros se pueden conseguir estas caracteristicas instalando plugins a mayores de snapper).</p>
+
+            <p>La primera es la creación de snapshots pre/post <b>de manera automática</b> a la hora de usar zypper o yast para instalar paquetes.</p>
+
+            <p>La segunda caracteristica es que permite cargar snapshots de manera temporal desde <b>GRUB</b>, a la hora de arrancar el sistema operativo solo tenemos que seleccionar la opción <b>Start bootloader from a read-only snapshot</b>.</p>
+
+            <img src="Snapper (Copias de seguridad)/2.jpg">
+            <img src="Snapper (Copias de seguridad)/3.jpg">
+                
+            <p>Y se cargará el sistema con el snapshot seleccionado, una vez arrancado el sistema y si vemos que todo está como queremos podemos hacer ese snapshot permanente usando el siguiente comando:</p>
+            <code># snapper rollback</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Snapper | Backups | OpenSUSE | YaST | zypper</p>
+        </div>
+
+    </body>
+</html>
