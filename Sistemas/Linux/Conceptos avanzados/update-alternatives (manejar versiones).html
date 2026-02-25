@@ -1,0 +1,86 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>Linux: update-alternatives (manejar versiones)</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">update-alternatives (manejar versiones)</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">Linux</a> / 
+		update-alternatives (manejar versiones)
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como utilizar <b>update-alternatives</b> para cambiar entre varias versiones de un programa.</p>
+
+            <p>Hay ocasiones en las que podemos tener un programa con varias versiones entre las que queremos alternar, por ejemplo podemos tener python 3.11 y python 3.12, y en según que situaciones podemos necesitar una versión u otra, <b>update-alternatives</b> nos permite hacer que cuando tecleemos "python" en la consola nos referencie a una versión u otra.</p>
+        </div>
+
+    <div class="t2">Explicacion</div>
+        <div class="cont">
+           <h2>Listar configuraciones</h2>
+           <p>Si queremos ver todos los programas que hay configurados en update-alternatives lo hacemos con el siguiente comando:</p>
+           <code># update-alternatives --get-selections</code>
+
+           <p>Si queremos ver las versiones que tiene configuradas un programa concreto lo hacemos con:</p>
+           <code># update-alternatives --display python3</code>
+           <img src="update-alternatives (manejar versiones)/1.png">
+
+           <h2>Cambiar configuración</h2>
+           <p>Si queremos cambiar la versión por defecto de un programa lo hacemos con:</p>
+           <code># update-alternatives --config python3</code>
+
+           <p>Se nos mostrarán las versiones disponibles y seleccionaremos la que queramos indicando el número correspondiente:</p>
+           <img src="update-alternatives (manejar versiones)/2.png">
+
+           <h2>Instalar nuevas configuraciones</h2>
+           <p>Si tenemos un programa con varias versiones y no está en el update-alternatives podemos añadirlo de la siguiente manera:</p>
+           <code># update-alternatives --install COMANDO_GENERICO NOMBRE_CONFIGURACION VERSION_ESPECIFICA PRIORIDAD</code>
+
+           <p>Un ejemplo para añadir dos versiones de pip sería la siguiente:</p>
+           <code># update-alternatives --install /usr/bin/pip pip /usr/bin/pip3.11 1</code>
+           <code># update-alternatives --install /usr/bin/pip pip /usr/bin/pip3.14 2</code>
+
+           <h2>Eliminar configuraciones</h2>
+           <p>Si por alguna razón hay alguna de las configuraciones que ya no está disponible en el sistema podemos borrarla con el siguiente comando:</p>
+           <code># update-alternatives --remove python3 /usr/local/bin/python3.14</code>
+
+        </div>
+
+    <div class="t2">alts (en OpenSUSE)</div>
+        <div class="cont">
+            <p>En OpenSUSE tenemos el sistema <b>alts</b> a mayores de update-alternatives para manejar las versiones.</p>
+
+            <p>Para saber si un programa esta usando <b>alts</b> solo tenemos que verificar si el enlace simbólico está apuntando a alts:</p>
+            <img src="update-alternatives (manejar versiones)/3.png">
+
+            <p>Para <b>listar</b> todas las configuraciones de alts lo hacemos con:</p>
+            <code>alts -l</code>
+
+            <p>Si solo queremos listar las versiones de un programa:</p>
+            <code>alts -l pip</code>
+            <img src="update-alternatives (manejar versiones)/4.png">
+
+            <p>Si queremos establecer una nueva versión:</p>
+            <code>alts -n pip -p 312</code>
+
+            <p>En el parámetro <b>-p</b> se indica la prioridad de la versión que queremos establecer.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>update-alternatives | alts | versiones</p>
+        </div>
+
+    </body>
+</html>
