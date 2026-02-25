@@ -44,9 +44,38 @@
             <img src="WorldDiscover/1.png"/>
         </div>
 
+    <div class="t2">Geo Activity Playground</div>
+        <div class="cont">
+            <p>Una manera alternativa de este juego es el <b>Tile Hunting</b>, que básicamente es ir descubriendo las distintas cuadriculas del mundo, una aplicación muy buena para esto es <b>Geo Activity Playground</b>, para instalarla lo hacemos con:</p>
+            
+            <code>pipx install geo-activity-playground</code>
+
+            <p><b>NOTA:</b> Necesitamos al menos python 3.12</p>
+
+            <p>Una vez instalada la ejecutamos con:</p>
+
+            <code>geo-activity-playground --basedir DIRECTORIO serve</code>
+
+            <p>El parámetro <b>--basedir</b> indica donde está almacenada toda la información de la aplicación o donde se almacenará si es la primera vez que la ejecutamos. </p>
+
+            <p>Una vez lanzada la aplicación (Despues de que termine de hacer toda la configuración inicial), solo tenemos que añadir dentro de la carpeta <b>Activities</b> nuestros archivos <b>.gpx</b>, y a continuación actualizar la información usando <b>Admin</b> &gt; <b>Scan New Activities</b></p>
+
+            <img src="WorldDiscover/3.png">
+
+            <p>En la sección <b>Explorer</b> podemos ver los tiles descubiertos tanto en <b>Zoom 14</b> como en <b>Zoom 17</b>, tambien podemos si queremos exportar archivos .gpx con los tiles no descubiertos para usarlos en futuras rutas.</p>
+
+            <img src="WorldDiscover/4.png">
+
+            <h2>Troubleshooting</h2>
+            <p>La aplicación tiene algunos fallos a la hora de cargar nuevos archivos .gpx, muchas veces los tiles y el heatmap no se actualizan como deben, para refrescar esta información en la base de datos tenemos que ir a <b>Admin</b> &gt; <b>Settings</b> y despues en el menú lateral vamos a <b>Technical Maintenance</b>, desde aquí podemos recargar tanto los tiles visitados como el heatmap para que se muestren correctamente:</p>
+
+            <img src="WorldDiscover/5.png">
+
+        </div>
+
     <div class="t2">Tags</div>
         <div class="cont">
-        <p>WorldDiscover</p>
+        <p>WorldDiscover | Geo-Activity-Playground</p>
         </div>
 
     </body>
