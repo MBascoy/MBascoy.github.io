@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitch Chat Filter - Sorteos (Giveaway)</title>
+    <style>
+        body { background: #0e0e10; color: #efeff1; font-family: 'Segoe UI', sans-serif; margin: 20px; }
+        .container {
+            max-width: 950px;
+            margin: 40px auto; /* Aumentamos el margen superior de 20px a 40px */
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .panel { background: #18181b; border: 1px solid #303032; border-radius: 8px; padding: 15px; position: relative; }
+        .controls { background: #1f1f23; }
+
+        .main-header {
+            text-align: center;
+            padding: 10px 0 5px 0;
+            border-bottom: 2px solid #1f1f23;
+            margin-bottom: 5px;
+        }
+
+        .main-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            letter-spacing: -1px;
+            font-weight: 800;
+            color: #efeff1;
+        }
+
+        .main-header h1 span {
+            color: #9147ff; /* El color lila característico */
+        }
+
+        .main-header p {
+            margin: 5px 0 0 0;
+            font-size: 0.85rem;
+            color: #adadb8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Menú Configuración */
+        #config-menu {
+            display: none; background: #26262c; border: 1px solid #464649;
+            padding: 15px; border-radius: 6px; margin-top: 10px;
+            grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.9em;
+        }
+        .config-item { display: flex; align-items: center; gap: 8px; }
+        .stats-item { color: #adadb8; }
+        .stats-item b { color: #9147ff; }
+
+        .status-online { color: #00c59e !important; } /* Verde */
+        .status-offline { color: #adadb8 !important; } /* Gris */
+        .status-error { color: #eb0400 !important; }   /* Rojo */
+        .status-connecting { color: #ffb700 !important; } /* Ámbar */
+
+        /* Chat */
+        #chat-main { height: 450px; overflow-y: auto; margin-top: 10px; border-top: 1px solid #303032; padding-top: 10px; }
+        #winners-log { height: 150px; overflow-y: auto; border-top: 2px solid #9147ff; margin-top: 10px; }
+
+        .timestamp { color: #53535f; font-size: 0.85em; margin-right: 8px; font-family: monospace; }
+        .message { margin-bottom: 4px; font-size: 14px; border-bottom: 1px solid #26262c; padding: 3px 0; }
+        .username { font-weight: bold; margin-right: 5px; }
+
+        /* UI Elements */
+        input, select { background: #000; border: 1px solid #303032; color: white; padding: 6px; border-radius: 4px; }
+        button { cursor: pointer; background: #9147ff; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-weight: bold; }
+        .btn-icon { background: #3a3a3d; padding: 8px 10px; font-size: 1.2em; line-height: 1; }
+        .btn-clear { background: #eb0400; font-size: 0.8em; }
+        .btn-winner { background: #00c59e; width: 100%; font-size: 1.1em; margin-bottom: 10px; }
+
+        #winners-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; min-height: 35px; padding: 10px; background: #0e0e10; border-radius: 4px; }
+        .winner-tag { background: #9147ff; color: white; padding: 10px 12px; border-radius: 20px; font-size: 0.9em; font-weight: bold; }
+        .filter-row { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="main-header">
+        <h1>Twitch <span>Chat Filter</span></h1>
+        <p>Herramienta de filtrado y sorteos</p>
+    </header>
+
+    <div class="panel controls">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div id="connection-area">
+                <input type="text" id="channelName" placeholder="Canal de Twitch">
+                <button onclick="connect()">Conectar</button>
+                <span id="status-indicator" style="margin-left: 10px; font-size: 0.85em; font-weight: bold; color: #adadb8;">
+                    ● Desconectado
+                </span>
+            </div>
+            <div style="display: flex; gap: 5px;">
+                <button class="btn-icon" onclick="toggleConfig()" title="Configuración">⚙</button>
+                <button class="btn-clear" onclick="clearAll()">Limpiar Todo</button>
+            </div>
+        </div>
+
+        <div id="config-menu">
+            <div class="config-item">
+                <label><input type="checkbox" id="showTimestamp" onchange="renderChat()"> Mostrar TimeStamp</label>
+            </div>
+            <div class="config-item">
+                <span>Mensajes máx:</span>
+                <input type="number" id="maxMessages" value="10000" min="1" style="width: 80px">
+                <label><input type="checkbox" id="unlimitedMsgs"> Ilimitado</label>
+            </div>
+            <div class="stats-item">Mensajes totales: <b id="statTotal">0</b></div>
+            <div class="stats-item">Usuarios únicos: <b id="statUsers">0</b></div>
+        </div>
+
+        <div class="filter-row">
+            <input type="text" id="searchUser" placeholder="Filtrar usuario..." oninput="renderChat()">
+            <input type="text" id="searchMessage" placeholder="Filtrar mensaje..." oninput="renderChat()" style="flex-grow: 1;">
+        </div>
+
+        <div class="filter-row">
+            <label><input type="checkbox" id="filterMod" onchange="renderChat()"> Solo Mods</label>
+            <label><input type="checkbox" id="filterSub" onchange="toggleSubOptions()"> Solo Subs</label>
+            <div id="subMonthsWrapper" style="display:none; align-items:center; gap:5px;">
+                <span>Meses +:</span>
+                <input type="number" id="minMonths" value="0" min="0" style="width: 50px" oninput="renderChat()">
+            </div>
+        </div>
+
+        <div id="chat-main"></div>
+    </div>
+
+    <div class="panel">
+        <button id="btn-winner" class="btn-winner" onclick="pickWinner()">
+            🎁 OBTENER GANADOR (Participantes: 0)
+        </button>
+        <div id="winners-list"></div>
+        <div id="winners-log"></div>
+    </div>
+</div>
+
+<script>
+    let socket;
+    let allMessages = [];
+    let winnerNames = new Set();
+    let uniqueUsers = new Set();
+    let totalMessagesCount = 0;
+
+    function toggleConfig() {
+        const menu = document.getElementById('config-menu');
+        menu.style.display = (menu.style.display === 'grid') ? 'none' : 'grid';
+    }
+
+    // Función para actualizar visualmente el estado
+    function updateStatus(text, className) {
+        const el = document.getElementById('status-indicator');
+        el.textContent = "● " + text;
+        el.className = className;
+    }
+
+    function connect() {
+        const channel = document.getElementById('channelName').value.toLowerCase().trim();
+        if (!channel) return;
+
+        if (socket) socket.close();
+
+        updateStatus("Conectando...", "status-connecting");
+
+        socket = new WebSocket('wss://irc-ws.chat.twitch.tv/');
+
+        socket.onopen = () => {
+            socket.send('CAP REQ :twitch.tv/tags twitch.tv/commands');
+            socket.send('PASS SCHMOOPIIE');
+            socket.send('NICK justinfan' + Math.floor(Math.random() * 10000));
+            socket.send(`JOIN #${channel}`);
+
+            // Limpiamos datos anteriores al conectar a uno nuevo
+            clearAll();
+            updateStatus(`Conectado a #${channel}`, "status-online");
+        };
+
+        socket.onerror = (error) => {
+            console.error("Error en WebSocket:", error);
+            updateStatus("Error de conexión", "status-error");
+        };
+
+        socket.onclose = () => {
+            // Solo mostramos desconectado si no estamos intentando conectar de nuevo
+            if (socket.readyState === WebSocket.CLOSED) {
+                updateStatus("Desconectado", "status-offline");
+            }
+        };
+
+        socket.onmessage = (event) => {
+            const rawData = event.data;
+            if (rawData.startsWith('PING')) { socket.send('PONG'); return; }
+
+            if (rawData.includes('PRIVMSG')) {
+                const msgObj = parseMessage(rawData);
+
+                // Estadísticas y Memoria
+                totalMessagesCount++;
+                uniqueUsers.add(msgObj.user);
+                updateStatsUI();
+                allMessages.push(msgObj);
+
+                // Gestión de límite de memoria
+                const isUnlimited = document.getElementById('unlimitedMsgs').checked;
+                const max = parseInt(document.getElementById('maxMessages').value);
+                if (!isUnlimited && allMessages.length > max) {
+                    allMessages.shift();
+                }
+
+                // --- LA CORRECCIÓN ESTÁ AQUÍ ---
+                // Ahora checkFilters() ya sabe si debe filtrar por texto o no
+                if (checkFilters(msgObj)) {
+                    displayMessage(msgObj, 'chat-main');
+                }
+
+                // El subchat de ganadores sigue su propia lógica independiente
+                if (winnerNames.has(msgObj.user)) {
+                    displayMessage(msgObj, 'winners-log');
+                }
+
+                updateWinnerButtonCount();
+            }
+        };
+    }
+
+    function parseMessage(raw) {
+        const parts = raw.split(' ');
+        const tagsRaw = parts[0].substring(1);
+        const tags = {};
+        tagsRaw.split(';').forEach(tag => { const [key, val] = tag.split('='); tags[key] = val; });
+
+        const msgIdx = raw.indexOf('PRIVMSG');
+        const text = raw.substring(raw.indexOf(':', msgIdx) + 1);
+        const now = new Date();
+        const timeStr = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+
+        return {
+            user: (tags['display-name'] || parts[1].split('!')[0].substring(1)).toLowerCase(),
+            originalName: tags['display-name'] || parts[1].split('!')[0].substring(1),
+            color: tags['color'] || '#FFFFFF',
+            text: text,
+            isMod: tags['mod'] === '1',
+            isSub: tags['subscriber'] === '1',
+            months: parseInt(tags['badge-info']?.split('subscriber/')[1]) || 0,
+            time: timeStr
+        };
+    }
+
+    function updateStatsUI() {
+        document.getElementById('statTotal').textContent = totalMessagesCount;
+        document.getElementById('statUsers').textContent = uniqueUsers.size;
+    }
+
+    function checkFilters(msg) {
+        const userQ = document.getElementById('searchUser').value.toLowerCase();
+        const msgQ = document.getElementById('searchMessage').value.toLowerCase();
+        const onlyMods = document.getElementById('filterMod').checked;
+        const onlySubs = document.getElementById('filterSub').checked;
+        const minMonths = parseInt(document.getElementById('minMonths').value || 0);
+
+        // 1. Filtro de Rol: Moderador
+        if (onlyMods && !msg.isMod) return false;
+
+        // 2. Filtro de Rol: Suscriptor y meses
+        if (onlySubs) {
+            if (!msg.isSub) return false;
+            if (msg.months < minMonths) return false;
+        }
+
+        // 3. Filtro de Texto: Usuario (solo si hay 3 o más letras)
+        if (userQ.length >= 3 && !msg.originalName.toLowerCase().includes(userQ)) {
+            return false;
+        }
+
+        // 4. Filtro de Texto: Mensaje (solo si hay 3 o más letras)
+        if (msgQ.length >= 3 && !msg.text.toLowerCase().includes(msgQ)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function toggleSubOptions() {
+        document.getElementById('subMonthsWrapper').style.display = document.getElementById('filterSub').checked ? 'flex' : 'none';
+        renderChat();
+    }
+
+    function displayMessage(msg, containerId) {
+        const container = document.getElementById(containerId);
+        const isAtBottom = container.scrollHeight - container.scrollTop - container.clientHeight <= 50;
+
+        const div = document.createElement('div');
+        div.className = 'message';
+
+        let tip = [];
+        if (msg.isMod) tip.push("Mod");
+        if (msg.isSub) tip.push(`Subscriber (${msg.months} meses)`);
+        const title = tip.length ? `title="${tip.join(' - ')}"` : '';
+
+        const tsHtml = document.getElementById('showTimestamp').checked ? `<span class="timestamp">[${msg.time}]</span>` : '';
+        div.innerHTML = `${tsHtml}<span class="username" ${title} style="color:${msg.color}; ${tip.length ? 'cursor: help' : ''}">${msg.originalName}:</span> ${msg.text}`;
+
+        container.appendChild(div);
+        if (isAtBottom) container.scrollTop = container.scrollHeight;
+    }
+
+    // Variable para el control del retardo (Debounce)
+    let filterTimeout;
+
+    function renderChat() {
+        // Cancelamos cualquier renderizado pendiente para no solapar
+        clearTimeout(filterTimeout);
+
+        filterTimeout = setTimeout(() => {
+            const container = document.getElementById('chat-main');
+            const userQ = document.getElementById('searchUser').value.toLowerCase();
+            const msgQ = document.getElementById('searchMessage').value.toLowerCase();
+
+            // 1. Limpieza rápida
+            container.innerHTML = '';
+
+            // 2. Uso de DocumentFragment para alto rendimiento
+            const fragment = document.createDocumentFragment();
+
+            // 3. Filtrado y creación de elementos en memoria
+            allMessages.forEach(msg => {
+                // Aplicar umbral de 3 letras si hay texto escrito
+                const passUser = userQ.length >= 3 ? msg.originalName.toLowerCase().includes(userQ) : true;
+                const passMsg = msgQ.length >= 3 ? msg.text.toLowerCase().includes(msgQ) : true;
+
+                // Si el usuario borró el filtro (menos de 3 letras), passUser/Msg será true
+                // Si el usuario escribió < 3 letras, ignoramos ese filtro específico.
+
+                if (passUser && passMsg && checkFilters(msg)) {
+                    const div = createMessageElement(msg); // Función auxiliar
+                    fragment.appendChild(div);
+                }
+            });
+
+            // 4. Inyección única en el DOM
+            container.appendChild(fragment);
+            container.scrollTop = container.scrollHeight;
+            updateWinnerButtonCount();
+        }, 150); // 150ms de retardo para suavizar la escritura
+    }
+
+    // Función auxiliar para crear el elemento sin inyectarlo aún
+    function createMessageElement(msg) {
+        const div = document.createElement('div');
+        div.className = 'message';
+        const tsHtml = document.getElementById('showTimestamp').checked ? `<span class="timestamp">[${msg.time}]</span>` : '';
+
+        let tip = [];
+        if (msg.isMod) tip.push("Mod");
+        if (msg.isSub) tip.push(`Subscriber (${msg.months} meses)`);
+        const title = tip.length ? `title="${tip.join(' - ')}"` : '';
+
+        div.innerHTML = `${tsHtml}<span class="username" ${title} style="color:${msg.color}; ${tip.length ? 'cursor: help' : ''}">${msg.originalName}:</span> ${msg.text}`;
+        return div;
+    }
+
+    function pickWinner() {
+        const participants = [...new Set(allMessages.filter(checkFilters).map(m => m.originalName).filter(n => !winnerNames.has(n.toLowerCase())))];
+        if (!participants.length) return alert("No hay candidatos.");
+        const winner = participants[Math.floor(Math.random() * participants.length)];
+        winnerNames.add(winner.toLowerCase());
+        alert("🎉 El ganador es: " + winner);
+        updateWinnersUI();
+    }
+
+    function updateWinnersUI() {
+        const listDiv = document.getElementById('winners-list');
+        listDiv.innerHTML = '';
+        winnerNames.forEach(name => {
+            const span = document.createElement('span');
+            span.className = 'winner-tag';
+            span.textContent = name;
+            listDiv.appendChild(span);
+        });
+        document.getElementById('winners-log').innerHTML = '';
+        allMessages.filter(m => winnerNames.has(m.user)).forEach(m => displayMessage(m, 'winners-log'));
+
+        updateWinnerButtonCount();
+    }
+
+    function clearAll() {
+        allMessages = []; winnerNames.clear(); uniqueUsers.clear(); totalMessagesCount = 0;
+        updateStatsUI(); renderChat(); updateWinnersUI();
+
+        updateWinnerButtonCount();
+    }
+
+    function updateWinnerButtonCount() {
+        const btn = document.getElementById('btn-winner');
+
+        // Calculamos participantes únicos que cumplen filtros y no han ganado
+        const participants = [...new Set(
+            allMessages
+                .filter(checkFilters)
+                .map(m => m.user)
+                .filter(name => !winnerNames.has(name))
+        )];
+
+        btn.textContent = `🎁 OBTENER GANADOR (Participantes: ${participants.length})`;
+    }
+
+    // --- BLOQUE PARA EL AVISO DE SALIDA ---
+    window.addEventListener('beforeunload', (event) => {
+        // Si hay mensajes o ganadores, avisamos al usuario
+        if (allMessages.length > 0 || winnerNames.size > 0) {
+            // La mayoría de navegadores modernos muestran un mensaje estándar
+            // pero es necesario asignar un valor al evento y devolver un string.
+            event.preventDefault();
+            event.returnValue = '';
+        }
+    });
+</script>
+</body>
+</html>
