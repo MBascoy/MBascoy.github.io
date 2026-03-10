@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="Mapa y listado de gasolineras de españa para encontrar las más baratas.">
+
     <title>Precios Gasolineras España (Mapa y Listado)</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -32,22 +33,19 @@
 
         .main-content { flex: 1; display: flex; position: relative; overflow: hidden; }
         #map { flex: 2; height: 100%; z-index: 1; }
-
         #sidebar { flex: 1; height: 100%; display: flex; flex-direction: column; background: var(--bg); border-left: 1px solid #ddd; min-width: 350px; }
         .sidebar-header { padding: 10px 15px; background: #fff; border-bottom: 1px solid #ddd; display: flex; align-items: center; justify-content: space-between; }
         .sidebar-header select { padding: 5px; border-radius: 4px; border: 1px solid #ddd; font-size: 0.8rem; background: #f9f9f9; }
         #gas-list { flex: 1; overflow-y: auto; }
 
         /* Estilos Popup */
-        .leaflet-popup-content { font-size: 0.85rem; line-height: 1.4; min-width: 180px; }
-        .popup-title { font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #eee; margin-bottom: 5px; padding-bottom: 3px; display: block; color: var(--primary); }
+        .leaflet-popup-content { font-size: 0.85rem; min-width: 180px; }
+        .popup-title { font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #eee; margin-bottom: 5px; display: block; color: var(--primary); }
         .popup-price-row { display: flex; justify-content: space-between; margin-bottom: 2px; }
-        .popup-price-row b { color: #333; }
 
         .gps-btn { position: absolute; bottom: 80px; right: 20px; z-index: 1000; background: white; border: none; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.2); cursor: pointer; font-size: 1.2rem; }
 
-        .gas-card { background: white; margin: 10px; padding: 15px; border-radius: 12px; border-left: 6px solid #ccc; box-shadow: 0 2px 4px rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; }
-        .gas-card:hover { background: #fdfdfd; transform: translateX(5px); }
+        .gas-card { background: white; margin: 10px; padding: 15px; border-radius: 12px; border-left: 6px solid #ccc; box-shadow: 0 2px 4px rgba(0,0,0,0.05); cursor: pointer; }
         .brand { font-weight: 800; color: var(--primary); font-size: 0.85rem; text-transform: uppercase; }
         .highlight-price { font-size: 1.6rem; font-weight: bold; color: var(--success); margin: 5px 0; }
         .location { font-size: 0.75rem; color: #7f8c8d; margin-top: 8px; border-top: 1px solid #eee; padding-top: 5px; }
@@ -88,8 +86,8 @@
 
 <div id="statsPanel">
     <div class="stats-content">
-        <div style="text-align:center"><span style="color:#7f8c8d; font-size:0.7rem; display:block">ESTACIONES</span><span id="countValue" style="font-weight:bold">0</span></div>
-        <div style="text-align:center"><span id="avgLabel" style="color:#7f8c8d; font-size:0.7rem; display:block">MEDIA</span><span id="avgValue" style="font-weight:bold; color:var(--accent)">-- €/L</span></div>
+        <div style="text-align:center"><span style="color:#7f8c8d; font-size:0.7rem; display:block">EN PANTALLA</span><span id="countValue" style="font-weight:bold">0</span></div>
+        <div style="text-align:center"><span id="avgLabel" style="color:#7f8c8d; font-size:0.7rem; display:block">MEDIA ZONA</span><span id="avgValue" style="font-weight:bold; color:var(--accent)">-- €/L</span></div>
     </div>
 </div>
 
@@ -98,7 +96,7 @@
     <button class="gps-btn" onclick="getLocation()">📍</button>
     <div id="sidebar">
         <div class="sidebar-header">
-            <span>Resultados en zona</span>
+            <span>Resultados visibles</span>
             <select id="sortOrder" onchange="updateVisibleList()">
                 <option value="price_asc">€ Más barato</option>
                 <option value="price_desc">€ Más caro</option>
@@ -130,6 +128,8 @@
         L.control.zoom({ position: 'topright' }).addTo(map);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; OSM' }).addTo(map);
         markersLayer = L.layerGroup().addTo(map);
+
+        // Recalcular colores y lista al mover el mapa
         map.on('moveend', updateVisibleList);
     }
 
@@ -191,23 +191,22 @@
             const searchTxt = `${g.direccion} ${g.mun_clean} ${g.provincia} ${g.rotulo}`.toLowerCase();
             return hasP && (!query || searchTxt.includes(query)) && g.lat && g.lon;
         });
-        const colorBase = (currentFuel === 'all') ? 'gasolina_95' : currentFuel;
-        const prices = filtered.map(g => g[colorBase]).filter(p => p > 0);
-        renderMarkers(filtered, Math.min(...prices), Math.max(...prices), colorBase);
+
+        renderMarkers(filtered);
     }
 
-    function renderMarkers(data, min, max, base) {
+    function renderMarkers(data) {
         markersLayer.clearLayers();
         data.forEach(gas => {
-            const p = gas[base] || 0;
-            let color = "#bdc3c7";
-            if (p > 0) {
-                const ratio = (p - min) / (max - min || 1);
-                color = `hsl(${((1 - ratio) * 120)}, 75%, 45%)`;
-            }
-            const m = L.circleMarker([gas.lat, gas.lon], { radius: 7, fillColor: color, color: "#fff", weight: 1.5, fillOpacity: 0.9 });
+            // Creamos el marcador con un estilo base (luego updateVisibleList le dará color)
+            const m = L.circleMarker([gas.lat, gas.lon], {
+                radius: 7,
+                fillColor: "#bdc3c7",
+                color: "#fff",
+                weight: 1.5,
+                fillOpacity: 0.9
+            });
 
-            // Popup con TODOS los combustibles siempre
             const popupHtml = `
                 <span class="popup-title">${gas.rotulo}</span>
                 <div class="popup-price-row"><span>95:</span><b>${safeFixed(gas.gasolina_95)}€</b></div>
@@ -216,12 +215,8 @@
                 <div class="popup-price-row"><span>Diésel+:</span><b>${safeFixed(gas.diesel_premium)}€</b></div>
                 <div style="font-size:0.7rem; color:#888; margin-top:5px; border-top:1px solid #eee; padding-top:3px">${gas.mun_clean}</div>
             `;
-
-            m.bindPopup(popupHtml, { offset: [0, -5] }); // Offset para que no pise el punto
-
-            // Evento HOVER (Desktop)
-            //m.on('mouseover', function(e) { this.openPopup(); });
-
+            m.bindPopup(popupHtml, { offset: [0, -5] });
+            //m.on('mouseover', function() { this.openPopup(); });
             m.gasData = gas;
             m.addTo(markersLayer);
         });
@@ -232,31 +227,58 @@
         const bounds = map.getBounds();
         const listDiv = document.getElementById('gas-list');
         const sort = document.getElementById('sortOrder').value;
-        listDiv.innerHTML = "";
-
-        let visible = [];
-        markersLayer.eachLayer(m => { if (bounds.contains(m.getLatLng())) visible.push(m); });
-
         const fuelKey = currentFuel === 'all' ? 'gasolina_95' : currentFuel;
-        const validPrices = visible.map(m => m.gasData[fuelKey]).filter(p => p > 0);
-        const avg = validPrices.length ? (validPrices.reduce((a, b) => a + b, 0) / validPrices.length) : 0;
 
-        document.getElementById('countValue').innerText = visible.length;
+        listDiv.innerHTML = "";
+        let visibleMarkers = [];
+
+        // 1. Identificar marcadores visibles
+        markersLayer.eachLayer(m => {
+            if (bounds.contains(m.getLatLng())) {
+                visibleMarkers.push(m);
+            }
+        });
+
+        // 2. Calcular MIN y MAX solo de los visibles para el combustible actual
+        const visiblePrices = visibleMarkers
+            .map(m => m.gasData[fuelKey])
+            .filter(p => p > 0);
+
+        const localMin = Math.min(...visiblePrices);
+        const localMax = Math.max(...visiblePrices);
+
+        // 3. RE-COLOREAR los marcadores según el contexto local
+        visibleMarkers.forEach(m => {
+            const p = m.gasData[fuelKey] || 0;
+            let color = "#bdc3c7";
+            if (p > 0 && visiblePrices.length > 1) {
+                const ratio = (p - localMin) / (localMax - localMin || 1);
+                color = `hsl(${((1 - ratio) * 120)}, 75%, 45%)`;
+            } else if (p > 0) {
+                color = "#27ae60"; // Si solo hay una, sale verde
+            }
+            m.setStyle({ fillColor: color });
+        });
+
+        // 4. Actualizar Estadísticas
+        const avg = visiblePrices.length ? (visiblePrices.reduce((a, b) => a + b, 0) / visiblePrices.length) : 0;
+        document.getElementById('countValue').innerText = visibleMarkers.length;
         document.getElementById('avgValue').innerText = avg > 0 ? `${avg.toFixed(3)} €/L` : "-- €/L";
         document.getElementById('avgLabel').innerText = `MEDIA ${fuelKey.replace('_',' ')}`;
 
-        visible.sort((a, b) => {
+        // 5. Ordenar y mostrar la lista
+        visibleMarkers.sort((a, b) => {
             const p1 = a.gasData[fuelKey] || 99, p2 = b.gasData[fuelKey] || 99;
             if (sort === 'price_asc') return p1 - p2;
             if (sort === 'price_desc') return p2 - p1;
             return (a.gasData.rotulo || "").localeCompare(b.gasData.rotulo || "");
         });
 
-        visible.slice(0, 40).forEach(m => {
+        visibleMarkers.slice(0, 40).forEach(m => {
             const g = m.gasData;
             const card = document.createElement('div');
             card.className = 'gas-card';
-            card.style.borderLeftColor = m.options.fillColor;
+            card.style.borderLeftColor = m.options.fillColor; // Color relativo a la zona
 
             let priceHtml = currentFuel === 'all' ? `
                 <div style="font-size:0.8rem; color:#666; margin:5px 0;">95: <b>${safeFixed(g.gasolina_95)}</b> | D: <b>${safeFixed(g.diesel)}</b></div>
@@ -268,10 +290,7 @@
             card.onclick = () => {
                 if(window.innerWidth < 768) {
                     switchView('map');
-                    setTimeout(() => {
-                        map.setView(m.getLatLng(), 15);
-                        m.openPopup();
-                    }, 300); // Pequeño delay para móviles
+                    setTimeout(() => { map.setView(m.getLatLng(), 15); m.openPopup(); }, 300);
                 } else {
                     map.panTo(m.getLatLng());
                     m.openPopup();
