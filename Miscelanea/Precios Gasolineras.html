@@ -14,13 +14,12 @@
         :root { --primary: #2c3e50; --accent: #3498db; --success: #27ae60; --bg: #f1f3f5; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        /* Corregimos el alto para móviles para evitar el desplazamiento */
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
             overflow: hidden;
-            position: fixed; /* Evita que el body se desplace */
+            position: fixed;
             width: 100%;
         }
 
@@ -29,7 +28,6 @@
             display: flex;
             flex-direction: column;
             background: var(--bg);
-            /* Usamos svh para el alto real visible en móviles */
             height: 100svh;
         }
 
@@ -38,7 +36,6 @@
 
         .controls { background: white; padding: 10px; border-bottom: 1px solid #ddd; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 999; flex-shrink: 0; }
 
-        /* Evitamos zoom accidental en botones */
         button, input, select, .leaflet-control-zoom a {
             touch-action: manipulation;
         }
@@ -58,7 +55,6 @@
         .main-content { flex: 1; display: flex; position: relative; overflow: hidden; }
         #map { flex: 2; height: 100%; z-index: 1; background: #eee; }
 
-        /* Ajuste específico para los botones de zoom de Leaflet */
         .leaflet-control-zoom { border: none !important; box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important; }
         .leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out { width: 40px !important; height: 40px !important; line-height: 40px !important; }
 
@@ -79,17 +75,21 @@
             cursor: pointer;
             transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.2s ease;
             position: relative;
-            will-change: transform; /* Optimización para animaciones fluidas */
+            will-change: transform;
         }
 
         .gas-card:hover {
-            transform: translateX(10px); /* El movimiento hacia la derecha */
+            transform: translateX(10px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
             background-color: #fdfdfd;
         }
 
         .brand { font-weight: 800; color: var(--primary); font-size: 0.85rem; text-transform: uppercase; }
         .highlight-price { font-size: 1.6rem; font-weight: bold; color: var(--success); margin: 5px 0; }
+
+        /* Estilos para el pop-up */
+        .popup-title { font-weight: bold; color: var(--primary); display: block; margin-bottom: 5px; border-bottom: 1px solid #eee; padding-bottom: 3px; }
+        .popup-price-row { display: flex; justify-content: space-between; gap: 15px; font-size: 0.85rem; margin-bottom: 2px; }
 
         .mobile-tabs { display: none; position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #ddd; z-index: 2000; grid-template-columns: 1fr 1fr; height: 65px; padding-bottom: env(safe-area-inset-bottom); }
         .mobile-tabs button { padding: 10px; border: none; background: none; font-weight: bold; color: #95a5a6; font-size: 0.8rem; }
@@ -113,7 +113,6 @@
 
 <div class="controls">
     <div class="fuel-selector">
-        <button id="btn-all" onclick="setFuel('all')">Todos</button>
         <button id="btn-gasolina_95" onclick="setFuel('gasolina_95')">G95</button>
         <button id="btn-gasolina_98" onclick="setFuel('gasolina_98')">G98</button>
         <button id="btn-diesel" class="active" onclick="setFuel('diesel')">Diésel</button>
@@ -165,10 +164,9 @@
     function safeFixed(val) { return (!val || isNaN(val)) ? "--" : val.toFixed(3); }
 
     function initMap() {
-        // Configuramos el mapa para que sea más amigable con el touch
         map = L.map('map', {
             zoomControl: false,
-            tap: false, // Desactiva el sistema de tap de Leaflet que a veces choca con el del navegador
+            tap: false,
             bounceAtZoomLimits: false
         }).setView([40.4167, -3.7032], 6);
 
@@ -196,14 +194,9 @@
         document.getElementById('tab-map').classList.toggle('active', view === 'map');
         document.getElementById('tab-list').classList.toggle('active', view === 'list');
         if (view === 'map') {
-            setTimeout(() => {
-                map.invalidateSize();
-            }, 300);
+            setTimeout(() => { map.invalidateSize(); }, 300);
         }
     }
-
-    // --- El resto de funciones (normalizeData, loadData, applyFilters, updateVisibleList, etc.)
-    // permanecen igual que en la v5.6 para mantener la lógica de colores dinámicos ---
 
     function normalizeData(raw) {
         return raw.map(row => {
@@ -254,12 +247,24 @@
             const m = L.circleMarker([gas.lat, gas.lon], {
                 radius: 9, fillColor: "#bdc3c7", color: "#fff", weight: 1.5, fillOpacity: 0.9
             });
-            const popupHtml = `
-                <span class="popup-title">${gas.rotulo}</span>
-                <div class="popup-price-row"><span>95:</span><b>${safeFixed(gas.gasolina_95)}€</b></div>
-                <div class="popup-price-row"><span>Diésel:</span><b>${safeFixed(gas.diesel)}€</b></div>
-                <div style="font-size:0.6rem; color:#888; margin-top:5px; border-top:1px solid #eee;">${gas.direccion}</div>
-            `;
+
+            // --- LÓGICA DINÁMICA DEL POPUP ---
+            let popupHtml = `<div style="min-width:140px">`;
+            popupHtml += `<span class="popup-title">${gas.rotulo}</span>`;
+
+            // Añadimos cada combustible solo si tiene precio registrado
+            if (gas.gasolina_95 > 0)
+                popupHtml += `<div class="popup-price-row"><span>G95:</span><b>${safeFixed(gas.gasolina_95)}€</b></div>`;
+            if (gas.gasolina_98 > 0)
+                popupHtml += `<div class="popup-price-row"><span>G98:</span><b>${safeFixed(gas.gasolina_98)}€</b></div>`;
+            if (gas.diesel > 0)
+                popupHtml += `<div class="popup-price-row"><span>Diésel:</span><b>${safeFixed(gas.diesel)}€</b></div>`;
+            if (gas.diesel_premium > 0)
+                popupHtml += `<div class="popup-price-row"><span>Diésel+:</span><b>${safeFixed(gas.diesel_premium)}€</b></div>`;
+
+            popupHtml += `<div style="font-size:0.6rem; color:#888; margin-top:5px; border-top:1px solid #eee; padding-top:3px;">${gas.direccion}</div>`;
+            popupHtml += `</div>`;
+
             m.bindPopup(popupHtml, { offset: [0, -5] });
             m.gasData = gas;
             m.addTo(markersLayer);
@@ -311,6 +316,17 @@
             card.innerHTML = `<span class="brand">${g.rotulo}</span>
                 <div class="highlight-price">${safeFixed(g[fuelKey])} <small>€/L</small></div>
                 <div class="location">${g.mun_clean} - ${g.direccion}</div>`;
+
+            // Mantenemos el resaltado del punto en el mapa al pasar el ratón
+            card.onmouseenter = () => {
+                m.setStyle({ radius: 16, weight: 4, color: '#333', fillOpacity: 1 });
+                m.bringToFront();
+            };
+
+            card.onmouseleave = () => {
+                m.setStyle({ radius: 9, weight: 1.5, color: '#fff', fillOpacity: 0.9 });
+            };
+
             card.onclick = () => {
                 switchView('map');
                 setTimeout(() => { map.setView(m.getLatLng(), 15); m.openPopup(); }, 350);
