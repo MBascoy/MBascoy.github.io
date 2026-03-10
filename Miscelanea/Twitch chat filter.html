@@ -75,9 +75,45 @@
         #winners-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; min-height: 35px; padding: 10px; background: #0e0e10; border-radius: 4px; }
         .winner-tag { background: #9147ff; color: white; padding: 10px 12px; border-radius: 20px; font-size: 0.9em; font-weight: bold; }
         .filter-row { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-top: 10px; }
+
+        /* Capa de bloqueo que cubre toda la pantalla */
+        #loading-overlay {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(14, 14, 16, 0.45); /* Fondo oscuro semitransparente */
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        /* El círculo giratorio */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #303032;
+            border-top: 5px solid #9147ff; /* Color Twitch */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <div id="loading-text">Filtrando mensajes...</div>
+    </div>
 
 <div class="container">
     <header class="main-header">
@@ -193,37 +229,51 @@
 
         socket.onmessage = (event) => {
             const rawData = event.data;
-            if (rawData.startsWith('PING')) { socket.send('PONG'); return; }
 
-            if (rawData.includes('PRIVMSG')) {
-                const msgObj = parseMessage(rawData);
+            // 1. Dividir el paquete en mensajes individuales por salto de línea
+            const lines = rawData.split('\r\n');
 
-                // Estadísticas y Memoria
-                totalMessagesCount++;
-                uniqueUsers.add(msgObj.user);
-                updateStatsUI();
-                allMessages.push(msgObj);
+            lines.forEach(line => {
+                // Ignorar líneas vacías (a veces el último split queda vacío)
+                if (!line.trim()) return;
 
-                // Gestión de límite de memoria
-                const isUnlimited = document.getElementById('unlimitedMsgs').checked;
-                const max = parseInt(document.getElementById('maxMessages').value);
-                if (!isUnlimited && allMessages.length > max) {
-                    allMessages.shift();
+                // 2. Responder al PING (sigue siendo necesario por línea)
+                if (line.startsWith('PING')) {
+                    socket.send('PONG :tmi.twitch.tv');
+                    return;
                 }
 
-                // --- LA CORRECCIÓN ESTÁ AQUÍ ---
-                // Ahora checkFilters() ya sabe si debe filtrar por texto o no
-                if (checkFilters(msgObj)) {
-                    displayMessage(msgObj, 'chat-main');
-                }
+                // 3. Procesar solo si es un mensaje de chat (PRIVMSG)
+                if (line.includes('PRIVMSG')) {
+                    const msgObj = parseMessage(line);
 
-                // El subchat de ganadores sigue su propia lógica independiente
-                if (winnerNames.has(msgObj.user)) {
-                    displayMessage(msgObj, 'winners-log');
-                }
+                    // --- Estadísticas y Memoria ---
+                    totalMessagesCount++;
+                    uniqueUsers.add(msgObj.user);
+                    updateStatsUI();
+                    allMessages.push(msgObj);
 
-                updateWinnerButtonCount();
-            }
+                    // Gestión de límite de memoria
+                    const isUnlimited = document.getElementById('unlimitedMsgs').checked;
+                    const max = parseInt(document.getElementById('maxMessages').value);
+                    if (!isUnlimited && allMessages.length > max) {
+                        allMessages.shift();
+                    }
+
+                    // --- Renderizado ---
+                    if (checkFilters(msgObj)) {
+                        displayMessage(msgObj, 'chat-main');
+                    }
+
+                    // --- Subchat de ganadores ---
+                    if (winnerNames.has(msgObj.user)) {
+                        displayMessage(msgObj, 'winners-log');
+                    }
+
+                    // Actualizar contador del botón de sorteo
+                    updateWinnerButtonCount();
+                    }
+            });
         };
     }
 
@@ -231,8 +281,10 @@
         const parts = raw.split(' ');
         const tagsRaw = parts[0].substring(1);
         const tags = {};
-        tagsRaw.split(';').forEach(tag => { const [key, val] = tag.split('='); tags[key] = val; });
-
+        tagsRaw.split(';').forEach(tag => {
+            const [key, val] = tag.split('=');
+            tags[key] = val;
+        });
         const msgIdx = raw.indexOf('PRIVMSG');
         const text = raw.substring(raw.indexOf(':', msgIdx) + 1);
         const now = new Date();
@@ -312,6 +364,13 @@
     let filterTimeout;
 
     function renderChat() {
+        const overlay = document.getElementById('loading-overlay');
+        const loadingText = document.getElementById('loading-text');
+
+        // Mostramos el bloqueo inmediatamente
+        overlay.style.display = 'flex';
+        loadingText.textContent = `Procesando ${allMessages.length.toLocaleString()} mensajes...`;
+
         // Cancelamos cualquier renderizado pendiente para no solapar
         clearTimeout(filterTimeout);
 
@@ -345,6 +404,8 @@
             container.appendChild(fragment);
             container.scrollTop = container.scrollHeight;
             updateWinnerButtonCount();
+
+            overlay.style.display = 'none';
         }, 150); // 150ms de retardo para suavizar la escritura
     }
 
