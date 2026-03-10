@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Precios Gasolineras España ⛽</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+    <style>
+        :root { --primary: #2c3e50; --accent: #3498db; --success: #27ae60; --bg: #f1f3f5; }
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; height: 100vh; display: flex; flex-direction: column; background: var(--bg); overflow: hidden; }
+
+        header { background: var(--primary); color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        header h1 { margin: 0; font-size: 1.1rem; }
+
+        /* Panel de Controles Superior */
+        .controls { background: white; padding: 10px; border-bottom: 1px solid #ddd; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 999; }
+
+        .fuel-selector { display: flex; gap: 6px; overflow-x: auto; padding: 2px 2px 8px 2px; -webkit-overflow-scrolling: touch; }
+        .fuel-selector button { white-space: nowrap; padding: 8px 16px; border: 1px solid #ddd; background: #fff; border-radius: 20px; font-size: 0.85rem; cursor: pointer; font-weight: 500; }
+        .fuel-selector button.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+        .search-row { display: flex; gap: 8px; align-items: center; }
+        input { padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem; flex: 1; outline: none; }
+
+        .stats-toggle { background: #f8f9fa; border: 1px solid #ddd; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 1.1rem; }
+
+        #statsPanel { background: #fff; max-height: 0; overflow: hidden; transition: max-height 0.3s; }
+        #statsPanel.open { max-height: 100px; border-bottom: 1px solid #ddd; }
+        .stats-content { padding: 12px 15px; display: flex; justify-content: space-around; font-size: 0.85rem; }
+
+        /* Layout Principal */
+        .main-content { flex: 1; display: flex; position: relative; overflow: hidden; }
+        #map { flex: 2; height: 100%; z-index: 1; }
+
+        /* Sidebar con Selector Interno */
+        #sidebar { flex: 1; height: 100%; display: flex; flex-direction: column; background: var(--bg); border-left: 1px solid #ddd; min-width: 350px; }
+        .sidebar-header { padding: 10px 15px; background: #fff; border-bottom: 1px solid #ddd; display: flex; align-items: center; justify-content: space-between; }
+        .sidebar-header span { font-size: 0.75rem; font-weight: bold; color: #7f8c8d; text-transform: uppercase; }
+        .sidebar-header select { padding: 5px; border-radius: 4px; border: 1px solid #ddd; font-size: 0.8rem; outline: none; background: #f9f9f9; }
+        #gas-list { flex: 1; overflow-y: auto; }
+
+        .gps-btn { position: absolute; bottom: 80px; right: 20px; z-index: 1000; background: white; border: none; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.2); cursor: pointer; font-size: 1.2rem; }
+
+        .gas-card { background: white; margin: 10px; padding: 15px; border-radius: 12px; border-left: 6px solid #ccc; box-shadow: 0 2px 4px rgba(0,0,0,0.05); cursor: pointer; }
+        .brand { font-weight: 800; color: var(--primary); font-size: 0.85rem; text-transform: uppercase; }
+        .highlight-price { font-size: 1.6rem; font-weight: bold; color: var(--success); margin: 5px 0; }
+        .location { font-size: 0.75rem; color: #7f8c8d; margin-top: 8px; border-top: 1px solid #eee; padding-top: 5px; }
+
+        .mobile-tabs { display: none; position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #ddd; z-index: 2000; grid-template-columns: 1fr 1fr; height: 60px; }
+        .mobile-tabs button { padding: 10px; border: none; background: none; font-weight: bold; color: #95a5a6; }
+        .mobile-tabs button.active { color: var(--accent); border-top: 3px solid var(--accent); }
+
+        @media (max-width: 768px) {
+            #sidebar { display: none; width: 100%; min-width: unset; }
+            #map { flex: 1; }
+            .mobile-tabs { display: grid; }
+            body.show-list #map, body.show-list .gps-btn { display: none; }
+            body.show-list #sidebar { display: flex; padding-bottom: 70px; }
+        }
+    </style>
+</head>
+<body class="show-map">
+
+<header>
+    <h1>Precios Gasolineras España ⛽</h1>
+    <div id="status" style="font-size: 0.7rem;">Cargando...</div>
+</header>
+
+<div class="controls">
+    <div class="fuel-selector">
+        <button id="btn-all" onclick="setFuel('all')">Todos</button>
+        <button id="btn-gasolina_95" onclick="setFuel('gasolina_95')">G95</button>
+        <button id="btn-gasolina_98" onclick="setFuel('gasolina_98')">G98</button>
+        <button id="btn-diesel" class="active" onclick="setFuel('diesel')">Diésel</button>
+        <button id="btn-diesel_premium" onclick="setFuel('diesel_premium')">Diésel+</button>
+    </div>
+    <div class="search-row">
+        <input type="text" id="globalSearch" placeholder="Busca ciudad, marca o provincia..." onkeyup="applyFilters()">
+        <button class="stats-toggle" onclick="toggleStats()">📊</button>
+    </div>
+</div>
+
+<div id="statsPanel">
+    <div class="stats-content">
+        <div style="text-align:center"><span style="color:#7f8c8d; font-size:0.7rem; display:block">ESTACIONES</span><span id="countValue" style="font-weight:bold">0</span></div>
+        <div style="text-align:center"><span id="avgLabel" style="color:#7f8c8d; font-size:0.7rem; display:block">MEDIA</span><span id="avgValue" style="font-weight:bold; color:var(--accent)">-- €/L</span></div>
+    </div>
+</div>
+
+<div class="main-content">
+    <div id="map"></div>
+    <button class="gps-btn" onclick="getLocation()">📍</button>
+
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <span>Resultados en zona</span>
+            <select id="sortOrder" onchange="updateVisibleList()">
+                <option value="price_asc">€ Más barato</option>
+                <option value="price_desc">€ Más caro</option>
+                <option value="name_asc">Nombre A-Z</option>
+            </select>
+        </div>
+        <div id="gas-list"></div>
+    </div>
+</div>
+
+<div class="mobile-tabs">
+    <button id="tab-map" class="active" onclick="switchView('map')">🗺️ MAPA</button>
+    <button id="tab-list" onclick="switchView('list')">📋 LISTA</button>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    let map, markersLayer, userMarker;
+    let allData = [];
+    let currentFuel = 'diesel';
+    const csvUrl = 'https://www.rtve.es/datos-repo/gasolineras/gasolineras_es.csv';
+
+    function toggleStats() { document.getElementById('statsPanel').classList.toggle('open'); }
+
+    function safeFixed(val) { return (!val || isNaN(val)) ? "--" : val.toFixed(3); }
+
+    function initMap() {
+        map = L.map('map', { zoomControl: false }).setView([40.4167, -3.7032], 6);
+        L.control.zoom({ position: 'topright' }).addTo(map);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; OSM' }).addTo(map);
+        markersLayer = L.layerGroup().addTo(map);
+        map.on('moveend', updateVisibleList);
+    }
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(pos => {
+                map.setView([pos.coords.latitude, pos.coords.longitude], 14);
+                if (userMarker) userMarker.remove();
+                userMarker = L.marker([pos.coords.latitude, pos.coords.longitude]).addTo(map).bindPopup("Estás aquí").openPopup();
+            });
+        }
+    }
+
+    function switchView(view) {
+        document.body.classList.toggle('show-list', view === 'list');
+        document.body.classList.toggle('show-map', view === 'map');
+        document.getElementById('tab-map').classList.toggle('active', view === 'map');
+        document.getElementById('tab-list').classList.toggle('active', view === 'list');
+        if (view === 'map') setTimeout(() => map.invalidateSize(), 200);
+    }
+
+    function normalizeData(raw) {
+        return raw.map(row => {
+            const newRow = {};
+            for (let key in row) { newRow[key.trim().toLowerCase()] = row[key]; }
+            ['gasolina_95', 'gasolina_98', 'diesel', 'diesel_premium'].forEach(key => {
+                let val = newRow[key];
+                if (val) {
+                    val = typeof val === 'string' ? parseFloat(val.replace(',', '.')) : val;
+                    if (val > 100) val = val / 1000;
+                    newRow[key] = val;
+                } else newRow[key] = null;
+            });
+            return newRow;
+        });
+    }
+
+    function loadData() {
+        Papa.parse(csvUrl, {
+            download: true, header: true, skipEmptyLines: true,
+            complete: function(results) {
+                allData = normalizeData(results.data);
+                document.getElementById('status').innerText = `${allData.length} estaciones`;
+                applyFilters();
+            }
+        });
+    }
+
+    function setFuel(type) {
+        currentFuel = type;
+        document.querySelectorAll('.fuel-selector button').forEach(b => b.classList.toggle('active', b.id === `btn-${type}`));
+        applyFilters();
+    }
+
+    function applyFilters() {
+        const query = document.getElementById('globalSearch').value.toLowerCase();
+        const filtered = allData.filter(g => {
+            const hasP = currentFuel === 'all' ? (g.gasolina_95 || g.diesel) : (g[currentFuel] > 0);
+            const searchTxt = `${g.direccion} ${g.mun_clean} ${g.provincia} ${g.rotulo}`.toLowerCase();
+            return hasP && (!query || searchTxt.includes(query)) && g.lat && g.lon;
+        });
+        const colorBase = (currentFuel === 'all') ? 'gasolina_95' : currentFuel;
+        const prices = filtered.map(g => g[colorBase]).filter(p => p > 0);
+        renderMarkers(filtered, Math.min(...prices), Math.max(...prices), colorBase);
+    }
+
+    function renderMarkers(data, min, max, base) {
+        markersLayer.clearLayers();
+        data.forEach(gas => {
+            const p = gas[base] || 0;
+            let color = "#bdc3c7";
+            if (p > 0) {
+                const ratio = (p - min) / (max - min || 1);
+                color = `hsl(${((1 - ratio) * 120)}, 75%, 45%)`;
+            }
+            const m = L.circleMarker([gas.lat, gas.lon], { radius: 7, fillColor: color, color: "#fff", weight: 1.5, fillOpacity: 0.9 });
+            m.bindPopup(`<b>${gas.rotulo}</b><br>${p > 0 ? p.toFixed(3) + '€' : 'Sin datos'}<br><small>${gas.mun_clean}</small>`);
+            m.gasData = gas;
+            m.addTo(markersLayer);
+        });
+        updateVisibleList();
+    }
+
+    function updateVisibleList() {
+        const bounds = map.getBounds();
+        const listDiv = document.getElementById('gas-list');
+        const sort = document.getElementById('sortOrder').value;
+        listDiv.innerHTML = "";
+
+        let visible = [];
+        markersLayer.eachLayer(m => { if (bounds.contains(m.getLatLng())) visible.push(m); });
+
+        const fuelKey = currentFuel === 'all' ? 'gasolina_95' : currentFuel;
+        const validPrices = visible.map(m => m.gasData[fuelKey]).filter(p => p > 0);
+        const avg = validPrices.length ? (validPrices.reduce((a, b) => a + b, 0) / validPrices.length) : 0;
+
+        document.getElementById('countValue').innerText = visible.length;
+        document.getElementById('avgValue').innerText = avg > 0 ? `${avg.toFixed(3)} €/L` : "-- €/L";
+        document.getElementById('avgLabel').innerText = `MEDIA ${fuelKey.replace('_',' ')}`;
+
+        visible.sort((a, b) => {
+            const p1 = a.gasData[fuelKey] || 99, p2 = b.gasData[fuelKey] || 99;
+            if (sort === 'price_asc') return p1 - p2;
+            if (sort === 'price_desc') return p2 - p1;
+            return (a.gasData.rotulo || "").localeCompare(b.gasData.rotulo || "");
+        });
+
+        visible.slice(0, 40).forEach(m => {
+            const g = m.gasData;
+            const card = document.createElement('div');
+            card.className = 'gas-card';
+            card.style.borderLeftColor = m.options.fillColor;
+
+            let priceHtml = currentFuel === 'all' ? `
+                <div style="font-size:0.8rem; color:#666; margin:5px 0;">95: <b>${safeFixed(g.gasolina_95)}</b> | D: <b>${safeFixed(g.diesel)}</b></div>
+            ` : `<div class="highlight-price">${safeFixed(g[currentFuel])} <small>€/L</small></div>`;
+
+            card.innerHTML = `<span class="brand">${g.rotulo}</span>${priceHtml}
+                <div class="location"><strong>${g.mun_clean}</strong> (${g.provincia})<br>${g.direccion}</div>`;
+            card.onclick = () => { m.openPopup(); map.panTo(m.getLatLng()); if(window.innerWidth < 768) switchView('map'); };
+            listDiv.appendChild(card);
+        });
+    }
+
+    initMap();
+    loadData();
+</script>
+</body>
+</html>
