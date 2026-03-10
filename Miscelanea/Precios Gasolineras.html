@@ -69,7 +69,25 @@
 
         .gps-btn { position: absolute; bottom: 80px; right: 20px; z-index: 1000; background: white; border: none; width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 2px 15px rgba(0,0,0,0.2); cursor: pointer; font-size: 1.4rem; touch-action: manipulation; }
 
-        .gas-card { background: white; margin: 10px; padding: 15px; border-radius: 12px; border-left: 6px solid #ccc; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .gas-card {
+            background: white;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 6px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.2s ease;
+            position: relative;
+            will-change: transform; /* Optimización para animaciones fluidas */
+        }
+
+        .gas-card:hover {
+            transform: translateX(10px); /* El movimiento hacia la derecha */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            background-color: #fdfdfd;
+        }
+
         .brand { font-weight: 800; color: var(--primary); font-size: 0.85rem; text-transform: uppercase; }
         .highlight-price { font-size: 1.6rem; font-weight: bold; color: var(--success); margin: 5px 0; }
 
