@@ -138,11 +138,11 @@
 
         <div id="config-menu">
             <div class="config-item">
-                <label><input type="checkbox" id="showTimestamp" onchange="renderChat()"> Mostrar TimeStamp</label>
+                <label><input type="checkbox" id="showTimestamp" onchange="renderChat()" checked> Mostrar TimeStamp</label>
             </div>
             <div class="config-item">
                 <span>Mensajes máx:</span>
-                <input type="number" id="maxMessages" value="10000" min="1" style="width: 80px">
+                <input type="number" id="maxMessages" value="50000" min="1" style="width: 80px">
                 <label><input type="checkbox" id="unlimitedMsgs"> Ilimitado</label>
             </div>
             <div class="stats-item">Mensajes totales: <b id="statTotal">0</b></div>
@@ -150,8 +150,8 @@
         </div>
 
         <div class="filter-row">
-            <input type="text" id="searchUser" placeholder="Filtrar usuario..." oninput="renderChat()">
-            <input type="text" id="searchMessage" placeholder="Filtrar mensaje..." oninput="renderChat()" style="flex-grow: 1;">
+            <input type="text" id="searchUser" placeholder="Filtrar usuario (Min 3 letras)..." oninput="renderChat(this)">
+            <input type="text" id="searchMessage" placeholder="Filtrar mensaje (Min 3 letras)..." oninput="renderChat(this)" style="flex-grow: 1;">
         </div>
 
         <div class="filter-row">
@@ -362,11 +362,33 @@
 
     // Variable para el control del retardo (Debounce)
     let filterTimeout;
+    let prevUserLen = 0;
+    let prevMsgLen = 0;
 
-    function renderChat() {
+    function renderChat(el) {
         const overlay = document.getElementById('loading-overlay');
         const loadingText = document.getElementById('loading-text');
 
+        const userQ = document.getElementById('searchUser').value;
+    const msgQ = document.getElementById('searchMessage').value;
+
+    // --- LÓGICA DE CONTROL ---
+    // Si el evento viene de un input de texto (el parámetro "el" existe)
+    if (el && (el.id === 'searchUser' || el.id === 'searchMessage')) {
+        const isUser = el.id === 'searchUser';
+        const currentLen = el.value.length;
+        const prevLen = isUser ? prevUserLen : prevMsgLen;
+
+        // Si estamos entre 1 y 2 caracteres y antes también estábamos ahí,
+        // no hacemos nada (porque el filtro real solo actúa con >= 3)
+        if (currentLen >= 0 && currentLen < 3 && prevLen < 3) {
+            isUser ? prevUserLen = currentLen : prevMsgLen = currentLen;
+            return;
+        }
+
+        // Actualizamos el historial de longitud para la próxima vez
+        isUser ? prevUserLen = currentLen : prevMsgLen = currentLen;
+    }
         // Mostramos el bloqueo inmediatamente
         overlay.style.display = 'flex';
         loadingText.textContent = `Procesando ${allMessages.length.toLocaleString()} mensajes...`;
