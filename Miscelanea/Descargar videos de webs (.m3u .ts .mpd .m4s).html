@@ -1,0 +1,184 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>MBascoy.dev: Descargar videos de webs (.m3u .ts .mpd .m4s)</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Descargar videos de webs (.m3u .ts .mpd .m4s)</h1>
+	<div class="breadcrumb">
+		<a href="../index.html">Mbascoy.dev</a> / 
+		Descargar videos de webs (.m3u .ts .mpd .m4s)
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como descargar videos de páginas web donde no tenemos acceso directo al archivo de video y se usan streamings tipo <b>DASH</b> (dynamic adaptive streaming over HTTP).</p>
+        </div>
+
+    <div class="t2">Identificacion</div>
+        <div class="cont">
+            <p>Primero tenemos que identificar que tipo de metodo está utilizando el sitio web para descargar y reproducir el video.</p>
+            
+            <p>Para esto vamos a usar la <b>consola de desarrollador</b> del navegador, para acceder hacemos <b>click derecho > Inspeccionar</b> o tambien podemos acceder con <b>F12</b></p>
+
+            <p>Una vez abierta la consola de desarrollador, vamos a la pestaña de <b>Network</b> y buscamos archivos <b>.ts</b> o <b>.m4s</b> (Todo esto mientras se reproduce el video que queremos descargar), estos archivos son los distintos segmentos del video que estamos reproduciendo, en el caso de <b>.m4s</b> habrá dos flujos, uno para el audio y otro para el video.</p>
+
+            <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/1.png">
+
+            <p>Lo que tenemos que hacer, para hacerlo lo mas sencillo posible, es buscar el archivo <b>.m3u</b> o <b>.mpd</b> que une todos estos segmentos, normalmente esté archivo se descarga al principio de reproducir el video así que tendremos que buscarlo en la lista antes de los segmentos (podemos filtrar en el buscador por .m3u o .mpd), si hemos abierto la <b>consola de desarrollador</b> despues de empezar a reproducir el video puede ser que estos archivos no se hayan capturado, en ese caso tendremos que refrescar la página (F5) con la consola abierta para que aparezcan en la consola.</p>
+
+            <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/2.png">
+
+            <p>En este caso al filtrar por <b>.m3u</b> vemos que hay varios archivos, para saber cual es el correcto solo tenemos que abrirlos y confirmar que los segmentos que vimos previamente (los <b>.ts</b> en este caso), están dentro de ese archivo.</p>
+        </div>
+        
+
+    <div class="t2">Descargar videos con yt-dlp</div>
+        <div class="cont">
+            <p>Una vez tenemos localizado el archivo (.m3u o .mpd), usaremos <b>yt-dlp</b> para descargar el video.</p>
+
+            <p>El comando a usar es el siguiente:</p>
+
+            <code>yt-dlp URL</code>
+
+            <p>Para obtener la URL de manera sencilla solo tenemos que hacer <b>click derecho en el archivo</b>, despues <b>Copy</b> y despues <b>Copy URL</b></p>
+
+            <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/3.png">
+
+            <p>Si la web permite obtener el archivo sin ningún tipo de comprobación el video se descargará sin ningún problema.</p>
+
+            <p>Si la web requiere de ciertos parámetros en las cabeceras de la petición podríamos ver un error <b>403</b>, como el siguiente:</p>
+            <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/4.png">
+
+            <p>En este caso haremos la descarga de los segmentos uno por uno usando las cabeceras que usa la propia web para la solicitud, se explica en la siguiente sección</p>
+        </div>
+
+    <div class="t2">Descargar Segmentos individualmente (usando headers)</div>
+        <div class="cont">
+            <p>Si la descarga de los fragmentos requiere de usar ciertas cabeceras en la petición no podremos usar <b>yt-dlp</b> directamente, tendremos que descargar todos los segmentos y despues unirlos.</p>
+
+            <p>Normalmente los segmentos van numerados empezando en el 1, por lo tanto podemos copiar la petición <b>cURL</b> usando la consola de desarrollador y usar un script para que vaya descargando todos los segmentos individualmente:</p>
+
+            <pre>
+                <code>#!/bin/bash
+
+for i in {001..11}
+do
+
+# AQUI VA LA PETICION
+
+done</code>
+            </pre>
+
+            <p><b>NOTA:</b> El numero 11 es el numero de segmentos que tiene el video, para verificar cual es este numero podemos mirar en el archivo .m3u cual es el numero del ultimo segmento o tambien podemos adelantar el video hasta el final del todo y ver cual es el ultimo archivo .ts que descarga.</p>
+
+            <p><b>NOTA2:</b> En el for es importante el <b>001</b>, si no se ponen los 0 iniciales podemos tener problemas al unir todos los archivos ya que el shell no los ordenará correctamente (eg: 1.ts y 10.ts irían seguidos y despues iría 2.ts)</p>
+
+            <p>Para copiar la petición lo hacemos con: <b>click derecho</b>, <b>Copy</b> y <b>Copy as cURL</b>:</p>
+
+            <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/5.png">
+
+            <p>Ahora la petición la pegamos en el script, pero tenemos que hacer un par de modificaciones:</p>
+
+            <p>Lo primero al final del todo del comando <b>curl</b> añadimos <b>--output $i.ts</b></p>
+
+            <p>Despues en la primera parte del comando (antes de las cabeceras <b>-H</b>), tenemos que cambiar las <b>comillas simples</b> por <b>comillas dobles</b> y añadir <b>$i</b> en vez del numero del segmento de video, así haremos que el script descargue todos los segmentos.</p>
+
+            <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/6.png">
+
+            <p>Despues de los cambios:</p>
+            <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/7.png">
+
+            <p>Una vez tenemos todo listo ejecutamos el script y se descargarán todos los segmentos guardandose como 001.ts, 002.ts, 003.ts...etc. Una vez tengamos todos los segmentos solo tenemos que unirlos usando cat:</p>
+
+            <code>cat *.ts > video.ts</code>
+
+            <p>Al hacer esto ya tendremos nuestro video completo guardado como <b>video.ts</b>.</p>
+        </div>
+
+        <div class="t2">Descargar .mpd con proteccion DRM</div>
+            <div class="cont">
+                <p>En algunas ocasiones al intentar descargar un video usando yt-dlp con un archivo <b>.mpd</b> veremos un mensaje como el siguiente: </p>
+
+                <code>This video is DRM protected</code>
+
+                <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/8.png">
+
+                <p>Esto quiere decir está protegido con un DRM (Digital Rights Management), en este caso tendremos que obtener una clave para poder descrifrar el contenido.</p>
+
+                <p>Primero tendremos que descargar el video cifrado, para ello usamos yt-dlp así:</p>
+
+                <code>yt-dlp --allow-unplayable-format URL_MPD</code>
+
+                <p>Esto debería de descargarnos dos archivos, un <b>.mp4</b> (el video) y un <b>.m4a</b> (el audio), aunque intentemos reproducirlos no podremos, porque están cifrados.</p>
+
+                <h3>Obtener clave para el descrifrado</h3>
+                <p>Ahora para poder descifrar los archivos tenemos que obtener la clave, primero necesitamos descargar el archivo <b>.mpd</b> como tal, para poder ver cierta información, lo podemos hacer con wget (o tambien podemos hacerlo desde el propio navegador):</p>
+
+                <code>wget URL_MPD</code>
+
+                <p>Dentro del archivo <b>.mpd</b> tenemos que buscar <b>pssh</b>, que es uno de los parámetros que necesitaremos para obtener la clave:</p>
+
+                <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/9.png">
+
+                <p>A continuación vamos a la siguiente página: <a href="https://cdrm-project.com/">https://cdrm-project.com/</a></p>
+
+                <p>Esta página implementa una API que nos permite obtener la clave de la misma manera que lo hace el navegador cuando va a reproducir un video con protección DRM.</p>
+
+                <p>Uno de los parámetros que necesitamos es el <b>pssh</b>, que ya lo tenemos, despues también necesitamos la <b>URL del servidor de licencia</b> y los <b>headers</b> que usa el navegador para hacer la consulta a dicha URL.</p>
+
+                <p>Para obtener esta información lo hacemos desde la consola de desarrollador en el mismo sitio donde obtenemos los archivos .mpd, .m4s...etc. En este caso buscamos <b>widevine</b>, y deberíamos de ver algo como esto:</p>
+
+                <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/10.png">
+
+                <p>En nuestro caso <b>AcquireLicense</b> es la petición que buscamos (no tiene por que llamarse siempre así), los otros archivos que aparecen en la busqueda son básicamente la URL de ese servidor, Ademas esta petición aparece justo al principio de la solicitud de segmentos de video, por lo tanto cuadra con lo que estamos buscando.</p>
+
+                <p>Ahora necesitamos copiar la solicitud como <b>fetch</b>, hacemos <b>click derecho</b>, <b>Copy</b> y <b>Copy as fetch</b>:</p>
+                <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/11.png">
+
+                <p>Ahora en la web de <a href="https://cdrm-project.com/">https://cdrm-project.com/</a> usamos el botón de <b>Paste from fetch</b>:</p>
+
+                <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/12.png">
+
+                <p>Y se nos rellenrán todos los campos con la información que hemos copiado de la solicitud del navegador:</p>
+
+                <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/13.png">
+
+                <p><b>NOTA:</b> En realidad al hacer el <b>Copy as fetch</b> tambíen se nos rellena directamente el <b>pssh</b>, no es necesario obtenerlo del .mpd, pero siempre está bien donde conseguirlo si lo necesitamos.</p>
+
+                <p>Ahora hacemos click en <b>Submit</b> y si todo ha ido bien nos mostrará la clave que necesitamos para desencriptar nuestros archivos:</p>
+                <img src="Descargar videos de webs (.m3u .ts .mpd .m4s)/14.png">
+                <p><b>NOTA:</b> la clave tiene el formato <b>KID:KEY</b> en nuestro caso la usaremos como tal, pero en algúnas aplicaciones solo nos piden ek <b>KID</b> o solo la <b>KEY</b>, tenemos que tener esto en cuenta a veces solo necesitamos la parte que está antes de los dos puntos (:) o despues de los dos puntos...</p>
+
+                <h3>Desencriptar archivos de video y audio</h3>
+                <p>Para desencriptar nuetros archivos usaremos la utilidad <b>mp4decrypt</b> que podemos obtenerla de las herramientas de Bento4 <a href="https://www.bento4.com/downloads/">https://www.bento4.com/downloads/</a>, los paquetes incluyen varias herramientas pero la única que necesitamos es el <a href="Descargar videos de webs (.m3u .ts .mpd .m4s)/mp4decrypt">mp4decrypt</a>.</p>
+
+                <p>Para desencriptar nuestros archivos lo hacemos de la siguiente manera:</p>
+                <code>./mp4decrypt --key CLAVE archivo_encriptado archivo_salida</code>
+
+                <p>Tenemos que hacer esto con nuestros dos archivos, tanto con el <b>.mp4</b> como con el <b>.m4a</b></p>
+
+                <p>Una vez hecho esto ya tendremos nuestros dos archivos listos y reproducibles, el audio se escuchará y el video se verá, solo nos queda unirlos en un único archivo.</p>
+
+                <p>Para unirlos lo haremos con <b>ffmpeg</b>, el comando que usaremos será:</p>
+
+                <code>ffmpeg -i MiVideo.mp4 -i MiAudio.m4a -vcodec copy -acodec copy video.mp4</code>
+
+                <p>Con ese comando se juntarán ambos archivos en <b>video.mp4</b> manteniendo su codec original, si queremos también podemos aprovechar para hacer una conversión de codec en vez de usar <b>copy</b>, lo haríamos así:</p>
+                
+                <code>ffmpeg -i MiVideo.mp4 -i MiAudio.m4a -vcodec libx264 -acodec aac video.mp4</code>
+            </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+            <p>Video | DRM | Web | DASH</p>
+        </div>
+
+    </body>
+</html>
