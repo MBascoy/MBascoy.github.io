@@ -329,7 +329,7 @@
 
             card.onclick = () => {
                 switchView('map');
-                setTimeout(() => { map.setView(m.getLatLng(), 15); m.openPopup(); }, 350);
+                setTimeout(() => { map.setView(m.getLatLng(), 15); m.openPopup(); m.setStyle({ radius: 9, weight: 1.5, color: '#fff', fillOpacity: 0.9 });}, 350);
             };
             listDiv.appendChild(card);
         });
