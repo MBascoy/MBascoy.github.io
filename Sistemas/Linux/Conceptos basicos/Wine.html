@@ -1,0 +1,55 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>Linux: Wine</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Wine</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">Linux</a> / 
+		Wine
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Conceptos básicos de Wine</p>
+        </div>
+
+    <div class="t2">Establecer PREFIX</div>
+        <div class="cont">
+            <p>Para establecer un entorno virtual para el programa que vayamos a ejecutar lo hacemos estableciendo la variable de entorno <b>WINEPREFIX</b></p>
+
+            <code>export WINEPREFIX=~/carpeta_entorno_wine</code>
+
+            <p><b>NOTA: Si se indica una carpeta en la que ya había un entorno de wine se usará con las configuraciones de dicho entorno, si es una carpeta vacía se creará un entorno desde 0.</b></p>
+        </div>
+
+
+    <div class="t2">Configurar Wine</div>
+        <div class="cont">
+            <p>Para configurar el entorno una vez establecamos el <b>WINEPREFIX</b> lo hacemos con:</p>
+            <code>winecfg</code>
+        </div>
+
+    <div class="t2">Lanzar aplicaciones con Proton</div>
+        <div class="cont">
+            <p>Si queremos lanzar alguna aplicación con proton (principalmente juegos), lo hacemos con:</p>
+            <code>protontricks-launch aplicacion.exe</code>
+
+            <p>Una vez ejecutemos este comando se nos preguntará que entorno queremos usar, aparecerá una lista de entornos con todos los entornos que se hayan creado en steam referentes a cada uno de los juegos, seleccionaremos el entorno que tenga la versión de proton que queramos para ejecutar nuestra aplicación.</p>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>wine | prefix | proton</p>
+        </div>
+
+    </body>
+</html>
