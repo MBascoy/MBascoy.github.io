@@ -1,0 +1,50 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>Code Design: Contras de no usar Interfaces</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Contras de no usar Interfaces</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">Code Design</a> / 
+		Contras de no usar Interfaces
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Explicación de por qué hay que utilizar interfaces para realizar separación de responsabilidades.</p>
+
+        </div>
+
+    <div class="t2">Explicación</div>
+        <div class="cont">
+            <ul>
+                <li><b>Acoplamiento fuerte</b>: Las clases cliente dependen de clases específicas. Cambiar una clase obliga a modificar todas las que la consumen.</li>
+                <li><b>Código difícil de testear</b>: No se pueden crear objetos simulados (mocks o stubs). Las pruebas unitarias requerirán conexiones reales a bases de datos o servicios externos.</li>
+                <li><b>Rigidez ante el cambio</b>: Si necesitas reemplazar un proveedor de servicios (por ejemplo, cambiar el procesador de pagos), tendrás que reescribir gran parte del código base.</li>
+                <li><b>Baja reutilización</b>: Las clases quedan encasilladas en un único contexto técnico. No puedes reutilizar la lógica de negocio con diferentes tecnologías.</li>
+                <li><b>Infracción del Principio Abierto/Cerrado</b>: El código no queda "abierto a la extensión pero cerrado a la modificación". Cada nueva funcionalidad exige romper y editar el código existente.</li>
+                <li><b>Dificultad en el trabajo en equipo</b>: Los desarrolladores no pueden trabajar en paralelo. Un programador no puede avanzar en la lógica de negocio hasta que el otro termine la base de datos.</li>
+            </ul>
+            
+            <p>Explicación completa generada por IA:</p>
+
+            <img src="Contras de no usar Interfaces/1.png">
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Clean Code | interfaces</p>
+        </div>
+
+    </body>
+</html>
