@@ -1,0 +1,176 @@
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>Code Design: UML</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">UML</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">Code Design</a> / 
+		UML
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Conceptos basicos del lenguaje de modelado <b>UML</b></p>
+        </div>
+
+    <div class="t2">Diagrama de Clases</div>
+        <div class="cont">
+
+            <h2>Asociación</h2>
+            <p>Indica la relación de asociación entre dos clases, se indica con una flecha (abierta) que indica la navegabilidad entre las clases</p>
+            <img src="UML/1.png">
+
+            <p>El código referente a ese diagrama sería algo como el siguiente:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">Persona</span> {
+    <span class="hljs-title class_">String</span> nombre;
+    int edad;
+    <span class="hljs-title class_">String</span> id;
+
+    <span class="hljs-variable constant_">DNI</span> dni; <span style="color:rgb(150, 152, 150); font-weight:400;">// navegación unidireccional</span>
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">DNI</span> {
+    <span class="hljs-title class_">String</span> numero;
+    <span class="hljs-title class_">String</span> fechaEmision;
+}</code></pre>
+
+            <h2>Generalización</h2>
+            <p>Es una relación "es un" entre dos clases, indica una generalización/especificación entre dos clases.</p>
+            <p>Por ejemplo un coche y un camión son vehículos (un coche "es un" vehiculo) (un camión "es un" vehiculo)</p>
+
+            <img src="UML/9.png">
+
+            <p>Un código que representa este diagrama sería:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(150, 152, 150); font-weight:400;">// Clase base</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">Vehiculo</span> {
+    String marca;
+    
+    <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span class="hljs-title function_">arrancar</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> {
+        System.out.println(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;El vehículo arranca&quot;</span>);
+    }
+}
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// Clase especializada</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">Coche</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span class="hljs-title class_">Vehiculo</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> puertas;
+}
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// Clase especializada</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">Camion</span> <span style="color:rgb(204, 153, 204); font-weight:400;">extends</span> <span class="hljs-title class_">Vehiculo</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">double</span> cargaMax;
+}
+
+<span style="color:rgb(150, 152, 150); font-weight:400;">// Clase principal</span>
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">Main</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(204, 153, 204); font-weight:400;">static</span> <span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span class="hljs-title function_">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">(String[] args)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">Coche</span> <span style="color:rgb(255, 204, 102); font-weight:400;">miCoche</span> <span style="color:rgb(209, 217, 225); font-weight:400;">=</span> <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> <span class="hljs-title class_">Coche</span>();
+        miCoche.marca = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Toyota&quot;</span>; <span style="color:rgb(150, 152, 150); font-weight:400;">// Heredado de Vehiculo</span>
+        miCoche.puertas = <span style="color:rgb(249, 145, 87); font-weight:400;">5</span>;      <span style="color:rgb(150, 152, 150); font-weight:400;">// Propio de Coche</span>
+        
+        miCoche.arrancar();       <span style="color:rgb(150, 152, 150); font-weight:400;">// Método heredado de Vehiculo</span>
+    }
+}</code></pre>
+
+            <h2>Agregación</h2>
+            <p>Es una relación "parte de" entre dos clases, se representa con un rombo vacio en la clase que agrega a la otra clase</p>
+            <p>Por ejemplo un equipo estar formado por jugadores, el equipo no puede existir sin los jugadores, pero los jugadores pueden existir sin el equipo.</p>
+
+            <img src="UML/2.png">
+
+            <p>Un código que representa este diagrama sería:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">Equipo</span> {
+    <span class="hljs-title class_">String</span> nombre;
+    <span class="hljs-title class_">String</span> ciudad;
+
+    <span class="hljs-title class_">List</span>&lt;<span class="hljs-title class_">Jugador</span>&gt; jugadores;
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">Jugador</span> {
+    <span class="hljs-title class_">String</span> nombre;
+    int dorsal;
+    <span class="hljs-title class_">String</span> posicion;
+}</code></pre>
+
+            <h2>Composición</h2>
+            <p>Es una relacion en la que una clase no puede existir si no es dentro de otra, se representa con un rombo rellenado.</p>
+            <p>Por ejemplo en la relación casa/habitación, una habitación no puede existir si no hay una casa.</p>
+            <img src="UML/3.png">
+
+            <p>Un código que representa este diagrama sería:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Habitacion</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> String nombre;
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Habitacion</span>(<span style="color:rgb(209, 217, 225); font-weight:400;">String nombre</span>)</span> {
+        <span style="color:rgb(204, 153, 204); font-weight:400;">this</span>.nombre = nombre;
+    }
+}
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Casa</span> {
+    <span style="color:rgb(204, 153, 204); font-weight:400;">private</span> List&lt;Habitacion&gt; habitaciones;
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">public</span> <span style="color:rgb(181, 189, 104); font-weight:400;">Casa</span>()</span> {
+        habitaciones = <span style="color:rgb(204, 153, 204); font-weight:400;">new</span> ArrayList&lt;&gt;();
+        habitaciones.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Habitacion(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Cocina&quot;</span>));
+        habitaciones.<span style="color:rgb(204, 153, 204); font-weight:400;">add</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">new</span> Habitacion(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Dormitorio&quot;</span>));
+    }
+}
+<span style="color:rgb(150, 152, 150); font-weight:400;">//Aquí Casa crea y gestiona directamente las Habitacion, reforzando la idea de composición.</span></code></pre>
+        </div>
+
+    <div class="t2">Diagrama de Secuencia</div>
+        <div class="cont">
+            <p>Los diagramas de secuencia sirven para mostrar la colaboración entre varios objetos, por lo general se usan para mostrar la colaboración en un caso de usuario.</p>
+
+            <p>Ejemplo para caso de uso "Hacer pedido":</p>
+            <img src="UML/4.png">
+        </div>
+
+    <div class="t2">Diagrama de Estados (State Machine)</div>
+        <div class="cont">
+            <p>Los diagramas de estado nos permiten representar el estado de un objeto.</p>
+
+            <p>Ejemplo mostrando la autenticación de un usuario:</p>
+            <img src="UML/5.png">
+        </div>
+
+    <div class="t2">Diagrama de Actividad</div>
+        <div class="cont">
+            <p>Los diagramas de actividad nos permiten describir un flujo de trabajo o una lógica concreta, una de las caracteristicas que tienen tambien es que permiten expresar flujos en paralelo (dos cosas sucediendo al mismo tiempo).</p>
+
+            <p>Este es un ejemplo de un diagrama que muestra el flujo de funcionamiento de un pedido y como se avisa al cliente si no hay stock o como se solicitan nuevos productos a un proveedor si estamos bajos de stock.</p>
+
+            <img src="UML/6.png">
+        </div>
+
+    <div class="t2">Use case</div>
+        <div class="cont">
+            <p>Los casos de uso nos permiten describir los requisitos de un sistema, normalmente tiene mas importancia la propia redacción del caso de uso mas que el diagrama en si.</p>
+
+            <p>Una descripción de un caso de uso puede ser la siguiente (sacada de UML Distilled):</p>
+
+            <img src="UML/7.png">
+
+            <p>Este caso de uso lo representaríamos así:</p>
+            <img src="UML/8.png">
+
+            <p>En este ejemplo el caso de uso "browse catalog" está incluido en el "buy product", ya que para comprar un producto necesitas poder navegar por el catalogo.</p>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>UML | diagramas</p>
+        </div>
+
+    </body>
+</html>
