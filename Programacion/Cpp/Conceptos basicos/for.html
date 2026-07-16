@@ -1,0 +1,59 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>C++: for</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">for</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">C++</a> / 
+		for
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como usar la sentencia <b>for</b> en C++.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+            <p>Podemos usar la sintaxis que se usa en C.</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> i=<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>; i&lt;<span style="color:rgb(249, 145, 87); font-weight:400;">10</span>; i++){
+        std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;i:&quot;</span> &lt;&lt; i &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;\n&quot;</span>;
+    }</code></pre>
+
+            <h2>Range-for-statement</h2>
+            <p>A mayores tambien podemos usar la sintaxis de rangos para simplificar la sintaxis si queremos iterar una serie de elementos:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;">    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> numbers[] = {<span style="color:rgb(249, 145, 87); font-weight:400;">5</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">7</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">9</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">8</span>,<span style="color:rgb(249, 145, 87); font-weight:400;">4</span>};
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">for</span>(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span> i : numbers){
+        std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;i:&quot;</span> &lt;&lt; i &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;\n&quot;</span>;
+    }
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//i:5</span>
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//i:7</span>
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//i:9</span>
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//i:8</span>
+    <span style="color:rgb(150, 152, 150); font-weight:400;">//i:4</span></code></pre>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C++ | Sentencias | for</p>
+        </div>
+
+    </body>
+</html>

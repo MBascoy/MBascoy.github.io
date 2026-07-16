@@ -1,0 +1,62 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>C++: Paso por valor y paso por referencia</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Paso por valor y paso por referencia</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">C++</a> / 
+		Paso por valor y paso por referencia
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como pasar valores por referencia y por valor en funciones en C++.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+
+            <p>A diferencia de C donde pasas la dirección de memoria (para hacer el paso por referencia), en C++ siempre se pasa la variable normal, y despues es en la definición de la función donde se indica si se pasa por valor o por referencia.</p>
+
+            <p>Para pasar por referencia se indica con <b>int& variable</b>.</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;iostream&gt;</span></span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">add</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(204, 153, 204); font-weight:400;">int</span>&amp; i, <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> j)</span></span>{
+    i++;
+    j++;
+}
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> i = <span style="color:rgb(249, 145, 87); font-weight:400;">50</span>;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> j = <span style="color:rgb(249, 145, 87); font-weight:400;">75</span>;
+
+    <span style="color:rgb(181, 189, 104); font-weight:400;">add</span>(i, j);
+
+    std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;i:&quot;</span> &lt;&lt; i &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; j:&quot;</span> &lt;&lt; j;
+    
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// i: 51</span>
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// j: 75</span>
+}
+</code></pre>
+
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C++ | Referencia | Punteros</p>
+        </div>
+
+    </body>
+</html>

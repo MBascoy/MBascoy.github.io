@@ -1,0 +1,59 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>C++: Hello World</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Hello World</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">C++</a> / 
+		Hello World
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como hacer un hola mundo en C++, tanto la manera clásica como el método moderno con módulos.</p>
+        </div>
+
+    <div class="t2">Hola Mundo clásico</div>
+        <div class="cont">
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;iostream&gt;</span></span>
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+    std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola mundo!&quot;</span>;
+}
+</code></pre>
+        </div>
+
+    <div class="t2">Hola Mundo con módulos</div>
+        <div class="cont">
+            <p>Para hacerlo con módulos cambios el <b>include</b> por un <b>import</b>, pero a mayores necesitamos hacer la compilación previa de los modulos que usa nuestro programa, en este caso <b>std</b>.</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> std;
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span></span>{
+    std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola mundo!&quot;</span>;
+}
+</code></pre>
+
+            <p>Para compilar el modulo <b>std</b> lo hacemos con:</p>
+            <code>g++ -std=c++23 -fmodules -fsearch-include-path -c bits/std.cc</code>
+
+            <p>Para compilar el código de nuestro programa lo hacemos con:</p>
+            <code>g++ -std=c++23 -fmodules hola.cpp -o hola_mundo</code>
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C++ | Guidelines</p>
+        </div>
+
+    </body>
+</html>
