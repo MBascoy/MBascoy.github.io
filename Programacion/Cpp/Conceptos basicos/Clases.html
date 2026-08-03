@@ -1,0 +1,159 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>C++: Clases</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Clases</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">C++</a> / 
+		Clases
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+
+            <p>Como crear clases en C++.</p>
+
+        </div>
+
+    <div class="t2">Metodo</div>
+        <div class="cont">
+            <p>La sintaxis básica para crear una clase es:</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">MiClase</span>{
+}</code></pre>
+           
+            <p>Un ejemplo un poco más elaborado con elementos privados y publicos es el siguiente:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;iostream&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;string&gt;</span></span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">Persona</span> {
+<span style="color:rgb(204, 153, 204); font-weight:400;">private</span>:
+    std::string nombre;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> edad;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span>:
+    <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>(std::string nuevoNombre, <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> nuevaEdad)
+        : nombre{nuevoNombre}, edad{nuevaEdad} {}
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;">std::string <span style="color:rgb(181, 189, 104); font-weight:400;">getNombre</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> nombre;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">getEdad</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+        <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> edad;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">presentarse</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+        std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola, me llamo &quot;</span> &lt;&lt; nombre &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; y tengo &quot;</span> &lt;&lt; edad &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; anos.&quot;</span> &lt;&lt; std::endl;
+    }
+};
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    <span style="color:rgb(209, 217, 225); font-weight:400;">Persona <span style="color:rgb(181, 189, 104); font-weight:400;">persona1</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Carlos&quot;</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">25</span>)</span></span>;
+
+    persona1.<span style="color:rgb(181, 189, 104); font-weight:400;">presentarse</span>();
+
+    std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;El nombre extraido es: &quot;</span> &lt;&lt; persona1.<span style="color:rgb(181, 189, 104); font-weight:400;">getNombre</span>() &lt;&lt; std::endl;
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}</code></pre>
+
+
+
+            <h2>Constructor</h2>
+            <p>Para crear un constructor lo hacemos usando el mismo nombre de la clase.</p>
+            
+            <p>En este caso usamos la <b>lista de inicialización de miembros</b> (los dos puntos : despues del nombre del constructor y antes de {}) para establecer las variables en el constructor,</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;iostream&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;string&gt;</span></span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">Persona</span> {
+<span style="color:rgb(204, 153, 204); font-weight:400;">private</span>:
+    std::string nombre;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> edad;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span>:
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Las variables privadas se inicializan aquí, antes de abrir las llaves</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>(std::string nuevoNombre, <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> nuevaEdad)
+        : nombre{nuevoNombre}, edad{nuevaEdad} 
+    {
+        <span style="color:rgb(150, 152, 150); font-weight:400;">// El cuerpo del constructor queda completamente vacío</span>
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">presentarse</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+        std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola, me llamo &quot;</span> &lt;&lt; nombre &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; y tengo &quot;</span> &lt;&lt; edad &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; anos.&quot;</span> &lt;&lt; std::endl;
+    }
+};
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Al crear el objeto, se envían los datos directamente a la lista de inicialización</span>
+    <span style="color:rgb(209, 217, 225); font-weight:400;">Persona <span style="color:rgb(181, 189, 104); font-weight:400;">persona1</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Carlos&quot;</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">25</span>)</span></span>;
+    persona1.<span style="color:rgb(181, 189, 104); font-weight:400;">presentarse</span>();
+
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}
+</code></pre>
+
+            <h2>Destructor</h2>
+            <p>Para crear un destructor lo hacemos con virgulilla (~) y el nombre de la clase:</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;iostream&gt;</span></span>
+<span style="color:rgb(249, 145, 87); font-weight:400;">#<span style="color:rgb(204, 153, 204); font-weight:400;">include</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&lt;string&gt;</span></span>
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">class</span> <span class="hljs-title class_">Persona</span> {
+<span style="color:rgb(204, 153, 204); font-weight:400;">private</span>:
+    std::string nombre;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> edad;
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">public</span>:
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Constructor: Inicializa las variables privadas</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>(std::string nuevoNombre, <span style="color:rgb(204, 153, 204); font-weight:400;">int</span> nuevaEdad)
+        : nombre{nuevoNombre}, edad{nuevaEdad} 
+    {
+        std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[Constructor] &quot;</span> &lt;&lt; nombre &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; ha nacido.&quot;</span> &lt;&lt; std::endl;
+    }
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Destructor: Se ejecuta automáticamente al destruir el objeto</span>
+    ~<span style="color:rgb(181, 189, 104); font-weight:400;">Persona</span>() {
+        std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[Destructor] &quot;</span> &lt;&lt; nombre &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; ha sido liberado de la memoria.&quot;</span> &lt;&lt; std::endl;
+    }
+
+    <span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">void</span> <span style="color:rgb(181, 189, 104); font-weight:400;">presentarse</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+        std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola, me llamo &quot;</span> &lt;&lt; nombre &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; y tengo &quot;</span> &lt;&lt; edad &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot; anos.&quot;</span> &lt;&lt; std::endl;
+    }
+};
+
+<span style="color:rgb(209, 217, 225); font-weight:400;"><span style="color:rgb(204, 153, 204); font-weight:400;">int</span> <span style="color:rgb(181, 189, 104); font-weight:400;">main</span><span style="color:rgb(209, 217, 225); font-weight:400;">()</span> </span>{
+    std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;--- Inicio del programa ---&quot;</span> &lt;&lt; std::endl;
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;">// Se crea el objeto dentro de este bloque de código</span>
+    {
+        <span style="color:rgb(209, 217, 225); font-weight:400;">Persona <span style="color:rgb(181, 189, 104); font-weight:400;">persona1</span><span style="color:rgb(209, 217, 225); font-weight:400;">(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Carlos&quot;</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">25</span>)</span></span>;
+        persona1.<span style="color:rgb(181, 189, 104); font-weight:400;">presentarse</span>();
+        <span style="color:rgb(150, 152, 150); font-weight:400;">// Al llegar a la llave de cierre, persona1 sale de su ámbito (scope)</span>
+    } 
+
+    std::cout &lt;&lt; <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;--- Fin del programa ---&quot;</span> &lt;&lt; std::endl;
+    <span style="color:rgb(204, 153, 204); font-weight:400;">return</span> <span style="color:rgb(249, 145, 87); font-weight:400;">0</span>;
+}</code></pre>
+
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>C++ | clases</p>
+        </div>
+
+    </body>
+</html>
