@@ -146,6 +146,17 @@ libreadline6 libreadline-dev coolkey</code>
 
         <p>Una vez realizados todos los pasos anteriores el DNI electronico deberia de estar listo para ser utilizado por lo menos con el programa de autofirma, a traves del navegador igual harian falta algunas modificaciones en firefox</p>
 
+        <h2>Google Chrome</h2>
+        <p>Para hacer que el lector funcione en google chrome tenemos que añadir el modulo <b>libpkcs11</b> a la base de datos <b>NSS</b>, lo hacemos con el siguiente comando:</p>
+        <code>modutil -add "DNI-e" -libfile /usr/lib/libpkcs11-dnie.so -dbdir sql:$HOME/.pki/nssdb</code>
+
+        <p>Debemos cambiar <b>/usr/lib/libpkcs11-dnie.so</b> por la ruta donde tengamos el modulo.</p>
+
+        <p>Para confirmar que se ha añadido correctamente podemos usar el siguiente comando:</p>
+        <code>modutil -list -dbdir sql:$HOME/.pki/nssdb</code>
+
+        <p>Una vez hayamos hecho esta configuración siempre que en Google Chrome se solicite algún certificado (en alguna web), se intentará leer del lector electronico, se nos mostrará una ventana emergente para <b>introducir la contraseña</b> del certificado del DNI.</p>
+
         <h2>Firefox</h2>
 
         <p>En firefox podemos intentar hacer algunas cosas para hacer funcionar el DNIe, lo primero es instalar el modulo de <b>libpkcs11</b> en el firefox</p>
