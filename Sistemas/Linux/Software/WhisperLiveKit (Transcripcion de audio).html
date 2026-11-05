@@ -1,0 +1,90 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>Linux: WhisperLiveKit (Transcripcion de audio)</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">WhisperLiveKit (Transcripcion de audio)</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">Linux</a> / 
+		WhisperLiveKit (Transcripcion de audio)
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como instalar <b>WhisperLiveKit</b> para hacer transcripciones de audio en tiempo real.</p>
+
+            <p><a href="https://github.com/QuentinFuxa/WhisperLiveKit">Github WhisperLiveKit</a></p>
+        </div>
+
+    <div class="t2">Instalacion y ejecucion</div>
+        <div class="cont">
+          <p>Para hacer la instalación de <b>WhisperLiveKit</b> lo vamos a hacer con un entorno virtual en python:</p>
+
+          <p>Creamos una nueva carpeta:</p>
+          <code><pre>mkdir -p ~/whisperlivekit
+cd whisperlivekit/
+          </pre></code>
+
+          <p>Creamos el entorno virtual:</p>
+          <code>python3 -m venv venv</code>
+
+          <p>Y lo activamos:</p>
+          <code>source venv/bin/activate</code>
+
+          <p>Nos aseguramos de que pip esté actualizado:</p>
+          <code>pip install --upgrade pip</code>
+
+          <p>Instalamos <b>WhisperLiveKit</b>:</p>
+          <code>pip install whisperlivekit faster-whisper</code>
+
+          <p>Si tenemos GPU NVIDIA podemos instalar las librerías de CUDA para hacer uso de la GPU en las transcripciones:</p>
+          <code>pip install nvidia-cublas-cu12 nvidia-cudnn-cu12</code>
+
+          <p>Y ahora solo tenemos que ejecutar el servidor de <b>WhisperLiveKit</b>:</p>
+          <code>wlk --model small --language en --backend faster-whisper</code>
+
+          <p>En el parámetro <b>--model</b> podemos elegir varios tamanos: tiny, base, small, medium, large-v2, large-v3, y large-v3-turbo</p>
+          <p>El <b>small</b> y <b>large-v3-turbo</b> funcionan muy bien, según quieras mas rapidez o mas precisión.</p>
+
+          <p>Una vez ejecutado el servidor y descargado el modelo que hayamos seleccionado (puede tardar un rato), accedemos a la interfaz a traves del navegador:</p>
+          <code>http://127.0.0.1:8000</code>
+
+          <img src="WhisperLiveKit (Transcripcion de audio)/1.png">
+
+          <p>Una vez aquí solo hay que pulsar el botón de grabar y se transcribirá todo el audio del microfono seleccionado</p>
+        </div>
+
+        <div class="t2">Opciones extra</div>
+          <div class="cont">
+            <h2>Enrutar audio de otras aplicaciones</h2>
+            <p>Para esta aplicación es interesante usar el <a href="../Conceptos avanzados/Microfono Virtual y flujos de Audio.html">Enrutamiento de Audio</a>, así podemos transcribir audio que procede de otras aplicaciones.</p>
+
+            <h2>Detección de participantes</h2>
+            <p>Si a mayores queremos que se identifique a los distintos participantes de una conversación podemos usar la opción <b>--diarization</b>.</p>
+            
+            <p>Primero tenemos que instalar el paquete:</p>
+            <code>pip install "whisperlivekit[diarization-sortformer]"</code>
+
+            <p>Y despues ejecutamos el servidor con la opción <b>--diarization</b></p>
+            <code>wlk --model large-v3-turbo --language en --backend faster-whisper --diarization</code>
+
+            <p>De este modo la aplicación marcará cada uno de los participantes de manera individual.</p>
+            <img src="WhisperLiveKit (Transcripcion de audio)/2.png">
+
+          </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Whisper | Fast-Whisper | Transcripcion | Audio</p>
+        </div>
+
+    </body>
+</html>

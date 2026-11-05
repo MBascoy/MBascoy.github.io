@@ -1,0 +1,76 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>Linux: Microfono Virtual y flujos de Audio</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Microfono Virtual y flujos de Audio</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">Linux</a> / 
+		Microfono Virtual y flujos de Audio
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como crear un microfono virtual y enrutar flujos de sonido entre aplicaciones.</p>
+        </div>
+
+    <div class="t2">Microfono Virtual</div>
+        <div class="cont">
+          <p>El microfono virtual nos sirve para poder enrutar salidas de audio de otras aplicaciones a una aplicación que requiera un microfono, de modo que el sonido que genera una aplicación entraría como entrada de microfono en otra.</p>
+
+          <p>Para crear un microfono virtual podemos hacerlo usando herramientas de <b>PulseAudio</b> o de <b>PipeWire</b></p>
+
+          <p><b>NOTA:</b> El microfono virtual que creemos desaparecerá al reiniciar el sistema, si queremos que sea permanente tendremos que añadir el comando a un script de inicio.</p>
+
+          <h2>PulseAudio</h2>
+          <p>Para crear un microfono virtual con <b>PulseAudio</b> usamos el siguiente comando:</p>
+          <code>pactl load-module module-null-sink sink_name=MicVirtual media.class=Audio/Source/Virtual sink_properties=device.description="Virtual_MIC"</code>
+
+          <p><b>NOTA:</b> Si estamos usando PipeWire y queremos usar este comando necesitamos tener instalado el paquete <b>pipewire-pulseaudio</b></p>
+
+          <h2>PipeWire</h2>
+          <p>Para crear un microfono virtual con <b>PipeWire</b> usamos el siguiente comando:</p>
+          <code><pre>pw-loopback --name=virtual-mic \
+--channels=2 \
+--channel-map=stereo \
+--capture-props='{"node.name":"virtual_mic_sink","media.class":"Audio/Sink","node.description":"Virtual Mic - Input"}' \
+--playback-props='{"node.name":"virtual_mic_source","media.class":"Audio/Source","node.description":"Virtual Microphone"}'</pre></code>
+
+          <p>Usando este metodo se crearán dos dispositivos que están enlazados, puede ser un poco confuso al verlo en <b>qpwgraph</b>, es mas intuitivo cuando se hace con la herramienta <b>pactl</b></p>
+        </div>
+
+
+    <div class="t2">qpwgraph (Enrutar audios)</div>
+        <div class="cont">
+            <p>Para poder conectar entradas y salidas de distintos programas podemos usar <b>qpwgraph</b></p>
+
+            <p>Podemos instalarlo usando flatpak con:</p>
+            <code>flatpak install flathub org.rncbc.qpwgraph</code>
+
+            <p>Para ejecutarlo:</p>
+            <code>flatpak run org.rncbc.qpwgraph</code>
+
+            <img src="Microfono Virtual y flujos de Audio/1.png">
+
+            <p>Dentro de la aplicación solo tenemos que conectar las salidas y las entradas que queramos enrutar.</p>
+
+            <p>Una opción interesante es la de <b>Activated</b>, a veces cuando enrutamos, por ejemplo VLC con el microfono virtual, si pausamos VLC la aplicación desaparecerá de la lista ya que no está reproduciendo sonido, al volver a reanudar la reproducción en VLC volverá a salir la aplicación en el panel, pero las conexiones que hayamos hecho habrán desaparecido, para evitar esto marcamos la opción de <b>Activated</b> y las conexiones se volverán a hacer automáticamente una vez la aplicación vuelva a aparecer en el panel:</p>
+
+            <img src="Microfono Virtual y flujos de Audio/2.png">
+        </div>
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Sonido | Microfono | Audio</p>
+        </div>
+
+    </body>
+</html>
