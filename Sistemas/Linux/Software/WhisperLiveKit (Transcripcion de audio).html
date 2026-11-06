@@ -30,14 +30,13 @@
 
           <p>Creamos una nueva carpeta:</p>
           <code><pre>mkdir -p ~/whisperlivekit
-cd whisperlivekit/
-          </pre></code>
+cd whisperlivekit/</pre></code>
 
           <p>Creamos el entorno virtual:</p>
-          <code>python3 -m venv venv</code>
+          <code>python3 -m venv whisper-venv</code>
 
           <p>Y lo activamos:</p>
-          <code>source venv/bin/activate</code>
+          <code>source whisper-venv/bin/activate</code>
 
           <p>Nos aseguramos de que pip esté actualizado:</p>
           <code>pip install --upgrade pip</code>
@@ -82,6 +81,84 @@ cd whisperlivekit/
             <img src="WhisperLiveKit (Transcripcion de audio)/2.png">
 
           </div>
+
+          <div class="t2">Transcribir archivos</div>
+            <div class="cont">
+                <p>Si queremos transcribir archivos de audio lo mejor que podemos usar es el modulo <b>faster-whisper</b> de python.</p>
+
+                <h2>Instalación</h2>
+                <p>Para instalarlo lo haremos con un entorno virtual de python.</p>
+
+                <code>python3 -m venv faster-whisper-env</code>
+                <code>source faster-whisper-env/bin/activate</code>
+
+                <p>Actualizamos pip:</p>
+                <code>pip install --upgrade pip</code>
+
+                <p>Instalamos faster-whisper:</p>
+                <code>pip install faster-whisper</code>
+
+                <p>Instalamos las librerías de CUDA (Si tenemos tarjeta Nvidia) para usar la tarjeta gráfica:</p>
+                <code>pip install nvidia-cublas-cu12 nvidia-cudnn-cu12</code>
+
+                <p>Para usar el modulo <b>faster-whisper</b> usaremos el siguiente script:</p>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> sys
+from faster_whisper <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> WhisperModel
+
+parameters_count <span style="color:rgb(209, 217, 225); font-weight:400;">=</span> len(sys.argv);
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">if</span>(parameters_count <span style="color:rgb(209, 217, 225); font-weight:400;">&lt;</span> <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>):
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(f<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">\n</span>Usage: {sys.argv[0]} &lt;audio_file&gt; [model_size]<span style="color:rgb(249, 145, 87); font-weight:400;">\n</span><span style="color:rgb(249, 145, 87); font-weight:400;">\n</span>Models: <span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>tiny<span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>base<span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>small<span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>medium<span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>, <span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>large-v3<span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span> o <span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span>turbo<span style="color:rgb(249, 145, 87); font-weight:400;">\&quot;</span> <span style="color:rgb(249, 145, 87); font-weight:400;">\n</span>&quot;</span>)
+    sys.exit(<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>)
+
+file_name <span style="color:rgb(209, 217, 225); font-weight:400;">=</span> sys.argv[<span style="color:rgb(249, 145, 87); font-weight:400;">1</span>]
+model_size <span style="color:rgb(209, 217, 225); font-weight:400;">=</span> sys.argv[<span style="color:rgb(249, 145, 87); font-weight:400;">2</span>] <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> len(sys.argv) <span style="color:rgb(209, 217, 225); font-weight:400;">&gt;</span> <span style="color:rgb(249, 145, 87); font-weight:400;">2</span> <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;base&quot;</span>
+
+# <span style="color:rgb(249, 145, 87); font-weight:400;">1</span>. <span style="color:rgb(204, 153, 204); font-weight:400;">Definir</span> el tamaño del modelo y el dispositivo de cómputo (<span style="color:rgb(204, 153, 204); font-weight:400;">CPU</span> o <span style="color:rgb(204, 153, 204); font-weight:400;">GPU</span>)
+# <span style="color:rgb(204, 153, 204); font-weight:400;">Puedes</span> elegir: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;tiny&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;base&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;small&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;medium&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;large-v3&quot;</span> o <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;turbo&quot;</span>
+
+# <span style="color:rgb(204, 153, 204); font-weight:400;">Usa</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cuda&quot;</span> si tienes una tarjeta gráfica <span style="color:rgb(204, 153, 204); font-weight:400;">Nvidia</span> configurada con <span style="color:rgb(204, 153, 204); font-weight:400;">CUDA</span>, si no, usa <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cpu&quot;</span>
+model <span style="color:rgb(209, 217, 225); font-weight:400;">=</span> <span style="color:rgb(204, 153, 204); font-weight:400;">WhisperModel</span>(model_size, device<span style="color:rgb(209, 217, 225); font-weight:400;">=</span><span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cuda&quot;</span>, compute_type<span style="color:rgb(209, 217, 225); font-weight:400;">=</span><span style="color:rgb(138, 190, 183); font-weight:400;">&quot;float32&quot;</span>)
+
+# <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>. <span style="color:rgb(204, 153, 204); font-weight:400;">Ejecutar</span> la transcripción
+# <span style="color:rgb(204, 153, 204); font-weight:400;">Reemplaza</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;tu_audio.mp3&quot;</span> por la ruta de tu archivo (soporta mp3, wav, m4a, etc.)
+segments, info <span style="color:rgb(209, 217, 225); font-weight:400;">=</span> model.transcribe(file_name)
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(f<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Archivo: &#x27;{file_name}&#x27; <span style="color:rgb(249, 145, 87); font-weight:400;">\n</span>Modelo: &#x27;{model_size}&#x27;&quot;</span>)
+
+# <span style="color:rgb(249, 145, 87); font-weight:400;">3</span>. <span style="color:rgb(204, 153, 204); font-weight:400;">Mostrar</span> información del idioma detectado automáticamente
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(f<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Idioma detectado: &#x27;{info.language}&#x27; con una probabilidad del {info.language_probability:.2f}&quot;</span>)
+
+# <span style="color:rgb(249, 145, 87); font-weight:400;">4</span>. <span style="color:rgb(204, 153, 204); font-weight:400;">Imprimir</span> la transcripción con sus marcas de tiempo
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;<span style="color:rgb(249, 145, 87); font-weight:400;">\n</span>Transcripción:&quot;</span>)
+<span style="color:rgb(204, 153, 204); font-weight:400;">for</span> segment <span style="color:rgb(204, 153, 204); font-weight:400;">in</span> segments:
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(f<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;[{segment.start:.2f}s -&gt; {segment.end:.2f}s] {segment.text}&quot;</span>)</code></pre>
+
+                <p>Para hacer la transcripción de un archivo usamos:</p>
+                <code>python transcribe.py audio.mp3 turbo</code>
+
+                <h2>Troubleshooting</h2>
+                <p>Al ejecutar el script nos podemos encontrar con algunos errores:</p>
+
+                <h3>Path librerías CUDA</h3>
+                <img src="WhisperLiveKit (Transcripcion de audio)/3.png">
+                <code>RuntimeError: Library libcublas.so.12 is not found or cannot be loaded</code>
+                <p>Este error se da al no tener definido el <b>LD_LIBRARY_PATH</b> con las librerías de CUDA, para solucionar el problema editamos el archivo <b>faster-whisper-env/bin/activate</b> y al final añadimos esto:</p>
+                <code>export LD_LIBRARY_PATH="$VIRTUAL_ENV/lib/python3.13/site-packages/nvidia/cublas/lib:$VIRTUAL_ENV/lib/python3.13/site-packages/nvidia/cudnn/lib:$LD_LIBRARY_PATH"</code>
+
+                <p>y volvemos a cargar el entorno vitual con:</p>
+                <code>source faster-whisper-env/bin/activate</code>
+            
+                <h3>Versión librería ar</h3>
+                <p>Otro error que podemos obtener es el siguiente:</p>
+
+                <img src="WhisperLiveKit (Transcripcion de audio)/4.png">
+
+                <code>TypeError: open() got an unexpected keyword argument 'metadata_errors'</code>
+                <p>Este error se da por una versión incorrecta de la librería <b>ar</b>, para arreglarlo instalamos una versión mas antigua que sea compatible:</p>
+                <code>pip install "av&lt19"</code>
+            </div>
 
     <div class="t2">Tags</div>
         <div class="cont">

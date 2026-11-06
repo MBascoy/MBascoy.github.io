@@ -36,6 +36,12 @@
 
           <p><b>NOTA:</b> Si estamos usando PipeWire y queremos usar este comando necesitamos tener instalado el paquete <b>pipewire-pulseaudio</b></p>
 
+          <p>Si queremos eliminar el microfono virtual que hemos creado primero tendríamos que obtener el numero de ID con el que se ha creado:</p>
+          <code>pactl list short modules | grep module-null-sink</code>
+
+          <p>Y despues usamos el siguiente comando con el ID del dispositivo:</p>
+          <code>pactl unload-module 124</code>
+
           <h2>PipeWire</h2>
           <p>Para crear un microfono virtual con <b>PipeWire</b> usamos el siguiente comando:</p>
           <code><pre>pw-loopback --name=virtual-mic \
