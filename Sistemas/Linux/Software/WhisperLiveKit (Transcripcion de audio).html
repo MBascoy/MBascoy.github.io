@@ -82,6 +82,63 @@ cd whisperlivekit/</pre></code>
 
           </div>
 
+          <div class="t2">WhisperLive</div>
+            <div class="cont">
+                <p><b>WhisperLive</b> es una versión alternativa que funciona directamente en la consola, ademas genera automáticamente un archivo de subtitulos (.srt) y exporta tambien el audio grabado (.wav)</p>
+
+                <p><a href="https://github.com/collabora/WhisperLive/">Github WhisperLive</a></p>
+
+                <h2>Instalación</h2>
+                <p>Para instalarlo lo haremos con un entorno virtual de python.</p>
+
+                <code>python -m venv whisper-live-venv</code>
+                <code>source whisper-live-venv/bin/activate</code>
+                <code>pip install --upgrade pip</code>
+                <code>pip install whisper-live</code>
+
+                <p>Para hacerlo funcionar necesitamos ejecutar el servidor y el cliente, el código de cada uno se muestra a continuación:</p>
+
+                <p><b>Servidor:</b></p>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">from</span> whisper_live.server <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> TranscriptionServer
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">if</span> __name__ == <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;__main__&quot;</span>:
+    <span style="color:rgb(150, 152, 150); font-weight:400;"># Inicializa el servidor de transcripción</span>
+    server = TranscriptionServer()
+
+    <span style="color:rgb(150, 152, 150); font-weight:400;"># Lo ejecuta en el puerto 9090 (puedes cambiarlo si lo deseas)</span>
+    <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Iniciando servidor de Whisper-Live en el puerto 9090...&quot;</span>)
+    server.run(host=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0.0.0.0&quot;</span>, port=<span style="color:rgb(249, 145, 87); font-weight:400;">9090</span>)</code></pre>
+
+                <p><b>Cliente:</b></p>
+
+                <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">from</span> whisper_live.client <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> TranscriptionClient
+
+client = TranscriptionClient(
+    host=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;127.0.0.1&quot;</span>,
+    port=<span style="color:rgb(249, 145, 87); font-weight:400;">9090</span>,
+    save_output_recording=<span style="color:rgb(204, 153, 204); font-weight:400;">True</span>,
+    enable_timestamps=<span style="color:rgb(204, 153, 204); font-weight:400;">True</span>,
+    display_segments=<span style="color:rgb(249, 145, 87); font-weight:400;">30</span>
+)
+
+client()</code></pre>
+
+                <p>Ejecutamos el servidor:</p>
+                <code>python server.py</code>
+                <p>Y ejecutamos el cliente:</p>
+                <code>python client.py</code>
+
+                <p>Podemos ver las distintas configuraciones en la página de Github del proyecto, pero con el código que hay aquí puesto se <b>guarda el audio automáticamente</b> y el numero de lineas máximas que se muestra en la consola es de 30, todo esto puede modificarse.</p>
+
+                <p>La transcripción se muestra en tiempo real en la consola:</p>
+                <img src="WhisperLiveKit (Transcripcion de audio)/5.png">
+
+                <p>Una vez finalizamos el cliente se generan el archivo de subtitulos y el archivo de audio:</p>
+                <img src="WhisperLiveKit (Transcripcion de audio)/6.png">
+
+            </div>
+
           <div class="t2">Transcribir archivos</div>
             <div class="cont">
                 <p>Si queremos transcribir archivos de audio lo mejor que podemos usar es el modulo <b>faster-whisper</b> de python.</p>
