@@ -99,7 +99,6 @@ cd whisperlivekit/</pre></code>
                 <p>Para hacerlo funcionar necesitamos ejecutar el servidor y el cliente, el código de cada uno se muestra a continuación:</p>
 
                 <p><b>Servidor:</b></p>
-
                 <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">from</span> whisper_live.server <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> TranscriptionServer
 
 <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> __name__ == <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;__main__&quot;</span>:
@@ -108,7 +107,13 @@ cd whisperlivekit/</pre></code>
 
     <span style="color:rgb(150, 152, 150); font-weight:400;"># Lo ejecuta en el puerto 9090 (puedes cambiarlo si lo deseas)</span>
     <span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Iniciando servidor de Whisper-Live en el puerto 9090...&quot;</span>)
-    server.run(host=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0.0.0.0&quot;</span>, port=<span style="color:rgb(249, 145, 87); font-weight:400;">9090</span>)</code></pre>
+    server.run(
+        host=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;0.0.0.0&quot;</span>,
+        port=<span style="color:rgb(249, 145, 87); font-weight:400;">9090</span>,
+        max_connection_time=<span style="color:rgb(249, 145, 87); font-weight:400;">1800</span>
+    )</code></pre>
+
+                <p><b>NOTA:</b> El parámetro <b>max_connection_time</b> define el tiempo máximo que puede estar conectado un cliente, por defecto son 600 segundos, así que hay que tener cuidado porque se puede cortar la transcripción si superamos el tiempo configurado.</p>
 
                 <p><b>Cliente:</b></p>
 
@@ -117,6 +122,8 @@ cd whisperlivekit/</pre></code>
 client = TranscriptionClient(
     host=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;127.0.0.1&quot;</span>,
     port=<span style="color:rgb(249, 145, 87); font-weight:400;">9090</span>,
+    model=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;small&quot;</span>,
+    lang=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;es&quot;</span>,
     save_output_recording=<span style="color:rgb(204, 153, 204); font-weight:400;">True</span>,
     enable_timestamps=<span style="color:rgb(204, 153, 204); font-weight:400;">True</span>,
     display_segments=<span style="color:rgb(249, 145, 87); font-weight:400;">30</span>
