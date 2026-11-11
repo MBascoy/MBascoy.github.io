@@ -1,0 +1,188 @@
+
+
+<html>
+    <head>
+		<meta charset="utf-8"/>
+		<title>Linux: Qwen-tts (Texto a audio)</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+
+    <body>
+
+    <h1 class="t1">Qwen-tts (Texto a audio)</h1>
+	<div class="breadcrumb">
+		<a href="../../../index.html">Mbascoy.dev</a> / 
+		<a href="../index.html">Linux</a> / 
+		Qwen-tts (Texto a audio)
+	</div>
+
+    <div class="t2">Descripcion</div>
+        <div class="cont">
+            <p>Como instalar <b>Qwen-tts</b> para generar audio a partir de texto, se puede hacer mediante <b>modelos predefinidos</b>, <b>clonación de voz</b> o <b>diseño de voz</b>.</p>
+
+            <p><a href="https://github.com/QwenLM/Qwen3-TTS">Github Qwen3-TTS</a></p>
+        </div>
+
+    <div class="t2">Instalacion</div>
+        <div class="cont">
+          <p>Para instalar <b>Qwen-tts</b> vamos a hacerlo en un entorno virtual:</p>
+          <code>python -m venv qwen-tts-env</code>
+          <code>source qwen-tts-env/bin/activate</code>
+          <code>pip install -U pip</code>
+          
+          <p>Instalamos el paquete de <b>Qwen-tts</b>:</p>
+          <code>pip install qwen-tts</code>
+        </div>
+
+    <div class="t2">Generar Voz con modelos predefinidos</div>
+        <div class="cont">
+
+            <p>Al usar los modelos predefinidos hay que tener en cuenta que no hay ninguno creado con acento español, por lo tanto si se intenta crear un audio en español sonará con acento ingles.</p>
+            <p>Para crear audio con acento 100% español lo mejor es hacer una clonación con algún audio de referencia que tenga acento español.</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> torch
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> soundfile <span style="color:rgb(204, 153, 204); font-weight:400;">as</span> sf
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">from</span> qwen_tts <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> Qwen3TTSModel
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Seleccionar dispositivo</span>
+device = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cuda:0&quot;</span> <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> torch.cuda.is_available() <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cpu&quot;</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Cargar modelo</span>
+model = Qwen3TTSModel.from_pretrained(
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice&quot;</span>,
+    device_map=device,
+    dtype=torch.bfloat16 <span style="color:rgb(204, 153, 204); font-weight:400;">if</span> device != <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cpu&quot;</span> <span style="color:rgb(204, 153, 204); font-weight:400;">else</span> torch.float32,
+)
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Consultar idiomas y voces disponibles</span>
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Idiomas:&quot;</span>, model.get_supported_languages())
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Voces:&quot;</span>, model.get_supported_speakers())
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Texto que queremos convertir en voz</span>
+texto = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;&quot;
+Hola, bienvenido a Qwen tres TTS.
+Esta es una prueba de generación de voz
+utilizando inteligencia artificial.
+&quot;&quot;&quot;</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Generar audio</span>
+wavs, sample_rate = model.generate_custom_voice(
+    text=texto,
+    language=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;English&quot;</span>,
+    speaker=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Vivian&quot;</span>,
+)
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Guardar audio WAV</span>
+sf.write(
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;resultado.wav&quot;</span>,
+    wavs[<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>],
+    sample_rate
+)
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Audio generado correctamente.&quot;</span>)</code></pre>
+
+        </div>
+
+
+    <div class="t2">Generar Voz con diseño de voz</div>
+        <div class="cont">
+            <p>Este metodo tiene el mismo problema que el anterior, aún incluso aunque se le den instrucciones para hacerlo en español no tendrá un acento español como tal</p>
+
+            <p>En el siguiente ejemplo se intenta hacer que tenga un acento español, pero aún así no lo consigue, aún así con este metodo si que podemos hacer <b>voces en ingles</b> dando detalles de como queremos que sea</p>
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> torch
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> soundfile <span style="color:rgb(204, 153, 204); font-weight:400;">as</span> sf
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">from</span> qwen_tts <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> Qwen3TTSModel
+
+model = Qwen3TTSModel.from_pretrained(
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign&quot;</span>,
+    device_map=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cuda:0&quot;</span>,
+    dtype=torch.bfloat16,
+)
+
+texto = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;&quot;
+Hola buenas, esto es una prueba de voz para ver como suena en castellano
+&quot;&quot;&quot;</span>
+
+instrucciones = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;&quot;&quot;
+A native male speaker from Spain, speaking authentic
+Peninsular Castilian Spanish (European Spanish).
+
+Use a natural standard Spanish accent from central Spain,
+similar to Madrid or Valladolid.
+
+Pronounce the consonants &#x27;z&#x27; and soft &#x27;c&#x27; with the
+characteristic Castilian /θ/ sound.
+
+Avoid Latin American pronunciation.
+
+Warm, mature, natural and professional voice.
+Medium-low pitch, clear articulation and relaxed pacing.
+Natural Spanish intonation.
+&quot;&quot;&quot;</span>
+
+wavs, sr = model.generate_voice_design(
+    text=texto,
+    language=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Spanish&quot;</span>,
+    instruct=instrucciones,
+)
+
+sf.write(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;voz_personalizada.wav&quot;</span>, wavs[<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>], sr)
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Generación completada.&quot;</span>)
+</code></pre>
+        </div>
+
+
+    <div class="t2">Clonación de voz</div>
+        <div class="cont">
+            <p>Este es el mejor metodo que podemos usar si queremos usar voces con acento 100% español.</p>
+
+            <p>Con este metodo necesitamos proporcionar un archivo de <b>audio de referencia</b> (he probado .wav y .mp3 y funcionan ambos) y el <b>texto de referencia</b> que se dice en ese audio.</p>
+
+            <pre><code id="htmlViewer" style="color:rgb(209, 217, 225); font-weight:400;background-color:rgb(71, 73, 73);background:rgb(71, 73, 73);display:block;padding: .5em;"><span style="color:rgb(204, 153, 204); font-weight:400;">import</span> torch
+<span style="color:rgb(204, 153, 204); font-weight:400;">import</span> soundfile <span style="color:rgb(204, 153, 204); font-weight:400;">as</span> sf
+
+<span style="color:rgb(204, 153, 204); font-weight:400;">from</span> qwen_tts <span style="color:rgb(204, 153, 204); font-weight:400;">import</span> Qwen3TTSModel
+
+model = Qwen3TTSModel.from_pretrained(
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Qwen/Qwen3-TTS-12Hz-1.7B-Base&quot;</span>,
+    device_map=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cuda:0&quot;</span>,
+    dtype=torch.bfloat16,
+)
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Grabación de referencia</span>
+audio_referencia = <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Constantino.wav&quot;</span>
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Transcripción de la grabación</span>
+texto_referencia = (
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Estaba haciendo mi turnito de locutor y llamaron dijeron &#x27;oye que te llaman&#x27;. Es dificil elegir una pelicula de este señor.&quot;</span>
+)
+
+<span style="color:rgb(150, 152, 150); font-weight:400;"># Texto que queremos generar</span>
+texto_nuevo = (
+    <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Hola a todos. Soy Constantino Romero, y me gustaría mandaros un saludo desde el más allá.&quot;</span>
+)
+
+wavs, sr = model.generate_voice_clone(
+    text=texto_nuevo,
+    language=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Spanish&quot;</span>,
+    ref_audio=audio_referencia,
+    ref_text=texto_referencia,
+)
+
+sf.write(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;voz_clonada.wav&quot;</span>, wavs[<span style="color:rgb(249, 145, 87); font-weight:400;">0</span>], sr)
+
+<span style="color:rgb(181, 189, 104); font-weight:400;">print</span>(<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;Voz generada correctamente&quot;</span>)</code></pre>
+        </div>
+
+
+    <div class="t2">Tags</div>
+        <div class="cont">
+        <p>Qwen | TTS</p>
+        </div>
+
+    </body>
+</html>
