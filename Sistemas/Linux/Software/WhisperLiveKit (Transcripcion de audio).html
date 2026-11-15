@@ -126,10 +126,12 @@ client = TranscriptionClient(
     lang=<span style="color:rgb(138, 190, 183); font-weight:400;">&quot;es&quot;</span>,
     save_output_recording=<span style="color:rgb(204, 153, 204); font-weight:400;">True</span>,
     enable_timestamps=<span style="color:rgb(204, 153, 204); font-weight:400;">True</span>,
-    display_segments=<span style="color:rgb(249, 145, 87); font-weight:400;">30</span>
+    display_segments=<span style="color:rgb(249, 145, 87); font-weight:400;">25</span>
 )
 
 client()</code></pre>
+
+                <p><b>NOTA:</b> Los modelos pequeños (tiny, base, small), a veces se quedan atascados en bucle y se pueden llegar a perder grandes partes de las transcripciones (hasta 30 segundos a veces), el modelo <b>turbo</b> funciona mucho mejor para evitar estos bloqueos.</p>
 
                 <p>Ejecutamos el servidor:</p>
                 <code>python server.py</code>
@@ -183,7 +185,7 @@ model_size <span style="color:rgb(209, 217, 225); font-weight:400;">=</span> sys
 # <span style="color:rgb(204, 153, 204); font-weight:400;">Puedes</span> elegir: <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;tiny&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;base&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;small&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;medium&quot;</span>, <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;large-v3&quot;</span> o <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;turbo&quot;</span>
 
 # <span style="color:rgb(204, 153, 204); font-weight:400;">Usa</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cuda&quot;</span> si tienes una tarjeta gráfica <span style="color:rgb(204, 153, 204); font-weight:400;">Nvidia</span> configurada con <span style="color:rgb(204, 153, 204); font-weight:400;">CUDA</span>, si no, usa <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cpu&quot;</span>
-model <span style="color:rgb(209, 217, 225); font-weight:400;">=</span> <span style="color:rgb(204, 153, 204); font-weight:400;">WhisperModel</span>(model_size, device<span style="color:rgb(209, 217, 225); font-weight:400;">=</span><span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cuda&quot;</span>, compute_type<span style="color:rgb(209, 217, 225); font-weight:400;">=</span><span style="color:rgb(138, 190, 183); font-weight:400;">&quot;float32&quot;</span>)
+model <span style="color:rgb(209, 217, 225); font-weight:400;">=</span> <span style="color:rgb(204, 153, 204); font-weight:400;">WhisperModel</span>(model_size, device<span style="color:rgb(209, 217, 225); font-weight:400;">=</span><span style="color:rgb(138, 190, 183); font-weight:400;">&quot;cuda&quot;</span>, compute_type<span style="color:rgb(209, 217, 225); font-weight:400;">=</span><span style="color:rgb(138, 190, 183); font-weight:400;">&quot;float16&quot;</span>)
 
 # <span style="color:rgb(249, 145, 87); font-weight:400;">2</span>. <span style="color:rgb(204, 153, 204); font-weight:400;">Ejecutar</span> la transcripción
 # <span style="color:rgb(204, 153, 204); font-weight:400;">Reemplaza</span> <span style="color:rgb(138, 190, 183); font-weight:400;">&quot;tu_audio.mp3&quot;</span> por la ruta de tu archivo (soporta mp3, wav, m4a, etc.)
